@@ -1,0 +1,38 @@
+{
+  "variantName": "cards-pricing",
+  "baseBlock": "cards",
+  "version": "1.0.0",
+  "created": "2026-07-08T00:00:00.000Z",
+  "sourceContext": {
+    "originUrl": "https://fiixsoftware.com/cmms/pricing/",
+    "originPage": "CMMS plans and pricing page",
+    "blockPosition": "top"
+  },
+  "visualCharacteristics": {
+    "colorScheme": "light",
+    "density": "spacious",
+    "purpose": "pricing-plan",
+    "imagePattern": "noimg"
+  },
+  "contentPattern": {
+    "structure": "price + plan name + description + feature list + price + CTA",
+    "buttonCount": 1,
+    "imageCount": 0
+  },
+  "reuseGuidance": {
+    "suitableFor": [
+      "pricing plan comparison cards",
+      "subscription tier cards",
+      "feature-list plan cards with CTAs"
+    ],
+    "notSuitableFor": [
+      "article/blog cards with images",
+      "simple icon feature grids"
+    ]
+  },
+  "usage": {
+    "pagesUsing": ["/cmms/pricing/index"],
+    "reuseCount": 1,
+    "lastUsed": "2026-07-08T00:00:00.000Z"
+  }
+}

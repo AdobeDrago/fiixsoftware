@@ -1,0 +1,38 @@
+{
+  "variantName": "columns-media",
+  "baseBlock": "columns",
+  "version": "1.0.0",
+  "created": "2026-07-08T00:00:00.000Z",
+  "sourceContext": {
+    "originUrl": "https://fiixsoftware.com/cmms/pricing/",
+    "originPage": "CMMS plans and pricing page",
+    "blockPosition": "bottom"
+  },
+  "visualCharacteristics": {
+    "colorScheme": "light",
+    "density": "spacious",
+    "purpose": "media",
+    "imagePattern": "large"
+  },
+  "contentPattern": {
+    "structure": "image + (heading + description + CTA)",
+    "buttonCount": 1,
+    "imageCount": 1
+  },
+  "reuseGuidance": {
+    "suitableFor": [
+      "image alongside text sections",
+      "feature explanation with illustration + CTA",
+      "media + copy side-by-side layouts"
+    ],
+    "notSuitableFor": [
+      "logo strips",
+      "text-only callouts"
+    ]
+  },
+  "usage": {
+    "pagesUsing": ["/cmms/pricing/index"],
+    "reuseCount": 1,
+    "lastUsed": "2026-07-08T00:00:00.000Z"
+  }
+}

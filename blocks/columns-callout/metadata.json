@@ -1,0 +1,38 @@
+{
+  "variantName": "columns-callout",
+  "baseBlock": "columns",
+  "version": "1.0.0",
+  "created": "2026-07-08T00:00:00.000Z",
+  "sourceContext": {
+    "originUrl": "https://fiixsoftware.com/cmms/pricing/",
+    "originPage": "CMMS plans and pricing page",
+    "blockPosition": "top"
+  },
+  "visualCharacteristics": {
+    "colorScheme": "light",
+    "density": "compact",
+    "purpose": "callout",
+    "imagePattern": "noimg"
+  },
+  "contentPattern": {
+    "structure": "text (heading + description + note) + CTA",
+    "buttonCount": 1,
+    "imageCount": 0
+  },
+  "reuseGuidance": {
+    "suitableFor": [
+      "add-on / license callout boxes",
+      "text + CTA promotional strips",
+      "two-part informational callouts"
+    ],
+    "notSuitableFor": [
+      "logo strips",
+      "large media/image layouts"
+    ]
+  },
+  "usage": {
+    "pagesUsing": ["/cmms/pricing/index"],
+    "reuseCount": 1,
+    "lastUsed": "2026-07-08T00:00:00.000Z"
+  }
+}

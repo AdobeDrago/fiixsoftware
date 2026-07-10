@@ -1,0 +1,188 @@
+{
+  "metadata": {
+    "projectType": "doc"
+  },
+  "templates": [
+    {
+      "name": "pricing-page",
+      "urls": [
+        "https://fiixsoftware.com/cmms/pricing/"
+      ],
+      "representativeUrl": "https://fiixsoftware.com/cmms/pricing/",
+      "coverageGaps": [],
+      "description": "CMMS plans and pricing page with header/navigation, pricing plans, feature comparison table, FAQ accordion, additional content sections, and footer",
+      "blocks": [
+        {
+          "name": "columns-logos",
+          "instances": [
+            ".pricing_header .awards",
+            ".fiix-users"
+          ]
+        },
+        {
+          "name": "cards-pricing",
+          "instances": [
+            ".pricing-plans-t .pricing-breakdown"
+          ]
+        },
+        {
+          "name": "columns-callout",
+          "instances": [
+            ".lite_license"
+          ]
+        },
+        {
+          "name": "table-compare",
+          "instances": [
+            "#compare .feature-table-t"
+          ]
+        },
+        {
+          "name": "accordion-faq",
+          "instances": [
+            ".faq-accordion"
+          ]
+        },
+        {
+          "name": "cards-features",
+          "instances": [
+            ".pricing-topfeatures"
+          ]
+        },
+        {
+          "name": "columns-media",
+          "instances": [
+            ".pricing-connectusers"
+          ]
+        },
+        {
+          "name": "cards-icon",
+          "instances": [
+            ".succeed-container"
+          ]
+        },
+        {
+          "name": "hero-cta",
+          "instances": [
+            ".pricing-kickthetires"
+          ]
+        }
+      ],
+      "sections": [
+        {
+          "id": "pricing-header",
+          "name": "Pricing header",
+          "selector": [
+            "#pricing"
+          ],
+          "style": "pricing-hero",
+          "blocks": [
+            "columns-logos",
+            "cards-pricing",
+            "columns-callout"
+          ],
+          "defaultContent": [
+            ".pricing_header .headerbox"
+          ]
+        },
+        {
+          "id": "compare",
+          "name": "Feature comparison",
+          "selector": [
+            "#compare"
+          ],
+          "style": "feature-compare",
+          "blocks": [
+            "table-compare"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "customer-logos",
+          "name": "Customer logos",
+          "selector": [
+            "#page-wrap .new-product .fiix-users",
+            ".fiix-users"
+          ],
+          "style": "logos",
+          "blocks": [
+            "columns-logos"
+          ],
+          "defaultContent": [
+            ".fiixUserTeams-sect h2"
+          ]
+        },
+        {
+          "id": "faq",
+          "name": "FAQ",
+          "selector": [
+            "#page-wrap .pricing-faq",
+            ".pricing-faq"
+          ],
+          "style": "faq",
+          "blocks": [
+            "accordion-faq"
+          ],
+          "defaultContent": [
+            ".pricing-faq .container > h2",
+            ".pricing-faq .more-info"
+          ]
+        },
+        {
+          "id": "top-features",
+          "name": "Top features",
+          "selector": [
+            "#page-wrap .pricing-topfeatures",
+            ".pricing-topfeatures"
+          ],
+          "style": "features",
+          "blocks": [
+            "cards-features"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "connect-users",
+          "name": "Connect users",
+          "selector": [
+            "#page-wrap .pricing-connectusers",
+            ".pricing-connectusers"
+          ],
+          "style": "connect-users",
+          "blocks": [
+            "columns-media"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "customer-success",
+          "name": "Customer success",
+          "selector": [
+            "#page-wrap .succeed-container",
+            ".succeed-container"
+          ],
+          "style": "customer-success",
+          "blocks": [
+            "cards-icon"
+          ],
+          "defaultContent": [
+            ".succeed-container > h2"
+          ]
+        },
+        {
+          "id": "find-plan-cta",
+          "name": "Find the plan CTA",
+          "selector": [
+            "#page-wrap .pricing-kickthetires",
+            ".pricing-kickthetires"
+          ],
+          "style": "cta",
+          "blocks": [
+            "hero-cta"
+          ],
+          "defaultContent": []
+        }
+      ]
+    }
+  ]
+}

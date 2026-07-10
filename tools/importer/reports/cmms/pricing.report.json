@@ -1,0 +1,21 @@
+{
+  "status": "success",
+  "url": "https://fiixsoftware.com/cmms/pricing/",
+  "path": "cmms/pricing",
+  "timestamp": "2026-07-08T19:28:47.907Z",
+  "title": "Plans & Pricing | Fiix CMMS",
+  "template": "pricing-page",
+  "blocks": [
+    "columns-logos",
+    "columns-logos",
+    "cards-pricing",
+    "cards-pricing",
+    "columns-callout",
+    "table-compare",
+    "accordion-faq",
+    "cards-features",
+    "columns-media",
+    "cards-icon",
+    "hero-cta"
+  ]
+}
