@@ -1,0 +1,47 @@
+.hero-cta-container .hero-cta-wrapper {
+  max-width: unset;
+  padding: 0;
+}
+
+.hero-cta {
+  position: relative;
+  padding: 40px 24px;
+  min-height: 300px;
+}
+
+.hero-cta h1,
+.hero-cta h2,
+.hero-cta h3,
+.hero-cta h4,
+.hero-cta h5,
+.hero-cta h6,
+.hero-cta p {
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  color: var(--background-color);
+}
+
+.hero-cta.no-image * {
+  color: var(--text-color);
+}
+
+.hero-cta picture {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  object-fit: cover;
+  box-sizing: border-box;
+}
+
+.hero-cta img {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
+
+@media (width >= 900px) {
+  .hero-cta {
+    padding: 40px 32px;
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "variantName": "table-compare",
+  "baseBlock": "table",
+  "version": "1.0.0",
+  "created": "2026-07-08T00:00:00.000Z",
+  "sourceContext": {
+    "originUrl": "https://fiixsoftware.com/cmms/pricing/",
+    "originPage": "CMMS plans and pricing page",
+    "blockPosition": "middle"
+  },
+  "visualCharacteristics": {
+    "colorScheme": "light",
+    "density": "compact",
+    "purpose": "feature-comparison",
+    "imagePattern": "noimg"
+  },
+  "contentPattern": {
+    "structure": "header row (plans) + feature rows with checkmarks/values across plan columns",
+    "buttonCount": 0,
+    "imageCount": 0
+  },
+  "reuseGuidance": {
+    "suitableFor": [
+      "plan/feature comparison matrices",
+      "spec comparison tables",
+      "tabular availability grids"
+    ],
+    "notSuitableFor": [
+      "narrative content",
+      "card or visual layouts"
+    ]
+  },
+  "usage": {
+    "pagesUsing": ["/cmms/pricing/index"],
+    "reuseCount": 1,
+    "lastUsed": "2026-07-08T00:00:00.000Z"
+  }
+}
