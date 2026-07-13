@@ -48,6 +48,7 @@ export default function transform(hookName, element, payload) {
     // plus leftover embedded/tracking elements. Selectors verified in cleaned.html.
     WebImporter.DOMUtils.remove(element, [
       'header.siteHeader',
+      '#mobile-header',
       '#footer',
       '#copyright',
       'iframe',

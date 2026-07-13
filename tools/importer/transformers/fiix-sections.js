@@ -15,6 +15,12 @@
  * migration-work/cleaned.html); the first selector that matches an element
  * under `main` is used as the section anchor.
  *
+ * Runs in beforeTransform (before block parsers consume section elements) and
+ * inserts the <hr> break and Section Metadata block as SIBLINGS around the
+ * anchor. Several section anchors ARE the block source element (e.g.
+ * `.pricing-topfeatures` → cards-features), which a parser later replaces via
+ * replaceWith; sibling placement keeps the break/metadata intact regardless.
+ *
  * Expected output for the pricing-page template (8 sections, all styled):
  *   - 7 <hr> section breaks (one before each non-first section)
  *   - 8 Section Metadata blocks (one per styled section)
@@ -34,7 +40,10 @@ function findSectionAnchor(element, selectors) {
 }
 
 export default function transform(hookName, element, payload) {
-  if (hookName !== TransformHook.afterTransform) return;
+  // Run before block parsers so every section anchor still exists. Several
+  // anchors ARE block source elements that parsers later replace, so break /
+  // metadata are placed as siblings (before/after the anchor) to survive.
+  if (hookName !== TransformHook.beforeTransform) return;
 
   const template = payload && payload.template;
   const sections = template && template.sections;
@@ -53,13 +62,18 @@ export default function transform(hookName, element, payload) {
     }
 
     // Section Metadata block: emitted for every section that declares a style.
+    // Placed as a sibling AFTER the anchor (not appended inside it) so it is
+    // not consumed when a parser replaces the anchor element.
     if (section.style) {
       const metadataBlock = WebImporter.Blocks.createBlock(doc, {
         name: 'Section Metadata',
         cells: { style: section.style },
       });
-      // Place metadata at the end of the section's content.
-      anchor.append(metadataBlock);
+      if (anchor.nextSibling) {
+        anchor.parentNode.insertBefore(metadataBlock, anchor.nextSibling);
+      } else {
+        anchor.parentNode.appendChild(metadataBlock);
+      }
     }
 
     // Section break before every section except the first.
