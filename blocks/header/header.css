@@ -4,6 +4,8 @@ header .nav-wrapper {
   width: 100%;
   z-index: 2;
   position: fixed;
+  border-bottom: 1px solid var(--border-color);
+  box-shadow: 0 2px 10px rgb(0 0 0 / 6%);
 }
 
 header nav {
@@ -143,9 +145,19 @@ header nav[aria-expanded='true'] .nav-hamburger-icon::after {
 header .nav-brand {
   grid-area: brand;
   flex-basis: 128px;
-  font-size: var(--heading-font-size-s);
-  font-weight: 700;
+  font-family: var(--heading-font-family);
+  font-size: 24px;
+  font-weight: 800;
   line-height: 1;
+  letter-spacing: -0.01em;
+}
+
+header .nav-brand a:any-link {
+  color: var(--text-color);
+}
+
+header .nav-brand a:hover {
+  text-decoration: none;
 }
 
 header nav .nav-brand img {
@@ -266,7 +278,123 @@ header nav .nav-sections ul > li > ul > li {
   }
 }
 
-/* tools */
+/* ============================================================
+   Fiix header theme
+   ============================================================ */
+
+/* tools: search + login + CTA buttons in one row */
 header nav .nav-tools {
   grid-area: tools;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+header nav .nav-tools p {
+  margin: 0;
+}
+
+/* plain links (Login / Contact us) render as text, not pills */
+header nav .nav-tools a:any-link {
+  color: var(--text-color);
+  font-weight: 600;
+}
+
+/* CTA pills */
+header nav .nav-tools a.button {
+  margin: 0;
+  padding: 0.5em 1.25em;
+  font-weight: 700;
+}
+
+/* first CTA in tools = green "Free tour" accent */
+header nav .nav-tools > p:first-child a.button:not(.primary, .secondary) {
+  border-color: var(--fiix-green);
+  background-color: var(--fiix-green);
+  color: #fff;
+}
+
+header nav .nav-tools > p:first-child a.button:not(.primary, .secondary):hover {
+  border-color: var(--fiix-green-dark);
+  background-color: var(--fiix-green-dark);
+  text-decoration: none;
+}
+
+@media (width >= 900px) {
+  header nav {
+    max-width: 1280px;
+  }
+
+  /* nav items */
+  header nav .nav-sections .default-content-wrapper > ul > li {
+    font-weight: 600;
+    font-size: 17px;
+  }
+
+  header nav .nav-sections a:hover {
+    color: var(--fiix-blue);
+    text-decoration: none;
+  }
+
+  /* dropdown indicator: "+" that flips to "−" when open */
+  header nav .nav-sections .nav-drop::after {
+    content: '+';
+    top: 0;
+    right: -2px;
+    width: auto;
+    height: auto;
+    border: 0;
+    transform: none;
+    font-weight: 400;
+    color: var(--fiix-blue);
+  }
+
+  header nav .nav-sections .nav-drop[aria-expanded='true']::after {
+    content: '\2212'; /* minus */
+    top: 0;
+    bottom: auto;
+    transform: none;
+  }
+
+  /* dropdown panel */
+  header nav .nav-sections .default-content-wrapper > ul > li[aria-expanded='true'] > ul {
+    width: max-content;
+    min-width: 220px;
+    padding: 12px 8px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    background-color: var(--background-color);
+    box-shadow: 0 8px 24px rgb(0 0 0 / 12%);
+    top: 200%;
+  }
+
+  header nav .nav-sections .default-content-wrapper > ul > li > ul::before {
+    border-bottom-color: var(--background-color);
+  }
+
+  header nav .nav-sections .default-content-wrapper > ul > li > ul > li {
+    padding: 6px 12px;
+    font-weight: 500;
+  }
+
+  header nav .nav-sections .default-content-wrapper > ul > li > ul > li a:hover {
+    color: var(--fiix-blue);
+  }
+
+  /* NEW / FEATURED badges (authored as <em>) */
+  header nav .nav-sections em {
+    display: inline-block;
+    margin-left: 6px;
+    padding: 1px 7px;
+    border-radius: 10px;
+    background-color: var(--fiix-gold);
+    color: var(--text-color);
+    font-size: 11px;
+    font-style: normal;
+    font-weight: 700;
+    text-transform: uppercase;
+    vertical-align: middle;
+  }
 }
