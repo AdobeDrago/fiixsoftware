@@ -13,11 +13,22 @@
 :root {
   /* colors */
   --background-color: white;
-  --light-color: #f8f8f8;
+  --light-color: #f4f7fb;
   --dark-color: #505050;
-  --text-color: #131313;
-  --link-color: #3b63fb;
-  --link-hover-color: #1d3ecf;
+  --text-color: #1a1a1a;
+  --link-color: #1650e6;
+  --link-hover-color: #0f3cb0;
+
+  /* Fiix brand */
+  --fiix-blue: #1650e6;
+  --fiix-blue-dark: #0f3cb0;
+  --fiix-green: #4aa525;
+  --fiix-green-dark: #3a831d;
+  --fiix-teal: #0e9c94;
+  --fiix-gold: #f4c430;
+  --hero-gradient-start: #dcecfb;
+  --hero-gradient-end: #f4f9ff;
+  --border-color: #e2e6ea;
 
   /* fonts */
   --body-font-family: roboto, roboto-fallback, sans-serif;
@@ -199,18 +210,18 @@ button.button:disabled {
 
 a.button.primary,
 button.button.primary {
-  border-color: var(--text-color);
-  background-color: var(--text-color);
-  color: var(--background-color);
+  border-color: var(--fiix-blue);
+  background-color: var(--fiix-blue);
+  color: #fff;
 }
 
 a.button.primary:hover,
 a.button.primary:focus-visible,
 button.button.primary:hover,
 button.button.primary:focus-visible {
-  border-color: var(--dark-color);
-  background-color: var(--dark-color);
-  color: var(--light-color);
+  border-color: var(--fiix-blue-dark);
+  background-color: var(--fiix-blue-dark);
+  color: #fff;
 }
 
 a.button.primary[aria-disabled="true"],
@@ -251,20 +262,21 @@ button.button.secondary:disabled:focus-visible {
   color: var(--dark-color);
 }
 
-/* high-impact call-to-action */
+/* high-impact call-to-action (Fiix green, e.g. "Free tour") */
 a.button.accent,
 button.button.accent {
-  border-color: var(--link-color);
-  background-color: var(--link-color);
-  color: var(--background-color);
+  border-color: var(--fiix-green);
+  background-color: var(--fiix-green);
+  color: #fff;
 }
 
 a.button.accent:hover,
 a.button.accent:focus-visible,
 button.button.accent:hover,
 button.button.accent:focus-visible {
-  border-color: var(--link-hover-color);
-  background-color: var(--link-hover-color);
+  border-color: var(--fiix-green-dark);
+  background-color: var(--fiix-green-dark);
+  color: #fff;
 }
 
 a.button.accent[aria-disabled="true"],
@@ -322,4 +334,71 @@ main .section.highlight {
   background-color: var(--light-color);
   margin: 0;
   padding: 40px 0;
+}
+
+/* ============================================================
+   Pricing hero: heading/reviews on the left, cards on the right.
+   Scoped to the hero via the auto-added `cards-pricing-container`
+   (only the hero section contains a cards-pricing block); also
+   matches `pricing-hero` once that section style is corrected.
+   ============================================================ */
+@media (width >= 1200px) {
+  main > .section.pricing-hero,
+  main > .section.cards-pricing-container {
+    display: grid;
+    grid-template-columns: minmax(300px, 360px) 1fr;
+    column-gap: 40px;
+    align-items: start;
+    max-width: 1200px;
+    margin: 0 auto 40px;
+    padding: 48px 32px;
+    background: linear-gradient(115deg, var(--hero-gradient-start) 0%, var(--hero-gradient-end) 55%, #fff 100%);
+  }
+
+  /* the section itself is now the centered container, so drop the
+     per-wrapper max-width/centering that main > .section > div adds */
+  main > .section.cards-pricing-container > div {
+    max-width: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  /* left column: heading (row 1), review logos (row 2) */
+  main > .section.cards-pricing-container > .default-content-wrapper:first-child {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  main > .section.cards-pricing-container > .columns-logos-wrapper {
+    grid-column: 1;
+    grid-row: 2;
+    align-self: end;
+  }
+
+  /* review logos as a 2 x 2 grid in the narrow left column */
+  main > .section.cards-pricing-container > .columns-logos-wrapper .columns-logos > div {
+    flex-wrap: wrap;
+    gap: 20px 24px;
+  }
+
+  main > .section.cards-pricing-container > .columns-logos-wrapper .columns-logos > div > div {
+    flex: 0 0 40%;
+  }
+
+  /* right column: the four pricing cards span both rows */
+  main > .section.cards-pricing-container > .cards-pricing-wrapper {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+  }
+
+  main > .section.cards-pricing-container .cards-pricing > ul {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+  }
+
+  /* callout + trailing decoration run full width below the grid */
+  main > .section.cards-pricing-container > .columns-callout-wrapper,
+  main > .section.cards-pricing-container > .default-content-wrapper:last-child {
+    grid-column: 1 / -1;
+  }
 }
