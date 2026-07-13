@@ -13,12 +13,16 @@
  */
 export default function parse(element, { document }) {
   // Plan cards live in `.pricing-performance`. The instance element also
-  // contains a `.headerbox` (default content) which we intentionally skip.
+  // contains a `.headerbox` (H1 + intro + award logos) as a sibling of the
+  // cards; that is authored as default content / the columns-logos block and
+  // must survive. So we build the cards block from just the plan cards and
+  // insert it in place of the FIRST card, then remove the remaining card
+  // source nodes — rather than replacing the whole `.pricing-breakdown`
+  // (which would destroy the headerbox).
   const cards = Array.from(element.querySelectorAll(':scope > .pricing-performance'));
 
-  // Empty-block guard.
+  // Empty-block guard: leave the container (and its headerbox) untouched.
   if (cards.length === 0) {
-    element.replaceWith(...element.childNodes);
     return;
   }
 
@@ -63,5 +67,11 @@ export default function parse(element, { document }) {
   });
 
   const block = WebImporter.Blocks.createBlock(document, { name: 'cards-pricing', cells });
-  element.replaceWith(block);
+
+  // Insert the block where the first plan card was, then remove all original
+  // card nodes. This keeps the sibling `.headerbox` (H1, intro, award logos)
+  // in place so it can be authored as default content / the logos block.
+  const firstCard = cards[0];
+  firstCard.parentNode.insertBefore(block, firstCard);
+  cards.forEach((card) => card.remove());
 }

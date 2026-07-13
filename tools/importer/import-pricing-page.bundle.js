@@ -58,7 +58,6 @@ var CustomImportScript = (() => {
   function parse2(element, { document }) {
     const cards = Array.from(element.querySelectorAll(":scope > .pricing-performance"));
     if (cards.length === 0) {
-      element.replaceWith(...element.childNodes);
       return;
     }
     const cells = [];
@@ -85,7 +84,9 @@ var CustomImportScript = (() => {
       cells.push([cellContent]);
     });
     const block = WebImporter.Blocks.createBlock(document, { name: "cards-pricing", cells });
-    element.replaceWith(block);
+    const firstCard = cards[0];
+    firstCard.parentNode.insertBefore(block, firstCard);
+    cards.forEach((card) => card.remove());
   }
 
   // tools/importer/parsers/columns-callout.js
@@ -299,6 +300,7 @@ var CustomImportScript = (() => {
     if (hookName === TransformHook.afterTransform) {
       WebImporter.DOMUtils.remove(element, [
         "header.siteHeader",
+        "#mobile-header",
         "#footer",
         "#copyright",
         "iframe",
@@ -320,7 +322,7 @@ var CustomImportScript = (() => {
     return null;
   }
   function transform2(hookName, element, payload) {
-    if (hookName !== TransformHook2.afterTransform) return;
+    if (hookName !== TransformHook2.beforeTransform) return;
     const template = payload && payload.template;
     const sections = template && template.sections;
     if (!Array.isArray(sections) || sections.length < 2) return;
@@ -337,7 +339,11 @@ var CustomImportScript = (() => {
           name: "Section Metadata",
           cells: { style: section.style }
         });
-        anchor.append(metadataBlock);
+        if (anchor.nextSibling) {
+          anchor.parentNode.insertBefore(metadataBlock, anchor.nextSibling);
+        } else {
+          anchor.parentNode.appendChild(metadataBlock);
+        }
       }
       if (i > 0) {
         const hr = doc.createElement("hr");
