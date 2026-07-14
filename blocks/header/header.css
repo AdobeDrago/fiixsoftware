@@ -50,18 +50,56 @@ header nav[aria-expanded='true'] {
 @media (width >= 900px) {
   header .nav-wrapper { position: fixed; }
 
+  /* Two-tier desktop header: utility row (search + login) sits ABOVE the main
+     row (logo, nav links, CTA buttons). Both share the same centered 1200px
+     content box so their left/right edges align with the Fiix target. */
   header nav {
-    display: flex;
+    display: grid;
+    grid-template:
+      'utility utility utility' auto
+      'brand sections tools' auto / auto 1fr auto;
     align-items: center;
-    justify-content: flex-start;
-    gap: 0 28px;
-    max-width: 1400px;
-    padding: 0 32px;
+    gap: 6px 28px;
+    max-width: 1200px;
+    height: auto;
+    padding: 8px 0 20px;
   }
 
   header nav[aria-expanded='true'] {
     min-height: 0;
     overflow: visible;
+  }
+
+  /* utility row: search + login, right-aligned above the main row */
+  header nav .nav-utility {
+    grid-area: utility;
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  header nav .nav-utility ul {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin: 0;
+    padding: 0;
+  }
+
+  /* Login link: target is 14px / 500 / dark slate */
+  header nav .nav-utility a.nav-login {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--fiix-text);
+  }
+
+  /* main row alignment: logo left, nav after, CTAs right */
+  header nav .nav-brand { align-self: center; }
+  header nav .nav-sections { align-self: center; }
+
+  header nav .nav-tools {
+    grid-area: tools;
+    align-self: center;
   }
 }
 
@@ -159,7 +197,7 @@ header .nav-brand { grid-area: brand; }
 
 header nav .nav-brand img {
   width: auto;
-  height: 44px;
+  height: 37px;
 }
 
 /* sections (main nav) */
