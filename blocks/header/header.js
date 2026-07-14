@@ -127,8 +127,31 @@ export default async function decorate(block) {
   const navSections = nav.querySelector('.nav-sections');
   if (navSections) {
     navSections.querySelectorAll(':scope .default-content-wrapper > ul > li').forEach((navItem) => {
-      if (navItem.querySelector(':scope > ul')) {
+      const panel = navItem.querySelector(':scope > ul');
+      if (panel) {
         decorateDropItem(navItem, navSections);
+        // Grouped panel: its top-level items are column headings that each own
+        // a nested <ul> of links (e.g. Product → Overview/Features/Industry).
+        const groups = [...panel.children].filter((li) => li.querySelector(':scope > ul'));
+        if (groups.length) {
+          navItem.classList.add('nav-drop-grouped');
+          groups.forEach((g) => g.classList.add('nav-col'));
+        }
+        // Footer = a <p> that comes AFTER the panel <ul> (e.g. "Contact us |
+        // Request a demo"). Must check position: Document Authoring wraps the
+        // trigger label itself in a leading <p> (e.g. <p>Product</p>), so a
+        // plain ':scope > p' would wrongly grab the label. Only a <p> whose
+        // position follows the panel is the footer.
+        const kids = [...navItem.children];
+        const panelIndex = kids.indexOf(panel);
+        const footer = kids.find((el, i) => el.tagName === 'P' && i > panelIndex);
+        if (footer) {
+          const footerLi = document.createElement('li');
+          footerLi.className = 'nav-drop-footer';
+          while (footer.firstChild) footerLi.append(footer.firstChild);
+          footer.remove();
+          panel.append(footerLi);
+        }
       }
     });
   }
