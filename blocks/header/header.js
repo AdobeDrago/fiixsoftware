@@ -198,7 +198,16 @@ export default async function decorate(block) {
               // "Download full features list" and "More industry solutions"
               // render as plain blue links (F1 / G1) — flag for CSS.
               const label = a.textContent.trim().toLowerCase();
-              if (label.startsWith('download full features')) a.closest('li').classList.add('nav-link-download');
+              if (label.startsWith('download full features')) {
+                const li = a.closest('li');
+                li.classList.add('nav-link-download');
+                // Normalize copy: source appends "(PDF)" + a trailing size note
+                // ("PDF document (1628KB)"). Strip both so the link reads clean.
+                a.textContent = a.textContent.replace(/\s*\(PDF\)\s*$/i, '').trim();
+                [...li.childNodes]
+                  .filter((n) => n.nodeType === Node.TEXT_NODE && n.textContent.trim())
+                  .forEach((n) => n.remove());
+              }
               if (label.startsWith('more industry')) a.closest('li').classList.add('nav-link-more');
             });
           });
