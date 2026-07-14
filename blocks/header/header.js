@@ -258,14 +258,28 @@ export default async function decorate(block) {
     });
   }
 
-  // Tools: mark CTA buttons (last two links) so CSS can style them as buttons
+  // Tools: mark CTA buttons and split the utility links (Search + Login) into
+  // their own group so the header can render two tiers — a top utility row
+  // above the main logo/nav/CTA row, matching the Fiix production header.
   const navTools = nav.querySelector('.nav-tools');
   if (navTools) {
     navTools.querySelectorAll('a').forEach((a) => {
       const label = a.textContent.trim().toLowerCase();
       if (label === 'book a demo' || label === 'free tour') a.classList.add('nav-cta');
       if (label === 'search') a.classList.add('nav-search');
+      if (label === 'login') a.classList.add('nav-login');
     });
+    const toolsList = navTools.querySelector('ul');
+    const utilityItems = [...(toolsList ? toolsList.children : [])]
+      .filter((li) => li.querySelector('a.nav-search, a.nav-login'));
+    if (utilityItems.length) {
+      const utility = document.createElement('div');
+      utility.className = 'nav-utility';
+      const utilityList = document.createElement('ul');
+      utilityItems.forEach((li) => utilityList.append(li));
+      utility.append(utilityList);
+      nav.append(utility);
+    }
   }
 
   // hamburger for mobile
