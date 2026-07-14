@@ -137,10 +137,14 @@ export default async function decorate(block) {
           navItem.classList.add('nav-drop-grouped');
           groups.forEach((g) => g.classList.add('nav-col'));
         }
-        // A trailing <p> inside the drop is the panel footer (e.g. Contact us).
-        // Move it inside the panel <ul> so it renders within the dropdown, not
-        // in the top nav bar; wrap in <li> so it is a valid grid child.
-        const footer = navItem.querySelector(':scope > p');
+        // Footer = a <p> that comes AFTER the panel <ul> (e.g. "Contact us |
+        // Request a demo"). Must check position: Document Authoring wraps the
+        // trigger label itself in a leading <p> (e.g. <p>Product</p>), so a
+        // plain ':scope > p' would wrongly grab the label. Only a <p> whose
+        // position follows the panel is the footer.
+        const kids = [...navItem.children];
+        const panelIndex = kids.indexOf(panel);
+        const footer = kids.find((el, i) => el.tagName === 'P' && i > panelIndex);
         if (footer) {
           const footerLi = document.createElement('li');
           footerLi.className = 'nav-drop-footer';
