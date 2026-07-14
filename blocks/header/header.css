@@ -259,19 +259,24 @@ header nav .nav-sections a:hover { color: var(--fiix-hover); }
     white-space: normal;
   }
 
-  /* individual mega-menu entries */
+  /* individual mega-menu entries — description text (source: 13px/300) */
   header nav .nav-sections .default-content-wrapper > ul > li > ul > li {
-    padding: 10px 0;
-    font-weight: 400;
-    font-size: 14px;
-    color: rgb(90 90 92);
-    line-height: 1.35;
+    margin-bottom: 30px;
+    padding: 0;
+    font-family: sofia-pro, var(--body-font-family, sans-serif);
+    font-weight: 300;
+    font-size: 13px;
+    color: var(--fiix-text);
+    line-height: 1.4;
   }
 
+  /* link title (source: 16px/500, no underline, line-height 27.2px) */
   header nav .nav-sections .default-content-wrapper > ul > li > ul > li a {
     display: block;
-    font-weight: 600;
-    font-size: 15px;
+    font-family: sofia-pro, var(--body-font-family, sans-serif);
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 1.7;
     color: var(--fiix-text);
   }
 
@@ -293,11 +298,15 @@ header nav .nav-sections a:hover { color: var(--fiix-hover); }
     align-items: stretch;
   }
 
-  /* each top-level item in a grouped panel is a column: heading + links */
+  /* each top-level item in a grouped panel is a column: heading + links.
+     Column heading matches source: sofia-pro 14px/600, 20px gap, 8px pad,
+     2px #e1e1e1 underline. No inter-item margin at column level. */
   header nav .nav-sections .default-content-wrapper > ul > li.nav-drop-grouped > ul > li.nav-col {
+    margin-bottom: 0;
     padding: 32px 40px;
-    font-weight: 700;
-    font-size: 15px;
+    font-family: sofia-pro, var(--body-font-family, sans-serif);
+    font-weight: 600;
+    font-size: 14px;
     color: var(--fiix-text);
     line-height: normal;
   }
@@ -307,12 +316,12 @@ header nav .nav-sections a:hover { color: var(--fiix-hover); }
     background-color: var(--light-color, #f4f7fb);
   }
 
-  /* the nested list of links resets the column-heading typography */
+  /* the nested list of links: 2px underline under the column heading */
   header nav .nav-sections .default-content-wrapper > ul > li.nav-drop-grouped > ul > li.nav-col > ul {
     display: block;
-    margin-top: 16px;
-    border-top: 1px solid rgb(0 0 0 / 8%);
-    padding-top: 12px;
+    margin-top: 20px;
+    border-top: 2px solid #e1e1e1;
+    padding-top: 20px;
   }
 
   /* footer row (Contact us | Request a demo) spans the full panel width */
@@ -331,6 +340,27 @@ header nav .nav-sections a:hover { color: var(--fiix-hover); }
     font-size: 14px;
     color: var(--fiix-blue);
     text-decoration: underline;
+  }
+
+  /* grouped column items: description text (source 13px/300, 30px gap) */
+  header nav .nav-sections .default-content-wrapper > ul > li.nav-drop-grouped > ul > li.nav-col > ul > li {
+    margin-bottom: 30px;
+    padding: 0;
+    font-family: sofia-pro, var(--body-font-family, sans-serif);
+    font-weight: 300;
+    font-size: 13px;
+    color: var(--fiix-text);
+    line-height: 1.4;
+  }
+
+  /* grouped column items: link title (source 16px/500) */
+  header nav .nav-sections .default-content-wrapper > ul > li.nav-drop-grouped > ul > li.nav-col > ul > li a {
+    display: block;
+    font-family: sofia-pro, var(--body-font-family, sans-serif);
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 1.7;
+    color: var(--fiix-text);
   }
 }
 
