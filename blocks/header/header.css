@@ -7,6 +7,11 @@
   --fiix-green: rgb(32 165 30);
   --fiix-panel-bg: #fff;
   --fiix-hover: rgb(20 73 154);
+  --fiix-cyan: #0e9c94;
+  --fiix-badge-bg: #ffe01b;
+  --fiix-badge-text: #151b26;
+  --fiix-link-blue: #1650e6;
+  --fiix-panel-gray: #f2f2f2;
 }
 
 /* header and nav layout */
@@ -220,6 +225,7 @@ header nav .nav-sections a:hover { color: var(--fiix-hover); }
     cursor: pointer;
   }
 
+  /* cyan "+" glyph inline-right of trigger, vertically centered (A3) */
   header nav .nav-sections .nav-drop::after {
     content: '+';
     display: inline-block;
@@ -229,12 +235,16 @@ header nav .nav-sections a:hover { color: var(--fiix-hover); }
     font-size: 18px;
     font-weight: 400;
     line-height: 1;
-    color: var(--fiix-blue);
-    transition: transform 0.2s ease;
+    color: var(--fiix-cyan);
   }
 
+  /* open state: cyan "−" glyph + cyan underline on the label (A2) */
   header nav .nav-sections .nav-drop[aria-expanded='true']::after {
-    transform: rotate(45deg);
+    content: '−';
+  }
+
+  header nav .nav-sections .nav-drop[aria-expanded='true'] {
+    box-shadow: inset 0 -3px 0 0 var(--fiix-cyan);
   }
 
   /* mega-menu panel: full-width dropdown below the header */
@@ -311,9 +321,14 @@ header nav .nav-sections a:hover { color: var(--fiix-hover); }
     line-height: normal;
   }
 
-  /* grey background on the Industry-solutions column (3rd) */
+  /* neutral grey background on the Industry-solutions column (3rd) — G2 */
   header nav .nav-sections .default-content-wrapper > ul > li.nav-drop-grouped > ul > li.nav-col:nth-child(3) {
-    background-color: var(--light-color, #f4f7fb);
+    background-color: var(--fiix-panel-gray);
+  }
+
+  /* B1 — align first column content left edge to the logo/nav inset (52px) */
+  header nav .nav-sections .default-content-wrapper > ul > li.nav-drop-grouped > ul > li.nav-col:first-child {
+    padding-left: 52px;
   }
 
   /* the nested list of links: 2px underline under the column heading */
@@ -328,7 +343,7 @@ header nav .nav-sections a:hover { color: var(--fiix-hover); }
   header nav .nav-sections .default-content-wrapper > ul > li.nav-drop-grouped > ul > li.nav-drop-footer {
     grid-column: 1 / -1;
     margin: 0;
-    padding: 16px 40px;
+    padding: 16px 40px 16px 52px;
     border-top: 1px solid rgb(0 0 0 / 8%);
     display: flex;
     gap: 24px;
@@ -342,8 +357,13 @@ header nav .nav-sections a:hover { color: var(--fiix-hover); }
     text-decoration: underline;
   }
 
-  /* grouped column items: description text (source 13px/300, 30px gap) */
+  /* grouped column items: description text (source 13px/300, 30px gap).
+     Two-column grid places the cyan icon (C1) left of title + description. */
   header nav .nav-sections .default-content-wrapper > ul > li.nav-drop-grouped > ul > li.nav-col > ul > li {
+    display: grid;
+    grid-template-columns: 24px 1fr;
+    column-gap: 12px;
+    align-items: start;
     margin-bottom: 30px;
     padding: 0;
     font-family: sofia-pro, var(--body-font-family, sans-serif);
@@ -355,13 +375,83 @@ header nav .nav-sections a:hover { color: var(--fiix-hover); }
 
   /* grouped column items: link title (source 16px/500) */
   header nav .nav-sections .default-content-wrapper > ul > li.nav-drop-grouped > ul > li.nav-col > ul > li a {
-    display: block;
+    display: inline;
     font-family: sofia-pro, var(--body-font-family, sans-serif);
     font-weight: 500;
     font-size: 16px;
     line-height: 1.7;
     color: var(--fiix-text);
   }
+
+  /* stylelint-disable no-descending-specificity */
+
+  /* C1: per-item cyan line icon to the left of each item */
+  header nav .nav-sections .default-content-wrapper > ul > li.nav-drop-grouped .nav-col > ul > li > .nav-item-icon {
+    grid-row: 1 / span 2;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding-top: 2px;
+    color: var(--fiix-cyan);
+  }
+
+  header nav .nav-sections .default-content-wrapper > ul > li.nav-drop-grouped .nav-col > ul > li > a,
+  header nav .nav-sections .default-content-wrapper > ul > li.nav-drop-grouped .nav-col > ul > li > .nav-badge {
+    grid-column: 2;
+  }
+
+  /* D1/D2: FEATURED / NEW badge pill (source #ffe01b / #151b26 / 10px 500) */
+  header nav .nav-sections .default-content-wrapper > ul > li.nav-drop-grouped .nav-badge {
+    display: inline-block;
+    margin-left: 6px;
+    padding: 2px 5px;
+    font-family: sofia-pro, var(--body-font-family, sans-serif);
+    font-size: 10px;
+    font-weight: 500;
+    line-height: 1.4;
+    color: var(--fiix-badge-text);
+    background-color: var(--fiix-badge-bg);
+    border-radius: 2px;
+    vertical-align: middle;
+  }
+
+  /* E1: Features column renders its list as two sub-columns */
+  header nav .nav-sections .default-content-wrapper > ul > li.nav-drop-grouped > ul > li.nav-col-split > ul {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 40px;
+  }
+
+  /* F1: Download link — blue, inline, download arrow after */
+  header nav .nav-sections .default-content-wrapper > ul > li.nav-drop-grouped .nav-col > ul > li.nav-link-download,
+  header nav .nav-sections .default-content-wrapper > ul > li.nav-drop-grouped .nav-col > ul > li.nav-link-more {
+    grid-template-columns: 1fr;
+  }
+
+  header nav .nav-sections .default-content-wrapper > ul > li.nav-drop-grouped .nav-col > ul > li.nav-link-download > .nav-item-icon,
+  header nav .nav-sections .default-content-wrapper > ul > li.nav-drop-grouped .nav-col > ul > li.nav-link-more > .nav-item-icon {
+    display: none;
+  }
+
+  header nav .nav-sections .default-content-wrapper > ul > li.nav-drop-grouped .nav-col > ul > li.nav-link-download > a,
+  header nav .nav-sections .default-content-wrapper > ul > li.nav-drop-grouped .nav-col > ul > li.nav-link-more > a {
+    grid-column: 1;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--fiix-link-blue);
+  }
+
+  header nav .nav-sections .default-content-wrapper > ul > li.nav-drop-grouped .nav-col > ul > li.nav-link-download > a::after {
+    content: '↓';
+    margin-left: 6px;
+  }
+
+  header nav .nav-sections .default-content-wrapper > ul > li.nav-drop-grouped .nav-col > ul > li.nav-link-more > a::after {
+    content: '→';
+    margin-left: 6px;
+  }
+
+  /* stylelint-enable no-descending-specificity */
 }
 
 /* tools (utility links + CTA buttons) */

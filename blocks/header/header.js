@@ -78,6 +78,48 @@ function decorateDropItem(navItem, navSections) {
   });
 }
 
+// Cyan line icons (inline SVG) keyed by nav item. Matches the Fiix source
+// per-item iconography with a consistent 20px / 1.6 stroke in brand teal.
+const ICON_STROKE = 'stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"';
+const svg = (paths) => `<svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" ${ICON_STROKE}>${paths}</svg>`;
+const NAV_ICONS = {
+  '/cmms/cmms-software/': svg('<rect x="3" y="4" width="18" height="14" rx="2"/><path d="M3 9h18M8 21h8"/>'),
+  '/cmms/mobile-cmms/': svg('<rect x="7" y="2" width="10" height="20" rx="2"/><path d="M11 18h2"/>'),
+  '/foresight/': svg('<path d="M12 3v2M12 19v2M3 12h2M19 12h2M6 6l1.5 1.5M16.5 16.5 18 18"/><circle cx="12" cy="12" r="4"/>'),
+  '/optix': svg('<path d="M12 2a5 5 0 0 1 5 5c0 2-1 3-2 4s-1 2-1 3H10c0-1 0-2-1-3S7 9 7 7a5 5 0 0 1 5-5Z"/><path d="M9 21h6"/>'),
+  '/cmms/asset-management-software/': svg('<path d="M20 7 12 3 4 7l8 4 8-4Z"/><path d="M4 7v10l8 4 8-4V7"/><path d="M12 11v10"/>'),
+  '/cmms/work-orders/': svg('<path d="m14 7 3-3 3 3-3 3"/><path d="M17 4v9a4 4 0 0 1-4 4H4"/><path d="m7 20-3-3 3-3"/>'),
+  '/cmms/integrations/': svg('<circle cx="6" cy="6" r="3"/><circle cx="18" cy="18" r="3"/><path d="M9 6h6a3 3 0 0 1 3 3v6"/>'),
+  '/cmms/maintenance-reporting-software/': svg('<path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/>'),
+  '/cmms/parts-inventory-management-software/': svg('<path d="M3 7h18v13H3zM3 7l3-4h12l3 4M8 12h8"/>'),
+  '/app-exchange/': svg('<rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/>'),
+  '/downloads/': svg('<path d="M12 3v12m0 0 4-4m-4 4-4-4M4 21h16"/>'),
+  '/cmms/industry-solutions/oil-gas-maintenance-software/': svg('<path d="M6 21V8l6-5 6 5v13"/><path d="M9 21v-6h6v6"/>'),
+  '/cmms/industry-solutions/heavy-equipment-maintenance-software/': svg('<circle cx="7" cy="18" r="2"/><circle cx="17" cy="18" r="2"/><path d="M9 18h6M5 18H3v-5l4-1 3-5h5l2 6h2v5h-2"/>'),
+  '/cmms/industry-solutions/food-and-beverage-maintenance-software/': svg('<path d="M6 2v7a3 3 0 0 0 6 0V2M9 2v20M17 2c-1.5 1-2 3-2 6s.5 4 2 5v9"/>'),
+  '/cmms/industry-solutions/manufacturing-maintenance-software/': svg('<path d="M3 20V9l6 4V9l6 4V5l6 4v11H3Z"/>'),
+};
+
+/** Match a nav link href to a cyan icon (exact, then prefix for /downloads/). */
+function iconForHref(href) {
+  if (!href) return null;
+  if (NAV_ICONS[href]) return NAV_ICONS[href];
+  if (href.startsWith('/downloads/')) return NAV_ICONS['/downloads/'];
+  return null;
+}
+
+/** Turn a trailing FEATURED / NEW token in a link label into a badge pill. */
+function extractBadge(link) {
+  const m = link.textContent.match(/\s+(FEATURED|NEW)\s*$/);
+  if (!m) return;
+  const [, word] = m;
+  link.textContent = link.textContent.slice(0, m.index).trim();
+  const badge = document.createElement('span');
+  badge.className = 'nav-badge';
+  badge.textContent = word;
+  link.after(badge);
+}
+
 /**
  * loads and decorates the header, mainly the nav
  * @param {Element} block The header block element
@@ -135,7 +177,40 @@ export default async function decorate(block) {
         const groups = [...panel.children].filter((li) => li.querySelector(':scope > ul'));
         if (groups.length) {
           navItem.classList.add('nav-drop-grouped');
-          groups.forEach((g) => g.classList.add('nav-col'));
+          groups.forEach((g) => {
+            g.classList.add('nav-col');
+            // Column heading text is the first text node before the nested <ul>.
+            const heading = ((g.firstChild && g.firstChild.textContent) || '').trim();
+            // "Features" renders as two sub-columns (matches TARGET).
+            if (/^Features$/i.test(heading)) g.classList.add('nav-col-split');
+            // Per-item: inject cyan icon + convert FEATURED/NEW to a pill.
+            g.querySelectorAll(':scope > ul > li > a').forEach((a) => {
+              extractBadge(a);
+              const icon = iconForHref(a.getAttribute('href'));
+              const alreadyIconed = a.previousElementSibling
+                && a.previousElementSibling.classList.contains('nav-item-icon');
+              if (icon && !alreadyIconed) {
+                const span = document.createElement('span');
+                span.className = 'nav-item-icon';
+                span.innerHTML = icon;
+                a.parentElement.insertBefore(span, a);
+              }
+              // "Download full features list" and "More industry solutions"
+              // render as plain blue links (F1 / G1) — flag for CSS.
+              const label = a.textContent.trim().toLowerCase();
+              if (label.startsWith('download full features')) {
+                const li = a.closest('li');
+                li.classList.add('nav-link-download');
+                // Normalize copy: source appends "(PDF)" + a trailing size note
+                // ("PDF document (1628KB)"). Strip both so the link reads clean.
+                a.textContent = a.textContent.replace(/\s*\(PDF\)\s*$/i, '').trim();
+                [...li.childNodes]
+                  .filter((n) => n.nodeType === Node.TEXT_NODE && n.textContent.trim())
+                  .forEach((n) => n.remove());
+              }
+              if (label.startsWith('more industry')) a.closest('li').classList.add('nav-link-more');
+            });
+          });
         }
         // Footer = a <p> that comes AFTER the panel <ul> (e.g. "Contact us |
         // Request a demo"). Must check position: Document Authoring wraps the
