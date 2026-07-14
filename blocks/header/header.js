@@ -127,8 +127,27 @@ export default async function decorate(block) {
   const navSections = nav.querySelector('.nav-sections');
   if (navSections) {
     navSections.querySelectorAll(':scope .default-content-wrapper > ul > li').forEach((navItem) => {
-      if (navItem.querySelector(':scope > ul')) {
+      const panel = navItem.querySelector(':scope > ul');
+      if (panel) {
         decorateDropItem(navItem, navSections);
+        // Grouped panel: its top-level items are column headings that each own
+        // a nested <ul> of links (e.g. Product → Overview/Features/Industry).
+        const groups = [...panel.children].filter((li) => li.querySelector(':scope > ul'));
+        if (groups.length) {
+          navItem.classList.add('nav-drop-grouped');
+          groups.forEach((g) => g.classList.add('nav-col'));
+        }
+        // A trailing <p> inside the drop is the panel footer (e.g. Contact us).
+        // Move it inside the panel <ul> so it renders within the dropdown, not
+        // in the top nav bar; wrap in <li> so it is a valid grid child.
+        const footer = navItem.querySelector(':scope > p');
+        if (footer) {
+          const footerLi = document.createElement('li');
+          footerLi.className = 'nav-drop-footer';
+          while (footer.firstChild) footerLi.append(footer.firstChild);
+          footer.remove();
+          panel.append(footerLi);
+        }
       }
     });
   }

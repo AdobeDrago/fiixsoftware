@@ -284,6 +284,54 @@ header nav .nav-sections a:hover { color: var(--fiix-hover); }
     height: auto;
     flex: 0 0 auto;
   }
+
+  /* ---- Grouped mega-menu (e.g. Product: Overview / Features / Industry) ---- */
+  header nav .nav-sections .default-content-wrapper > ul > li.nav-drop-grouped[aria-expanded='true'] > ul {
+    grid-template-columns: 1fr 1.4fr 1fr;
+    gap: 0;
+    padding: 0;
+    align-items: stretch;
+  }
+
+  /* each top-level item in a grouped panel is a column: heading + links */
+  header nav .nav-sections .default-content-wrapper > ul > li.nav-drop-grouped > ul > li.nav-col {
+    padding: 32px 40px;
+    font-weight: 700;
+    font-size: 15px;
+    color: var(--fiix-text);
+    line-height: normal;
+  }
+
+  /* grey background on the Industry-solutions column (3rd) */
+  header nav .nav-sections .default-content-wrapper > ul > li.nav-drop-grouped > ul > li.nav-col:nth-child(3) {
+    background-color: var(--light-color, #f4f7fb);
+  }
+
+  /* the nested list of links resets the column-heading typography */
+  header nav .nav-sections .default-content-wrapper > ul > li.nav-drop-grouped > ul > li.nav-col > ul {
+    display: block;
+    margin-top: 16px;
+    border-top: 1px solid rgb(0 0 0 / 8%);
+    padding-top: 12px;
+  }
+
+  /* footer row (Contact us | Request a demo) spans the full panel width */
+  header nav .nav-sections .default-content-wrapper > ul > li.nav-drop-grouped > ul > li.nav-drop-footer {
+    grid-column: 1 / -1;
+    margin: 0;
+    padding: 16px 40px;
+    border-top: 1px solid rgb(0 0 0 / 8%);
+    display: flex;
+    gap: 24px;
+  }
+
+  header nav .nav-sections .default-content-wrapper > ul > li.nav-drop-grouped > ul > li.nav-drop-footer a {
+    display: inline;
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--fiix-blue);
+    text-decoration: underline;
+  }
 }
 
 /* tools (utility links + CTA buttons) */
