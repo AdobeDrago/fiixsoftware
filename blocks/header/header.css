@@ -10,6 +10,8 @@
   --fiix-cyan: #0e9c94;
   --fiix-badge-bg: #ffe01b;
   --fiix-badge-text: #151b26;
+  --fiix-link-blue: #1650e6;
+  --fiix-panel-gray: #f2f2f2;
 }
 
 /* header and nav layout */
@@ -319,6 +321,11 @@ header nav .nav-sections a:hover { color: var(--fiix-hover); }
     line-height: normal;
   }
 
+  /* neutral grey background on the Industry-solutions column (3rd) — G2 */
+  header nav .nav-sections .default-content-wrapper > ul > li.nav-drop-grouped > ul > li.nav-col:nth-child(3) {
+    background-color: var(--fiix-panel-gray);
+  }
+
   /* B1 — align first column content left edge to the logo/nav inset (52px) */
   header nav .nav-sections .default-content-wrapper > ul > li.nav-drop-grouped > ul > li.nav-col:first-child {
     padding-left: 52px;
@@ -350,42 +357,67 @@ header nav .nav-sections a:hover { color: var(--fiix-hover); }
     text-decoration: underline;
   }
 
-  /* grouped column items: title on line 1, description on line 2 (no icons).
-     Matches target: card-label 12px/500, card-summary 12px/300, ~30px rhythm. */
+  /* grouped column items: description text (source 13px/300, 30px gap).
+     Two-column grid places the cyan icon (C1) left of title + description. */
   header nav .nav-sections .default-content-wrapper > ul > li.nav-drop-grouped > ul > li.nav-col > ul > li {
-    display: block;
+    display: grid;
+    grid-template-columns: 24px 1fr;
+    column-gap: 12px;
+    align-items: start;
     margin-bottom: 30px;
     padding: 0;
     font-family: sofia-pro, var(--body-font-family, sans-serif);
+    font-weight: 300;
+    font-size: 13px;
     color: var(--fiix-text);
+    line-height: 1.4;
   }
 
-  /* link title (target card-label 12px/500, line-height 1.3) */
+  /* grouped column items: link title (source 16px/500) */
   header nav .nav-sections .default-content-wrapper > ul > li.nav-drop-grouped > ul > li.nav-col > ul > li a {
     display: inline;
     font-family: sofia-pro, var(--body-font-family, sans-serif);
     font-weight: 500;
-    font-size: 12px;
-    line-height: 1.3;
-    color: var(--fiix-text);
-  }
-
-  /* description text on its own line (target card-summary 12px/300, lh 1.4) */
-  header nav .nav-sections .default-content-wrapper > ul > li.nav-drop-grouped > ul > li.nav-col > ul > li .nav-item-desc {
-    display: block;
-    margin-top: 4px;
-    font-weight: 300;
-    font-size: 12px;
-    line-height: 1.4;
+    font-size: 16px;
+    line-height: 1.7;
     color: var(--fiix-text);
   }
 
   /* stylelint-disable no-descending-specificity */
 
-  /* D1/D2: FEATURED / NEW badge (target #ffe01b / #151b26 / 10px 500, square) */
+  /* C1: per-item cyan line icon, aligned to the title's line */
+  header nav .nav-sections .default-content-wrapper > ul > li.nav-drop-grouped .nav-col > ul > li > .nav-item-icon {
+    grid-column: 1;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding-top: 2px;
+    color: var(--fiix-cyan);
+  }
+
+  header nav .nav-sections .default-content-wrapper > ul > li.nav-drop-grouped .nav-col > ul > li > .nav-item-main {
+    grid-column: 2;
+    display: block;
+  }
+
+  /* Title line: link + badge share one row (D1/D2 — badge never wraps below) */
+  header nav .nav-sections .default-content-wrapper > ul > li.nav-drop-grouped .nav-item-title {
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+    line-height: 1.3;
+  }
+
+  header nav .nav-sections .default-content-wrapper > ul > li.nav-drop-grouped .nav-item-desc {
+    display: block;
+    margin-top: 2px;
+  }
+
+  /* D1/D2: FEATURED / NEW badge pill (source #ffe01b / #151b26 / 10px 500) */
   header nav .nav-sections .default-content-wrapper > ul > li.nav-drop-grouped .nav-badge {
     display: inline-block;
-    margin-left: 6px;
+    flex: 0 0 auto;
+    align-self: center;
     padding: 2px 5px;
     font-family: sofia-pro, var(--body-font-family, sans-serif);
     font-size: 10px;
@@ -393,8 +425,7 @@ header nav .nav-sections a:hover { color: var(--fiix-hover); }
     line-height: 1.4;
     color: var(--fiix-badge-text);
     background-color: var(--fiix-badge-bg);
-    border-radius: 0;
-    vertical-align: middle;
+    border-radius: 2px;
   }
 
   /* E1: Features column renders its list as two sub-columns */
@@ -404,13 +435,35 @@ header nav .nav-sections a:hover { color: var(--fiix-hover); }
     column-gap: 40px;
   }
 
-  /* F1/G1: Download + More-industry links — dark text with trailing arrow */
-  header nav .nav-sections .default-content-wrapper > ul > li.nav-drop-grouped .nav-col > ul > li.nav-link-download > a::after {
+  /* F1/G1: Download + More-industry links — blue, no icon, arrow after */
+  header nav .nav-sections .default-content-wrapper > ul > li.nav-drop-grouped .nav-col > ul > li.nav-link-download,
+  header nav .nav-sections .default-content-wrapper > ul > li.nav-drop-grouped .nav-col > ul > li.nav-link-more {
+    grid-template-columns: 1fr;
+  }
+
+  header nav .nav-sections .default-content-wrapper > ul > li.nav-drop-grouped .nav-col > ul > li.nav-link-download > .nav-item-main,
+  header nav .nav-sections .default-content-wrapper > ul > li.nav-drop-grouped .nav-col > ul > li.nav-link-more > .nav-item-main {
+    grid-column: 1 / -1;
+  }
+
+  header nav .nav-sections .default-content-wrapper > ul > li.nav-drop-grouped .nav-col > ul > li.nav-link-download > .nav-item-icon,
+  header nav .nav-sections .default-content-wrapper > ul > li.nav-drop-grouped .nav-col > ul > li.nav-link-more > .nav-item-icon {
+    display: none;
+  }
+
+  header nav .nav-sections .default-content-wrapper > ul > li.nav-drop-grouped .nav-col > ul > li.nav-link-download a,
+  header nav .nav-sections .default-content-wrapper > ul > li.nav-drop-grouped .nav-col > ul > li.nav-link-more a {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--fiix-link-blue);
+  }
+
+  header nav .nav-sections .default-content-wrapper > ul > li.nav-drop-grouped .nav-col > ul > li.nav-link-download a::after {
     content: '↓';
     margin-left: 6px;
   }
 
-  header nav .nav-sections .default-content-wrapper > ul > li.nav-drop-grouped .nav-col > ul > li.nav-link-more > a::after {
+  header nav .nav-sections .default-content-wrapper > ul > li.nav-drop-grouped .nav-col > ul > li.nav-link-more a::after {
     content: '→';
     margin-left: 6px;
   }
