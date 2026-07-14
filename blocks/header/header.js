@@ -179,8 +179,14 @@ export default async function decorate(block) {
           navItem.classList.add('nav-drop-grouped');
           groups.forEach((g) => {
             g.classList.add('nav-col');
-            // Column heading text is the first text node before the nested <ul>.
-            const heading = ((g.firstChild && g.firstChild.textContent) || '').trim();
+            // Column heading is the text before the nested <ul>. Read every
+            // non-<ul> child (text node or <p>) so DA whitespace/<p> wrapping
+            // doesn't hide it — a bare firstChild check missed it on delivery.
+            const heading = [...g.childNodes]
+              .filter((n) => n.nodeName !== 'UL')
+              .map((n) => n.textContent)
+              .join(' ')
+              .trim();
             // "Features" renders as two sub-columns (matches TARGET).
             if (/^Features$/i.test(heading)) g.classList.add('nav-col-split');
             // Per-item structure: icon (col 1) + a main block (col 2) that
