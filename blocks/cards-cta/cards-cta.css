@@ -1,59 +1,120 @@
+/*
+ * cards-cta — dual call-to-action panels.
+ * Values extracted from the source (fiixsoftware.com .bottom-cta-double).
+ * Mobile-first: panels stack on small screens, sit side-by-side at >= 900px.
+ */
+
 .cards-cta {
-  display: grid;
-  grid-template-columns: 1fr;
+  display: flex;
+  flex-direction: column;
   gap: 24px;
+}
+
+.cards-cta .cards-cta-panel {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 32px;
+  text-align: center;
+  background-color: #f7f7f7;
+
+  /* let the decorative triangle spill past the panel edges, as in source */
+  overflow: visible;
+}
+
+/* Decorative triangle graphic — absolutely positioned so it overflows the
+   top-left corner of the panel like the source. It sits behind the copy. */
+.cards-cta .cards-cta-figure {
+  position: absolute;
+  top: -20px;
+  left: -20px;
+  z-index: 0;
+  margin: 0;
+  pointer-events: none;
+}
+
+.cards-cta .cards-cta-figure img {
+  display: block;
+  width: 90px;
+  height: auto;
+}
+
+/* Body sits above the decorative shape */
+.cards-cta .cards-cta-body {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.cards-cta .cards-cta-body h3 {
+  margin: 0 0 20px;
+  color: #212021;
+  font-size: 34px;
+  line-height: 1.1;
+  font-weight: 700;
+}
+
+.cards-cta .cards-cta-body p {
+  margin: 0 0 20px;
+  color: #212021;
+  font-size: 20px;
+  line-height: 1.7;
+  font-weight: 300;
+}
+
+.cards-cta .cards-cta-body p:last-child {
+  margin-bottom: 0;
+}
+
+/* CTA button — Fiix purple pill, matching the source (#635ce8). */
+.cards-cta a.cards-cta-button:any-link {
+  display: inline-block;
+  margin: 10px 0 0;
+  padding: 8px 20px;
+  border: 2px solid #635ce8;
+  border-radius: 27px;
+  background-color: #635ce8;
+  color: #fff;
+  font-size: 20px;
+  line-height: 1.7;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.cards-cta a.cards-cta-button:hover,
+.cards-cta a.cards-cta-button:focus-visible {
+  border-color: #4f48d6;
+  background-color: #4f48d6;
+  color: #fff;
+  text-decoration: none;
 }
 
 @media (width >= 900px) {
   .cards-cta {
-    grid-template-columns: 1fr 1fr;
-    gap: 32px;
+    flex-direction: row;
+    gap: 48px;
   }
-}
 
-.cards-cta .cards-cta-panel {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 12px;
-  padding: 40px;
-  border-radius: 12px;
-  background-color: var(--light-color, #f4f7fb);
-}
+  .cards-cta .cards-cta-panel {
+    flex: 1 1 0;
+    padding: 60px;
+  }
 
-.cards-cta .cards-cta-figure img {
-  width: 64px;
-  height: auto;
-}
+  .cards-cta .cards-cta-figure {
+    top: 40px;
+    left: -40px;
+  }
 
-.cards-cta .cards-cta-body {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 12px;
-}
+  .cards-cta .cards-cta-figure img {
+    width: 110px;
+  }
 
-.cards-cta .cards-cta-body h3 {
-  margin: 0;
-  font-size: 28px;
-  line-height: 1.2;
-}
-
-.cards-cta .cards-cta-body p {
-  margin: 0;
-}
-
-.cards-cta a.cards-cta-button {
-  display: inline-block;
-  margin-top: 8px;
-  padding: 12px 28px;
-  border-radius: 40px;
-  background-color: var(--fiix-blue, rgb(20 73 154));
-  color: #fff;
-  font-weight: 600;
-  text-decoration: none;
-}
-
-.cards-cta a.cards-cta-button:hover {
-  opacity: 0.92;
+  .cards-cta .cards-cta-body h3 {
+    margin-bottom: 30px;
+    font-size: 48px;
+  }
 }

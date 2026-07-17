@@ -1,27 +1,82 @@
+/* cards-video — two side-by-side video thumbnail cards with caption + "Watch now" link.
+   Values extracted from source (fiixsoftware.com "See how" section). */
+
 .cards-video > ul {
   list-style: none;
   margin: 0;
   padding: 0;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(257px, 1fr));
-  gap: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
 }
 
 .cards-video > ul > li {
-  border: 1px solid #dadada;
   background-color: var(--background-color);
+  width: 100%;
+  max-width: 380px;
+  cursor: pointer;
 }
 
-.cards-video .cards-video-card-body {
-  margin: 16px;
-}
-
+/* image / thumbnail (play overlay is baked into the source PNG) */
 .cards-video .cards-video-card-image {
   line-height: 0;
 }
 
+.cards-video .cards-video-card-image picture {
+  display: block;
+}
+
 .cards-video > ul > li img {
+  display: block;
   width: 100%;
-  aspect-ratio: 4 / 3;
+  aspect-ratio: 16 / 9;
   object-fit: cover;
+}
+
+/* caption + watch link */
+.cards-video .cards-video-card-body {
+  text-align: center;
+}
+
+.cards-video .cards-video-card-body p {
+  margin: 0;
+}
+
+/* caption paragraph */
+.cards-video .cards-video-card-body p:first-child {
+  font-size: 20px;
+  font-weight: 300;
+  line-height: 34px;
+  color: #212021;
+  margin: 16px 0 24px;
+}
+
+/* "Watch now" link (last paragraph in the card body) */
+.cards-video .cards-video-card-body p:last-child {
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.2;
+  color: #14499a;
+}
+
+.cards-video .cards-video-card-body p:last-child::after {
+  content: "";
+  display: inline-block;
+  width: 0.9em;
+  height: 0.7em;
+  margin-left: 0.4em;
+  background-color: currentcolor;
+  vertical-align: middle;
+  mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11h12.17l-5.59-5.59L12 4l8 8-8 8-1.41-1.41L16.17 13H4z"/></svg>') no-repeat center / contain;
+}
+
+/* desktop: two cards side by side */
+@media (width >= 900px) {
+  .cards-video > ul {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 60px;
+  }
 }

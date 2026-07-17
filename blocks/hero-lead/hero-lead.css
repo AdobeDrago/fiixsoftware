@@ -1,47 +1,244 @@
+/* ============================================================
+   hero-lead: two-column lead hero (Fiix home page).
+   Left column: headline, subheading, email-capture form, a
+   supporting line and three stat metrics. Right column: the
+   product screenshot. Values extracted from fiixsoftware.com.
+   ============================================================ */
+
+/* Let the hero span the section width; center its own inner grid. */
 .hero-lead-container .hero-lead-wrapper {
   max-width: unset;
   padding: 0;
 }
 
 .hero-lead {
-  position: relative;
-  padding: 40px 24px;
-  min-height: 300px;
-}
+  --hero-lead-ink: #212021;
+  --hero-lead-cta-bg: #14499a;
+  --hero-lead-cta-bg-hover: #0f3877;
 
-.hero-lead h1,
-.hero-lead h2,
-.hero-lead h3,
-.hero-lead h4,
-.hero-lead h5,
-.hero-lead h6,
-.hero-lead p {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
   max-width: 1200px;
-  margin-left: auto;
-  margin-right: auto;
-  color: var(--background-color);
+  margin: 0 auto;
+  padding: 32px 24px;
+  color: var(--hero-lead-ink);
 }
 
-.hero-lead.no-image * {
-  color: var(--text-color);
+/* rows */
+.hero-lead > div {
+  margin: 0;
 }
 
-.hero-lead picture {
-  position: absolute;
-  z-index: -1;
-  inset: 0;
-  object-fit: cover;
+/* --- content column ------------------------------------------------ */
+.hero-lead .hero-lead-content {
+  max-width: 600px;
+}
+
+.hero-lead .hero-lead-content h1 {
+  margin: 0 0 20px;
+  font-size: 40px;
+  font-weight: 700;
+  line-height: 1.1;
+  color: var(--hero-lead-ink);
+}
+
+.hero-lead .hero-lead-content h2 {
+  margin: 0 0 20px;
+  font-size: 20px;
+  font-weight: 300;
+  line-height: 1.1;
+  color: var(--hero-lead-ink);
+}
+
+/* --- email-capture form ------------------------------------------- */
+.hero-lead .hero-lead-form {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px;
+  margin: 20px 0;
+}
+
+.hero-lead .hero-lead-input {
   box-sizing: border-box;
+  width: 300px;
+  max-width: 100%;
+  height: 38px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #fff;
+  color: #000;
+  font-family: var(--body-font-family);
+  font-size: 16px;
+  line-height: 1.2;
 }
 
-.hero-lead img {
-  object-fit: cover;
+.hero-lead .hero-lead-cta {
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 10px 20px;
+  border: 0;
+  border-radius: 40px;
+  background-color: var(--hero-lead-cta-bg);
+  color: #fff;
+  font-family: var(--body-font-family);
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.2;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.hero-lead .hero-lead-cta:hover,
+.hero-lead .hero-lead-cta:focus-visible {
+  background-color: var(--hero-lead-cta-bg-hover);
+}
+
+/* secondary "Request a demo" link stays understated */
+.hero-lead .hero-lead-content > p:not(.hero-lead-support) a {
+  color: var(--fiix-blue);
+  font-size: 16px;
+}
+
+/* --- supporting line ---------------------------------------------- */
+.hero-lead .hero-lead-support {
+  margin: 20px 0;
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 1.7;
+  color: var(--hero-lead-ink);
+}
+
+/* --- stat metrics -------------------------------------------------- */
+.hero-lead .hero-lead-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin: 0;
+}
+
+.hero-lead .hero-lead-stat {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  width: 150px;
+  padding: 10px 15px;
+  border-radius: 8px;
+  background-color: var(--light-color);
+}
+
+.hero-lead .hero-lead-stat-arrow {
+  flex: 0 0 auto;
+  position: relative;
+  width: 16px;
+  height: 16px;
+  border: 1.5px solid var(--fiix-green);
+  border-radius: 50%;
+}
+
+/* down arrow drawn with borders, centered in the green circle */
+.hero-lead .hero-lead-stat-arrow::before {
+  content: "";
+  position: absolute;
+  top: 3px;
+  left: 50%;
+  width: 1.5px;
+  height: 5px;
+  background-color: var(--fiix-green);
+  transform: translateX(-50%);
+}
+
+.hero-lead .hero-lead-stat-arrow::after {
+  content: "";
+  position: absolute;
+  top: 5px;
+  left: 50%;
+  width: 5px;
+  height: 5px;
+  border-right: 1.5px solid var(--fiix-green);
+  border-bottom: 1.5px solid var(--fiix-green);
+  transform: translateX(-50%) rotate(45deg);
+}
+
+.hero-lead .hero-lead-stat-label {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 1.3;
+  color: var(--hero-lead-ink);
+}
+
+.hero-lead .hero-lead-stat-label strong {
+  font-weight: 700;
+}
+
+/* --- product image ------------------------------------------------- */
+.hero-lead .hero-lead-media {
+  margin: 0;
+}
+
+.hero-lead .hero-lead-media picture {
+  display: block;
+}
+
+.hero-lead .hero-lead-media img {
+  display: block;
   width: 100%;
-  height: 100%;
+  height: auto;
+  object-fit: contain;
 }
 
+/* --- desktop: two columns side by side ----------------------------- */
 @media (width >= 900px) {
   .hero-lead {
-    padding: 40px 32px;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+    padding: 48px 32px;
+  }
+
+  .hero-lead > div {
+    margin: 0;
+  }
+
+  /* the flex items are the two authored rows (each holds one cell);
+     row holding the content sits on the left */
+  .hero-lead > div:has(.hero-lead-content) {
+    display: flex;
+    order: 1;
+    flex: 1 1 600px;
+  }
+
+  /* row holding the product screenshot sits on the right */
+  .hero-lead > div:has(.hero-lead-media) {
+    display: flex;
+    order: 2;
+    flex: 0 0 420px;
+    max-width: 40%;
+    justify-content: flex-end;
+  }
+
+  .hero-lead .hero-lead-content {
+    flex: 1 1 auto;
+  }
+
+  .hero-lead .hero-lead-content h1 {
+    font-size: 48px;
+  }
+
+  .hero-lead .hero-lead-media {
+    width: 100%;
+  }
+
+  .hero-lead .hero-lead-media img {
+    width: 420px;
+    max-width: 100%;
+    margin-left: auto;
   }
 }

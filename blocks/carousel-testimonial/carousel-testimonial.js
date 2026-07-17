@@ -68,6 +68,63 @@ function bindEvents(block) {
   });
 }
 
+/**
+ * Adds styling hooks so the author (headshot + name/role) and company logo
+ * render as a card footer. Purely structural regrouping for CSS -- it does not
+ * read new content or alter carousel rotation logic.
+ * @param {Element} slide the decorated slide (li)
+ */
+function decorateTestimonialCard(slide) {
+  const imageCol = slide.querySelector('.carousel-testimonial-slide-image');
+  const content = slide.querySelector('.carousel-testimonial-slide-content');
+  if (!content) return;
+
+  const paragraphs = [...content.querySelectorAll(':scope > p')];
+  // A paragraph whose only meaningful child is a picture/img is the company logo.
+  const logoParagraph = paragraphs.find(
+    (p) => p.querySelector('picture, img') && p.textContent.trim() === '',
+  );
+  // Remaining text paragraphs: [result, quote, name, role]. The last two text
+  // paragraphs (if present) form the author name + role.
+  const textParagraphs = paragraphs.filter((p) => p !== logoParagraph);
+  const n = textParagraphs.length;
+  const roleParagraph = n >= 1 ? textParagraphs[n - 1] : null;
+  const nameParagraph = n >= 2 ? textParagraphs[n - 2] : null;
+
+  if (!nameParagraph && !imageCol && !logoParagraph) return;
+
+  const footer = document.createElement('div');
+  footer.classList.add('carousel-testimonial-slide-footer');
+
+  const author = document.createElement('div');
+  author.classList.add('carousel-testimonial-slide-author');
+  if (imageCol) {
+    imageCol.classList.add('carousel-testimonial-slide-headshot');
+    author.append(imageCol);
+  }
+  if (nameParagraph || roleParagraph) {
+    const meta = document.createElement('div');
+    meta.classList.add('carousel-testimonial-slide-author-meta');
+    if (nameParagraph) {
+      nameParagraph.classList.add('carousel-testimonial-slide-author-name');
+      meta.append(nameParagraph);
+    }
+    if (roleParagraph) {
+      roleParagraph.classList.add('carousel-testimonial-slide-author-role');
+      meta.append(roleParagraph);
+    }
+    author.append(meta);
+  }
+  footer.append(author);
+
+  if (logoParagraph) {
+    logoParagraph.classList.add('carousel-testimonial-slide-logo');
+    footer.append(logoParagraph);
+  }
+
+  content.append(footer);
+}
+
 function createSlide(row, slideIndex, carouselId) {
   const slide = document.createElement('li');
   slide.dataset.slideIndex = slideIndex;
@@ -83,6 +140,8 @@ function createSlide(row, slideIndex, carouselId) {
   if (labeledBy) {
     slide.setAttribute('aria-labelledby', labeledBy.getAttribute('id'));
   }
+
+  decorateTestimonialCard(slide);
 
   return slide;
 }
