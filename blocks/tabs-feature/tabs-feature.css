@@ -1,57 +1,160 @@
+/* ============================================================
+   Tabs Feature — Fiix "feature switcher" / "insights switcher"
+   A horizontal row of tab labels with an active-tab underline,
+   and a two-column active panel: text (left) + screenshot (right).
+   Works for both instances on the home page.
+   ============================================================ */
+
+/* ---- Tab list (the row of labels) ---- */
 .tabs-feature .tabs-feature-list {
   display: flex;
-  gap: 0.5ch;
-  max-width: 100%;
-  font-size: var(--body-font-size-xs);
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  gap: 16px;
+  margin: 0 0 32px;
+  padding: 0 0 18px;
+  border-bottom: 1px solid rgb(157 159 162);
   overflow-x: auto;
 }
 
-@media (width >= 600px) {
-  .tabs-feature .tabs-feature-list {
-    font-size: var(--body-font-size-s);
-  }
-}
-
-@media (width >= 900px) {
-  .tabs-feature .tabs-feature-list {
-    font-size: var(--body-font-size-m);
-  }
-}
-
 .tabs-feature .tabs-feature-list button {
-  flex: 0 0 max-content;
+  flex: 0 1 auto;
   margin: 0;
-  border: 1px solid #dadada;
+  border: 0;
+  border-bottom: 5px solid transparent;
   border-radius: 0;
-  padding: 0.5em;
-  background-color: var(--light-color);
-  color: initial;
-  font-weight: bold;
-  line-height: unset;
-  text-align: initial;
-  text-overflow: unset;
-  overflow: unset;
-  white-space: unset;
-  transition: background-color 0.2s;
+  padding: 0 0 17px;
+  background-color: transparent;
+  color: #414042;
+  font-family: var(--body-font-family);
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 1.7;
+  text-align: left;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: color 0.2s, border-color 0.2s;
 }
 
 .tabs-feature .tabs-feature-list button p {
   margin: 0;
 }
 
-.tabs-feature .tabs-feature-list button[aria-selected='true'] {
-  border-bottom: 1px solid var(--background-color);
-  background-color: var(--background-color);
-  cursor: initial;
+.tabs-feature .tabs-feature-list button:hover {
+  color: #212021;
 }
 
+.tabs-feature .tabs-feature-list button[aria-selected='true'] {
+  color: #212021;
+  font-weight: 700;
+  border-bottom-color: #635ce8;
+  cursor: default;
+}
+
+/* ---- Active panel ---- */
 .tabs-feature .tabs-feature-panel {
-  margin-top: -1px;
-  padding: 24px;
-  border: 1px solid #dadada;
-  overflow: auto;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  overflow: visible;
 }
 
 .tabs-feature .tabs-feature-panel[aria-hidden='true'] {
   display: none;
+}
+
+/* the single content div inside each panel holds text + media */
+.tabs-feature .tabs-feature-panel > div {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+/* headline */
+.tabs-feature .tabs-feature-panel h4 {
+  margin: 0 0 20px;
+  color: #212021;
+  font-family: var(--heading-font-family);
+  font-size: var(--heading-font-size-xl);
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+/* description + supporting paragraphs */
+.tabs-feature .tabs-feature-panel > div > p {
+  margin: 0 0 20px;
+  color: #212021;
+  font-size: 20px;
+  font-weight: 300;
+  line-height: 1.7;
+}
+
+/* CTA link (arrow-style inline link, dark blue) */
+.tabs-feature .tabs-feature-panel .tabs-feature-cta a {
+  color: #14499a;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.tabs-feature .tabs-feature-panel .tabs-feature-cta a:hover {
+  text-decoration: underline;
+}
+
+/* stat / quote note — smaller, lighter, separated by a divider */
+.tabs-feature .tabs-feature-panel .tabs-feature-note {
+  margin: 0;
+  padding-top: 20px;
+  border-top: 1px solid rgb(157 159 162);
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+/* media paragraph (holds the screenshot) */
+.tabs-feature .tabs-feature-panel .tabs-feature-media {
+  margin: 24px 0 0;
+  padding: 0;
+}
+
+.tabs-feature .tabs-feature-panel .tabs-feature-media picture,
+.tabs-feature .tabs-feature-panel .tabs-feature-media img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* raw .mp4 links have no real media asset locally — de-emphasize so
+   they don't look like a broken CTA (still present/accessible in DOM) */
+.tabs-feature .tabs-feature-panel p a[href$='.mp4'] {
+  display: inline-block;
+  color: var(--dark-color);
+  font-size: 14px;
+  font-weight: 300;
+  word-break: break-all;
+}
+
+/* ---- Desktop: two-column panel (text left, media right) ---- */
+@media (width >= 900px) {
+  .tabs-feature .tabs-feature-panel > div {
+    display: grid;
+    grid-template-columns: minmax(0, 550px) minmax(0, 1fr);
+    column-gap: 50px;
+    align-items: start;
+  }
+
+  /* text elements stack in the left column */
+  .tabs-feature .tabs-feature-panel > div > * {
+    grid-column: 1;
+  }
+
+  /* media spans the right column, vertically centered */
+  .tabs-feature .tabs-feature-panel .tabs-feature-media {
+    grid-column: 2;
+    grid-row: 1 / 100;
+    align-self: center;
+    margin: 0;
+  }
+
+  .tabs-feature .tabs-feature-panel h4 {
+    font-size: 44px;
+  }
 }

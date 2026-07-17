@@ -1,5 +1,13 @@
+/* Block: carousel-testimonial -- testimonial card carousel
+   Visual values extracted from source (fiixsoftware.com .item card, 1440px). */
+
+.carousel-testimonial {
+  --carousel-testimonial-ink: rgb(33 32 33);
+}
+
 .carousel-testimonial .carousel-testimonial-slides-container {
   position: relative;
+  padding-bottom: 64px;
 }
 
 .carousel-testimonial .carousel-testimonial-slides,
@@ -11,6 +19,8 @@
 
 .carousel-testimonial .carousel-testimonial-slides {
   display: flex;
+  gap: 24px;
+  padding: 12px 4px;
   scroll-behavior: smooth;
   scroll-snap-type: x mandatory;
   overflow: scroll clip;
@@ -20,82 +30,136 @@
   display: none;
 }
 
+/* ---- Card ---- */
 .carousel-testimonial .carousel-testimonial-slide {
   flex: 0 0 100%;
   scroll-snap-align: start;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  justify-content: center;
   position: relative;
-  width: 100%;
-  min-height: min(50vw, calc(100dvh - var(--header-height)));
+  box-sizing: border-box;
+  background-color: #fff;
+  color: var(--carousel-testimonial-ink);
+  border-radius: 30px;
+  box-shadow: 3px 3px 25px 0 rgb(0 0 0 / 12%);
+  padding: 30px;
 }
 
-.carousel-testimonial .carousel-testimonial-slide:has(.carousel-testimonial-slide-content[data-align='center']) {
-  align-items: center;
-}
-
-.carousel-testimonial .carousel-testimonial-slide:has(.carousel-testimonial-slide-content[data-align='right']) {
-  align-items: flex-end;
-}
-
-.carousel-testimonial .carousel-testimonial-slide .carousel-testimonial-slide-image picture {
-  position: absolute;
-  inset: 0;
-}
-
-.carousel-testimonial .carousel-testimonial-slide .carousel-testimonial-slide-image picture > img {
-  height: 100%;
-  width: 100%;
-  object-fit: cover;
-}
-
-.carousel-testimonial .carousel-testimonial-slide .carousel-testimonial-slide-content {
-  z-index: 1;
-  margin: 68px;
-  padding: 16px;
-  color: white;
-  background-color: rgb(19 19 19 / 75%);
-  position: relative;
-  width: var(--slide-content-width, auto);
-}
-
-.carousel-testimonial .carousel-testimonial-slide-indicators {
+/* The headshot column is relocated into the footer by the block JS; the
+   remaining content column is the full card body. */
+.carousel-testimonial .carousel-testimonial-slide-content {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 6px 12px;
-  padding: 12px;
-  background-color: var(--light-color);
-  line-height: 0;
+  flex-direction: column;
+  height: 100%;
 }
 
-.carousel-testimonial .carousel-testimonial-slide-indicator button {
-  width: 24px;
-  height: 24px;
-  margin: 0;
-  padding: 0;
-  border-radius: 50%;
-  background-color: #dadada;
-  transition: background-color 0.2s;
+/* ---- Typography ---- */
+.carousel-testimonial .carousel-testimonial-slide-content h3 {
+  margin: 0 0 20px;
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 1.1;
+  color: var(--carousel-testimonial-ink);
 }
 
-.carousel-testimonial .carousel-testimonial-slide-indicator button:disabled,
-.carousel-testimonial .carousel-testimonial-slide-indicator button:hover,
-.carousel-testimonial .carousel-testimonial-slide-indicator button:focus-visible {
-  background-color: var(--text-color);
+/* result sentence = first paragraph */
+.carousel-testimonial .carousel-testimonial-slide-content > p:first-of-type {
+  margin: 0 0 20px;
+  font-size: 20px;
+  font-weight: 300;
+  line-height: 1.7;
+  color: var(--carousel-testimonial-ink);
 }
 
-.carousel-testimonial .carousel-testimonial-navigation-buttons {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  left: 12px;
-  right: 12px;
+/* quote = second paragraph, separated by a hairline divider above it */
+.carousel-testimonial .carousel-testimonial-slide-content > p:nth-of-type(2) {
+  margin: 0 0 20px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border-color);
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 1.7;
+  color: var(--carousel-testimonial-ink);
+}
+
+/* ---- Author + logo footer ---- */
+.carousel-testimonial .carousel-testimonial-slide-footer {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 16px;
+  margin-top: auto;
+}
+
+.carousel-testimonial .carousel-testimonial-slide-author {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+
+.carousel-testimonial .carousel-testimonial-slide-headshot {
+  flex: 0 0 auto;
+  line-height: 0;
+}
+
+.carousel-testimonial .carousel-testimonial-slide-headshot picture,
+.carousel-testimonial .carousel-testimonial-slide-headshot img {
+  display: block;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.carousel-testimonial .carousel-testimonial-slide-author-meta {
+  min-width: 0;
+}
+
+.carousel-testimonial .carousel-testimonial-slide-author-name {
+  margin: 0 0 6px;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.1;
+  color: var(--carousel-testimonial-ink);
+}
+
+.carousel-testimonial .carousel-testimonial-slide-author-role {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 1.1;
+  color: var(--carousel-testimonial-ink);
+}
+
+.carousel-testimonial .carousel-testimonial-slide-logo {
+  flex: 0 0 auto;
+  margin: 0;
+  line-height: 0;
+}
+
+.carousel-testimonial .carousel-testimonial-slide-logo img {
+  width: auto;
+  max-width: 140px;
+  max-height: 60px;
+  object-fit: contain;
+}
+
+/* ---- Slide indicators (hidden -- source uses only prev/next) ---- */
+.carousel-testimonial .carousel-testimonial-slide-indicators {
+  display: none;
+}
+
+/* ---- Prev / next controls: dark circles centered below the cards ---- */
+.carousel-testimonial .carousel-testimonial-navigation-buttons {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
   z-index: 1;
 }
 
@@ -105,25 +169,26 @@
   width: 44px;
   height: 44px;
   margin: 0;
-  border-radius: 50%;
   padding: 0;
-  background-color: rgb(19 19 19 / 25%);
+  border-radius: 50%;
+  background-color: var(--carousel-testimonial-ink);
   transition: background-color 0.2s;
+  cursor: pointer;
 }
 
 .carousel-testimonial .carousel-testimonial-navigation-buttons button:hover,
 .carousel-testimonial .carousel-testimonial-navigation-buttons button:focus-visible {
-  background-color: rgb(19 19 19 / 75%);
+  background-color: #000;
 }
 
 .carousel-testimonial .carousel-testimonial-navigation-buttons button::after {
   display: block;
   content: '';
-  border: 2px solid;
+  border: 2px solid #fff;
   border-bottom: 0;
   border-left: 0;
-  height: 12px;
-  width: 12px;
+  height: 10px;
+  width: 10px;
   position: absolute;
   top: 50%;
   left: calc(50% + 2px);
@@ -135,19 +200,15 @@
   left: calc(50% - 2px);
 }
 
+/* ---- Tablet / desktop: multiple cards visible with a peek of the next ---- */
 @media (width >= 600px) {
-  .carousel-testimonial .carousel-testimonial-navigation-buttons {
-    left: 24px;
-    right: 24px;
+  .carousel-testimonial .carousel-testimonial-slide {
+    flex: 0 0 min(510px, 80%);
   }
+}
 
-  .carousel-testimonial .carousel-testimonial-slide .carousel-testimonial-slide-content {
-    --slide-content-width: calc((100% - 184px) / 2);
-
-    margin: 92px;
-  }
-
-  .carousel-testimonial .carousel-testimonial-slide .carousel-testimonial-slide-content[data-align='justify'] {
-    --slide-content-width: auto;
+@media (width >= 900px) {
+  .carousel-testimonial .carousel-testimonial-slide {
+    flex: 0 0 calc((100% - 48px) / 2.35);
   }
 }
