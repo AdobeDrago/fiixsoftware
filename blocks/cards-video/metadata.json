@@ -1,0 +1,39 @@
+{
+  "variantName": "cards-video",
+  "baseBlock": "cards",
+  "version": "1.0.0",
+  "created": "2026-07-15T00:00:00.000Z",
+  "sourceContext": {
+    "originUrl": "https://fiixsoftware.com/",
+    "originPage": "Fiix home page",
+    "blockPosition": "middle"
+  },
+  "visualCharacteristics": {
+    "colorScheme": "light",
+    "density": "spacious",
+    "purpose": "video-card",
+    "imagePattern": "large"
+  },
+  "contentPattern": {
+    "structure": "large thumbnail image + caption + watch link",
+    "buttonCount": 1,
+    "imageCount": 1
+  },
+  "reuseGuidance": {
+    "suitableFor": [
+      "video/story cards with a large thumbnail + caption + link",
+      "customer-story or resource cards with photographic imagery",
+      "media-forward card grids"
+    ],
+    "notSuitableFor": [
+      "small icon feature grids (use cards-icon)",
+      "text-only feature blurbs (use cards-features)",
+      "pricing plan cards (use cards-pricing)"
+    ]
+  },
+  "usage": {
+    "pagesUsing": ["/index"],
+    "reuseCount": 1,
+    "lastUsed": "2026-07-15T00:00:00.000Z"
+  }
+}

@@ -4,8 +4,8 @@
 /**
  * Transformer: Fiix Software section breaks and section metadata.
  *
- * Reads the section definitions from the pricing-page template
- * (payload.template.sections) and, for each section:
+ * Template-agnostic: reads the section definitions from whatever template is
+ * being imported (payload.template.sections) and, for each section:
  *   - inserts a Section Metadata block carrying section.style, and
  *   - inserts an <hr> section break before every section except the first.
  *
@@ -18,12 +18,19 @@
  * Runs in beforeTransform (before block parsers consume section elements) and
  * inserts the <hr> break and Section Metadata block as SIBLINGS around the
  * anchor. Several section anchors ARE the block source element (e.g.
- * `.pricing-topfeatures` → cards-features), which a parser later replaces via
- * replaceWith; sibling placement keeps the break/metadata intact regardless.
+ * `.pricing-topfeatures` → cards-features on pricing-page, or `.home_header`
+ * → hero-lead on home-page), which a parser later replaces via replaceWith;
+ * sibling placement keeps the break/metadata intact regardless.
  *
- * Expected output for the pricing-page template (8 sections, all styled):
- *   - 7 <hr> section breaks (one before each non-first section)
- *   - 8 Section Metadata blocks (one per styled section)
+ * No per-template code is needed — the section list, selectors, and styles all
+ * come from payload.template.sections, so both templates are handled by the
+ * same logic:
+ *   - pricing-page (8 styled sections)  → 7 <hr> + 8 Section Metadata
+ *   - home-page    (8 styled sections;
+ *       .home_header, .proof, #feature-container, .seehow, #security,
+ *       .parts-forecaster, .beingused, .coming-to-fiix.bottom-cta-double —
+ *       all verified in the home migration-work/cleaned.html)
+ *                                       → 7 <hr> + 8 Section Metadata
  */
 
 const TransformHook = { beforeTransform: 'beforeTransform', afterTransform: 'afterTransform' };

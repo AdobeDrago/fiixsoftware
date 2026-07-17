@@ -1,0 +1,38 @@
+{
+  "variantName": "tabs-feature",
+  "baseBlock": "tabs",
+  "version": "1.0.0",
+  "created": "2026-07-15T00:00:00.000Z",
+  "sourceContext": {
+    "originUrl": "https://fiixsoftware.com/",
+    "originPage": "Fiix home page",
+    "blockPosition": "middle"
+  },
+  "visualCharacteristics": {
+    "colorScheme": "light",
+    "density": "spacious",
+    "purpose": "feature-showcase",
+    "imagePattern": "large"
+  },
+  "contentPattern": {
+    "structure": "tab labels + per-tab panel (title + headline + description + CTA + note + screenshot image)",
+    "buttonCount": 1,
+    "imageCount": 1
+  },
+  "reuseGuidance": {
+    "suitableFor": [
+      "tabbed feature/product showcases",
+      "switchable content panels with copy + screenshot",
+      "insights/capability explainers with multiple categories"
+    ],
+    "notSuitableFor": [
+      "always-visible content (use default content or columns)",
+      "rotating slideshows (use a carousel)"
+    ]
+  },
+  "usage": {
+    "pagesUsing": ["/index"],
+    "reuseCount": 2,
+    "lastUsed": "2026-07-15T00:00:00.000Z"
+  }
+}

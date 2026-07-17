@@ -1,0 +1,38 @@
+{
+  "variantName": "cards-cta",
+  "baseBlock": "cards",
+  "version": "1.0.0",
+  "created": "2026-07-15T00:00:00.000Z",
+  "sourceContext": {
+    "originUrl": "https://fiixsoftware.com/",
+    "originPage": "Fiix home page",
+    "blockPosition": "bottom"
+  },
+  "visualCharacteristics": {
+    "colorScheme": "light",
+    "density": "spacious",
+    "purpose": "cta-panels",
+    "imagePattern": "decorative"
+  },
+  "contentPattern": {
+    "structure": "side-by-side panels, each with decorative image + heading + text + CTA link",
+    "buttonCount": 2,
+    "imageCount": 2
+  },
+  "reuseGuidance": {
+    "suitableFor": [
+      "two or more side-by-side call-to-action panels",
+      "closing dual-CTA sections with heading + text + button per panel"
+    ],
+    "notSuitableFor": [
+      "single feature/highlight (use a hero or single callout)",
+      "icon feature grids (use cards-icon)",
+      "media/story cards with large thumbnails (use cards-video)"
+    ]
+  },
+  "usage": {
+    "pagesUsing": ["/index"],
+    "reuseCount": 1,
+    "lastUsed": "2026-07-15T00:00:00.000Z"
+  }
+}
