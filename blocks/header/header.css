@@ -2,6 +2,11 @@
 
 :root {
   --fiix-nav-height: 100px;
+
+  /* The nav is position:fixed, so the boilerplate `header { height: var(--nav-height) }`
+     spacer must reserve the real nav height or the main content slides underneath
+     and the hero heading gets clipped. Mobile nav is 100px tall. */
+  --nav-height: 100px;
   --fiix-text: rgb(33 32 33);
   --fiix-blue: rgb(20 73 154);
   --fiix-green: rgb(32 165 30);
@@ -49,6 +54,12 @@ header nav[aria-expanded='true'] {
 
 @media (width >= 900px) {
   header .nav-wrapper { position: fixed; }
+
+  /* Two-tier desktop nav is taller (utility row + main row) — reserve its real
+     height so main content clears the fixed header. */
+  :root {
+    --nav-height: 157px;
+  }
 
   /* Two-tier desktop header: utility row (search + login) sits ABOVE the main
      row (logo, nav links, CTA buttons). Both share the same centered 1200px
