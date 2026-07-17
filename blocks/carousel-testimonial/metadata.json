@@ -1,0 +1,38 @@
+{
+  "variantName": "carousel-testimonial",
+  "baseBlock": "carousel",
+  "version": "1.0.0",
+  "created": "2026-07-15T00:00:00.000Z",
+  "sourceContext": {
+    "originUrl": "https://fiixsoftware.com/",
+    "originPage": "Fiix home page",
+    "blockPosition": "bottom"
+  },
+  "visualCharacteristics": {
+    "colorScheme": "light",
+    "density": "spacious",
+    "purpose": "testimonial",
+    "imagePattern": "large"
+  },
+  "contentPattern": {
+    "structure": "per-slide: headline + result + quote + author (headshot + name + role) + company logo",
+    "buttonCount": 0,
+    "imageCount": 2
+  },
+  "reuseGuidance": {
+    "suitableFor": [
+      "rotating customer testimonial/quote carousels",
+      "case-study highlight sliders with author + logo",
+      "social-proof carousels with prev/next controls"
+    ],
+    "notSuitableFor": [
+      "always-visible content (use cards or columns)",
+      "tabbed content switchers (use tabs)"
+    ]
+  },
+  "usage": {
+    "pagesUsing": ["/index"],
+    "reuseCount": 1,
+    "lastUsed": "2026-07-15T00:00:00.000Z"
+  }
+}

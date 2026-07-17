@@ -183,6 +183,172 @@
           "defaultContent": []
         }
       ]
+    },
+    {
+      "name": "home-page",
+      "urls": [
+        "https://fiixsoftware.com/"
+      ],
+      "representativeUrl": "https://fiixsoftware.com/",
+      "coverageGaps": [],
+      "description": "Fiix home page: lead hero with email form + stats, customer logo strip, feature tabs, video cards, security icons, insights tabs, testimonial carousel, and dual CTA panels. Header and footer are shared fragments.",
+      "blocks": [
+        {
+          "name": "hero-lead",
+          "instances": [
+            ".home_header"
+          ]
+        },
+        {
+          "name": "columns-logos",
+          "instances": [
+            ".proof"
+          ]
+        },
+        {
+          "name": "tabs-feature",
+          "instances": [
+            "#feature-container",
+            ".parts-forecaster"
+          ]
+        },
+        {
+          "name": "cards-video",
+          "instances": [
+            ".seehow"
+          ]
+        },
+        {
+          "name": "cards-icon",
+          "instances": [
+            "#security"
+          ]
+        },
+        {
+          "name": "carousel-testimonial",
+          "instances": [
+            ".beingused"
+          ]
+        },
+        {
+          "name": "cards-cta",
+          "instances": [
+            ".coming-to-fiix.bottom-cta-double"
+          ]
+        }
+      ],
+      "sections": [
+        {
+          "id": "hero",
+          "name": "Hero",
+          "selector": [
+            ".home_header"
+          ],
+          "style": "home-hero",
+          "blocks": [
+            "hero-lead"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "logo-strip",
+          "name": "Customer logos",
+          "selector": [
+            ".proof"
+          ],
+          "style": "logos",
+          "blocks": [
+            "columns-logos"
+          ],
+          "defaultContent": [
+            ".proof h2"
+          ]
+        },
+        {
+          "id": "feature-tabs",
+          "name": "Feature tabs",
+          "selector": [
+            "#feature-container"
+          ],
+          "style": "feature-tabs",
+          "blocks": [
+            "tabs-feature"
+          ],
+          "defaultContent": [
+            "#feature-container h2"
+          ]
+        },
+        {
+          "id": "video-cards",
+          "name": "Video cards",
+          "selector": [
+            ".seehow"
+          ],
+          "style": "video-cards",
+          "blocks": [
+            "cards-video"
+          ],
+          "defaultContent": [
+            ".seehow h2"
+          ]
+        },
+        {
+          "id": "security-icons",
+          "name": "Security",
+          "selector": [
+            "#security"
+          ],
+          "style": "security",
+          "blocks": [
+            "cards-icon"
+          ],
+          "defaultContent": [
+            "#security h2",
+            "#security > p"
+          ]
+        },
+        {
+          "id": "insights-tabs",
+          "name": "Insights tabs",
+          "selector": [
+            ".parts-forecaster"
+          ],
+          "style": "insights-tabs",
+          "blocks": [
+            "tabs-feature"
+          ],
+          "defaultContent": [
+            ".parts-forecaster h2",
+            ".parts-forecaster > p"
+          ]
+        },
+        {
+          "id": "testimonial-carousel",
+          "name": "Testimonial carousel",
+          "selector": [
+            ".beingused"
+          ],
+          "style": "testimonials",
+          "blocks": [
+            "carousel-testimonial"
+          ],
+          "defaultContent": [
+            ".beingused h2"
+          ]
+        },
+        {
+          "id": "dual-cta",
+          "name": "Dual CTA",
+          "selector": [
+            ".coming-to-fiix.bottom-cta-double"
+          ],
+          "style": "dual-cta",
+          "blocks": [
+            "cards-cta"
+          ],
+          "defaultContent": []
+        }
+      ]
     }
   ]
 }

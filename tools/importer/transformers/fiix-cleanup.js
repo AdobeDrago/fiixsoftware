@@ -22,6 +22,20 @@
  *   - #copyright                   footer copyright bar         (cleaned.html:3595)
  * (No Drift chat widget and no <script>/<style>/<noscript> nodes remain in the
  * scraped HTML, so no selectors are emitted for those.)
+ *
+ * Home page (https://fiixsoftware.com/) additions, verified against the
+ * home-page migration-work/cleaned.html:
+ *   - #mobile-navigation           standalone mobile menu nav   (cleaned.html:519)
+ *     The mobile menu <nav id="mobile-navigation"> is a SIBLING of #mobile-header
+ *     (it sits after the #mobile-header div closes and before #page-wrap), so it
+ *     is NOT covered by the #mobile-header selector above. It is the collapsed
+ *     mobile site navigation — non-authorable shared chrome — and is removed
+ *     here so the imported home page keeps only #page-wrap content. Both of the
+ *     site's <nav> elements are chrome: the desktop <nav> lives inside
+ *     header.siteHeader (removed above) and this mobile <nav> is removed here.
+ *     The hero's .home_header > .header.container > .header-flex wrapper is the
+ *     hero CONTENT wrapper (headline, subheading, email form, stat metrics, hero
+ *     image), not navigation, so it is intentionally left intact for hero-lead.
  */
 
 const TransformHook = { beforeTransform: 'beforeTransform', afterTransform: 'afterTransform' };
@@ -49,6 +63,7 @@ export default function transform(hookName, element, payload) {
     WebImporter.DOMUtils.remove(element, [
       'header.siteHeader',
       '#mobile-header',
+      '#mobile-navigation',
       '#footer',
       '#copyright',
       'iframe',

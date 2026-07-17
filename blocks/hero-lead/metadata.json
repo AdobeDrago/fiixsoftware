@@ -1,0 +1,39 @@
+{
+  "variantName": "hero-lead",
+  "baseBlock": "hero",
+  "version": "1.0.0",
+  "created": "2026-07-15T00:00:00.000Z",
+  "sourceContext": {
+    "originUrl": "https://fiixsoftware.com/",
+    "originPage": "Fiix home page",
+    "blockPosition": "top"
+  },
+  "visualCharacteristics": {
+    "colorScheme": "light",
+    "density": "spacious",
+    "purpose": "lead-hero",
+    "imagePattern": "large"
+  },
+  "contentPattern": {
+    "structure": "heading + subheading + lead-capture form + stat metrics + product image",
+    "buttonCount": 1,
+    "imageCount": 1
+  },
+  "reuseGuidance": {
+    "suitableFor": [
+      "home/landing page lead heros with an email/form capture",
+      "heros that pair a headline with supporting stat metrics",
+      "product intro heros with a screenshot alongside copy"
+    ],
+    "notSuitableFor": [
+      "simple closing CTA banners (use hero-cta)",
+      "repeating card grids",
+      "tabbed or carousel content"
+    ]
+  },
+  "usage": {
+    "pagesUsing": ["/index"],
+    "reuseCount": 1,
+    "lastUsed": "2026-07-15T00:00:00.000Z"
+  }
+}
