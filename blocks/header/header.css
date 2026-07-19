@@ -258,12 +258,27 @@ header nav .nav-sections a:hover { color: var(--fiix-hover); }
     margin: 0;
   }
 
+  /* Document Authoring wraps each top-level nav label in a block-level <p>
+     (e.g. <li><p>Product</p><ul>…). Because each top-level <li> is a flex item
+     whose children (the label <p>/<a> and the +/- ::after glyph) are block-level,
+     the glyph would stack BELOW the label and inflate the row. Laying out each
+     <li> as an inline flex row keeps the label and its glyph on one line,
+     vertically centered — matching the source. */
   header nav .nav-sections > ul > li,
   header nav .nav-sections .default-content-wrapper > ul > li {
     position: static;
+    display: inline-flex;
+    align-items: center;
     font-size: 16px;
     font-weight: 500;
     padding: 38px 0;
+    line-height: 1;
+  }
+
+  header nav .nav-sections > ul > li > p,
+  header nav .nav-sections .default-content-wrapper > ul > li > p {
+    display: inline;
+    margin: 0;
     line-height: 1;
   }
 
