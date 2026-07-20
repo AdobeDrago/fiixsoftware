@@ -549,8 +549,10 @@ header nav .nav-tools ul {
   gap: 16px;
 }
 
-/* Search rendered as a magnifying-glass icon (matches Fiix source) */
-header nav .nav-tools a.nav-search {
+/* Search rendered as a magnifying-glass icon (matches Fiix source). The link
+   lives in the utility row on desktop and in nav-tools on mobile, so match it
+   wherever it appears in the header. */
+header nav a.nav-search {
   font-size: 0;
   width: 20px;
   height: 20px;
