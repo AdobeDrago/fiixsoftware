@@ -1,0 +1,38 @@
+{
+  "variantName": "promo-bar",
+  "baseBlock": "promo-bar",
+  "version": "1.0.0",
+  "created": "2026-07-20T00:00:00.000Z",
+  "sourceContext": {
+    "originUrl": "https://fiixsoftware.com/",
+    "originPage": "Fiix home page",
+    "blockPosition": "above-hero"
+  },
+  "visualCharacteristics": {
+    "colorScheme": "light-blue-band",
+    "density": "compact",
+    "purpose": "announcement",
+    "imagePattern": "none"
+  },
+  "contentPattern": {
+    "structure": "single centered message with optional inline link",
+    "buttonCount": 0,
+    "imageCount": 0
+  },
+  "reuseGuidance": {
+    "suitableFor": [
+      "site-wide or page-level announcement bands above the hero",
+      "promo/notification bars with a short message and one link"
+    ],
+    "notSuitableFor": [
+      "multi-column content",
+      "hero sections with imagery",
+      "call-to-action card grids"
+    ]
+  },
+  "usage": {
+    "pagesUsing": ["/index"],
+    "reuseCount": 1,
+    "lastUsed": "2026-07-20T00:00:00.000Z"
+  }
+}

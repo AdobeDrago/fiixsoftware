@@ -1,0 +1,44 @@
+/*
+ * promo-bar — light-blue announcement band (matches fiixsoftware.com Fiix MAX bar).
+ * bg #99dff7, navy text #0c1a2d, centered, 16px/500; link underlined same color.
+ * The band spans full width and sits flush at the top with no vertical margin.
+ * Scoped to the auto-added `promo-bar-container` section so the background is
+ * edge-to-edge without relying on a section-metadata style class.
+ */
+main > .section.promo-bar-container {
+  margin: 0;
+  padding: 0;
+  background-color: #99dff7;
+}
+
+/* neutralize the default centered 1200px wrapper so the band is edge-to-edge */
+main > .section.promo-bar-container > div {
+  max-width: none;
+  margin: 0;
+  padding: 0;
+}
+
+.promo-bar {
+  margin: 0 auto;
+  max-width: 1400px;
+  padding: 10px 24px;
+  color: #0c1a2d;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.4;
+  text-align: center;
+}
+
+.promo-bar p {
+  margin: 0;
+}
+
+.promo-bar a:any-link {
+  color: #0c1a2d;
+  font-weight: 700;
+  text-decoration: underline;
+}
+
+.promo-bar a:hover {
+  text-decoration: none;
+}
