@@ -30,9 +30,10 @@
   --hero-gradient-end: #f4f9ff;
   --border-color: #e2e6ea;
 
-  /* fonts */
-  --body-font-family: roboto, roboto-fallback, sans-serif;
-  --heading-font-family: roboto-condensed, roboto-condensed-fallback, sans-serif;
+  /* fonts — Sofia Pro (Adobe Typekit) matches the live Fiix site; local Roboto
+     faces remain as fallbacks while the Typekit stylesheet loads. */
+  --body-font-family: sofia-pro, roboto, roboto-fallback, sans-serif;
+  --heading-font-family: sofia-pro, roboto, roboto-fallback, sans-serif;
 
   /* body sizes */
   --body-font-size-m: 22px;
