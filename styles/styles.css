@@ -403,3 +403,137 @@ main .section.highlight {
     grid-column: 1 / -1;
   }
 }
+
+/* ============================================================
+   Home "Fiix keeps your maintenance data safe" security section.
+   Production renders a full-bleed navy band with white, centered
+   typography and a 5-across icon row on wide screens. The authored
+   content is a flat sequence (h2, intro, then alternating icon <p>
+   and label <h3>, then the link), so the icons/labels are placed
+   into an explicit grid on desktop/wide; mobile/tablet stack.
+   ============================================================ */
+main .section.security {
+  margin: 0;
+  padding: 100px 0;
+  background: radial-gradient(circle, rgb(24 53 90) 27%, rgb(24 53 90 / 98%) 100%);
+}
+
+.security .default-content-wrapper {
+  text-align: center;
+  color: #fff;
+}
+
+.security h2,
+.security h3,
+.security .default-content-wrapper > p {
+  font-family: sofia-pro, sans-serif;
+  color: #fff;
+  text-align: center;
+}
+
+.security h2 {
+  margin: 0 auto 20px;
+  max-width: 96%;
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 35.2px;
+}
+
+.security h3 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 17.6px;
+}
+
+/* icon paragraphs: hide the accessibility label word, keep the circle */
+.security .default-content-wrapper > p:has(picture) {
+  margin: 0;
+  font-size: 0;
+}
+
+/* closing link line */
+.security .default-content-wrapper > p:has(a) {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 300;
+  line-height: 34px;
+}
+
+.security .default-content-wrapper > p:has(a) a:any-link {
+  color: #fff;
+  font-weight: 700;
+}
+
+/* intro line (first paragraph, no icon/link) */
+.security .default-content-wrapper > p:first-of-type {
+  margin: 0 auto;
+  max-width: 600px;
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 27.2px;
+}
+
+@media (width >= 600px) {
+  .security h2 {
+    max-width: 96%;
+    font-size: 44px;
+    line-height: 48.4px;
+  }
+
+  .security h3 {
+    max-width: 100%;
+  }
+
+  .security .default-content-wrapper > p:first-of-type {
+    margin: 0 45.6px;
+    max-width: 600px;
+    font-size: 20px;
+    line-height: 34px;
+  }
+}
+
+@media (width >= 1200px) {
+  .security .default-content-wrapper {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    place-items: start center;
+    row-gap: 16px;
+  }
+
+  .security h2 {
+    grid-column: 1 / -1;
+    grid-row: 1;
+    margin: 0 auto 20px;
+    line-height: 48.4px;
+  }
+
+  .security h3 {
+    margin: 0 35px;
+    max-width: 170px;
+  }
+
+  .security h3:nth-of-type(1) { grid-area: 4 / 1; }
+  .security h3:nth-of-type(2) { grid-area: 4 / 2; }
+  .security h3:nth-of-type(3) { grid-area: 4 / 3; }
+  .security h3:nth-of-type(4) { grid-area: 4 / 4; }
+  .security h3:nth-of-type(5) { grid-area: 4 / 5; }
+
+  .security .default-content-wrapper > p:has(a) {
+    grid-column: 1 / -1;
+    grid-row: 5;
+    margin: 40px 0 0;
+  }
+
+  .security .default-content-wrapper > p:first-of-type {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    margin: 0 300px;
+  }
+
+  .security .default-content-wrapper > p:nth-of-type(2) { grid-area: 3 / 1; }
+  .security .default-content-wrapper > p:nth-of-type(3) { grid-area: 3 / 2; }
+  .security .default-content-wrapper > p:nth-of-type(4) { grid-area: 3 / 3; }
+  .security .default-content-wrapper > p:nth-of-type(5) { grid-area: 3 / 4; }
+  .security .default-content-wrapper > p:nth-of-type(6) { grid-area: 3 / 5; }
+}
