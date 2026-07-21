@@ -32,22 +32,30 @@
 
 /* --- content column ------------------------------------------------ */
 .hero-lead .hero-lead-content {
-  max-width: 600px;
+  max-width: none;
+  font-family: sofia-pro, sans-serif;
 }
 
 .hero-lead .hero-lead-content h1 {
-  margin: 0 0 20px;
-  font-size: 40px;
+  margin: 0 auto 20px;
+  max-width: 96%;
+  font-family: sofia-pro, sans-serif;
+  font-size: 32px;
   font-weight: 700;
   line-height: 1.1;
+  text-align: center;
   color: var(--hero-lead-ink);
 }
 
 .hero-lead .hero-lead-content h2 {
-  margin: 0 0 20px;
+  margin: 0 auto 20px;
+  max-width: 96%;
+  padding-bottom: 10px;
+  font-family: sofia-pro, sans-serif;
   font-size: 20px;
   font-weight: 300;
   line-height: 1.1;
+  text-align: center;
   color: var(--hero-lead-ink);
 }
 
@@ -99,18 +107,34 @@
   background-color: var(--hero-lead-cta-bg-hover);
 }
 
-/* secondary "Request a demo" link stays understated */
+/* "Request a demo": a filled blue pill on mobile/tablet (desktop reverts
+   it to a plain text link in the desktop media query below). The paragraph
+   is centered so the inline-block button sits centered in the column. */
+.hero-lead .hero-lead-content > p:not(.hero-lead-support):has(a) {
+  text-align: center;
+}
+
 .hero-lead .hero-lead-content > p:not(.hero-lead-support) a {
-  color: var(--fiix-blue);
+  display: inline-block;
+  padding: 5px 17px;
+  border-radius: 40px;
+  background-color: var(--hero-lead-cta-bg);
+  color: #fff;
+  font-family: sofia-pro, sans-serif;
   font-size: 16px;
+  font-weight: 600;
+  line-height: 27.2px;
+  text-align: center;
 }
 
 /* --- supporting line ---------------------------------------------- */
 .hero-lead .hero-lead-support {
   margin: 20px 0;
+  font-family: sofia-pro, sans-serif;
   font-size: 14px;
   font-weight: 300;
   line-height: 1.7;
+  text-align: center;
   color: var(--hero-lead-ink);
 }
 
@@ -126,7 +150,7 @@
   display: flex;
   align-items: flex-start;
   gap: 10px;
-  width: 150px;
+  width: fit-content;
   padding: 10px 15px;
   border-radius: 8px;
   background-color: var(--light-color);
@@ -167,9 +191,11 @@
 
 .hero-lead .hero-lead-stat-label {
   margin: 0;
+  font-family: sofia-pro, sans-serif;
   font-size: 14px;
   font-weight: 300;
   line-height: 1.3;
+  text-align: left;
   color: var(--hero-lead-ink);
 }
 
@@ -191,6 +217,22 @@
   width: 100%;
   height: auto;
   object-fit: contain;
+}
+
+/* --- tablet: wider column, headings left-aligned, button still filled -- */
+@media (width >= 600px) {
+  .hero-lead .hero-lead-content h1 {
+    font-size: 48px;
+    text-align: left;
+  }
+
+  .hero-lead .hero-lead-content h2 {
+    text-align: left;
+  }
+
+  .hero-lead .hero-lead-support {
+    text-align: left;
+  }
 }
 
 /* --- desktop: two columns side by side ----------------------------- */
@@ -230,6 +272,22 @@
 
   .hero-lead .hero-lead-content h1 {
     font-size: 48px;
+  }
+
+  /* desktop: "Request a demo" reverts to a plain understated text link */
+  .hero-lead .hero-lead-content > p:not(.hero-lead-support):has(a) {
+    text-align: left;
+  }
+
+  .hero-lead .hero-lead-content > p:not(.hero-lead-support) a {
+    display: inline;
+    padding: 0;
+    border-radius: 0;
+    background-color: transparent;
+    color: var(--fiix-blue);
+    font-weight: 400;
+    line-height: 1.6;
+    text-align: left;
   }
 
   .hero-lead .hero-lead-media {
