@@ -166,7 +166,16 @@ async function loadEager(doc) {
   if (main) {
     decorateMain(main);
     document.body.classList.add('appear');
-    await loadSection(main.querySelector('.section'), waitForFirstImage);
+    // The LCP image may not be in the very first section (e.g. an announcement
+    // bar precedes the hero), so eager-load every section up to and including
+    // the first one that contains an image.
+    const sections = [...main.querySelectorAll('.section')];
+    const lcpIndex = sections.findIndex((s) => s.querySelector('img'));
+    const lastEager = lcpIndex === -1 ? 0 : lcpIndex;
+    for (let i = 0; i <= lastEager; i += 1) {
+      // eslint-disable-next-line no-await-in-loop
+      await loadSection(sections[i], waitForFirstImage);
+    }
   }
 
   try {
