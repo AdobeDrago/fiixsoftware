@@ -57,12 +57,11 @@ header nav[aria-expanded='true'] {
 @media (width >= 900px) {
   header .nav-wrapper { position: fixed; }
 
-  /* Two-tier desktop nav is taller (utility row + main row) — reserve its real
-     height so main content clears the fixed header. The main-row nav links use
-     a 27.2px line-height, so the rendered nav is 178px tall; the spacer must
-     match or the fixed nav overlaps the first section (e.g. the promo bar). */
+  /* Two-tier desktop header (utility row + main row) is packed into 100px to
+     match production; the spacer reserves that height so main content clears
+     the fixed nav. The mega-menu panel and promo bar both anchor to it. */
   :root {
-    --nav-height: 178px;
+    --nav-height: 100px;
   }
 
   /* Two-tier desktop header: utility row (search + login) sits ABOVE the main
@@ -74,10 +73,10 @@ header nav[aria-expanded='true'] {
       'utility utility utility' auto
       'brand sections tools' auto / auto 1fr auto;
     align-items: center;
-    gap: 6px 28px;
+    gap: 2px 28px;
     max-width: 1200px;
     height: auto;
-    padding: 8px 0 20px;
+    padding: 8px 0 10px;
   }
 
   header nav[aria-expanded='true'] {
@@ -282,7 +281,7 @@ header nav .nav-sections a:hover { color: var(--fiix-hover); }
     align-items: center;
     font-size: 16px;
     font-weight: 300;
-    padding: 38px 0;
+    padding: 6px 0;
     line-height: 27.2px;
   }
 
