@@ -537,3 +537,45 @@ main .section.security {
   .security .default-content-wrapper > p:nth-of-type(5) { grid-area: 3 / 4; }
   .security .default-content-wrapper > p:nth-of-type(6) { grid-area: 3 / 5; }
 }
+
+/* ============================================================
+   Home "Get data from any system…" insights section intro.
+   Production centers the heading + intro above the tabs, with a
+   48px bold headline and a 20px light lead constrained to ~750px.
+   ============================================================ */
+main .section.insights-tabs .default-content-wrapper {
+  max-width: 750px;
+  margin: 0 auto 40px;
+  text-align: center;
+}
+
+main .section.insights-tabs .default-content-wrapper h2 {
+  margin: 0 auto 20px;
+  font-family: sofia-pro, sans-serif;
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 1.1;
+  text-align: center;
+  color: var(--text-color);
+}
+
+main .section.insights-tabs .default-content-wrapper p {
+  margin: 0 auto;
+  font-family: sofia-pro, sans-serif;
+  font-size: 20px;
+  font-weight: 300;
+  line-height: 1.7;
+  text-align: center;
+  color: var(--text-color);
+}
+
+@media (width >= 900px) {
+  main .section.insights-tabs .default-content-wrapper h2 {
+    font-size: 48px;
+    line-height: 52.8px;
+  }
+
+  main .section.insights-tabs .default-content-wrapper p {
+    line-height: 34px;
+  }
+}
