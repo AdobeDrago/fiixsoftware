@@ -26,7 +26,8 @@ header .nav-wrapper {
   width: 100%;
   z-index: 20;
   position: fixed;
-  box-shadow: 0 1px 6px rgb(0 0 0 / 8%);
+  box-shadow: none;
+  font-family: sofia-pro, sans-serif;
 }
 
 header nav {
