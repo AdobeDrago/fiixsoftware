@@ -13,6 +13,7 @@
   --fiix-panel-bg: #fff;
   --fiix-hover: rgb(20 73 154);
   --fiix-cyan: #0e9c94;
+  --fiix-cyan-cta: rgb(0 175 235);
   --fiix-badge-bg: #ffe01b;
   --fiix-badge-text: #151b26;
   --fiix-link-blue: #1650e6;
@@ -40,7 +41,7 @@ header nav {
   max-width: 1264px;
   height: var(--fiix-nav-height);
   padding: 0 24px;
-  font-family: sofia-pro, var(--body-font-family, sans-serif);
+  font-family: sofia-pro, sans-serif;
 }
 
 header nav[aria-expanded='true'] {
@@ -97,11 +98,18 @@ header nav[aria-expanded='true'] {
     padding: 0;
   }
 
-  /* Login link: target is 14px / 500 / dark slate */
+  /* Login link: 16px / 500 / dark slate, 13px side padding (matches source) */
   header nav .nav-utility a.nav-login {
-    font-size: 14px;
+    padding: 0 13px;
+    font-size: 16px;
     font-weight: 500;
+    line-height: 23.8px;
     color: var(--fiix-text);
+  }
+
+  /* Search icon link: 13px side padding to match the source hit area */
+  header nav .nav-utility a.nav-search {
+    padding: 0 13px;
   }
 
   /* main row alignment: logo left, nav after, CTAs right */
@@ -270,16 +278,16 @@ header nav .nav-sections a:hover { color: var(--fiix-hover); }
     display: inline-flex;
     align-items: center;
     font-size: 16px;
-    font-weight: 500;
+    font-weight: 300;
     padding: 38px 0;
-    line-height: 1;
+    line-height: 27.2px;
   }
 
   header nav .nav-sections > ul > li > p,
   header nav .nav-sections .default-content-wrapper > ul > li > p {
     display: inline;
     margin: 0;
-    line-height: 1;
+    line-height: 27.2px;
   }
 
   /* blue "+" indicator on mega-menu triggers (matches Fiix source) */
@@ -337,7 +345,7 @@ header nav .nav-sections a:hover { color: var(--fiix-hover); }
   header nav .nav-sections .default-content-wrapper > ul > li > ul > li {
     margin-bottom: 30px;
     padding: 0;
-    font-family: sofia-pro, var(--body-font-family, sans-serif);
+    font-family: sofia-pro, sans-serif;
     font-weight: 300;
     font-size: 13px;
     color: var(--fiix-text);
@@ -347,7 +355,7 @@ header nav .nav-sections a:hover { color: var(--fiix-hover); }
   /* link title (source: 16px/500, no underline, line-height 27.2px) */
   header nav .nav-sections .default-content-wrapper > ul > li > ul > li a {
     display: block;
-    font-family: sofia-pro, var(--body-font-family, sans-serif);
+    font-family: sofia-pro, sans-serif;
     font-weight: 500;
     font-size: 16px;
     line-height: 1.7;
@@ -378,7 +386,7 @@ header nav .nav-sections a:hover { color: var(--fiix-hover); }
   header nav .nav-sections .default-content-wrapper > ul > li.nav-drop-grouped > ul > li.nav-col {
     margin-bottom: 0;
     padding: 32px 40px;
-    font-family: sofia-pro, var(--body-font-family, sans-serif);
+    font-family: sofia-pro, sans-serif;
     font-weight: 600;
     font-size: 14px;
     color: var(--fiix-text);
@@ -430,7 +438,7 @@ header nav .nav-sections a:hover { color: var(--fiix-hover); }
     align-items: start;
     margin-bottom: 30px;
     padding: 0;
-    font-family: sofia-pro, var(--body-font-family, sans-serif);
+    font-family: sofia-pro, sans-serif;
     font-weight: 300;
     font-size: 13px;
     color: var(--fiix-text);
@@ -440,7 +448,7 @@ header nav .nav-sections a:hover { color: var(--fiix-hover); }
   /* grouped column items: link title (source 16px/500) */
   header nav .nav-sections .default-content-wrapper > ul > li.nav-drop-grouped > ul > li.nav-col > ul > li a {
     display: inline;
-    font-family: sofia-pro, var(--body-font-family, sans-serif);
+    font-family: sofia-pro, sans-serif;
     font-weight: 500;
     font-size: 16px;
     line-height: 1.7;
@@ -483,7 +491,7 @@ header nav .nav-sections a:hover { color: var(--fiix-hover); }
     flex: 0 0 auto;
     align-self: center;
     padding: 2px 5px;
-    font-family: sofia-pro, var(--body-font-family, sans-serif);
+    font-family: sofia-pro, sans-serif;
     font-size: 10px;
     font-weight: 500;
     line-height: 1.4;
@@ -562,13 +570,18 @@ header nav a.nav-search {
   background-position: center;
 }
 
-/* CTA buttons — pill shape, brand colors */
+/* CTA buttons — pill shape, brand colors.
+   Mobile/tablet default: "Book a demo" is a cyan pill (matches Fiix source);
+   the desktop media query below switches it to the blue pill + adds "Free tour". */
 header nav .nav-tools a.nav-cta {
+  display: inline-block;
   border-radius: 40px;
   padding: 9px 20px;
+  font-family: sofia-pro, sans-serif;
   font-weight: 600;
   font-size: 15px;
   color: #fff;
+  text-align: center;
 }
 
 header nav .nav-tools a.nav-cta:hover {
@@ -583,4 +596,38 @@ header nav .nav-tools li:nth-last-child(2) a.nav-cta {
 
 header nav .nav-tools li:last-child a.nav-cta {
   background-color: var(--fiix-green);
+}
+
+/* Mobile/tablet: "Book a demo" (first CTA) is a cyan pill — 20px/700, 2px cyan
+   border, 27px radius, centered, with vertical margins (matches Fiix source). */
+@media (width < 900px) {
+  header nav .nav-tools li:nth-last-child(2) a.nav-cta {
+    margin: 10px 0 20px;
+    border: 2px solid var(--fiix-cyan-cta);
+    border-radius: 27px;
+    padding: 8px 19px;
+    background-color: var(--fiix-cyan-cta);
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 34px;
+  }
+}
+
+/* Desktop/wide: both CTAs are 16px/27.2px pills nudged up 6px; Free tour sits
+   10px right of Book a demo (matches Fiix source). */
+@media (width >= 900px) {
+  header nav .nav-tools a.nav-cta {
+    padding: 7px 19px;
+    font-size: 16px;
+    line-height: 27.2px;
+  }
+
+  header nav .nav-tools li:nth-last-child(2) a.nav-cta {
+    margin-top: -6px;
+  }
+
+  header nav .nav-tools li:last-child a.nav-cta {
+    margin-top: -6px;
+    margin-left: 10px;
+  }
 }
