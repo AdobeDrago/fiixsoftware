@@ -579,3 +579,25 @@ main .section.insights-tabs .default-content-wrapper p {
     line-height: 34px;
   }
 }
+
+/* ============================================================
+   Home "Everything you need to manage 1000s of work orders…"
+   feature-tabs section heading. Production left-aligns a 48px bold
+   headline above the tabs (32px on mobile).
+   ============================================================ */
+main .section.feature-tabs .default-content-wrapper h2 {
+  margin: 0 0 20px;
+  max-width: 96%;
+  font-family: sofia-pro, sans-serif;
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 1.1;
+  color: var(--text-color);
+}
+
+@media (width >= 900px) {
+  main .section.feature-tabs .default-content-wrapper h2 {
+    font-size: 48px;
+    line-height: 52.8px;
+  }
+}
