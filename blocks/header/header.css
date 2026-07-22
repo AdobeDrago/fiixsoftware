@@ -57,9 +57,11 @@ header nav[aria-expanded='true'] {
   header .nav-wrapper { position: fixed; }
 
   /* Two-tier desktop nav is taller (utility row + main row) — reserve its real
-     height so main content clears the fixed header. */
+     height so main content clears the fixed header. The main-row nav links use
+     a 27.2px line-height, so the rendered nav is 178px tall; the spacer must
+     match or the fixed nav overlaps the first section (e.g. the promo bar). */
   :root {
-    --nav-height: 157px;
+    --nav-height: 178px;
   }
 
   /* Two-tier desktop header: utility row (search + login) sits ABOVE the main
