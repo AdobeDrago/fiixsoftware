@@ -333,7 +333,7 @@ header nav .nav-sections a:hover { color: var(--fiix-hover); }
     position: absolute;
     left: 0;
     right: 0;
-    top: var(--fiix-nav-height);
+    top: var(--nav-height);
     width: 100%;
     box-sizing: border-box;
     padding: 32px max(32px, calc((100% - 1336px) / 2));
