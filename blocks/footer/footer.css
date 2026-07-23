@@ -195,11 +195,13 @@ footer .footer .footer-social svg {
   footer .footer .columns > div {
     flex-flow: row wrap;
     align-items: flex-start;
-    gap: 24px 32px;
+    gap: 40px 32px;
   }
 
+  /* Four columns per row so Awards/Legal wrap to a lower band (matches
+     production's footer layout). */
   footer .footer .columns > div > div {
-    flex: 1 1 0;
+    flex: 0 1 calc(25% - 24px);
     min-width: 160px;
   }
 }
