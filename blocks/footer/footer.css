@@ -1,6 +1,14 @@
+/* Fiix footer — matches https://fiixsoftware.com footer.
+   White background; link columns laid out in a wrapping row with small
+   bold dark headings and gray, bulletless, undecorated links. */
+
+/* stylelint-disable no-descending-specificity */
+
 footer {
-  background-color: var(--light-color);
-  font-size: var(--body-font-size-xs);
+  background-color: #fff;
+  font-family: sofia-pro, sans-serif;
+  font-size: 16px;
+  color: #58585b;
 }
 
 footer .footer > div {
@@ -13,8 +21,120 @@ footer .footer p {
   margin: 0;
 }
 
+/* --- newsletter (first section) ------------------------------------ */
+footer .footer > div > div:first-child {
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--border-color, #e2e6ea);
+}
+
+footer .footer > div > div:first-child h3 {
+  margin: 0 0 12px;
+  font-family: sofia-pro, sans-serif;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1.2;
+  color: #212021;
+}
+
+footer .footer > div > div:first-child p {
+  margin: 0 0 16px;
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 1.5;
+  color: #58585b;
+}
+
+footer .footer a:any-link {
+  color: #58585b;
+  text-decoration: none;
+}
+
+footer .footer a:hover {
+  text-decoration: underline;
+}
+
+/* Subscribe call-to-action rendered as a blue pill */
+footer .footer > div > div:first-child p strong a {
+  display: inline-block;
+  padding: 10px 24px;
+  border-radius: 40px;
+  background-color: var(--fiix-blue, #14499a);
+  color: #fff;
+  font-weight: 600;
+}
+
+footer .footer > div > div:first-child p strong a:hover {
+  color: #fff;
+  text-decoration: none;
+  opacity: 0.92;
+}
+
+/* --- link columns (second section) --------------------------------- */
+footer .footer .columns > div {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+footer .footer .columns h4 {
+  margin: 0 0 20px;
+  font-family: sofia-pro, sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.5;
+  color: #212021;
+}
+
+footer .footer .columns ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+footer .footer .columns li {
+  margin: 0 0 8px;
+  font-weight: 300;
+  line-height: 1.5;
+}
+
+footer .footer .columns li em {
+  margin-left: 4px;
+  font-style: italic;
+}
+
+/* --- follow / copyright (last section) ----------------------------- */
+footer .footer > div > div:last-child {
+  margin-top: 32px;
+  font-size: 14px;
+}
+
+footer .footer > div > div:last-child p {
+  margin: 0 0 8px;
+}
+
+footer .footer > div > div:last-child p:first-child {
+  font-weight: 700;
+  color: #212021;
+}
+
+footer .footer > div > div:last-child p a {
+  margin-right: 12px;
+}
+
+/* --- desktop: columns in a horizontal row -------------------------- */
 @media (width >= 900px) {
   footer .footer > div {
     padding: 40px 32px 24px;
+  }
+
+  footer .footer .columns > div {
+    flex-flow: row wrap;
+    align-items: flex-start;
+    gap: 24px 32px;
+  }
+
+  footer .footer .columns > div > div {
+    flex: 1 1 0;
+    min-width: 160px;
   }
 }
