@@ -20,6 +20,33 @@ function socialFor(href) {
   return null;
 }
 
+// Awards & Recognition review-site logos (match the Fiix footer). Keyed by the
+// destination host so authored links keep their real hrefs; only the visual
+// presentation (text label -> logo image) changes.
+const AWARD_LOGOS = [
+  {
+    match: 'softwareadvice', src: 'software-advice.png', label: 'Software Advice', width: 300, height: 34,
+  },
+  {
+    match: 'getapp', src: 'getapp.png', label: 'GetApp', width: 300, height: 84,
+  },
+  {
+    match: 'gartner', src: 'gartner-peer-insights.png', label: 'Gartner Peer Insights', width: 300, height: 67,
+  },
+  {
+    match: 'capterra', src: 'capterra.png', label: 'Capterra', width: 300, height: 66,
+  },
+  {
+    match: 'g2.com', src: 'g2.png', label: 'G2', width: 146, height: 150,
+  },
+];
+
+/** Match an award link's host to its review-site logo. */
+function awardFor(href) {
+  const h = (href || '').toLowerCase();
+  return AWARD_LOGOS.find((a) => h.includes(a.match)) || null;
+}
+
 /**
  * loads and decorates the footer
  * @param {Element} block The footer block element
@@ -75,6 +102,28 @@ export default async function decorate(block) {
       a.setAttribute('aria-label', s.label);
       a.setAttribute('title', s.label);
       a.innerHTML = s.icon;
+    });
+  }
+
+  // Awards & Recognition: render the review-site links as logo images (keep
+  // hrefs + add aria-labels), matching production.
+  const awardList = [...footer.querySelectorAll('ul')]
+    .find((ul) => ul.querySelector('a[href*="softwareadvice"], a[href*="capterra"], a[href*="g2.com"]'));
+  if (awardList) {
+    awardList.classList.add('footer-awards');
+    awardList.querySelectorAll('a').forEach((a) => {
+      const award = awardFor(a.getAttribute('href'));
+      if (!award) return;
+      a.setAttribute('aria-label', award.label);
+      a.setAttribute('title', award.label);
+      const img = document.createElement('img');
+      img.src = new URL(`img/${award.src}`, import.meta.url).href;
+      img.alt = `${award.label} logo`;
+      img.width = award.width;
+      img.height = award.height;
+      img.loading = 'lazy';
+      a.textContent = '';
+      a.append(img);
     });
   }
 
