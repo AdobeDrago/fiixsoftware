@@ -15,7 +15,7 @@
   --background-color: white;
   --light-color: #f4f7fb;
   --dark-color: #505050;
-  --text-color: #1a1a1a;
+  --text-color: #212021;
   --link-color: #1650e6;
   --link-hover-color: #0f3cb0;
 
@@ -30,10 +30,10 @@
   --hero-gradient-end: #f4f9ff;
   --border-color: #e2e6ea;
 
-  /* fonts — Sofia Pro (Adobe Typekit) matches the live Fiix site; local Roboto
-     faces remain as fallbacks while the Typekit stylesheet loads. */
-  --body-font-family: sofia-pro, roboto, roboto-fallback, sans-serif;
-  --heading-font-family: sofia-pro, roboto, roboto-fallback, sans-serif;
+  /* fonts — Sofia Pro (Adobe Typekit) matches the live Fiix site. Production
+     uses sofia-pro with only a sans-serif fallback (no roboto). */
+  --body-font-family: sofia-pro, sans-serif;
+  --heading-font-family: sofia-pro, sans-serif;
 
   /* body sizes */
   --body-font-size-m: 22px;
@@ -599,5 +599,45 @@ main .section.feature-tabs .default-content-wrapper h2 {
   main .section.feature-tabs .default-content-wrapper h2 {
     font-size: 48px;
     line-height: 52.8px;
+  }
+}
+
+/* ============================================================
+   Section intro headings that sit above their block (logos band,
+   video cards, testimonials carousel). Production centers each; the
+   logos band uses a small 20px label, the others a 44px headline.
+   ============================================================ */
+main .section.logos .default-content-wrapper h2,
+main .section.video-cards .default-content-wrapper h2,
+main .section.testimonials .default-content-wrapper h2 {
+  font-family: sofia-pro, sans-serif;
+  font-weight: 700;
+  text-align: center;
+  color: var(--text-color);
+}
+
+main .section.logos .default-content-wrapper h2 {
+  margin: 0 auto 35px;
+  font-size: 20px;
+  line-height: 1.1;
+}
+
+main .section.video-cards .default-content-wrapper h2,
+main .section.testimonials .default-content-wrapper h2 {
+  margin: 0 auto 40px;
+  max-width: 900px;
+  font-size: 32px;
+  line-height: 1.1;
+}
+
+@media (width >= 900px) {
+  main .section.video-cards .default-content-wrapper h2,
+  main .section.testimonials .default-content-wrapper h2 {
+    font-size: 44px;
+    line-height: 48.4px;
+  }
+
+  main .section.video-cards .default-content-wrapper h2 {
+    margin-bottom: 60px;
   }
 }
