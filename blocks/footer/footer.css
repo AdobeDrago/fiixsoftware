@@ -69,6 +69,48 @@ footer .footer > div > div:first-child p strong a:hover {
   opacity: 0.92;
 }
 
+/* Newsletter email-capture form (built by footer.js; matches production:
+   300px email field + blue "Join" pill). */
+footer .footer-newsletter-form {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  margin: 16px 0 0;
+}
+
+footer .footer-newsletter-input {
+  box-sizing: border-box;
+  width: 300px;
+  max-width: 100%;
+  height: 38px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #fff;
+  color: #212021;
+  font-family: sofia-pro, sans-serif;
+  font-size: 16px;
+  line-height: 1.2;
+}
+
+footer .footer-newsletter-submit {
+  height: 36px;
+  padding: 0 24px;
+  border: 0;
+  border-radius: 40px;
+  background-color: var(--fiix-blue, #14499a);
+  color: #fff;
+  font-family: sofia-pro, sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+footer .footer-newsletter-submit:hover {
+  opacity: 0.92;
+}
+
 /* --- link columns (second section) --------------------------------- */
 footer .footer .columns > div {
   display: flex;
@@ -119,6 +161,29 @@ footer .footer > div > div:last-child p:first-child {
 
 footer .footer > div > div:last-child p a {
   margin-right: 12px;
+}
+
+/* Social row rendered as icon glyphs (built by footer.js). */
+footer .footer .footer-social {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+footer .footer .footer-social a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 0;
+  color: #58585b;
+}
+
+footer .footer .footer-social a:hover {
+  color: #212021;
+}
+
+footer .footer .footer-social svg {
+  display: block;
 }
 
 /* --- desktop: columns in a horizontal row -------------------------- */
