@@ -15,23 +15,25 @@ const VIDEO_POSTERS = {
 const toAbsolute = (path) => (/^https?:/i.test(path) ? path : `${VIDEO_ORIGIN}${path}`);
 
 /**
- * Replace a bare video-asset link with an autoplaying, looping, muted inline
- * video (matching the production feature switcher).
+ * Replace a bare video-asset link with a looping, muted inline video that
+ * matches the production feature switcher. Only the active tab autoplays and
+ * preloads; hidden tabs defer their download until shown (perf + parity —
+ * production only autoplays the first tab).
  */
-function replaceLinkWithVideo(link) {
+function replaceLinkWithVideo(link, active) {
   const href = link.getAttribute('href');
   const basename = href.split('/').pop().toLowerCase();
   const poster = VIDEO_POSTERS[basename];
 
   const video = document.createElement('video');
   video.className = 'tabs-feature-video';
-  video.autoplay = true;
   video.loop = true;
   video.muted = true;
   video.playsInline = true;
   video.setAttribute('muted', '');
   video.setAttribute('playsinline', '');
-  video.setAttribute('preload', 'metadata');
+  video.setAttribute('preload', active ? 'metadata' : 'none');
+  if (active) video.autoplay = true;
   if (poster) video.setAttribute('poster', toAbsolute(poster));
 
   const source = document.createElement('source');
@@ -81,6 +83,12 @@ export default async function decorate(block) {
       });
       tabpanel.setAttribute('aria-hidden', false);
       button.setAttribute('aria-selected', true);
+      // start the newly shown panel's video (deferred tabs preload="none")
+      const video = tabpanel.querySelector('video');
+      if (video) {
+        const play = video.play();
+        if (play && typeof play.catch === 'function') play.catch(() => {});
+      }
     });
     tablist.append(button);
     tab.remove();
@@ -101,7 +109,7 @@ export default async function decorate(block) {
       if (mediaPara) {
         mediaPara.classList.add('tabs-feature-media');
         // turn a bare video link into a real playing video (matches production)
-        if (isAssetLink(mediaPara)) replaceLinkWithVideo(mediaPara.querySelector('a'));
+        if (isAssetLink(mediaPara)) replaceLinkWithVideo(mediaPara.querySelector('a'), i === 0);
       }
       const textParas = paras.filter((p) => !isMedia(p) && !isAssetLink(p));
       const cta = textParas.find((p) => p.querySelector('a'));
