@@ -1,6 +1,47 @@
 // eslint-disable-next-line import/no-unresolved
 import { toClassName } from '../../scripts/aem.js';
 
+// Feature videos are hosted on the origin site; the poster (still frame)
+// filenames don't follow a strict transform of the video name, so map them
+// explicitly by video basename.
+const VIDEO_ORIGIN = 'https://fiixsoftware.com';
+const VIDEO_POSTERS = {
+  'work-management.mp4': '/wp-content/uploads/2020/07/Still_Work-management.png',
+  'asset-management.mp4': '/wp-content/uploads/2020/07/Still_Asset-Management.png',
+  'parts-and-supplies.mp4': '/wp-content/uploads/2020/07/Still_Parts-and-supplies.png',
+  'mobile.mp4': '/wp-content/uploads/2020/07/Still_Mobile.png',
+};
+
+const toAbsolute = (path) => (/^https?:/i.test(path) ? path : `${VIDEO_ORIGIN}${path}`);
+
+/**
+ * Replace a bare video-asset link with an autoplaying, looping, muted inline
+ * video (matching the production feature switcher).
+ */
+function replaceLinkWithVideo(link) {
+  const href = link.getAttribute('href');
+  const basename = href.split('/').pop().toLowerCase();
+  const poster = VIDEO_POSTERS[basename];
+
+  const video = document.createElement('video');
+  video.className = 'tabs-feature-video';
+  video.autoplay = true;
+  video.loop = true;
+  video.muted = true;
+  video.playsInline = true;
+  video.setAttribute('muted', '');
+  video.setAttribute('playsinline', '');
+  video.setAttribute('preload', 'metadata');
+  if (poster) video.setAttribute('poster', toAbsolute(poster));
+
+  const source = document.createElement('source');
+  source.src = toAbsolute(href);
+  source.type = 'video/mp4';
+  video.append(source);
+
+  link.replaceWith(video);
+}
+
 export default async function decorate(block) {
   // build tablist
   const tablist = document.createElement('div');
@@ -57,7 +98,11 @@ export default async function decorate(block) {
         return a && a.getAttribute('href') && /\.(mp4|webm|mov|m4v)$/i.test(a.getAttribute('href'));
       };
       const mediaPara = paras.find((p) => isMedia(p) || isAssetLink(p));
-      if (mediaPara) mediaPara.classList.add('tabs-feature-media');
+      if (mediaPara) {
+        mediaPara.classList.add('tabs-feature-media');
+        // turn a bare video link into a real playing video (matches production)
+        if (isAssetLink(mediaPara)) replaceLinkWithVideo(mediaPara.querySelector('a'));
+      }
       const textParas = paras.filter((p) => !isMedia(p) && !isAssetLink(p));
       const cta = textParas.find((p) => p.querySelector('a'));
       if (cta) cta.classList.add('tabs-feature-cta');
