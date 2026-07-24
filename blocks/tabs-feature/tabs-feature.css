@@ -116,20 +116,11 @@
 }
 
 .tabs-feature .tabs-feature-panel .tabs-feature-media picture,
-.tabs-feature .tabs-feature-panel .tabs-feature-media img {
+.tabs-feature .tabs-feature-panel .tabs-feature-media img,
+.tabs-feature .tabs-feature-panel .tabs-feature-media video {
   display: block;
   width: 100%;
   height: auto;
-}
-
-/* raw .mp4 links have no real media asset locally — de-emphasize so
-   they don't look like a broken CTA (still present/accessible in DOM) */
-.tabs-feature .tabs-feature-panel p a[href$='.mp4'] {
-  display: inline-block;
-  color: var(--dark-color);
-  font-size: 14px;
-  font-weight: 300;
-  word-break: break-all;
 }
 
 /* ---- Desktop: two-column panel (text left, media right) ---- */
