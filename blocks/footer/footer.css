@@ -144,6 +144,40 @@ footer .footer .columns li em {
   font-style: italic;
 }
 
+/* Awards & Recognition: review-site logos (text links swapped for images by
+   footer.js) laid out as a wrapping grid, matching production. */
+footer .footer .columns ul.footer-awards {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px 20px;
+}
+
+footer .footer .columns ul.footer-awards li {
+  margin: 0;
+}
+
+footer .footer .columns ul.footer-awards a {
+  display: inline-flex;
+  align-items: center;
+}
+
+footer .footer .columns ul.footer-awards a:hover {
+  opacity: 0.85;
+}
+
+footer .footer .columns ul.footer-awards img {
+  display: block;
+  width: auto;
+  height: 36px;
+  max-width: 160px;
+  object-fit: contain;
+}
+
+footer .footer .columns ul.footer-awards li:nth-child(5) img {
+  height: 50px;
+}
+
 /* --- follow / copyright (last section) ----------------------------- */
 footer .footer > div > div:last-child {
   margin-top: 32px;
