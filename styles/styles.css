@@ -585,6 +585,15 @@ main .section.insights-tabs .default-content-wrapper p {
    feature-tabs section heading. Production left-aligns a 48px bold
    headline above the tabs (32px on mobile).
    ============================================================ */
+
+/* Production frames this section with generous vertical whitespace
+   (100px each side). Use padding, not margin, so it doesn't collapse
+   against the adjacent sections' margins. */
+main .section.feature-tabs {
+  margin: 0;
+  padding: 60px 0;
+}
+
 main .section.feature-tabs .default-content-wrapper h2 {
   margin: 0 0 20px;
   max-width: 96%;
@@ -596,6 +605,10 @@ main .section.feature-tabs .default-content-wrapper h2 {
 }
 
 @media (width >= 900px) {
+  main .section.feature-tabs {
+    padding: 100px 0;
+  }
+
   main .section.feature-tabs .default-content-wrapper h2 {
     font-size: 48px;
     line-height: 52.8px;
