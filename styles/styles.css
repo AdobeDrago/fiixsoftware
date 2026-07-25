@@ -587,9 +587,11 @@ main .section.insights-tabs .default-content-wrapper p {
    ============================================================ */
 
 /* Production frames this section with generous vertical whitespace
-   (~70px each side) rather than the default 40px section margin. */
+   (100px each side). Use padding, not margin, so it doesn't collapse
+   against the adjacent sections' margins. */
 main .section.feature-tabs {
-  margin: 70px 0;
+  margin: 0;
+  padding: 60px 0;
 }
 
 main .section.feature-tabs .default-content-wrapper h2 {
@@ -604,7 +606,7 @@ main .section.feature-tabs .default-content-wrapper h2 {
 
 @media (width >= 900px) {
   main .section.feature-tabs {
-    margin: 100px 0;
+    padding: 100px 0;
   }
 
   main .section.feature-tabs .default-content-wrapper h2 {
