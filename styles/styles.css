@@ -345,6 +345,15 @@ main .section.highlight {
    (only the hero section contains a cards-pricing block); also
    matches `pricing-hero` once that section style is corrected.
    ============================================================ */
+
+/* "Compare pricing plans" intro link — production renders it bold,
+   underlined, in the darker Fiix blue (#14499a). */
+main > .section.pricing-hero .default-content-wrapper a[href="#compare"] {
+  font-weight: 600;
+  color: #14499a;
+  text-decoration: underline;
+}
+
 @media (width >= 1200px) {
   main > .section.pricing-hero,
   main > .section.cards-pricing-container {
