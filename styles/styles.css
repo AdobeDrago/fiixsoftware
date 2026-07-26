@@ -550,6 +550,74 @@ main .section.security {
 }
 
 /* ============================================================
+   Pricing "We love helping our customers succeed" section: a bold
+   left-aligned heading over three borderless icon columns (icon on top,
+   24px title, 20px body). Production uses a cards-icon block here but with
+   no card chrome. Scoped to .customer-success so the base cards-icon block
+   (used elsewhere) is unaffected.
+   ============================================================ */
+main > .section.customer-success .default-content-wrapper h2 {
+  margin: 0 0 40px;
+  font-family: var(--heading-font-family);
+  font-size: 36px;
+  font-weight: 700;
+  line-height: 1.1;
+  color: var(--text-color);
+}
+
+.customer-success .cards-icon > ul {
+  gap: 32px;
+}
+
+.customer-success .cards-icon > ul > li {
+  border: 0;
+  background-color: transparent;
+}
+
+.customer-success .cards-icon .cards-icon-card-image {
+  line-height: 0;
+}
+
+.customer-success .cards-icon > ul > li img {
+  width: 135px;
+  height: auto;
+  aspect-ratio: auto;
+  object-fit: contain;
+}
+
+.customer-success .cards-icon .cards-icon-card-body {
+  margin: 16px 0 0;
+}
+
+.customer-success .cards-icon h3 {
+  margin: 0 0 12px;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--text-color);
+}
+
+.customer-success .cards-icon .cards-icon-card-body p {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 300;
+  line-height: 1.5;
+  color: var(--text-color);
+}
+
+@media (width >= 900px) {
+  main > .section.customer-success .default-content-wrapper h2 {
+    font-size: 64px;
+    margin-bottom: 100px;
+  }
+
+  .customer-success .cards-icon > ul {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+  }
+}
+
+/* ============================================================
    Home "Get data from any system…" insights section intro.
    Production centers the heading + intro above the tabs, with a
    48px bold headline and a 20px light lead constrained to ~750px.
