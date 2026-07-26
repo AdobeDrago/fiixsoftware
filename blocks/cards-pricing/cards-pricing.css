@@ -92,6 +92,13 @@
   color: var(--text-color);
 }
 
+/* non-numeric price label (e.g. "Custom Pricing") is a small heading, not
+   the big price number (matches production). */
+.cards-pricing h3.cards-pricing-price-text {
+  font-size: 20px;
+  line-height: 1.1;
+}
+
 /* price caption (e.g. "Per user, per month.") */
 .cards-pricing .cards-pricing-card-body h3 + p {
   margin: 0 0 16px;
