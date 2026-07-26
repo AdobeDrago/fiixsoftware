@@ -19,6 +19,30 @@
   display: block;
 }
 
+/* Pricing add-on cards: "Add-on" eyebrow above the heading and a yellow
+   "New" badge inline in the heading (matches production). Scoped to the
+   pricing-hero so other columns-callout instances are unaffected. */
+.pricing-hero .columns-callout > div > div > p:first-child {
+  margin: 0 0 4px;
+  font-size: 14px;
+  font-weight: 300;
+  color: var(--text-color);
+}
+
+.pricing-hero .columns-callout h2 em {
+  display: inline-block;
+  margin-left: 8px;
+  padding: 2px 5px;
+  border-radius: 2px;
+  background-color: #ffe01b;
+  color: #151b26;
+  font-size: 10px;
+  font-weight: 500;
+  font-style: normal;
+  text-transform: uppercase;
+  vertical-align: middle;
+}
+
 @media (width >= 900px) {
   .columns-callout > div {
     align-items: center;
