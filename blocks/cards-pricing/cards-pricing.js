@@ -16,6 +16,11 @@ export default function decorate(block) {
     const optimizedPic = createOptimizedPicture(img.src, img.alt, false, [{ width: '750' }]);
     img.closest('picture').replaceWith(optimizedPic);
   });
+  // A price h3 that isn't a numeric amount (e.g. "Custom Pricing") renders as
+  // a small label on production, not the big price number.
+  ul.querySelectorAll('.cards-pricing-card-body h3').forEach((h3) => {
+    if (!/^\s*\$?\d/.test(h3.textContent)) h3.classList.add('cards-pricing-price-text');
+  });
   block.textContent = '';
   block.append(ul);
 }
