@@ -37,3 +37,12 @@
     order: unset;
   }
 }
+
+/* Partner logos ("Over 4,500 teams…" band) sized to production — each ~100px
+   wide, full color. Scoped to .logos so the hero review-logos row is unaffected. */
+.section.logos .columns-logos img {
+  width: 100px;
+  height: auto;
+  max-height: none;
+  object-fit: contain;
+}
