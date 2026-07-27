@@ -415,6 +415,29 @@ main > .section.pricing-hero .default-content-wrapper a[href="#compare"] {
   }
 }
 
+/* Hero review logos — production sizes each by an explicit width so the
+   different logo aspect ratios read at a consistent visual weight (Capterra
+   80px, Gartner/Software Advice 120px, G2 20px), height auto. Scoped to the
+   hero so the "Over 4,500 teams" row and home-page logos are unaffected. */
+main > .section.cards-pricing-container > .columns-logos-wrapper .columns-logos img[alt*="Capterra" i] {
+  width: 80px;
+  height: auto;
+  max-height: none;
+}
+
+main > .section.cards-pricing-container > .columns-logos-wrapper .columns-logos img[alt*="Gartner" i],
+main > .section.cards-pricing-container > .columns-logos-wrapper .columns-logos img[alt*="Software Advice" i] {
+  width: 120px;
+  height: auto;
+  max-height: none;
+}
+
+main > .section.cards-pricing-container > .columns-logos-wrapper .columns-logos img[alt*="G2" i] {
+  width: 20px;
+  height: auto;
+  max-height: none;
+}
+
 /* ============================================================
    Home "Fiix keeps your maintenance data safe" security section.
    Production renders a full-bleed navy band with white, centered
