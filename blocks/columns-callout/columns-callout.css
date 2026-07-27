@@ -19,6 +19,11 @@
   display: block;
 }
 
+.pricing-hero .columns-callout > div p {
+  font-size: 14px;
+  font-weight: 300;
+}
+
 /* Pricing add-on cards: "Add-on" eyebrow above the heading and a yellow
    "New" badge inline in the heading (matches production). Scoped to the
    pricing-hero so other columns-callout instances are unaffected. */
@@ -43,6 +48,64 @@
   vertical-align: middle;
 }
 
+/* Production renders the two add-ons as side-by-side grey cards, each with a
+   blue circular "+" badge on the top edge, content stacked above a green CTA.
+   Scoped to the pricing-hero so other columns-callout instances are unchanged. */
+.pricing-hero .columns-callout.columns-callout-2-cols {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 40px 20px;
+  margin-top: 15px;
+}
+
+.pricing-hero .columns-callout > div {
+  position: relative;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0;
+  background-color: #f2f2f2;
+  padding: 20px 17.5px 30px;
+}
+
+.pricing-hero .columns-callout > div::before {
+  content: "+";
+  position: absolute;
+  top: -15px;
+  left: 50%;
+  width: 30px;
+  height: 30px;
+  transform: translateX(-50%);
+  border-radius: 50%;
+  background-color: #00aeef;
+  color: #fff;
+  font-size: 20px;
+  line-height: 30px;
+  text-align: center;
+}
+
+.pricing-hero .columns-callout > div > div {
+  flex: none;
+  order: unset;
+}
+
+.pricing-hero .columns-callout h2 {
+  margin: 0 0 15px;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--text-color);
+}
+
+.pricing-hero .columns-callout a.button {
+  align-self: flex-start;
+  margin-top: 8px;
+  padding: 0.6em 2.5em;
+  border-radius: 27px;
+  background-color: #20a51e;
+  font-size: 16px;
+  font-weight: 700;
+}
+
 @media (width >= 900px) {
   .columns-callout > div {
     align-items: center;
@@ -53,5 +116,9 @@
   .columns-callout > div > div {
     flex: 1;
     order: unset;
+  }
+
+  .pricing-hero .columns-callout.columns-callout-2-cols {
+    grid-template-columns: 1fr 1fr;
   }
 }
