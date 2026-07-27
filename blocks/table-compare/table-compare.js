@@ -47,5 +47,19 @@ export default async function decorate(block) {
     else tbody.append(tr);
   });
   table.append(thead, tbody);
+
+  // Replace authored icon tokens with inline SVGs so each plan column can
+  // color its check independently (an <img> icon can't be recolored via CSS).
+  const CHECK_SVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>';
+  const INFO_SVG = '<svg viewBox="0 0 512 512" fill="currentColor" aria-hidden="true"><path d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm0 110c23.2 0 42 18.8 42 42s-18.8 42-42 42-42-18.8-42-42 18.8-42 42-42zm56 254c0 6.6-5.4 12-12 12h-88c-6.6 0-12-5.4-12-12v-24c0-6.6 5.4-12 12-12h12v-64h-12c-6.6 0-12-5.4-12-12v-24c0-6.6 5.4-12 12-12h64c6.6 0 12 5.4 12 12v100h12c6.6 0 12 5.4 12 12v24z"/></svg>';
+  table.querySelectorAll('span.icon-check').forEach((span) => {
+    span.classList.add('table-compare-check');
+    span.innerHTML = CHECK_SVG;
+  });
+  table.querySelectorAll('span.icon-info').forEach((span) => {
+    span.classList.add('table-compare-info');
+    span.innerHTML = INFO_SVG;
+  });
+
   block.replaceChildren(table);
 }

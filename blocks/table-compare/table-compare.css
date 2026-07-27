@@ -66,6 +66,44 @@
   border: 1px solid;
 }
 
+/* Availability cells: center the check / short text in the four plan columns. */
+.table-compare.block table td:not(:first-child) {
+  text-align: center;
+  vertical-align: middle;
+  font-size: 13px;
+}
+
+/* Check mark — inline SVG using currentColor so each plan column takes its
+   exact production glyph color. */
+.table-compare.block table td .table-compare-check {
+  display: inline-flex;
+}
+
+.table-compare.block table td .table-compare-check svg {
+  width: 14px;
+  height: 14px;
+}
+
+/* Per-column check colors measured from production. */
+.table-compare.block table td:nth-child(2) .table-compare-check { color: rgb(157 159 162); }
+.table-compare.block table td:nth-child(3) .table-compare-check { color: rgb(88 89 91); }
+.table-compare.block table td:nth-child(4) .table-compare-check { color: rgb(77 62 141); }
+.table-compare.block table td:nth-child(5) .table-compare-check { color: rgb(0 175 235); }
+
+/* Info icon before each feature label — blue "i" (production). */
+.table-compare.block table td:first-child .table-compare-info {
+  display: inline-flex;
+  margin-right: 8px;
+  vertical-align: -3px;
+  color: #14499a;
+  cursor: help;
+}
+
+.table-compare.block table td:first-child .table-compare-info svg {
+  width: 16px;
+  height: 16px;
+}
+
 /* Section-header band (e.g. "Work order management") — full-width grey bar
    with a bold heading, matching production. */
 .table-compare.block table tbody tr.table-compare-section {
