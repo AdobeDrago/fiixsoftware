@@ -65,3 +65,21 @@
 .table-compare.block.bordered table td {
   border: 1px solid;
 }
+
+/* Section-header band (e.g. "Work order management") — full-width grey bar
+   with a bold heading, matching production. */
+.table-compare.block table tbody tr.table-compare-section {
+  border-bottom: 0;
+}
+
+.table-compare.block table tr.table-compare-section td {
+  padding: 12px 16px;
+  background-color: #f7f7f7;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text-color);
+}
+
+.table-compare table tr.table-compare-section td p {
+  font-weight: 700;
+}
