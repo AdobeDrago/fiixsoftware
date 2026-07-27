@@ -45,3 +45,68 @@
     padding: 40px 32px;
   }
 }
+
+/* Pricing "Find the plan that's right for you" CTA band: production renders
+   a centered heading + copy + green button over a soft diagonal cyan-to-white
+   gradient, with the metal-ring graphic as a small decorative element (not a
+   full-bleed background). Scoped to the pricing .cta section. */
+.section.cta {
+  margin: 0;
+  padding: 80px 24px;
+  background: linear-gradient(135deg, rgb(0 175 235 / 20%) 0%, #fff 30%);
+}
+
+.section.cta .hero-cta {
+  position: static;
+  min-height: 0;
+  padding: 0;
+  text-align: center;
+}
+
+.section.cta .hero-cta > div {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.section.cta .hero-cta h2,
+.section.cta .hero-cta p {
+  color: var(--text-color);
+  text-align: center;
+}
+
+.section.cta .hero-cta h2 {
+  margin: 0 auto 16px;
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+.section.cta .hero-cta p {
+  margin: 0 auto 24px;
+  font-size: 20px;
+  font-weight: 300;
+}
+
+/* the metal-ring graphic is a small decorative element, centered above the copy */
+.section.cta .hero-cta picture {
+  position: static;
+  z-index: auto;
+  display: block;
+  inset: auto;
+}
+
+.section.cta .hero-cta img {
+  width: 100px;
+  height: auto;
+  margin: 0 auto 16px;
+}
+
+@media (width >= 900px) {
+  .section.cta {
+    padding: 115px 0 80px;
+  }
+
+  .section.cta .hero-cta h2 {
+    font-size: 48px;
+  }
+}
