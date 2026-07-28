@@ -417,8 +417,13 @@ main > .section.pricing-hero .default-content-wrapper a[href="#compare"] {
     gap: 16px;
   }
 
-  /* callout + trailing decoration run full width below the grid */
-  main > .section.cards-pricing-container > .columns-callout-wrapper,
+  /* add-on callout aligns under the pricing cards (column 2), in the row
+     below them — matching production */
+  main > .section.cards-pricing-container > .columns-callout-wrapper {
+    grid-column: 2;
+  }
+
+  /* trailing decoration runs full width below the grid */
   main > .section.cards-pricing-container > .default-content-wrapper:last-child {
     grid-column: 1 / -1;
   }
