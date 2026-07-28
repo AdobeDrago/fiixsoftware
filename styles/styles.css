@@ -339,6 +339,15 @@ main .section.highlight {
   padding: 40px 0;
 }
 
+/* FAQ section — full-bleed light-gray band (production #f7f7f7, 50px vertical
+   padding). Band background lives here; typography/alignment/CTA rules are
+   grouped at the end of this file to satisfy specificity ordering. */
+main .section.faq {
+  margin: 0;
+  padding: 50px 0;
+  background-color: #f7f7f7;
+}
+
 /* ============================================================
    Pricing hero: heading/reviews on the left, cards on the right.
    Scoped to the hero via the auto-added `cards-pricing-container`
@@ -764,4 +773,26 @@ main .section.testimonials .default-content-wrapper h2 {
   main .section.video-cards .default-content-wrapper h2 {
     margin-bottom: 60px;
   }
+}
+
+/* FAQ closing line + CTA — centered under the accordion, with a cyan pill CTA
+   (production #00afeb). Placed at file end so the .default-content-wrapper p
+   rule wins over earlier section-specific paragraph rules. */
+main .section.faq .accordion-faq-wrapper ~ .default-content-wrapper p {
+  text-align: center;
+}
+
+main .section.faq a.button.primary {
+  border-color: #00afeb;
+  background-color: #00afeb;
+  border-radius: 27px;
+  padding: 16px 20px;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+main .section.faq a.button.primary:hover,
+main .section.faq a.button.primary:focus-visible {
+  border-color: #0095c8;
+  background-color: #0095c8;
 }
