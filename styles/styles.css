@@ -348,6 +348,31 @@ main .section.faq {
   background-color: #f7f7f7;
 }
 
+/* "Contact our team" — full-bleed gray band (production #ced1d8, 50px vertical
+   padding), heading left + form right on desktop. */
+main .section.contact-team {
+  margin: 0;
+  padding: 50px 0;
+  background-color: #ced1d8;
+}
+
+@media (width >= 900px) {
+  main .section.contact-team {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 40px;
+    align-items: start;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 50px 32px;
+  }
+
+  main .section.contact-team > div {
+    max-width: none;
+    margin: 0;
+  }
+}
+
 /* ============================================================
    Pricing hero: heading/reviews on the left, cards on the right.
    Scoped to the hero via the auto-added `cards-pricing-container`
