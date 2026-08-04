@@ -80,6 +80,9 @@ header nav[aria-expanded='true'] {
   }
 
   header nav[aria-expanded='true'] {
+    grid-template:
+      'utility utility utility' auto
+      'brand sections tools' auto / auto 1fr auto;
     min-height: 0;
     overflow: visible;
   }
