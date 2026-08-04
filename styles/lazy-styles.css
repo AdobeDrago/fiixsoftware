@@ -155,20 +155,21 @@ header nav a.nav-cta[href*="free-tour"]:hover {
 }
 
 /* ------------------------------------------------------------------
-   FIX #7: "Book a personalized demo" CTA — red/orange
+   FIX #7: "Book a personalized demo" CTA — matches production cyan
+   Production uses #00AFEB (Fiix accent cyan).
    ------------------------------------------------------------------ */
 .faq .default-content-wrapper a.button[href*="demo"],
 .faq .default-content-wrapper p:last-child a.button,
 .faq .button-wrapper a.button[href*="demo"] {
-  background-color: #e74c3c;
-  border-color: #e74c3c;
+  background-color: #00afeb;
+  border-color: #00afeb;
 }
 
 .faq .default-content-wrapper a.button[href*="demo"]:hover,
 .faq .default-content-wrapper p:last-child a.button:hover,
 .faq .button-wrapper a.button[href*="demo"]:hover {
-  background-color: #c0392b;
-  border-color: #c0392b;
+  background-color: #009dd4;
+  border-color: #009dd4;
 }
 
 /* ------------------------------------------------------------------
