@@ -34,7 +34,7 @@
 .pricing-hero.section {
   display: grid;
   grid-template-columns: 360px 1fr;
-  grid-template-rows: auto auto auto auto;
+  grid-template-rows: auto auto;
   column-gap: 40px;
   row-gap: 0;
   max-width: 1200px;
@@ -50,20 +50,23 @@
   align-self: start;
 }
 
+/* Logos: same grid cell as text, positioned below via padding-top.
+   WP logos start at ~340px below hero padding (text content ~342px tall). */
 .pricing-hero .columns-logos-wrapper {
   grid-column: 1;
-  grid-row: 2;
+  grid-row: 1;
   align-self: start;
+  padding-top: 340px;
 }
 
 .pricing-hero .cards-pricing-wrapper {
   grid-column: 2;
-  grid-row: 1 / 4;
+  grid-row: 1;
 }
 
 .pricing-hero .columns-callout-wrapper {
   grid-column: 1 / -1;
-  grid-row: 4;
+  grid-row: 2;
 }
 
 /* H1 */
