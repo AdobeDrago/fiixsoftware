@@ -47,21 +47,23 @@
 .pricing-hero .default-content-wrapper {
   grid-column: 1;
   grid-row: 1;
+  align-self: start;
 }
 
 .pricing-hero .columns-logos-wrapper {
   grid-column: 1;
-  grid-row: 2;
+  grid-row: 1;
+  align-self: end;
 }
 
 .pricing-hero .cards-pricing-wrapper {
   grid-column: 2;
-  grid-row: 1 / 3;
+  grid-row: 1;
 }
 
 .pricing-hero .columns-callout-wrapper {
   grid-column: 1 / -1;
-  grid-row: 3;
+  grid-row: 2;
 }
 
 /* H1 */
