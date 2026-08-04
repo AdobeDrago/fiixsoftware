@@ -380,6 +380,13 @@ main .section.contact-team {
    matches `pricing-hero` once that section style is corrected.
    ============================================================ */
 
+/* Hero H1 — production renders it at line-height 1.1 (39.6px on the 36px
+   base), tighter than the global 1.25 heading line-height. */
+main > .section.pricing-hero .default-content-wrapper h1,
+main > .section.cards-pricing-container .default-content-wrapper h1 {
+  line-height: 1.1;
+}
+
 /* "Compare pricing plans" intro link — production renders it bold,
    underlined, in the darker Fiix blue (#14499a). */
 main > .section.pricing-hero .default-content-wrapper a[href="#compare"] {
@@ -825,4 +832,25 @@ main .section.faq a.button.primary:hover,
 main .section.faq a.button.primary:focus-visible {
   border-color: #0095c8;
   background-color: #0095c8;
+}
+
+/* ============================================================
+   Section heading line-height / size parity with production.
+   Production renders these H2s at a tight line-height (the global
+   heading line-height of 1.25 makes multi-line headings too tall),
+   and the feature blurbs use a 24px H3 rather than the global 20px.
+   ============================================================ */
+main .section.faq .default-content-wrapper h2,
+main > .section.cta .hero-cta h2 {
+  line-height: 1;
+}
+
+main > .section.connect-users .columns-media h2 {
+  line-height: 1.1;
+}
+
+/* feature blurbs ("A supercharged…", "Customer success", etc.) */
+main > .section.features .cards-features h3 {
+  font-size: 24px;
+  line-height: 1.1;
 }
