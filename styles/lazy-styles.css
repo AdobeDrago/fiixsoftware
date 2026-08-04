@@ -172,7 +172,7 @@ header nav a.nav-cta[href*="free-tour"]:hover {
 }
 
 /* ------------------------------------------------------------------
-   Supporting: FAQ background, logos padding
+   Supporting: FAQ background, logos padding, feature cards 2x2
    ------------------------------------------------------------------ */
 .faq {
   background-color: #f7f7f7;
@@ -180,4 +180,16 @@ header nav a.nav-cta[href*="free-tour"]:hover {
 
 .logos {
   padding: 80px 0;
+}
+
+/* Feature highlight cards: 2×2 grid (production layout) */
+.features .cards-features > ul {
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+}
+
+/* Feature cards: borderless flat style (production has no borders) */
+.features .cards-features > ul > li {
+  border: none;
+  background: transparent;
 }
