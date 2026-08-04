@@ -34,7 +34,7 @@
 .pricing-hero.section {
   display: grid;
   grid-template-columns: 360px 1fr;
-  grid-template-rows: auto auto;
+  grid-template-rows: auto auto auto auto;
   column-gap: 40px;
   row-gap: 0;
   max-width: 1200px;
@@ -46,25 +46,24 @@
 
 .pricing-hero .default-content-wrapper {
   grid-column: 1;
-  grid-row: 1 / 3;
+  grid-row: 1;
   align-self: start;
 }
 
 .pricing-hero .columns-logos-wrapper {
   grid-column: 1;
-  grid-row: 1 / 3;
+  grid-row: 2;
   align-self: start;
-  margin-top: 380px;
 }
 
 .pricing-hero .cards-pricing-wrapper {
   grid-column: 2;
-  grid-row: 1;
+  grid-row: 1 / 4;
 }
 
 .pricing-hero .columns-callout-wrapper {
   grid-column: 1 / -1;
-  grid-row: 2;
+  grid-row: 4;
 }
 
 /* H1 */
