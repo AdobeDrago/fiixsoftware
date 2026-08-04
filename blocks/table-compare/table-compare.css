@@ -24,7 +24,7 @@
 
 .table-compare.block table thead {
   position: sticky;
-  top: 0;
+  top: var(--nav-height, 100px);
   z-index: 100;
   background-color: #fff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
