@@ -61,7 +61,7 @@
 /* feature list with cyan checkmarks */
 .cards-pricing .cards-pricing-card-body ul {
   list-style: none;
-  flex: 1 0 auto;
+  flex: 0 0 auto;
   margin: 0 0 5px;
   padding: 0;
 }

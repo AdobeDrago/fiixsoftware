@@ -46,14 +46,15 @@
 
 .pricing-hero .default-content-wrapper {
   grid-column: 1;
-  grid-row: 1;
+  grid-row: 1 / 3;
   align-self: start;
 }
 
 .pricing-hero .columns-logos-wrapper {
   grid-column: 1;
-  grid-row: 1;
-  align-self: end;
+  grid-row: 1 / 3;
+  align-self: start;
+  margin-top: 380px;
 }
 
 .pricing-hero .cards-pricing-wrapper {
