@@ -18,13 +18,21 @@
 
 @media (width >= 900px) {
   .table-compare.block table {
-    font-size: var(--body-font-size-m);
+    font-size: 16px;
   }
 }
 
+.table-compare.block table thead {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+}
+
 .table-compare.block table thead tr {
-  border-top: 2px solid;
-  border-bottom: 2px solid;
+  border-top: none;
+  border-bottom: 1px solid #e0e0e0;
 }
 
 .table-compare.block table tbody tr {
@@ -35,10 +43,28 @@
   font-weight: 700;
 }
 
+.table-compare.block table thead th {
+  padding: 16px 8px;
+  font-size: 16px;
+  text-align: center;
+  vertical-align: bottom;
+}
+
+.table-compare.block table thead th:first-child {
+  text-align: left;
+  font-size: 20px;
+}
+
 .table-compare.block table th,
 .table-compare.block table td {
   padding: 0.5em;
   text-align: left;
+}
+
+/* Feature name cells — light weight, muted color (production) */
+.table-compare.block table tbody td:first-child {
+  font-weight: 300;
+  color: #58595b;
 }
 
 .table-compare table th p,

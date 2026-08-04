@@ -3,9 +3,10 @@
   margin: 0;
   padding: 0;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(4, 200px);
+  gap: 0;
   align-items: stretch;
+  justify-content: flex-end;
 }
 
 /* Production cards have no border/radius — just a soft drop shadow. The
@@ -26,7 +27,7 @@
   flex: 1;
   flex-direction: column;
   margin: 0;
-  padding: 18px;
+  padding: 17.5px;
 }
 
 .cards-pricing .cards-pricing-card-image {
@@ -114,8 +115,28 @@
 
 .cards-pricing .cards-pricing-card-body a.button {
   margin: 0;
-  padding: 0.55em 1.4em;
+  padding: 0 20px;
+  font-size: 16px;
   font-weight: 700;
+  border-radius: 40px;
+  height: 40px;
+  line-height: 40px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+}
+
+/* Enterprise (last card) CTA — green, matches production */
+.cards-pricing > ul > li:last-child .cards-pricing-card-body a.button {
+  background-color: #20a51e;
+  border-color: #20a51e;
+  border-radius: 27px;
+}
+
+.cards-pricing > ul > li:last-child .cards-pricing-card-body a.button:hover {
+  background-color: #1b8a19;
+  border-color: #1b8a19;
 }
 
 /* "Most popular" gold ribbon */
