@@ -159,12 +159,13 @@
   text-transform: uppercase;
 }
 
-/* Price + subtext inline row (matches WP flex layout) */
+/* Price + subtext inline row (matches WP flex layout:
+   display:flex, flex-direction:row, align-items:center, gap:10px, nowrap) */
 .cards-pricing .cards-pricing-price-row {
   display: flex;
-  align-items: baseline;
-  gap: 8px;
-  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: nowrap;
   margin: 0 0 16px;
 }
 

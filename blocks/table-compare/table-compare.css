@@ -1,6 +1,9 @@
 .table-compare.block {
   width: 100%;
-  overflow-x: auto;
+  /* overflow-x: auto breaks position:sticky on thead (creates scroll context).
+     Use clip instead — allows sticky to work against viewport while
+     still clipping any horizontal overflow on narrow viewports. */
+  overflow-x: clip;
 }
 
 .table-compare.block table {
