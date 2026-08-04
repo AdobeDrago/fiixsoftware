@@ -438,8 +438,8 @@ main > .section.pricing-hero .default-content-wrapper a[href="#compare"] {
   }
 
   main > .section.cards-pricing-container .cards-pricing > ul {
-    grid-template-columns: repeat(4, 1fr);
-    gap: 16px;
+    grid-template-columns: repeat(4, 200px);
+    gap: 0;
   }
 
   /* add-on callout aligns under the pricing cards (column 2), in the row
