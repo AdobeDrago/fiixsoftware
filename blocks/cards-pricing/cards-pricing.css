@@ -158,3 +158,24 @@
   text-align: center;
   text-transform: uppercase;
 }
+
+/* Price + subtext inline row (matches WP flex layout) */
+.cards-pricing .cards-pricing-price-row {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin: 0 0 16px;
+}
+
+.cards-pricing .cards-pricing-price-row h3 {
+  margin: 0;
+  flex-shrink: 0;
+}
+
+.cards-pricing .cards-pricing-price-row p {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 1.4;
+}

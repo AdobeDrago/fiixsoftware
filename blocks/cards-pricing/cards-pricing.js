@@ -21,6 +21,23 @@ export default function decorate(block) {
   ul.querySelectorAll('.cards-pricing-card-body h3').forEach((h3) => {
     if (!/^\s*\$?\d/.test(h3.textContent)) h3.classList.add('cards-pricing-price-text');
   });
+
+  // Wrap h3 (price) + following p elements (subtext) in a flex container
+  // to render them inline (matching WP production layout: "$0  Limited users.")
+  ul.querySelectorAll('.cards-pricing-card-body h3').forEach((h3) => {
+    const wrapper = document.createElement('div');
+    wrapper.className = 'cards-pricing-price-row';
+    h3.parentNode.insertBefore(wrapper, h3);
+    wrapper.append(h3);
+    // Collect subsequent p elements until we hit a button-wrapper or another heading
+    let next = wrapper.nextElementSibling;
+    while (next && next.tagName === 'P' && !next.classList.contains('button-wrapper')) {
+      const toMove = next;
+      next = next.nextElementSibling;
+      wrapper.append(toMove);
+    }
+  });
+
   block.textContent = '';
   block.append(ul);
 }

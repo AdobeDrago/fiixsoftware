@@ -147,3 +147,74 @@
 .table-compare table tr.table-compare-section td p {
   font-weight: 700;
 }
+
+/* ================================================================
+   Sticky pricing header — matches production sticky bar
+   ================================================================ */
+
+/* Title in first column header */
+.table-compare.block table thead th:first-child .table-compare-header-title {
+  display: block;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.3;
+  color: var(--text-color);
+}
+
+/* Plan name */
+.table-compare.block table thead .table-compare-plan-name {
+  display: block;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text-color);
+}
+
+/* Plan price */
+.table-compare.block table thead .table-compare-plan-price {
+  display: block;
+  font-size: 16px;
+  font-weight: 700;
+  color: #20a51e;
+  margin-top: 2px;
+}
+
+/* CTA row */
+.table-compare.block table thead tr.table-compare-cta-row th {
+  padding: 8px;
+  text-align: center;
+  vertical-align: middle;
+}
+
+/* CTA buttons */
+.table-compare.block .table-compare-cta {
+  display: inline-block;
+  padding: 0 16px;
+  height: 36px;
+  line-height: 36px;
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+  border-radius: 40px;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.table-compare.block .table-compare-cta-primary {
+  background-color: #14499a;
+  color: #fff;
+  border: none;
+}
+
+.table-compare.block .table-compare-cta-primary:hover {
+  background-color: #0f3878;
+}
+
+.table-compare.block .table-compare-cta-enterprise {
+  background-color: #20a51e;
+  color: #fff;
+  border: none;
+}
+
+.table-compare.block .table-compare-cta-enterprise:hover {
+  background-color: #1b8a19;
+}

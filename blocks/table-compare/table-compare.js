@@ -4,8 +4,16 @@
  * https://www.hlx.live/developer/block-collection/table
  */
 
+/* Plan metadata: prices and CTA links for the sticky pricing header.
+   Matches production https://fiixsoftware.com/cmms/pricing/ */
+const PLAN_META = [
+  { price: '$0', cta: 'Sign up', href: 'https://ecomm.fiix.software/cmms-sign-up-page?package=Lite', style: 'primary' },
+  { price: '$45', cta: 'Buy now', href: 'https://ecomm.fiix.software/cmms-sign-up-page', style: 'primary' },
+  { price: '$75', cta: 'Buy now', href: 'https://ecomm.fiix.software/cmms-sign-up-page', style: 'primary' },
+  { price: '', cta: 'Book a demo', href: 'https://lp.fiixsoftware.com/demo-request', style: 'enterprise' },
+];
+
 /**
- *
  * @param {Element} block
  */
 export default async function decorate(block) {
@@ -47,6 +55,51 @@ export default async function decorate(block) {
     else tbody.append(tr);
   });
   table.append(thead, tbody);
+
+  // Enhance the sticky header: add a second row with prices and CTA buttons
+  // to match the production sticky pricing bar.
+  if (header) {
+    const headerRow = thead.querySelector('tr');
+    const ths = [...headerRow.querySelectorAll('th')];
+
+    // Add prices below the plan names in the existing header cells
+    ths.forEach((th, idx) => {
+      if (idx === 0) {
+        // First column: "Find the pricing plan..." label
+        th.innerHTML = '<span class="table-compare-header-title">Find the pricing plan that fits your organization</span>';
+        return;
+      }
+      const meta = PLAN_META[idx - 1];
+      if (!meta) return;
+      const name = th.textContent.trim();
+      th.innerHTML = `
+        <span class="table-compare-plan-name">${name}</span>
+        ${meta.price ? `<span class="table-compare-plan-price">${meta.price}</span>` : ''}
+      `;
+    });
+
+    // Add a second header row with CTA buttons
+    const ctaRow = document.createElement('tr');
+    ctaRow.classList.add('table-compare-cta-row');
+    ths.forEach((_, idx) => {
+      const th = document.createElement('th');
+      if (idx === 0) {
+        // empty cell for the label column
+        ctaRow.append(th);
+        return;
+      }
+      const meta = PLAN_META[idx - 1];
+      if (!meta) { ctaRow.append(th); return; }
+      const btn = document.createElement('a');
+      btn.href = meta.href;
+      btn.textContent = meta.cta;
+      btn.className = `table-compare-cta table-compare-cta-${meta.style}`;
+      if (meta.style === 'primary') btn.target = '_blank';
+      th.append(btn);
+      ctaRow.append(th);
+    });
+    thead.append(ctaRow);
+  }
 
   // Replace authored icon tokens with inline SVGs so each plan column can
   // color its check independently (an <img> icon can't be recolored via CSS).
