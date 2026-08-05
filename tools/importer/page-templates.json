@@ -4,6 +4,143 @@
   },
   "templates": [
     {
+      "name": "premium-support-page",
+      "urls": [
+        "https://fiixsoftware.com/premium-support/"
+      ],
+      "representativeUrl": "https://fiixsoftware.com/premium-support/",
+      "coverageGaps": [],
+      "description": "Premium Support page: hero (copy + video), 4 benefit cards, Premium-vs-Standard lists, 'Meet Your A-Team' consultant carousel, TI Automotive success story, a contact CTA, and an 'Exclusive benefits' comparison table. Reuses existing blocks only.",
+      "blocks": [
+        {
+          "name": "columns-media",
+          "instances": [
+            ".premium-support > header",
+            ".support-scaling.support-flex",
+            ".get-started"
+          ]
+        },
+        {
+          "name": "cards-icon",
+          "instances": [
+            ".started"
+          ]
+        },
+        {
+          "name": "carousel-testimonial",
+          "instances": [
+            ".support-team .mh-slider"
+          ]
+        },
+        {
+          "name": "hero-cta",
+          "instances": [
+            ".contact-sales"
+          ]
+        },
+        {
+          "name": "table-compare",
+          "instances": [
+            ".support-scaling:not(.support-flex)"
+          ]
+        }
+      ],
+      "sections": [
+        {
+          "id": "premium-hero",
+          "name": "Hero",
+          "selector": [
+            ".page-section"
+          ],
+          "style": "premium-hero",
+          "blocks": [
+            "columns-media"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "premium-benefits",
+          "name": "Benefit cards",
+          "selector": [
+            ".started"
+          ],
+          "style": "premium-benefits",
+          "blocks": [
+            "cards-icon"
+          ],
+          "defaultContent": [
+            ".started > .container > h2"
+          ]
+        },
+        {
+          "id": "premium-compare",
+          "name": "Premium vs Standard",
+          "selector": [
+            ".support-scaling.support-flex"
+          ],
+          "style": "premium-compare",
+          "blocks": [
+            "columns-media"
+          ],
+          "defaultContent": [
+            ".support-scaling.support-flex h2"
+          ]
+        },
+        {
+          "id": "premium-team",
+          "name": "Meet the team",
+          "selector": [
+            ".support-team"
+          ],
+          "style": "premium-team",
+          "blocks": [
+            "carousel-testimonial"
+          ],
+          "defaultContent": [
+            ".support-team > .container"
+          ]
+        },
+        {
+          "id": "premium-success",
+          "name": "Success story",
+          "selector": [
+            ".get-started"
+          ],
+          "style": "premium-success",
+          "blocks": [
+            "columns-media"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "premium-cta",
+          "name": "Contact CTA",
+          "selector": [
+            ".contact-sales"
+          ],
+          "style": "cta",
+          "blocks": [
+            "hero-cta"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "premium-table",
+          "name": "Exclusive benefits table",
+          "selector": [
+            ".support-scaling:not(.support-flex)"
+          ],
+          "style": "premium-table",
+          "blocks": [
+            "table-compare"
+          ],
+          "defaultContent": [
+            ".support-scaling:not(.support-flex) h2"
+          ]
+        }
+      ]
+    },
+    {
       "name": "contact-us-page",
       "urls": [
         "https://fiixsoftware.com/contact-us/"
