@@ -871,3 +871,348 @@ main > .section.features .cards-features h3 {
   font-size: 24px;
   line-height: 1.1;
 }
+
+/* ============================================================
+   Enterprise page (/enterprise) — section styling to match
+   production (https://fiixsoftware.com/enterprise/). Values
+   extracted from the production computed styles at 1440px.
+   All blocks are reused; these rules scope layout/appearance
+   to the enterprise section styles.
+   ============================================================ */
+
+/* ---- Hero: blue gradient band, white centered content ---- */
+main .section.enterprise-hero {
+  margin: 0;
+  padding: 80px 0 50px;
+  background-image: linear-gradient(0deg, #14499a 0%, #14499a 40%, #3069b3 100%);
+  text-align: center;
+}
+
+main .section.enterprise-hero .default-content-wrapper {
+  max-width: 900px;
+  margin: 0 auto;
+  color: #fff;
+}
+
+/* eyebrow (authored as h1) */
+/* stylelint-disable-next-line no-descending-specificity */
+main .section.enterprise-hero h1 {
+  margin: 0 0 12px;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.1;
+  color: #fff;
+}
+
+/* main headline (authored as h2) */
+/* stylelint-disable-next-line no-descending-specificity */
+main .section.enterprise-hero h2 {
+  margin: 0 auto 20px;
+  max-width: 850px;
+  font-size: 40px;
+  font-weight: 700;
+  line-height: 1.05;
+  color: #fff;
+}
+
+/* stylelint-disable-next-line no-descending-specificity */
+main .section.enterprise-hero .default-content-wrapper > p {
+  max-width: 850px;
+  margin: 0 auto 24px;
+  font-size: 20px;
+  font-weight: 300;
+  line-height: 1.4;
+  color: #fff;
+}
+
+/* hero CTA — cyan pill */
+main .section.enterprise-hero .default-content-wrapper a.button,
+main .section.enterprise-hero .default-content-wrapper a:any-link {
+  display: inline-block;
+  margin: 0 0 32px;
+  padding: 12px 26px;
+  border: 0;
+  border-radius: 44px;
+  background-color: #00afeb;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+/* "Over 900 five-star reviews" sub-heading (the last h2 in the hero) */
+/* stylelint-disable-next-line no-descending-specificity */
+main .section.enterprise-hero .default-content-wrapper h2:last-child {
+  margin-top: 24px;
+  font-size: 24px;
+  line-height: 1.1;
+}
+
+/* review-logo strip on the gradient */
+main .section.enterprise-hero .columns-logos > div {
+  justify-content: center;
+  gap: 40px;
+}
+
+main .section.enterprise-hero .columns-logos img {
+  max-height: 40px;
+}
+
+/* testimonial carousel over the gradient — keep cards white (block default) */
+main .section.enterprise-hero .carousel-testimonial {
+  margin-top: 40px;
+}
+
+@media (width >= 900px) {
+/* stylelint-disable-next-line no-descending-specificity */
+  main .section.enterprise-hero h2 {
+    font-size: 64px;
+    line-height: 1;
+  }
+}
+
+/* ---- Tools: white band, centered headings, logo strip, 4 product cards ---- */
+main .section.enterprise-tools {
+  margin: 0;
+  padding: 100px 0;
+  text-align: center;
+}
+
+/* stylelint-disable-next-line no-descending-specificity */
+main .section.enterprise-tools .default-content-wrapper h2 {
+  margin: 0 auto 40px;
+  max-width: 900px;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1.1;
+  color: var(--text-color);
+}
+
+main .section.enterprise-tools .columns-logos > div {
+  justify-content: center;
+  gap: 48px;
+}
+
+main .section.enterprise-tools .columns-logos img {
+  max-height: 60px;
+}
+
+/* product cards: 4-up flex, borderless, centered icon on top */
+main .section.enterprise-tools .cards-icon > ul {
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+
+main .section.enterprise-tools .cards-icon > ul > li {
+  border: 0;
+  background: transparent;
+  text-align: center;
+}
+
+main .section.enterprise-tools .cards-icon > ul > li img {
+  width: auto;
+  max-height: 90px;
+  aspect-ratio: auto;
+  object-fit: contain;
+  margin: 0 auto;
+}
+
+main .section.enterprise-tools .cards-icon h3 {
+  margin: 16px 0 8px;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+main .section.enterprise-tools .cards-icon .cards-icon-card-body p {
+  font-size: 16px;
+  line-height: 1.4;
+}
+
+main .section.enterprise-tools .cards-icon a:any-link {
+  color: #14499a;
+  font-weight: 700;
+}
+
+/* ---- Scale: light band, alternating media rows, IT accordion + badges ---- */
+main .section.enterprise-scale {
+  margin: 0;
+  padding: 100px 0;
+  background-color: #f7fafc;
+}
+
+/* stylelint-disable-next-line no-descending-specificity */
+main .section.enterprise-scale .default-content-wrapper h2 {
+  margin: 0 0 40px;
+  font-size: 48px;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--text-color);
+}
+
+main .section.enterprise-scale .columns-media {
+  margin: 0 0 60px;
+}
+
+main .section.enterprise-scale .columns-media h3 {
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 1.1;
+  color: var(--text-color);
+}
+
+/* stylelint-disable-next-line no-descending-specificity */
+main .section.enterprise-scale .columns-media p {
+  font-size: 18px;
+  font-weight: 300;
+  line-height: 1.5;
+}
+
+/* security badge row (cards-icon <dl> variant) */
+main .section.enterprise-scale .cards-icon > ul {
+  grid-template-columns: repeat(5, 1fr);
+  gap: 16px;
+}
+
+main .section.enterprise-scale .cards-icon > ul > li {
+  border: 0;
+  background: transparent;
+  text-align: center;
+}
+
+main .section.enterprise-scale .cards-icon > ul > li img {
+  width: auto;
+  max-height: 90px;
+  aspect-ratio: auto;
+  object-fit: contain;
+  margin: 0 auto;
+}
+
+/* ---- Social proof: centered heading + Liberty quote ---- */
+main .section.enterprise-social-proof {
+  margin: 0;
+  padding: 100px 0;
+  text-align: center;
+}
+
+/* stylelint-disable-next-line no-descending-specificity */
+main .section.enterprise-social-proof .default-content-wrapper h2 {
+  margin: 0 auto 48px;
+  max-width: 1000px;
+  font-size: 40px;
+  font-weight: 700;
+  line-height: 1.1;
+  color: var(--text-color);
+}
+
+main .section.enterprise-social-proof .columns-media {
+  max-width: 900px;
+  margin: 0 auto;
+  text-align: left;
+}
+
+/* ---- Operation: light band, two feature-checklist rows ---- */
+main .section.enterprise-operation {
+  margin: 0;
+  padding: 100px 0;
+  background-color: #f7fafc;
+  text-align: center;
+}
+
+/* stylelint-disable-next-line no-descending-specificity */
+main .section.enterprise-operation .default-content-wrapper h2 {
+  margin: 0 auto 48px;
+  max-width: 900px;
+  font-size: 40px;
+  font-weight: 700;
+  line-height: 1.1;
+  color: var(--text-color);
+}
+
+main .section.enterprise-operation .columns-media {
+  margin: 0 0 40px;
+  text-align: left;
+}
+
+/* stylelint-disable-next-line no-descending-specificity */
+main .section.enterprise-operation .columns-media p {
+  font-size: 18px;
+  font-weight: 300;
+  line-height: 1.5;
+}
+
+/* ---- Success: white band, copy + checklist ---- */
+main .section.enterprise-success {
+  margin: 0;
+  padding: 100px 0;
+}
+
+/* stylelint-disable-next-line no-descending-specificity */
+main .section.enterprise-success .columns-media h2 {
+  font-size: 48px;
+  font-weight: 700;
+  line-height: 1.05;
+  color: var(--text-color);
+}
+
+/* stylelint-disable-next-line no-descending-specificity */
+main .section.enterprise-success .columns-media p {
+  font-size: 18px;
+  font-weight: 300;
+  line-height: 1.5;
+}
+
+main .section.enterprise-success .columns-media ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+main .section.enterprise-success .columns-media ul li {
+  position: relative;
+  margin: 0 0 16px;
+  padding-left: 34px;
+  font-size: 18px;
+  font-weight: 300;
+  line-height: 1.4;
+}
+
+main .section.enterprise-success .columns-media ul li img {
+  position: absolute;
+  left: 0;
+  top: 2px;
+  width: 22px;
+  height: auto;
+}
+
+/* ---- Closing CTA (.demo → style "cta") ----
+   The enterprise closing CTA is a plain white, centered band with a purple
+   "Book a demo" pill — unlike the pricing .cta (cyan gradient + metal ring).
+   The enterprise CTA has no image, so scope the overrides via .no-image so the
+   pricing CTA (which has the metal-ring image) is unaffected. */
+main .section.cta .hero-cta.no-image {
+  background: #fff;
+  padding: 0;
+}
+
+main .section.cta .hero-cta.no-image h2 {
+  max-width: 1000px;
+  font-size: 48px;
+  line-height: 1;
+}
+
+main .section.cta .hero-cta.no-image a.button,
+main .section.cta .hero-cta.no-image a:any-link {
+  display: inline-block;
+  margin-top: 8px;
+  padding: 12px 26px;
+  border: 0;
+  border-radius: 44px;
+  background-color: #635ce8;
+  color: #fff;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+/* the enterprise .cta band itself is plain white (override pricing gradient) */
+main > .section.cta:has(.hero-cta.no-image) {
+  background: #fff;
+}

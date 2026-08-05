@@ -4,6 +4,163 @@
   },
   "templates": [
     {
+      "name": "enterprise-page",
+      "urls": [
+        "https://fiixsoftware.com/enterprise/"
+      ],
+      "representativeUrl": "https://fiixsoftware.com/enterprise/",
+      "coverageGaps": [],
+      "description": "Enterprise landing page: hero with review-logo strip + testimonial carousel, customer-logo band with 4 product cards, alternating media/copy scale rows with an IT/security accordion + badges, Liberty Oilfield social-proof quote, feature checklists, partner-for-success checklist, and closing CTA. Reuses existing blocks only.",
+      "blocks": [
+        {
+          "name": "columns-logos",
+          "instances": [
+            ".ent-header .ent-logos",
+            ".tools .tools-logos"
+          ]
+        },
+        {
+          "name": "carousel-testimonial",
+          "instances": [
+            ".ent-header .loop.owl-carousel"
+          ]
+        },
+        {
+          "name": "cards-icon",
+          "instances": [
+            ".tools .ent-flex",
+            ".scale .secure-logos"
+          ]
+        },
+        {
+          "name": "columns-media",
+          "instances": [
+            ".scale .organized",
+            ".social-proof #feature-container-ent",
+            ".operation .product-flex",
+            ".success .success-flex"
+          ]
+        },
+        {
+          "name": "accordion-faq",
+          "instances": [
+            ".scale .faq-accordion"
+          ]
+        },
+        {
+          "name": "hero-cta",
+          "instances": [
+            ".demo"
+          ]
+        }
+      ],
+      "sections": [
+        {
+          "id": "enterprise-hero",
+          "name": "Hero",
+          "selector": [
+            ".ent-header"
+          ],
+          "style": "enterprise-hero",
+          "blocks": [
+            "columns-logos",
+            "carousel-testimonial"
+          ],
+          "defaultContent": [
+            ".ent-header h1",
+            ".ent-header .container > h2:first-of-type",
+            ".ent-header .container > p"
+          ]
+        },
+        {
+          "id": "enterprise-tools",
+          "name": "Tools & product cards",
+          "selector": [
+            ".tools"
+          ],
+          "style": "enterprise-tools",
+          "blocks": [
+            "columns-logos",
+            "cards-icon"
+          ],
+          "defaultContent": [
+            ".tools .tools-logos-header",
+            ".tools > .container > h2"
+          ]
+        },
+        {
+          "id": "enterprise-scale",
+          "name": "Scale faster",
+          "selector": [
+            ".scale"
+          ],
+          "style": "enterprise-scale",
+          "blocks": [
+            "columns-media",
+            "accordion-faq",
+            "cards-icon"
+          ],
+          "defaultContent": [
+            ".scale > .container > h2",
+            ".scale .maintenance-teams > h2",
+            ".scale .security-header"
+          ]
+        },
+        {
+          "id": "enterprise-social-proof",
+          "name": "Social proof",
+          "selector": [
+            ".social-proof"
+          ],
+          "style": "enterprise-social-proof",
+          "blocks": [
+            "columns-media"
+          ],
+          "defaultContent": [
+            ".social-proof #feature-container-ent > .container > h2"
+          ]
+        },
+        {
+          "id": "enterprise-operation",
+          "name": "World-class operation",
+          "selector": [
+            ".operation"
+          ],
+          "style": "enterprise-operation",
+          "blocks": [
+            "columns-media"
+          ],
+          "defaultContent": [
+            ".operation > .container > h2"
+          ]
+        },
+        {
+          "id": "enterprise-success",
+          "name": "Partner for success",
+          "selector": [
+            ".success"
+          ],
+          "style": "enterprise-success",
+          "blocks": [
+            "columns-media"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "enterprise-cta",
+          "name": "Closing CTA",
+          "selector": [
+            ".demo"
+          ],
+          "style": "cta",
+          "blocks": [
+            "hero-cta"
+          ],
+          "defaultContent": []
+        }
+      ]
+    },
+    {
       "name": "pricing-page",
       "urls": [
         "https://fiixsoftware.com/cmms/pricing/"
