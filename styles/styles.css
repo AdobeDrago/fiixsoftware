@@ -1364,3 +1364,220 @@ main .section.contact-office .columns-media ul {
   margin: 16px 0 0;
   padding: 0;
 }
+
+/* ============================================================
+   Premium Support page (/premium-support) — section styling to
+   match production (https://fiixsoftware.com/premium-support/).
+   Values from production computed styles at 1440px. Reuses the
+   columns-media, cards-icon, carousel-testimonial, hero-cta, and
+   table-compare blocks.
+   ============================================================ */
+
+/* ---- Hero: white band, copy + video, eyebrow H1 + large H2 ---- */
+main .section.premium-hero {
+  margin: 0;
+  padding: 80px 0 60px;
+}
+
+main .section.premium-hero .columns-media > div {
+  align-items: center;
+  gap: 40px;
+}
+
+/* eyebrow (authored as h1) */
+/* stylelint-disable-next-line no-descending-specificity */
+main .section.premium-hero .columns-media h1 {
+  margin: 0 0 12px;
+  font-size: 16px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--text-color);
+}
+
+/* subhead — the first paragraph reads as the big headline */
+/* stylelint-disable-next-line no-descending-specificity */
+main .section.premium-hero .columns-media p:first-of-type {
+  font-size: 32px;
+  font-weight: 600;
+  line-height: 1.1;
+  color: var(--text-color);
+}
+
+/* stylelint-disable-next-line no-descending-specificity */
+main .section.premium-hero .columns-media p {
+  font-size: 18px;
+  font-weight: 300;
+  line-height: 1.5;
+}
+
+@media (width >= 900px) {
+  main .section.premium-hero .columns-media p:first-of-type {
+    font-size: 40px;
+  }
+}
+
+/* ---- Benefit cards: white band, centered heading, 4 icon cards ---- */
+main .section.premium-benefits {
+  margin: 0;
+  padding: 50px 0;
+  text-align: center;
+}
+
+/* stylelint-disable-next-line no-descending-specificity */
+main .section.premium-benefits .default-content-wrapper h2 {
+  margin: 0 auto 40px;
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 1.1;
+  color: var(--text-color);
+}
+
+main .section.premium-benefits .cards-icon > ul {
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+
+main .section.premium-benefits .cards-icon > ul > li {
+  border: 0;
+  background: transparent;
+  text-align: center;
+}
+
+main .section.premium-benefits .cards-icon > ul > li img {
+  width: auto;
+  max-height: 72px;
+  aspect-ratio: auto;
+  object-fit: contain;
+  margin: 0 auto;
+}
+
+/* stylelint-disable-next-line no-descending-specificity */
+main .section.premium-benefits .cards-icon h3 {
+  margin: 16px 0 8px;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+/* ---- Premium vs Standard: white band, two option columns ---- */
+main .section.premium-compare {
+  margin: 0;
+  padding: 70px 0 0;
+}
+
+/* stylelint-disable-next-line no-descending-specificity */
+main .section.premium-compare .default-content-wrapper h2 {
+  margin: 0 0 40px;
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--text-color);
+}
+
+main .section.premium-compare .columns-media > div {
+  align-items: start;
+  gap: 40px;
+}
+
+main .section.premium-compare .columns-media h4 {
+  font-size: 24px;
+  font-weight: 700;
+}
+
+main .section.premium-compare .columns-media ul {
+  padding-left: 20px;
+}
+
+/* stylelint-disable-next-line no-descending-specificity */
+main .section.premium-compare .columns-media li {
+  margin: 8px 0;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+/* ---- Meet the team: light band, testimonial carousel ---- */
+main .section.premium-team {
+  margin: 0;
+  padding: 60px 0;
+  background-color: #f7f9fc;
+}
+
+/* stylelint-disable-next-line no-descending-specificity */
+main .section.premium-team .default-content-wrapper h2 {
+  margin: 0 0 16px;
+  font-size: 40px;
+  font-weight: 700;
+  color: var(--text-color);
+}
+
+/* stylelint-disable-next-line no-descending-specificity */
+main .section.premium-team .default-content-wrapper p {
+  max-width: 900px;
+  font-size: 18px;
+  font-weight: 300;
+  line-height: 1.5;
+}
+
+/* ---- Success story: two-column story + stats ---- */
+main .section.premium-success {
+  margin: 0;
+  padding: 80px 0;
+}
+
+main .section.premium-success .columns-media > div {
+  align-items: center;
+  gap: 40px;
+}
+
+main .section.premium-success .columns-media .eyebrow,
+main .section.premium-success .columns-media p:first-child {
+  font-size: 16px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #14499a;
+}
+
+/* stylelint-disable-next-line no-descending-specificity */
+main .section.premium-success .columns-media h2 {
+  margin: 8px 0 16px;
+  font-size: 36px;
+  font-weight: 700;
+  line-height: 1.1;
+  color: var(--text-color);
+}
+
+main .section.premium-success .columns-media ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* stylelint-disable-next-line no-descending-specificity */
+main .section.premium-success .columns-media li {
+  position: relative;
+  margin: 0 0 12px;
+  padding-left: 28px;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+main .section.premium-success .columns-media li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  color: #20a51e;
+  font-weight: 700;
+}
+
+/* ---- Exclusive benefits table (reuses table-compare styling) ---- */
+main .section.premium-table {
+  margin: 0;
+  padding: 70px 0;
+}
+
+/* stylelint-disable-next-line no-descending-specificity */
+main .section.premium-table .default-content-wrapper h2 {
+  margin: 0 0 8px;
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--text-color);
+}
