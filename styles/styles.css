@@ -1216,3 +1216,151 @@ main .section.cta .hero-cta.no-image a:any-link {
 main > .section.cta:has(.hero-cta.no-image) {
   background: #fff;
 }
+
+/* ============================================================
+   Contact Us page (/contact-us) — section styling to match
+   production (https://fiixsoftware.com/contact-us/). Values
+   extracted from production computed styles at 1440px. Reuses
+   the columns-media and cards-icon blocks.
+   ============================================================ */
+
+/* ---- Hero: blue band, white text, copy + logo two columns ---- */
+main .section.contact-hero {
+  margin: 0;
+  padding: 60px 0;
+  background-color: #14499a;
+}
+
+main .section.contact-hero .columns-media > div {
+  align-items: center;
+  gap: 40px;
+}
+
+main .section.contact-hero .columns-media h1 {
+  margin: 0 0 12px;
+  font-size: 40px;
+  font-weight: 700;
+  line-height: 1.05;
+  color: #fff;
+}
+
+/* stylelint-disable-next-line no-descending-specificity */
+main .section.contact-hero .columns-media p {
+  font-size: 20px;
+  font-weight: 300;
+  color: #fff;
+}
+
+/* CTA pills: first ("Contact sales") is a cyan filled pill, second is an
+   outlined white pill — matching production. */
+/* stylelint-disable-next-line no-descending-specificity */
+main .section.contact-hero .columns-media a:any-link {
+  display: inline-block;
+  margin: 12px 12px 0 0;
+  padding: 10px 24px;
+  border: 2px solid #00afeb;
+  border-radius: 27px;
+  background-color: #00afeb;
+  color: #fff;
+  font-weight: 700;
+}
+
+main .section.contact-hero .columns-media a:any-link + a:any-link {
+  border-color: #fff;
+  background-color: transparent;
+  color: #fff;
+}
+
+/* stylelint-disable-next-line no-descending-specificity */
+main .section.contact-hero .columns-media img {
+  width: auto;
+  max-height: 90px;
+}
+
+@media (width >= 900px) {
+  main .section.contact-hero .columns-media h1 {
+    font-size: 64px;
+    line-height: 1;
+  }
+}
+
+/* ---- Connect cards: white band, section heading, 4 icon cards ---- */
+main .section.contact-connect {
+  margin: 0;
+  padding: 80px 0;
+}
+
+/* stylelint-disable-next-line no-descending-specificity */
+main .section.contact-connect .default-content-wrapper h2 {
+  margin: 0 0 40px;
+  font-size: 48px;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--text-color);
+}
+
+main .section.contact-connect .cards-icon > ul {
+  grid-template-columns: repeat(4, 1fr);
+  gap: 32px;
+}
+
+main .section.contact-connect .cards-icon > ul > li {
+  border: 0;
+  background: transparent;
+}
+
+main .section.contact-connect .cards-icon > ul > li img {
+  width: auto;
+  max-height: 80px;
+  aspect-ratio: auto;
+  object-fit: contain;
+}
+
+main .section.contact-connect .cards-icon h3 {
+  margin: 16px 0 8px;
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--text-color);
+}
+
+main .section.contact-connect .cards-icon .cards-icon-card-body p {
+  font-size: 16px;
+  line-height: 1.5;
+  font-weight: 300;
+}
+
+/* ---- Office info + map: grey band, two columns ---- */
+main .section.contact-office {
+  margin: 0;
+  padding: 60px 0;
+  background-color: #f2f2f2;
+}
+
+main .section.contact-office .columns-media > div {
+  align-items: center;
+  gap: 40px;
+}
+
+/* stylelint-disable-next-line no-descending-specificity */
+main .section.contact-office .columns-media h2 {
+  margin: 0 0 16px;
+  font-size: 48px;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--text-color);
+}
+
+/* stylelint-disable-next-line no-descending-specificity */
+main .section.contact-office .columns-media p {
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+/* social links row */
+main .section.contact-office .columns-media ul {
+  display: flex;
+  gap: 16px;
+  list-style: none;
+  margin: 16px 0 0;
+  padding: 0;
+}

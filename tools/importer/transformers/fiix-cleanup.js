@@ -54,6 +54,13 @@ export default function transform(hookName, element, payload) {
       '[id^="batBeacon"]',
       '#ZN_T5isCcF6pxOpZ0B',
       '#back-to-top',
+      // Contact-us page: the interactive Google Map widget is not authorable
+      // and its tile <img>s would otherwise leak into the import. Remove only
+      // the map div (#contactmap.google_map) — NOT the .contact_map column,
+      // which also contains the .contact-location office info. The office
+      // parser renders a static "View on Google Maps" link in its place.
+      '#contactmap',
+      '.google_map',
     ]);
   }
 
