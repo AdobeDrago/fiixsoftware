@@ -4,6 +4,70 @@
   },
   "templates": [
     {
+      "name": "contact-us-page",
+      "urls": [
+        "https://fiixsoftware.com/contact-us/"
+      ],
+      "representativeUrl": "https://fiixsoftware.com/contact-us/",
+      "coverageGaps": [],
+      "description": "Contact Us page: 'Get in touch' hero (copy + CTAs + logo), a 'Who would you like to connect with?' band of 4 icon cards (Support/Sales/Partners/Ethical concern), and an office-info + map band. Reuses existing blocks only.",
+      "blocks": [
+        {
+          "name": "columns-media",
+          "instances": [
+            ".contact-header",
+            ".contact-location"
+          ]
+        },
+        {
+          "name": "cards-icon",
+          "instances": [
+            ".page-container"
+          ]
+        }
+      ],
+      "sections": [
+        {
+          "id": "contact-hero",
+          "name": "Get in touch hero",
+          "selector": [
+            ".contact-header"
+          ],
+          "style": "contact-hero",
+          "blocks": [
+            "columns-media"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "contact-connect",
+          "name": "Connect cards",
+          "selector": [
+            ".page-container"
+          ],
+          "style": "contact-connect",
+          "blocks": [
+            "cards-icon"
+          ],
+          "defaultContent": [
+            ".page-container > h2"
+          ]
+        },
+        {
+          "id": "contact-office",
+          "name": "Office info + map",
+          "selector": [
+            ".contact-location"
+          ],
+          "style": "contact-office",
+          "blocks": [
+            "columns-media"
+          ],
+          "defaultContent": []
+        }
+      ]
+    },
+    {
       "name": "enterprise-page",
       "urls": [
         "https://fiixsoftware.com/enterprise/"
