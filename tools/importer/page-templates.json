@@ -4,6 +4,82 @@
   },
   "templates": [
     {
+      "name": "community-page",
+      "urls": [
+        "https://fiixsoftware.com/community/"
+      ],
+      "representativeUrl": "https://fiixsoftware.com/community/",
+      "coverageGaps": [],
+      "description": "The Fiixers community page: hero (logo + headline + Join CTA + board image), a 'Why join?' section with 4 icon cards + a video + 3 testimonials, and a closing 'Get started' CTA. Reuses existing blocks only.",
+      "blocks": [
+        {
+          "name": "columns-media",
+          "instances": [
+            "header:has(.intro)"
+          ]
+        },
+        {
+          "name": "cards-icon",
+          "instances": [
+            ".join-flex"
+          ]
+        },
+        {
+          "name": "carousel-testimonial",
+          "instances": [
+            ".quotes"
+          ]
+        },
+        {
+          "name": "hero-cta",
+          "instances": [
+            ".get-started"
+          ]
+        }
+      ],
+      "sections": [
+        {
+          "id": "community-hero",
+          "name": "Hero",
+          "selector": [
+            "header:has(.intro)"
+          ],
+          "style": "community-hero",
+          "blocks": [
+            "columns-media"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "community-why",
+          "name": "Why join",
+          "selector": [
+            "section:has(.join-flex)"
+          ],
+          "style": "community-why",
+          "blocks": [
+            "cards-icon",
+            "carousel-testimonial"
+          ],
+          "defaultContent": [
+            "section:has(.join-flex) > .container > h2"
+          ]
+        },
+        {
+          "id": "community-cta",
+          "name": "Get started CTA",
+          "selector": [
+            ".get-started"
+          ],
+          "style": "community-cta",
+          "blocks": [
+            "hero-cta"
+          ],
+          "defaultContent": []
+        }
+      ]
+    },
+    {
       "name": "training-page",
       "urls": [
         "https://fiixsoftware.com/training-and-implementation/"
@@ -228,7 +304,7 @@
           "selector": [
             ".contact-sales"
           ],
-          "style": "cta",
+          "style": "community-cta",
           "blocks": [
             "hero-cta"
           ],
@@ -463,7 +539,7 @@
           "selector": [
             ".demo"
           ],
-          "style": "cta",
+          "style": "community-cta",
           "blocks": [
             "hero-cta"
           ],
@@ -644,7 +720,7 @@
             "#page-wrap .pricing-kickthetires",
             ".pricing-kickthetires"
           ],
-          "style": "cta",
+          "style": "community-cta",
           "blocks": [
             "hero-cta"
           ],
