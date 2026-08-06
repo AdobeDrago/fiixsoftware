@@ -4,6 +4,116 @@
   },
   "templates": [
     {
+      "name": "training-page",
+      "urls": [
+        "https://fiixsoftware.com/training-and-implementation/"
+      ],
+      "representativeUrl": "https://fiixsoftware.com/training-and-implementation/",
+      "coverageGaps": [],
+      "description": "Training & Implementation page: hero, CMMS implementation services (video + training/implementation packages + remote-training benefits), Support (Standard/Premium lists + comparison table), on-demand training cards, and Fiixers community band. Reuses existing blocks only.",
+      "blocks": [
+        {
+          "name": "columns-media",
+          "instances": [
+            ".training-implementation > header",
+            ".support-scaling .support-options",
+            ".scaling-success"
+          ]
+        },
+        {
+          "name": "cards-features",
+          "instances": [
+            ".started .cont-tia"
+          ]
+        },
+        {
+          "name": "cards-icon",
+          "instances": [
+            ".started .cont.training",
+            ".demand"
+          ]
+        },
+        {
+          "name": "table-compare",
+          "instances": [
+            ".support-scaling .no_mobile"
+          ]
+        }
+      ],
+      "sections": [
+        {
+          "id": "training-hero",
+          "name": "Hero",
+          "selector": [
+            ".training-implementation > header"
+          ],
+          "style": "training-hero",
+          "blocks": [
+            "columns-media"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "training-services",
+          "name": "Implementation services",
+          "selector": [
+            ".started"
+          ],
+          "style": "training-services",
+          "blocks": [
+            "cards-features",
+            "cards-icon"
+          ],
+          "defaultContent": [
+            ".started .eyebrow",
+            ".started .h2heading"
+          ]
+        },
+        {
+          "id": "training-support",
+          "name": "Support",
+          "selector": [
+            ".support-scaling"
+          ],
+          "style": "training-support",
+          "blocks": [
+            "columns-media",
+            "table-compare"
+          ],
+          "defaultContent": [
+            ".support-scaling .flex-intro"
+          ]
+        },
+        {
+          "id": "training-demand",
+          "name": "On-demand training",
+          "selector": [
+            ".demand"
+          ],
+          "style": "training-demand",
+          "blocks": [
+            "cards-icon"
+          ],
+          "defaultContent": [
+            ".demand .eyebrow",
+            ".demand .h2heading"
+          ]
+        },
+        {
+          "id": "training-community",
+          "name": "Fiixers community",
+          "selector": [
+            ".scaling-success"
+          ],
+          "style": "training-community",
+          "blocks": [
+            "columns-media"
+          ],
+          "defaultContent": []
+        }
+      ]
+    },
+    {
       "name": "premium-support-page",
       "urls": [
         "https://fiixsoftware.com/premium-support/"
