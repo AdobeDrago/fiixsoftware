@@ -46,3 +46,17 @@
   max-height: none;
   object-fit: contain;
 }
+
+/* Distribute the partner logos edge-to-edge across the full band like
+   production (first logo flush left, last flush right) instead of centering
+   each in an equal flex cell, which left a ~40px inset (WCT-HOME HP-4). */
+@media (width >= 900px) {
+  .section.logos .columns-logos > div {
+    justify-content: space-between;
+    gap: 0;
+  }
+
+  .section.logos .columns-logos > div > div {
+    flex: 0 0 auto;
+  }
+}
