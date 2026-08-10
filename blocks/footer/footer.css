@@ -256,4 +256,13 @@ footer .footer .footer-social svg {
     flex: 0 1 calc(25% - 24px);
     min-width: 160px;
   }
+
+  /* Awards column spans two column-widths so its review-site logos lay out in
+     a wrapping horizontal row (~3 across), matching production — instead of
+     stacking one-per-row inside a single 25% column. Widening this cell also
+     shifts the following "Legal" column rightward toward production's position.
+     DOM-safe: pure layout, no node movement. */
+  footer .footer .columns > div > div:has(.footer-awards) {
+    flex: 0 1 calc(50% - 16px);
+  }
 }
