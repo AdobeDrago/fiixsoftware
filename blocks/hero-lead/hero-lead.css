@@ -299,4 +299,16 @@
     max-width: 100%;
     margin-left: auto;
   }
+
+  /* Keep the three stat metrics on a single row like production: let each chip
+     shrink to share the content column (labels wrap to two lines) instead of
+     the third chip wrapping onto a second row (WCT-HOME HP-1). */
+  .hero-lead .hero-lead-stats {
+    flex-wrap: nowrap;
+  }
+
+  .hero-lead .hero-lead-stat {
+    flex: 1 1 0;
+    min-width: 0;
+  }
 }
