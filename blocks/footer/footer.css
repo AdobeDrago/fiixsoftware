@@ -22,9 +22,11 @@ footer .footer p {
 }
 
 /* --- newsletter (first section) ------------------------------------ */
+/* Production centers the entire newsletter block (heading, subtext, form). */
 footer .footer > div > div:first-child {
   padding-bottom: 24px;
   border-bottom: 1px solid var(--border-color, #e2e6ea);
+  text-align: center;
 }
 
 footer .footer > div > div:first-child h3 {
@@ -37,11 +39,11 @@ footer .footer > div > div:first-child h3 {
 }
 
 footer .footer > div > div:first-child p {
-  margin: 0 0 16px;
-  font-size: 16px;
+  margin: 0 0 20px;
+  font-size: 20px;
   font-weight: 300;
   line-height: 1.5;
-  color: #58585b;
+  color: #212021;
 }
 
 footer .footer a:any-link {
@@ -75,7 +77,8 @@ footer .footer-newsletter-form {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 12px;
+  justify-content: center;
+  gap: 20px;
   margin: 16px 0 0;
 }
 
@@ -95,8 +98,9 @@ footer .footer-newsletter-input {
 }
 
 footer .footer-newsletter-submit {
-  height: 36px;
-  padding: 0 24px;
+  min-width: 100px;
+  height: 45px;
+  padding: 10px;
   border: 0;
   border-radius: 40px;
   background-color: var(--fiix-blue, #14499a);
@@ -104,6 +108,7 @@ footer .footer-newsletter-submit {
   font-family: sofia-pro, sans-serif;
   font-size: 16px;
   font-weight: 600;
+  line-height: 25px;
   cursor: pointer;
 }
 
@@ -139,9 +144,22 @@ footer .footer .columns li {
   line-height: 1.5;
 }
 
+/* "New" tag rendered as production's yellow pill badge (color sampled from
+   production: #ffe01b). Authored text is "New"; uppercased via CSS. */
 footer .footer .columns li em {
-  margin-left: 4px;
-  font-style: italic;
+  display: inline-block;
+  margin-left: 6px;
+  padding: 1px 6px;
+  border-radius: 4px;
+  background-color: #ffe01b;
+  color: #212021;
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 1.4;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  vertical-align: middle;
 }
 
 /* Awards & Recognition: review-site logos (text links swapped for images by
