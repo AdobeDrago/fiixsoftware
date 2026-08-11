@@ -3,10 +3,30 @@
   margin: 0;
   padding: 0;
   display: grid;
-  grid-template-columns: repeat(4, 200px);
-  gap: 0;
+
+  /* Mobile: stack the plan cards vertically like production. Without a
+     responsive grid the fixed 4x200px track below overflowed narrow
+     viewports (~1256px wide at 375px), forcing horizontal scroll. */
+  grid-template-columns: 1fr;
+  gap: 20px;
   align-items: stretch;
-  justify-content: flex-end;
+}
+
+/* Tablet: two-up. */
+@media (width >= 600px) {
+  .cards-pricing > ul {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Desktop: production's four-across row (fixed 200px tracks, right-aligned,
+   shared drop shadow with no gap). */
+@media (width >= 900px) {
+  .cards-pricing > ul {
+    grid-template-columns: repeat(4, 200px);
+    gap: 0;
+    justify-content: flex-end;
+  }
 }
 
 /* Production cards have no border/radius — just a soft drop shadow. The
