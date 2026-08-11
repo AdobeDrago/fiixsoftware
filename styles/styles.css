@@ -433,7 +433,12 @@ main > .section.pricing-hero .default-content-wrapper a[href="#compare"] {
     padding: 0;
   }
 
-  /* left column: heading (row 1), review logos (row 2) */
+  /* left column: heading + review logos both live in row 1. The pricing cards
+     (col 2) now own row 1 and make it tall, so the logos must NOT be placed in
+     row 2 (that row is below the cards — it dragged the logos ~570px down,
+     away from the reviews text). Instead the logos sit in the same cell as the
+     heading, pushed just below the "Based on 900+ reviews on" line via
+     padding-top — directly under the reviews, matching production. */
   main > .section.cards-pricing-container > .default-content-wrapper:first-child {
     grid-column: 1;
     grid-row: 1;
@@ -441,8 +446,9 @@ main > .section.pricing-hero .default-content-wrapper a[href="#compare"] {
 
   main > .section.cards-pricing-container > .columns-logos-wrapper {
     grid-column: 1;
-    grid-row: 2;
-    align-self: end;
+    grid-row: 1;
+    align-self: start;
+    padding-top: 340px;
   }
 
   /* review logos as a 2 x 2 grid in the narrow left column */
