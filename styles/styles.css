@@ -455,10 +455,14 @@ main > .section.pricing-hero .default-content-wrapper a[href="#compare"] {
     flex: 0 0 40%;
   }
 
-  /* right column: the four pricing cards span both rows */
+  /* right column, row 1: the four pricing cards. This must NOT span both
+     rows — the two left-column rows are sized by the (shorter) heading and
+     review logos, so a spanning card grid overflowed its rows and the
+     add-on callout below overlapped the cards by ~256px. Letting the cards
+     own row 1 makes that row grow to the cards' true height. */
   main > .section.cards-pricing-container > .cards-pricing-wrapper {
     grid-column: 2;
-    grid-row: 1 / span 2;
+    grid-row: 1;
   }
 
   main > .section.cards-pricing-container .cards-pricing > ul {
@@ -466,10 +470,11 @@ main > .section.pricing-hero .default-content-wrapper a[href="#compare"] {
     gap: 0;
   }
 
-  /* add-on callout aligns under the pricing cards (column 2), in the row
-     below them — matching production */
+  /* add-on callout: row 2 of column 2, guaranteed below the pricing cards
+     (row 1) so it can never overlap them — matching production. */
   main > .section.cards-pricing-container > .columns-callout-wrapper {
     grid-column: 2;
+    grid-row: 2;
   }
 
   /* trailing decoration runs full width below the grid */
