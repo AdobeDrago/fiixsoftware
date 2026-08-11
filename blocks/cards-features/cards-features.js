@@ -16,6 +16,20 @@ export default function decorate(block) {
     const optimizedPic = createOptimizedPicture(img.src, img.alt, false, [{ width: '750' }]);
     img.closest('picture').replaceWith(optimizedPic);
   });
+
+  // Production renders a trailing "Featured" / "New" word in a card heading as a
+  // small badge (e.g. "Fiix Foresight [FEATURED]"). The authored text has it as
+  // plain text, so wrap it in a span the CSS can style as that badge.
+  ul.querySelectorAll('.cards-features-card-body h3').forEach((h3) => {
+    const m = h3.textContent.match(/^(.*\S)\s+(Featured|New)\s*$/i);
+    if (!m) return;
+    h3.textContent = `${m[1]} `;
+    const label = document.createElement('span');
+    label.className = 'cards-features-label';
+    label.textContent = m[2];
+    h3.append(label);
+  });
+
   block.textContent = '';
   block.append(ul);
 }

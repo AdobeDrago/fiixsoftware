@@ -886,6 +886,13 @@ main > .section.features .cards-features h3 {
   line-height: 1.1;
 }
 
+/* Body copy in these feature cards is 20px on production (EDS defaulted to
+   16px, which read as a smaller/different font). */
+main > .section.features .cards-features .cards-features-card-body p {
+  font-size: 20px;
+  line-height: normal;
+}
+
 /* ============================================================
    Enterprise page (/enterprise) — section styling to match
    production (https://fiixsoftware.com/enterprise/). Values
