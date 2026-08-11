@@ -104,14 +104,15 @@
 }
 
 /* ------------------------------------------------------------------
-   FIX #5: Feature table sticky header
+   Feature table header — static, matching production.
+   Production's comparison-table header scrolls with the table and does NOT pin
+   to the top of the page (its "appears on scroll" pricing bar is a separate
+   JS-toggled floating element, not a sticky thead). This rule previously made
+   the thead position:sticky, so on EDS it stayed stuck to the top through the
+   whole 64-row table. Keep it static to match production.
    ------------------------------------------------------------------ */
 .table-compare.block table thead {
-  position: sticky;
-  top: var(--nav-height, 100px);
-  z-index: 10;
   background-color: #fff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
 }
 
 .table-compare.block table thead th {

@@ -1,8 +1,6 @@
 .table-compare.block {
   width: 100%;
-  /* overflow-x: auto breaks position:sticky on thead (creates scroll context).
-     Use clip instead — allows sticky to work against viewport while
-     still clipping any horizontal overflow on narrow viewports. */
+  /* Clip (not scroll) any horizontal overflow on narrow viewports. */
   overflow-x: clip;
 }
 
@@ -25,12 +23,13 @@
   }
 }
 
+/* Production's comparison-table header is a normal (static) header: it scrolls
+   into view with the table and scrolls away — it does NOT pin to the top of the
+   page. (Production's "appears on scroll" pricing bar is a separate JS-toggled
+   floating element, not a sticky thead.) Keeping this header static matches
+   production and removes the always-stuck-to-top behavior on EDS. */
 .table-compare.block table thead {
-  position: sticky;
-  top: var(--nav-height, 100px);
-  z-index: 10;
   background-color: #fff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
 }
 
 .table-compare.block table thead tr {
