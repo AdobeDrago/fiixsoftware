@@ -46,18 +46,13 @@ function toggleMenu(nav, navSections, forceExpanded = null) {
 
 /**
  * Wire up a top-level nav item that owns a dropdown/mega-menu panel.
- * Hover opens on desktop; click toggles on mobile and for keyboard users.
+ * Click toggles the panel on both desktop and mobile (and via keyboard),
+ * matching production. The panel does NOT open on hover.
  */
 function decorateDropItem(navItem, navSections) {
   navItem.classList.add('nav-drop');
   navItem.setAttribute('aria-expanded', 'false');
   navItem.setAttribute('tabindex', '0');
-
-  const open = () => { if (isDesktop.matches) navItem.setAttribute('aria-expanded', 'true'); };
-  const close = () => { if (isDesktop.matches) navItem.setAttribute('aria-expanded', 'false'); };
-
-  navItem.addEventListener('mouseenter', open);
-  navItem.addEventListener('mouseleave', close);
 
   navItem.addEventListener('click', (e) => {
     // Only toggle when the label area (not a real link inside the panel) is clicked.
@@ -257,6 +252,13 @@ export default async function decorate(block) {
       }
     });
   }
+
+  // Click-away closes any open dropdown (click-to-open / click-away-to-close,
+  // matching production). A click on a nav-drop label is handled by its own
+  // toggle above, so ignore clicks inside a nav-drop here.
+  document.addEventListener('click', (e) => {
+    if (navSections && !e.target.closest('.nav-drop')) closeAllPanels(navSections);
+  });
 
   // Tools: mark CTA buttons and split the utility links (Search + Login) into
   // their own group so the header can render two tiers — a top utility row
