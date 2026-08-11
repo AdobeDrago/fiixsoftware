@@ -888,6 +888,14 @@ main > .section.connect-users .columns-media h2 {
 main > .section.connect-users .columns-media.columns-media-parallax {
   display: flex;
   align-items: center;
+
+  /* Full-bleed: span the whole viewport width like production, breaking out of
+     the section's centered max-width container (otherwise the grey band shows
+     white gutters on both sides). The card's margin-left then positions it
+     100px from the viewport edge, matching production. */
+  width: 100vw;
+  max-width: none;
+  margin-left: calc(50% - 50vw);
   background-color: #ced1d8;
   background-image: var(--connect-media);
   background-repeat: no-repeat;
