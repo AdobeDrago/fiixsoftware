@@ -27,7 +27,12 @@ export default function decorate(block) {
     const section = block.closest('.connect-users');
     const img = section.querySelector('img');
     if (img) {
-      block.style.setProperty('--connect-media', `url("${img.getAttribute('src') || img.src}")`);
+      // Request a large render of the image so the background fills the band
+      // like production (which uses a 1522px-wide asset). The default optimized
+      // src is only 750px wide, which rendered the 3D scene at half size.
+      const raw = img.getAttribute('src') || img.src;
+      const large = raw.replace(/width=\d+/, 'width=1600');
+      block.style.setProperty('--connect-media', `url("${large}")`);
       block.classList.add('columns-media-parallax');
       // The text column becomes the white card; empty (image) columns are dropped.
       const row = block.firstElementChild;
