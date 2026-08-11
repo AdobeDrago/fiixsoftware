@@ -379,9 +379,15 @@ header nav .nav-sections a:hover { color: var(--fiix-hover); }
 
   /* ---- Grouped mega-menu (e.g. Product: Overview / Features / Industry) ---- */
   header nav .nav-sections .default-content-wrapper > ul > li.nav-drop-grouped[aria-expanded='true'] > ul {
+    /* Center the mega-menu content on the same axis as the nav (logo at
+       50vw - 600px, matching the 1200px content column), so at wide viewports
+       the columns line up under the nav instead of stretching edge-to-edge.
+       The 3rd (grey) column bleeds back out to the right edge below. */
+    --mega-inset: max(32px, calc(50vw - 600px));
+
     grid-template-columns: 1fr 1.4fr 1fr;
     gap: 0;
-    padding: 0;
+    padding: 0 var(--mega-inset);
     align-items: stretch;
   }
 
@@ -398,14 +404,19 @@ header nav .nav-sections a:hover { color: var(--fiix-hover); }
     line-height: normal;
   }
 
-  /* neutral grey background on the Industry-solutions column (3rd) — G2 */
+  /* neutral grey background on the Industry-solutions column (3rd) — G2.
+     Bleed it back out to the right viewport edge (its content stays put via the
+     matching padding-right), matching production's full-bleed grey panel. */
   header nav .nav-sections .default-content-wrapper > ul > li.nav-drop-grouped > ul > li.nav-col:nth-child(3) {
+    margin-right: calc(-1 * var(--mega-inset));
+    padding-right: calc(40px + var(--mega-inset));
     background-color: var(--fiix-panel-gray);
   }
 
-  /* B1 — align first column content left edge to the logo/nav inset (52px) */
+  /* First column sits flush at the centered inset (which now aligns with the
+     nav logo), so no extra left padding is needed. */
   header nav .nav-sections .default-content-wrapper > ul > li.nav-drop-grouped > ul > li.nav-col:first-child {
-    padding-left: 52px;
+    padding-left: 0;
   }
 
   /* the nested list of links: 2px underline under the column heading */
@@ -543,6 +554,88 @@ header nav .nav-sections a:hover { color: var(--fiix-hover); }
   header nav .nav-sections .default-content-wrapper > ul > li.nav-drop-grouped .nav-col > ul > li.nav-link-more a::after {
     content: '→';
     margin-left: 6px;
+  }
+
+  /* ---- Promo mega-menu (e.g. Support): text columns + grey card panel ---- */
+  header nav .nav-sections .default-content-wrapper > ul > li.nav-drop-promo[aria-expanded='true'] > ul {
+    --mega-inset: max(52px, calc(50vw - 600px));
+
+    grid-template-columns: 1fr auto;
+    gap: 0;
+    padding: 0;
+    align-items: stretch;
+  }
+
+  /* text links: two columns (column-major), inset to align with the nav */
+  header nav .nav-sections .default-content-wrapper > ul > li.nav-drop-promo > ul > li.nav-promo-text {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto;
+    grid-auto-flow: column;
+    gap: 30px 40px;
+    margin: 0;
+    padding: 36px 40px 36px var(--mega-inset);
+  }
+
+  /* grey promo panel on the right, bleeding to the viewport edge */
+  header nav .nav-sections .default-content-wrapper > ul > li.nav-drop-promo > ul > li.nav-promo-panel {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 16px;
+    margin: 0;
+    padding: 32px 24px;
+    padding-right: var(--mega-inset);
+    background-color: var(--fiix-panel-gray);
+  }
+
+  /* horizontal white promo card: image + title / description / read-more */
+  header nav .nav-sections .default-content-wrapper > ul > li.nav-drop-promo .nav-promo-card {
+    display: grid;
+    grid-template-columns: 96px 1fr;
+    gap: 16px;
+    width: 420px;
+    margin: 0;
+    padding: 16px;
+    background-color: #fff;
+    align-items: center;
+  }
+
+  header nav .nav-sections .default-content-wrapper > ul > li.nav-drop-promo .nav-promo-card > p:first-child {
+    margin: 0;
+    line-height: 0;
+  }
+
+  header nav .nav-sections .default-content-wrapper > ul > li.nav-drop-promo .nav-promo-card img {
+    display: block;
+    width: 96px;
+    height: auto;
+    border-radius: 4px;
+  }
+
+  header nav .nav-sections .default-content-wrapper > ul > li.nav-drop-promo .nav-promo-body {
+    display: flex;
+    flex-direction: column;
+  }
+
+  header nav .nav-sections .default-content-wrapper > ul > li.nav-drop-promo .nav-promo-body p {
+    margin: 0 0 6px;
+    font-family: sofia-pro, sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 1.25;
+    color: var(--fiix-text);
+  }
+
+  header nav .nav-sections .default-content-wrapper > ul > li.nav-drop-promo .nav-promo-more {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--fiix-link-blue);
+  }
+
+  /* footer (Contact us | Request a demo) spans full width below */
+  header nav .nav-sections .default-content-wrapper > ul > li.nav-drop-promo > ul > li.nav-drop-footer {
+    grid-column: 1 / -1;
   }
 
   /* stylelint-enable no-descending-specificity */
