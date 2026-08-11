@@ -1,6 +1,8 @@
 .table-compare.block {
   width: 100%;
-  /* Clip (not scroll) any horizontal overflow on narrow viewports. */
+  /* overflow-x: auto would create a scroll context that breaks the sticky
+     thead; clip still contains horizontal overflow on narrow viewports while
+     letting the header stick against the viewport. */
   overflow-x: clip;
 }
 
@@ -23,13 +25,18 @@
   }
 }
 
-/* Production's comparison-table header is a normal (static) header: it scrolls
-   into view with the table and scrolls away — it does NOT pin to the top of the
-   page. (Production's "appears on scroll" pricing bar is a separate JS-toggled
-   floating element, not a sticky thead.) Keeping this header static matches
-   production and removes the always-stuck-to-top behavior on EDS. */
+/* Sticky pricing header — matches production's scroll behaviour: it is off
+   screen at page load (the table is below the fold), pins to the top only while
+   the comparison table is scrolled through, and releases once you pass it.
+   Pinned at 100px to sit just below the fixed nav — the previous
+   `var(--nav-height, 100px)` resolved to 64px at the document root and tucked
+   the bar behind the 100px nav. */
 .table-compare.block table thead {
+  position: sticky;
+  top: 100px;
+  z-index: 10;
   background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
 }
 
 .table-compare.block table thead tr {
