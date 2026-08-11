@@ -467,7 +467,10 @@ main > .section.pricing-hero .default-content-wrapper a[href="#compare"] {
 
   main > .section.cards-pricing-container .cards-pricing > ul {
     grid-template-columns: repeat(4, 200px);
-    gap: 0;
+
+    /* 10px gap = production's even 210px card step. This section rule wins
+       over the block's own gap at >=1200px, so the value must live here too. */
+    gap: 10px;
   }
 
   /* add-on callout: row 2 of column 2, guaranteed below the pricing cards
