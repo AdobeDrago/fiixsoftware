@@ -902,6 +902,7 @@ main > .section.connect-users .columns-media-parallax > div {
 }
 
 main > .section.connect-users .columns-media-card {
+  box-sizing: border-box;
   padding: 40px 24px;
   background-color: #fff;
   box-shadow: 3px 3px 25px rgb(0 0 0 / 12%);
