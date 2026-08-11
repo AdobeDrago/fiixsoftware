@@ -22,14 +22,22 @@ export default function decorate(block) {
   // authored asset — once corrected in DA — drives the background) and tag the
   // band + text card. Scoped to .connect-users; other columns-media are untouched.
   if (block.closest('.connect-users')) {
-    const img = block.querySelector('img');
-    const imgCol = block.querySelector('.columns-media-img-col');
+    // The image may be authored inside the block OR as a separate content block
+    // in the same section, so search the whole section for it.
+    const section = block.closest('.connect-users');
+    const img = section.querySelector('img');
     if (img) {
-      block.style.setProperty('--connect-media', `url("${img.getAttribute('src')}")`);
+      block.style.setProperty('--connect-media', `url("${img.getAttribute('src') || img.src}")`);
       block.classList.add('columns-media-parallax');
-      if (imgCol) imgCol.remove();
-      const textCol = block.querySelector(':scope > div > div');
-      if (textCol) textCol.classList.add('columns-media-card');
+      // The text column becomes the white card; empty (image) columns are dropped.
+      const row = block.firstElementChild;
+      [...row.children].forEach((col) => {
+        if (col.textContent.trim() === '' && !col.querySelector('img')) col.remove();
+        else col.classList.add('columns-media-card');
+      });
+      // Remove the standalone image wrapper now that it drives the background.
+      const wrap = img.closest('.default-content-wrapper') || img.closest('picture');
+      if (wrap && !block.contains(wrap)) wrap.remove();
     }
   }
 }
