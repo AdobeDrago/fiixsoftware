@@ -110,8 +110,17 @@
 
 /* Check mark — inline SVG using currentColor so each plan column takes its
    exact production glyph color. */
+/* Each check sits in a 30px light-grey circle, matching production
+   (background #f7f7f7, full-circle radius); the check glyph is centered and
+   keeps its per-column color (set below via currentColor). */
 .table-compare.block table td .table-compare-check {
   display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: #f7f7f7;
 }
 
 .table-compare.block table td .table-compare-check svg {
