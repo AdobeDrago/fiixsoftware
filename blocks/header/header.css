@@ -379,9 +379,15 @@ header nav .nav-sections a:hover { color: var(--fiix-hover); }
 
   /* ---- Grouped mega-menu (e.g. Product: Overview / Features / Industry) ---- */
   header nav .nav-sections .default-content-wrapper > ul > li.nav-drop-grouped[aria-expanded='true'] > ul {
+    /* Center the mega-menu content on the same axis as the nav (logo at
+       50vw - 600px, matching the 1200px content column), so at wide viewports
+       the columns line up under the nav instead of stretching edge-to-edge.
+       The 3rd (grey) column bleeds back out to the right edge below. */
+    --mega-inset: max(32px, calc(50vw - 600px));
+
     grid-template-columns: 1fr 1.4fr 1fr;
     gap: 0;
-    padding: 0;
+    padding: 0 var(--mega-inset);
     align-items: stretch;
   }
 
@@ -398,14 +404,19 @@ header nav .nav-sections a:hover { color: var(--fiix-hover); }
     line-height: normal;
   }
 
-  /* neutral grey background on the Industry-solutions column (3rd) — G2 */
+  /* neutral grey background on the Industry-solutions column (3rd) — G2.
+     Bleed it back out to the right viewport edge (its content stays put via the
+     matching padding-right), matching production's full-bleed grey panel. */
   header nav .nav-sections .default-content-wrapper > ul > li.nav-drop-grouped > ul > li.nav-col:nth-child(3) {
+    margin-right: calc(-1 * var(--mega-inset));
+    padding-right: calc(40px + var(--mega-inset));
     background-color: var(--fiix-panel-gray);
   }
 
-  /* B1 — align first column content left edge to the logo/nav inset (52px) */
+  /* First column sits flush at the centered inset (which now aligns with the
+     nav logo), so no extra left padding is needed. */
   header nav .nav-sections .default-content-wrapper > ul > li.nav-drop-grouped > ul > li.nav-col:first-child {
-    padding-left: 52px;
+    padding-left: 0;
   }
 
   /* the nested list of links: 2px underline under the column heading */
