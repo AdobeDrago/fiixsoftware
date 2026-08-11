@@ -19,12 +19,13 @@
   }
 }
 
-/* Desktop: production's four-across row (fixed 200px tracks, right-aligned,
-   shared drop shadow with no gap). */
+/* Desktop: production's four-across row (fixed 200px tracks, right-aligned).
+   Production spaces the cards on a 210px step (200px card + ~10px gap); a
+   10px column gap reproduces that even spacing (observation A). */
 @media (width >= 900px) {
   .cards-pricing > ul {
     grid-template-columns: repeat(4, 200px);
-    gap: 0;
+    gap: 10px;
     justify-content: flex-end;
   }
 }
@@ -38,7 +39,10 @@
   border: 0;
   border-radius: 0;
   background-color: var(--background-color);
-  box-shadow: 10px 10px 33px rgb(0 0 0 / 10%);
+
+  /* Symmetric (no horizontal offset) so each card's shadow doesn't bleed onto
+     the next card's left edge and make the inter-card gaps look uneven (obs A). */
+  box-shadow: 0 10px 33px rgb(0 0 0 / 10%);
   overflow: hidden;
 }
 
@@ -179,14 +183,27 @@
   text-transform: uppercase;
 }
 
-/* Price + subtext inline row (matches WP flex layout:
-   display:flex, flex-direction:row, align-items:center, gap:10px, nowrap) */
+/* Price + subtext row (matches WP flex layout: row, centered, gap 10px).
+   `margin-top: auto` pushes the price + CTA to the bottom of every card so
+   the prices and the CTA buttons line up across all four cards regardless of
+   how long each feature list is (observation B).
+   `flex-wrap: wrap` lets a long caption (e.g. "Schedule a custom demo today."
+   under "Custom Pricing") wrap instead of overflowing the 200px card and being
+   clipped by the card's `overflow: hidden` (observation C). */
 .cards-pricing .cards-pricing-price-row {
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   gap: 10px;
   flex-wrap: nowrap;
-  margin: 0 0 16px;
+  margin: auto 0 16px;
+}
+
+/* Non-numeric price rows ("Custom Pricing" + "Schedule a custom demo today.")
+   wrap so the caption drops below the label instead of overflowing the 200px
+   card and being clipped (observation C). Numeric price rows keep nowrap so
+   the price and its caption stay on one baseline (observation B). */
+.cards-pricing .cards-pricing-price-row:has(.cards-pricing-price-text) {
+  flex-wrap: wrap;
 }
 
 .cards-pricing .cards-pricing-price-row h3 {

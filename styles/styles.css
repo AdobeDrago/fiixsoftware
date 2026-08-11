@@ -433,7 +433,12 @@ main > .section.pricing-hero .default-content-wrapper a[href="#compare"] {
     padding: 0;
   }
 
-  /* left column: heading (row 1), review logos (row 2) */
+  /* left column: heading + review logos both live in row 1. The pricing cards
+     (col 2) now own row 1 and make it tall, so the logos must NOT be placed in
+     row 2 (that row is below the cards — it dragged the logos ~570px down,
+     away from the reviews text). Instead the logos sit in the same cell as the
+     heading, pushed just below the "Based on 900+ reviews on" line via
+     padding-top — directly under the reviews, matching production. */
   main > .section.cards-pricing-container > .default-content-wrapper:first-child {
     grid-column: 1;
     grid-row: 1;
@@ -441,8 +446,9 @@ main > .section.pricing-hero .default-content-wrapper a[href="#compare"] {
 
   main > .section.cards-pricing-container > .columns-logos-wrapper {
     grid-column: 1;
-    grid-row: 2;
-    align-self: end;
+    grid-row: 1;
+    align-self: start;
+    padding-top: 340px;
   }
 
   /* review logos as a 2 x 2 grid in the narrow left column */
@@ -467,7 +473,10 @@ main > .section.pricing-hero .default-content-wrapper a[href="#compare"] {
 
   main > .section.cards-pricing-container .cards-pricing > ul {
     grid-template-columns: repeat(4, 200px);
-    gap: 0;
+
+    /* 10px gap = production's even 210px card step. This section rule wins
+       over the block's own gap at >=1200px, so the value must live here too. */
+    gap: 10px;
   }
 
   /* add-on callout: row 2 of column 2, guaranteed below the pricing cards
@@ -871,10 +880,110 @@ main > .section.connect-users .columns-media h2 {
   line-height: 1.1;
 }
 
+/* Connect-users hero — grey band with a fixed (parallax) background image on
+   the right and a white text card overlapping the left, matching production
+   (band #ced1d8; card white with soft shadow; heading 48/700, body 20/300,
+   cyan #00afeb Contact-sales button). The image is supplied by columns-media.js
+   as --connect-media from the authored asset. */
+main > .section.connect-users .columns-media.columns-media-parallax {
+  display: flex;
+  align-items: center;
+
+  /* Full-bleed: span the whole viewport width like production, breaking out of
+     the section's centered max-width container (otherwise the grey band shows
+     white gutters on both sides). The card's margin-left then positions it
+     100px from the viewport edge, matching production. */
+  width: 100vw;
+  max-width: none;
+  margin-left: calc(50% - 50vw);
+  background-color: #ced1d8;
+  background-image: var(--connect-media);
+  background-repeat: no-repeat;
+  background-position: calc(100% + 120px) 100%;
+  background-size: auto;
+}
+
+main > .section.connect-users .columns-media-parallax > div {
+  display: block;
+  width: 100%;
+  margin: 0;
+}
+
+main > .section.connect-users .columns-media-card {
+  box-sizing: border-box;
+  padding: 40px 24px;
+  background-color: #fff;
+  box-shadow: 3px 3px 25px rgb(0 0 0 / 12%);
+}
+
+main > .section.connect-users .columns-media-card h2 {
+  margin: 0 0 20px;
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 1.1;
+  color: #212021;
+}
+
+main > .section.connect-users .columns-media-card p {
+  font-size: 18px;
+  font-weight: 300;
+  color: #212021;
+}
+
+main > .section.connect-users .columns-media-card a.button {
+  margin-top: 20px;
+  padding: 0 24px;
+  height: 54px;
+  border: none;
+  border-radius: 27px;
+  background-color: #00afeb;
+  color: #fff;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 54px;
+}
+
+main > .section.connect-users .columns-media-card a.button:hover {
+  background-color: #0098cc;
+}
+
+/* Desktop: production values — tall band, right-positioned FIXED background
+   (parallax), 850px card inset from the left with generous padding. Mobile
+   keeps a normal (non-fixed) background, matching how production actually
+   renders on mobile. */
+@media (width >= 900px) {
+  main > .section.connect-users .columns-media.columns-media-parallax {
+    min-height: 731px;
+    background-attachment: fixed;
+    background-position: calc(100% + 200px) 100%;
+  }
+
+  main > .section.connect-users .columns-media-card {
+    max-width: 850px;
+    margin-left: 100px;
+    padding: 100px 120px;
+  }
+
+  main > .section.connect-users .columns-media-card h2 {
+    font-size: 48px;
+  }
+
+  main > .section.connect-users .columns-media-card p {
+    font-size: 20px;
+  }
+}
+
 /* feature blurbs ("A supercharged…", "Customer success", etc.) */
 main > .section.features .cards-features h3 {
   font-size: 24px;
   line-height: 1.1;
+}
+
+/* Body copy in these feature cards is 20px on production (EDS defaulted to
+   16px, which read as a smaller/different font). */
+main > .section.features .cards-features .cards-features-card-body p {
+  font-size: 20px;
+  line-height: normal;
 }
 
 /* ============================================================

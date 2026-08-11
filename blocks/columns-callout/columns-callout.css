@@ -102,6 +102,11 @@
   margin-top: 8px;
   padding: 0.6em 2.5em;
   border-radius: 27px;
+
+  /* Match the border to the green fill. These are `.button.primary`, which
+     sets a blue (--fiix-blue) border; without this the green "Contact us"
+     buttons keep a blue outline that production doesn't have. */
+  border-color: #20a51e;
   background-color: #20a51e;
   font-size: 16px;
   font-weight: 700;

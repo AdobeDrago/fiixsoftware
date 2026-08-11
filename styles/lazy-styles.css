@@ -104,11 +104,15 @@
 }
 
 /* ------------------------------------------------------------------
-   FIX #5: Feature table sticky header
+   Feature table sticky header — matches production's scroll behaviour.
+   Hidden by default (the table is below the fold at page load); pins to the top
+   only while the comparison table is scrolled through, and releases past it.
+   Pinned at 100px to clear the fixed nav (var(--nav-height) resolves to 64px at
+   the document root and tucked the bar behind the nav).
    ------------------------------------------------------------------ */
 .table-compare.block table thead {
   position: sticky;
-  top: var(--nav-height, 100px);
+  top: 100px;
   z-index: 10;
   background-color: #fff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);

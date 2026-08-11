@@ -1,8 +1,8 @@
 .table-compare.block {
   width: 100%;
-  /* overflow-x: auto breaks position:sticky on thead (creates scroll context).
-     Use clip instead — allows sticky to work against viewport while
-     still clipping any horizontal overflow on narrow viewports. */
+  /* overflow-x: auto would create a scroll context that breaks the sticky
+     thead; clip still contains horizontal overflow on narrow viewports while
+     letting the header stick against the viewport. */
   overflow-x: clip;
 }
 
@@ -25,9 +25,15 @@
   }
 }
 
+/* Sticky pricing header — matches production's scroll behaviour: it is off
+   screen at page load (the table is below the fold), pins to the top only while
+   the comparison table is scrolled through, and releases once you pass it.
+   Pinned at 100px to sit just below the fixed nav — the previous
+   `var(--nav-height, 100px)` resolved to 64px at the document root and tucked
+   the bar behind the 100px nav. */
 .table-compare.block table thead {
   position: sticky;
-  top: var(--nav-height, 100px);
+  top: 100px;
   z-index: 10;
   background-color: #fff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
@@ -104,8 +110,17 @@
 
 /* Check mark — inline SVG using currentColor so each plan column takes its
    exact production glyph color. */
+/* Each check sits in a 30px light-grey circle, matching production
+   (background #f7f7f7, full-circle radius); the check glyph is centered and
+   keeps its per-column color (set below via currentColor). */
 .table-compare.block table td .table-compare-check {
   display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: #f7f7f7;
 }
 
 .table-compare.block table td .table-compare-check svg {
