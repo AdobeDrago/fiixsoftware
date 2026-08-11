@@ -233,6 +233,39 @@ export default async function decorate(block) {
               if (label.startsWith('more industry')) li.classList.add('nav-link-more');
             });
           });
+        } else if (panel.querySelector('li img')) {
+          // Non-grouped panel carrying image "promo" items (e.g. Support):
+          // production lays the text links out in columns on the left and the
+          // promo items as cards in a grey panel on the right. Group the items
+          // so the header CSS can render that two-region layout.
+          navItem.classList.add('nav-drop-promo');
+          const items = [...panel.children].filter((li) => li.tagName === 'LI');
+          const textGroup = document.createElement('li');
+          textGroup.className = 'nav-promo-text';
+          const promoGroup = document.createElement('li');
+          promoGroup.className = 'nav-promo-panel';
+          items.forEach((li) => {
+            if (li.querySelector('img')) {
+              li.classList.add('nav-promo-card');
+              const imgP = [...li.children].find((c) => c.querySelector && c.querySelector('img'));
+              const link = li.querySelector('a[href]');
+              const body = document.createElement('div');
+              body.className = 'nav-promo-body';
+              [...li.children].forEach((c) => { if (c !== imgP) body.append(c); });
+              if (link) {
+                const more = document.createElement('a');
+                more.className = 'nav-promo-more';
+                more.href = link.getAttribute('href');
+                more.textContent = 'Read more';
+                body.append(more);
+              }
+              li.append(body);
+              promoGroup.append(li);
+            } else {
+              textGroup.append(li);
+            }
+          });
+          panel.append(textGroup, promoGroup);
         }
         // Footer = a <p> that comes AFTER the panel <ul> (e.g. "Contact us |
         // Request a demo"). Must check position: Document Authoring wraps the
