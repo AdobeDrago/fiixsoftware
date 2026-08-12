@@ -133,3 +133,31 @@ main .section.enterprise-scale .accordion-faq-figure-1 { background-color: rgb(9
 main .section.enterprise-scale .accordion-faq-figure-2 { background-color: rgb(60 192 203); }
 main .section.enterprise-scale .accordion-faq-figure-3 { background-color: rgb(19 39 72); }
 main .section.enterprise-scale .accordion-faq-figure-4 { background-color: rgb(77 62 141); }
+
+/* Row states: production's OPEN row is an elevated white card (bg #fff, soft
+   shadow, 40px padding); closed rows are flat with no dotted rule and their
+   text left-aligned to the open card's inset so nothing shifts when a row
+   opens/closes. Measured on production: open row bg #fff, box-shadow
+   3px 3px 25px rgb(0 0 0 / 12%), padding 40px. Scoped to .enterprise-scale so
+   the pricing FAQ keeps its dotted-rule look. */
+main .section.enterprise-scale .accordion-faq details {
+  border-bottom: 0;
+}
+
+main .section.enterprise-scale .accordion-faq details summary {
+  padding: 14px 46px 14px 40px;
+}
+
+main .section.enterprise-scale .accordion-faq details[open] {
+  background-color: #fff;
+  box-shadow: 3px 3px 25px rgb(0 0 0 / 12%);
+  padding: 40px;
+}
+
+main .section.enterprise-scale .accordion-faq details[open] summary {
+  padding: 0 46px 0 0;
+}
+
+main .section.enterprise-scale .accordion-faq details[open] .accordion-faq-item-body {
+  padding: 16px 0 0;
+}
