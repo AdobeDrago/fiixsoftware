@@ -17,6 +17,10 @@
   width: 100%;
   max-width: 380px;
   cursor: pointer;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgb(0 0 0 / 12%);
+  display: flex;
+  flex-direction: column;
 }
 
 /* image / thumbnail (play overlay is baked into the source PNG) */
@@ -38,6 +42,10 @@
 /* caption + watch link */
 .cards-video .cards-video-card-body {
   text-align: center;
+  padding: 24px 32px 40px;
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
 }
 
 .cards-video .cards-video-card-body p {
@@ -50,11 +58,13 @@
   font-weight: 300;
   line-height: 34px;
   color: #212021;
-  margin: 16px 0 24px;
+  margin: 0 0 24px;
 }
 
-/* "Watch now" link (last paragraph in the card body) */
+/* "Watch now" link (last paragraph in the card body), pinned to the card
+   bottom so links align across cards of differing caption length */
 .cards-video .cards-video-card-body p:last-child {
+  margin-top: auto;
   font-size: 20px;
   font-weight: 700;
   line-height: 1.2;
@@ -76,7 +86,7 @@
 @media (width >= 900px) {
   .cards-video > ul {
     flex-direction: row;
-    align-items: flex-start;
+    align-items: stretch;
     gap: 60px;
   }
 }

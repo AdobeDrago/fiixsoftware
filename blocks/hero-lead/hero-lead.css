@@ -148,12 +148,13 @@
 
 .hero-lead .hero-lead-stat {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   gap: 10px;
   width: fit-content;
   padding: 10px 15px;
   border-radius: 8px;
   background-color: var(--light-color);
+  max-width: 150px;
 }
 
 .hero-lead .hero-lead-stat-arrow {
