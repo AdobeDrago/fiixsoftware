@@ -8,7 +8,9 @@
 .carousel-testimonial {
   --carousel-testimonial-ink: rgb(33 32 33);
   --carousel-testimonial-nav-bg: rgb(33 32 33);
-  --carousel-testimonial-gap: 5rem;
+  /* Fluid gap: tighter between cards on mobile/tablet, growing to the 5rem the
+     desktop three-up layout is sized against. */
+  --carousel-testimonial-gap: clamp(1.5rem, 4vw, 5rem);
 }
 
 /* The carousel shows one card on mobile and three cards on desktop, advancing
@@ -35,7 +37,7 @@
   gap: var(--carousel-testimonial-gap);
   padding: 12px 4px;
   scroll-behavior: smooth;
-  scroll-snap-type: x mandatory;
+  scroll-snap-type: x proximity;
   overflow: scroll clip;
 }
 
