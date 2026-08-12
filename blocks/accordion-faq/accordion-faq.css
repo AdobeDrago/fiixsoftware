@@ -82,3 +82,82 @@
   border-top: 0;
   background-color: transparent;
 }
+
+/* ============================================================
+   Enterprise "Maintenance software even IT will love": accordion on the left,
+   a synced quote-image panel on the right. Opening a row (single-open) swaps
+   the panel's coloured background + quote image. Colours measured from
+   production per row (data security / uptime / permissions / no-touch).
+   Scoped to .enterprise-scale so the pricing FAQ accordion is unaffected.
+   ============================================================ */
+@media (width >= 900px) {
+  main .section.enterprise-scale .accordion-faq-flex {
+    display: flex;
+    gap: 40px;
+    align-items: stretch;
+  }
+
+  main .section.enterprise-scale .accordion-faq-flex .accordion-faq {
+    flex: 1;
+    min-width: 0;
+  }
+
+  main .section.enterprise-scale .accordion-faq-panel {
+    display: flex;
+    position: relative;
+    flex: 0 0 48%;
+  }
+}
+
+main .section.enterprise-scale .accordion-faq-figure {
+  display: none;
+  box-sizing: border-box;
+  width: 100%;
+  margin: 0;
+  padding: 48px 40px;
+  align-items: center;
+  justify-content: center;
+}
+
+main .section.enterprise-scale .accordion-faq-figure.active {
+  display: flex;
+}
+
+main .section.enterprise-scale .accordion-faq-figure img {
+  width: 100%;
+  max-width: 460px;
+  height: auto;
+}
+
+main .section.enterprise-scale .accordion-faq-figure-1 { background-color: rgb(99 92 232); }
+main .section.enterprise-scale .accordion-faq-figure-2 { background-color: rgb(60 192 203); }
+main .section.enterprise-scale .accordion-faq-figure-3 { background-color: rgb(19 39 72); }
+main .section.enterprise-scale .accordion-faq-figure-4 { background-color: rgb(77 62 141); }
+
+/* Row states: production's OPEN row is an elevated white card (bg #fff, soft
+   shadow, 40px padding); closed rows are flat with no dotted rule and their
+   text left-aligned to the open card's inset so nothing shifts when a row
+   opens/closes. Measured on production: open row bg #fff, box-shadow
+   3px 3px 25px rgb(0 0 0 / 12%), padding 40px. Scoped to .enterprise-scale so
+   the pricing FAQ keeps its dotted-rule look. */
+main .section.enterprise-scale .accordion-faq details {
+  border-bottom: 0;
+}
+
+main .section.enterprise-scale .accordion-faq details summary {
+  padding: 14px 46px 14px 40px;
+}
+
+main .section.enterprise-scale .accordion-faq details[open] {
+  background-color: #fff;
+  box-shadow: 3px 3px 25px rgb(0 0 0 / 12%);
+  padding: 40px;
+}
+
+main .section.enterprise-scale .accordion-faq details[open] summary {
+  padding: 0 46px 0 0;
+}
+
+main .section.enterprise-scale .accordion-faq details[open] .accordion-faq-item-body {
+  padding: 16px 0 0;
+}

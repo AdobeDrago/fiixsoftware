@@ -60,3 +60,19 @@
     flex: 0 0 auto;
   }
 }
+
+/* Enterprise hero review-logos row ("Over 900 five-star reviews"): production
+   packs the logos edge-to-edge with NO gap between them (measured: each logo's
+   right edge exactly meets the next one's left edge) as one tightly-clustered
+   group, centered in the section -- not spread across the full width in equal
+   flex cells with visible gaps. */
+@media (width >= 900px) {
+  main .section.enterprise-hero .columns-logos > div {
+    justify-content: center;
+    gap: 0;
+  }
+
+  main .section.enterprise-hero .columns-logos > div > div {
+    flex: 0 0 auto;
+  }
+}
