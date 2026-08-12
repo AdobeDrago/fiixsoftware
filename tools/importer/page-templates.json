@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "projectType": "doc"
+    "projectType": "da"
   },
   "templates": [
     {
@@ -813,6 +813,585 @@
           "style": "dual-cta",
           "blocks": [
             "cards-cta"
+          ],
+          "defaultContent": []
+        }
+      ]
+    },
+    {
+      "name": "product-feature-page",
+      "urls": [
+        "https://fiixsoftware.com/cmms/cmms-software/",
+        "https://fiixsoftware.com/cmms/mobile-cmms/",
+        "https://fiixsoftware.com/cmms/asset-management-software/",
+        "https://fiixsoftware.com/cmms/parts-inventory-management-software/"
+      ],
+      "coverageGaps": [],
+      "description": "Classic Fiix product/feature page (WordPress #cmms-product / #page-wrap shell): hero with email capture + review-logo strip, customer logo band, alternating 2-3 column feature sections with supporting imagery, testimonial cards, case-study carousel, 'Explore our full maintenance solution' features explorer/accordion, resource-card trio, optional FAQ accordion, final CTA band.",
+      "blocks": [
+        {
+          "name": "hero-lead",
+          "instances": [
+            ".header"
+          ]
+        },
+        {
+          "name": "columns-logos",
+          "instances": [
+            ".fiix-users",
+            ".section6 .social-badges"
+          ]
+        },
+        {
+          "name": "cards-features",
+          "instances": [
+            ".section1",
+            ".section3:not(.section3last):not(.section3r)",
+            ".section5:not(.section5r):not(.section5last)",
+            ".section3r",
+            ".section5r",
+            ".section3.section3last"
+          ]
+        },
+        {
+          "name": "cards-video",
+          "instances": [
+            ".video-demo"
+          ]
+        },
+        {
+          "name": "columns-media",
+          "instances": [
+            ".section2:not(.section2last)",
+            ".section4:not(.section4r)",
+            "#analyze-audits",
+            ".section4r",
+            ".section2.section2last"
+          ]
+        },
+        {
+          "name": "carousel-testimonial",
+          "instances": [
+            ".social-proof-ratings",
+            ".section6 #features-ent"
+          ]
+        },
+        {
+          "name": "columns-callout",
+          "instances": [
+            ".section5r .cta-full, .section5r .stats"
+          ]
+        },
+        {
+          "name": "accordion-faq",
+          "instances": [
+            ".section6 .faq-accordion"
+          ]
+        },
+        {
+          "name": "cards-cta",
+          "instances": [
+            ".section7"
+          ]
+        }
+      ],
+      "sections": [
+        {
+          "id": "pf-hero",
+          "name": "Hero",
+          "selector": [
+            ".header"
+          ],
+          "style": "pf-hero",
+          "blocks": [
+            "hero-lead",
+            "columns-logos"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "pf-logos",
+          "name": "Customer logo band",
+          "selector": [
+            ".fiix-users"
+          ],
+          "style": "pf-logos",
+          "blocks": [
+            "columns-logos"
+          ],
+          "defaultContent": [
+            ".fiix-users h2"
+          ]
+        },
+        {
+          "id": "pf-workorders-features",
+          "name": "Work order feature blurbs",
+          "selector": [
+            ".section1"
+          ],
+          "style": "pf-features",
+          "blocks": [
+            "cards-features"
+          ],
+          "defaultContent": [
+            ".section1 > .container > h2",
+            ".section1 > .container > p"
+          ]
+        },
+        {
+          "id": "pf-video-demos",
+          "name": "Two-minute demos",
+          "selector": [
+            ".video-demo"
+          ],
+          "style": "pf-video",
+          "blocks": [
+            "cards-video"
+          ],
+          "defaultContent": [
+            ".video-demo h2"
+          ]
+        },
+        {
+          "id": "pf-asset-track-media",
+          "name": "Track/optimize asset (image+text)",
+          "selector": [
+            ".section2:not(.section2last)"
+          ],
+          "style": "pf-media-left",
+          "blocks": [
+            "columns-media"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "pf-asset-features",
+          "name": "Asset feature grid",
+          "selector": [
+            ".section3:not(.section3last):not(.section3r)"
+          ],
+          "style": "pf-features",
+          "blocks": [
+            "cards-features"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "pf-testimonials",
+          "name": "Testimonial cards",
+          "selector": [
+            ".social-proof-ratings"
+          ],
+          "style": "pf-testimonials",
+          "blocks": [
+            "carousel-testimonial"
+          ],
+          "defaultContent": [
+            ".social-proof-ratings h2"
+          ]
+        },
+        {
+          "id": "pf-inventory-media",
+          "name": "Purchase/organize inventory (image+text)",
+          "selector": [
+            ".section4:not(.section4r)"
+          ],
+          "style": "pf-media-right",
+          "blocks": [
+            "columns-media"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "pf-inventory-features",
+          "name": "Inventory feature grid",
+          "selector": [
+            ".section5:not(.section5r):not(.section5last)"
+          ],
+          "style": "pf-features",
+          "blocks": [
+            "cards-features"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "pf-analyze-media",
+          "name": "Collect/analyze data (image+text)",
+          "selector": [
+            "#analyze-audits"
+          ],
+          "style": "pf-media-left",
+          "blocks": [
+            "columns-media"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "pf-analyze-features",
+          "name": "Analytics feature grid",
+          "selector": [
+            ".section3r"
+          ],
+          "style": "pf-features",
+          "blocks": [
+            "cards-features"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "pf-integrate-media",
+          "name": "Integrate CMMS (image+text)",
+          "selector": [
+            ".section4r"
+          ],
+          "style": "pf-media-right",
+          "blocks": [
+            "columns-media"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "pf-integrate-features-callout",
+          "name": "Integration features + stats callout",
+          "selector": [
+            ".section5r"
+          ],
+          "style": "pf-features",
+          "blocks": [
+            "cards-features",
+            "columns-callout"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "pf-mobile-media",
+          "name": "Manage from anywhere (image+text)",
+          "selector": [
+            ".section2.section2last"
+          ],
+          "style": "pf-media-left",
+          "blocks": [
+            "columns-media"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "pf-mobile-features",
+          "name": "Mobile feature grid",
+          "selector": [
+            ".section3.section3last"
+          ],
+          "style": "pf-features",
+          "blocks": [
+            "cards-features"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "pf-casestudy-carousel",
+          "name": "Case study + explore solution",
+          "selector": [
+            ".section6"
+          ],
+          "style": "pf-explore",
+          "blocks": [
+            "carousel-testimonial",
+            "columns-logos",
+            "accordion-faq"
+          ],
+          "defaultContent": [
+            ".section6 > .container > h2"
+          ]
+        },
+        {
+          "id": "pf-resources",
+          "name": "Resource card trio",
+          "selector": [
+            ".section7"
+          ],
+          "style": "pf-resources",
+          "blocks": [
+            "cards-cta"
+          ],
+          "defaultContent": [
+            ".section7 > .container > h2"
+          ]
+        },
+        {
+          "id": "pf-final-cta",
+          "name": "Final CTA",
+          "selector": [
+            ".home-seemore"
+          ],
+          "style": "pf-final-cta",
+          "blocks": [],
+          "defaultContent": [
+            ".home-seemore h2",
+            ".home-seemore p",
+            ".home-seemore .container ul"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "marketing-landing-page",
+      "urls": [
+        "https://fiixsoftware.com/cmms/ai/",
+        "https://fiixsoftware.com/optix/"
+      ],
+      "coverageGaps": [
+        {
+          "url": "https://fiixsoftware.com/optix/",
+          "sections": [
+            {
+              "sectionSignature": "accordion-faq",
+              "nodeMapId": "rc2"
+            },
+            {
+              "sectionSignature": "4x1-icon-grid",
+              "nodeMapId": "rc2"
+            }
+          ]
+        }
+      ],
+      "description": "Newer Fiix marketing landing page using a <main> landmark: split hero (copy + illustration), icon/stat grids, product feature blocks with alternating imagery, tabbed panels, benefit cards, two-column comparison, long FAQ accordion, and paired CTA articles.",
+      "blocks": [
+        {
+          "name": "columns-media",
+          "instances": [
+            "main > header.container",
+            "main > section.fiixMAX-info",
+            "main > section.augury",
+            "main > section.what-is-it",
+            "main > section.case-study",
+            "main > section.together"
+          ]
+        },
+        {
+          "name": "cards-timeline",
+          "instances": [
+            "main > section.timeline"
+          ]
+        },
+        {
+          "name": "cards-icon",
+          "instances": [
+            "main > section.philosophy",
+            "main > section.connect"
+          ]
+        },
+        {
+          "name": "accordion-faq",
+          "instances": [
+            "#RA-faq",
+            "main > section#RA-faq"
+          ]
+        },
+        {
+          "name": "tabs-feature",
+          "instances": [
+            "#homepage",
+            "main > section.integrations-feature"
+          ]
+        },
+        {
+          "name": "cards-cta",
+          "instances": [
+            "main > section.dualCTA-box"
+          ]
+        },
+        {
+          "name": "hero-cta",
+          "instances": [
+            "main > section.container .get-started, main > section.get-started"
+          ]
+        }
+      ],
+      "sections": [
+        {
+          "id": "ai-hero",
+          "name": "Hero (Balanced Approach to AI)",
+          "selector": [
+            "main > header.container"
+          ],
+          "style": "ai-hero",
+          "blocks": [
+            "columns-media"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "ai-timeline",
+          "name": "AI at Fiix timeline",
+          "selector": [
+            "main > section.timeline"
+          ],
+          "style": "ai-timeline",
+          "blocks": [
+            "cards-timeline"
+          ],
+          "defaultContent": [
+            "main > section.timeline > h2"
+          ]
+        },
+        {
+          "id": "ai-fiixmax",
+          "name": "Fiix MAX product block",
+          "selector": [
+            "main > section.fiixMAX-info"
+          ],
+          "style": "ai-fiixmax",
+          "blocks": [
+            "columns-media"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "ai-philosophy",
+          "name": "AI Philosophy icon grid",
+          "selector": [
+            "main > section.philosophy"
+          ],
+          "style": "ai-philosophy",
+          "blocks": [
+            "cards-icon"
+          ],
+          "defaultContent": [
+            "main > section.philosophy > h2"
+          ]
+        },
+        {
+          "id": "ai-augury",
+          "name": "Fiix Asset Health / Augury",
+          "selector": [
+            "main > section.augury"
+          ],
+          "style": "ai-augury",
+          "blocks": [
+            "columns-media"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "ai-cbm-faq",
+          "name": "Predictive Maintenance vs CBM Q&A",
+          "selector": [
+            "#RA-faq",
+            "main > section#RA-faq"
+          ],
+          "style": "ai-faq",
+          "blocks": [
+            "accordion-faq"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "ai-foresight-tabs",
+          "name": "Fiix Foresight tabbed panel",
+          "selector": [
+            "#homepage"
+          ],
+          "style": "ai-tabs",
+          "blocks": [
+            "tabs-feature"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "ai-assetinsights-tabs",
+          "name": "See Asset Insights in Action tabs",
+          "selector": [
+            "main > section.integrations-feature"
+          ],
+          "style": "ai-tabs",
+          "blocks": [
+            "tabs-feature"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "ai-dual-cta",
+          "name": "Dual CTA articles",
+          "selector": [
+            "main > section.dualCTA-box"
+          ],
+          "style": "ai-dual-cta",
+          "blocks": [
+            "cards-cta"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "optix-what-is-it",
+          "name": "What is FactoryTalk Optix",
+          "selector": [
+            "main > section.what-is-it"
+          ],
+          "style": "optix-intro",
+          "blocks": [
+            "columns-media"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "optix-connect",
+          "name": "Connect to plant floor icon grid + benefits",
+          "selector": [
+            "main > section.connect"
+          ],
+          "style": "optix-connect",
+          "blocks": [
+            "cards-icon"
+          ],
+          "defaultContent": [
+            "main > section.connect > h2"
+          ]
+        },
+        {
+          "id": "optix-case-study",
+          "name": "Case study quote + stats",
+          "selector": [
+            "main > section.case-study"
+          ],
+          "style": "optix-casestudy",
+          "blocks": [
+            "columns-media"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "optix-together",
+          "name": "Fiix and FactoryTalk Better Together",
+          "selector": [
+            "main > section.together"
+          ],
+          "style": "optix-together",
+          "blocks": [
+            "columns-media"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "optix-getting-started",
+          "name": "Getting Started CTA",
+          "selector": [
+            "main > section.container .get-started, main > section.get-started"
+          ],
+          "style": "optix-getstarted",
+          "blocks": [
+            "hero-cta"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "optix-faq",
+          "name": "Optix FAQ accordion",
+          "selector": [
+            "main > section#RA-faq"
+          ],
+          "style": "optix-faq",
+          "blocks": [
+            "accordion-faq"
           ],
           "defaultContent": []
         }

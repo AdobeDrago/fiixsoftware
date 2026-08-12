@@ -1,0 +1,154 @@
+/*
+ * cards-timeline — horizontal connected milestone timeline ("AI at Fiix").
+ * Production (fiixsoftware.com/cmms/ai): a 3px cyan rail with 15px gradient
+ * dots; the product label sits above the rail, the year below it.
+ * Mobile-first: a vertical rail with dots; becomes a horizontal rail on
+ * tablet+. Values extracted from the source computed styles.
+ */
+
+.cards-timeline > ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  position: relative;
+}
+
+.cards-timeline .cards-timeline-item {
+  position: relative;
+  padding-left: 32px;
+  text-align: left;
+}
+
+/* connecting rail (vertical on mobile) */
+.cards-timeline > ul::before {
+  content: '';
+  position: absolute;
+  top: 8px;
+  bottom: 8px;
+  left: 6px;
+  width: 3px;
+  background: #00afeb;
+}
+
+/* gradient dot marker */
+.cards-timeline .cards-timeline-marker {
+  position: absolute;
+  top: 4px;
+  left: 0;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background: linear-gradient(231deg, #00afeb 0%, #003e7e 100%);
+  z-index: 1;
+}
+
+.cards-timeline .cards-timeline-item-body {
+  margin: 0;
+}
+
+.cards-timeline .cards-timeline-item-image {
+  line-height: 0;
+  margin-bottom: 8px;
+}
+
+.cards-timeline .cards-timeline-item-image img {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+}
+
+.cards-timeline .cards-timeline-label {
+  margin: 0;
+  color: var(--text-color);
+  font-size: 20px;
+  font-weight: 300;
+  line-height: 1.35;
+}
+
+.cards-timeline .cards-timeline-label strong {
+  font-weight: 700;
+}
+
+.cards-timeline .cards-timeline-date {
+  margin: 4px 0 0;
+  color: var(--text-color);
+  font-size: 20px;
+  font-weight: 300;
+  line-height: 1.35;
+}
+
+/* tablet+: lay the milestones along a horizontal rail */
+@media (width >= 600px) {
+  .cards-timeline > ul {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+    margin-top: 20px;
+  }
+
+  /* One continuous cyan rail behind the dots. The items are equal-width and
+     evenly distributed, so their dots sit at the centre of each column; inset
+     the rail by ~half a column on each side so it runs from the first dot to
+     the last. Its vertical position is fixed because the labels have a fixed
+     min-height (below), keeping every dot on the same line even when a label
+     wraps to two lines on narrow tablets. */
+  .cards-timeline > ul::before {
+    display: block;
+    inset: 81px 12.5% auto;
+    width: auto;
+    height: 3px;
+    background: #00afeb;
+  }
+
+  /* order: label (above rail) -> marker (on rail) -> date (below rail) */
+  .cards-timeline .cards-timeline-item {
+    flex: 1 1 0;
+    padding: 0;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  /* let the label + date (nested in the body wrapper) participate directly in
+     the item's flex column so their order can interleave with the marker */
+  .cards-timeline .cards-timeline-item-body {
+    display: contents;
+  }
+
+  /* fixed two-line min-height so wrapping labels keep every dot aligned */
+  .cards-timeline .cards-timeline-label {
+    order: 1;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    min-height: 54px;
+    margin: 0 0 20px;
+  }
+
+  .cards-timeline .cards-timeline-item-image {
+    order: 1;
+  }
+
+  /* dot sits statically on the rail, its center at ~54px from the item top */
+  .cards-timeline .cards-timeline-marker {
+    order: 2;
+    position: static;
+    margin: 0;
+  }
+
+  .cards-timeline .cards-timeline-date {
+    order: 3;
+    margin: 20px 0 0;
+  }
+}
+
+@media (width >= 900px) {
+  .cards-timeline > ul {
+    gap: 24px;
+  }
+}

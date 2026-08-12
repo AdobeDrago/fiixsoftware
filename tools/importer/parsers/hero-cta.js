@@ -1,10 +1,16 @@
 /* eslint-disable */
 /* global WebImporter */
 /**
- * Parser for hero-cta. Base: hero (1-column block).
- * Source: https://fiixsoftware.com/cmms/pricing/
- * Instance: `.pricing-kickthetires`
- * Generated: 2026-07-08
+ * Parser for hero-cta. Base: hero (1-column block; cached convention: 3 rows —
+ * block name, optional background image (row 2), then Title + Subheading + CTA
+ * (row 3)).
+ * Sources:
+ *   https://fiixsoftware.com/cmms/pricing/ — `.pricing-kickthetires`
+ *   https://fiixsoftware.com/enterprise/   — `.demo`
+ *   marketing-landing https://fiixsoftware.com/optix/ — `section.get-started`
+ *     (the instance selector targets the `.get-started` div directly, which the
+ *     `|| element` fallback handles): centered image + H2 + paragraph + CTA.
+ * Generated: 2026-07-08 · Updated: 2026-08-11 (marketing-landing get-started CTA).
  *
  * Closing CTA banner. 1-column hero structure:
  *   Row 2 (optional): background/decorative image.
@@ -17,6 +23,9 @@ export default function parse(element, { document }) {
   const heading = inner.querySelector('h1, h2, h3');
   const description = inner.querySelector('p');
   const cta = inner.querySelector('a[href]');
+  // Fiix CTAs carry an sr-only "(opens in new tab)" span — strip it so the link
+  // text stays clean (matches the other parsers' CTA handling).
+  if (cta) cta.querySelectorAll('.sr-only').forEach((sr) => sr.remove());
 
   // Empty-block guard.
   if (!heading && !description && !cta) {

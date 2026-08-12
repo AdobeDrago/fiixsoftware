@@ -924,6 +924,7 @@ main > .section.connect-users .columns-media-card h2 {
   color: #212021;
 }
 
+/* stylelint-disable-next-line no-descending-specificity */
 main > .section.connect-users .columns-media-card p {
   font-size: 18px;
   font-weight: 300;
@@ -1040,6 +1041,7 @@ main .section.enterprise-hero .default-content-wrapper > p {
 }
 
 /* hero CTA — cyan pill */
+/* stylelint-disable-next-line no-descending-specificity */
 main .section.enterprise-hero .default-content-wrapper a.button,
 main .section.enterprise-hero .default-content-wrapper a:any-link {
   display: inline-block;
@@ -1896,3 +1898,1390 @@ main .section.training-community .columns-media li img {
   width: 22px;
   height: auto;
 }
+
+/* ============================================================
+   Product-feature-page template (/cmms/cmms-software and the
+   siblings mobile-cmms, asset-management-software,
+   parts-inventory-management-software). Section styling to match
+   production (https://fiixsoftware.com/cmms/cmms-software/). Values
+   extracted from production computed styles at 1280px. All blocks
+   are reused; these rules scope layout/appearance to the pf-*
+   section styles only.
+
+   These section rules intentionally appear after the enterprise/premium/
+   training blocks above and share element selectors (h2, p, img, a) with
+   them, so descending-specificity ordering can't be satisfied without
+   reordering unrelated pages. They're mutually exclusive by section class,
+   so disable the ordering check for this block (matching the inline
+   disables used elsewhere in this file).
+   ============================================================ */
+
+/* stylelint-disable no-descending-specificity */
+
+/* ---- pf-hero: light band, text left + product screenshot on a
+   purple panel to the right. Reviews stars line + award-logo row below.
+   Production: left band #f7f9fc, right panel #6b64ef; H1 is a small
+   eyebrow, H2 the large headline, intro 20px/300. ---- */
+main > .section.pf-hero {
+  margin: 0;
+  background-color: #f7f9fc;
+}
+
+/* eyebrow (authored as h1) */
+main > .section.pf-hero .hero-lead-content h1 {
+  margin: 0 0 24px;
+  max-width: none;
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 1.1;
+  text-align: left;
+  text-transform: uppercase;
+  color: var(--text-color);
+}
+
+/* headline (authored as h2) */
+main > .section.pf-hero .hero-lead-content h2 {
+  margin: 0 0 20px;
+  max-width: none;
+  padding-bottom: 0;
+  font-size: 34px;
+  font-weight: 700;
+  line-height: 1;
+  text-align: left;
+  color: var(--text-color);
+}
+
+/* "Based on 900+ reviews" support line + the review award-logo row.
+   These live as bare paragraphs after the demo link in the content
+   column. Keep them left-aligned and understated. */
+main > .section.pf-hero .hero-lead-content .hero-lead-support {
+  text-align: left;
+}
+
+/* review stars + award logos: the stars, the "Based on…" line, and the
+   four award logos each sit in their own paragraph. Render the stars
+   small; lay the four award-logo paragraphs out as a single left-aligned
+   inline row (production shows Capterra / Software Advice / Gartner / G2
+   side by side beneath the reviews line). */
+main > .section.pf-hero .hero-lead-content > p img {
+  width: auto;
+  max-height: 26px;
+}
+
+main > .section.pf-hero .hero-lead-content > p:has(img[alt*="stars" i]) img {
+  max-height: 14px;
+}
+
+/* the award-logo paragraphs (those whose only content is a single logo
+   image, excluding the stars) flow inline into a wrapping row */
+main > .section.pf-hero .hero-lead-content > p:has(> picture:only-child):not(:has(img[alt*="stars" i])) {
+  display: inline-block;
+  margin: 8px 20px 0 0;
+  vertical-align: middle;
+}
+
+@media (width >= 900px) {
+  main > .section.pf-hero .hero-lead-content h1 {
+    font-size: 20px;
+  }
+
+  main > .section.pf-hero .hero-lead-content h2 {
+    font-size: 56px;
+  }
+
+  /* Purple product panel behind the screenshot, matching production. The
+     hero-lead block places the image row on the right at >=900; give that
+     row the purple background and let the screenshot sit centered on it. */
+  main > .section.pf-hero .hero-lead > div:has(.hero-lead-media) {
+    align-self: stretch;
+    align-items: center;
+    flex: 0 0 46%;
+    max-width: 46%;
+    padding: 40px;
+    background-color: #6b64ef;
+    border-radius: 4px;
+  }
+
+  main > .section.pf-hero .hero-lead .hero-lead-media img {
+    width: 100%;
+    max-width: 320px;
+    margin: 0 auto;
+  }
+}
+
+@media (width >= 1200px) {
+  main > .section.pf-hero .hero-lead-content h2 {
+    font-size: 64px;
+  }
+}
+
+/* ---- pf-logos: white band, centered customer-logo strip + heading ---- */
+main > .section.pf-logos {
+  margin: 0;
+  padding: 40px 0 20px;
+}
+
+main > .section.pf-logos .columns-logos img {
+  width: auto;
+  height: auto;
+  max-height: 46px;
+  object-fit: contain;
+}
+
+@media (width >= 900px) {
+  main > .section.pf-logos .columns-logos > div {
+    justify-content: space-between;
+    gap: 24px;
+  }
+
+  main > .section.pf-logos .columns-logos > div > div {
+    flex: 0 0 auto;
+  }
+}
+
+/* ---- pf-features: intro (H2 + lead P) above a 2-column grid of
+   borderless heading+paragraph blurbs. Production H2 48/700, intro P
+   28/300, blurb H3 24/700, blurb P 20/300. ---- */
+main > .section.pf-features {
+  margin: 0;
+  padding: 50px 0;
+}
+
+main > .section.pf-features .default-content-wrapper h2 {
+  margin: 0 0 20px;
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--text-color);
+}
+
+main > .section.pf-features .default-content-wrapper > p {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 300;
+  line-height: 1.2;
+  color: var(--text-color);
+}
+
+/* borderless, transparent feature blurbs */
+main > .section.pf-features .cards-features > ul {
+  grid-template-columns: 1fr;
+  gap: 40px 60px;
+}
+
+main > .section.pf-features .cards-features > ul > li {
+  border: 0;
+  background-color: transparent;
+}
+
+main > .section.pf-features .cards-features .cards-features-card-body {
+  margin: 0;
+}
+
+main > .section.pf-features .cards-features h3 {
+  margin: 0 0 16px;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--text-color);
+}
+
+main > .section.pf-features .cards-features .cards-features-card-body p {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 300;
+  line-height: 1.3;
+  color: var(--text-color);
+}
+
+/* trailing "See what easier maintenance…" heading link, centered */
+main > .section.pf-features .default-content-wrapper:last-child h2 {
+  margin: 40px 0 0;
+  font-size: 28px;
+  text-align: center;
+}
+
+main > .section.pf-features .default-content-wrapper:last-child h2 a:any-link {
+  color: #14499a;
+  font-weight: 700;
+}
+
+@media (width >= 900px) {
+  main > .section.pf-features .default-content-wrapper h2 {
+    font-size: 48px;
+  }
+
+  main > .section.pf-features .default-content-wrapper > p {
+    font-size: 28px;
+  }
+
+  main > .section.pf-features .cards-features > ul {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* ---- pf-video: light band, centered heading, thumbnail-card grid.
+   Production band #f7f9fc, H2 24/700 centered. ---- */
+main > .section.pf-video {
+  margin: 0;
+  padding: 60px 0;
+  background-color: #f7f9fc;
+}
+
+main > .section.pf-video .default-content-wrapper h2 {
+  margin: 0 auto 40px;
+  max-width: 760px;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1.2;
+  text-align: center;
+  color: var(--text-color);
+}
+
+/* pf-video reuses cards-video; on tablet+ show a 3-up grid instead of the
+   block's default 2-up flex row so the many demo cards read like production */
+@media (width >= 900px) {
+  main > .section.pf-video .cards-video > ul {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px 30px;
+    align-items: start;
+  }
+
+  main > .section.pf-video .cards-video > ul > li {
+    max-width: none;
+  }
+}
+
+/* ---- pf-media-left / pf-media-right: image + text feature rows.
+   Production H2 48/700, P 28/300. -left = image left, -right = image
+   right. columns-media stacks image-first on mobile (block default). ---- */
+main > .section.pf-media-left,
+main > .section.pf-media-right {
+  margin: 0;
+  padding: 50px 0;
+}
+
+main > .section.pf-media-left .columns-media h2,
+main > .section.pf-media-right .columns-media h2 {
+  margin: 0 0 20px;
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--text-color);
+}
+
+main > .section.pf-media-left .columns-media p,
+main > .section.pf-media-right .columns-media p {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 300;
+  line-height: 1.2;
+  color: var(--text-color);
+}
+
+@media (width >= 900px) {
+  main > .section.pf-media-left .columns-media > div,
+  main > .section.pf-media-right .columns-media > div {
+    align-items: center;
+    gap: 60px;
+  }
+
+  main > .section.pf-media-left .columns-media h2,
+  main > .section.pf-media-right .columns-media h2 {
+    font-size: 48px;
+  }
+
+  main > .section.pf-media-left .columns-media p,
+  main > .section.pf-media-right .columns-media p {
+    font-size: 28px;
+  }
+
+  /* -right: image column sits on the right (text first). The block always
+     orders the image column first, so flip the row for -right. */
+  main > .section.pf-media-right .columns-media > div {
+    flex-direction: row-reverse;
+  }
+}
+
+/* ---- pf-testimonials: light band, centered heading + 3 quote cards.
+   Production band #f7f9fc, H2 ~44/700 centered. ---- */
+main > .section.pf-testimonials {
+  margin: 0;
+  padding: 70px 0 40px;
+  background-color: #f7f9fc;
+}
+
+main > .section.pf-testimonials .default-content-wrapper h2 {
+  margin: 0 auto 40px;
+  max-width: 900px;
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 1.1;
+  text-align: center;
+  color: var(--text-color);
+}
+
+/* trailing "See how other maintenance teams…" heading link, centered */
+main > .section.pf-testimonials .default-content-wrapper:last-child h2 {
+  margin: 40px auto 0;
+  font-size: 28px;
+}
+
+main > .section.pf-testimonials .default-content-wrapper:last-child h2 a:any-link {
+  color: #14499a;
+  font-weight: 700;
+}
+
+@media (width >= 900px) {
+  main > .section.pf-testimonials .default-content-wrapper h2 {
+    font-size: 44px;
+  }
+}
+
+/* ---- pf-explore: case-study carousel + "Explore" heading + award
+   badges + features accordion. Production stacks these; the six stray
+   product screenshots between the badges and accordion are decorative
+   duplicates in the authored content — hide them. ---- */
+main > .section.pf-explore {
+  margin: 0;
+  padding: 60px 0;
+}
+
+main > .section.pf-explore .default-content-wrapper h2 {
+  margin: 40px auto 32px;
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 1.1;
+  text-align: center;
+  color: var(--text-color);
+}
+
+/* award-badge strip (columns-logos) centered */
+main > .section.pf-explore .columns-logos > div {
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 32px;
+}
+
+main > .section.pf-explore .columns-logos img {
+  width: auto;
+  height: auto;
+  max-height: 90px;
+  object-fit: contain;
+}
+
+/* suppress the six loose product-screenshot paragraphs that render between
+   the badges and the accordion (they have no equivalent in production) */
+main > .section.pf-explore .default-content-wrapper > p:has(> picture:only-child) {
+  display: none;
+}
+
+main > .section.pf-explore .accordion-faq h3 {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text-color);
+}
+
+main > .section.pf-explore .accordion-faq a:any-link {
+  color: #14499a;
+  font-weight: 700;
+}
+
+@media (width >= 900px) {
+  main > .section.pf-explore .default-content-wrapper h2 {
+    font-size: 48px;
+  }
+}
+
+/* ---- pf-resources: grey band, centered heading, 3 resource cards
+   (icon + heading + text + "Uncover details"). Production band #f7f7f7,
+   H2 48/700 centered, cards transparent, link 20/700 #14499a. ---- */
+main > .section.pf-resources {
+  margin: 0;
+  padding: 80px 0;
+  background-color: #f7f7f7;
+}
+
+main > .section.pf-resources .default-content-wrapper h2 {
+  margin: 0 auto 40px;
+  max-width: 760px;
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 1;
+  text-align: center;
+  color: var(--text-color);
+}
+
+/* cards-cta reused: production renders these as flat, transparent,
+   left-aligned cards with a small decorative icon (not the block's grey
+   panels with an overflowing triangle). */
+main > .section.pf-resources .cards-cta {
+  gap: 32px;
+}
+
+main > .section.pf-resources .cards-cta .cards-cta-panel {
+  align-items: stretch;
+  padding: 0;
+  background-color: transparent;
+  text-align: left;
+}
+
+main > .section.pf-resources .cards-cta .cards-cta-figure {
+  position: static;
+  margin: 0 0 16px;
+}
+
+main > .section.pf-resources .cards-cta .cards-cta-figure img {
+  width: 70px;
+}
+
+main > .section.pf-resources .cards-cta .cards-cta-body {
+  align-items: flex-start;
+}
+
+main > .section.pf-resources .cards-cta .cards-cta-body h3 {
+  margin: 0 0 16px;
+  font-size: 24px;
+  line-height: 1;
+}
+
+main > .section.pf-resources .cards-cta .cards-cta-body p {
+  font-size: 20px;
+  line-height: 1.3;
+}
+
+/* "Uncover details" as a plain blue text link, not the purple pill */
+main > .section.pf-resources .cards-cta a.cards-cta-button:any-link {
+  margin-top: 16px;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background-color: transparent;
+  color: #14499a;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+main > .section.pf-resources .cards-cta a.cards-cta-button:hover,
+main > .section.pf-resources .cards-cta a.cards-cta-button:focus-visible {
+  background-color: transparent;
+  color: #0f3877;
+  text-decoration: underline;
+}
+
+@media (width >= 900px) {
+  main > .section.pf-resources .default-content-wrapper h2 {
+    font-size: 48px;
+  }
+
+  main > .section.pf-resources .cards-cta {
+    gap: 48px;
+  }
+}
+
+/* ---- pf-final-cta: centered "Ready to see more?" heading + paragraph
+   + two buttons (Book a demo / Take a free tour). The two links are
+   authored as a bulleted list. Production H2 48/700 centered. ---- */
+main > .section.pf-final-cta {
+  margin: 0;
+  padding: 80px 0;
+  text-align: center;
+}
+
+main > .section.pf-final-cta .default-content-wrapper h2 {
+  margin: 0 auto 20px;
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--text-color);
+}
+
+main > .section.pf-final-cta .default-content-wrapper > p {
+  margin: 0 auto 24px;
+  font-size: 20px;
+  font-weight: 300;
+  color: var(--text-color);
+}
+
+/* the two CTA links live in a <ul>; render them as an inline button row */
+main > .section.pf-final-cta .default-content-wrapper ul {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+main > .section.pf-final-cta .default-content-wrapper ul li {
+  margin: 0;
+}
+
+main > .section.pf-final-cta .default-content-wrapper ul a:any-link {
+  display: inline-block;
+  padding: 10px 24px;
+  border: 2px solid #14499a;
+  border-radius: 40px;
+  background-color: #14499a;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+/* second link ("Take a free tour") = cyan outlined pill */
+main > .section.pf-final-cta .default-content-wrapper ul li:last-child a:any-link {
+  border-color: #00afeb;
+  background-color: #fff;
+  color: #00afeb;
+  font-weight: 700;
+}
+
+@media (width >= 900px) {
+  main > .section.pf-final-cta .default-content-wrapper h2 {
+    font-size: 48px;
+  }
+}
+
+/* ============================================================
+   Marketing-landing-page template (/cmms/ai and /optix). Section
+   styling to match production (fiixsoftware.com/cmms/ai/ and
+   /optix/). Values extracted from production computed styles at
+   1280px. Blocks reused: columns-media, cards-icon, cards-cta,
+   accordion-faq, tabs-feature, hero-cta, plus the new cards-timeline
+   block. These rules scope layout/appearance to the section styles.
+
+   Brand tokens used repeatedly here:
+   - dark gradient band:  linear-gradient(269deg, #00afeb 0%, #003e7e 100%)
+   - orange CTA pill:     linear-gradient(90deg, #cd163f 0%, #f58025 100%)
+   - grey band:           #f7f7f7
+   ============================================================ */
+
+/* ---- ai-hero: white band, split hero (text left, illustration
+   right). Shared by the AI hero and the Optix hero. Production H1
+   48/700, intro 20/300, CTA = orange gradient pill. ---- */
+main > .section.ai-hero {
+  margin: 0;
+  padding: 40px 0;
+}
+
+main > .section.ai-hero .columns-media h1 {
+  margin: 0 0 24px;
+  font-size: 36px;
+  font-weight: 700;
+  line-height: 1.1;
+  color: var(--text-color);
+}
+
+main > .section.ai-hero .columns-media p {
+  margin: 0 0 20px;
+  font-size: 20px;
+  font-weight: 300;
+  line-height: 1.35;
+  color: var(--text-color);
+}
+
+/* hero logo (Optix hero has a product logo above the H1) */
+main > .section.ai-hero .columns-media p:has(img) img {
+  width: auto;
+  max-height: 48px;
+}
+
+/* orange gradient CTA pill */
+main > .section.ai-hero .columns-media a:any-link {
+  display: inline-block;
+  margin-top: 8px;
+  padding: 8px 40px;
+  border: 0;
+  border-radius: 5px;
+  background-image: linear-gradient(90deg, #cd163f 0%, #f58025 100%);
+  color: #fff;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.7;
+}
+
+main > .section.ai-hero .columns-media a:hover,
+main > .section.ai-hero .columns-media a:focus-visible {
+  color: #fff;
+  text-decoration: none;
+  opacity: 0.92;
+}
+
+/* keep the hero text above the illustration on mobile */
+main > .section.ai-hero .columns-media > div > div {
+  order: 0;
+}
+
+main > .section.ai-hero .columns-media > div > .columns-media-img-col {
+  order: 1;
+}
+
+@media (width >= 900px) {
+  main > .section.ai-hero {
+    padding: 50px 0;
+  }
+
+  main > .section.ai-hero .columns-media h1 {
+    font-size: 48px;
+  }
+
+  main > .section.ai-hero .columns-media > div {
+    justify-content: space-between;
+    gap: 48px;
+  }
+
+  main > .section.ai-hero .columns-media > div > .columns-media-img-col {
+    flex: 0 0 40%;
+    max-width: 40%;
+  }
+}
+
+/* ---- ai-timeline: grey band, centered "AI at Fiix" heading, the
+   cards-timeline block draws the connected rail (see the block CSS).
+   Production band #f7f7f7, 50px top / 80px bottom, H2 48/500. ---- */
+main > .section.ai-timeline {
+  margin: 0;
+  padding: 50px 0 80px;
+  background-color: #f7f7f7;
+}
+
+main > .section.ai-timeline .default-content-wrapper h2 {
+  margin: 0 auto 40px;
+  font-size: 40px;
+  font-weight: 500;
+  line-height: 1.1;
+  text-align: center;
+  color: var(--text-color);
+}
+
+@media (width >= 900px) {
+  main > .section.ai-timeline .default-content-wrapper h2 {
+    font-size: 48px;
+  }
+}
+
+/* ---- ai-fiixmax: dark gradient band, white centered logo + heading,
+   a white quote card, and white product cards (columns-media). The
+   Vidyard promo videos are intentionally omitted; style around the
+   text. Production band 70px top / 160px bottom, H2 48/700 white. ---- */
+main > .section.ai-fiixmax {
+  margin: 0;
+  padding: 70px 0 90px;
+  background-image: linear-gradient(269deg, #00afeb 0%, #003e7e 100%);
+  color: #fff;
+}
+
+main > .section.ai-fiixmax .default-content-wrapper {
+  text-align: center;
+}
+
+main > .section.ai-fiixmax .default-content-wrapper h2 {
+  margin: 0 auto 20px;
+  font-size: 40px;
+  font-weight: 700;
+  line-height: 1.1;
+  color: #fff;
+}
+
+/* Fiix MAX logo */
+main > .section.ai-fiixmax .default-content-wrapper p:has(img) {
+  margin: 0 0 12px;
+}
+
+main > .section.ai-fiixmax .default-content-wrapper p:has(img) img {
+  width: auto;
+  max-height: 32px;
+}
+
+/* customer quote → white card, dark text */
+main > .section.ai-fiixmax .default-content-wrapper blockquote {
+  max-width: 900px;
+  margin: 32px auto 12px;
+  padding: 48px 60px;
+  border: 0;
+  border-radius: 10px;
+  background-color: #fff;
+  color: var(--text-color);
+}
+
+main > .section.ai-fiixmax .default-content-wrapper blockquote p {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 1.7;
+  color: var(--text-color);
+}
+
+main > .section.ai-fiixmax .default-content-wrapper > p {
+  margin: 0 auto;
+  font-size: 16px;
+  font-weight: 300;
+  color: #fff;
+}
+
+/* "Learn more about Fiix MAX" → orange gradient pill */
+main > .section.ai-fiixmax .default-content-wrapper a:any-link {
+  display: inline-block;
+  margin: 20px auto;
+  padding: 8px 40px;
+  border-radius: 5px;
+  background-image: linear-gradient(90deg, #cd163f 0%, #f58025 100%);
+  color: #fff;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+main > .section.ai-fiixmax .default-content-wrapper a:hover,
+main > .section.ai-fiixmax .default-content-wrapper a:focus-visible {
+  color: #fff;
+  text-decoration: none;
+  opacity: 0.92;
+}
+
+/* the three feature rows become white rounded product cards */
+main > .section.ai-fiixmax .columns-media {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+main > .section.ai-fiixmax .columns-media > div {
+  margin: 0;
+  padding: 32px;
+  border-radius: 10px;
+  background-color: #fff;
+  gap: 24px;
+}
+
+main > .section.ai-fiixmax .columns-media p {
+  color: var(--text-color);
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 1.6;
+}
+
+main > .section.ai-fiixmax .columns-media p:first-child strong,
+main > .section.ai-fiixmax .columns-media p strong {
+  font-weight: 700;
+}
+
+@media (width >= 900px) {
+  main > .section.ai-fiixmax {
+    padding: 70px 0 120px;
+  }
+
+  main > .section.ai-fiixmax .default-content-wrapper h2 {
+    font-size: 48px;
+  }
+
+  main > .section.ai-fiixmax .columns-media > div {
+    align-items: center;
+    padding: 40px 50px;
+    gap: 50px;
+  }
+}
+
+/* ---- ai-philosophy: light band, "Our AI Philosophy" heading + a
+   4-item icon grid (cards-icon). Production H2 40/700 center, icons
+   ~60px tall, captions 20/500 center, borderless transparent cards. */
+main > .section.ai-philosophy {
+  margin: 0;
+  padding: 60px 0;
+  text-align: center;
+}
+
+main > .section.ai-philosophy .default-content-wrapper h2 {
+  margin: 0 auto 40px;
+  font-size: 40px;
+  font-weight: 700;
+  line-height: 1.1;
+  text-align: center;
+  color: var(--text-color);
+}
+
+main > .section.ai-philosophy .cards-icon > ul {
+  grid-template-columns: repeat(2, 1fr);
+  gap: 32px;
+}
+
+main > .section.ai-philosophy .cards-icon > ul > li {
+  border: 0;
+  background: transparent;
+  text-align: center;
+}
+
+main > .section.ai-philosophy .cards-icon .cards-icon-card-image {
+  margin-bottom: 16px;
+}
+
+main > .section.ai-philosophy .cards-icon > ul > li img {
+  width: auto;
+  max-height: 60px;
+  aspect-ratio: auto;
+  object-fit: contain;
+  margin: 0 auto;
+}
+
+main > .section.ai-philosophy .cards-icon .cards-icon-card-body {
+  margin: 0 8px;
+}
+
+main > .section.ai-philosophy .cards-icon .cards-icon-card-body p {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 1.3;
+  color: var(--text-color);
+}
+
+@media (width >= 900px) {
+  main > .section.ai-philosophy .cards-icon > ul {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* ---- ai-augury: grey band, eyebrow + large heading (centered) over
+   a 2-column logo/copy + CTA (columns-media). Production band #f7f7f7,
+   50px vertical padding, eyebrow 20/500, H2 40/700, h3 26/700. ---- */
+main > .section.ai-augury {
+  margin: 0;
+  padding: 50px 0;
+  background-color: #f7f7f7;
+}
+
+/* eyebrow ("PREDICTIVE MAINTENANCE") + heading in the default content */
+main > .section.ai-augury .default-content-wrapper {
+  text-align: center;
+}
+
+main > .section.ai-augury .default-content-wrapper p {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--text-color);
+}
+
+main > .section.ai-augury .default-content-wrapper h2 {
+  margin: 0 auto 20px;
+  font-size: 40px;
+  font-weight: 700;
+  line-height: 1.1;
+  text-align: center;
+  color: var(--text-color);
+}
+
+main > .section.ai-augury .columns-media h3 {
+  margin: 0 0 20px;
+  font-size: 26px;
+  font-weight: 700;
+  line-height: 1.1;
+  color: var(--text-color);
+}
+
+main > .section.ai-augury .columns-media p {
+  margin: 0 0 20px;
+  font-size: 20px;
+  font-weight: 300;
+  line-height: 1.4;
+  color: var(--text-color);
+}
+
+/* logo above the copy */
+main > .section.ai-augury .columns-media p:has(img) img {
+  width: auto;
+  max-height: 60px;
+}
+
+/* "Book a demo" → orange gradient pill */
+main > .section.ai-augury .columns-media a:any-link {
+  display: inline-block;
+  margin-top: 8px;
+  padding: 8px 40px;
+  border-radius: 5px;
+  background-image: linear-gradient(90deg, #cd163f 0%, #f58025 100%);
+  color: #fff;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+main > .section.ai-augury .columns-media a:hover,
+main > .section.ai-augury .columns-media a:focus-visible {
+  color: #fff;
+  text-decoration: none;
+  opacity: 0.92;
+}
+
+@media (width >= 900px) {
+  main > .section.ai-augury .default-content-wrapper h2 {
+    font-size: 48px;
+  }
+
+  main > .section.ai-augury .columns-media > div {
+    align-items: center;
+    gap: 48px;
+  }
+}
+
+/* ---- ai-faq / optix-faq: both FAQ sections carry BOTH the ai-faq and
+   optix-faq classes, so they share these rules. White band, centered
+   heading, an accordion-faq block (styled by the block), and a "Learn
+   more" link. Production H2 40/500-700 center. The duplicated section
+   metadata leaks a visible "style / optix-faq" block — hide it. ---- */
+main > .section.ai-faq {
+  margin: 0;
+  padding: 60px 0;
+}
+
+main > .section.ai-faq .default-content-wrapper h2 {
+  margin: 0 auto 20px;
+  font-size: 40px;
+  font-weight: 700;
+  line-height: 1.1;
+  text-align: center;
+  color: var(--text-color);
+}
+
+/* "Learn more about CBM with Fiix" intro link → centered blue link */
+main > .section.ai-faq .default-content-wrapper a:any-link {
+  display: block;
+  margin: 0 auto 24px;
+  text-align: center;
+  color: #14499a;
+  font-weight: 700;
+}
+
+main > .section.ai-faq .accordion-faq {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+/* suppress the leaked duplicate section-metadata block */
+main > .section.ai-faq .section-metadata-wrapper,
+main > .section.ai-faq .section-metadata {
+  display: none;
+}
+
+/* ---- ai-tabs: two tabbed-panel sections (tabs-feature). White band,
+   centered heading (with an optional product logo above it). The
+   tabs-feature block styles the tabs/panels; some panel screenshots
+   were intentionally omitted during import. ---- */
+main > .section.ai-tabs {
+  margin: 0;
+  padding: 50px 0;
+}
+
+main > .section.ai-tabs .default-content-wrapper {
+  text-align: center;
+}
+
+main > .section.ai-tabs .default-content-wrapper h2 {
+  margin: 0 auto 30px;
+  max-width: 760px;
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 1.1;
+  text-align: center;
+  color: var(--text-color);
+}
+
+/* product logo above the heading (Fiix Foresight) */
+main > .section.ai-tabs .default-content-wrapper p:has(img) {
+  text-align: center;
+}
+
+main > .section.ai-tabs .default-content-wrapper p:has(img) img {
+  width: auto;
+  max-height: 40px;
+}
+
+@media (width >= 900px) {
+  main > .section.ai-tabs .default-content-wrapper h2 {
+    font-size: 40px;
+  }
+}
+
+/* ---- ai-dual-cta: dark gradient band, a pair of white CTA cards
+   (cards-cta). Production band 55px top / 200px bottom, cards white
+   with a soft shadow, 10px radius, 50px 80px padding; card H2 40/500,
+   copy 20/300, CTA = orange gradient pill. ---- */
+main > .section.ai-dual-cta {
+  margin: 0;
+  padding: 55px 0 90px;
+  background-image: linear-gradient(269deg, #00afeb 0%, #003e7e 100%);
+}
+
+main > .section.ai-dual-cta .cards-cta .cards-cta-panel {
+  padding: 50px 40px;
+  border-radius: 10px;
+  background-color: #fff;
+  box-shadow: 0 0 10px 0 rgb(0 0 0 / 16%);
+}
+
+main > .section.ai-dual-cta .cards-cta .cards-cta-body h2,
+main > .section.ai-dual-cta .cards-cta .cards-cta-body h3 {
+  margin: 0 0 20px;
+  font-size: 40px;
+  font-weight: 500;
+  line-height: 1.1;
+  color: var(--text-color);
+}
+
+main > .section.ai-dual-cta .cards-cta .cards-cta-body p {
+  margin: 0 0 20px;
+  font-size: 20px;
+  font-weight: 300;
+  line-height: 1.4;
+  color: var(--text-color);
+}
+
+main > .section.ai-dual-cta .cards-cta a.cards-cta-button:any-link {
+  margin-top: 10px;
+  padding: 8px 40px;
+  border: 0;
+  border-radius: 5px;
+  background-color: transparent;
+  background-image: linear-gradient(90deg, #cd163f 0%, #f58025 100%);
+  color: #fff;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+main > .section.ai-dual-cta .cards-cta a.cards-cta-button:hover,
+main > .section.ai-dual-cta .cards-cta a.cards-cta-button:focus-visible {
+  background-color: transparent;
+  color: #fff;
+  text-decoration: none;
+  opacity: 0.92;
+}
+
+@media (width >= 900px) {
+  main > .section.ai-dual-cta {
+    padding: 55px 0 140px;
+  }
+
+  main > .section.ai-dual-cta .cards-cta {
+    gap: 100px;
+  }
+
+  main > .section.ai-dual-cta .cards-cta .cards-cta-panel {
+    padding: 50px 80px;
+  }
+}
+
+/* ============================================================
+   Optix page (/optix) — section styles unique to this page.
+   Reuses columns-media, cards-icon, hero-cta, accordion-faq.
+   ============================================================ */
+
+/* ---- optix-intro: dark gradient band, "What is FactoryTalk Optix?"
+   heading, then a 2-column layout: copy paragraphs (left) + a bulleted
+   benefit list (right). Production band 55px top / 70px bottom, white
+   text, H2 40/700 center, copy 20/300, list 22/300. ---- */
+main > .section.optix-intro {
+  margin: 0;
+  padding: 55px 0 70px;
+  background-image: linear-gradient(269deg, #00afeb 0%, #003e7e 100%);
+  color: #fff;
+}
+
+main > .section.optix-intro .default-content-wrapper h2 {
+  margin: 0 0 24px;
+  font-size: 40px;
+  font-weight: 700;
+  line-height: 1.1;
+  text-align: center;
+  color: #fff;
+}
+
+main > .section.optix-intro .default-content-wrapper p {
+  margin: 0 0 20px;
+  font-size: 20px;
+  font-weight: 300;
+  line-height: 1.5;
+  color: #fff;
+}
+
+main > .section.optix-intro .default-content-wrapper ul {
+  margin: 0;
+  padding-left: 24px;
+  color: #fff;
+}
+
+main > .section.optix-intro .default-content-wrapper li {
+  margin: 0 0 16px;
+  font-size: 22px;
+  font-weight: 300;
+  line-height: 1.5;
+  color: #fff;
+}
+
+@media (width >= 900px) {
+  main > .section.optix-intro .default-content-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 60px;
+  }
+
+  main > .section.optix-intro .default-content-wrapper h2 {
+    grid-column: 1 / -1;
+  }
+
+  main > .section.optix-intro .default-content-wrapper p {
+    grid-column: 1;
+  }
+
+  main > .section.optix-intro .default-content-wrapper ul {
+    grid-column: 2;
+    grid-row: 2;
+    align-self: start;
+  }
+}
+
+/* ---- optix-connect: white band, "Connect your CMMS to the plant
+   floor" heading + a 4-icon row (cards-icon). Production H2 40/700
+   center, icons ~60px, captions 20/500 center. (The 2x2 benefit-card
+   grid below the icons did not survive import — noted as a delta.) ---- */
+main > .section.optix-connect {
+  margin: 0;
+  padding: 75px 0 65px;
+  text-align: center;
+}
+
+main > .section.optix-connect .default-content-wrapper h2 {
+  margin: 0 auto 40px;
+  font-size: 40px;
+  font-weight: 700;
+  line-height: 1.1;
+  text-align: center;
+  color: var(--text-color);
+}
+
+main > .section.optix-connect .cards-icon > ul {
+  grid-template-columns: repeat(2, 1fr);
+  gap: 32px;
+}
+
+main > .section.optix-connect .cards-icon > ul > li {
+  border: 0;
+  background: transparent;
+  text-align: center;
+}
+
+main > .section.optix-connect .cards-icon .cards-icon-card-image {
+  margin-bottom: 16px;
+}
+
+main > .section.optix-connect .cards-icon > ul > li img {
+  width: auto;
+  max-height: 60px;
+  aspect-ratio: auto;
+  object-fit: contain;
+  margin: 0 auto;
+}
+
+main > .section.optix-connect .cards-icon .cards-icon-card-body {
+  margin: 0 8px;
+}
+
+main > .section.optix-connect .cards-icon .cards-icon-card-body p {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 1.3;
+  color: var(--text-color);
+}
+
+@media (width >= 900px) {
+  main > .section.optix-connect .cards-icon > ul {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* ---- optix-casestudy: dark gradient band, customer quote + stat list
+   (columns-media). Production band 55px top / 70px bottom, white text,
+   quote 28/500 center. (Only the customer portrait imported; the quote
+   text + stat numbers did not survive import — noted as a delta.) ---- */
+main > .section.optix-casestudy {
+  margin: 0;
+  padding: 55px 0 70px;
+  background-image: linear-gradient(269deg, #00afeb 0%, #003e7e 100%);
+  color: #fff;
+}
+
+main > .section.optix-casestudy .columns-media,
+main > .section.optix-casestudy .columns-media p,
+main > .section.optix-casestudy .columns-media blockquote {
+  color: #fff;
+}
+
+main > .section.optix-casestudy .columns-media blockquote p {
+  font-size: 28px;
+  font-weight: 500;
+  line-height: 1.3;
+  text-align: center;
+}
+
+main > .section.optix-casestudy .columns-media img {
+  width: auto;
+  max-width: 200px;
+  border-radius: 50%;
+}
+
+/* ---- optix-together: white band, "Fiix and FactoryTalk Better
+   Together" heading + a 2-column logo/copy comparison (columns-media).
+   Production H2 40/700 center, body 20/300, logos ~60px tall. ---- */
+main > .section.optix-together {
+  margin: 0;
+  padding: 80px 0 100px;
+}
+
+main > .section.optix-together .default-content-wrapper h2 {
+  margin: 0 auto 40px;
+  font-size: 40px;
+  font-weight: 700;
+  line-height: 1.15;
+  text-align: center;
+  color: var(--text-color);
+}
+
+main > .section.optix-together .columns-media > div {
+  gap: 24px;
+}
+
+main > .section.optix-together .columns-media > div > div {
+  padding: 32px;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  text-align: center;
+}
+
+main > .section.optix-together .columns-media p {
+  margin: 0 0 16px;
+  font-size: 20px;
+  font-weight: 300;
+  line-height: 1.4;
+  color: var(--text-color);
+  text-align: left;
+}
+
+main > .section.optix-together .columns-media p:has(img) {
+  text-align: center;
+}
+
+main > .section.optix-together .columns-media p:has(img) img {
+  width: auto;
+  max-height: 60px;
+}
+
+@media (width >= 900px) {
+  main > .section.optix-together .columns-media > div {
+    align-items: stretch;
+    gap: 40px;
+  }
+
+  main > .section.optix-together .columns-media > div > div {
+    padding: 40px;
+  }
+}
+
+/* ---- optix-getstarted: a "Getting Started" CTA band (hero-cta) on a
+   blue banner, followed by a "Pricing and Requirements" list on white.
+   Production banner uses a photo background with white text; the photo
+   asset was not imported, so approximate with the brand blue gradient
+   (noted as a delta). Band padding 40px 60px 50px, H2 40/700 white,
+   copy 20/300 white, CTA = white pill with dark-blue text. ---- */
+main > .section.optix-getstarted {
+  margin: 0;
+  padding: 40px 0 60px;
+}
+
+main > .section.optix-getstarted .hero-cta-wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+main > .section.optix-getstarted .hero-cta.no-image {
+  min-height: 0;
+  padding: 40px 60px 50px;
+  border-radius: 6px;
+  background: linear-gradient(120deg, #14499a 0%, #003e7e 100%);
+}
+
+main > .section.optix-getstarted .hero-cta.no-image h2 {
+  max-width: none;
+  margin: 0 0 16px;
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 1.1;
+  text-align: left;
+  color: #fff;
+}
+
+main > .section.optix-getstarted .hero-cta.no-image p {
+  max-width: 640px;
+  margin: 0 0 20px;
+  font-size: 20px;
+  font-weight: 300;
+  line-height: 1.5;
+  text-align: left;
+  color: #fff;
+}
+
+main > .section.optix-getstarted .hero-cta.no-image a:any-link {
+  display: inline-block;
+  padding: 8px 40px;
+  border: 0;
+  border-radius: 5px;
+  background: #fff;
+  color: #003e7e;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+main > .section.optix-getstarted .hero-cta.no-image a:hover,
+main > .section.optix-getstarted .hero-cta.no-image a:focus-visible {
+  color: #003e7e;
+  text-decoration: none;
+  opacity: 0.9;
+}
+
+/* trailing "Pricing and Requirements" list on white */
+main > .section.optix-getstarted .default-content-wrapper {
+  margin-top: 40px;
+}
+
+main > .section.optix-getstarted .default-content-wrapper h2 {
+  margin: 0 auto 24px;
+  font-size: 40px;
+  font-weight: 700;
+  line-height: 1.1;
+  text-align: center;
+  color: var(--text-color);
+}
+
+main > .section.optix-getstarted .default-content-wrapper ul {
+  max-width: 900px;
+  margin: 0 auto;
+  padding-left: 24px;
+}
+
+main > .section.optix-getstarted .default-content-wrapper li {
+  margin: 0 0 12px;
+  font-size: 18px;
+  font-weight: 300;
+  line-height: 1.5;
+  color: var(--text-color);
+}
+
+@media (width >= 900px) {
+  main > .section.optix-getstarted .hero-cta.no-image h2 {
+    font-size: 40px;
+  }
+}
+
+/* stylelint-enable no-descending-specificity */
