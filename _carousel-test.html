@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>carousel-testimonial test</title>
+  <link rel="stylesheet" href="/styles/styles.css">
+  <link rel="stylesheet" href="/blocks/carousel-testimonial/carousel-testimonial.css">
+  <style>
+    body { margin: 0; }
+    main .section { padding: 60px 24px; background: #f4f6fb; }
+    .wrap { max-width: 1200px; margin: 0 auto; }
+    h2 { text-align: center; font-family: sans-serif; }
+  </style>
+</head>
+<body>
+  <main>
+    <div class="section">
+      <div class="wrap">
+        <h2>See how Fiix is being used to…</h2>
+        <div class="carousel-testimonial block" data-block-name="carousel-testimonial"></div>
+      </div>
+    </div>
+  </main>
+  <script type="module">
+    const P = 'https://main--fiixsoftware--AdobeDrago.aem.live/';
+    const slides = [
+      { head: 'Reduce costs and risk at the same time', result: 'Perth County Ingredients cut maintenance costs by $40,000 a year with Fiix.', quote: '“We’ve seen old issues, like motor pumps and bearings replacements, all decrease.”', name: 'Tom Dufton,', role: 'Maintenance Manager, Perth County Ingredients', shot: 'media_1b9a8aced97b3f89cfa46c809b354b718e219aaa4.webp?width=200&format=webp', logo: 'media_1aac7c0fd3f04c23b310637c98171c38f634a35b0.webp?width=400&format=webp' },
+      { head: 'Pass audits without spending hours at a computer', result: 'Scottish Sea Farms has passed every audit for six years by tracking compliance tasks in Fiix.', quote: '“I recommend Fiix to any company rolling out a planned maintenance system. It’s easy to set up and… and use.”', name: 'Ewen Leslie.,', role: 'Engineering Manager, Scottish Sea Farms', shot: 'media_17567788676e482518d077469d51aebdd69a14fd0.webp?width=200&format=webp', logo: 'media_1aac7c0fd3f04c23b310637c98171c38f634a35b0.webp?width=400&format=webp' },
+      { head: 'Turn admin time into wrench time', result: 'Rambler Metals & Mining increased wrench time by 15% in six months with Fiix.', quote: '“Our technicians are able to go back to turning wrenches faster because there’s no guesswork anymore.”', name: 'Scott Britton,', role: 'GM of Operations Rambler Metals & Mining', shot: 'media_1b9a8aced97b3f89cfa46c809b354b718e219aaa4.webp?width=200&format=webp', logo: 'media_1aac7c0fd3f04c23b310637c98171c38f634a35b0.webp?width=400&format=webp' },
+      { head: 'Cut downtime across every site', result: 'A global manufacturer reduced unplanned downtime by 20% within a year of rolling out Fiix.', quote: '“We finally have one source of truth for maintenance across all our plants.”', name: 'Jamie Rivera,', role: 'Director of Maintenance', shot: 'media_17567788676e482518d077469d51aebdd69a14fd0.webp?width=200&format=webp', logo: 'media_1aac7c0fd3f04c23b310637c98171c38f634a35b0.webp?width=400&format=webp' },
+    ];
+    document.body.classList.add('appear');
+    const block = document.querySelector('.carousel-testimonial');
+    block.innerHTML = slides.map((s) => `
+      <div>
+        <div><picture><img loading="lazy" alt="${s.name} headshot" src="${P}${s.shot}" width="80" height="80"></picture></div>
+        <div>
+          <h3 id="${s.head.toLowerCase().replace(/[^a-z]+/g, '-')}">${s.head}</h3>
+          <p>${s.result}</p>
+          <p>${s.quote}</p>
+          <p>${s.name}</p>
+          <p>${s.role}</p>
+          <p><picture><img loading="lazy" alt="logo" src="${P}${s.logo}" width="400" height="150"></picture></p>
+        </div>
+      </div>`).join('');
+    const { default: decorate } = await import('/blocks/carousel-testimonial/carousel-testimonial.js');
+    await decorate(block);
+  </script>
+</body>
+</html>

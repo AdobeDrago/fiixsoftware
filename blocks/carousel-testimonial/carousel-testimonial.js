@@ -1,71 +1,60 @@
-function updateActiveSlide(slide) {
-  const block = slide.closest('.carousel-testimonial');
-  const slideIndex = parseInt(slide.dataset.slideIndex, 10);
-  block.dataset.activeSlide = slideIndex;
-
-  const slides = block.querySelectorAll('.carousel-testimonial-slide');
-
-  slides.forEach((aSlide, idx) => {
-    aSlide.setAttribute('aria-hidden', idx !== slideIndex);
-    aSlide.querySelectorAll('a').forEach((link) => {
-      if (idx !== slideIndex) {
-        link.setAttribute('tabindex', '-1');
-      } else {
-        link.removeAttribute('tabindex');
-      }
-    });
-  });
-
-  const indicators = block.querySelectorAll('.carousel-testimonial-slide-indicator');
-  indicators.forEach((indicator, idx) => {
-    if (idx !== slideIndex) {
-      indicator.querySelector('button').removeAttribute('disabled');
-    } else {
-      indicator.querySelector('button').setAttribute('disabled', 'true');
-    }
-  });
+/**
+ * Distance to scroll for a single item step: one card width + the flex gap.
+ * @param {Element} block the carousel block
+ * @returns {number} pixels to scroll to advance/retreat by exactly one card
+ */
+function getSlideStep(block) {
+  const slides = block.querySelector('.carousel-testimonial-slides');
+  const slide = slides.querySelector('.carousel-testimonial-slide');
+  if (!slide) return 0;
+  const gap = parseFloat(getComputedStyle(slides).columnGap) || 0;
+  return slide.getBoundingClientRect().width + gap;
 }
 
-export function showSlide(block, slideIndex = 0) {
-  const slides = block.querySelectorAll('.carousel-testimonial-slide');
-  let realSlideIndex = slideIndex < 0 ? slides.length - 1 : slideIndex;
-  if (slideIndex >= slides.length) realSlideIndex = 0;
-  const activeSlide = slides[realSlideIndex];
+/**
+ * Enable/disable the prev/next controls based on the current scroll position
+ * so the user can't page past either end.
+ * @param {Element} block the carousel block
+ */
+function updateNavState(block) {
+  const slides = block.querySelector('.carousel-testimonial-slides');
+  const prev = block.querySelector('.slide-prev');
+  const next = block.querySelector('.slide-next');
+  if (!prev || !next) return;
+  const maxScroll = slides.scrollWidth - slides.clientWidth;
+  prev.disabled = slides.scrollLeft <= 1;
+  next.disabled = slides.scrollLeft >= maxScroll - 1;
+}
 
-  activeSlide.querySelectorAll('a').forEach((link) => link.removeAttribute('tabindex'));
-  block.querySelector('.carousel-testimonial-slides').scrollTo({
-    top: 0,
-    left: activeSlide.offsetLeft,
-    behavior: 'smooth',
-  });
+/**
+ * Scroll the track by one card in the given direction.
+ * @param {Element} block the carousel block
+ * @param {number} direction -1 for previous, 1 for next
+ */
+export function showSlide(block, direction = 1) {
+  const slides = block.querySelector('.carousel-testimonial-slides');
+  slides.scrollBy({ top: 0, left: getSlideStep(block) * direction, behavior: 'smooth' });
 }
 
 function bindEvents(block) {
-  const slideIndicators = block.querySelector('.carousel-testimonial-slide-indicators');
-  if (!slideIndicators) return;
+  const slides = block.querySelector('.carousel-testimonial-slides');
 
-  slideIndicators.querySelectorAll('button').forEach((button) => {
-    button.addEventListener('click', (e) => {
-      const slideIndicator = e.currentTarget.parentElement;
-      showSlide(block, parseInt(slideIndicator.dataset.targetSlide, 10));
-    });
-  });
+  block.querySelector('.slide-prev').addEventListener('click', () => showSlide(block, -1));
+  block.querySelector('.slide-next').addEventListener('click', () => showSlide(block, 1));
 
-  block.querySelector('.slide-prev').addEventListener('click', () => {
-    showSlide(block, parseInt(block.dataset.activeSlide, 10) - 1);
-  });
-  block.querySelector('.slide-next').addEventListener('click', () => {
-    showSlide(block, parseInt(block.dataset.activeSlide, 10) + 1);
-  });
+  let scrollRaf;
+  slides.addEventListener('scroll', () => {
+    if (scrollRaf) cancelAnimationFrame(scrollRaf);
+    scrollRaf = requestAnimationFrame(() => updateNavState(block));
+  }, { passive: true });
 
-  const slideObserver = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) updateActiveSlide(entry.target);
-    });
-  }, { threshold: 0.5 });
-  block.querySelectorAll('.carousel-testimonial-slide').forEach((slide) => {
-    slideObserver.observe(slide);
-  });
+  // Recompute on any track resize -- this also covers the case where the block
+  // is decorated before it has a measurable width (e.g. still below the fold),
+  // which would otherwise leave the controls incorrectly disabled.
+  const resizeObserver = new ResizeObserver(() => updateNavState(block));
+  resizeObserver.observe(slides);
+
+  updateNavState(block);
 }
 
 /**

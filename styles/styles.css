@@ -13,7 +13,7 @@
 :root {
   /* colors */
   --background-color: white;
-  --light-color: #f4f7fb;
+  --light-color: #f7f9fc;
   --dark-color: #505050;
   --text-color: #212021;
   --link-color: #1650e6;
@@ -561,6 +561,11 @@ main .section.security {
 .security .default-content-wrapper > p:has(picture) {
   margin: 0;
   font-size: 0;
+}
+
+.security .default-content-wrapper > p:has(picture) img {
+  width: 40px;
+  height: 40px;
 }
 
 /* closing link line */
