@@ -23,10 +23,11 @@ export default function decorate(block) {
   ul.querySelectorAll('.cards-features-card-body h3').forEach((h3) => {
     const m = h3.textContent.match(/^(.*\S)\s+(Featured|New)\s*$/i);
     if (!m) return;
-    h3.textContent = `${m[1]} `;
+    const [, heading, badge] = m;
+    h3.textContent = `${heading} `;
     const label = document.createElement('span');
     label.className = 'cards-features-label';
-    label.textContent = m[2];
+    label.textContent = badge;
     h3.append(label);
   });
 

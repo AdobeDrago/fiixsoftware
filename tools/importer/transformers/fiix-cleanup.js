@@ -36,6 +36,28 @@
  *     The hero's .home_header > .header.container > .header-flex wrapper is the
  *     hero CONTENT wrapper (headline, subheading, email form, stat metrics, hero
  *     image), not navigation, so it is intentionally left intact for hero-lead.
+ *
+ * product-feature-page (https://fiixsoftware.com/cmms/cmms-software/) verified
+ * against that page's migration-work/cleaned.html. All authorable content lives
+ * under #cmms-product inside #page-wrap; the chrome to strip is already covered
+ * by the selectors above — no new selectors were required:
+ *   - header.siteHeader            site header / navigation     (cleaned.html:5)
+ *   - #mobile-header               collapsed mobile header      (cleaned.html:480)
+ *   - #mobile-navigation           collapsed mobile menu nav    (cleaned.html:503)
+ *   - #footer                      site footer                  (cleaned.html:2397)
+ *   - #copyright                   footer copyright bar         (cleaned.html:2751)
+ *   - #back-to-top                 site-shell scroll widget     (cleaned.html:2762)
+ *   - #mktoStyleLoaded             Marketo style sentinel nodes (cleaned.html:2768, 2782)
+ *   - form.mktoForm                hidden Marketo popup forms   (cleaned.html:657, 2778, 2820)
+ *   - #MktoForms2XDIframe          Marketo cross-domain iframe  (cleaned.html:2780)
+ *   - [id^="batBeacon"]            Bing tracking beacons        (cleaned.html:2786, 2787)
+ *   - #onetrust-consent-sdk        cookie consent dialog        (cleaned.html:2789)
+ *   - link                         Vidyard lightbox <link>s     (cleaned.html:2770-2777)
+ *   The hero's OWN email-capture form <form id="freetour_email"> (cleaned.html:652)
+ *   and its .twoStep-form wrapper are authorable hero content (hero-lead) and are
+ *   intentionally NOT removed — only the hidden form.mktoForm popups are stripped.
+ *   (No Drift/CybotCookiebot/#performance_form/.white-popup/#ZN_.../#contactmap on
+ *   this page, so those prior-page selectors are harmless idempotent no-ops here.)
  */
 
 const TransformHook = { beforeTransform: 'beforeTransform', afterTransform: 'afterTransform' };

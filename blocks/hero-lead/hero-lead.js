@@ -18,10 +18,14 @@ export default function decorate(block) {
 
   const paragraphs = [...contentCell.querySelectorAll(':scope > p')];
 
-  // 1. Email-capture form: the first paragraph reads as
-  //    "Company email  Try it for free →". Split placeholder from button label.
-  const formPara = paragraphs[0];
-  if (formPara && !formPara.querySelector('a')) {
+  // 1. Email-capture form: the paragraph reads as
+  //    "Company email  Try it for free →". Identify it by content (not position)
+  //    — the homepage has it first, but product pages lead with an intro
+  //    paragraph, so a positional [0] would wrongly consume the intro copy.
+  const formPara = paragraphs.find(
+    (p) => !p.querySelector('a') && /try it for free/i.test(p.textContent),
+  );
+  if (formPara) {
     const raw = formPara.textContent.trim();
     // Everything up to the button call-to-action is the field placeholder.
     const ctaMatch = raw.match(/(Try it for free.*)$/i);

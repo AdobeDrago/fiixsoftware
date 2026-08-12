@@ -1,0 +1,39 @@
+{
+  "variantName": "cards-timeline",
+  "baseBlock": "cards",
+  "version": "1.0.0",
+  "created": "2026-08-11T00:00:00.000Z",
+  "sourceContext": {
+    "originUrl": "https://fiixsoftware.com/cmms/ai/",
+    "originPage": "AI at Fiix marketing landing page",
+    "blockPosition": "top"
+  },
+  "visualCharacteristics": {
+    "colorScheme": "grey",
+    "density": "compact",
+    "purpose": "timeline",
+    "imagePattern": "noimg"
+  },
+  "contentPattern": {
+    "structure": "milestone label + date/year per item, laid along a connected horizontal rail with dot markers",
+    "buttonCount": 0,
+    "imageCount": 0
+  },
+  "reuseGuidance": {
+    "suitableFor": [
+      "chronological product/history timelines",
+      "horizontal milestone rails with year/date labels",
+      "process step sequences shown along a connected line"
+    ],
+    "notSuitableFor": [
+      "generic image/text card grids (use cards or cards-icon)",
+      "icon + description feature grids (use cards-icon)",
+      "side-by-side content columns (use columns / columns-media)"
+    ]
+  },
+  "usage": {
+    "pagesUsing": ["/cmms/ai/index"],
+    "reuseCount": 1,
+    "lastUsed": "2026-08-11T00:00:00.000Z"
+  }
+}

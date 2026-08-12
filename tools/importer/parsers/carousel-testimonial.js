@@ -2,24 +2,81 @@
 /* global WebImporter */
 /**
  * Parser for carousel-testimonial. Base: carousel.
- * Source: https://fiixsoftware.com/
- * Instance: `.beingused`
- * Generated: 2026-07-15
+ * Sources:
+ *   https://fiixsoftware.com/ — `.beingused` (owl carousel w/ headshots)
+ *   product/feature pages (e.g. /cmms/cmms-software/):
+ *     • `.social-proof-ratings` — a 3-up grid of review cards (`.flex > div`),
+ *       each with a star rating, a quote, and author name/role (no image).
+ *     • `.section6 #cs-items` — the case-study slider (`.feature-item .item`),
+ *       each slide with a company logo, a title, a quote, an author line, and a
+ *       "read the case study" link.
+ * Generated: 2026-07-15 · Updated: 2026-08-11 (product-feature testimonials).
  *
  * EDS Carousel convention: 2 columns, each ROW = one slide.
- *   Cell 1 = Image (mandatory), with no other content — the author headshot.
- *   Cell 2 = Text content (optional) — headline (h3), result + quote paragraphs,
- *            author name/role, and the company logo image.
- *
- * The block's decorate() marks the first column as the slide image and the rest
- * as slide content, so the headshot goes alone in cell 1 and everything else
- * (including the company logo) goes in cell 2.
- *
- * Source is an Owl Carousel: slides live in `.owl-item > .item`. Owl duplicates
- * real slides as `.owl-item.cloned` for infinite looping, so we EXCLUDE clones
- * and dedupe by headline text to emit each unique testimonial exactly once.
+ *   Cell 1 = Image (mandatory when present), with no other content.
+ *   Cell 2 = Text content — title (Heading), quote/description, author, CTA.
+ * When a slide has no image (review cards) cell 1 is left empty, matching the
+ * enterprise-hero testimonial variant; decorate() treats cell 1 as optional.
  */
 export default function parse(element, { document }) {
+  // ---- product-feature: `.social-proof-ratings` review-card grid ----
+  const ratingGrid = element.querySelector(':scope > .container > .flex, .flex');
+  const ratingCards = ratingGrid
+    ? Array.from(ratingGrid.querySelectorAll(':scope > div')).filter((div) => div.querySelector('p'))
+    : [];
+  if (element.matches('.social-proof-ratings') && ratingCards.length) {
+    const cells = [];
+    const seen = new Set();
+    ratingCards.forEach((card) => {
+      const paras = Array.from(card.querySelectorAll(':scope > p'));
+      if (paras.length === 0) return;
+      const key = paras[0].textContent.trim();
+      if (!key || seen.has(key)) return;
+      seen.add(key);
+      const contentCell = [];
+      // Preserve the star rating as accessible text ("5 out of 5 stars").
+      const ratingText = card.querySelector('.sr-only');
+      if (ratingText && ratingText.textContent.trim()) {
+        const rp = document.createElement('p');
+        rp.textContent = ratingText.textContent.trim();
+        contentCell.push(rp);
+      }
+      paras.forEach((p) => contentCell.push(p));
+      cells.push(['', contentCell]); // cell 1 empty (no image), cell 2 = review.
+    });
+    if (cells.length === 0) { element.replaceWith(...element.childNodes); return; }
+    const block = WebImporter.Blocks.createBlock(document, { name: 'carousel-testimonial', cells });
+    // Replace only the card grid so the section heading (default content) and
+    // the trailing `.flex-link` case-studies CTA survive as section content.
+    ratingGrid.replaceWith(block);
+    return;
+  }
+
+  // ---- product-feature: `#cs-items` case-study slider ----
+  const csItems = Array.from(element.querySelectorAll('.feature-item .item, #cs-items .item'));
+  if ((element.matches('#cs-items') || element.querySelector('#cs-items, .feature-item')) && csItems.length) {
+    const cells = [];
+    const seen = new Set();
+    csItems.forEach((item) => {
+      const title = item.querySelector('p.title');
+      const key = (title ? title.textContent : item.textContent).trim();
+      if (!key || seen.has(key)) return;
+      seen.add(key);
+      // Cell 1: the company logo (figure.mobile img), image-only.
+      const logo = item.querySelector('figure.mobile img, figure.mobile picture, figure img');
+      // Cell 2: title + quote/author paragraphs + case-study link.
+      const contentCell = [];
+      Array.from(item.querySelectorAll(':scope > p')).forEach((p) => contentCell.push(p));
+      if (!logo && contentCell.length === 0) return;
+      cells.push([logo || '', contentCell.length ? contentCell : '']);
+    });
+    if (cells.length === 0) { element.replaceWith(...element.childNodes); return; }
+    const block = WebImporter.Blocks.createBlock(document, { name: 'carousel-testimonial', cells });
+    element.replaceWith(block);
+    return;
+  }
+
+  // ---- home `.beingused`: owl carousel with author headshots ----
   // Real slides only: skip Owl's cloned duplicates.
   const owlItems = Array.from(element.querySelectorAll('.owl-item:not(.cloned) > .item'));
   const items = owlItems.length

@@ -7,10 +7,18 @@
 /* Plan metadata: prices and CTA links for the sticky pricing header.
    Matches production https://fiixsoftware.com/cmms/pricing/ */
 const PLAN_META = [
-  { price: '$0', cta: 'Sign up', href: 'https://ecomm.fiix.software/cmms-sign-up-page?package=Lite', style: 'primary' },
-  { price: '$45', cta: 'Buy now', href: 'https://ecomm.fiix.software/cmms-sign-up-page', style: 'primary' },
-  { price: '$75', cta: 'Buy now', href: 'https://ecomm.fiix.software/cmms-sign-up-page', style: 'primary' },
-  { price: '', cta: 'Book a demo', href: 'https://lp.fiixsoftware.com/demo-request', style: 'enterprise' },
+  {
+    price: '$0', cta: 'Sign up', href: 'https://ecomm.fiix.software/cmms-sign-up-page?package=Lite', style: 'primary',
+  },
+  {
+    price: '$45', cta: 'Buy now', href: 'https://ecomm.fiix.software/cmms-sign-up-page', style: 'primary',
+  },
+  {
+    price: '$75', cta: 'Buy now', href: 'https://ecomm.fiix.software/cmms-sign-up-page', style: 'primary',
+  },
+  {
+    price: '', cta: 'Book a demo', href: 'https://lp.fiixsoftware.com/demo-request', style: 'enterprise',
+  },
 ];
 
 /**

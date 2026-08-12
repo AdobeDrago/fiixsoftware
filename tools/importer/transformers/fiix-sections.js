@@ -31,6 +31,28 @@
  *       .parts-forecaster, .beingused, .coming-to-fiix.bottom-cta-double —
  *       all verified in the home migration-work/cleaned.html)
  *                                       → 7 <hr> + 8 Section Metadata
+ *   - product-feature-page (18 styled sections; styles pf-hero, pf-logos,
+ *       pf-features, pf-video, pf-media-left, pf-media-right, pf-testimonials,
+ *       pf-explore, pf-resources, pf-final-cta). No per-template code was added:
+ *       the section list, selectors and styles all come from
+ *       payload.template.sections, so this template is handled by the same
+ *       template-agnostic logic. All 18 anchor selectors were verified to match
+ *       a unique element in the product-feature-page migration-work/cleaned.html,
+ *       in document order:
+ *         .header (638), .fiix-users (1195), .section1 (1217),
+ *         .video-demo (1256), .section2:not(.section2last) (1818),
+ *         .section3:not(.section3last):not(.section3r) (1836),
+ *         .social-proof-ratings (1865), .section4:not(.section4r) (1929),
+ *         .section5:not(.section5r):not(.section5last) (1947),
+ *         #analyze-audits (1973), .section3r (1991), .section4r (2018),
+ *         .section5r (2033), .section2.section2last (2059),
+ *         .section3.section3last (2077), .section6 (2099), .section7 (2284),
+ *         .home-seemore (2322).
+ *       The .header anchor is the first exact `.header` class token in the DOM
+ *       and does NOT collide with header.siteHeader (tag header / class
+ *       siteHeader) or #mobile-header (class mobile-header-v1), both of which the
+ *       cleanup transformer removes anyway.
+ *                                       → 17 <hr> + 18 Section Metadata
  */
 
 const TransformHook = { beforeTransform: 'beforeTransform', afterTransform: 'afterTransform' };
