@@ -82,3 +82,54 @@
   border-top: 0;
   background-color: transparent;
 }
+
+/* ============================================================
+   Enterprise "Maintenance software even IT will love": accordion on the left,
+   a synced quote-image panel on the right. Opening a row (single-open) swaps
+   the panel's coloured background + quote image. Colours measured from
+   production per row (data security / uptime / permissions / no-touch).
+   Scoped to .enterprise-scale so the pricing FAQ accordion is unaffected.
+   ============================================================ */
+@media (width >= 900px) {
+  main .section.enterprise-scale .accordion-faq-flex {
+    display: flex;
+    gap: 40px;
+    align-items: stretch;
+  }
+
+  main .section.enterprise-scale .accordion-faq-flex .accordion-faq {
+    flex: 1;
+    min-width: 0;
+  }
+
+  main .section.enterprise-scale .accordion-faq-panel {
+    display: flex;
+    position: relative;
+    flex: 0 0 48%;
+  }
+}
+
+main .section.enterprise-scale .accordion-faq-figure {
+  display: none;
+  box-sizing: border-box;
+  width: 100%;
+  margin: 0;
+  padding: 48px 40px;
+  align-items: center;
+  justify-content: center;
+}
+
+main .section.enterprise-scale .accordion-faq-figure.active {
+  display: flex;
+}
+
+main .section.enterprise-scale .accordion-faq-figure img {
+  width: 100%;
+  max-width: 460px;
+  height: auto;
+}
+
+main .section.enterprise-scale .accordion-faq-figure-1 { background-color: rgb(99 92 232); }
+main .section.enterprise-scale .accordion-faq-figure-2 { background-color: rgb(60 192 203); }
+main .section.enterprise-scale .accordion-faq-figure-3 { background-color: rgb(19 39 72); }
+main .section.enterprise-scale .accordion-faq-figure-4 { background-color: rgb(77 62 141); }
