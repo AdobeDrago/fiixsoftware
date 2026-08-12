@@ -2291,6 +2291,57 @@ main > .section.pf-media-right .columns-media p {
   }
 }
 
+/* pf-media accent: production overlays each media row's image on a full-bleed
+   colour panel (bleeding to the outer viewport edge) and underlines the heading
+   with a 540x5 bar in the same colour. The colour is arbitrary per section, so
+   it can't be derived from the -left/-right class -- it is authored per section
+   via a Section-Metadata Style that adds one of the media-* classes below. The
+   panel/underline only render when such a class is present, so every other
+   columns-media usage (ai/optix/enterprise) is untouched. */
+main > .section.media-gold   { --media-accent: #ffd600; }
+main > .section.media-teal   { --media-accent: #3cc0cb; }
+main > .section.media-cyan   { --media-accent: #00afeb; }
+main > .section.media-purple { --media-accent: #4d3e8d; }
+main > .section.media-orange { --media-accent: #ffa40e; }
+main > .section.media-navy   { --media-accent: #003e7e; }
+
+main > .section:is(.media-gold, .media-teal, .media-cyan, .media-purple, .media-orange, .media-navy):is(.pf-media-left, .pf-media-right) .columns-media h2::after {
+  content: '';
+  display: block;
+  width: 540px;
+  max-width: 100%;
+  height: 5px;
+  margin-top: 24px;
+  background: var(--media-accent);
+}
+
+@media (width >= 900px) {
+  main > .section:is(.media-gold, .media-teal, .media-cyan, .media-purple, .media-orange, .media-navy):is(.pf-media-left, .pf-media-right) .columns-media > div > .columns-media-img-col {
+    position: relative;
+    padding: 40px;
+    background: var(--media-accent);
+  }
+
+  /* bleed the colour panel out to the viewport edge on the image's outer side */
+  main > .section:is(.media-gold, .media-teal, .media-cyan, .media-purple, .media-orange, .media-navy):is(.pf-media-left, .pf-media-right) .columns-media > div > .columns-media-img-col::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 100vw;
+    background: var(--media-accent);
+    z-index: 0;
+  }
+
+  main > .section.pf-media-left:is(.media-gold, .media-teal, .media-cyan, .media-purple, .media-orange, .media-navy) .columns-media-img-col::before { right: 100%; }
+  main > .section.pf-media-right:is(.media-gold, .media-teal, .media-cyan, .media-purple, .media-orange, .media-navy) .columns-media-img-col::before { left: 100%; }
+
+  main > .section:is(.media-gold, .media-teal, .media-cyan, .media-purple, .media-orange, .media-navy):is(.pf-media-left, .pf-media-right) .columns-media-img-col img {
+    position: relative;
+    z-index: 1;
+  }
+}
+
 /* ---- pf-testimonials: light band, centered heading + 3 quote cards.
    Production band #f7f9fc, H2 ~44/700 centered. ---- */
 main > .section.pf-testimonials {
