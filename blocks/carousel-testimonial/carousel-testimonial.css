@@ -3,11 +3,18 @@
 
 .carousel-testimonial {
   --carousel-testimonial-ink: rgb(33 32 33);
+  --carousel-testimonial-nav-bg: rgb(0 175 235);
 }
 
+/* Production's testimonial carousel is a fixed 700px-wide single card,
+   centered in its section (measured on production at both 1280px and 1920px
+   viewports: card width stays 700px). The prev/next controls sit just outside
+   the card's left/right edges, vertically centered -- not stacked below it --
+   so the container only needs room for the card itself. */
 .carousel-testimonial .carousel-testimonial-slides-container {
   position: relative;
-  padding-bottom: 64px;
+  max-width: 700px;
+  margin: 0 auto;
 }
 
 .carousel-testimonial .carousel-testimonial-slides,
@@ -150,35 +157,43 @@
   display: none;
 }
 
-/* ---- Prev / next controls: dark circles centered below the cards ---- */
+/* ---- Prev / next controls: cyan circles flanking the card, vertically
+   centered (measured on production: 30px circle, background rgb(0 175 235),
+   white chevron, positioned just outside the card's left/right edge -- not
+   stacked together below the card). The wrapper itself carries no layout;
+   each button positions itself independently against the (relative)
+   slides-container. ---- */
 .carousel-testimonial .carousel-testimonial-navigation-buttons {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 16px;
-  z-index: 1;
+  position: static;
 }
 
 /* stylelint-disable-next-line no-descending-specificity */
 .carousel-testimonial .carousel-testimonial-navigation-buttons button {
-  position: relative;
-  width: 44px;
-  height: 44px;
+  position: absolute;
+  top: 50%;
+  width: 30px;
+  height: 30px;
   margin: 0;
   padding: 0;
   border-radius: 50%;
-  background-color: var(--carousel-testimonial-ink);
+  background-color: var(--carousel-testimonial-nav-bg);
+  transform: translateY(-50%);
   transition: background-color 0.2s;
   cursor: pointer;
+  z-index: 1;
+}
+
+.carousel-testimonial .carousel-testimonial-navigation-buttons button.slide-prev {
+  left: -50px;
+}
+
+.carousel-testimonial .carousel-testimonial-navigation-buttons button.slide-next {
+  right: -50px;
 }
 
 .carousel-testimonial .carousel-testimonial-navigation-buttons button:hover,
 .carousel-testimonial .carousel-testimonial-navigation-buttons button:focus-visible {
-  background-color: #000;
+  background-color: #0090c2;
 }
 
 .carousel-testimonial .carousel-testimonial-navigation-buttons button::after {
@@ -187,28 +202,19 @@
   border: 2px solid #fff;
   border-bottom: 0;
   border-left: 0;
-  height: 10px;
-  width: 10px;
+  height: 7px;
+  width: 7px;
   position: absolute;
   top: 50%;
-  left: calc(50% + 2px);
+  left: calc(50% + 1px);
   transform: translate(-50%, -50%) rotate(-135deg);
 }
 
 .carousel-testimonial .carousel-testimonial-navigation-buttons button.slide-next::after {
   transform: translate(-50%, -50%) rotate(45deg);
-  left: calc(50% - 2px);
+  left: calc(50% - 1px);
 }
 
-/* ---- Tablet / desktop: multiple cards visible with a peek of the next ---- */
-@media (width >= 600px) {
-  .carousel-testimonial .carousel-testimonial-slide {
-    flex: 0 0 min(510px, 80%);
-  }
-}
-
-@media (width >= 900px) {
-  .carousel-testimonial .carousel-testimonial-slide {
-    flex: 0 0 calc((100% - 48px) / 2.35);
-  }
-}
+/* Production shows exactly one card at a time at every breakpoint (no peek
+   of neighboring cards) -- the base `flex: 0 0 100%` rule above the media
+   queries already gives that; no wider-viewport override is needed. */
