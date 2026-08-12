@@ -2076,22 +2076,49 @@ main > .section.pf-hero .hero-lead-content > p:has(> picture:only-child):not(:ha
     font-size: 56px;
   }
 
-  /* Purple product panel behind the screenshot, matching production. The
-     hero-lead block places the image row on the right at >=900; give that
-     row the purple background and let the screenshot sit centered on it. */
+  /* Purple product panel behind the screenshot, matching production: it bleeds
+     full-height and full-width out to the RIGHT viewport edge (not a contained
+     rounded card), with the screenshot enlarged and centered on it. The ::after
+     carries the same purple from the panel's right edge out to the viewport
+     edge; the taller content padding lets the stretched panel run the full
+     height of the hero like production. */
+  main > .section.pf-hero .hero-lead-content {
+    padding-top: 80px;
+    padding-bottom: 80px;
+  }
+
   main > .section.pf-hero .hero-lead > div:has(.hero-lead-media) {
+    position: relative;
     align-self: stretch;
+    display: flex;
     align-items: center;
-    flex: 0 0 46%;
-    max-width: 46%;
-    padding: 40px;
+    justify-content: center;
+    flex: 0 0 48%;
+    max-width: 48%;
+    padding: 70px 48px;
     background-color: #6b64ef;
-    border-radius: 4px;
+    border-radius: 0;
+  }
+
+  main > .section.pf-hero .hero-lead > div:has(.hero-lead-media)::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 100%;
+    width: 100vw;
+    background-color: #6b64ef;
+    z-index: 0;
+  }
+
+  main > .section.pf-hero .hero-lead .hero-lead-media {
+    position: relative;
+    z-index: 1;
   }
 
   main > .section.pf-hero .hero-lead .hero-lead-media img {
     width: 100%;
-    max-width: 320px;
+    max-width: 380px;
     margin: 0 auto;
   }
 }
