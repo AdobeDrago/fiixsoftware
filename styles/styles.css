@@ -1103,13 +1103,30 @@ main .section.enterprise-tools .default-content-wrapper h2 {
   color: var(--text-color);
 }
 
+/* The section heading that follows the partner-logo strip ("Fiix's maintenance
+   platform has the tools…") is a large 48px display heading on production (the
+   first "Helping the biggest companies…" heading stays 24px). Target only the
+   default-content-wrapper that comes AFTER the logos, and give it the ~206px of
+   whitespace production leaves above it. */
+main .section.enterprise-tools .columns-logos-wrapper ~ .default-content-wrapper h2 {
+  margin: 206px auto 40px;
+  font-size: 48px;
+  line-height: 1;
+}
+
+/* Partner logos: production clusters them centered in fixed 150px boxes (step
+   150, ~600px group), not spread edge-to-edge across the band. */
 main .section.enterprise-tools .columns-logos > div {
   justify-content: center;
-  gap: 48px;
+  gap: 0;
+}
+
+main .section.enterprise-tools .columns-logos > div > div {
+  flex: 0 0 150px;
 }
 
 main .section.enterprise-tools .columns-logos img {
-  max-height: 60px;
+  max-height: 56px;
 }
 
 /* product cards: 4-up flex, borderless, centered icon on top */
