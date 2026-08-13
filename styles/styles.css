@@ -1181,14 +1181,24 @@ main .section.enterprise-scale .default-content-wrapper h2 {
   color: var(--text-color);
 }
 
+/* "How you can scale faster with Fiix" (the section intro heading, directly
+   before the first columns-media row) is constrained to 500px on production so
+   it wraps to two lines instead of one wide line. */
+main .section.enterprise-scale .default-content-wrapper:has(+ .columns-media-wrapper) h2 {
+  max-width: 500px;
+}
+
 /* "Maintenance software even IT will love" (the heading directly before the IT
    accordion) is centered on production. */
 main .section.enterprise-scale .default-content-wrapper:has(+ .accordion-faq-wrapper) {
   text-align: center;
 }
 
+/* Production spaces the feature rows 150px apart (EDS was 60) and uses a 120px
+   column gap (making each column 540px, and scaling the images to match prod)
+   rather than the block default 24px. */
 main .section.enterprise-scale .columns-media {
-  margin: 0 0 60px;
+  margin: 0 0 150px;
 }
 
 main .section.enterprise-scale .columns-media h3 {
@@ -1203,6 +1213,12 @@ main .section.enterprise-scale .columns-media p {
   font-size: 18px;
   font-weight: 300;
   line-height: 1.5;
+}
+
+@media (width >= 900px) {
+  main .section.enterprise-scale .columns-media > div {
+    gap: 120px;
+  }
 }
 
 /* security badge row (cards-icon <dl> variant) */
