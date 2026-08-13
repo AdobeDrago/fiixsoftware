@@ -1922,11 +1922,12 @@ main .section.training-hero .columns-media a:any-link {
     top: -100px;
     left: auto;
 
-    /* Anchor to the viewport right so the circle keeps a ~52px gap from the
-       right edge at any width; the photo's left two-thirds sits off the circle. */
-    right: calc((1200px - 100vw) / 2 + 52px);
-    width: 570px;
-    height: 570px;
+    /* Anchor a fixed offset past the container (img-col) right edge, matching
+       production: contained with a small right gap on wide screens, bleeding
+       further off the right/bottom as the viewport narrows. */
+    right: -300px;
+    width: 620px;
+    height: 620px;
     border-radius: 50%;
     background-color: rgb(130 214 221);
     z-index: 0;
