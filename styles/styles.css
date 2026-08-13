@@ -2273,9 +2273,31 @@ main > .section.pf-features .cards-features > ul {
 main > .section.pf-features .cards-features > ul > li {
   border: 0;
   background-color: transparent;
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+}
+
+/* per-card icon: production shows a small (~32px) icon to the LEFT of the
+   heading. The authored icon becomes a `cards-features-card-image` cell; the
+   block's default full-width 4:3 image rule blows it up to ~490px, so size it
+   down here and let the text cell take the rest. */
+main > .section.pf-features .cards-features .cards-features-card-image {
+  flex: 0 0 auto;
+  margin: 0;
+  line-height: 0;
+}
+
+main > .section.pf-features .cards-features .cards-features-card-image img {
+  width: 32px;
+  height: 32px;
+  aspect-ratio: auto;
+  object-fit: contain;
 }
 
 main > .section.pf-features .cards-features .cards-features-card-body {
+  flex: 1;
+  min-width: 0;
   margin: 0;
 }
 
