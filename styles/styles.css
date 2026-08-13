@@ -2230,6 +2230,25 @@ main > .section.pf-features .default-content-wrapper > p {
   color: var(--text-color);
 }
 
+/* Production separates the intro heading from its subtext with a purple bar
+   (the heading's ::after, 540x5, rgb 99 92 232) and constrains the intro block
+   to the left ~540px column. Target the intro default-content-wrapper (the one
+   directly before the cards), not the trailing "See what…" link heading. */
+main > .section.pf-features .default-content-wrapper:has(+ .cards-features-wrapper) h2,
+main > .section.pf-features .default-content-wrapper:has(+ .cards-features-wrapper) > p {
+  max-width: 540px;
+}
+
+main > .section.pf-features .default-content-wrapper:has(+ .cards-features-wrapper) h2::after {
+  content: '';
+  display: block;
+  width: 540px;
+  max-width: 100%;
+  height: 5px;
+  margin-top: 20px;
+  background-color: rgb(99 92 232);
+}
+
 /* borderless, transparent feature blurbs */
 main > .section.pf-features .cards-features > ul {
   grid-template-columns: 1fr;
