@@ -159,8 +159,24 @@ export function decorateMain(main) {
  * Loads everything needed to get to LCP.
  * @param {Element} doc The container element
  */
+/**
+ * Add a body class derived from the URL path (e.g.
+ * `page-cmms-parts-inventory-management-software`) so page-specific CSS can
+ * target a single page. EDS gives every page the same block/section classes and
+ * no page-level hook; this provides one. Purely additive; runs before `.appear`
+ * so styles keyed on it apply with no flash.
+ */
+function decoratePageClass() {
+  const slug = window.location.pathname
+    .replace(/^\/+|\/+$/g, '')
+    .replace(/[^a-z0-9]+/gi, '-')
+    .toLowerCase();
+  if (slug) document.body.classList.add(`page-${slug}`);
+}
+
 async function loadEager(doc) {
   document.documentElement.lang = 'en';
+  decoratePageClass();
   decorateTemplateAndTheme();
   const main = doc.querySelector('main');
   if (main) {
