@@ -2014,6 +2014,23 @@ main > .section.pf-hero {
   background-color: #f7f9fc;
 }
 
+/* Per-page hero panel colour. Production uses a different panel colour per page
+   (purple on cmms-software, yellow on asset-management, teal on parts-inventory)
+   -- but every EDS hero shares the .pf-hero class, and there is no page-unique
+   CSS hook. So the colour is authored per page via a Section-Metadata Style that
+   adds one of these classes to the hero section; the default (no class) stays
+   purple. --hero-panel = outer panel, --hero-inner = the darker inner box.
+   Colours measured from production. */
+main > .section.pf-hero.hero-yellow {
+  --hero-panel: rgb(255 219 0);
+  --hero-inner: rgb(255 214 11);
+}
+
+main > .section.pf-hero.hero-teal {
+  --hero-panel: rgb(70 198 210);
+  --hero-inner: rgb(60 191 200);
+}
+
 /* eyebrow (authored as h1) */
 main > .section.pf-hero .hero-lead-content h1 {
   margin: 0 0 24px;
@@ -2101,7 +2118,7 @@ main > .section.pf-hero .hero-lead-content > p:has(> picture:only-child):not(:ha
     flex: 1 1 auto;
     max-width: none;
     padding: 70px 48px;
-    background-color: #6b64ef;
+    background-color: var(--hero-panel, #6b64ef);
     border-radius: 0;
   }
 
@@ -2112,7 +2129,7 @@ main > .section.pf-hero .hero-lead-content > p:has(> picture:only-child):not(:ha
     bottom: 0;
     left: 100%;
     width: 100vw;
-    background-color: #6b64ef;
+    background-color: var(--hero-panel, #6b64ef);
     z-index: 0;
   }
 
@@ -2127,7 +2144,7 @@ main > .section.pf-hero .hero-lead-content > p:has(> picture:only-child):not(:ha
     max-width: 400px;
     padding: 40px;
     text-align: center;
-    background-color: rgb(98 92 226);
+    background-color: var(--hero-inner, rgb(98 92 226));
     border-radius: 2px;
   }
 
