@@ -2260,6 +2260,10 @@ body.page-cmms-parts-inventory-management-software {
   --feature-bar: rgb(60 192 203);
 }
 
+body.page-cmms-mobile-cmms {
+  --feature-bar: rgb(0 175 235);
+}
+
 /* borderless, transparent feature blurbs */
 main > .section.pf-features .cards-features > ul {
   grid-template-columns: 1fr;
