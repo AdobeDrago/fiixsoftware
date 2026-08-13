@@ -1250,6 +1250,7 @@ main .section.enterprise-scale .cards-icon > ul > li img {
    other, left-aligned headings ("Maintenance software even IT will love") stay
    untouched. */
 main .section.enterprise-scale .default-content-wrapper:has(+ .cards-icon-wrapper) {
+  margin-top: 130px;
   text-align: center;
 }
 
