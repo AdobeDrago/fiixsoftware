@@ -2083,6 +2083,8 @@ main > .section.pf-hero .hero-lead-content > p:has(> picture:only-child):not(:ha
      edge; the taller content padding lets the stretched panel run the full
      height of the hero like production. */
   main > .section.pf-hero .hero-lead-content {
+    flex: 0 0 600px;
+    max-width: 600px;
     padding-top: 80px;
     padding-bottom: 80px;
   }
@@ -2096,8 +2098,8 @@ main > .section.pf-hero .hero-lead-content > p:has(> picture:only-child):not(:ha
     display: flex;
     align-items: center;
     justify-content: center;
-    flex: 0 0 48%;
-    max-width: 48%;
+    flex: 1 1 auto;
+    max-width: none;
     padding: 70px 48px;
     background-color: #6b64ef;
     border-radius: 0;
@@ -2121,14 +2123,18 @@ main > .section.pf-hero .hero-lead-content > p:has(> picture:only-child):not(:ha
   main > .section.pf-hero .hero-lead > div:has(.hero-lead-media):not(:has(h2)) .hero-lead-media {
     position: relative;
     z-index: 1;
-    padding: 44px 48px;
+    width: auto;
+    max-width: 400px;
+    padding: 40px;
+    text-align: center;
     background-color: rgb(98 92 226);
     border-radius: 2px;
   }
 
   main > .section.pf-hero .hero-lead > div:has(.hero-lead-media):not(:has(h2)) .hero-lead-media img {
+    display: block;
     width: 100%;
-    max-width: 340px;
+    max-width: 300px;
     margin: 0 auto;
   }
 }
