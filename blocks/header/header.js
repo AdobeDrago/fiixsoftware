@@ -95,6 +95,18 @@ const NAV_ICONS = {
   '/cmms/industry-solutions/heavy-equipment-maintenance-software/': svg('<circle cx="7" cy="18" r="2"/><circle cx="17" cy="18" r="2"/><path d="M9 18h6M5 18H3v-5l4-1 3-5h5l2 6h2v5h-2"/>'),
   '/cmms/industry-solutions/food-and-beverage-maintenance-software/': svg('<path d="M6 2v7a3 3 0 0 0 6 0V2M9 2v20M17 2c-1.5 1-2 3-2 6s.5 4 2 5v9"/>'),
   '/cmms/industry-solutions/manufacturing-maintenance-software/': svg('<path d="M3 20V9l6 4V9l6 4V5l6 4v11H3Z"/>'),
+  // Support menu
+  '/training-and-implementation/': svg('<rect x="3" y="4" width="18" height="13" rx="2"/><circle cx="8.5" cy="9" r="1.5"/><path d="m21 14-5-4-8 6"/>'),
+  'https://helpdesk.fiixsoftware.com/hc/en-us': svg('<circle cx="12" cy="12" r="9"/><path d="M9.5 9.2a2.5 2.5 0 1 1 3 2.4c-.6.3-.9.8-.9 1.6"/><path d="M12 17h.01"/>'),
+  '/premium-support/': svg('<path d="M21 15a2 2 0 0 1-2 2H8l-5 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2Z"/>'),
+  '/community/': svg('<path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-4 10c.6.6 1 1.4 1 2h6c0-.6.4-1.4 1-2a6 6 0 0 0-4-10Z"/>'),
+  // Resources menu
+  '/resource-center/': svg('<rect x="4" y="3" width="7" height="18" rx="1"/><rect x="13" y="3" width="7" height="18" rx="1"/><path d="M7 7h1M16 7h1"/>'),
+  '/blog/': svg('<path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/>'),
+  '/resource-center/ebook/': svg('<path d="M12 6c-2-1.4-5-1.4-7 0v12c2-1.4 5-1.4 7 0M12 6c2-1.4 5-1.4 7 0v12c-2-1.4-5-1.4-7 0M12 6v14"/>'),
+  '/about-us/partnerships/': svg('<path d="M10 4a2 2 0 1 1 4 0v2h3a1 1 0 0 1 1 1v3h2a2 2 0 1 1 0 4h-2v3a1 1 0 0 1-1 1h-3v2a2 2 0 1 1-4 0v-2H7a1 1 0 0 1-1-1v-3H4a2 2 0 1 1 0-4h2V7a1 1 0 0 1 1-1h3Z"/>'),
+  '/resource-center/case-studies/': svg('<path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/>'),
+  '/customers/': svg('<path d="M21 15a2 2 0 0 1-2 2H8l-5 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2Z"/><path d="M8 10h.01M12 10h.01M16 10h.01"/>'),
 };
 
 /** Match a nav link href to a cyan icon. Tolerant of trailing-slash differences
@@ -268,6 +280,17 @@ export default async function decorate(block) {
               li.append(body);
               promoGroup.append(li);
             } else {
+              // Text link: prepend the per-item cyan icon (production shows one
+              // beside every Support/Resources link) without disturbing the
+              // existing <p> title/description markup.
+              const link = li.querySelector('a[href]');
+              const icon = link && iconForHref(link.getAttribute('href'));
+              if (icon) {
+                const span = document.createElement('span');
+                span.className = 'nav-promo-icon';
+                span.innerHTML = icon;
+                li.prepend(span);
+              }
               textGroup.append(li);
             }
           });

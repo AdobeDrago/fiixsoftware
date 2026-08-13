@@ -584,6 +584,34 @@ header nav .nav-sections a:hover { color: var(--fiix-hover); }
     padding: 36px 40px 36px var(--mega-inset);
   }
 
+  /* each text link becomes icon (col 1) + text block (col 2) */
+  header nav .nav-sections .default-content-wrapper > ul > li.nav-drop-promo > ul > li.nav-promo-text > li {
+    display: grid;
+    grid-template-columns: 22px 1fr;
+    gap: 12px;
+    align-items: start;
+    margin: 0;
+  }
+
+  header nav .nav-sections .default-content-wrapper > ul > li.nav-drop-promo .nav-promo-icon {
+    grid-column: 1;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding-top: 3px;
+    color: var(--fiix-cyan);
+  }
+
+  header nav .nav-sections .default-content-wrapper > ul > li.nav-drop-promo .nav-promo-icon svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  header nav .nav-sections .default-content-wrapper > ul > li.nav-drop-promo .nav-promo-text > li > p {
+    grid-column: 2;
+    margin: 0;
+  }
+
   /* grey promo panel on the right, bleeding to the viewport edge */
   header nav .nav-sections .default-content-wrapper > ul > li.nav-drop-promo > ul > li.nav-promo-panel {
     display: flex;
