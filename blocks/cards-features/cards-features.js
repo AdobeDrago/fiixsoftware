@@ -31,6 +31,14 @@ export default function decorate(block) {
     h3.append(label);
   });
 
+  // pf-features lays the blurbs out COLUMN-major (fill the left column
+  // top-to-bottom, then the right) like production. CSS grid is row-major by
+  // default, so tag the row count (= half, rounded up) for the stylesheet to
+  // switch to column auto-flow at desktop.
+  if (block.closest('.pf-features')) {
+    ul.classList.add(`cards-features-rows-${Math.ceil(ul.children.length / 2)}`);
+  }
+
   block.textContent = '';
   block.append(ul);
 }

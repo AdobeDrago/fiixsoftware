@@ -2317,13 +2317,23 @@ main > .section.pf-features .default-content-wrapper:last-child h2 a:any-link {
   }
 
   /* Production spacing: 490px-wide blurbs with a 170px column gap and 70px row
-     gap (measured), not the tight 60/40 that made the grid feel cramped. */
+     gap (measured), not the tight 60/40 that made the grid feel cramped.
+     Production also fills COLUMN-major (left column first), so switch to column
+     auto-flow with an explicit row count (tagged by the block JS as
+     .cards-features-rows-N, = half the blurb count rounded up). */
   main > .section.pf-features .cards-features > ul {
     grid-template-columns: 490px 490px;
+    grid-auto-flow: column;
     justify-content: center;
     column-gap: 170px;
     row-gap: 70px;
   }
+
+  main > .section.pf-features .cards-features > ul.cards-features-rows-2 { grid-template-rows: repeat(2, auto); }
+  main > .section.pf-features .cards-features > ul.cards-features-rows-3 { grid-template-rows: repeat(3, auto); }
+  main > .section.pf-features .cards-features > ul.cards-features-rows-4 { grid-template-rows: repeat(4, auto); }
+  main > .section.pf-features .cards-features > ul.cards-features-rows-5 { grid-template-rows: repeat(5, auto); }
+  main > .section.pf-features .cards-features > ul.cards-features-rows-6 { grid-template-rows: repeat(6, auto); }
 }
 
 /* ---- pf-video: light band, centered heading, thumbnail-card grid.
