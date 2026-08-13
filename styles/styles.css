@@ -1389,9 +1389,13 @@ main .section.enterprise-success .columns-media ul li img {
 
 /* "Your partner for success" graphics composition: production overlaps the
    people photo (325px) on top of a hexagon that bleeds off the LEFT edge behind
-   it. The two images are authored as stacked <p><picture> in the section's
-   default-content-wrapper; position them into that overlapping composition
-   (desktop only -- they stack on mobile like production). */
+   it. Crucially the composition is anchored to the LEFT VIEWPORT EDGE (not the
+   centered content container) -- so `calc((100% - 100vw)/2 + offset)` pins each
+   image relative to the viewport, keeping it at the far left at any width (at
+   1280 the photo lands at x100 and the hexagon at x-120, matching production, and
+   it stays there on wider viewports instead of drifting to centre). The two
+   images are authored as stacked <p><picture> in the default-content-wrapper.
+   Desktop only -- they stack on mobile like production. */
 @media (width >= 900px) {
   main .section.enterprise-success .default-content-wrapper {
     position: relative;
@@ -1399,9 +1403,10 @@ main .section.enterprise-success .columns-media ul li img {
   }
 
   main .section.enterprise-success .default-content-wrapper p:has(img[alt*="experts" i]) {
-    position: relative;
+    position: absolute;
+    top: 0;
+    left: calc((100% - 100vw) / 2 + 100px);
     z-index: 1;
-    left: 60px;
     margin: 0;
   }
 
@@ -1413,7 +1418,7 @@ main .section.enterprise-success .columns-media ul li img {
   main .section.enterprise-success .default-content-wrapper p:has(img[alt*="hexagon" i]) {
     position: absolute;
     top: 14px;
-    left: -128px;
+    left: calc((100% - 100vw) / 2 - 120px);
     z-index: 0;
     margin: 0;
   }
