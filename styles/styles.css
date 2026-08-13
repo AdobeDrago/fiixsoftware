@@ -2354,20 +2354,11 @@ main > .section.pf-video .default-content-wrapper h2 {
   color: var(--text-color);
 }
 
-/* pf-video reuses cards-video; on tablet+ show a 3-up grid instead of the
-   block's default 2-up flex row so the many demo cards read like production */
-@media (width >= 900px) {
-  main > .section.pf-video .cards-video > ul {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 40px 30px;
-    align-items: start;
-  }
-
-  main > .section.pf-video .cards-video > ul > li {
-    max-width: none;
-  }
-}
+/* pf-video reuses cards-video, which now renders a horizontal carousel (three
+   cards + a prev/dots/next pagination bar) matching production. Do NOT force a
+   grid here -- that higher-specificity override previously defeated the block's
+   carousel track and made the cards wrap into a static 3x3 grid. The block CSS
+   (.cards-video-track) handles the layout. */
 
 /* ---- pf-media-left / pf-media-right: image + text feature rows.
    Production H2 48/700, P 28/300. -left = image left, -right = image
