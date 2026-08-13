@@ -2016,16 +2016,20 @@ main > .section.pf-hero {
 
 /* Per-page hero panel colour. Production uses a different panel colour per page
    (purple on cmms-software, yellow on asset-management, teal on parts-inventory)
-   -- but every EDS hero shares the .pf-hero class. Scope by the body `page-*`
-   class (set from the URL path in scripts.js) so only the named page changes;
-   the default (no rule) stays purple. --hero-panel = outer panel, --hero-inner =
-   the darker inner box. Colours measured from production. */
-body.page-cmms-asset-management-software main > .section.pf-hero {
+   -- but every EDS hero shares the .pf-hero class. Two equivalent hooks are
+   supported so the colour lands regardless of how it's driven: (a) the body
+   `page-*` class set from the URL path in scripts.js (code-only, no authoring),
+   and (b) an authored `hero-yellow` / `hero-teal` Section-Metadata Style on the
+   hero section. The default (neither hook) stays purple. --hero-panel = outer
+   panel, --hero-inner = the darker inner box. Colours measured from production. */
+body.page-cmms-asset-management-software main > .section.pf-hero,
+main > .section.pf-hero.hero-yellow {
   --hero-panel: rgb(255 219 0);
   --hero-inner: rgb(255 214 11);
 }
 
-body.page-cmms-parts-inventory-management-software main > .section.pf-hero {
+body.page-cmms-parts-inventory-management-software main > .section.pf-hero,
+main > .section.pf-hero.hero-teal {
   --hero-panel: rgb(70 198 210);
   --hero-inner: rgb(60 191 200);
 }
