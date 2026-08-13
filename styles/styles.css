@@ -2246,7 +2246,18 @@ main > .section.pf-features .default-content-wrapper:has(+ .cards-features-wrapp
   max-width: 100%;
   height: 5px;
   margin-top: 20px;
-  background-color: rgb(99 92 232);
+  background-color: var(--feature-bar, rgb(99 92 232));
+}
+
+/* The intro bar colour is per-page (matches the page accent). Default (cmms and
+   others) is purple; override for the yellow / teal pages via the URL-derived
+   body page-class. Measured from production. */
+body.page-cmms-asset-management-software {
+  --feature-bar: rgb(255 214 0);
+}
+
+body.page-cmms-parts-inventory-management-software {
+  --feature-bar: rgb(60 192 203);
 }
 
 /* borderless, transparent feature blurbs */
