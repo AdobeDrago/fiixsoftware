@@ -1952,7 +1952,7 @@ main .section.training-services {
 
 /* stylelint-disable-next-line no-descending-specificity */
 main .section.training-services .default-content-wrapper h2 {
-  margin: 0 auto 8px;
+  margin: 0 auto 20px;
   font-size: 16px;
   font-weight: 600;
   text-transform: uppercase;
@@ -1960,9 +1960,26 @@ main .section.training-services .default-content-wrapper h2 {
   color: var(--text-color);
 }
 
+/* "Launch Fiix on time…" — production renders this paragraph as a large 38px/600
+   headline (max-width 750px, centered). EDS left it as a 20px/300 body paragraph. */
+main .section.training-services .default-content-wrapper h2 + p {
+  max-width: 750px;
+  margin: 0 auto 20px;
+  font-size: 38px;
+  font-weight: 600;
+  line-height: 1.05;
+  color: var(--text-color);
+}
+
 main .section.training-services .default-content-wrapper h3 {
   font-size: 28px;
   font-weight: 700;
+}
+
+/* "Training and implementation packages" sits below the video with generous
+   vertical rhythm on production (80px above, 60px below). */
+main .section.training-services .default-content-wrapper h3:first-of-type {
+  margin: 80px auto 60px;
 }
 
 /* package cards (text) */
