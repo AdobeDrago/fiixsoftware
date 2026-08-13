@@ -1190,14 +1190,24 @@ main .section.enterprise-scale .default-content-wrapper h2 {
   color: var(--text-color);
 }
 
+/* "How you can scale faster with Fiix" (the section intro heading, directly
+   before the first columns-media row) is constrained to 500px on production so
+   it wraps to two lines instead of one wide line. */
+main .section.enterprise-scale .default-content-wrapper:has(+ .columns-media-wrapper) h2 {
+  max-width: 500px;
+}
+
 /* "Maintenance software even IT will love" (the heading directly before the IT
    accordion) is centered on production. */
 main .section.enterprise-scale .default-content-wrapper:has(+ .accordion-faq-wrapper) {
   text-align: center;
 }
 
+/* Production spaces the feature rows 150px apart (EDS was 60) and uses a 120px
+   column gap (making each column 540px, and scaling the images to match prod)
+   rather than the block default 24px. */
 main .section.enterprise-scale .columns-media {
-  margin: 0 0 60px;
+  margin: 0 0 150px;
 }
 
 main .section.enterprise-scale .columns-media h3 {
@@ -1212,6 +1222,12 @@ main .section.enterprise-scale .columns-media p {
   font-size: 18px;
   font-weight: 300;
   line-height: 1.5;
+}
+
+@media (width >= 900px) {
+  main .section.enterprise-scale .columns-media > div {
+    gap: 120px;
+  }
 }
 
 /* security badge row (cards-icon <dl> variant) */
@@ -1243,6 +1259,7 @@ main .section.enterprise-scale .cards-icon > ul > li img {
    other, left-aligned headings ("Maintenance software even IT will love") stay
    untouched. */
 main .section.enterprise-scale .default-content-wrapper:has(+ .cards-icon-wrapper) {
+  margin-top: 130px;
   text-align: center;
 }
 
@@ -1359,6 +1376,7 @@ main .section.enterprise-success {
 
 /* stylelint-disable-next-line no-descending-specificity */
 main .section.enterprise-success .columns-media h2 {
+  max-width: 480px;
   font-size: 48px;
   font-weight: 700;
   line-height: 1.05;
@@ -1393,6 +1411,48 @@ main .section.enterprise-success .columns-media ul li img {
   top: 2px;
   width: 22px;
   height: auto;
+}
+
+/* "Your partner for success" graphics composition: production overlaps the
+   people photo (325px) on top of a hexagon that bleeds off the LEFT edge behind
+   it. Crucially the composition is anchored to the LEFT VIEWPORT EDGE (not the
+   centered content container) -- so `calc((100% - 100vw)/2 + offset)` pins each
+   image relative to the viewport, keeping it at the far left at any width (at
+   1280 the photo lands at x100 and the hexagon at x-120, matching production, and
+   it stays there on wider viewports instead of drifting to centre). The two
+   images are authored as stacked <p><picture> in the default-content-wrapper.
+   Desktop only -- they stack on mobile like production. */
+@media (width >= 900px) {
+  main .section.enterprise-success .default-content-wrapper {
+    position: relative;
+    min-height: 430px;
+  }
+
+  main .section.enterprise-success .default-content-wrapper p:has(img[alt*="experts" i]) {
+    position: absolute;
+    top: 0;
+    left: calc((100% - 100vw) / 2 + 100px);
+    z-index: 1;
+    margin: 0;
+  }
+
+  main .section.enterprise-success .default-content-wrapper p:has(img[alt*="experts" i]) img {
+    width: 325px;
+    height: auto;
+  }
+
+  main .section.enterprise-success .default-content-wrapper p:has(img[alt*="hexagon" i]) {
+    position: absolute;
+    top: 14px;
+    left: calc((100% - 100vw) / 2 - 120px);
+    z-index: 0;
+    margin: 0;
+  }
+
+  main .section.enterprise-success .default-content-wrapper p:has(img[alt*="hexagon" i]) img {
+    width: 400px;
+    height: 400px;
+  }
 }
 
 /* ---- Closing CTA (.demo → style "cta") ----
@@ -1780,27 +1840,71 @@ main .section.training-hero .columns-media > div {
   gap: 40px;
 }
 
+/* Production: the h1 is a small uppercase eyebrow, the h2 the large headline,
+   the CTA a dark-blue pill button, and a large teal circle sits behind the photo
+   bleeding off the right edge. EDS had these inverted (h1 big / h2 small), a
+   plain link, and no circle. */
 /* stylelint-disable-next-line no-descending-specificity */
 main .section.training-hero .columns-media h1 {
-  margin: 0 0 8px;
+  margin: 0 0 20px;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.1;
+  text-transform: uppercase;
+  color: var(--text-color);
+}
+
+/* stylelint-disable-next-line no-descending-specificity */
+main .section.training-hero .columns-media h2 {
+  margin: 0 0 28px;
   font-size: 40px;
   font-weight: 700;
   line-height: 1.05;
   color: var(--text-color);
 }
 
-/* stylelint-disable-next-line no-descending-specificity */
-main .section.training-hero .columns-media h2 {
-  margin: 0 0 20px;
-  font-size: 22px;
-  font-weight: 400;
-  line-height: 1.3;
-  color: var(--text-color);
+main .section.training-hero .columns-media a:any-link {
+  display: inline-block;
+  padding: 16px 26px;
+  border-radius: 27px;
+  background-color: #14499a;
+  color: #fff;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.2;
+  text-decoration: none;
 }
 
 @media (width >= 900px) {
-  main .section.training-hero .columns-media h1 {
-    font-size: 56px;
+  main .section.training-hero .columns-media h2 {
+    font-size: 64px;
+  }
+
+  main .section.training-hero .columns-media > div > .columns-media-img-col {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-end;
+  }
+
+  main .section.training-hero .columns-media > div > .columns-media-img-col::before {
+    content: '';
+    position: absolute;
+    top: -50px;
+    left: 60px;
+    width: 760px;
+    height: 760px;
+    border-radius: 50%;
+    background-color: rgb(130 214 221);
+    z-index: 0;
+  }
+
+  main .section.training-hero .columns-media > div > .columns-media-img-col img {
+    position: relative;
+    z-index: 1;
+    width: 443px;
+    max-width: 100%;
+    margin-top: 60px;
   }
 }
 
@@ -1990,6 +2094,26 @@ main > .section.pf-hero {
   background-color: #f7f9fc;
 }
 
+/* Per-page hero panel colour. Production uses a different panel colour per page
+   (purple on cmms-software, yellow on asset-management, teal on parts-inventory)
+   -- but every EDS hero shares the .pf-hero class. Two equivalent hooks are
+   supported so the colour lands regardless of how it's driven: (a) the body
+   `page-*` class set from the URL path in scripts.js (code-only, no authoring),
+   and (b) an authored `hero-yellow` / `hero-teal` Section-Metadata Style on the
+   hero section. The default (neither hook) stays purple. --hero-panel = outer
+   panel, --hero-inner = the darker inner box. Colours measured from production. */
+body.page-cmms-asset-management-software main > .section.pf-hero,
+main > .section.pf-hero.hero-yellow {
+  --hero-panel: rgb(255 219 0);
+  --hero-inner: rgb(255 214 11);
+}
+
+body.page-cmms-parts-inventory-management-software main > .section.pf-hero,
+main > .section.pf-hero.hero-teal {
+  --hero-panel: rgb(70 198 210);
+  --hero-inner: rgb(60 191 200);
+}
+
 /* eyebrow (authored as h1) */
 main > .section.pf-hero .hero-lead-content h1 {
   margin: 0 0 24px;
@@ -2052,22 +2176,65 @@ main > .section.pf-hero .hero-lead-content > p:has(> picture:only-child):not(:ha
     font-size: 56px;
   }
 
-  /* Purple product panel behind the screenshot, matching production. The
-     hero-lead block places the image row on the right at >=900; give that
-     row the purple background and let the screenshot sit centered on it. */
-  main > .section.pf-hero .hero-lead > div:has(.hero-lead-media) {
-    align-self: stretch;
-    align-items: center;
-    flex: 0 0 46%;
-    max-width: 46%;
-    padding: 40px;
-    background-color: #6b64ef;
-    border-radius: 4px;
+  /* Purple product panel behind the screenshot, matching production: it bleeds
+     full-height and full-width out to the RIGHT viewport edge (not a contained
+     rounded card), with the screenshot enlarged and centered on it. The ::after
+     carries the same purple from the panel's right edge out to the viewport
+     edge; the taller content padding lets the stretched panel run the full
+     height of the hero like production. */
+  main > .section.pf-hero .hero-lead-content {
+    flex: 0 0 600px;
+    max-width: 600px;
+    padding-top: 80px;
+    padding-bottom: 80px;
   }
 
-  main > .section.pf-hero .hero-lead .hero-lead-media img {
+  /* Only a genuine media-ONLY column gets the panel. `:not(:has(h2))` excludes
+     single-column heroes (e.g. mobile-cmms) whose one div holds BOTH the
+     heading and the image -- without this guard the whole hero turns purple. */
+  main > .section.pf-hero .hero-lead > div:has(.hero-lead-media):not(:has(h2)) {
+    position: relative;
+    align-self: stretch;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1 1 auto;
+    max-width: none;
+    padding: 70px 48px;
+    background-color: var(--hero-panel, #6b64ef);
+    border-radius: 0;
+  }
+
+  main > .section.pf-hero .hero-lead > div:has(.hero-lead-media):not(:has(h2))::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 100%;
+    width: 100vw;
+    background-color: var(--hero-panel, #6b64ef);
+    z-index: 0;
+  }
+
+  /* Production centers the screenshot on a slightly darker purple inner box
+     (rgb 98 92 226 vs the rgb 107 100 239 panel) inset within the panel -- on
+     prod this is baked into the hero video's backdrop; reproduce it as a
+     darker box behind the static screenshot. */
+  main > .section.pf-hero .hero-lead > div:has(.hero-lead-media):not(:has(h2)) .hero-lead-media {
+    position: relative;
+    z-index: 1;
+    width: auto;
+    max-width: 400px;
+    padding: 40px;
+    text-align: center;
+    background-color: var(--hero-inner, rgb(98 92 226));
+    border-radius: 2px;
+  }
+
+  main > .section.pf-hero .hero-lead > div:has(.hero-lead-media):not(:has(h2)) .hero-lead-media img {
+    display: block;
     width: 100%;
-    max-width: 320px;
+    max-width: 300px;
     margin: 0 auto;
   }
 }
@@ -2078,23 +2245,40 @@ main > .section.pf-hero .hero-lead-content > p:has(> picture:only-child):not(:ha
   }
 }
 
-/* ---- pf-logos: white band, centered customer-logo strip + heading ---- */
+/* ---- pf-logos: white band, centered heading + customer-logo strip ---- */
 main > .section.pf-logos {
   margin: 0;
   padding: 40px 0 20px;
 }
 
+/* "Over 4,100 teams…" heading above the logos (authored as H2): 24/700,
+   centered, 40px below to the logos -- matching production. Pre-styled so it
+   renders correctly once the heading is authored into this section (it is
+   currently MISSING from the EDS content; see the authoring prompt). */
+main > .section.pf-logos .default-content-wrapper h2 {
+  margin: 0 auto 40px;
+  max-width: 640px;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1.2;
+  text-align: center;
+  color: var(--text-color);
+}
+
+/* Production sizes each logo by WIDTH (~100px, uniform), not by a 46px height
+   (which made them 130-288px wide). */
 main > .section.pf-logos .columns-logos img {
-  width: auto;
+  width: 100px;
   height: auto;
-  max-height: 46px;
+  max-height: none;
   object-fit: contain;
 }
 
 @media (width >= 900px) {
+  /* centered cluster with even gaps, not spread edge-to-edge across 1200px */
   main > .section.pf-logos .columns-logos > div {
-    justify-content: space-between;
-    gap: 24px;
+    justify-content: center;
+    gap: 60px;
   }
 
   main > .section.pf-logos .columns-logos > div > div {
@@ -2126,6 +2310,40 @@ main > .section.pf-features .default-content-wrapper > p {
   color: var(--text-color);
 }
 
+/* Production separates the intro heading from its subtext with a purple bar
+   (the heading's ::after, 540x5, rgb 99 92 232) and constrains the intro block
+   to the left ~540px column. Target the intro default-content-wrapper (the one
+   directly before the cards), not the trailing "See what…" link heading. */
+main > .section.pf-features .default-content-wrapper:has(+ .cards-features-wrapper) h2,
+main > .section.pf-features .default-content-wrapper:has(+ .cards-features-wrapper) > p {
+  max-width: 540px;
+}
+
+main > .section.pf-features .default-content-wrapper:has(+ .cards-features-wrapper) h2::after {
+  content: '';
+  display: block;
+  width: 540px;
+  max-width: 100%;
+  height: 5px;
+  margin-top: 20px;
+  background-color: var(--feature-bar, rgb(99 92 232));
+}
+
+/* The intro bar colour is per-page (matches the page accent). Default (cmms and
+   others) is purple; override for the yellow / teal pages via the URL-derived
+   body page-class. Measured from production. */
+body.page-cmms-asset-management-software {
+  --feature-bar: rgb(255 214 0);
+}
+
+body.page-cmms-parts-inventory-management-software {
+  --feature-bar: rgb(60 192 203);
+}
+
+body.page-cmms-mobile-cmms {
+  --feature-bar: rgb(0 175 235);
+}
+
 /* borderless, transparent feature blurbs */
 main > .section.pf-features .cards-features > ul {
   grid-template-columns: 1fr;
@@ -2135,9 +2353,31 @@ main > .section.pf-features .cards-features > ul {
 main > .section.pf-features .cards-features > ul > li {
   border: 0;
   background-color: transparent;
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+}
+
+/* per-card icon: production shows a small (~32px) icon to the LEFT of the
+   heading. The authored icon becomes a `cards-features-card-image` cell; the
+   block's default full-width 4:3 image rule blows it up to ~490px, so size it
+   down here and let the text cell take the rest. */
+main > .section.pf-features .cards-features .cards-features-card-image {
+  flex: 0 0 auto;
+  margin: 0;
+  line-height: 0;
+}
+
+main > .section.pf-features .cards-features .cards-features-card-image img {
+  width: 32px;
+  height: 32px;
+  aspect-ratio: auto;
+  object-fit: contain;
 }
 
 main > .section.pf-features .cards-features .cards-features-card-body {
+  flex: 1;
+  min-width: 0;
   margin: 0;
 }
 
@@ -2178,9 +2418,24 @@ main > .section.pf-features .default-content-wrapper:last-child h2 a:any-link {
     font-size: 28px;
   }
 
+  /* Production spacing: 490px-wide blurbs with a 170px column gap and 70px row
+     gap (measured), not the tight 60/40 that made the grid feel cramped.
+     Production also fills COLUMN-major (left column first), so switch to column
+     auto-flow with an explicit row count (tagged by the block JS as
+     .cards-features-rows-N, = half the blurb count rounded up). */
   main > .section.pf-features .cards-features > ul {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 490px 490px;
+    grid-auto-flow: column;
+    justify-content: center;
+    column-gap: 170px;
+    row-gap: 70px;
   }
+
+  main > .section.pf-features .cards-features > ul.cards-features-rows-2 { grid-template-rows: repeat(2, auto); }
+  main > .section.pf-features .cards-features > ul.cards-features-rows-3 { grid-template-rows: repeat(3, auto); }
+  main > .section.pf-features .cards-features > ul.cards-features-rows-4 { grid-template-rows: repeat(4, auto); }
+  main > .section.pf-features .cards-features > ul.cards-features-rows-5 { grid-template-rows: repeat(5, auto); }
+  main > .section.pf-features .cards-features > ul.cards-features-rows-6 { grid-template-rows: repeat(6, auto); }
 }
 
 /* ---- pf-video: light band, centered heading, thumbnail-card grid.
@@ -2201,20 +2456,11 @@ main > .section.pf-video .default-content-wrapper h2 {
   color: var(--text-color);
 }
 
-/* pf-video reuses cards-video; on tablet+ show a 3-up grid instead of the
-   block's default 2-up flex row so the many demo cards read like production */
-@media (width >= 900px) {
-  main > .section.pf-video .cards-video > ul {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 40px 30px;
-    align-items: start;
-  }
-
-  main > .section.pf-video .cards-video > ul > li {
-    max-width: none;
-  }
-}
+/* pf-video reuses cards-video, which now renders a horizontal carousel (three
+   cards + a prev/dots/next pagination bar) matching production. Do NOT force a
+   grid here -- that higher-specificity override previously defeated the block's
+   carousel track and made the cards wrap into a static 3x3 grid. The block CSS
+   (.cards-video-track) handles the layout. */
 
 /* ---- pf-media-left / pf-media-right: image + text feature rows.
    Production H2 48/700, P 28/300. -left = image left, -right = image
@@ -2264,6 +2510,57 @@ main > .section.pf-media-right .columns-media p {
      orders the image column first, so flip the row for -right. */
   main > .section.pf-media-right .columns-media > div {
     flex-direction: row-reverse;
+  }
+}
+
+/* pf-media accent: production overlays each media row's image on a full-bleed
+   colour panel (bleeding to the outer viewport edge) and underlines the heading
+   with a 540x5 bar in the same colour. The colour is arbitrary per section, so
+   it can't be derived from the -left/-right class -- it is authored per section
+   via a Section-Metadata Style that adds one of the media-* classes below. The
+   panel/underline only render when such a class is present, so every other
+   columns-media usage (ai/optix/enterprise) is untouched. */
+main > .section.media-gold   { --media-accent: #ffd600; }
+main > .section.media-teal   { --media-accent: #3cc0cb; }
+main > .section.media-cyan   { --media-accent: #00afeb; }
+main > .section.media-purple { --media-accent: #4d3e8d; }
+main > .section.media-orange { --media-accent: #ffa40e; }
+main > .section.media-navy   { --media-accent: #003e7e; }
+
+main > .section:is(.media-gold, .media-teal, .media-cyan, .media-purple, .media-orange, .media-navy):is(.pf-media-left, .pf-media-right) .columns-media h2::after {
+  content: '';
+  display: block;
+  width: 540px;
+  max-width: 100%;
+  height: 5px;
+  margin-top: 24px;
+  background: var(--media-accent);
+}
+
+@media (width >= 900px) {
+  main > .section:is(.media-gold, .media-teal, .media-cyan, .media-purple, .media-orange, .media-navy):is(.pf-media-left, .pf-media-right) .columns-media > div > .columns-media-img-col {
+    position: relative;
+    padding: 40px;
+    background: var(--media-accent);
+  }
+
+  /* bleed the colour panel out to the viewport edge on the image's outer side */
+  main > .section:is(.media-gold, .media-teal, .media-cyan, .media-purple, .media-orange, .media-navy):is(.pf-media-left, .pf-media-right) .columns-media > div > .columns-media-img-col::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 100vw;
+    background: var(--media-accent);
+    z-index: 0;
+  }
+
+  main > .section.pf-media-left:is(.media-gold, .media-teal, .media-cyan, .media-purple, .media-orange, .media-navy) .columns-media-img-col::before { right: 100%; }
+  main > .section.pf-media-right:is(.media-gold, .media-teal, .media-cyan, .media-purple, .media-orange, .media-navy) .columns-media-img-col::before { left: 100%; }
+
+  main > .section:is(.media-gold, .media-teal, .media-cyan, .media-purple, .media-orange, .media-navy):is(.pf-media-left, .pf-media-right) .columns-media-img-col img {
+    position: relative;
+    z-index: 1;
   }
 }
 
