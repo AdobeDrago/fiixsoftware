@@ -2114,14 +2114,21 @@ main > .section.pf-hero .hero-lead-content > p:has(> picture:only-child):not(:ha
     z-index: 0;
   }
 
+  /* Production centers the screenshot on a slightly darker purple inner box
+     (rgb 98 92 226 vs the rgb 107 100 239 panel) inset within the panel -- on
+     prod this is baked into the hero video's backdrop; reproduce it as a
+     darker box behind the static screenshot. */
   main > .section.pf-hero .hero-lead > div:has(.hero-lead-media):not(:has(h2)) .hero-lead-media {
     position: relative;
     z-index: 1;
+    padding: 44px 48px;
+    background-color: rgb(98 92 226);
+    border-radius: 2px;
   }
 
   main > .section.pf-hero .hero-lead > div:has(.hero-lead-media):not(:has(h2)) .hero-lead-media img {
     width: 100%;
-    max-width: 380px;
+    max-width: 340px;
     margin: 0 auto;
   }
 }
