@@ -81,6 +81,8 @@ const NAV_ICONS = {
   '/cmms/cmms-software/': svg('<rect x="3" y="4" width="18" height="14" rx="2"/><path d="M3 9h18M8 21h8"/>'),
   '/cmms/mobile-cmms/': svg('<rect x="7" y="2" width="10" height="20" rx="2"/><path d="M11 18h2"/>'),
   '/foresight/': svg('<path d="M12 3v2M12 19v2M3 12h2M19 12h2M6 6l1.5 1.5M16.5 16.5 18 18"/><circle cx="12" cy="12" r="4"/>'),
+  // Fiix AI (current URL is /cmms/ai; production shows a sparkle icon)
+  '/cmms/ai/': svg('<path d="M12 3l1.7 5.3L19 10l-5.3 1.7L12 17l-1.7-5.3L5 10l5.3-1.7Z"/><path d="M18.5 13l.7 2.3 2.3.7-2.3.7-.7 2.3-.7-2.3-2.3-.7 2.3-.7Z"/>'),
   '/optix': svg('<path d="M12 2a5 5 0 0 1 5 5c0 2-1 3-2 4s-1 2-1 3H10c0-1 0-2-1-3S7 9 7 7a5 5 0 0 1 5-5Z"/><path d="M9 21h6"/>'),
   '/cmms/asset-management-software/': svg('<path d="M20 7 12 3 4 7l8 4 8-4Z"/><path d="M4 7v10l8 4 8-4V7"/><path d="M12 11v10"/>'),
   '/cmms/work-orders/': svg('<path d="m14 7 3-3 3 3-3 3"/><path d="M17 4v9a4 4 0 0 1-4 4H4"/><path d="m7 20-3-3 3-3"/>'),
@@ -95,11 +97,15 @@ const NAV_ICONS = {
   '/cmms/industry-solutions/manufacturing-maintenance-software/': svg('<path d="M3 20V9l6 4V9l6 4V5l6 4v11H3Z"/>'),
 };
 
-/** Match a nav link href to a cyan icon (exact, then prefix for /downloads/). */
+/** Match a nav link href to a cyan icon. Tolerant of trailing-slash differences
+    (EDS delivers hrefs without a trailing slash; the map keys carry one), then
+    prefix match for /downloads/. */
 function iconForHref(href) {
   if (!href) return null;
-  if (NAV_ICONS[href]) return NAV_ICONS[href];
-  if (href.startsWith('/downloads/')) return NAV_ICONS['/downloads/'];
+  const bare = href.replace(/\/+$/, '');
+  const hit = NAV_ICONS[href] || NAV_ICONS[bare] || NAV_ICONS[`${bare}/`];
+  if (hit) return hit;
+  if (bare.startsWith('/downloads')) return NAV_ICONS['/downloads/'];
   return null;
 }
 
