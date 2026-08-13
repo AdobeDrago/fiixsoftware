@@ -80,3 +80,105 @@
     gap: 60px;
   }
 }
+
+/* ---- Carousel variant (production "See how…" demos): a horizontal scroll-snap
+   track showing three cards at a time, with a prev/dots/next pagination bar
+   below. Applied by the block JS when there are more than three cards. ---- */
+.cards-video > ul.cards-video-track {
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 30px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  padding-bottom: 4px;
+}
+
+.cards-video > ul.cards-video-track::-webkit-scrollbar {
+  display: none;
+}
+
+.cards-video > ul.cards-video-track > li {
+  flex: 0 0 100%;
+  max-width: none;
+  scroll-snap-align: start;
+}
+
+@media (width >= 900px) {
+  /* three visible cards with the 30px gaps between them */
+  .cards-video > ul.cards-video-track > li {
+    flex: 0 0 calc((100% - 60px) / 3);
+  }
+}
+
+/* pagination bar: prev arrow + dots + next arrow, centered below the track */
+.cards-video-nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  margin-top: 32px;
+}
+
+.cards-video-prev,
+.cards-video-next {
+  position: relative;
+  flex: 0 0 auto;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background-color: #14499a;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.cards-video-prev:hover,
+.cards-video-next:hover {
+  background-color: #0f3675;
+}
+
+.cards-video-prev::after,
+.cards-video-next::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 8px;
+  height: 8px;
+  border: 2px solid #fff;
+  border-bottom: 0;
+  border-left: 0;
+}
+
+.cards-video-prev::after {
+  transform: translate(-40%, -50%) rotate(-135deg);
+}
+
+.cards-video-next::after {
+  transform: translate(-60%, -50%) rotate(45deg);
+}
+
+.cards-video-dots {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.cards-video-dot {
+  width: 10px;
+  height: 10px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background-color: #c9d3e0;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.cards-video-dot.active {
+  background-color: #14499a;
+}
