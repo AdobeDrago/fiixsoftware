@@ -2316,8 +2316,13 @@ main > .section.pf-features .default-content-wrapper:last-child h2 a:any-link {
     font-size: 28px;
   }
 
+  /* Production spacing: 490px-wide blurbs with a 170px column gap and 70px row
+     gap (measured), not the tight 60/40 that made the grid feel cramped. */
   main > .section.pf-features .cards-features > ul {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 490px 490px;
+    justify-content: center;
+    column-gap: 170px;
+    row-gap: 70px;
   }
 }
 
