@@ -2165,23 +2165,40 @@ main > .section.pf-hero .hero-lead-content > p:has(> picture:only-child):not(:ha
   }
 }
 
-/* ---- pf-logos: white band, centered customer-logo strip + heading ---- */
+/* ---- pf-logos: white band, centered heading + customer-logo strip ---- */
 main > .section.pf-logos {
   margin: 0;
   padding: 40px 0 20px;
 }
 
+/* "Over 4,100 teams…" heading above the logos (authored as H2): 24/700,
+   centered, 40px below to the logos -- matching production. Pre-styled so it
+   renders correctly once the heading is authored into this section (it is
+   currently MISSING from the EDS content; see the authoring prompt). */
+main > .section.pf-logos .default-content-wrapper h2 {
+  margin: 0 auto 40px;
+  max-width: 640px;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1.2;
+  text-align: center;
+  color: var(--text-color);
+}
+
+/* Production sizes each logo by WIDTH (~100px, uniform), not by a 46px height
+   (which made them 130-288px wide). */
 main > .section.pf-logos .columns-logos img {
-  width: auto;
+  width: 100px;
   height: auto;
-  max-height: 46px;
+  max-height: none;
   object-fit: contain;
 }
 
 @media (width >= 900px) {
+  /* centered cluster with even gaps, not spread edge-to-edge across 1200px */
   main > .section.pf-logos .columns-logos > div {
-    justify-content: space-between;
-    gap: 24px;
+    justify-content: center;
+    gap: 60px;
   }
 
   main > .section.pf-logos .columns-logos > div > div {
