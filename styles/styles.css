@@ -1857,6 +1857,11 @@ main .section.training-hero {
   margin: 0;
   padding: 80px 0;
   background-color: #f6f9fb;
+
+  /* Production tiles a faint gray hexagon texture across the hero band. */
+  background-image: url("https://fiixsoftware.com/wp-content/uploads/2019/05/e1e1e1-fade-2.png");
+  background-repeat: repeat;
+  background-position: 0 0;
 }
 
 main .section.training-hero .columns-media > div {
@@ -1914,10 +1919,14 @@ main .section.training-hero .columns-media a:any-link {
   main .section.training-hero .columns-media > div > .columns-media-img-col::before {
     content: '';
     position: absolute;
-    top: -50px;
-    left: 60px;
-    width: 760px;
-    height: 760px;
+    top: -100px;
+    left: auto;
+
+    /* Anchor to the viewport right so the circle keeps a ~52px gap from the
+       right edge at any width; the photo's left two-thirds sits off the circle. */
+    right: calc((1200px - 100vw) / 2 + 52px);
+    width: 570px;
+    height: 570px;
     border-radius: 50%;
     background-color: rgb(130 214 221);
     z-index: 0;
