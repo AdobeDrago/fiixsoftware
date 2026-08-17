@@ -35,8 +35,7 @@
   display: grid;
   grid-template-columns: 360px 1fr;
   grid-template-rows: auto auto;
-  column-gap: 40px;
-  row-gap: 0;
+  gap: 0 40px;
   max-width: 1200px;
   margin: 0 auto;
   padding: 48px 32px;
@@ -115,7 +114,7 @@
   top: 100px;
   z-index: 10;
   background-color: #fff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 2px 4px rgb(0 0 0 / 8%);
 }
 
 .table-compare.block table thead th {

@@ -124,6 +124,13 @@
   line-height: 1.1;
 }
 
+.cards-pricing .cards-pricing-price-row p {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 1.4;
+}
+
 /* price caption (e.g. "Per user, per month.") */
 .cards-pricing .cards-pricing-card-body h3 + p {
   margin: 0 0 16px;
@@ -209,11 +216,4 @@
 .cards-pricing .cards-pricing-price-row h3 {
   margin: 0;
   flex-shrink: 0;
-}
-
-.cards-pricing .cards-pricing-price-row p {
-  margin: 0;
-  font-size: 14px;
-  font-weight: 300;
-  line-height: 1.4;
 }

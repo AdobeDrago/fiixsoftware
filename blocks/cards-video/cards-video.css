@@ -95,8 +95,7 @@
    track showing three cards at a time, with a prev/dots/next pagination bar
    below. Applied by the block JS when there are more than three cards. ---- */
 .cards-video > ul.cards-video-track {
-  flex-direction: row;
-  flex-wrap: nowrap;
+  flex-flow: row nowrap;
   align-items: flex-start;
   justify-content: flex-start;
   gap: 30px;

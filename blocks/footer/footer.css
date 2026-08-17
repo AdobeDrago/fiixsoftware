@@ -22,6 +22,7 @@ footer .footer p {
 }
 
 /* --- newsletter (first section) ------------------------------------ */
+
 /* Production centers the entire newsletter block (heading, subtext, form). */
 footer .footer > div > div:first-child {
   padding-bottom: 24px;

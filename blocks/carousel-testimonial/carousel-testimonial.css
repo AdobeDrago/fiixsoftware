@@ -8,6 +8,7 @@
 .carousel-testimonial {
   --carousel-testimonial-ink: rgb(33 32 33);
   --carousel-testimonial-nav-bg: rgb(33 32 33);
+
   /* Fluid gap: tighter between cards on mobile/tablet, growing to the 5rem the
      desktop three-up layout is sized against. */
   --carousel-testimonial-gap: clamp(1.5rem, 4vw, 5rem);
@@ -56,7 +57,7 @@
   background-color: #fff;
   color: var(--carousel-testimonial-ink);
   border-radius: 30px;
-  box-shadow: 3px 3px 25px rgb(0 0 0 / .08);
+  box-shadow: 3px 3px 25px rgb(0 0 0 / 8%);
   padding: 30px;
 }
 
