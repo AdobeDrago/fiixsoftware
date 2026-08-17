@@ -265,32 +265,48 @@
   height: auto;
 }
 
-.carousel-testimonial.case-study .carousel-testimonial-cs-title {
+/* Neutralize the default testimonial-card paragraph typography (divider,
+   first/second-paragraph sizing) so the case-study rules below win regardless
+   of paragraph order. */
+.carousel-testimonial.case-study .carousel-testimonial-slide-content > p {
+  padding-top: 0;
+  border-top: 0;
+}
+
+.carousel-testimonial.case-study .carousel-testimonial-slide-content p.carousel-testimonial-cs-title {
   margin: 0 0 20px;
+  padding-top: 0;
+  border-top: 0;
   font-size: 28px;
   font-weight: 600;
   line-height: 1.2;
   color: var(--carousel-testimonial-ink);
 }
 
-.carousel-testimonial.case-study .carousel-testimonial-cs-quote {
+.carousel-testimonial.case-study .carousel-testimonial-slide-content p.carousel-testimonial-cs-quote {
   margin: 0 0 10px;
+  padding-top: 0;
+  border-top: 0;
   font-size: 20px;
   font-weight: 300;
   line-height: 1.5;
   color: var(--carousel-testimonial-ink);
 }
 
-.carousel-testimonial.case-study .carousel-testimonial-cs-author {
+.carousel-testimonial.case-study .carousel-testimonial-slide-content p.carousel-testimonial-cs-author {
   margin: 0 0 24px;
+  padding-top: 0;
+  border-top: 0;
   font-size: 16px;
   font-weight: 600;
   line-height: 1.3;
   color: var(--carousel-testimonial-ink);
 }
 
-.carousel-testimonial.case-study .carousel-testimonial-cs-cta {
+.carousel-testimonial.case-study .carousel-testimonial-slide-content p.carousel-testimonial-cs-cta {
   margin: 0;
+  padding-top: 0;
+  border-top: 0;
 }
 
 .carousel-testimonial.case-study .carousel-testimonial-cs-cta a:any-link {
