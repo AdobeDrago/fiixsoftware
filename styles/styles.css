@@ -717,6 +717,7 @@ main > .section.customer-success .default-content-wrapper h2 {
 @media (width >= 900px) {
   main > .section.customer-success .default-content-wrapper h2 {
     font-size: 64px;
+    line-height: 1;
     margin-bottom: 100px;
   }
 
