@@ -10,7 +10,42 @@ import {
   loadSections,
   loadCSS,
   buildBlock,
+  readBlockConfig,
+  toClassName,
+  toCamelCase,
 } from './aem.js';
+
+/**
+ * Applies Section Metadata to its parent section.
+ *
+ * This project's aem.js `decorateSections` omits the standard boilerplate
+ * handling that reads a `.section-metadata` block and turns its `style` values
+ * into section classes (and other keys into dataset entries). Without it the
+ * metadata block is left in the DOM — it renders as literal "style / <value>"
+ * text and gets picked up by `decorateBlocks` as an unknown block (404). The
+ * migration pipeline (tools/importer/transformers/fiix-sections.js) emits these
+ * blocks to drive section styles like `.section.cta`, so restore the standard
+ * behavior here, between decorateSections and decorateBlocks.
+ * @param {Element} main The container element
+ */
+function decorateSectionMetadata(main) {
+  main.querySelectorAll(':scope > div.section').forEach((section) => {
+    const sectionMeta = section.querySelector(':scope > div > div.section-metadata');
+    if (!sectionMeta) return;
+    const meta = readBlockConfig(sectionMeta);
+    Object.keys(meta).forEach((key) => {
+      if (key === 'style') {
+        meta.style.split(',').map((s) => toClassName(s.trim())).filter((s) => s)
+          .forEach((s) => section.classList.add(s));
+      } else {
+        section.dataset[toCamelCase(key)] = meta[key];
+      }
+    });
+    // Remove the wrapper that holds only the metadata block so it is neither
+    // rendered nor processed as a block by decorateBlocks.
+    sectionMeta.parentElement.remove();
+  });
+}
 
 if (window.trustedTypes && window.trustedTypes.createPolicy) {
   const innerTT = window.trustedTypes.createPolicy('tt-inner', {
@@ -151,6 +186,7 @@ export function decorateMain(main) {
   decorateIcons(main);
   buildAutoBlocks(main);
   decorateSections(main);
+  decorateSectionMetadata(main);
   decorateBlocks(main);
   decorateButtons(main);
 }

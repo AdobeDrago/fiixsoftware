@@ -1396,6 +1396,63 @@
           "defaultContent": []
         }
       ]
+    },
+    {
+      "name": "case-study-page",
+      "urls": [
+        "https://fiixsoftware.com/resource-center/case-studies/universal-pure/"
+      ],
+      "coverageGaps": [],
+      "description": "Customer case study page: hero (customer name + headline), customer intro with logo/headshot/quote and challenge-solution-result columns, company overview narrative with embedded video, and a closing free-tour CTA band.",
+      "blocks": [
+        {
+          "name": "hero-case-study",
+          "instances": [
+            "div.case-studies-temp.cloeren > header"
+          ]
+        },
+        {
+          "name": "columns-media",
+          "instances": [
+            "div.company-intro div.ba-fiix",
+            ".ba-fiix"
+          ]
+        },
+        {
+          "name": "hero-cta",
+          "instances": [
+            "div.kick-the-tires"
+          ]
+        }
+      ],
+      "sections": [
+        {
+          "id": "case-study-body",
+          "name": "Case study body",
+          "selector": [
+            "div.case-studies-temp.cloeren > header"
+          ],
+          "style": null,
+          "blocks": [
+            "hero-case-study",
+            "columns-media"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "case-study-cta",
+          "name": "Free tour CTA",
+          "selector": [
+            "div.kick-the-tires",
+            ".kick-the-tires"
+          ],
+          "style": "cta",
+          "blocks": [
+            "hero-cta"
+          ],
+          "defaultContent": []
+        }
+      ]
     }
   ]
 }
