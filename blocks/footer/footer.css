@@ -21,8 +21,8 @@ footer .footer p {
   margin: 0;
 }
 
-/* --- newsletter (first section) ------------------------------------ */
-/* Production centers the entire newsletter block (heading, subtext, form). */
+/* --- newsletter (first section) ------------------------------------
+   Production centers the entire newsletter block (heading, subtext, form). */
 footer .footer > div > div:first-child {
   padding-bottom: 24px;
   border-bottom: 1px solid var(--border-color, #e2e6ea);
@@ -196,10 +196,12 @@ footer .footer .columns ul.footer-awards li:nth-child(5) img {
   height: 50px;
 }
 
-/* --- follow / copyright (last section) ----------------------------- */
+/* --- follow / copyright (last section) -----------------------------
+   After the 4-column restructure this wrapper is the columns block itself, so
+   it must NOT force a 14px size — footer links inherit the 16px footer base to
+   match production (long links then wrap like production). */
 footer .footer > div > div:last-child {
   margin-top: 32px;
-  font-size: 14px;
 }
 
 footer .footer > div > div:last-child p {
@@ -244,25 +246,28 @@ footer .footer .footer-social svg {
     padding: 40px 32px 24px;
   }
 
-  footer .footer .columns > div {
-    flex-flow: row wrap;
-    align-items: flex-start;
-    gap: 40px 32px;
-  }
-
-  /* Four columns per row so Awards/Legal wrap to a lower band (matches
-     production's footer layout). */
-  footer .footer .columns > div > div {
-    flex: 0 1 calc(25% - 24px);
-    min-width: 160px;
-  }
-
-  /* Awards column spans two column-widths so its review-site logos lay out in
-     a wrapping horizontal row (~3 across), matching production — instead of
-     stacking one-per-row inside a single 25% column. Widening this cell also
-     shifts the following "Legal" column rightward toward production's position.
+  /* Top band: four link columns as an unequal grid matching production's
+     proportions (≈232 / 348 / 348 / 232 → 1 : 1.5 : 1.5 : 1). The narrow
+     first/last columns force long links (e.g. "Training and implementation
+     services" in "Company and Support") to wrap to two lines like production.
      DOM-safe: pure layout, no node movement. */
-  footer .footer .columns > div > div:has(.footer-awards) {
-    flex: 0 1 calc(50% - 16px);
+  footer .footer .columns > div:first-child {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr 1.5fr 1fr;
+    column-gap: 24px;
+    align-items: start;
+  }
+
+  /* Bottom band: Awards / Legal / Follow on one row. A three-track grid tuned
+     so that — at the 1200px content width — Legal starts at ≈x640 and Follow at
+     ≈x988, matching production's single-row lower band. The wide first track
+     holds the Awards review-site logos (≈576px, like production's two-column
+     span). fr units keep it responsive; the 24px gutter matches production.
+     DOM-safe: pure layout, no node movement. */
+  footer .footer .columns > div:last-child {
+    display: grid;
+    grid-template-columns: 16fr 9fr 7fr;
+    column-gap: 24px;
+    align-items: start;
   }
 }
