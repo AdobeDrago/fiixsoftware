@@ -870,9 +870,14 @@
           ]
         },
         {
+          "name": "cards-testimonial",
+          "instances": [
+            ".social-proof-ratings"
+          ]
+        },
+        {
           "name": "carousel-testimonial",
           "instances": [
-            ".social-proof-ratings",
             ".section6 #features-ent"
           ]
         },
@@ -984,7 +989,7 @@
           ],
           "style": "pf-testimonials",
           "blocks": [
-            "carousel-testimonial"
+            "cards-testimonial"
           ],
           "defaultContent": [
             ".social-proof-ratings h2"
