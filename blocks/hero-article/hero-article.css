@@ -1,0 +1,98 @@
+/* Block: hero-article -- blog / article header (text card).
+   Values extracted from source computed styles at
+   https://fiixsoftware.com/blog/how-much-time-is-data-entry-costing-you/
+   (.entry-wrap .meta-details). This variant is text-only (noimg); the lead
+   image is authored as separate default content ahead of the block, so it is
+   intentionally out of scope here. The block sits inside the standard centered
+   section container (max-width 1200px, 24/32px gutters). */
+
+.hero-article {
+  padding: 0;
+}
+
+.hero-article > div > div {
+  padding: 0;
+}
+
+/* meta line: publish date + read-time render on a single row (source shows
+   "January 6, 2025   | 1 min read" at 20px/300). Authored as the first two
+   paragraphs of the cell. */
+.hero-article > div > div > p:nth-child(1),
+.hero-article > div > div > p:nth-child(2) {
+  display: inline-block;
+  margin: 0;
+  font-size: 20px;
+  font-weight: 300;
+  line-height: normal;
+  color: var(--text-color);
+}
+
+.hero-article > div > div > p:nth-child(2) {
+  margin-left: 6px;
+}
+
+/* title -- source renders a constant 42px/700 headline on both mobile and
+   desktop (line-height 42px desktop, 44px mobile). */
+.hero-article h1 {
+  margin: 20px 0 30px;
+  font-family: var(--heading-font-family);
+  font-size: 42px;
+  font-weight: 700;
+  line-height: 1.05;
+  color: var(--text-color);
+}
+
+/* author / reviewer byline (unordered list, no bullets) */
+.hero-article ul {
+  margin: 0 0 20px;
+  padding: 0;
+  list-style: none;
+  font-size: 20px;
+  font-weight: 300;
+  line-height: 34px;
+  color: var(--text-color);
+}
+
+.hero-article ul li {
+  margin: 0;
+}
+
+/* byline links (author name) -- darker Fiix blog blue, medium weight, underlined */
+.hero-article ul a:any-link {
+  color: #14499a;
+  font-weight: 500;
+  text-decoration: underline;
+}
+
+.hero-article ul a:hover {
+  color: var(--link-hover-color);
+}
+
+/* "Back to blog" -- the last paragraph in the cell. Bold dark-blue link with a
+   leading left arrow, no underline. */
+.hero-article > div > div > p:last-child {
+  margin: 0 0 20px;
+  font-size: 20px;
+}
+
+.hero-article > div > div > p:last-child a:any-link {
+  color: #14499a;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.hero-article > div > div > p:last-child a:any-link::before {
+  content: '\2190';
+  margin-right: 8px;
+}
+
+.hero-article > div > div > p:last-child a:hover {
+  color: var(--link-hover-color);
+  text-decoration: none;
+}
+
+@media (width >= 900px) {
+  .hero-article h1 {
+    line-height: 1;
+  }
+}
