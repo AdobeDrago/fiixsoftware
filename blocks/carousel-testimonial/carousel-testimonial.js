@@ -114,7 +114,35 @@ function decorateTestimonialCard(slide) {
   content.append(footer);
 }
 
-function createSlide(row, slideIndex, carouselId) {
+/**
+ * Case-study variant: one full-width slide with the company logo on top and a
+ * stacked title / quote / author / CTA link below (matches the source
+ * `.section6` case-study slider). Only classifies existing paragraphs -- it
+ * does not read new content.
+ * @param {Element} slide the decorated slide (li)
+ */
+function decorateCaseStudySlide(slide) {
+  const content = slide.querySelector('.carousel-testimonial-slide-content');
+  if (!content) return;
+
+  const paragraphs = [...content.querySelectorAll(':scope > p')];
+  // The CTA is the paragraph containing a link.
+  const ctaParagraph = paragraphs.find((p) => p.querySelector('a'));
+  // The author line starts with a dash ("- Name, Role, Company").
+  const authorParagraph = paragraphs.find(
+    (p) => p !== ctaParagraph && /^\s*[-–—]/.test(p.textContent),
+  );
+  const rest = paragraphs.filter((p) => p !== ctaParagraph && p !== authorParagraph);
+  // First remaining paragraph is the headline; any others are the quote body.
+  const [titleParagraph, ...quoteParagraphs] = rest;
+
+  if (titleParagraph) titleParagraph.classList.add('carousel-testimonial-cs-title');
+  quoteParagraphs.forEach((p) => p.classList.add('carousel-testimonial-cs-quote'));
+  if (authorParagraph) authorParagraph.classList.add('carousel-testimonial-cs-author');
+  if (ctaParagraph) ctaParagraph.classList.add('carousel-testimonial-cs-cta');
+}
+
+function createSlide(row, slideIndex, carouselId, isCaseStudy) {
   const slide = document.createElement('li');
   slide.dataset.slideIndex = slideIndex;
   slide.setAttribute('id', `carousel-testimonial-${carouselId}-slide-${slideIndex}`);
@@ -130,7 +158,11 @@ function createSlide(row, slideIndex, carouselId) {
     slide.setAttribute('aria-labelledby', labeledBy.getAttribute('id'));
   }
 
-  decorateTestimonialCard(slide);
+  if (isCaseStudy) {
+    decorateCaseStudySlide(slide);
+  } else {
+    decorateTestimonialCard(slide);
+  }
 
   return slide;
 }
@@ -139,6 +171,7 @@ let carouselId = 0;
 export default async function decorate(block) {
   carouselId += 1;
   block.setAttribute('id', `carousel-testimonial-${carouselId}`);
+  const isCaseStudy = block.classList.contains('case-study');
   const rows = block.querySelectorAll(':scope > div');
   const isSingleSlide = rows.length < 2;
 
@@ -174,7 +207,7 @@ export default async function decorate(block) {
   }
 
   rows.forEach((row, idx) => {
-    const slide = createSlide(row, idx, carouselId);
+    const slide = createSlide(row, idx, carouselId, isCaseStudy);
     slidesWrapper.append(slide);
 
     if (slideIndicators) {

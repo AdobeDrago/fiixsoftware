@@ -71,7 +71,9 @@ export default function parse(element, { document }) {
       cells.push([logo || '', contentCell.length ? contentCell : '']);
     });
     if (cells.length === 0) { element.replaceWith(...element.childNodes); return; }
-    const block = WebImporter.Blocks.createBlock(document, { name: 'carousel-testimonial', cells });
+    // Case-study variant: single-slide layout (logo on top, stacked title /
+    // quote / author / CTA) rather than the default 3-up testimonial cards.
+    const block = WebImporter.Blocks.createBlock(document, { name: 'carousel-testimonial (case-study)', cells });
     element.replaceWith(block);
     return;
   }
