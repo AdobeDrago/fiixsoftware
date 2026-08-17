@@ -115,10 +115,10 @@ function decorateTestimonialCard(slide) {
 }
 
 /**
- * Case-study variant: one full-width slide with the company logo on top and a
- * stacked title / quote / author / CTA link below (matches the source
- * `.section6` case-study slider). Only classifies existing paragraphs -- it
- * does not read new content.
+ * Case-study variant: a white card (logo, title, quote, author, CTA) beside a
+ * case-study photo with a decorative circle behind it (matches the source
+ * `.section6` case-study slider). Only classifies existing paragraphs/columns
+ * -- it does not read new content beyond an optional third "photo" column.
  * @param {Element} slide the decorated slide (li)
  */
 function decorateCaseStudySlide(slide) {
@@ -136,10 +136,47 @@ function decorateCaseStudySlide(slide) {
   // First remaining paragraph is the headline; any others are the quote body.
   const [titleParagraph, ...quoteParagraphs] = rest;
 
-  if (titleParagraph) titleParagraph.classList.add('carousel-testimonial-cs-title');
+  if (titleParagraph) {
+    titleParagraph.classList.add('carousel-testimonial-cs-title');
+    // An <em> in the title marks the phrase to highlight (matches the source
+    // site's "$2 billion company..." marker-highlight treatment).
+    const highlight = titleParagraph.querySelector('em');
+    if (highlight) highlight.classList.add('carousel-testimonial-cs-highlight');
+  }
   quoteParagraphs.forEach((p) => p.classList.add('carousel-testimonial-cs-quote'));
   if (authorParagraph) authorParagraph.classList.add('carousel-testimonial-cs-author');
   if (ctaParagraph) ctaParagraph.classList.add('carousel-testimonial-cs-cta');
+
+  // The company logo sits at the top of the card, above the title.
+  const logo = slide.querySelector('.carousel-testimonial-slide-image');
+  if (logo && logo.querySelector('picture, img')) {
+    logo.classList.add('carousel-testimonial-cs-logo');
+    content.prepend(logo);
+  } else if (logo) {
+    logo.remove();
+  }
+
+  // The case-study photo (optional third column) becomes its own media
+  // column; a decorative circle is drawn behind it purely in CSS.
+  const photo = slide.querySelector('.carousel-testimonial-slide-photo');
+  if (photo && photo.querySelector('picture, img')) {
+    const media = document.createElement('div');
+    media.classList.add('carousel-testimonial-cs-media');
+    media.append(photo);
+    slide.append(media);
+  } else if (photo) {
+    photo.remove();
+  }
+
+  // Group the card + media into a row that carries the max-width/centering.
+  // This must NOT live on the slide (li) itself -- the slide is a flex item
+  // of the slides track (flex: 0 0 100%), and capping its own max-width there
+  // shrinks its allocated track space too, letting the next slide bleed into
+  // view. Constraining an inner row keeps the track at the full 100% width.
+  const row = document.createElement('div');
+  row.classList.add('carousel-testimonial-cs-row');
+  row.append(...slide.children);
+  slide.append(row);
 }
 
 function createSlide(row, slideIndex, carouselId, isCaseStudy) {
@@ -149,7 +186,11 @@ function createSlide(row, slideIndex, carouselId, isCaseStudy) {
   slide.classList.add('carousel-testimonial-slide');
 
   row.querySelectorAll(':scope > div').forEach((column, colIdx) => {
-    column.classList.add(`carousel-testimonial-slide-${colIdx === 0 ? 'image' : 'content'}`);
+    let role = 'content';
+    if (colIdx === 0) role = 'image';
+    // Case-study rows may author an optional third column: the case-study photo.
+    else if (isCaseStudy && colIdx === 2) role = 'photo';
+    column.classList.add(`carousel-testimonial-slide-${role}`);
     slide.append(column);
   });
 

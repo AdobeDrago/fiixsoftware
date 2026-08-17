@@ -226,43 +226,62 @@
 }
 
 /* ============================================================
-   Case-study variant (.section6 slider): one full-width slide at a
-   time -- company logo on top, then a stacked title / quote / author /
-   CTA link. Plain (no card background), left-aligned text, matching
+   Case-study variant (.section6 slider): a white, shadowed card (logo,
+   title, quote, author, CTA) beside a case-study photo with a decorative
+   circle behind it. Card-only on mobile (photo/circle hidden, matching the
+   source site's mobile behavior); two-column at desktop. Values match
    production computed styles at 1440px.
    ============================================================ */
+.carousel-testimonial.case-study {
+  --carousel-testimonial-cs-circle: rgb(60 192 203 / 80%);
+  --carousel-testimonial-nav-bg: #14499a;
+}
+
 .carousel-testimonial.case-study .carousel-testimonial-slides {
   gap: 0;
 }
 
 .carousel-testimonial.case-study .carousel-testimonial-slide {
-  /* Always one slide across, at every breakpoint. */
+  /* Always one slide across, at every breakpoint. The card look now lives on
+     the content div (below), so the slide itself is a plain, unconstrained
+     layout box -- it must stay full-width (no max-width here) or its
+     allocated track space in the flex carousel shrinks, letting the next
+     slide bleed into view. The centered 1200px cap lives on the row below. */
   flex: 0 0 100%;
-  flex-direction: column;
   background: none;
   border-radius: 0;
   box-shadow: none;
   padding: 0;
-  max-width: 700px;
-  margin: 0 auto;
   text-align: left;
 }
 
-/* Logo on top (first column) */
-.carousel-testimonial.case-study .carousel-testimonial-slide-image {
-  margin: 0 0 30px;
+.carousel-testimonial.case-study .carousel-testimonial-cs-row {
+  display: flex;
+  flex-direction: column;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* ---- Card: white, shadowed, no rounding (matches .feature-item) ---- */
+.carousel-testimonial.case-study .carousel-testimonial-slide-content {
+  height: auto;
+  box-sizing: border-box;
+  background-color: #fff;
+  box-shadow: 3px 3px 25px rgb(0 0 0 / 12%);
+  padding: 24px;
+}
+
+/* Logo at the top of the card, above the title */
+.carousel-testimonial.case-study .carousel-testimonial-cs-logo {
+  margin: 0 0 20px;
   line-height: 0;
 }
 
-.carousel-testimonial.case-study .carousel-testimonial-slide-image img {
+.carousel-testimonial.case-study .carousel-testimonial-cs-logo img {
   width: auto;
-  max-width: 220px;
-  max-height: 60px;
+  max-width: 160px;
+  max-height: 55px;
   object-fit: contain;
-}
-
-.carousel-testimonial.case-study .carousel-testimonial-slide-content {
-  height: auto;
 }
 
 /* Neutralize the default testimonial-card paragraph typography (divider,
@@ -277,20 +296,31 @@
   margin: 0 0 20px;
   padding-top: 0;
   border-top: 0;
-  font-size: 28px;
+  font-size: 24px;
   font-weight: 600;
   line-height: 1.2;
   color: var(--carousel-testimonial-ink);
 }
 
+/* An <em> in the title marks the highlighted phrase -- drawn as a
+   bottom-aligned marker-highlight band, not italics. */
+.carousel-testimonial.case-study .carousel-testimonial-cs-highlight {
+  font-style: normal;
+  background-image: linear-gradient(rgb(255 255 255 / 0%) 65%, rgb(214 227 238) 65%);
+}
+
 .carousel-testimonial.case-study .carousel-testimonial-slide-content p.carousel-testimonial-cs-quote {
-  margin: 0 0 10px;
+  margin: 30px 0 10px;
   padding-top: 0;
   border-top: 0;
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 300;
   line-height: 1.5;
   color: var(--carousel-testimonial-ink);
+}
+
+.carousel-testimonial.case-study .carousel-testimonial-slide-content p.carousel-testimonial-cs-quote + p.carousel-testimonial-cs-quote {
+  margin-top: 10px;
 }
 
 .carousel-testimonial.case-study .carousel-testimonial-slide-content p.carousel-testimonial-cs-author {
@@ -310,7 +340,7 @@
 }
 
 .carousel-testimonial.case-study .carousel-testimonial-cs-cta a:any-link {
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 700;
   color: #14499a;
   text-decoration: none;
@@ -320,8 +350,93 @@
   text-decoration: underline;
 }
 
+.carousel-testimonial.case-study .carousel-testimonial-cs-cta a:any-link::after {
+  content: '→';
+  margin-left: 6px;
+}
+
+/* ---- Case-study photo + decorative circle: desktop only ---- */
+.carousel-testimonial.case-study .carousel-testimonial-cs-media {
+  display: none;
+}
+
+/* ---- Prev/next controls: blue, left-aligned under the card. An explicit
+   width (not max-width) matches the row's 1200px box exactly, so the auto
+   margins center the same box the row centers -- keeping the buttons' left
+   edge flush with the card's left edge -- instead of shrinking to fit the
+   two buttons and centering that smaller box in the full track width. ---- */
+.carousel-testimonial.case-study .carousel-testimonial-navigation-buttons {
+  justify-content: flex-start;
+  width: 1200px;
+  max-width: 100%;
+  gap: 12px;
+  margin: 30px auto 0;
+}
+
+.carousel-testimonial.case-study .carousel-testimonial-navigation-buttons button {
+  width: 30px;
+  height: 30px;
+}
+
+.carousel-testimonial.case-study .carousel-testimonial-navigation-buttons button::after {
+  width: 6px;
+  height: 6px;
+}
+
 @media (width >= 900px) {
-  .carousel-testimonial.case-study .carousel-testimonial-cs-title {
+  .carousel-testimonial.case-study .carousel-testimonial-cs-row {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    align-items: start;
+    gap: 40px;
+  }
+
+  .carousel-testimonial.case-study .carousel-testimonial-slide-content {
+    padding: 60px;
+  }
+
+  .carousel-testimonial.case-study .carousel-testimonial-slide-content p.carousel-testimonial-cs-title {
     font-size: 32px;
+  }
+
+  .carousel-testimonial.case-study .carousel-testimonial-slide-content p.carousel-testimonial-cs-quote {
+    margin-top: 50px;
+    font-size: 20px;
+  }
+
+  .carousel-testimonial.case-study .carousel-testimonial-cs-cta a:any-link {
+    font-size: 20px;
+  }
+
+  .carousel-testimonial.case-study .carousel-testimonial-cs-media {
+    display: block;
+    position: relative;
+  }
+
+  .carousel-testimonial.case-study .carousel-testimonial-slide-photo {
+    position: relative;
+    line-height: 0;
+  }
+
+  .carousel-testimonial.case-study .carousel-testimonial-slide-photo picture,
+  .carousel-testimonial.case-study .carousel-testimonial-slide-photo img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 1;
+    object-fit: cover;
+  }
+
+  /* Decorative circle, drawn in CSS (no image asset), peeking out behind the
+     photo's bottom-left corner -- matches the source site's teal circle. */
+  .carousel-testimonial.case-study .carousel-testimonial-slide-photo::before {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    top: 62.5%;
+    left: -25%;
+    width: 50%;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background-color: var(--carousel-testimonial-cs-circle);
   }
 }
