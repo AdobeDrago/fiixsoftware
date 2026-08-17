@@ -15,6 +15,11 @@
   overflow: hidden;
 }
 
+/* the guide promo band (production .modern_cta) is navy rather than light grey */
+.columns-blog-cta.promo {
+  background-color: #244f86;
+}
+
 /* image: production dashboard screenshot */
 .columns-blog-cta img {
   display: block;
@@ -136,8 +141,10 @@
     left: 0;
     width: auto;
 
-    /* the general `> div > div` card rule also matches this cell and would clamp
-       it to 500px; reset so left/right stretch governs the width instead. */
+    /* the general `> div > div` card rule also matches this cell: reset the width
+       clamp so left/right stretch governs the width instead, and the stacking so
+       the image stays behind the card where they overlap. */
+    z-index: auto;
     max-width: none;
     height: 500px;
     margin: 0;
@@ -182,5 +189,26 @@
   .columns-blog-cta h3 {
     font-size: 38px;
     line-height: 41.8px;
+  }
+
+  /* the guide promo (production .modern_cta): navy band, the book cover sitting
+     inboard of the left edge and a narrower card over its right half */
+  .columns-blog-cta.promo > div > .columns-blog-cta-img-col {
+    inset: 138px auto 0 19%;
+    width: 650px;
+    max-width: none;
+    height: auto;
+  }
+
+  .columns-blog-cta.promo > div > .columns-blog-cta-img-col img {
+    height: auto;
+    object-fit: contain;
+  }
+
+  .columns-blog-cta.promo > div > div {
+    right: 12%;
+    width: 525px;
+    max-width: 525px;
+    min-height: 400px;
   }
 }
