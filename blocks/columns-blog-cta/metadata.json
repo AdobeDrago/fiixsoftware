@@ -1,0 +1,39 @@
+{
+  "variantName": "columns-blog-cta",
+  "baseBlock": "columns",
+  "version": "1.0.0",
+  "created": "2026-08-17T00:00:00.000Z",
+  "sourceContext": {
+    "originUrl": "https://fiixsoftware.com/blog/how-much-time-is-data-entry-costing-you/",
+    "originPage": "Fiix blog article page",
+    "blockPosition": "bottom"
+  },
+  "visualCharacteristics": {
+    "colorScheme": "light",
+    "density": "spacious",
+    "purpose": "blog-cta",
+    "imagePattern": "large"
+  },
+  "contentPattern": {
+    "structure": "(heading + copy + CTA button) alongside a promo/screenshot image",
+    "buttonCount": 1,
+    "imageCount": 1
+  },
+  "reuseGuidance": {
+    "suitableFor": [
+      "full-width blog CTA promo bands with a message card and product screenshot",
+      "closing 'try it today' / 'download the guide' promo bands on article pages",
+      "two-part text + image promotional strips"
+    ],
+    "notSuitableFor": [
+      "repeating card grids",
+      "lead-capture heros with an inline form",
+      "tabular comparison content"
+    ]
+  },
+  "usage": {
+    "pagesUsing": ["/blog/how-much-time-is-data-entry-costing-you/index"],
+    "reuseCount": 1,
+    "lastUsed": "2026-08-17T00:00:00.000Z"
+  }
+}

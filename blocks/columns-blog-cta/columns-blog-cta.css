@@ -1,0 +1,214 @@
+/* columns-blog-cta — Fiix blog "Free tour" promo band.
+   Production (https://fiixsoftware.com/blog/...) renders a full-bleed light-gray
+   band (#e1e1e1) with a large product screenshot bleeding to the left viewport
+   edge and a white, soft-shadowed card floating over the right side (heading,
+   supporting copy, cyan "Free tour" pill). Values from source computed styles
+   at 1440px. Mobile stacks the image above a white content card. */
+
+/* full-bleed light-gray band */
+.columns-blog-cta {
+  position: relative;
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  padding: 0;
+  background-color: #e1e1e1;
+  overflow: hidden;
+}
+
+/* the guide promo band (production .modern_cta) is navy rather than light grey */
+.columns-blog-cta.promo {
+  background-color: #244f86;
+}
+
+/* image: production dashboard screenshot */
+.columns-blog-cta img {
+  display: block;
+  width: 100%;
+}
+
+/* --- mobile: stacked (image on top, white card below) --- */
+.columns-blog-cta > div {
+  display: flex;
+  flex-direction: column;
+}
+
+/* text/card cell */
+.columns-blog-cta > div > div {
+  order: 1;
+  margin: 0 16px 40px;
+  padding: 40px 24px;
+  background-color: #fff;
+  box-shadow: 3px 3px 25px rgb(0 0 0 / 12%);
+}
+
+/* image cell on top, bleeds edge to edge */
+.columns-blog-cta > div > .columns-blog-cta-img-col {
+  order: 0;
+  margin: 0;
+  padding: 0;
+  background: none;
+  box-shadow: none;
+}
+
+.columns-blog-cta > div > .columns-blog-cta-img-col img {
+  height: 100%;
+  object-fit: cover;
+}
+
+/* heading */
+.columns-blog-cta h3 {
+  margin: 0;
+  font-family: var(--heading-font-family);
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 1.1;
+  color: var(--text-color);
+}
+
+/* supporting copy */
+.columns-blog-cta p {
+  margin: 10px 0 0;
+  font-size: 20px;
+  font-weight: 300;
+  line-height: normal;
+  color: #58595b;
+}
+
+/* CTA button — EDS auto-decorates the standalone <p><a> into a.button.
+   Production renders a cyan (#00afeb) pill. */
+.columns-blog-cta p.button-container {
+  margin: 20px 0 0;
+}
+
+.columns-blog-cta a.button:any-link,
+.columns-blog-cta a:any-link {
+  display: inline-block;
+  margin: 0;
+  padding: 0 20px;
+  border: 2px solid #00afeb;
+  border-radius: 27px;
+  background-color: #00afeb;
+  color: #fff;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 53px;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.columns-blog-cta a.button:any-link:hover,
+.columns-blog-cta a:any-link:hover {
+  border-color: #0098cc;
+  background-color: #0098cc;
+  color: #fff;
+  text-decoration: none;
+}
+
+/* --- desktop: image bleeds left, white card floats over the right --- */
+@media (width >= 960px) {
+  /* fixed-height band; card is allowed to overhang the bottom edge (production
+     lets the card hang ~50px below the 500px band), so keep overflow visible.
+     The image's own wrapper clips separately. */
+  .columns-blog-cta {
+    height: 500px;
+    min-height: 500px;
+    margin-top: 30px;
+    overflow: visible;
+  }
+
+  /* the row is just a positioning context stub — its children (image + card)
+     are taken out of flow and anchored to the band (which is position:relative
+     and full-bleed, so offsets are relative to the viewport edges, matching
+     production's absolute geometry exactly). */
+  .columns-blog-cta > div {
+    position: static;
+    display: block;
+    max-width: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  /* image wrapper: anchored to the LEFT VIEWPORT EDGE, right edge inset 440px
+     (production figure: left:0; right:440px; height:500; overflow:hidden). */
+  .columns-blog-cta > div > .columns-blog-cta-img-col {
+    position: absolute;
+    top: 0;
+
+    /* right edge inset 440px from the viewport at 1440px; expressed relative to
+       the centered 1200px container so it tracks page content on wider screens
+       (at 1440: (1440-1200)/2 + 320 = 440). */
+    right: calc((100vw - 1200px) / 2 + 320px);
+    left: 0;
+    width: auto;
+
+    /* the general `> div > div` card rule also matches this cell: reset the width
+       clamp so left/right stretch governs the width instead, and the stacking so
+       the image stays behind the card where they overlap. */
+    z-index: auto;
+    max-width: none;
+    height: 500px;
+    margin: 0;
+    padding: 0;
+    order: unset;
+    overflow: hidden;
+  }
+
+  /* image top-aligned crop (production shows the top of the 4:3 dashboard,
+     clipping the bottom — not a centered crop). */
+  .columns-blog-cta > div > .columns-blog-cta-img-col img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
+  }
+
+  /* white card: absolute, anchored to the RIGHT VIEWPORT EDGE (inset 216px),
+     500px wide, 100px from the top so it overhangs the band bottom by ~50px,
+     content vertically centred (production .cta_message). */
+  .columns-blog-cta > div > div {
+    position: absolute;
+    top: 100px;
+
+    /* right edge inset 216px from viewport at 1440px; tracks the centered
+       1200px container (at 1440: (1440-1200)/2 + 96 = 216) so the card keeps a
+       ~96px gutter to the content edge on wider screens. */
+    right: calc((100vw - 1200px) / 2 + 96px);
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    order: unset;
+    width: 500px;
+    max-width: 500px;
+    min-height: 450px;
+    margin: 0;
+    padding: 80px;
+    box-sizing: border-box;
+  }
+
+  .columns-blog-cta h3 {
+    font-size: 38px;
+    line-height: 41.8px;
+  }
+
+  /* the guide promo (production .modern_cta): navy band, the book cover sitting
+     inboard of the left edge and a narrower card over its right half */
+  .columns-blog-cta.promo > div > .columns-blog-cta-img-col {
+    inset: 138px auto 0 19%;
+    width: 650px;
+    max-width: none;
+    height: auto;
+  }
+
+  .columns-blog-cta.promo > div > .columns-blog-cta-img-col img {
+    height: auto;
+    object-fit: contain;
+  }
+
+  .columns-blog-cta.promo > div > div {
+    right: 12%;
+    width: 525px;
+    max-width: 525px;
+    min-height: 400px;
+  }
+}
