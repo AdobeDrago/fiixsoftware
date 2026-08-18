@@ -213,12 +213,159 @@
   display: block;
 }
 
-.hero-lead .hero-lead-media img {
+.hero-lead .hero-lead-media img,
+.hero-lead .hero-lead-media .hero-lead-video {
   display: block;
   width: 100%;
   height: auto;
   object-fit: contain;
 }
+
+/* ============================================================
+   `video-without-form` — /free-cmms split intro hero: full-bleed purple
+   media panel, no form. `video-with-form` (hero-lead.js) needs no CSS of its
+   own -- it keeps the default two-column layout and just swaps the media
+   column's <img> for a <video> (see .hero-lead-media rules above).
+   ============================================================ */
+.hero-lead.video-without-form {
+  display: block;
+  max-width: none;
+  margin: 0;
+  padding: 0;
+  background-color: var(--light-color); /* #f7f9fc */
+}
+
+.hero-lead.video-container .hero-lead-wrapper,
+.section.video-hero .hero-lead-wrapper {
+  max-width: none;
+  padding: 0;
+}
+
+/* media row -> purple panel. Below desktop it's a fixed-height, full-bleed
+   crop box (production's free-cmms mobile hero: the video/screenshot is
+   cropped edge-to-edge, not letterboxed); the desktop split-grid further
+   down restores the uncropped `contain` treatment once there's room for the
+   whole shot. */
+.hero-lead.video-without-form > div:first-child {
+  position: relative;
+  overflow: hidden;
+  height: 350px;
+  margin: 0;
+  padding: 0;
+  background-color: #6d68ea;
+}
+
+.hero-lead.video-without-form > div:first-child picture {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.hero-lead.video-without-form .hero-lead-video,
+.hero-lead.video-without-form > div:first-child img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: left top;
+}
+
+/* --- tablet (768–959px): production switches the shot from a full-bleed
+   crop to a capped-width, centered, natural-aspect image at this range --
+   the panel's fixed height (above) still crops it, but now off the bottom
+   instead of the right edge. --- */
+@media (width >= 768px) {
+  .hero-lead.video-without-form > div:first-child picture,
+  .hero-lead.video-without-form .hero-lead-video,
+  .hero-lead.video-without-form > div:first-child img {
+    width: auto;
+    height: auto;
+    max-width: 500px;
+    margin: 0 auto;
+    object-fit: contain;
+    object-position: center top;
+  }
+}
+
+/* copy row */
+.hero-lead.video-without-form > div:last-child {
+  margin: 0;
+  padding: 40px 24px;
+}
+
+.hero-lead.video-without-form > div:last-child > div {
+  max-width: 540px;
+  margin: 0 auto;
+}
+
+/* eyebrow */
+.hero-lead.video-without-form h1 {
+  margin: 0 0 24px;
+  max-width: none;
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 1.1;
+  text-align: left;
+  text-transform: uppercase;
+  color: var(--text-color);
+}
+
+/* headline */
+.hero-lead.video-without-form h2 {
+  margin: 0 0 24px;
+  max-width: none;
+  padding: 0;
+  font-size: 40px;
+  font-weight: 700;
+  line-height: 1;
+  text-align: left;
+  color: var(--text-color);
+}
+
+/* stylelint-disable-next-line no-descending-specificity */
+.hero-lead.video-without-form p {
+  margin: 0 0 20px;
+  font-size: 20px;
+  font-weight: 300;
+  line-height: 1.4;
+  text-align: left;
+  color: var(--text-color);
+}
+
+/* CTA — a plain bold dark-blue text link with a trailing arrow, not a pill. */
+.hero-lead.video-without-form p.button-container {
+  margin: 0;
+  text-align: left;
+}
+
+/* stylelint-disable no-descending-specificity */
+.hero-lead.video-without-form a.button:any-link,
+.hero-lead.video-without-form a:any-link {
+  display: inline;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: #14499a;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.25;
+  text-align: left;
+  text-decoration: none;
+  white-space: normal;
+}
+
+.hero-lead.video-without-form a:any-link::after {
+  content: ' \2192';
+  font-weight: 700;
+}
+
+.hero-lead.video-without-form a:hover {
+  color: var(--link-hover-color);
+  text-decoration: none;
+}
+
+/* stylelint-enable no-descending-specificity */
 
 /* --- tablet: wider column, headings left-aligned, button still filled -- */
 @media (width >= 768px) {
@@ -251,15 +398,17 @@
   }
 
   /* the flex items are the two authored rows (each holds one cell);
-     row holding the content sits on the left */
-  .hero-lead > div:has(.hero-lead-content) {
+     row holding the content sits on the left. Scoped off the `video` variant,
+     which lays its rows out as grid columns (below) instead -- otherwise this
+     max-width: 40% leaks in and clamps that grid column far below its track. */
+  .hero-lead:not(.video-without-form) > div:has(.hero-lead-content) {
     display: flex;
     order: 1;
     flex: 1 1 600px;
   }
 
   /* row holding the product screenshot sits on the right */
-  .hero-lead > div:has(.hero-lead-media) {
+  .hero-lead:not(.video-without-form) > div:has(.hero-lead-media) {
     display: flex;
     order: 2;
     flex: 0 0 420px;
@@ -295,7 +444,8 @@
     width: 100%;
   }
 
-  .hero-lead .hero-lead-media img {
+  .hero-lead .hero-lead-media img,
+  .hero-lead .hero-lead-media .hero-lead-video {
     width: 420px;
     max-width: 100%;
     margin-left: auto;
@@ -311,5 +461,65 @@
   .hero-lead .hero-lead-stat {
     flex: 1 1 0;
     min-width: 0;
+  }
+
+  /* `video` variant: two equal columns, copy left / purple media panel right,
+     both filling an 850px-min-height band (production). */
+  .hero-lead.video-without-form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: stretch;
+    min-height: 850px;
+    padding: 0;
+  }
+
+  /* copy on the left (row 2 in DOM) */
+  .hero-lead.video-without-form > div:last-child {
+    grid-column: 1;
+    grid-row: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    /* left edge aligns to the centered 1200px container gutter (text starts
+       ~120px from the viewport edge at 1440px). */
+    padding: 60px 40px 60px max(32px, calc((100vw - 1200px) / 2));
+  }
+
+  .hero-lead.video-without-form > div:last-child > div {
+    margin: 0;
+  }
+
+  /* purple media panel on the right (row 1 in DOM). Undo the mobile crop box
+     -- room enough here to show the whole video/screenshot uncropped. */
+  /* stylelint-disable-next-line no-descending-specificity */
+  .hero-lead.video-without-form > div:first-child {
+    grid-column: 2;
+    grid-row: 1;
+    display: flex;
+    overflow: visible;
+    height: auto;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 48px;
+  }
+
+  .hero-lead.video-without-form > div:first-child picture,
+  .hero-lead.video-without-form .hero-lead-video,
+  .hero-lead.video-without-form > div:first-child img {
+    width: 100%;
+    max-width: 620px;
+    height: auto;
+    object-fit: contain;
+  }
+
+  .hero-lead.video-without-form h1 {
+    margin-bottom: 40px;
+  }
+
+  .hero-lead.video-without-form h2 {
+    margin-bottom: 30px;
+    font-size: 64px;
+    line-height: 1;
   }
 }
