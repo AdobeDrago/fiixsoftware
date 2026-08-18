@@ -3,6 +3,7 @@ import {
   loadFooter,
   decorateIcons,
   decorateSections,
+  decorateBlock,
   decorateBlocks,
   decorateTemplateAndTheme,
   waitForFirstImage,
@@ -109,6 +110,75 @@ function buildWidgetAutoBlocks(main) {
 }
 
 /**
+ * Blog articles are authored as a header section (the lead image plus a
+ * `hero-article` block), an unstyled body section, a `blog-share` section and a
+ * closing `blog-cta` section.
+ *
+ * Wraps the body in a `blog-body` block so the reading column, its CTA rail and
+ * the article typography stay self-contained, and lifts the promo that trails
+ * the share links into a band of its own. The live site keeps every blog CTA
+ * band hidden and reveals a single one per page view, so pick the winner here,
+ * before the sections are shown.
+ * @param {Element} main The container element
+ */
+function buildBlogArticleBlocks(main) {
+  const header = main.querySelector(':scope > div.blog-article-header');
+  if (!header) return;
+  document.body.classList.add('blog-article');
+
+  // the import left empty sections behind, which render as dead vertical space
+  [...main.children]
+    .filter((section) => !section.childElementCount)
+    .forEach((section) => section.remove());
+
+  const sections = [...main.children];
+  const body = sections
+    .slice(sections.indexOf(header) + 1)
+    .find((section) => !section.className && section.childElementCount);
+  if (body) {
+    // nested blocks (tables, and so on) move inside the new block, out of reach
+    // of decorateBlocks, so decorate them here to keep them loadable.
+    const nested = [...body.children].filter((child) => child.tagName === 'DIV');
+    body.append(buildBlock('blog-body', { elems: [...body.children] }));
+    nested.forEach((block) => {
+      // the policy administration rows are authored as an `effective-from` block,
+      // but they are the same data table the `table` block renders
+      block.classList.replace('effective-from', 'table');
+      decorateBlock(block);
+    });
+  }
+
+  const share = main.querySelector(':scope > div.blog-share');
+  if (share) {
+    // the share links are labelled "opens in a new tab", so make them behave so
+    share.querySelectorAll('li a[href^="http"]').forEach((link) => {
+      link.target = '_blank';
+      link.rel = 'noopener';
+    });
+  }
+
+  const promoHeading = share && share.querySelector('h2, h3, h4');
+  if (promoHeading) {
+    const promo = [];
+    for (let el = promoHeading; el; el = el.nextElementSibling) promo.push(el);
+    const band = buildBlock('columns-blog-cta', [[
+      { elems: promo.filter((el) => !el.querySelector('picture')) },
+      { elems: promo.filter((el) => el.querySelector('picture')) },
+    ]]);
+    band.classList.add('promo');
+    const section = document.createElement('div');
+    section.className = 'blog-promo';
+    section.append(band);
+    share.after(section);
+  }
+
+  const bands = [...main.querySelectorAll(':scope > div.blog-cta, :scope > div.blog-promo')];
+  if (bands.length) {
+    bands[Math.floor(Math.random() * bands.length)].classList.add('cta-selected');
+  }
+}
+
+/**
  * Builds all synthetic blocks in a container element.
  * @param {Element} main The container element
  */
@@ -132,6 +202,7 @@ function buildAutoBlocks(main) {
       });
     }
     buildWidgetAutoBlocks(main);
+    buildBlogArticleBlocks(main);
   } catch (error) {
     // eslint-disable-next-line no-console
     console.error('Auto Blocking failed', error);

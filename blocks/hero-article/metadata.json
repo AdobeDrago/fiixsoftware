@@ -1,0 +1,39 @@
+{
+  "variantName": "hero-article",
+  "baseBlock": "hero",
+  "version": "1.0.0",
+  "created": "2026-08-17T00:00:00.000Z",
+  "sourceContext": {
+    "originUrl": "https://fiixsoftware.com/blog/how-much-time-is-data-entry-costing-you/",
+    "originPage": "Fiix blog article page",
+    "blockPosition": "top"
+  },
+  "visualCharacteristics": {
+    "colorScheme": "light",
+    "density": "spacious",
+    "purpose": "blog-article-header",
+    "imagePattern": "noimg"
+  },
+  "contentPattern": {
+    "structure": "meta line (date + read-time) + H1 title + author byline + back-to-blog link",
+    "buttonCount": 1,
+    "imageCount": 0
+  },
+  "reuseGuidance": {
+    "suitableFor": [
+      "blog / article page headers with publish date, read-time, title and byline",
+      "editorial article intro headers with a back-to-listing link",
+      "text-driven page headers without a background image"
+    ],
+    "notSuitableFor": [
+      "full-bleed background-image hero banners",
+      "lead-capture heros with an inline form",
+      "product landing heros with a large screenshot"
+    ]
+  },
+  "usage": {
+    "pagesUsing": ["/blog/how-much-time-is-data-entry-costing-you/index"],
+    "reuseCount": 1,
+    "lastUsed": "2026-08-17T00:00:00.000Z"
+  }
+}
