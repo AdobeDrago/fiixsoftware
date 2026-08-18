@@ -57,6 +57,22 @@
   object-fit: contain;
 }
 
+/* Authorable tint. `.icon-masked` is added by the block JS ONLY when an author
+   sets an "Icon color" on the section — so by default the icon image renders as
+   authored. When masked, the image's own alpha silhouette shapes the mask and
+   the cell is painted with the author's --icon-color; the <img> is hidden. */
+.cards-icon.triad .cards-icon-card-image.icon-masked {
+  width: 85px;
+  height: 85px;
+  margin: 0 auto;
+  background-color: var(--icon-color);
+  mask: var(--icon-mask) no-repeat center / contain;
+}
+
+.cards-icon.triad .cards-icon-card-image.icon-masked img {
+  visibility: hidden;
+}
+
 @media (width < 900px) {
   .cards-icon.triad > ul {
     grid-template-columns: 1fr;

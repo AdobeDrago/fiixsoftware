@@ -217,13 +217,12 @@ function decorateSectionMetadata(main) {
           .filter((style) => style)
           .map((style) => toClassName(style.trim()));
         styles.forEach((style) => section.classList.add(style));
-      } else if (key === 'icon-color' || key === 'iconColor') {
-        // Dedicated icon-tint field, orthogonal to `style` (which controls
-        // background/layout). Authors set an "Icon color" section-metadata row to
-        // any CSS colour; expose it as the --icon-color custom property that the
-        // blocks' masked icons inherit. Omitting it leaves each block's brand
-        // default (via var(--icon-color, <default>)). Raw value kept on the
-        // dataset for reference.
+      } else if (/^icon-colou?r$/.test(key)) {
+        // Dedicated icon-tint field, orthogonal to `style` (background/layout).
+        // Authors set an "Icon color" section-metadata row to any CSS colour;
+        // expose it as the --icon-color custom property the blocks' masked icons
+        // inherit. Match both US/UK spellings ("Icon color" / "Icon colour",
+        // which readBlockConfig normalises to icon-color / icon-colour).
         const value = meta[key].trim();
         section.style.setProperty('--icon-color', value);
         section.dataset.iconColor = value;

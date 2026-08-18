@@ -44,6 +44,23 @@ export default function decorate(block) {
   block.textContent = '';
   block.append(ul);
 
+  // triad variant: icons are real images (e.g. PNGs). By default they render as
+  // authored — no tint imposed. ONLY when an author sets an "Icon color" on the
+  // section (the --icon-color custom property) do we recolour: use the image's
+  // own alpha as a mask and paint the icon cell with that colour. The <img> then
+  // serves only as the mask silhouette and is hidden.
+  if (block.classList.contains('triad')) {
+    const hasIconColor = getComputedStyle(block).getPropertyValue('--icon-color').trim() !== '';
+    if (hasIconColor) {
+      ul.querySelectorAll('.cards-icon-card-image img').forEach((img) => {
+        const cell = img.closest('.cards-icon-card-image');
+        if (!cell) return;
+        cell.style.setProperty('--icon-mask', `url("${img.src}")`);
+        cell.classList.add('icon-masked');
+      });
+    }
+  }
+
   // Render any `span.icon` tokens (points variant) into <img> from /icons/, then
   // re-point them at the content-hosted SVGs (falling back to the codebase).
   // By default the icon shows its AUTHORED colour (the fill baked into the SVG) —

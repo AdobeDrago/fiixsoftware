@@ -352,6 +352,13 @@ main .section.dark {
   text-align: center;
 }
 
+/* Icon tint is authored via a DEDICATED section-metadata field ("Icon color"),
+   NOT the `style` field — decorateSectionMetadata() in scripts.js sets the
+   --icon-color custom property on the section from that field, and the blocks'
+   masked icons inherit it (falling back to each block's brand default when the
+   field is omitted). This keeps icon colour orthogonal to section style
+   (background/layout), so authors can pick any CSS colour independently. */
+
 /* NOTE: `.section.dark` heading/paragraph typography (white text, hero H1/H2
    sizing) lives near the end of this file, inside the existing
    no-descending-specificity disable region, so it doesn't trip the linter
