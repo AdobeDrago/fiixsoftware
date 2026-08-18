@@ -1,0 +1,126 @@
+/*
+ * challenge-solution-result — stacked case-study summary timeline.
+ * The live Fiix layout remains vertical at every viewport width.
+ */
+
+.challenge-solution-result {
+  width: 100%;
+  max-width: 664px;
+  margin: 0 auto;
+  color: var(--text-color);
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 1.7;
+}
+
+.challenge-solution-result > div {
+  display: block;
+}
+
+.challenge-solution-result .challenge-solution-result-item {
+  margin: 0;
+  padding: 0;
+}
+
+.challenge-solution-result .challenge-solution-result-item > h2,
+.challenge-solution-result .challenge-solution-result-item > h3,
+.challenge-solution-result .challenge-solution-result-item > h4 {
+  display: flex;
+  align-items: center;
+  max-width: none;
+  margin: 0;
+  padding: 0;
+  color: var(--text-color);
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 22px;
+  text-align: left;
+}
+
+.challenge-solution-result .challenge-solution-result-icon {
+  display: inline-flex;
+  flex: 0 0 40px;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  margin-right: 10px;
+  border-radius: 50%;
+  background-color: #e5e5e5;
+  color: var(--text-color);
+}
+
+.challenge-solution-result .challenge-solution-result-icon svg {
+  width: 24px;
+  height: 24px;
+  fill: none;
+  stroke: currentcolor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.challenge-solution-result .challenge-solution-result-item > ul,
+.challenge-solution-result .challenge-solution-result-item > ol {
+  box-sizing: border-box;
+  width: calc(100% - 18px);
+  margin: 0 0 0 18px;
+  border-left: 4px solid #e5e5e5;
+  padding: 0 15px 30px 50px;
+}
+
+.challenge-solution-result .challenge-solution-result-result > ul,
+.challenge-solution-result .challenge-solution-result-result > ol,
+.challenge-solution-result .challenge-solution-result-item:last-child > ul,
+.challenge-solution-result .challenge-solution-result-item:last-child > ol {
+  border-left-color: transparent;
+}
+
+.challenge-solution-result .challenge-solution-result-item li {
+  margin: 0;
+  padding: 0;
+  text-align: left;
+  overflow-wrap: anywhere;
+}
+
+.challenge-solution-result .challenge-solution-result-external-link:any-link {
+  color: #14499a;
+  font-weight: 500;
+  text-decoration: underline;
+}
+
+.challenge-solution-result .challenge-solution-result-external-link::after {
+  content: '';
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  margin-left: 5px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2314499a' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M14 3h7v7'/%3E%3Cpath d='M10 14 21 3'/%3E%3Cpath d='M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5'/%3E%3C/svg%3E");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  vertical-align: -2px;
+}
+
+.challenge-solution-result .challenge-solution-result-external-link:hover {
+  color: #14499a;
+  text-decoration: underline;
+}
+
+.challenge-solution-result .challenge-solution-result-external-link:focus-visible {
+  border-radius: 2px;
+  outline: 2px solid #14499a;
+  outline-offset: 3px;
+}
+
+.challenge-solution-result .challenge-solution-result-new-tab {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  border: 0;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
