@@ -14,13 +14,13 @@
   font-size: var(--body-font-size-xs);
 }
 
-@media (width >= 600px) {
+@media (width >= 768px) {
   .table-compare.block table {
     font-size: var(--body-font-size-s);
   }
 }
 
-@media (width >= 900px) {
+@media (width >= 960px) {
   .table-compare.block table {
     font-size: 16px;
   }

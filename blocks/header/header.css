@@ -54,7 +54,7 @@ header nav[aria-expanded='true'] {
   min-height: 100dvh;
 }
 
-@media (width >= 900px) {
+@media (width >= 960px) {
   header .nav-wrapper { position: fixed; }
 
   /* Two-tier desktop header (utility row + main row) is packed into 100px to
@@ -209,7 +209,7 @@ header nav[aria-expanded='true'] .nav-hamburger-icon::after {
   transform: rotate(-45deg);
 }
 
-@media (width >= 900px) {
+@media (width >= 960px) {
   header nav .nav-hamburger {
     display: none;
     visibility: hidden;
@@ -260,7 +260,7 @@ header nav .nav-sections .default-content-wrapper > ul > li {
 
 header nav .nav-sections a:hover { color: var(--fiix-hover); }
 
-@media (width >= 900px) {
+@media (width >= 960px) {
   header nav .nav-sections {
     display: block;
     visibility: visible;
@@ -703,9 +703,8 @@ header nav a.nav-search {
   background-position: center;
 }
 
-/* CTA buttons — pill shape, brand colors.
-   Mobile/tablet default: "Book a demo" is a cyan pill (matches Fiix source);
-   the desktop media query below switches it to the blue pill + adds "Free tour". */
+/* CTA buttons — pill shape, brand colors. Mobile/tablet default: "Book a
+   demo" is a cyan pill; desktop (≥960) switches it to the blue pill. */
 header nav .nav-tools a.nav-cta {
   display: inline-block;
   border-radius: 40px;
@@ -722,33 +721,27 @@ header nav .nav-tools a.nav-cta:hover {
   opacity: 0.92;
 }
 
-/* Book a demo = blue (first CTA), Free tour = green (second CTA) */
+/* Mobile/tablet: "Book a demo" (first CTA) is a cyan pill — 20px/700, 2px
+   cyan border, 27px radius, with vertical margins (matches Fiix source). */
 header nav .nav-tools li:nth-last-child(2) a.nav-cta {
-  background-color: var(--fiix-blue);
+  margin: 10px 0 20px;
+  border: 2px solid var(--fiix-cyan-cta);
+  border-radius: 27px;
+  padding: 8px 19px;
+  background-color: var(--fiix-cyan-cta);
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 34px;
 }
 
+/* Free tour stays green at all sizes */
 header nav .nav-tools li:last-child a.nav-cta {
   background-color: var(--fiix-green);
 }
 
-/* Mobile/tablet: "Book a demo" (first CTA) is a cyan pill — 20px/700, 2px cyan
-   border, 27px radius, centered, with vertical margins (matches Fiix source). */
-@media (width < 900px) {
-  header nav .nav-tools li:nth-last-child(2) a.nav-cta {
-    margin: 10px 0 20px;
-    border: 2px solid var(--fiix-cyan-cta);
-    border-radius: 27px;
-    padding: 8px 19px;
-    background-color: var(--fiix-cyan-cta);
-    font-size: 20px;
-    font-weight: 700;
-    line-height: 34px;
-  }
-}
-
-/* Desktop/wide: both CTAs are 16px/27.2px pills nudged up 6px; Free tour sits
+/* Desktop: both CTAs are 16px/27.2px pills nudged up 6px; Free tour sits
    10px right of Book a demo (matches Fiix source). */
-@media (width >= 900px) {
+@media (width >= 960px) {
   header nav .nav-tools a.nav-cta {
     padding: 7px 19px;
     font-size: 16px;
@@ -756,11 +749,77 @@ header nav .nav-tools li:last-child a.nav-cta {
   }
 
   header nav .nav-tools li:nth-last-child(2) a.nav-cta {
-    margin-top: -6px;
+    margin: -6px 0 0;
+    border: 0;
+    border-radius: 40px;
+    background-color: var(--fiix-blue);
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 27.2px;
   }
 
   header nav .nav-tools li:last-child a.nav-cta {
     margin-top: -6px;
+    margin-left: 10px;
+  }
+}
+
+/* Compact desktop from 960px (nav row is ~1097px wide, so pack tighter until
+   the centered 1200px container has room). Roomy spacing returns at 1200px. */
+@media (width >= 960px) {
+  header nav {
+    gap: 18px 14px;
+    padding: 8px 16px 10px;
+  }
+
+  header nav .nav-brand img {
+    height: 32px;
+  }
+
+  header nav .nav-tools ul {
+    gap: 10px;
+  }
+
+  header nav .nav-sections > ul,
+  header nav .nav-sections .default-content-wrapper > ul {
+    gap: 14px;
+  }
+
+  header nav .nav-tools a.nav-cta {
+    padding: 6px 14px;
+    font-size: 15px;
+  }
+
+  header nav .nav-tools li:last-child a.nav-cta {
+    margin-left: 0;
+  }
+}
+
+@media (width >= 1200px) {
+  header nav {
+    gap: 18px 28px;
+    padding: 8px 0 10px;
+  }
+
+  header nav .nav-brand img {
+    height: 37px;
+  }
+
+  header nav .nav-tools ul {
+    gap: 16px;
+  }
+
+  header nav .nav-sections > ul,
+  header nav .nav-sections .default-content-wrapper > ul {
+    gap: 28px;
+  }
+
+  header nav .nav-tools a.nav-cta {
+    padding: 7px 19px;
+    font-size: 16px;
+  }
+
+  header nav .nav-tools li:last-child a.nav-cta {
     margin-left: 10px;
   }
 }

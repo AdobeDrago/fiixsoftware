@@ -21,9 +21,12 @@ function updateNavState(block) {
   const prev = block.querySelector('.slide-prev');
   const next = block.querySelector('.slide-next');
   if (!prev || !next) return;
+  // Scroll snapping aligns the first slide's edge with the snapport, so at rest
+  // scrollLeft sits at the track's inline padding rather than 0.
+  const tolerance = parseFloat(getComputedStyle(slides).paddingInlineStart) + 1;
   const maxScroll = slides.scrollWidth - slides.clientWidth;
-  prev.disabled = slides.scrollLeft <= 1;
-  next.disabled = slides.scrollLeft >= maxScroll - 1;
+  prev.disabled = slides.scrollLeft <= tolerance;
+  next.disabled = slides.scrollLeft >= maxScroll - tolerance;
 }
 
 /**
@@ -114,14 +117,109 @@ function decorateTestimonialCard(slide) {
   content.append(footer);
 }
 
-function createSlide(row, slideIndex, carouselId) {
+/**
+ * Case-study variant: a white card (logo, title, quote, author, CTA) beside a
+ * case-study photo with a decorative circle behind it (matches the source
+ * `.section6` case-study slider). Only classifies existing paragraphs/columns
+ * -- it does not read new content beyond an optional third "photo" column.
+ * @param {Element} slide the decorated slide (li)
+ */
+function decorateCaseStudySlide(slide) {
+  const content = slide.querySelector('.carousel-testimonial-slide-content');
+  if (!content) return;
+
+  const paragraphs = [...content.querySelectorAll(':scope > p')];
+  // The CTA is the paragraph containing a link.
+  const ctaParagraph = paragraphs.find((p) => p.querySelector('a'));
+  // The author line starts with a dash ("- Name, Role, Company").
+  const authorParagraph = paragraphs.find(
+    (p) => p !== ctaParagraph && /^\s*[-–—]/.test(p.textContent),
+  );
+  const rest = paragraphs.filter((p) => p !== ctaParagraph && p !== authorParagraph);
+  // First remaining paragraph is the headline; any others are the quote body.
+  const [titleParagraph, ...quoteParagraphs] = rest;
+
+  if (titleParagraph) {
+    titleParagraph.classList.add('carousel-testimonial-cs-title');
+    // An <em> in the title marks the phrase to highlight (matches the source
+    // site's "$2 billion company..." marker-highlight treatment).
+    const highlight = titleParagraph.querySelector('em');
+    if (highlight) highlight.classList.add('carousel-testimonial-cs-highlight');
+  }
+  quoteParagraphs.forEach((p) => p.classList.add('carousel-testimonial-cs-quote'));
+  if (authorParagraph) authorParagraph.classList.add('carousel-testimonial-cs-author');
+  if (ctaParagraph) ctaParagraph.classList.add('carousel-testimonial-cs-cta');
+
+  // The media column stacks the company logo above the case-study photo. A
+  // decorative circle is drawn behind the photo purely in CSS.
+  const media = slide.querySelector('.carousel-testimonial-slide-media');
+  if (media) {
+    const mediaParagraphs = [...media.querySelectorAll(':scope > p')];
+    const images = mediaParagraphs
+      .filter((p) => p.querySelector('picture, img'));
+    // The last image is the case-study photo. Any image before it is the
+    // company logo, which not every case study has.
+    const photo = images.pop();
+    const logo = images.pop();
+    if (photo) {
+      media.classList.add('carousel-testimonial-cs-media');
+      photo.classList.add('carousel-testimonial-cs-photo');
+      if (logo) logo.classList.add('carousel-testimonial-cs-logo');
+
+      const videoParagraph = mediaParagraphs.find((p) => {
+        if (p === photo || p === logo) return false;
+        const href = p.querySelector('a')?.href || p.textContent.trim();
+        try {
+          const { hostname } = new URL(href);
+          return hostname === 'youtube.com'
+            || hostname.endsWith('.youtube.com')
+            || hostname === 'youtu.be';
+        } catch {
+          return false;
+        }
+      });
+      if (videoParagraph) {
+        const href = videoParagraph.querySelector('a')?.href
+          || videoParagraph.textContent.trim();
+        const link = document.createElement('a');
+        link.href = href;
+        link.target = '_blank';
+        link.rel = 'noopener noreferrer';
+        link.setAttribute('aria-label', photo.querySelector('img')?.alt || 'Play video on YouTube');
+        link.append(...photo.childNodes);
+        photo.append(link);
+        videoParagraph.remove();
+      }
+    } else {
+      media.remove();
+    }
+  }
+
+  // Group the card + media into a row that carries the max-width/centering.
+  // This must NOT live on the slide (li) itself -- the slide is a flex item
+  // of the slides track (flex: 0 0 100%), and capping its own max-width there
+  // shrinks its allocated track space too, letting the next slide bleed into
+  // view. Constraining an inner row keeps the track at the full 100% width.
+  const row = document.createElement('div');
+  row.classList.add('carousel-testimonial-cs-row');
+  row.append(...slide.children);
+  slide.append(row);
+}
+
+function createSlide(row, slideIndex, carouselId, isCaseStudy) {
   const slide = document.createElement('li');
   slide.dataset.slideIndex = slideIndex;
   slide.setAttribute('id', `carousel-testimonial-${carouselId}-slide-${slideIndex}`);
   slide.classList.add('carousel-testimonial-slide');
 
   row.querySelectorAll(':scope > div').forEach((column, colIdx) => {
-    column.classList.add(`carousel-testimonial-slide-${colIdx === 0 ? 'image' : 'content'}`);
+    // Case-study rows lead with the copy and follow with a media column holding
+    // the company logo and the case-study photo. The default testimonial rows
+    // lead with the author headshot instead.
+    let role;
+    if (isCaseStudy) role = colIdx === 0 ? 'content' : 'media';
+    else role = colIdx === 0 ? 'image' : 'content';
+    column.classList.add(`carousel-testimonial-slide-${role}`);
     slide.append(column);
   });
 
@@ -130,7 +228,11 @@ function createSlide(row, slideIndex, carouselId) {
     slide.setAttribute('aria-labelledby', labeledBy.getAttribute('id'));
   }
 
-  decorateTestimonialCard(slide);
+  if (isCaseStudy) {
+    decorateCaseStudySlide(slide);
+  } else {
+    decorateTestimonialCard(slide);
+  }
 
   return slide;
 }
@@ -139,6 +241,7 @@ let carouselId = 0;
 export default async function decorate(block) {
   carouselId += 1;
   block.setAttribute('id', `carousel-testimonial-${carouselId}`);
+  const isCaseStudy = block.classList.contains('case-study');
   const rows = block.querySelectorAll(':scope > div');
   const isSingleSlide = rows.length < 2;
 
@@ -174,7 +277,7 @@ export default async function decorate(block) {
   }
 
   rows.forEach((row, idx) => {
-    const slide = createSlide(row, idx, carouselId);
+    const slide = createSlide(row, idx, carouselId, isCaseStudy);
     slidesWrapper.append(slide);
 
     if (slideIndicators) {

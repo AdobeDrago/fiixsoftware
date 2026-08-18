@@ -40,7 +40,7 @@
   height: 100%;
 }
 
-@media (width >= 900px) {
+@media (width >= 960px) {
   .hero-cta {
     padding: 40px 32px;
   }
@@ -101,28 +101,7 @@
   margin: 0 auto 16px;
 }
 
-/* CTA link renders as a bare <a> (no .button class). Production styles it as a
-   solid cyan pill button. Values from source computed styles. */
-.section.cta .hero-cta a:any-link {
-  display: inline-block;
-  padding: 0 20px;
-  border: 2px solid #00afeb;
-  border-radius: 27px;
-  background-color: #00afeb;
-  color: #fff;
-  font-size: 20px;
-  font-weight: 700;
-  line-height: 53px;
-  text-decoration: none;
-  transition: background-color 0.2s, border-color 0.2s;
-}
-
-.section.cta .hero-cta a:any-link:hover {
-  border-color: #0090c4;
-  background-color: #0090c4;
-}
-
-@media (width >= 900px) {
+@media (width >= 960px) {
   .section.cta {
     padding: 115px 0 80px;
   }

@@ -19,16 +19,7 @@
   display: block;
 }
 
-/* 3-column text variant (case study challenge/solution/result): columns have
-   unequal content lengths, so headings must line up at the top rather than
-   center. Scoped to the JS-added .columns-media-3-cols modifier so the 2-col
-   media instances on other templates keep their centered alignment. */
-.columns-media.columns-media-3-cols a {
-  color: rgb(20 73 154);
-  text-decoration: underline;
-}
-
-@media (width >= 900px) {
+@media (width >= 960px) {
   .columns-media > div {
     align-items: center;
     flex-direction: unset;

@@ -1,7 +1,7 @@
 /*
  * cards-cta — dual call-to-action panels.
  * Values extracted from the source (fiixsoftware.com .bottom-cta-double).
- * Mobile-first: panels stack on small screens, sit side-by-side at >= 900px.
+ * Mobile-first: panels stack on small screens, sit side-by-side at >= 960px.
  */
 
 .cards-cta {
@@ -94,7 +94,7 @@
   text-decoration: none;
 }
 
-@media (width >= 900px) {
+@media (width >= 960px) {
   .cards-cta {
     flex-direction: row;
     gap: 48px;

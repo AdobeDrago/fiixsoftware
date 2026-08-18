@@ -221,7 +221,7 @@
 }
 
 /* --- tablet: wider column, headings left-aligned, button still filled -- */
-@media (width >= 600px) {
+@media (width >= 768px) {
   .hero-lead .hero-lead-content h1 {
     font-size: 48px;
     text-align: left;
@@ -237,7 +237,7 @@
 }
 
 /* --- desktop: two columns side by side ----------------------------- */
-@media (width >= 900px) {
+@media (width >= 960px) {
   .hero-lead {
     flex-direction: row;
     align-items: center;

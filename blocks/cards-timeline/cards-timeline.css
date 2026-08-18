@@ -81,7 +81,7 @@
 }
 
 /* tablet+: lay the milestones along a horizontal rail */
-@media (width >= 600px) {
+@media (width >= 768px) {
   .cards-timeline > ul {
     flex-direction: row;
     justify-content: space-between;
@@ -147,7 +147,7 @@
   }
 }
 
-@media (width >= 900px) {
+@media (width >= 960px) {
   .cards-timeline > ul {
     gap: 24px;
   }

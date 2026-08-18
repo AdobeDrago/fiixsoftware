@@ -112,7 +112,7 @@
   font-weight: 700;
 }
 
-@media (width >= 900px) {
+@media (width >= 960px) {
   .columns-callout > div {
     align-items: center;
     flex-direction: unset;

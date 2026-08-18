@@ -5,6 +5,7 @@
 import accordionFaqParser from './parsers/accordion-faq.js';
 import cardsCtaParser from './parsers/cards-cta.js';
 import cardsFeaturesParser from './parsers/cards-features.js';
+import cardsTestimonialParser from './parsers/cards-testimonial.js';
 import cardsVideoParser from './parsers/cards-video.js';
 import carouselTestimonialParser from './parsers/carousel-testimonial.js';
 import columnsCalloutParser from './parsers/columns-callout.js';
@@ -21,6 +22,7 @@ const parsers = {
   'accordion-faq': accordionFaqParser,
   'cards-cta': cardsCtaParser,
   'cards-features': cardsFeaturesParser,
+  'cards-testimonial': cardsTestimonialParser,
   'cards-video': cardsVideoParser,
   'carousel-testimonial': carouselTestimonialParser,
   'columns-callout': columnsCalloutParser,
@@ -81,9 +83,14 @@ const PAGE_TEMPLATE = {
       ]
     },
     {
+      "name": "cards-testimonial",
+      "instances": [
+        ".social-proof-ratings"
+      ]
+    },
+    {
       "name": "carousel-testimonial",
       "instances": [
-        ".social-proof-ratings",
         ".section6 #features-ent"
       ]
     },
@@ -195,7 +202,7 @@ const PAGE_TEMPLATE = {
       ],
       "style": "pf-testimonials",
       "blocks": [
-        "carousel-testimonial"
+        "cards-testimonial"
       ],
       "defaultContent": [
         ".social-proof-ratings h2"

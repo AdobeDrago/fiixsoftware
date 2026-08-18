@@ -1,0 +1,77 @@
+/* Block: cards-testimonial -- static 3-up grid of short review cards.
+   Visual values extracted from source (fiixsoftware.com .social-proof-ratings
+   .flex > div card, 1440px). */
+
+.cards-testimonial {
+  --cards-testimonial-ink: rgb(65 64 66);
+  --cards-testimonial-star: #ffd600;
+  --cards-testimonial-gap: clamp(1.5rem, 4vw, 2.5rem);
+}
+
+.cards-testimonial .cards-testimonial-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--cards-testimonial-gap);
+}
+
+/* ---- Card ---- */
+.cards-testimonial .cards-testimonial-card {
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  background-color: #fff;
+  border-radius: 20px;
+  box-shadow: 10px 10px 33px rgb(0 0 0 / 10%);
+  padding: 40px 20px;
+  text-align: center;
+  color: var(--cards-testimonial-ink);
+}
+
+/* ---- Star rating ---- */
+.cards-testimonial .cards-testimonial-rating {
+  margin: 0;
+  line-height: 1;
+  font-size: 18px;
+  letter-spacing: 2px;
+}
+
+.cards-testimonial .cards-testimonial-star {
+  color: var(--cards-testimonial-star);
+}
+
+.cards-testimonial .cards-testimonial-star-empty {
+  color: rgb(0 0 0 / 15%);
+}
+
+/* ---- Quote ---- */
+.cards-testimonial .cards-testimonial-quote {
+  margin: 15px 0 20px;
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 1.6;
+  color: var(--cards-testimonial-ink);
+}
+
+/* ---- Author ---- */
+.cards-testimonial .cards-testimonial-author {
+  margin-top: auto;
+}
+
+.cards-testimonial .cards-testimonial-name,
+.cards-testimonial .cards-testimonial-role {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--cards-testimonial-ink);
+}
+
+/* ---- Desktop: three cards side by side ---- */
+@media (width >= 960px) {
+  .cards-testimonial .cards-testimonial-list {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
