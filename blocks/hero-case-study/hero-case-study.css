@@ -86,28 +86,42 @@ body:has(.hero-case-study) main > .section.hero-case-study-container {
 /* back link — dark Fiix blue, medium weight, no underline, preceded by a
    circle-arrow-left icon (production uses a Font Awesome glyph). */
 .hero-case-study a:any-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
+  position: relative;
+  display: inline;
   color: #14499a;
   font-size: 20px;
   font-weight: 500;
   text-decoration: none;
+  vertical-align: top;
 }
 
-.hero-case-study a:any-link:hover {
-  text-decoration: underline;
+.hero-case-study a:any-link:hover,
+.hero-case-study a:any-link:focus-visible {
+  text-decoration: none;
 }
 
 .hero-case-study a:any-link::before {
   content: '';
-  display: inline-block;
-  width: 20px;
-  height: 20px;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2314499a' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='10'/%3E%3Cpath d='M13 8l-4 4 4 4'/%3E%3Cpath d='M16 12H9'/%3E%3C/svg%3E");
+  position: absolute;
+  top: 50%;
+  left: -30px;
+  box-sizing: border-box;
+  width: 24px;
+  height: 24px;
+  border: 2px solid #14499a;
+  border-radius: 50%;
+  background-color: transparent;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='%2314499a' d='M7.1 2.8 1.9 8l5.2 5.2 1.5-1.5L6 9.1h8.1V6.9H6l2.6-2.6z'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: center;
-  background-size: contain;
+  background-size: 14px 14px;
+  transform: translateY(-50%);
+}
+
+.hero-case-study a:any-link:hover::before,
+.hero-case-study a:any-link:focus-visible::before {
+  background-color: #14499a;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='%23fff' d='M7.1 2.8 1.9 8l5.2 5.2 1.5-1.5L6 9.1h8.1V6.9H6l2.6-2.6z'/%3E%3C/svg%3E");
 }
 
 @media (width >= 768px) {
