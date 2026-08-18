@@ -17,13 +17,17 @@ main .section > .hero-case-study-wrapper {
   padding: 0;
 }
 
+body:has(.hero-case-study) main > .section.hero-case-study-container {
+  margin-bottom: 0;
+}
+
 .hero-case-study {
   position: relative;
   display: flex;
   align-items: flex-start;
   justify-content: center;
-  min-height: 500px;
-  padding: 0 24px;
+  min-height: 700px;
+  padding: 0 19px;
   overflow: hidden;
   color: var(--text-color);
 
@@ -31,7 +35,7 @@ main .section > .hero-case-study-wrapper {
   background-image: url('../../images/case-study-hero-banner.webp');
   background-repeat: no-repeat;
   background-position: left bottom;
-  background-size: 360px auto;
+  background-size: 700px auto;
 }
 
 /* row: vertically centers the content cell within the upper band, matching
@@ -41,11 +45,12 @@ main .section > .hero-case-study-wrapper {
   align-items: center;
   justify-content: center;
   width: 100%;
-  min-height: 460px;
+  min-height: 500px;
 }
 
 /* content cell */
 .hero-case-study > div > div {
+  width: 100%;
   max-width: 680px;
   text-align: center;
 }
@@ -105,18 +110,20 @@ main .section > .hero-case-study-wrapper {
   background-size: contain;
 }
 
+@media (width >= 768px) {
+  .hero-case-study {
+    /* tablet/desktop: purple banner covers the right side, full height,
+       anchored to the bottom-right corner. */
+    padding-right: 24px;
+    padding-left: 24px;
+    background-position: right bottom;
+    background-size: 40% 100%;
+  }
+}
+
 @media (width >= 900px) {
   .hero-case-study {
-    min-height: 700px;
-
-    /* desktop: purple banner covers the right third, full height,
-       anchored to the bottom-right corner. */
-    background-position: right bottom;
     background-size: 35% 100%;
-  }
-
-  .hero-case-study > div {
-    min-height: 500px;
   }
 
   .hero-case-study h1 {

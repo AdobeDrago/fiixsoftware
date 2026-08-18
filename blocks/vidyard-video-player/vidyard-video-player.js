@@ -67,11 +67,47 @@ function createPlayerPlaceholder(uuid, autoplay) {
   return image;
 }
 
+function decorateCaseStudyExternalLinks(block) {
+  if (!document.querySelector('.hero-case-study')) return;
+
+  const section = block.closest('.vidyard-video-player-container');
+  if (!section) return;
+
+  section.querySelectorAll('.default-content-wrapper a[href]').forEach((link) => {
+    let url;
+    try {
+      url = new URL(link.href);
+    } catch {
+      return;
+    }
+    if (url.origin === window.location.origin) return;
+
+    link.target = '_blank';
+    link.rel = 'noopener noreferrer';
+    link.classList.add('vidyard-video-player-external-link');
+
+    const annotation = link.nextSibling;
+    if (annotation?.nodeType === Node.TEXT_NODE) {
+      annotation.textContent = annotation.textContent
+        .replace(/^\s*\(opens in new tab\)\s*/i, ' ');
+    }
+
+    if (!link.querySelector('.vidyard-video-player-new-tab')) {
+      const announcement = document.createElement('span');
+      announcement.className = 'vidyard-video-player-new-tab';
+      announcement.textContent = ' (opens in new tab)';
+      link.append(announcement);
+    }
+  });
+}
+
 /**
  * Loads and decorates a Vidyard video player block.
  * @param {Element} block The block element
  */
 export default async function decorate(block) {
+  decorateCaseStudyExternalLinks(block);
+
   const uuid = getVideoUuid(block);
   if (!uuid) return;
 
