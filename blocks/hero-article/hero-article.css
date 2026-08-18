@@ -156,7 +156,7 @@ main > .section.hero-article-container > .hero-article-wrapper {
   box-shadow: none;
 }
 
-@media (width >= 900px) {
+@media (width >= 768px) {
   /* the source slides the band 190px up behind the fixed nav, then lets the
      card overhang the band's bottom edge; the bottom margin reserves that
      overhang so the article clears the card by the same 10px as the source */
@@ -188,5 +188,16 @@ main > .section.hero-article-container > .hero-article-wrapper {
 
   .hero-article.no-image {
     margin-bottom: 0;
+  }
+}
+
+@media (width >= 1200px) {
+  /* the source stops pinning the card to the band's left edge past 1440px and
+     floats it in from 10% of the viewport instead, overhanging the band by
+     125px (rather than 190px); pulled forward to the project's 1200px desktop
+     breakpoint to keep the block on the shared 768/960/1200 scale */
+  .hero-article-card {
+    top: 275px;
+    left: 10%;
   }
 }

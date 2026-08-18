@@ -172,6 +172,19 @@
   vertical-align: bottom;
 }
 
+/* the source floats this artwork small and to the right, with the paragraph's
+   own text wrapping the remaining space beside it */
+.blog-body-column > p > picture.blog-body-inline-image {
+  float: right;
+  width: 175px;
+  margin: 40px 0 10px 30px;
+}
+
+.blog-body-column > p > picture.blog-body-inline-image img {
+  display: block;
+  width: 100%;
+}
+
 .blog-body-column > .table {
   margin: 60px 0;
 }
@@ -249,7 +262,7 @@
   color: #fff;
 }
 
-@media (width >= 900px) {
+@media (width >= 960px) {
   /* 664px of copy + a 340px rail, spaced like the source's
      `justify-content: space-around` inside the 1200px container */
   .blog-body-layout {

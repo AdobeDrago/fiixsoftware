@@ -105,7 +105,7 @@
 }
 
 /* --- desktop: image bleeds left, white card floats over the right --- */
-@media (width >= 900px) {
+@media (width >= 960px) {
   /* fixed-height band; card is allowed to overhang the bottom edge (production
      lets the card hang ~50px below the 500px band), so keep overflow visible.
      The image's own wrapper clips separately. */

@@ -97,6 +97,21 @@ function decorateRail(layout, column) {
 }
 
 /**
+ * Floats an image the author dropped inline with copy (a `<picture>` sharing a
+ * paragraph with trailing text) to the right of that text, as the source does,
+ * rather than leaving it to break onto its own full-width line.
+ * @param {Element} column The reading column
+ */
+function decorateInlineImages(column) {
+  column.querySelectorAll(':scope > p > picture').forEach((picture) => {
+    const { parentElement: paragraph } = picture;
+    if (paragraph.childNodes.length > 1 && paragraph.textContent.trim()) {
+      picture.classList.add('blog-body-inline-image');
+    }
+  });
+}
+
+/**
  * Adds the reading progress bar and keeps it in step with the scroll position.
  * @param {Element} block The block element
  */
@@ -135,6 +150,7 @@ export default function decorate(block) {
 
   decorateInlineCtas(column);
   decorateTableOfContents(column);
+  decorateInlineImages(column);
   decorateRail(layout, column);
   hideNewTabLabels(block);
   addReadingProgress(block);
