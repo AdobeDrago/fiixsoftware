@@ -1,7 +1,5 @@
-/* Fiix FAQ accordion — matches the pricing page: no card/box, each row
-   separated by a thin dotted rule, question in bold with a cyan +/- toggle
-   on the right (production uses a Font Awesome plus/minus; reproduced here
-   with CSS so no icon font is required). */
+/* Fiix FAQ accordion: dotted-rule rows, bold question, cyan +/- toggle
+   (built with CSS, no icon font). */
 
 .accordion-faq details {
   border: 0;
@@ -33,7 +31,6 @@
   display: none;
 }
 
-/* question heading sits flush inside the summary */
 .accordion-faq details summary h3 {
   margin: 0;
   font-size: 20px;
@@ -42,8 +39,7 @@
   color: var(--text-color);
 }
 
-/* cyan "+" toggle: a horizontal bar (::after) crossed by a vertical bar
-   (::before) that is hidden when open, turning the plus into a minus. */
+/* "+" is two bars; hiding ::before on open leaves the "-" */
 .accordion-faq details summary::before,
 .accordion-faq details summary::after {
   content: '';
@@ -83,33 +79,33 @@
   background-color: transparent;
 }
 
-/* ============================================================
-   Enterprise "Maintenance software even IT will love": accordion on the left,
-   a synced quote-image panel on the right. Opening a row (single-open) swaps
-   the panel's coloured background + quote image. Colours measured from
-   production per row (data security / uptime / permissions / no-touch).
-   Scoped to .enterprise-scale so the pricing FAQ accordion is unaffected.
-   ============================================================ */
+/* enterprise-scale: accordion left, synced image panel right.
+   pf-explore: image panel left, accordion right. Colours per row measured
+   from production. */
 @media (width >= 960px) {
-  main .section.enterprise-scale .accordion-faq-flex {
+  main .section.enterprise-scale .accordion-faq-flex,
+  main .section.pf-explore .accordion-faq-flex {
     display: flex;
     gap: 40px;
     align-items: stretch;
   }
 
-  main .section.enterprise-scale .accordion-faq-flex .accordion-faq {
+  main .section.enterprise-scale .accordion-faq-flex .accordion-faq,
+  main .section.pf-explore .accordion-faq-flex .accordion-faq {
     flex: 1;
     min-width: 0;
   }
 
-  main .section.enterprise-scale .accordion-faq-panel {
+  main .section.enterprise-scale .accordion-faq-panel,
+  main .section.pf-explore .accordion-faq-panel {
     display: flex;
     position: relative;
     flex: 0 0 48%;
   }
 }
 
-main .section.enterprise-scale .accordion-faq-figure {
+main .section.enterprise-scale .accordion-faq-figure,
+main .section.pf-explore .accordion-faq-figure {
   display: none;
   box-sizing: border-box;
   width: 100%;
@@ -119,11 +115,13 @@ main .section.enterprise-scale .accordion-faq-figure {
   justify-content: center;
 }
 
-main .section.enterprise-scale .accordion-faq-figure.active {
+main .section.enterprise-scale .accordion-faq-figure.active,
+main .section.pf-explore .accordion-faq-figure.active {
   display: flex;
 }
 
-main .section.enterprise-scale .accordion-faq-figure img {
+main .section.enterprise-scale .accordion-faq-figure img,
+main .section.pf-explore .accordion-faq-figure img {
   width: 100%;
   max-width: 460px;
   height: auto;
@@ -134,12 +132,15 @@ main .section.enterprise-scale .accordion-faq-figure-2 { background-color: rgb(6
 main .section.enterprise-scale .accordion-faq-figure-3 { background-color: rgb(19 39 72); }
 main .section.enterprise-scale .accordion-faq-figure-4 { background-color: rgb(77 62 141); }
 
-/* Row states: production's OPEN row is an elevated white card (bg #fff, soft
-   shadow, 40px padding); closed rows are flat with no dotted rule and their
-   text left-aligned to the open card's inset so nothing shifts when a row
-   opens/closes. Measured on production: open row bg #fff, box-shadow
-   3px 3px 25px rgb(0 0 0 / 12%), padding 40px. Scoped to .enterprise-scale so
-   the pricing FAQ keeps its dotted-rule look. */
+main .section.pf-explore .accordion-faq-figure-1 { background-color: #635ce8; }
+main .section.pf-explore .accordion-faq-figure-2 { background-color: #ffd600; }
+main .section.pf-explore .accordion-faq-figure-3 { background-color: #3cc0cb; }
+main .section.pf-explore .accordion-faq-figure-4 { background-color: #4d3e8d; }
+main .section.pf-explore .accordion-faq-figure-5 { background-color: #132748; }
+main .section.pf-explore .accordion-faq-figure-6 { background-color: #00afeb; }
+
+/* enterprise-scale open row: elevated white card, no dotted rule; padding
+   matches on open/closed so nothing shifts. */
 main .section.enterprise-scale .accordion-faq details {
   border-bottom: 0;
 }

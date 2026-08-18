@@ -2652,9 +2652,10 @@ main > .section.pf-testimonials .default-content-wrapper:last-child h2 a:any-lin
 }
 
 /* ---- pf-explore: case-study carousel + "Explore" heading + award
-   badges + features accordion. Production stacks these; the six stray
-   product screenshots between the badges and accordion are decorative
-   duplicates in the authored content — hide them. ---- */
+   badges + features accordion. The six product screenshots authored
+   between the badges and the accordion are relocated by accordion-faq.js
+   into a synced image panel beside the accordion (see accordion-faq.css)
+   instead of rendering inline. ---- */
 main > .section.pf-explore {
   margin: 0;
   padding: 60px 0;
@@ -2682,12 +2683,6 @@ main > .section.pf-explore .columns-logos img {
   height: auto;
   max-height: 90px;
   object-fit: contain;
-}
-
-/* suppress the six loose product-screenshot paragraphs that render between
-   the badges and the accordion (they have no equivalent in production) */
-main > .section.pf-explore .default-content-wrapper > p:has(> picture:only-child) {
-  display: none;
 }
 
 main > .section.pf-explore .accordion-faq h3 {
