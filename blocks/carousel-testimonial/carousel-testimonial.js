@@ -21,9 +21,12 @@ function updateNavState(block) {
   const prev = block.querySelector('.slide-prev');
   const next = block.querySelector('.slide-next');
   if (!prev || !next) return;
+  // Scroll snapping aligns the first slide's edge with the snapport, so at rest
+  // scrollLeft sits at the track's inline padding rather than 0.
+  const tolerance = parseFloat(getComputedStyle(slides).paddingInlineStart) + 1;
   const maxScroll = slides.scrollWidth - slides.clientWidth;
-  prev.disabled = slides.scrollLeft <= 1;
-  next.disabled = slides.scrollLeft >= maxScroll - 1;
+  prev.disabled = slides.scrollLeft <= tolerance;
+  next.disabled = slides.scrollLeft >= maxScroll - tolerance;
 }
 
 /**
@@ -147,25 +150,49 @@ function decorateCaseStudySlide(slide) {
   if (authorParagraph) authorParagraph.classList.add('carousel-testimonial-cs-author');
   if (ctaParagraph) ctaParagraph.classList.add('carousel-testimonial-cs-cta');
 
-  // The company logo sits at the top of the card, above the title.
-  const logo = slide.querySelector('.carousel-testimonial-slide-image');
-  if (logo && logo.querySelector('picture, img')) {
-    logo.classList.add('carousel-testimonial-cs-logo');
-    content.prepend(logo);
-  } else if (logo) {
-    logo.remove();
-  }
+  // The media column stacks the company logo above the case-study photo. A
+  // decorative circle is drawn behind the photo purely in CSS.
+  const media = slide.querySelector('.carousel-testimonial-slide-media');
+  if (media) {
+    const mediaParagraphs = [...media.querySelectorAll(':scope > p')];
+    const images = mediaParagraphs
+      .filter((p) => p.querySelector('picture, img'));
+    // The last image is the case-study photo. Any image before it is the
+    // company logo, which not every case study has.
+    const photo = images.pop();
+    const logo = images.pop();
+    if (photo) {
+      media.classList.add('carousel-testimonial-cs-media');
+      photo.classList.add('carousel-testimonial-cs-photo');
+      if (logo) logo.classList.add('carousel-testimonial-cs-logo');
 
-  // The case-study photo (optional third column) becomes its own media
-  // column; a decorative circle is drawn behind it purely in CSS.
-  const photo = slide.querySelector('.carousel-testimonial-slide-photo');
-  if (photo && photo.querySelector('picture, img')) {
-    const media = document.createElement('div');
-    media.classList.add('carousel-testimonial-cs-media');
-    media.append(photo);
-    slide.append(media);
-  } else if (photo) {
-    photo.remove();
+      const videoParagraph = mediaParagraphs.find((p) => {
+        if (p === photo || p === logo) return false;
+        const href = p.querySelector('a')?.href || p.textContent.trim();
+        try {
+          const { hostname } = new URL(href);
+          return hostname === 'youtube.com'
+            || hostname.endsWith('.youtube.com')
+            || hostname === 'youtu.be';
+        } catch {
+          return false;
+        }
+      });
+      if (videoParagraph) {
+        const href = videoParagraph.querySelector('a')?.href
+          || videoParagraph.textContent.trim();
+        const link = document.createElement('a');
+        link.href = href;
+        link.target = '_blank';
+        link.rel = 'noopener noreferrer';
+        link.setAttribute('aria-label', photo.querySelector('img')?.alt || 'Play video on YouTube');
+        link.append(...photo.childNodes);
+        photo.append(link);
+        videoParagraph.remove();
+      }
+    } else {
+      media.remove();
+    }
   }
 
   // Group the card + media into a row that carries the max-width/centering.
@@ -186,10 +213,12 @@ function createSlide(row, slideIndex, carouselId, isCaseStudy) {
   slide.classList.add('carousel-testimonial-slide');
 
   row.querySelectorAll(':scope > div').forEach((column, colIdx) => {
-    let role = 'content';
-    if (colIdx === 0) role = 'image';
-    // Case-study rows may author an optional third column: the case-study photo.
-    else if (isCaseStudy && colIdx === 2) role = 'photo';
+    // Case-study rows lead with the copy and follow with a media column holding
+    // the company logo and the case-study photo. The default testimonial rows
+    // lead with the author headshot instead.
+    let role;
+    if (isCaseStudy) role = colIdx === 0 ? 'content' : 'media';
+    else role = colIdx === 0 ? 'image' : 'content';
     column.classList.add(`carousel-testimonial-slide-${role}`);
     slide.append(column);
   });
