@@ -146,19 +146,19 @@
   border-top: none;
 }
 
-/* ------------------------------------------------------------------
-   FIX #6: "Free tour" nav button — green
-   ------------------------------------------------------------------ */
-header nav a.nav-cta[href*="testdrive"],
-header nav a.nav-cta[href*="free-tour"] {
-  background-color: #20a51e;
-  border-color: #20a51e;
-}
+/* Free tour CTA — green (desktop only). */
+@media (width >= 960px) {
+  header nav a.nav-cta[href*="testdrive"],
+  header nav a.nav-cta[href*="free-tour"] {
+    background-color: #20a51e;
+    border-color: #20a51e;
+  }
 
-header nav a.nav-cta[href*="testdrive"]:hover,
-header nav a.nav-cta[href*="free-tour"]:hover {
-  background-color: #1b8a19;
-  border-color: #1b8a19;
+  header nav a.nav-cta[href*="testdrive"]:hover,
+  header nav a.nav-cta[href*="free-tour"]:hover {
+    background-color: #1b8a19;
+    border-color: #1b8a19;
+  }
 }
 
 /* ------------------------------------------------------------------
