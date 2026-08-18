@@ -94,6 +94,20 @@
   height: 30px;
 }
 
+/* Authorable tint. `.icon-masked` is added by the block JS ONLY when an author
+   sets an "Icon color" on the section — so by default the icon keeps its authored
+   colour (the fill baked into the SVG, shown via the plain <img>). When masked,
+   the icon is painted as a solid colour shaped by the SVG mask, using the
+   author's --icon-color; the inner <img> is the mask source only — hidden. */
+.cards-icon.points .cards-icon-card-image .icon.icon-masked {
+  background-color: var(--icon-color);
+  mask: var(--icon-mask) no-repeat center / contain;
+}
+
+.cards-icon.points .cards-icon-card-image .icon.icon-masked img {
+  visibility: hidden;
+}
+
 .cards-icon.points .cards-icon-card-image img,
 .cards-icon.points .cards-icon-card-image svg {
   width: 30px;

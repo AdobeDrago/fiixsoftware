@@ -1,4 +1,5 @@
 import { createOptimizedPicture, decorateIcons } from '../../scripts/aem.js';
+import { resolveIconsFromContent } from '../../scripts/scripts.js';
 
 export default function decorate(block) {
   /* change to ul, li */
@@ -73,6 +74,21 @@ export default function decorate(block) {
     if (iconated) {
       block.classList.add('cards-features-iconed');
       decorateIcons(ul); // turn span.icon tokens into <img> from /icons/ (ul holds the cards)
+      // Re-point the icon <img>s at the content-hosted SVGs (falls back to the
+      // codebase /icons/ if unpublished), so icons live in content not code.
+      resolveIconsFromContent(ul);
+      // By default the icon shows its AUTHORED colour (baked into the SVG) — no
+      // tint imposed. ONLY when an author sets an "Icon color" on the section
+      // (the --icon-color custom property) do we recolour: mask the span with the
+      // icon's resolved src and paint it with that colour.
+      const hasIconColor = getComputedStyle(block).getPropertyValue('--icon-color').trim() !== '';
+      if (hasIconColor) {
+        ul.querySelectorAll('span.icon > img').forEach((img) => {
+          const span = img.parentElement;
+          span.style.setProperty('--icon-mask', `url("${img.src}")`);
+          span.classList.add('icon-masked');
+        });
+      }
     }
     // Column-major flow (fill left column top-to-bottom, then right) like prod.
     ul.classList.add(`cards-features-rows-${Math.ceil(ul.children.length / 2)}`);

@@ -1,4 +1,5 @@
 import { createOptimizedPicture, decorateIcons } from '../../scripts/aem.js';
+import { resolveIconsFromContent } from '../../scripts/scripts.js';
 
 export default function decorate(block) {
   // The `points` variant (cloud-page feature rows) carries an authorable EDS
@@ -43,6 +44,22 @@ export default function decorate(block) {
   block.textContent = '';
   block.append(ul);
 
-  // Render any `span.icon` tokens (points variant) into <img> from /icons/.
-  if (isPoints) decorateIcons(ul);
+  // Render any `span.icon` tokens (points variant) into <img> from /icons/, then
+  // re-point them at the content-hosted SVGs (falling back to the codebase).
+  // By default the icon shows its AUTHORED colour (the fill baked into the SVG) —
+  // no tint is imposed. ONLY when an author sets an "Icon color" on the section
+  // (exposed as the --icon-color custom property) do we recolour: mask the span
+  // with the icon's own src and paint it with that colour.
+  if (isPoints) {
+    decorateIcons(ul);
+    resolveIconsFromContent(ul);
+    const hasIconColor = getComputedStyle(block).getPropertyValue('--icon-color').trim() !== '';
+    if (hasIconColor) {
+      ul.querySelectorAll('span.icon > img').forEach((img) => {
+        const span = img.parentElement;
+        span.style.setProperty('--icon-mask', `url("${img.src}")`);
+        span.classList.add('icon-masked');
+      });
+    }
+  }
 }

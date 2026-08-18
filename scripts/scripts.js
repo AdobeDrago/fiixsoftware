@@ -10,7 +10,57 @@ import {
   loadSections,
   loadCSS,
   buildBlock,
+  readBlockConfig,
+  toClassName,
+  toCamelCase,
 } from './aem.js';
+
+/**
+ * Default base URL for content-hosted icon SVGs (DA content host). Icons are
+ * authored as `:name:` tokens and rendered by aem.js's decorateIcons() from the
+ * CODEBASE (`/icons/<name>.svg`). This project instead resolves them from
+ * CONTENT so icons can be added/updated without a code deploy. Overridable
+ * per-page with `<meta name="icon-base" content="…">`.
+ */
+const DEFAULT_ICON_BASE = 'https://content.da.live/adobedrago/fiixsoftware/icons/';
+
+/**
+ * Re-point decorated icon images (`span.icon > img`, built by aem.js's
+ * decorateIcons from the codebase) at the CONTENT-hosted icon base, keeping the
+ * author-typed `:name:` token. aem.js is never modified — this override runs in
+ * project code after decorateIcons(). If the content-hosted SVG fails to load,
+ * the img falls back to its original codebase `/icons/<name>.svg` so the icon
+ * never 404s while content isn't published yet.
+ *
+ * @param {Element} root element (or block) containing decorated `span.icon` icons
+ * @param {string} [base] icon base URL; defaults to the `icon-base` meta or DEFAULT_ICON_BASE
+ */
+export function resolveIconsFromContent(root, base) {
+  const meta = document.querySelector('meta[name="icon-base"]');
+  let iconBase = base || (meta && meta.content) || DEFAULT_ICON_BASE;
+  if (!iconBase.endsWith('/')) iconBase += '/';
+
+  root.querySelectorAll('span.icon > img[data-icon-name]').forEach((img) => {
+    const name = img.dataset.iconName;
+    if (!name) return;
+    const codebaseSrc = img.getAttribute('src'); // aem.js set this to the codebase path
+    const contentSrc = `${iconBase}${name}.svg`;
+
+    // Graceful fallback: if the content-hosted SVG 404s/errors, restore the
+    // codebase src (and re-sync the mask var, if the block uses one).
+    img.addEventListener('error', function onError() {
+      img.removeEventListener('error', onError);
+      if (img.getAttribute('src') === codebaseSrc) return; // already on fallback
+      img.src = codebaseSrc;
+      const span = img.parentElement;
+      if (span && span.style.getPropertyValue('--icon-mask')) {
+        span.style.setProperty('--icon-mask', `url("${codebaseSrc}")`);
+      }
+    }, { once: true });
+
+    img.src = contentSrc;
+  });
+}
 
 if (window.trustedTypes && window.trustedTypes.createPolicy) {
   const innerTT = window.trustedTypes.createPolicy('tt-inner', {
@@ -143,6 +193,52 @@ function decorateButtons(main) {
 }
 
 /**
+ * Applies `section-metadata` blocks to their sections.
+ *
+ * This project's `aem.js` ships a trimmed-down `decorateSections` that creates
+ * sections but does NOT fold `section-metadata` key/value blocks into section
+ * classes/data attributes (the stock boilerplate does this inside
+ * `decorateSections`). Without it, authored section styles (e.g. `light`,
+ * `grey`, `accent-yellow`) never become `.section.<style>` classes — the block
+ * instead renders as stray "style / <value>" text and 404s trying to load a
+ * non-existent `section-metadata` block. This restores the standard behavior
+ * here in project code, leaving `aem.js` untouched.
+ * @param {Element} main The main element
+ */
+function decorateSectionMetadata(main) {
+  main.querySelectorAll('.section .section-metadata').forEach((sectionMeta) => {
+    const section = sectionMeta.closest('.section');
+    if (!section) return;
+    const meta = readBlockConfig(sectionMeta);
+    Object.keys(meta).forEach((key) => {
+      if (key === 'style') {
+        const styles = meta.style
+          .split(',')
+          .filter((style) => style)
+          .map((style) => toClassName(style.trim()));
+        styles.forEach((style) => section.classList.add(style));
+      } else if (key === 'icon-color' || key === 'iconColor') {
+        // Dedicated icon-tint field, orthogonal to `style` (which controls
+        // background/layout). Authors set an "Icon color" section-metadata row to
+        // any CSS colour; expose it as the --icon-color custom property that the
+        // blocks' masked icons inherit. Omitting it leaves each block's brand
+        // default (via var(--icon-color, <default>)). Raw value kept on the
+        // dataset for reference.
+        const value = meta[key].trim();
+        section.style.setProperty('--icon-color', value);
+        section.dataset.iconColor = value;
+      } else {
+        section.dataset[toCamelCase(key)] = meta[key];
+      }
+    });
+    const wrapper = sectionMeta.parentElement;
+    sectionMeta.remove();
+    // Remove the now-empty block wrapper this fork's decorateSections created.
+    if (wrapper && wrapper !== section && wrapper.children.length === 0) wrapper.remove();
+  });
+}
+
+/**
  * Decorates the main element.
  * @param {Element} main The main element
  */
@@ -151,6 +247,7 @@ export function decorateMain(main) {
   decorateIcons(main);
   buildAutoBlocks(main);
   decorateSections(main);
+  decorateSectionMetadata(main);
   decorateBlocks(main);
   decorateButtons(main);
 }

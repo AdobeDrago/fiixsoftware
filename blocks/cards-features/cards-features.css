@@ -150,6 +150,20 @@
   object-fit: contain;
 }
 
+/* Authorable tint. `.icon-masked` is added by the block JS ONLY when an author
+   sets an "Icon color" on the section — so by default the icon keeps its authored
+   colour (the fill baked into the SVG, shown via the plain <img>). When masked,
+   the icon is painted with the author's --icon-color, shaped by the SVG mask;
+   the inner <img> is the mask source only — hidden. */
+.cards-features-iconed .cards-features-icon.icon-masked {
+  background-color: var(--icon-color);
+  mask: var(--icon-mask) no-repeat center / contain;
+}
+
+.cards-features-iconed .cards-features-icon.icon-masked img {
+  visibility: hidden;
+}
+
 /* Column-major flow: fill the left column top-to-bottom, then the right,
    matching production (which stacks two cards per column). */
 @media (width >= 900px) {
@@ -158,3 +172,4 @@
     grid-auto-flow: column;
   }
 }
+
