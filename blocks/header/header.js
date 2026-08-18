@@ -1,8 +1,10 @@
 import { getMetadata } from '../../scripts/aem.js';
 import { loadFragment } from '../fragment/fragment.js';
 
-// media query match that indicates mobile/tablet width
-const isDesktop = window.matchMedia('(min-width: 900px)');
+// media query match that indicates mobile/tablet width. Production shows the
+// hamburger below 960px and the full desktop nav from 960px up, so this must
+// stay in sync with the 960px breakpoint used across header.css.
+const isDesktop = window.matchMedia('(min-width: 960px)');
 
 function closeAllPanels(navSections, { focusOut = false } = {}) {
   if (!navSections) return;

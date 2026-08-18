@@ -240,7 +240,7 @@ footer .footer .footer-social svg {
 }
 
 /* --- desktop: columns in a horizontal row -------------------------- */
-@media (width >= 900px) {
+@media (width >= 960px) {
   footer .footer > div {
     padding: 40px 32px 24px;
   }

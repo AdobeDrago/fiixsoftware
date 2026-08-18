@@ -83,7 +83,7 @@
 }
 
 /* desktop: two cards side by side */
-@media (width >= 900px) {
+@media (width >= 960px) {
   .cards-video > ul {
     flex-direction: row;
     align-items: stretch;
@@ -115,7 +115,7 @@
   scroll-snap-align: start;
 }
 
-@media (width >= 900px) {
+@media (width >= 960px) {
   /* three visible cards with the 30px gaps between them */
   .cards-video > ul.cards-video-track > li {
     flex: 0 0 calc((100% - 60px) / 3);

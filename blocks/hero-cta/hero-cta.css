@@ -40,7 +40,7 @@
   height: 100%;
 }
 
-@media (width >= 900px) {
+@media (width >= 960px) {
   .hero-cta {
     padding: 40px 32px;
   }
@@ -101,7 +101,7 @@
   margin: 0 auto 16px;
 }
 
-@media (width >= 900px) {
+@media (width >= 960px) {
   .section.cta {
     padding: 115px 0 80px;
   }

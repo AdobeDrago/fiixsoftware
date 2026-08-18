@@ -70,7 +70,7 @@
 }
 
 /* ---- Desktop: three cards side by side ---- */
-@media (width >= 900px) {
+@media (width >= 960px) {
   .cards-testimonial .cards-testimonial-list {
     grid-template-columns: repeat(3, 1fr);
   }

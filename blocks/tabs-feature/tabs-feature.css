@@ -123,7 +123,7 @@
 }
 
 /* ---- Desktop: two-column panel (text left, media right) ---- */
-@media (width >= 900px) {
+@media (width >= 960px) {
   .tabs-feature .tabs-feature-panel > div {
     display: grid;
     grid-template-columns: minmax(0, 550px) minmax(0, 1fr);
