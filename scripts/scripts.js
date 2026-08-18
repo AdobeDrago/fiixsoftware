@@ -214,6 +214,34 @@ function decorateButtons(main) {
 }
 
 /**
+ * Groups blog listing hero copy and media so the gray band can lay out as
+ * two columns, matching the live Fiix Blog header. Also buttonizes the CTA
+ * when authors invert `<a><strong>` instead of `<strong><a>`.
+ * @param {Element} main The main container element
+ */
+function decorateBlogHeader(main) {
+  const wrap = main.querySelector('.section.blog-header .default-content-wrapper');
+  if (!wrap || wrap.querySelector('.blog-header-copy')) return;
+
+  const children = [...wrap.children];
+  const media = children.find((el) => el.matches('picture') || el.querySelector('picture'));
+  const copy = document.createElement('div');
+  copy.className = 'blog-header-copy';
+  children.forEach((el) => {
+    if (el !== media) copy.append(el);
+  });
+  if (media) media.classList.add('blog-header-media');
+  wrap.replaceChildren(copy, ...(media ? [media] : []));
+
+  const cta = copy.querySelector('p a[href]');
+  if (cta && !cta.classList.contains('button')) {
+    const p = cta.closest('p');
+    p.className = 'button-wrapper';
+    cta.className = 'button primary';
+  }
+}
+
+/**
  * Decorates the main element.
  * @param {Element} main The main element
  */
@@ -224,6 +252,7 @@ export function decorateMain(main) {
   decorateSections(main);
   decorateBlocks(main);
   decorateButtons(main);
+  decorateBlogHeader(main);
 }
 
 /**
