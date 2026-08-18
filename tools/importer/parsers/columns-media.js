@@ -41,6 +41,27 @@ export default function parse(element, { document }) {
   // Strip screen-reader-only noise from a CTA link but keep the link.
   const cleanLink = (a) => { if (a) a.querySelectorAll('.sr-only').forEach((s) => s.remove()); return a; };
 
+  // ---------- case-study: challenge / solution / result columns (.ba-fiix) ----------
+  // 3 sibling divs, each an h3 (with a decorative font-awesome <i>) + a bulleted
+  // list. Text-only, no media. Each div becomes one column cell (heading + list).
+  if (element.matches('.ba-fiix')) {
+    const cols = Array.from(element.querySelectorAll(':scope > div'));
+    const row = cols.map((col) => {
+      col.querySelectorAll('i[class*="fa-"]').forEach((i) => i.remove()); // drop empty icon nodes
+      col.querySelectorAll('.sr-only').forEach((s) => s.remove());
+      const cell = [];
+      const h = col.querySelector(':scope > h3, :scope > h2, :scope > h4');
+      if (h) cell.push(h);
+      col.querySelectorAll(':scope > .list-item > ul, :scope > .list-item > ol, :scope > ul, :scope > ol, :scope > p').forEach((n) => cell.push(n));
+      return cell.length ? cell : '';
+    }).filter((c) => c !== '');
+    if (row.length === 0) { element.replaceWith(...element.childNodes); return; }
+    const cells = [row];
+    const block = WebImporter.Blocks.createBlock(document, { name: 'columns-media', cells });
+    element.replaceWith(block);
+    return;
+  }
+
   // ---------- marketing-landing: split hero (header.container) ----------
   // `.header-info` holds H1 + intro paragraphs + CTA; `figure.header-img` the art.
   const headerInfo = element.matches('header.container') || element.querySelector(':scope > .header-info')

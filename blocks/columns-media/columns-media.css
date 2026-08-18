@@ -30,4 +30,8 @@
     flex: 1;
     order: unset;
   }
+
+  .columns-media.columns-media-3-cols > div {
+    align-items: flex-start;
+  }
 }

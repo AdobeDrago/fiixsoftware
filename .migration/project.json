@@ -1,0 +1,11 @@
+{
+  "type": "da",
+  "sites": {
+    "fiixsoftware": {
+      "previewOrg": "adobedrago",
+      "previewSite": "fiixsoftware",
+      "contentHostUrl": "https://content.da.live/adobedrago/fiixsoftware/",
+      "libraryUrl": "https://main--sta-boilerplate--aemdemos.aem.page/tools/sidekick/library.json"
+    }
+  }
+}

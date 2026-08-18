@@ -1,0 +1,111 @@
+.vidyard-video-player {
+  width: 100%;
+}
+
+.vidyard-video-player .vidyard-player-embed {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+}
+
+.vidyard-video-player iframe {
+  display: block;
+}
+
+/* Case-study article treatment. The section contains default-authored copy on
+   both sides of the player, so keep every wrapper on the same reading measure. */
+body:has(.hero-case-study) main > .section.vidyard-video-player-container {
+  margin: 70px 0 100px;
+}
+
+body:has(.hero-case-study) main > .section.vidyard-video-player-container
+  > .default-content-wrapper,
+body:has(.hero-case-study) main > .section.vidyard-video-player-container
+  > .vidyard-video-player-wrapper {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 702px;
+  margin-right: auto;
+  margin-left: auto;
+  padding-right: 19px;
+  padding-left: 19px;
+}
+
+body:has(.hero-case-study) .vidyard-video-player-container
+  .default-content-wrapper h2 {
+  margin: 0 0 40px;
+  padding: 60px 0 0;
+  color: var(--text-color);
+  font-size: 38px;
+  font-weight: 700;
+  line-height: 38px;
+}
+
+body:has(.hero-case-study) .vidyard-video-player-container
+  .default-content-wrapper p {
+  margin: 0 0 20px;
+  color: var(--text-color);
+  font-size: 20px;
+  font-weight: 300;
+  line-height: normal;
+}
+
+body:has(.hero-case-study) .vidyard-video-player-container
+  .vidyard-video-player {
+  margin-top: 60px;
+}
+
+body:has(.hero-case-study) .vidyard-video-player-container
+  a.vidyard-video-player-external-link:any-link {
+  color: #14499a;
+  font-weight: 500;
+  text-decoration: underline;
+}
+
+body:has(.hero-case-study) .vidyard-video-player-container
+  a.vidyard-video-player-external-link::after {
+  content: '';
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  margin-left: 5px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2314499a' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M14 3h7v7'/%3E%3Cpath d='M10 14 21 3'/%3E%3Cpath d='M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5'/%3E%3C/svg%3E");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  vertical-align: -2px;
+}
+
+body:has(.hero-case-study) .vidyard-video-player-container
+  a.vidyard-video-player-external-link:focus-visible {
+  border-radius: 2px;
+  outline: 2px solid #14499a;
+  outline-offset: 3px;
+}
+
+.vidyard-video-player-new-tab {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  border: 0;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+@media (width >= 960px) {
+  body:has(.hero-case-study) .vidyard-video-player-container
+    .default-content-wrapper h2 {
+    font-size: 40px;
+    line-height: 48px;
+  }
+}
+
+@media (width >= 768px) {
+  body:has(.hero-case-study) main > .section.vidyard-video-player-container {
+    margin-bottom: 150px;
+  }
+}

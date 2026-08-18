@@ -1,0 +1,39 @@
+{
+  "variantName": "hero-case-study",
+  "baseBlock": "hero",
+  "version": "1.0.0",
+  "created": "2026-08-17T11:19:46.172Z",
+  "sourceContext": {
+    "originUrl": "https://fiixsoftware.com/resource-center/case-studies/universal-pure/",
+    "originPage": "case study page header",
+    "blockPosition": "top"
+  },
+  "visualCharacteristics": {
+    "colorScheme": "accent",
+    "density": "spacious",
+    "purpose": "case-study-hero",
+    "imagePattern": "large"
+  },
+  "contentPattern": {
+    "structure": "banner-image + title + subtitle + back-link",
+    "buttonCount": 0,
+    "imageCount": 1
+  },
+  "reuseGuidance": {
+    "suitableFor": [
+      "case study / resource detail page headers",
+      "article headers with a decorative banner background and back link",
+      "centered title + subtitle intro banners over a background image"
+    ],
+    "notSuitableFor": [
+      "closing call-to-action banners with a button (use hero-cta)",
+      "lead-capture / form heros (use hero-lead)",
+      "plain text-only page intros with no background image"
+    ]
+  },
+  "usage": {
+    "pagesUsing": ["/resource-center/case-studies/universal-pure/index"],
+    "reuseCount": 1,
+    "lastUsed": "2026-08-17T11:19:46.172Z"
+  }
+}
