@@ -31,15 +31,9 @@ function buildHeroVideo(picture, href) {
 }
 
 /**
- * `video` variant (free-cmms split hero): the media cell carries the product
- * screenshot and, when present, a link to the hero .mp4. Production autoplays
- * that video — muted + looping — only on desktop, where it has its own
- * dedicated panel; mobile/tablet show the static screenshot only, since that
- * layout is a cropped full-bleed band rather than room for a showcase video,
- * and there's no reason to spend a video download on smaller/slower
- * connections for it. Re-evaluated on resize so rotating a tablet or resizing
- * the window across the breakpoint swaps the right media in. This runs only
- * for the `video` variant; the standard lead hero uses a plain image.
+ * Swaps the media cell's screenshot for an autoplay video, desktop only
+ * (mobile/tablet keep the static screenshot to save bandwidth). Re-evaluated
+ * on resize. Shared by the `video-without-form` and `video-with-form` variants.
  * @param {Element} mediaCell the block's media cell
  */
 function decorateVideoVariant(mediaCell) {
@@ -90,11 +84,15 @@ export default function decorate(block) {
 
   if (imageCell) imageCell.classList.add('hero-lead-media');
 
-  // `video` variant: rebuild the autoplay video panel; skip the home hero's
-  // form + stat-metric parsing below (that content doesn't exist here).
-  if (block.classList.contains('video')) {
+  // video only, no form/stats content
+  if (block.classList.contains('video-without-form')) {
     decorateVideoVariant(imageCell);
     return;
+  }
+
+  // video + the standard form/stats content decorated below
+  if (block.classList.contains('video-with-form')) {
+    decorateVideoVariant(imageCell);
   }
 
   if (!contentCell) {
