@@ -45,6 +45,8 @@ function toggleMenu(nav, navSections, forceExpanded = null) {
 // Click/keyboard toggle for mega-menu items (no hover).
 function decorateDropItem(navItem, navSections) {
   navItem.classList.add('nav-drop');
+  navItem.setAttribute('role', 'button');
+  navItem.setAttribute('aria-haspopup', 'true');
   navItem.setAttribute('aria-expanded', 'false');
   navItem.setAttribute('tabindex', '0');
 
@@ -67,7 +69,8 @@ function decorateDropItem(navItem, navSections) {
   });
 }
 
-// Per-item cyan icons.
+// Per-item cyan icons, keyed by the authored href. Renaming/moving a nav link's
+// URL silently drops its icon (iconForHref returns null) — update the key here too.
 const ICON_STROKE = 'stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"';
 const svg = (paths) => `<svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" ${ICON_STROKE}>${paths}</svg>`;
 const NAV_ICONS = {
@@ -141,7 +144,13 @@ export default async function decorate(block) {
   // Load nav fragment (localhost /content, else root).
   const navMeta = getMetadata('nav');
   const navPath = navMeta ? new URL(navMeta, window.location).pathname : '/nav';
-  const fragment = await loadFragment('/content/nav') || await loadFragment(navPath);
+  const fragment = (window.location.hostname === 'localhost' && await loadFragment('/content/nav'))
+    || await loadFragment(navPath);
+  if (!fragment) {
+    // eslint-disable-next-line no-console
+    console.warn('[header] no nav fragment found at', navPath);
+    return;
+  }
 
   // Build nav DOM.
   block.textContent = '';
@@ -302,7 +311,8 @@ export default async function decorate(block) {
   if (navTools) {
     navTools.querySelectorAll('a').forEach((a) => {
       const label = a.textContent.trim().toLowerCase();
-      if (label === 'book a demo' || label === 'free tour') a.classList.add('nav-cta');
+      if (label === 'book a demo') a.classList.add('nav-cta', 'nav-cta-primary');
+      if (label === 'free tour') a.classList.add('nav-cta', 'nav-cta-secondary');
       if (label === 'search') a.classList.add('nav-search');
       if (label === 'login') a.classList.add('nav-login');
     });
