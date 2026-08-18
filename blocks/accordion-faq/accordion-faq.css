@@ -90,7 +90,7 @@
    production per row (data security / uptime / permissions / no-touch).
    Scoped to .enterprise-scale so the pricing FAQ accordion is unaffected.
    ============================================================ */
-@media (width >= 900px) {
+@media (width >= 960px) {
   main .section.enterprise-scale .accordion-faq-flex {
     display: flex;
     gap: 40px;

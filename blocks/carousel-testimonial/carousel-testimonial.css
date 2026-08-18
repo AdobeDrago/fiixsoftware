@@ -219,7 +219,7 @@
 }
 
 /* ---- Desktop: show three cards at once ---- */
-@media (width >= 900px) {
+@media (width >= 960px) {
   .carousel-testimonial .carousel-testimonial-slide {
     flex: 0 0 calc((100% - 2 * var(--carousel-testimonial-gap)) / 3);
   }
@@ -406,7 +406,7 @@
   left: 50%;
 }
 
-@media (width >= 900px) {
+@media (width >= 960px) {
   /* Only the copy card sits in flow. The media column is anchored to the row's
      bottom-right so the photo can overlap the card's right edge and hang below
      it; the row reserves that overhang as bottom padding, because the slides

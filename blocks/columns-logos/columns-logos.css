@@ -25,7 +25,7 @@
   display: block;
 }
 
-@media (width >= 900px) {
+@media (width >= 960px) {
   .columns-logos > div {
     align-items: center;
     flex-direction: unset;
@@ -50,7 +50,7 @@
 /* Distribute the partner logos edge-to-edge across the full band like
    production (first logo flush left, last flush right) instead of centering
    each in an equal flex cell, which left a ~40px inset (WCT-HOME HP-4). */
-@media (width >= 900px) {
+@media (width >= 960px) {
   .section.logos .columns-logos > div {
     justify-content: space-between;
     gap: 0;
@@ -66,7 +66,7 @@
    right edge exactly meets the next one's left edge) as one tightly-clustered
    group, centered in the section -- not spread across the full width in equal
    flex cells with visible gaps. */
-@media (width >= 900px) {
+@media (width >= 960px) {
   main .section.enterprise-hero .columns-logos > div {
     justify-content: center;
     gap: 0;

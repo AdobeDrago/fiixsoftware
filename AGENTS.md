@@ -57,7 +57,7 @@ The repository provides the basic structure, blocks, and configuration needed to
 - Follow Stylelint standard configuration
 - Use modern CSS features (CSS Grid, Flexbox, CSS Custom Properties)
 - Maintain responsive design principles
-  - Declare styles mobile first, use `min-width` media queries at 600px/900px/1200px for tablet and desktop
+  - Declare styles mobile first, use `min-width` media queries at 768px/960px/1200px for tablet and desktop. 960px is also where the header switches from the hamburger to the full nav, so layout and nav change together
 - Ensure all selectors are scoped to the block.
   - Bad: `.item-list`
   - Good: `.{blockname} .item-list`   
