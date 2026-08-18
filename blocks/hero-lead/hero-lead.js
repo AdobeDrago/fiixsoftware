@@ -1,19 +1,15 @@
-/**
- * `free` variant (free-cmms split hero): the media cell carries the product
- * screenshot and, when present, a link to the hero .mp4. Production autoplays
- * that video — muted + looping — in the purple panel with the screenshot as its
- * poster. Rebuild that <video> here; if the video link is absent, the screenshot
- * stands in. This runs only for the `free` variant; the standard lead hero uses
- * a plain image.
- * @param {Element} mediaCell the block's media cell
- */
-function decorateFreeVideo(mediaCell) {
-  if (!mediaCell) return;
-  const picture = mediaCell.querySelector('picture');
-  const videoLink = mediaCell.querySelector('a[href*=".mp4"]');
-  if (!picture || !videoLink) return;
+/** Matches the project's desktop breakpoint (also where the nav switches off the hamburger). */
+const DESKTOP_MEDIA_QUERY = '(min-width: 960px)';
 
-  const posterImg = mediaCell.querySelector('img');
+/**
+ * Builds the autoplay <video> (muted + looping), using the screenshot as its
+ * poster and graceful fallback content.
+ * @param {Element} picture the screenshot to use as poster/fallback
+ * @param {string} href the hero .mp4 URL
+ * @returns {HTMLVideoElement}
+ */
+function buildHeroVideo(picture, href) {
+  const posterImg = picture.querySelector('img');
   const video = document.createElement('video');
   video.className = 'hero-lead-video';
   video.muted = true;
@@ -25,18 +21,64 @@ function decorateFreeVideo(mediaCell) {
   if (posterImg && posterImg.src) video.setAttribute('poster', posterImg.src);
 
   const source = document.createElement('source');
-  source.setAttribute('src', videoLink.getAttribute('href'));
+  source.setAttribute('src', href);
   source.setAttribute('type', 'video/mp4');
   video.append(source);
 
-  // Keep the screenshot as graceful fallback inside the <video>, then swap.
+  // Keep the screenshot as graceful fallback inside the <video>.
   video.append(picture.cloneNode(true));
-  picture.replaceWith(video);
+  return video;
+}
+
+/**
+ * `video` variant (free-cmms split hero): the media cell carries the product
+ * screenshot and, when present, a link to the hero .mp4. Production autoplays
+ * that video — muted + looping — only on desktop, where it has its own
+ * dedicated panel; mobile/tablet show the static screenshot only, since that
+ * layout is a cropped full-bleed band rather than room for a showcase video,
+ * and there's no reason to spend a video download on smaller/slower
+ * connections for it. Re-evaluated on resize so rotating a tablet or resizing
+ * the window across the breakpoint swaps the right media in. This runs only
+ * for the `video` variant; the standard lead hero uses a plain image.
+ * @param {Element} mediaCell the block's media cell
+ */
+function decorateVideoVariant(mediaCell) {
+  if (!mediaCell) return;
+  const picture = mediaCell.querySelector('picture');
+  const videoLink = mediaCell.querySelector('a[href*=".mp4"]');
+  if (!picture || !videoLink) return;
+
+  const href = videoLink.getAttribute('href');
+
+  // aem.js's wrapTextNodes() wraps this column's picture + link pair in a <p>
+  // (it always runs here, since the column has 2+ children). Replace that
+  // wrapper outright so the picture/video lands as a direct flex child of the
+  // media cell -- left nested in the <p>, it's a flex item with
+  // flex-basis: auto, so it shrinks to fit its own content instead of
+  // filling the panel.
+  const wrapper = picture.parentElement !== mediaCell ? picture.parentElement : picture;
+  wrapper.replaceWith(picture);
   videoLink.remove();
 
-  // Some browsers ignore the autoplay attribute until play() is called.
-  const tryPlay = video.play();
-  if (tryPlay && typeof tryPlay.catch === 'function') tryPlay.catch(() => {});
+  const desktopQuery = window.matchMedia(DESKTOP_MEDIA_QUERY);
+  let current = picture;
+
+  const syncMedia = () => {
+    if (desktopQuery.matches && current === picture) {
+      const video = buildHeroVideo(picture, href);
+      current.replaceWith(video);
+      current = video;
+      // Some browsers ignore the autoplay attribute until play() is called.
+      const tryPlay = video.play();
+      if (tryPlay && typeof tryPlay.catch === 'function') tryPlay.catch(() => {});
+    } else if (!desktopQuery.matches && current !== picture) {
+      current.replaceWith(picture);
+      current = picture;
+    }
+  };
+
+  syncMedia();
+  desktopQuery.addEventListener('change', syncMedia);
 }
 
 export default function decorate(block) {
@@ -48,10 +90,10 @@ export default function decorate(block) {
 
   if (imageCell) imageCell.classList.add('hero-lead-media');
 
-  // `free` variant: rebuild the autoplay video panel; skip the home hero's
+  // `video` variant: rebuild the autoplay video panel; skip the home hero's
   // form + stat-metric parsing below (that content doesn't exist here).
-  if (block.classList.contains('free')) {
-    decorateFreeVideo(imageCell);
+  if (block.classList.contains('video')) {
+    decorateVideoVariant(imageCell);
     return;
   }
 

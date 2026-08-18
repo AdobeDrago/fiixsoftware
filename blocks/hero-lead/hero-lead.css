@@ -221,15 +221,15 @@
 }
 
 /* ============================================================
-   `free` variant — the /free-cmms split intro hero. Same 2-row authoring
+   `video` variant — the /free-cmms split intro hero. Same 2-row authoring
    contract as the lead hero (media cell + content cell), but rendered as a
    full-bleed split band: eyebrow + big headline + copy + text-link CTA on a
    light panel (left), product screenshot/autoplay video on a purple (#6d68ea)
    panel that bleeds to the right viewport edge. Values from production
-   (fiixsoftware.com/free-cmms) at 1440px. Scoped to .hero-lead.free so the
+   (fiixsoftware.com/free-cmms) at 1440px. Scoped to .hero-lead.video so the
    standard lead hero on every other page is untouched.
    ============================================================ */
-.hero-lead.free {
+.hero-lead.video {
   display: block;
   max-width: none;
   margin: 0;
@@ -237,50 +237,71 @@
   background-color: var(--light-color); /* #f7f9fc */
 }
 
-.hero-lead.free-container .hero-lead-wrapper,
-.section.free-hero .hero-lead-wrapper {
+.hero-lead.video-container .hero-lead-wrapper,
+.section.video-hero .hero-lead-wrapper {
   max-width: none;
   padding: 0;
 }
 
-/* media row -> purple panel */
-.hero-lead.free > div:first-child {
-  display: flex;
+/* media row -> purple panel. Below desktop it's a fixed-height, full-bleed
+   crop box (production's free-cmms mobile hero: the video/screenshot is
+   cropped edge-to-edge, not letterboxed); the desktop split-grid further
+   down restores the uncropped `contain` treatment once there's room for the
+   whole shot. */
+.hero-lead.video > div:first-child {
+  position: relative;
+  overflow: hidden;
+  height: 350px;
   margin: 0;
-  padding: 40px 24px;
-  align-items: center;
-  justify-content: center;
+  padding: 0;
   background-color: #6d68ea;
 }
 
-.hero-lead.free > div:first-child picture,
-.hero-lead.free .hero-lead-video {
+.hero-lead.video > div:first-child picture {
   display: block;
   width: 100%;
-  max-width: 620px;
-  height: auto;
-  object-fit: contain;
+  height: 100%;
 }
 
-.hero-lead.free img {
+.hero-lead.video .hero-lead-video,
+.hero-lead.video > div:first-child img {
   display: block;
   width: 100%;
-  height: auto;
+  height: 100%;
+  object-fit: cover;
+  object-position: left top;
+}
+
+/* --- tablet (768–959px): production switches the shot from a full-bleed
+   crop to a capped-width, centered, natural-aspect image at this range --
+   the panel's fixed height (above) still crops it, but now off the bottom
+   instead of the right edge. --- */
+@media (width >= 768px) {
+  .hero-lead.video > div:first-child picture,
+  .hero-lead.video .hero-lead-video,
+  .hero-lead.video > div:first-child img {
+    width: auto;
+    height: auto;
+    max-width: 500px;
+    margin: 0 auto;
+    object-fit: contain;
+    object-position: center top;
+  }
 }
 
 /* copy row */
-.hero-lead.free > div:last-child {
+.hero-lead.video > div:last-child {
   margin: 0;
   padding: 40px 24px;
 }
 
-.hero-lead.free > div:last-child > div {
+.hero-lead.video > div:last-child > div {
   max-width: 540px;
   margin: 0 auto;
 }
 
 /* eyebrow */
-.hero-lead.free h1 {
+.hero-lead.video h1 {
   margin: 0 0 24px;
   max-width: none;
   font-size: 20px;
@@ -292,7 +313,7 @@
 }
 
 /* headline */
-.hero-lead.free h2 {
+.hero-lead.video h2 {
   margin: 0 0 24px;
   max-width: none;
   padding: 0;
@@ -304,7 +325,7 @@
 }
 
 /* stylelint-disable-next-line no-descending-specificity */
-.hero-lead.free p {
+.hero-lead.video p {
   margin: 0 0 20px;
   font-size: 20px;
   font-weight: 300;
@@ -314,14 +335,14 @@
 }
 
 /* CTA — a plain bold dark-blue text link with a trailing arrow, not a pill. */
-.hero-lead.free p.button-container {
+.hero-lead.video p.button-container {
   margin: 0;
   text-align: left;
 }
 
 /* stylelint-disable no-descending-specificity */
-.hero-lead.free a.button:any-link,
-.hero-lead.free a:any-link {
+.hero-lead.video a.button:any-link,
+.hero-lead.video a:any-link {
   display: inline;
   padding: 0;
   border: 0;
@@ -336,12 +357,12 @@
   white-space: normal;
 }
 
-.hero-lead.free a:any-link::after {
+.hero-lead.video a:any-link::after {
   content: ' \2192';
   font-weight: 700;
 }
 
-.hero-lead.free a:hover {
+.hero-lead.video a:hover {
   color: var(--link-hover-color);
   text-decoration: none;
 }
@@ -379,15 +400,17 @@
   }
 
   /* the flex items are the two authored rows (each holds one cell);
-     row holding the content sits on the left */
-  .hero-lead > div:has(.hero-lead-content) {
+     row holding the content sits on the left. Scoped off the `video` variant,
+     which lays its rows out as grid columns (below) instead -- otherwise this
+     max-width: 40% leaks in and clamps that grid column far below its track. */
+  .hero-lead:not(.video) > div:has(.hero-lead-content) {
     display: flex;
     order: 1;
     flex: 1 1 600px;
   }
 
   /* row holding the product screenshot sits on the right */
-  .hero-lead > div:has(.hero-lead-media) {
+  .hero-lead:not(.video) > div:has(.hero-lead-media) {
     display: flex;
     order: 2;
     flex: 0 0 420px;
@@ -441,9 +464,9 @@
     min-width: 0;
   }
 
-  /* `free` variant: two equal columns, copy left / purple media panel right,
+  /* `video` variant: two equal columns, copy left / purple media panel right,
      both filling an 850px-min-height band (production). */
-  .hero-lead.free {
+  .hero-lead.video {
     display: grid;
     grid-template-columns: 1fr 1fr;
     align-items: stretch;
@@ -452,7 +475,7 @@
   }
 
   /* copy on the left (row 2 in DOM) */
-  .hero-lead.free > div:last-child {
+  .hero-lead.video > div:last-child {
     grid-column: 1;
     grid-row: 1;
     display: flex;
@@ -464,23 +487,38 @@
     padding: 60px 40px 60px max(32px, calc((100vw - 1200px) / 2));
   }
 
-  .hero-lead.free > div:last-child > div {
+  .hero-lead.video > div:last-child > div {
     margin: 0;
   }
 
-  /* purple media panel on the right (row 1 in DOM) */
+  /* purple media panel on the right (row 1 in DOM). Undo the mobile crop box
+     -- room enough here to show the whole video/screenshot uncropped. */
   /* stylelint-disable-next-line no-descending-specificity */
-  .hero-lead.free > div:first-child {
+  .hero-lead.video > div:first-child {
     grid-column: 2;
     grid-row: 1;
+    display: flex;
+    overflow: visible;
+    height: auto;
+    align-items: center;
+    justify-content: center;
     padding: 60px 48px;
   }
 
-  .hero-lead.free h1 {
+  .hero-lead.video > div:first-child picture,
+  .hero-lead.video .hero-lead-video,
+  .hero-lead.video > div:first-child img {
+    width: 100%;
+    max-width: 620px;
+    height: auto;
+    object-fit: contain;
+  }
+
+  .hero-lead.video h1 {
     margin-bottom: 40px;
   }
 
-  .hero-lead.free h2 {
+  .hero-lead.video h2 {
     margin-bottom: 30px;
     font-size: 64px;
     line-height: 1;
