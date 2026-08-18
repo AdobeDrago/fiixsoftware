@@ -1,0 +1,13 @@
+{
+  "status": "success",
+  "url": "https://fiixsoftware.com/resource-center/case-studies/dlg-group/",
+  "path": "resource-center/case-studies/dlg-group",
+  "timestamp": "2026-08-18T13:02:05.951Z",
+  "title": "Agri-manufacturer to cut downtime by 10% with CMMS | Fiix",
+  "template": "case-study-page",
+  "blocks": [
+    "hero-case-study",
+    "columns-media",
+    "hero-cta"
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "status": "success",
+  "url": "https://fiixsoftware.com/resource-center/case-studies/farming-maintenance/",
+  "path": "resource-center/case-studies/farming-maintenance",
+  "timestamp": "2026-08-18T13:06:55.772Z",
+  "title": "Farming Maintenance Case Study I Fiix",
+  "template": "case-study-page",
+  "blocks": [
+    "hero-case-study",
+    "hero-cta"
+  ]
+}

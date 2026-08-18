@@ -134,6 +134,35 @@ export default function transform(hookName, element, payload) {
       vid.replaceWith(p);
     });
 
+    // Owl-carousel image gallery (div#gallery on older case-study pages, e.g.
+    // farming-maintenance). The owl plugin runs at import time and clones slides
+    // for infinite looping (6 cloned of 12 items) plus injects prev/next nav
+    // (‹ ›) and dot controls. Left as-is this leaks duplicated images, empty
+    // .mp4 video-slide links, and a stray "‹›" text node into the import.
+    // Collapse #gallery to its unique slide images (document order, deduped by
+    // src) so it imports as a clean image list — EDS stacks them without the JS
+    // carousel. Keyed on div#gallery and guarded by an image lookup, so it is a
+    // no-op on pages/templates without this gallery.
+    element.querySelectorAll('div#gallery').forEach((gallery) => {
+      const imgs = [];
+      const seen = new Set();
+      gallery.querySelectorAll('img').forEach((img) => {
+        const src = img.getAttribute('src') || img.getAttribute('data-src') || img.getAttribute('data-lazy-src');
+        if (!src || seen.has(src)) return;
+        seen.add(src);
+        if (!img.getAttribute('src')) img.setAttribute('src', src);
+        imgs.push(img);
+      });
+      if (imgs.length === 0) return;
+      const frag = element.ownerDocument.createDocumentFragment();
+      imgs.forEach((img) => {
+        const p = element.ownerDocument.createElement('p');
+        p.append(img);
+        frag.append(p);
+      });
+      gallery.replaceWith(frag);
+    });
+
     // Inline <q> quotations already contain typographic quotation marks in the
     // source (e.g. <q>“…”</q>). The HTML→markdown conversion also wraps <q>
     // content in straight quotes, producing doubled quotes (""…""). Unwrap <q>

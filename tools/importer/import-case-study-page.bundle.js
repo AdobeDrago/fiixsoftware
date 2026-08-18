@@ -288,6 +288,25 @@ var CustomImportScript = (() => {
         p.append(a);
         vid.replaceWith(p);
       });
+      element.querySelectorAll("div#gallery").forEach((gallery) => {
+        const imgs = [];
+        const seen = /* @__PURE__ */ new Set();
+        gallery.querySelectorAll("img").forEach((img) => {
+          const src = img.getAttribute("src") || img.getAttribute("data-src") || img.getAttribute("data-lazy-src");
+          if (!src || seen.has(src)) return;
+          seen.add(src);
+          if (!img.getAttribute("src")) img.setAttribute("src", src);
+          imgs.push(img);
+        });
+        if (imgs.length === 0) return;
+        const frag = element.ownerDocument.createDocumentFragment();
+        imgs.forEach((img) => {
+          const p = element.ownerDocument.createElement("p");
+          p.append(img);
+          frag.append(p);
+        });
+        gallery.replaceWith(frag);
+      });
       element.querySelectorAll("q").forEach((q) => {
         q.replaceWith(element.ownerDocument.createTextNode(q.textContent));
       });
@@ -357,9 +376,18 @@ var CustomImportScript = (() => {
   var PAGE_TEMPLATE = {
     name: "case-study-page",
     description: "Customer case study page: hero (customer name + headline), customer intro with logo/headshot/quote and challenge-solution-result columns, company overview narrative with embedded video, and a closing free-tour CTA band.",
-    urls: ["https://fiixsoftware.com/resource-center/case-studies/universal-pure/"],
+    urls: [
+      "https://fiixsoftware.com/resource-center/case-studies/universal-pure/",
+      "https://fiixsoftware.com/resource-center/case-studies/dlg-group/",
+      "https://fiixsoftware.com/resource-center/case-studies/farming-maintenance/"
+    ],
+    // Selectors are keyed on the shared `div.case-studies-temp` wrapper rather than
+    // a specific layout modifier: universal-pure/dlg-group use `.cloeren`, the older
+    // farming-maintenance page uses `.jf`. `.ba-fiix` (challenge/solution/result
+    // columns) is absent on farming-maintenance — that page's infographic + narrative
+    // fall through to default content, which the empty-block guard handles cleanly.
     blocks: [
-      { name: "hero-case-study", instances: ["div.case-studies-temp.cloeren > header"] },
+      { name: "hero-case-study", instances: ["div.case-studies-temp > header"] },
       { name: "columns-media", instances: ["div.company-intro div.ba-fiix", ".ba-fiix"] },
       { name: "hero-cta", instances: ["div.kick-the-tires"] }
     ],
@@ -369,7 +397,7 @@ var CustomImportScript = (() => {
     // stays in the first (unstyled) section. Two sections → the section transformer
     // emits one <hr> break before the CTA plus its Section Metadata block.
     sections: [
-      { id: "case-study-body", name: "Case study body", selector: ["div.case-studies-temp.cloeren > header"], style: null, blocks: ["hero-case-study", "columns-media"], defaultContent: [] },
+      { id: "case-study-body", name: "Case study body", selector: ["div.case-studies-temp > header"], style: null, blocks: ["hero-case-study", "columns-media"], defaultContent: [] },
       { id: "case-study-cta", name: "Free tour CTA", selector: ["div.kick-the-tires", ".kick-the-tires"], style: "cta", blocks: ["hero-cta"], defaultContent: [] }
     ]
   };
