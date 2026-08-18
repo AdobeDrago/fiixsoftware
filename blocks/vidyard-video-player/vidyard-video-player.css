@@ -1,0 +1,14 @@
+.vidyard-video-player {
+  width: 100%;
+}
+
+.vidyard-video-player .vidyard-player-embed {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+}
+
+.vidyard-video-player iframe {
+  display: block;
+}
