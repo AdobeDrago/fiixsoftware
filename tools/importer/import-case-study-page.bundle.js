@@ -379,7 +379,8 @@ var CustomImportScript = (() => {
     urls: [
       "https://fiixsoftware.com/resource-center/case-studies/universal-pure/",
       "https://fiixsoftware.com/resource-center/case-studies/dlg-group/",
-      "https://fiixsoftware.com/resource-center/case-studies/farming-maintenance/"
+      "https://fiixsoftware.com/resource-center/case-studies/farming-maintenance/",
+      "https://fiixsoftware.com/resource-center/case-studies/edms-consultants/"
     ],
     // Selectors are keyed on the shared `div.case-studies-temp` wrapper rather than
     // a specific layout modifier: universal-pure/dlg-group use `.cloeren`, the older
