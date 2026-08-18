@@ -25,3 +25,99 @@
   aspect-ratio: 4 / 3;
   object-fit: cover;
 }
+
+/* ============================================================
+   `triad` variant — three borderless cards in a row, each a larger centered
+   icon (~85px, natural aspect) above centered text (cloud-page #reliable /
+   #connect) — NOT the bordered full-bleed-image cards the base block renders.
+   Authorable ("cards-icon (triad)" -> .cards-icon.triad) so any page can reuse
+   it; the base cards-icon keeps its bordered-card treatment. Values from
+   production: 3-up grid, icon ~85px, centered text.
+   ============================================================ */
+.cards-icon.triad > ul {
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px;
+}
+
+.cards-icon.triad > ul > li {
+  border: 0;
+  background: none;
+  text-align: center;
+}
+
+.cards-icon.triad .cards-icon-card-image {
+  display: flex;
+  justify-content: center;
+}
+
+.cards-icon.triad > ul > li img {
+  width: 85px;
+  height: auto;
+  aspect-ratio: auto;
+  object-fit: contain;
+}
+
+@media (width < 900px) {
+  .cards-icon.triad > ul {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ============================================================
+   `points` variant — feature-point rows (from the columns-media .plan-points on
+   the cloud page): a horizontal row of borderless icon-over-text items, each a
+   30px cyan icon on its own line above 20px copy, left-aligned. An authorable
+   variant (block name "cards-icon (points)" -> .cards-icon.points) so any page
+   can reuse it. Values from production: icon 30px #00afeb, text 20px/1.4, 3 or 4
+   items spread across the row.
+   ============================================================ */
+
+/* stylelint-disable no-descending-specificity */
+.cards-icon.points > ul {
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 40px;
+}
+
+.cards-icon.points > ul > li {
+  border: 0;
+  background: none;
+}
+
+.cards-icon.points .cards-icon-card-image {
+  margin: 0 0 12px;
+  line-height: 1;
+}
+
+.cards-icon.points .cards-icon-card-image .icon {
+  display: inline-flex;
+  width: 30px;
+  height: 30px;
+}
+
+.cards-icon.points .cards-icon-card-image img,
+.cards-icon.points .cards-icon-card-image svg {
+  width: 30px;
+  height: 30px;
+  min-width: 30px;
+  aspect-ratio: 1;
+  object-fit: contain;
+}
+
+.cards-icon.points .cards-icon-card-body {
+  margin: 0;
+}
+
+.cards-icon.points .cards-icon-card-body p {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 300;
+  line-height: 1.4;
+}
+
+@media (width < 900px) {
+  .cards-icon.points > ul {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* stylelint-enable no-descending-specificity */

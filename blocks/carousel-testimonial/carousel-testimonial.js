@@ -27,6 +27,14 @@ function updateNavState(block) {
   const maxScroll = slides.scrollWidth - slides.clientWidth;
   prev.disabled = slides.scrollLeft <= tolerance;
   next.disabled = slides.scrollLeft >= maxScroll - tolerance;
+
+  // Sync dot indicators (visible in the `quote` variant) with the current slide.
+  const indicators = [...block.querySelectorAll('.carousel-testimonial-slide-indicator')];
+  if (indicators.length) {
+    const step = getSlideStep(block) || slides.clientWidth || 1;
+    const current = Math.round(slides.scrollLeft / step);
+    indicators.forEach((li, i) => li.setAttribute('aria-selected', i === current ? 'true' : 'false'));
+  }
 }
 
 /**
@@ -44,6 +52,13 @@ function bindEvents(block) {
 
   block.querySelector('.slide-prev').addEventListener('click', () => showSlide(block, -1));
   block.querySelector('.slide-next').addEventListener('click', () => showSlide(block, 1));
+
+  // Dot indicators (quote variant): clicking one scrolls to that slide.
+  block.querySelectorAll('.carousel-testimonial-slide-indicator button').forEach((btn, idx) => {
+    btn.addEventListener('click', () => {
+      slides.scrollTo({ left: getSlideStep(block) * idx, behavior: 'smooth' });
+    });
+  });
 
   let scrollRaf;
   slides.addEventListener('scroll', () => {
@@ -206,7 +221,7 @@ function decorateCaseStudySlide(slide) {
   slide.append(row);
 }
 
-function createSlide(row, slideIndex, carouselId, isCaseStudy) {
+function createSlide(row, slideIndex, carouselId, isCaseStudy, isQuoteVariant) {
   const slide = document.createElement('li');
   slide.dataset.slideIndex = slideIndex;
   slide.setAttribute('id', `carousel-testimonial-${carouselId}-slide-${slideIndex}`);
@@ -230,6 +245,17 @@ function createSlide(row, slideIndex, carouselId, isCaseStudy) {
 
   if (isCaseStudy) {
     decorateCaseStudySlide(slide);
+  } else if (isQuoteVariant) {
+    // The `quote` variant is a single large centered testimonial (quote + author
+    // line) with no headshot/logo footer, so skip the card-footer regrouping —
+    // that logic would misread the quote/author paragraphs as name/role. Just tag
+    // the two paragraphs for the variant's typography.
+    const content = slide.querySelector('.carousel-testimonial-slide-content');
+    if (content) {
+      const paras = [...content.querySelectorAll(':scope > p')];
+      if (paras[0]) paras[0].classList.add('carousel-testimonial-quote-text');
+      if (paras[1]) paras[1].classList.add('carousel-testimonial-quote-author');
+    }
   } else {
     decorateTestimonialCard(slide);
   }
@@ -244,6 +270,7 @@ export default async function decorate(block) {
   const isCaseStudy = block.classList.contains('case-study');
   const rows = block.querySelectorAll(':scope > div');
   const isSingleSlide = rows.length < 2;
+  const isQuoteVariant = block.classList.contains('quote');
 
   const placeholders = {};
 
@@ -277,7 +304,7 @@ export default async function decorate(block) {
   }
 
   rows.forEach((row, idx) => {
-    const slide = createSlide(row, idx, carouselId, isCaseStudy);
+    const slide = createSlide(row, idx, carouselId, isCaseStudy, isQuoteVariant);
     slidesWrapper.append(slide);
 
     if (slideIndicators) {

@@ -1401,6 +1401,372 @@
           "defaultContent": []
         }
       ]
+    },
+    {
+      "name": "free-cmms-page",
+      "urls": [
+        "https://fiixsoftware.com/free-cmms/"
+      ],
+      "coverageGaps": [],
+      "description": "Fiix free-CMMS product landing page (WordPress #free-product / #page-wrap shell): split hero (headline + copy + CTA), alternating feature sections mixing 2-up media panels and 2x2 feature-card grids across work orders / assets / inventory / mobile, mid-page CTA bands, a rotating customer testimonial carousel, an FAQ accordion paired with a resource-card trio, and a final CTA band.",
+      "blocks": [
+        {
+          "name": "hero-lead (free)",
+          "instances": [
+            "#free-product > div.header"
+          ]
+        },
+        {
+          "name": "cards-features",
+          "instances": [
+            "#free-product > div.section1",
+            "#free-product > div.section3",
+            "#free-product > div.section5",
+            "#free-product > div.section3free"
+          ]
+        },
+        {
+          "name": "columns-media",
+          "instances": [
+            "#free-product > div.section2",
+            "#free-product > div.section4",
+            "#free-product > div.section2free"
+          ]
+        },
+        {
+          "name": "hero-cta",
+          "instances": [
+            "#free-product > div.container",
+            "#free-product > div.home-seemore"
+          ]
+        },
+        {
+          "name": "carousel-testimonial",
+          "instances": [
+            "#free-product > div.quote-rotate"
+          ]
+        },
+        {
+          "name": "accordion-faq (card)",
+          "instances": [
+            "#free-product > div.section7 .faq-accordion"
+          ]
+        },
+        {
+          "name": "cards-cta",
+          "instances": [
+            "#free-product > div.section7 .pricing-breakdown"
+          ]
+        }
+      ],
+      "sections": [
+        {
+          "id": "fc-hero",
+          "name": "Hero (split intro)",
+          "selector": [
+            "#free-product > div.header"
+          ],
+          "style": "fc-hero",
+          "blocks": [
+            "hero-lead (free)"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "fc-workorders",
+          "name": "Work orders feature",
+          "selector": [
+            "#free-product > div.section1"
+          ],
+          "style": null,
+          "blocks": [
+            "cards-features"
+          ],
+          "defaultContent": [
+            "#free-product > div.section1 .intro-block h2",
+            "#free-product > div.section1 .intro-block p"
+          ]
+        },
+        {
+          "id": "fc-assets-media",
+          "name": "Assets - media panel",
+          "selector": [
+            "#free-product > div.section2"
+          ],
+          "style": "accent-yellow",
+          "blocks": [
+            "columns-media"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "fc-assets-cards",
+          "name": "Assets - feature cards",
+          "selector": [
+            "#free-product > div.section3"
+          ],
+          "style": null,
+          "blocks": [
+            "cards-features"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "fc-cta-band",
+          "name": "Mid-page CTA band",
+          "selector": [
+            "#free-product > div.container"
+          ],
+          "style": "grey",
+          "blocks": [
+            "hero-cta"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "fc-inventory-media",
+          "name": "Inventory - media panel",
+          "selector": [
+            "#free-product > div.section4"
+          ],
+          "style": "accent-teal",
+          "blocks": [
+            "columns-media"
+          ],
+          "defaultContent": [
+            "#free-product > div.section4 .intro-block h2",
+            "#free-product > div.section4 .intro-block p"
+          ]
+        },
+        {
+          "id": "fc-inventory-cards",
+          "name": "Inventory - feature cards",
+          "selector": [
+            "#free-product > div.section5"
+          ],
+          "style": null,
+          "blocks": [
+            "cards-features"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "fc-mobile-media",
+          "name": "Mobile - media panel",
+          "selector": [
+            "#free-product > div.section2free"
+          ],
+          "style": "accent-blue",
+          "blocks": [
+            "columns-media"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "fc-mobile-cards",
+          "name": "Mobile - feature cards",
+          "selector": [
+            "#free-product > div.section3free"
+          ],
+          "style": null,
+          "blocks": [
+            "cards-features"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "fc-testimonials",
+          "name": "Customer testimonial carousel",
+          "selector": [
+            "#free-product > div.quote-rotate"
+          ],
+          "style": null,
+          "blocks": [
+            "carousel-testimonial"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "fc-faq-resources",
+          "name": "FAQ accordion and resource cards",
+          "selector": [
+            "#free-product > div.section7"
+          ],
+          "style": null,
+          "blocks": [
+            "accordion-faq",
+            "cards-cta"
+          ],
+          "defaultContent": [
+            "#free-product > div.section7 .faq-header",
+            "#free-product > div.section7 .pricing-breakdown-header"
+          ]
+        },
+        {
+          "id": "fc-final-cta",
+          "name": "Final CTA band",
+          "selector": [
+            "#free-product > div.home-seemore"
+          ],
+          "style": null,
+          "blocks": [
+            "hero-cta"
+          ],
+          "defaultContent": []
+        }
+      ]
+    },
+    {
+      "name": "cloud-page",
+      "urls": [
+        "https://fiixsoftware.com/cmms/cloud-maintenance-software/"
+      ],
+      "coverageGaps": [],
+      "description": "Fiix cloud/SaaS CMMS solution-info page (WordPress #cloud-cmms shell): simple hero (title + subtitle), an intro block (heading + paragraph + link), four alternating image+text feature rows (image beside a heading, paragraph, checkmark bullet list, and a link), two icon-triad sections (heading + three icon/text cards + link), and a final 'kick the tires' CTA (icon + heading + copy + button). Distinct from product-feature-page: no email-capture hero, logo band, video cards, testimonial/case-study carousels, or resource trio.",
+      "blocks": [
+        {
+          "name": "columns-media (feature)",
+          "instances": [
+            "#cloud-cmms #top-reasons",
+            "#cloud-cmms #designed",
+            "#cloud-cmms #data",
+            "#cloud-cmms #features"
+          ]
+        },
+        {
+          "name": "cards-icon (triad)",
+          "instances": [
+            "#cloud-cmms #reliable",
+            "#cloud-cmms #connect"
+          ]
+        },
+        {
+          "name": "hero-cta (promo)",
+          "instances": [
+            "#cloud-cmms .kick-the-tires"
+          ]
+        }
+      ],
+      "sections": [
+        {
+          "id": "cloud-hero",
+          "name": "Hero (title + subtitle)",
+          "selector": [
+            "#cloud-cmms header"
+          ],
+          "style": "dark",
+          "blocks": [],
+          "defaultContent": [
+            "#cloud-cmms header h1",
+            "#cloud-cmms header h2"
+          ]
+        },
+        {
+          "id": "cloud-intro",
+          "name": "Intro (heading + paragraph + link)",
+          "selector": [
+            "#innovation"
+          ],
+          "style": null,
+          "blocks": [],
+          "defaultContent": [
+            "#innovation .drive-innovation h2",
+            "#innovation .drive-innovation p"
+          ]
+        },
+        {
+          "id": "cloud-top-reasons",
+          "name": "Feature row - plan/track/measure",
+          "selector": [
+            "#top-reasons"
+          ],
+          "style": "grey",
+          "blocks": [
+            "columns-media (feature)"
+          ],
+          "defaultContent": [
+            "#top-reasons .container > h2"
+          ]
+        },
+        {
+          "id": "cloud-designed",
+          "name": "Feature row - designed to be easy",
+          "selector": [
+            "#designed"
+          ],
+          "style": null,
+          "blocks": [
+            "columns-media (feature)"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "cloud-reliable",
+          "name": "Icon triad - reliability",
+          "selector": [
+            "#reliable"
+          ],
+          "style": "grey",
+          "blocks": [
+            "cards-icon (triad)"
+          ],
+          "defaultContent": [
+            "#reliable .plan-track h3",
+            "#reliable .plan-track p"
+          ]
+        },
+        {
+          "id": "cloud-data",
+          "name": "Feature row - never lose sleep over data",
+          "selector": [
+            "#data"
+          ],
+          "style": null,
+          "blocks": [
+            "columns-media (feature)"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "cloud-features",
+          "name": "Feature row - features and pricing",
+          "selector": [
+            "#features"
+          ],
+          "style": "grey",
+          "blocks": [
+            "columns-media (feature)"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "cloud-connect",
+          "name": "Icon triad - integrations",
+          "selector": [
+            "#connect"
+          ],
+          "style": null,
+          "blocks": [
+            "cards-icon (triad)"
+          ],
+          "defaultContent": [
+            "#connect .plan-track h3",
+            "#connect .plan-track p"
+          ]
+        },
+        {
+          "id": "cloud-final-cta",
+          "name": "Final CTA (kick the tires)",
+          "selector": [
+            "#cloud-cmms .kick-the-tires"
+          ],
+          "style": null,
+          "blocks": [
+            "hero-cta (promo)"
+          ],
+          "defaultContent": []
+        }
+      ]
     }
   ]
 }

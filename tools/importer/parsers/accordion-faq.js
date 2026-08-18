@@ -72,6 +72,14 @@ export default function parse(element, { document }) {
     return;
   }
 
-  const block = WebImporter.Blocks.createBlock(document, { name: 'accordion-faq', cells });
+  // Free-CMMS renders the FAQ in an elevated "card" style (grey rows, white
+  // open card, chevron toggle) rather than the pricing-page dotted-rule + `+/-`
+  // look. That instance lives under the `#free-product` WordPress shell, so emit
+  // the authorable `card` variant there; every other page keeps the base style.
+  // Only the block-name row carries the variant token — the 2-column
+  // [title, content] row/cell structure is unchanged.
+  const name = element.closest('#free-product') ? 'accordion-faq (card)' : 'accordion-faq';
+
+  const block = WebImporter.Blocks.createBlock(document, { name, cells });
   element.replaceWith(block);
 }

@@ -31,3 +31,190 @@
     order: unset;
   }
 }
+
+/* ============================================================
+   Free-CMMS accent media panels (accent-yellow / accent-teal /
+   accent-blue). Production (fiixsoftware.com/free-cmms) renders each
+   as a large full-bleed colored panel behind a product screenshot,
+   with a 48px heading (underlined in the accent color) + 28px lead in
+   the opposite column. The decorative 3D shape that overhangs the
+   panel was dropped during import, so the panel + screenshot + accent
+   underline reproduce the look. Values from production computed styles
+   at 1440px: yellow rgb(255,214,0), teal rgb(60,192,203),
+   blue rgb(0,175,235); panel 500px tall; heading 48/48/700 #212021
+   with a 5px accent underline; lead 28/300 #212021. Scoped to the
+   accent classes (added by columns-media.js only when the section
+   carries the accent style) so other columns-media templates are
+   unaffected.
+   ============================================================ */
+.columns-media-accent-yellow { --cm-accent: rgb(255 214 0); }
+.columns-media-accent-teal { --cm-accent: rgb(60 192 203); }
+.columns-media-accent-blue { --cm-accent: rgb(0 175 235); }
+
+/* heading + lead typography (mobile first) */
+.columns-media-accent h2 {
+  position: relative;
+  margin: 0 0 20px;
+  padding-bottom: 20px;
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 1.05;
+  color: #212021;
+}
+
+.columns-media-accent h2::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 5px;
+  background: var(--cm-accent);
+}
+
+.columns-media-accent p {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 300;
+  line-height: 1.4;
+  color: #212021;
+}
+
+/* mobile: colored panel behind the screenshot, bled to the screen edges */
+.columns-media-accent > div > .columns-media-img-col {
+  position: relative;
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  padding: 40px 24px 0;
+  background: var(--cm-accent);
+}
+
+.columns-media-accent > div > .columns-media-img-col img {
+  position: relative;
+  z-index: 1;
+  display: block;
+  margin: 0 auto;
+}
+
+@media (width >= 900px) {
+  /* full-bleed band so the accent panel can reach the viewport edge like
+     production; the block spans the centered container, so 50% is the
+     viewport center and calc(50% - 50vw) lands on the viewport edge. */
+  .columns-media-accent {
+    position: relative;
+    width: 100vw;
+    margin-left: calc(50% - 50vw);
+
+    /* clip horizontally only so the decorative shape can overhang the panel top */
+    overflow-x: clip;
+  }
+
+  /* the colored half-panel, bled to the image side */
+  .columns-media-accent::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    z-index: 0;
+    width: 50vw;
+    background: var(--cm-accent);
+  }
+
+  .columns-media-accent-yellow::before,
+  .columns-media-accent-blue::before { left: 0; }
+  .columns-media-accent-teal::before { right: 0; }
+
+  /* inner content re-constrained to the centered container */
+  .columns-media-accent > div {
+    position: relative;
+    z-index: 1;
+    box-sizing: border-box;
+    max-width: 1200px;
+    min-height: 500px;
+    margin: 0 auto;
+    padding: 0 32px;
+    align-items: center;
+    gap: 60px;
+  }
+
+  /* teal panel: image on the right (production flips this row) */
+  .columns-media-accent-teal > div { flex-direction: row-reverse; }
+
+  /* screenshot sits on top of the panel, aligned to its bottom; relative so the
+     authorable decorative shape image can overhang its edge */
+  .columns-media-accent > div > .columns-media-img-col {
+    position: relative;
+    align-self: end;
+    width: auto;
+    margin-left: 0;
+    padding: 0;
+    background: none;
+  }
+
+  /* The screenshot is the last image in the column; size it to the panel. The
+     shape (first image) is positioned separately below, so exclude it here. */
+  .columns-media-accent > div > .columns-media-img-col img:not(.columns-media-shape-img) {
+    margin: 0;
+  }
+
+  .columns-media-accent h2 {
+    padding-bottom: 30px;
+    font-size: 48px;
+    line-height: 1;
+  }
+
+  .columns-media-accent p {
+    font-size: 28px;
+  }
+
+  /* Authorable decorative 3D shape (first image in the media cell) overlaps the
+     screenshot. Two orientation variants, both authorable:
+       shape-vertical   → overhangs the TOP edge (default; assets/mobile panels)
+       shape-horizontal → sits to the SIDE, vertically centred (inventory panel)
+     The shape wrapper is taken out of flow so it doesn't push the screenshot. */
+  .columns-media-has-shape > div > .columns-media-img-col .columns-media-shape {
+    position: absolute;
+    z-index: 2;
+    margin: 0;
+    pointer-events: none;
+  }
+
+  .columns-media-has-shape > div > .columns-media-img-col .columns-media-shape-img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  /* vertical: shape overhangs the top, toward the outer edge of the screenshot */
+  .columns-media-has-shape.shape-vertical > div > .columns-media-img-col .columns-media-shape {
+    top: -60px;
+    right: -30px;
+    width: 200px;
+  }
+
+  /* teal/inventory row is reversed (image on the right); anchor its shape left */
+  .columns-media-accent-teal.shape-vertical > div > .columns-media-img-col .columns-media-shape {
+    right: auto;
+    left: -30px;
+  }
+
+  /* horizontal: shape sits beside the screenshot, vertically centred */
+  .columns-media-has-shape.shape-horizontal > div > .columns-media-img-col .columns-media-shape {
+    top: 50%;
+    left: -60px;
+    width: 170px;
+    transform: translateY(-50%);
+  }
+}
+
+/* ============================================================
+   `feature` variant — image+text feature rows (cloud-page). Production renders
+   the feature H3 at 36px, larger than the default ~20px h3 in these rows.
+   Authorable ("columns-media (feature)" -> .columns-media.feature) so any page
+   can reuse it; the base columns-media keeps its default heading sizing.
+   ============================================================ */
+.columns-media.feature h3 {
+  font-size: 36px;
+  font-weight: 700;
+  line-height: 1.1;
+}

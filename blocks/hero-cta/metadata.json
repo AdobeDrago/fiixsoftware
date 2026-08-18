@@ -33,9 +33,11 @@
   "usage": {
     "pagesUsing": [
       "/cmms/pricing/index",
-      "/cmms/ai/index"
+      "/cmms/ai/index",
+      "/free-cmms/index",
+      "/cmms/cloud-maintenance-software/index"
     ],
-    "reuseCount": 2,
-    "lastUsed": "2026-08-11T00:00:00.000Z"
+    "reuseCount": 4,
+    "lastUsed": "2026-08-17T00:00:00.000Z"
   }
 }

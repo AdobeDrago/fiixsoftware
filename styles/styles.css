@@ -339,6 +339,25 @@ main .section.highlight {
   padding: 40px 0;
 }
 
+/* Dark section band: full-bleed dark-navy background with centered white text.
+   Used for hero/intro bands authored as default content (e.g. the cloud-page
+   hero). Reusable global section style — any page can apply style "dark".
+   Navy measured from production (fiixsoftware.com/cmms/cloud-maintenance-software
+   header): rgb(35, 29, 61). */
+main .section.dark {
+  margin: 0;
+  padding: 80px 0;
+  background-color: rgb(35 29 61);
+  color: #fff;
+  text-align: center;
+}
+
+/* NOTE: `.section.dark` heading/paragraph typography (white text, hero H1/H2
+   sizing) lives near the end of this file, inside the existing
+   no-descending-specificity disable region, so it doesn't trip the linter
+   against lower-specificity `.security` / `.customer-success` descendant rules
+   defined later. */
+
 /* FAQ section — full-bleed light-gray band (production #f7f7f7, 50px vertical
    padding). Band background lives here; typography/alignment/CTA rules are
    grouped at the end of this file to satisfy specificity ordering. */
@@ -3694,6 +3713,31 @@ main > .section.optix-getstarted .default-content-wrapper li {
   main > .section.optix-getstarted .hero-cta.no-image h2 {
     font-size: 40px;
   }
+}
+
+/* Dark section band typography (see the `main .section.dark` band rule earlier).
+   White text for all headings/paragraphs; hero H1 54/700 over a lighter H2
+   20/300 subtitle. Placed here so it sits inside the disable region. */
+main .section.dark h1,
+main .section.dark h2,
+main .section.dark h3,
+main .section.dark p {
+  color: #fff;
+}
+
+main .section.dark h1 {
+  margin: 0 auto 20px;
+  font-size: 54px;
+  font-weight: 700;
+  line-height: 1.15;
+}
+
+main .section.dark h2 {
+  margin: 0 auto;
+  max-width: 900px;
+  font-size: 20px;
+  font-weight: 300;
+  line-height: 1.4;
 }
 
 /* stylelint-enable no-descending-specificity */

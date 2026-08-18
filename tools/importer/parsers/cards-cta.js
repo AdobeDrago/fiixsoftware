@@ -40,8 +40,12 @@ export default function parse(element, { document }) {
     return;
   }
 
-  // ---- product-feature-page shape: `.pricing-breakdown` resource cards ----
-  const breakdown = element.querySelector('.pricing-breakdown');
+  // ---- product-feature-page / free-cmms shape: `.pricing-breakdown` cards ----
+  // The instance may be a wrapper (`.section7`) containing `.pricing-breakdown`,
+  // or the `.pricing-breakdown` grid itself (free-cmms-page) — handle both.
+  const breakdown = element.matches('.pricing-breakdown')
+    ? element
+    : element.querySelector('.pricing-breakdown');
   const resourceCards = breakdown
     ? Array.from(breakdown.querySelectorAll(':scope > .pricing-performance'))
     : [];

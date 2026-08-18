@@ -1,3 +1,44 @@
+/**
+ * `free` variant (free-cmms split hero): the media cell carries the product
+ * screenshot and, when present, a link to the hero .mp4. Production autoplays
+ * that video — muted + looping — in the purple panel with the screenshot as its
+ * poster. Rebuild that <video> here; if the video link is absent, the screenshot
+ * stands in. This runs only for the `free` variant; the standard lead hero uses
+ * a plain image.
+ * @param {Element} mediaCell the block's media cell
+ */
+function decorateFreeVideo(mediaCell) {
+  if (!mediaCell) return;
+  const picture = mediaCell.querySelector('picture');
+  const videoLink = mediaCell.querySelector('a[href*=".mp4"]');
+  if (!picture || !videoLink) return;
+
+  const posterImg = mediaCell.querySelector('img');
+  const video = document.createElement('video');
+  video.className = 'hero-lead-video';
+  video.muted = true;
+  video.autoplay = true;
+  video.loop = true;
+  video.playsInline = true;
+  video.setAttribute('muted', '');
+  video.setAttribute('playsinline', '');
+  if (posterImg && posterImg.src) video.setAttribute('poster', posterImg.src);
+
+  const source = document.createElement('source');
+  source.setAttribute('src', videoLink.getAttribute('href'));
+  source.setAttribute('type', 'video/mp4');
+  video.append(source);
+
+  // Keep the screenshot as graceful fallback inside the <video>, then swap.
+  video.append(picture.cloneNode(true));
+  picture.replaceWith(video);
+  videoLink.remove();
+
+  // Some browsers ignore the autoplay attribute until play() is called.
+  const tryPlay = video.play();
+  if (tryPlay && typeof tryPlay.catch === 'function') tryPlay.catch(() => {});
+}
+
 export default function decorate(block) {
   const rows = [...block.children];
 
@@ -6,6 +47,13 @@ export default function decorate(block) {
   const contentCell = rows[1]?.firstElementChild;
 
   if (imageCell) imageCell.classList.add('hero-lead-media');
+
+  // `free` variant: rebuild the autoplay video panel; skip the home hero's
+  // form + stat-metric parsing below (that content doesn't exist here).
+  if (block.classList.contains('free')) {
+    decorateFreeVideo(imageCell);
+    return;
+  }
 
   if (!contentCell) {
     if (!block.querySelector(':scope > div:first-child picture')) {

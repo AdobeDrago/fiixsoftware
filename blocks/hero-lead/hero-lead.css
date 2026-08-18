@@ -220,6 +220,134 @@
   object-fit: contain;
 }
 
+/* ============================================================
+   `free` variant — the /free-cmms split intro hero. Same 2-row authoring
+   contract as the lead hero (media cell + content cell), but rendered as a
+   full-bleed split band: eyebrow + big headline + copy + text-link CTA on a
+   light panel (left), product screenshot/autoplay video on a purple (#6d68ea)
+   panel that bleeds to the right viewport edge. Values from production
+   (fiixsoftware.com/free-cmms) at 1440px. Scoped to .hero-lead.free so the
+   standard lead hero on every other page is untouched.
+   ============================================================ */
+.hero-lead.free {
+  display: block;
+  max-width: none;
+  margin: 0;
+  padding: 0;
+  background-color: var(--light-color); /* #f7f9fc */
+}
+
+.hero-lead.free-container .hero-lead-wrapper,
+.section.free-hero .hero-lead-wrapper {
+  max-width: none;
+  padding: 0;
+}
+
+/* media row -> purple panel */
+.hero-lead.free > div:first-child {
+  display: flex;
+  margin: 0;
+  padding: 40px 24px;
+  align-items: center;
+  justify-content: center;
+  background-color: #6d68ea;
+}
+
+.hero-lead.free > div:first-child picture,
+.hero-lead.free .hero-lead-video {
+  display: block;
+  width: 100%;
+  max-width: 620px;
+  height: auto;
+  object-fit: contain;
+}
+
+.hero-lead.free img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* copy row */
+.hero-lead.free > div:last-child {
+  margin: 0;
+  padding: 40px 24px;
+}
+
+.hero-lead.free > div:last-child > div {
+  max-width: 540px;
+  margin: 0 auto;
+}
+
+/* eyebrow */
+.hero-lead.free h1 {
+  margin: 0 0 24px;
+  max-width: none;
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 1.1;
+  text-align: left;
+  text-transform: uppercase;
+  color: var(--text-color);
+}
+
+/* headline */
+.hero-lead.free h2 {
+  margin: 0 0 24px;
+  max-width: none;
+  padding: 0;
+  font-size: 40px;
+  font-weight: 700;
+  line-height: 1;
+  text-align: left;
+  color: var(--text-color);
+}
+
+/* stylelint-disable-next-line no-descending-specificity */
+.hero-lead.free p {
+  margin: 0 0 20px;
+  font-size: 20px;
+  font-weight: 300;
+  line-height: 1.4;
+  text-align: left;
+  color: var(--text-color);
+}
+
+/* CTA — a plain bold dark-blue text link with a trailing arrow, not a pill. */
+.hero-lead.free p.button-container {
+  margin: 0;
+  text-align: left;
+}
+
+/* stylelint-disable no-descending-specificity */
+.hero-lead.free a.button:any-link,
+.hero-lead.free a:any-link {
+  display: inline;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: #14499a;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.25;
+  text-align: left;
+  text-decoration: none;
+  white-space: normal;
+}
+
+.hero-lead.free a:any-link::after {
+  content: ' \2192';
+  font-weight: 700;
+}
+
+.hero-lead.free a:hover {
+  color: var(--link-hover-color);
+  text-decoration: none;
+}
+
+/* stylelint-enable no-descending-specificity */
+
 /* --- tablet: wider column, headings left-aligned, button still filled -- */
 @media (width >= 768px) {
   .hero-lead .hero-lead-content h1 {
@@ -311,5 +439,50 @@
   .hero-lead .hero-lead-stat {
     flex: 1 1 0;
     min-width: 0;
+  }
+
+  /* `free` variant: two equal columns, copy left / purple media panel right,
+     both filling an 850px-min-height band (production). */
+  .hero-lead.free {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: stretch;
+    min-height: 850px;
+    padding: 0;
+  }
+
+  /* copy on the left (row 2 in DOM) */
+  .hero-lead.free > div:last-child {
+    grid-column: 1;
+    grid-row: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    /* left edge aligns to the centered 1200px container gutter (text starts
+       ~120px from the viewport edge at 1440px). */
+    padding: 60px 40px 60px max(32px, calc((100vw - 1200px) / 2));
+  }
+
+  .hero-lead.free > div:last-child > div {
+    margin: 0;
+  }
+
+  /* purple media panel on the right (row 1 in DOM) */
+  /* stylelint-disable-next-line no-descending-specificity */
+  .hero-lead.free > div:first-child {
+    grid-column: 2;
+    grid-row: 1;
+    padding: 60px 48px;
+  }
+
+  .hero-lead.free h1 {
+    margin-bottom: 40px;
+  }
+
+  .hero-lead.free h2 {
+    margin-bottom: 30px;
+    font-size: 64px;
+    line-height: 1;
   }
 }

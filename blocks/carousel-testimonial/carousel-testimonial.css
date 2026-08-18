@@ -506,3 +506,123 @@
     background-color: var(--carousel-testimonial-cs-circle);
   }
 }
+
+/* ============================================================
+   `quote` variant — a single, large, centered testimonial shown one slide at a
+   time (free-cmms `.quote-rotate`). No card chrome; big centered quote + author
+   line; prev/next arrows on the left & right sides; cyan dot indicators below.
+   Values from production (fiixsoftware.com/free-cmms): quote 28/700 centered,
+   author 20/600, accent rgb(0 175 235).
+   ============================================================ */
+.carousel-testimonial.quote {
+  --carousel-testimonial-accent: rgb(0 175 235);
+
+  position: relative;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 60px; /* room for the side arrows */
+}
+
+.carousel-testimonial.quote .carousel-testimonial-slides {
+  gap: 0;
+  padding: 0;
+  scroll-snap-type: x mandatory;
+}
+
+/* one full-width slide at a time, borderless/transparent */
+.carousel-testimonial.quote .carousel-testimonial-slide {
+  flex: 0 0 100%;
+  background: none;
+  border-radius: 0;
+  box-shadow: none;
+  padding: 24px 8px;
+  text-align: center;
+}
+
+.carousel-testimonial.quote .carousel-testimonial-slide-content {
+  align-items: center;
+}
+
+/* big centered quote (scoped under -slide-content to beat the base card's
+   `> p:nth-of-type()` typography rules) */
+.carousel-testimonial.quote .carousel-testimonial-slide-content .carousel-testimonial-quote-text {
+  margin: 0 0 32px;
+  padding: 0;
+  border: 0;
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 1.15;
+  text-align: center;
+  color: var(--carousel-testimonial-ink);
+}
+
+/* author name/company line */
+.carousel-testimonial.quote .carousel-testimonial-slide-content .carousel-testimonial-quote-author {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 1.3;
+  text-align: center;
+  color: var(--carousel-testimonial-ink);
+}
+
+/* prev/next arrows: bare chevrons on the left & right edges, vertically centred */
+.carousel-testimonial.quote .carousel-testimonial-navigation-buttons {
+  order: 0;
+  z-index: 3; /* lift the whole nav layer above the slide track for clicks */
+  margin: 0;
+}
+
+.carousel-testimonial.quote .carousel-testimonial-navigation-buttons button {
+  position: absolute;
+  top: 50%;
+  z-index: 3; /* above the slide track, which otherwise intercepts the click */
+  width: 32px;
+  height: 32px;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  transform: translateY(-50%);
+}
+
+.carousel-testimonial.quote .carousel-testimonial-navigation-buttons button.slide-prev { left: 12px; }
+.carousel-testimonial.quote .carousel-testimonial-navigation-buttons button.slide-next { right: 12px; }
+
+/* dark chevron glyphs (override the white-on-dark circular style) */
+.carousel-testimonial.quote .carousel-testimonial-navigation-buttons button::after {
+  border-color: rgb(33 32 33);
+  border-width: 3px;
+  width: 12px;
+  height: 12px;
+}
+
+/* cyan dot indicators, centred below the quote */
+.carousel-testimonial.quote .carousel-testimonial-slide-indicators {
+  display: flex;
+  order: 1;
+  justify-content: center;
+  gap: 10px;
+  margin: 24px 0 0;
+}
+
+.carousel-testimonial.quote .carousel-testimonial-slide-indicators li {
+  margin: 0;
+}
+
+.carousel-testimonial.quote .carousel-testimonial-slide-indicators button {
+  width: 10px;
+  height: 10px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: rgb(0 175 235 / 30%);
+  cursor: pointer;
+}
+
+.carousel-testimonial.quote .carousel-testimonial-slide-indicators button:hover {
+  background: var(--carousel-testimonial-accent);
+}
+
+.carousel-testimonial.quote .carousel-testimonial-slide-indicators li[aria-selected='true'] button {
+  background: var(--carousel-testimonial-accent);
+}

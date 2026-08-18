@@ -119,3 +119,101 @@
     font-size: 48px;
   }
 }
+
+/* ============================================================
+   Resource-card variant ("Get best practices…" / related resources).
+   When a panel carries a decorative image figure the block renders as a row of
+   white resource cards rather than the grey dual-CTA panels above. Production
+   (fiixsoftware.com .related-resources) renders each as a left-aligned WHITE
+   card with a soft drop shadow, a small static icon at the top, a 24px title, a
+   20px lead, and a plain dark-blue text link with a trailing arrow — NOT a
+   centered grey panel with a purple pill. Values measured at 1200px:
+     card:  bg #fff, box-shadow 10px 10px 33px rgb(0 0 0 / 10%),
+            padding 70px 40px 40px, text-align left, equal heights
+     icon:  70px, static, top of card, 20px below
+     h3:    24px/700 #212021, margin 0 0 20px
+     p:     20px/300 #212021, margin 0 0 20px
+     link:  #14499a, 20px/700, plain text + " →", no button chrome
+   Scoped with :has(.cards-cta-figure) so the imageless dual-CTA panels keep
+   their grey-panel + purple-pill treatment on every page that uses them.
+   ============================================================ */
+.cards-cta:has(.cards-cta-figure) .cards-cta-panel {
+  align-items: flex-start;
+  padding: 40px 24px;
+  text-align: left;
+  background-color: #fff;
+  box-shadow: 10px 10px 33px rgb(0 0 0 / 10%);
+}
+
+/* icon overhangs the top edge of the card, inset from the left — matching
+   production, where the figure is absolutely positioned so it floats over the
+   card's top border while the copy starts below the reserved top padding.
+   Measured on production: top -38px, left 40px, 70px wide. */
+.cards-cta:has(.cards-cta-figure) .cards-cta-figure {
+  position: absolute;
+  top: -38px;
+  left: 40px;
+  margin: 0;
+}
+
+.cards-cta:has(.cards-cta-figure) .cards-cta-figure img {
+  width: 70px;
+}
+
+.cards-cta:has(.cards-cta-figure) .cards-cta-body {
+  align-items: flex-start;
+}
+
+.cards-cta:has(.cards-cta-figure) .cards-cta-body h3 {
+  margin: 0 0 20px;
+  font-size: 24px;
+  line-height: 1;
+  text-align: left;
+}
+
+.cards-cta:has(.cards-cta-figure) .cards-cta-body p {
+  text-align: left;
+}
+
+/* plain dark-blue text link with a trailing arrow (overrides the pill button) */
+.cards-cta:has(.cards-cta-figure) a.cards-cta-button:any-link {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  color: #14499a;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.cards-cta:has(.cards-cta-figure) a.cards-cta-button:any-link::after {
+  content: ' →';
+}
+
+.cards-cta:has(.cards-cta-figure) a.cards-cta-button:hover,
+.cards-cta:has(.cards-cta-figure) a.cards-cta-button:focus-visible {
+  background: none;
+  color: #14499a;
+  text-decoration: underline;
+}
+
+@media (width >= 900px) {
+  /* equal-width cards spaced like production (≈60px gutters, 360px cards) */
+  .cards-cta:has(.cards-cta-figure) {
+    gap: 60px;
+  }
+
+  .cards-cta:has(.cards-cta-figure) .cards-cta-panel {
+    padding: 70px 40px 40px;
+  }
+
+  .cards-cta:has(.cards-cta-figure) .cards-cta-figure img {
+    width: 70px;
+  }
+
+  .cards-cta:has(.cards-cta-figure) .cards-cta-body h3 {
+    margin-bottom: 20px;
+    font-size: 24px;
+  }
+}

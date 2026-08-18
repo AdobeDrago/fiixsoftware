@@ -1,4 +1,4 @@
-import { createOptimizedPicture } from '../../scripts/aem.js';
+import { createOptimizedPicture, decorateIcons } from '../../scripts/aem.js';
 
 export default function decorate(block) {
   /* change to ul, li */
@@ -36,6 +36,45 @@ export default function decorate(block) {
   // default, so tag the row count (= half, rounded up) for the stylesheet to
   // switch to column auto-flow at desktop.
   if (block.closest('.pf-features')) {
+    ul.classList.add(`cards-features-rows-${Math.ceil(ul.children.length / 2)}`);
+  }
+
+  // Text-only feature grids (e.g. free-cmms) lay the blurbs out COLUMN-major and,
+  // when the author has added a feature icon to the cards, render it to the left
+  // of the heading. The icon is ordinary authored content — an EDS icon token
+  // (`<span class="icon icon-NAME">`, decorated into an <img> by decorateIcons in
+  // scripts.js). We don't hard-code which icon goes where; we just detect that a
+  // card carries one and tag the block/card so the CSS can lay it out.
+  if (!block.querySelector('.cards-features-card-image')) {
+    let iconated = 0;
+    ul.querySelectorAll('.cards-features-card-body').forEach((body) => {
+      // The author places an EDS icon token (`:name:`) as the first line of the
+      // cell. It may already be a span.icon (if the pipeline expanded it) or
+      // still be literal text in a leading <p>. Handle both so the icon renders
+      // regardless of environment.
+      let iconSpan = body.querySelector(':scope > span.icon, :scope > p > span.icon');
+      if (!iconSpan) {
+        const firstP = body.querySelector(':scope > p');
+        const m = firstP && firstP.textContent.trim().match(/^:([a-z0-9-]+):$/i);
+        if (m) {
+          iconSpan = document.createElement('span');
+          iconSpan.className = `icon icon-${m[1].toLowerCase()}`;
+          firstP.replaceWith(iconSpan);
+        }
+      } else {
+        const wrapperP = iconSpan.closest('p');
+        if (wrapperP && wrapperP.textContent.trim() === '') wrapperP.replaceWith(iconSpan);
+      }
+      if (!iconSpan) return;
+      iconSpan.classList.add('cards-features-icon');
+      body.prepend(iconSpan);
+      iconated += 1;
+    });
+    if (iconated) {
+      block.classList.add('cards-features-iconed');
+      decorateIcons(ul); // turn span.icon tokens into <img> from /icons/ (ul holds the cards)
+    }
+    // Column-major flow (fill left column top-to-bottom, then right) like prod.
     ul.classList.add(`cards-features-rows-${Math.ceil(ul.children.length / 2)}`);
   }
 

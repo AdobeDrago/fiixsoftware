@@ -110,3 +110,148 @@
     font-size: 48px;
   }
 }
+
+/* Free-CMMS mid-page CTA band: production renders a light-grey (#f2f2f2) band
+   with the heading and a rounded cyan pill button on one row (heading left,
+   button right on desktop; stacked on mobile). Scoped to the `grey` section. */
+.section.grey {
+  margin: 0;
+  padding: 0;
+  background-color: rgb(242 242 242);
+}
+
+.section.grey .hero-cta {
+  position: static;
+  min-height: 0;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 24px;
+  text-align: center;
+}
+
+.section.grey .hero-cta > div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+}
+
+.section.grey .hero-cta h2 {
+  margin: 0;
+  color: var(--text-color);
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+/* Free-CMMS final CTA band ("Ready to get started?"): centered heading +
+   supporting line + rounded cyan pill button on white. This is the last
+   hero-cta on the free-cmms page and carries no section style, so scope it to
+   the page class to avoid affecting hero-cta on other templates. */
+.page-content-free-cmms .section:last-of-type .hero-cta {
+  position: static;
+  min-height: 0;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 80px 24px;
+  text-align: center;
+}
+
+.page-content-free-cmms .section:last-of-type .hero-cta h2 {
+  margin: 0 auto 16px;
+  color: var(--text-color);
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+.page-content-free-cmms .section:last-of-type .hero-cta p {
+  margin: 0 auto 24px;
+  color: var(--text-color);
+  font-size: 20px;
+  font-weight: 300;
+}
+
+/* Rounded cyan pill CTA button shared by both free-cmms hero-cta bands.
+   Overrides the global plain-link button reset for these bands only. */
+.section.grey .hero-cta a.button,
+.section.grey .hero-cta a:any-link,
+.page-content-free-cmms .section:last-of-type .hero-cta a.button,
+.page-content-free-cmms .section:last-of-type .hero-cta a:any-link {
+  display: inline-block;
+  padding: 12px 28px;
+  border: 2px solid rgb(0 175 235);
+  border-radius: 27px;
+  background: rgb(0 175 235);
+  color: #fff;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.2;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.section.grey .hero-cta a:any-link:hover,
+.page-content-free-cmms .section:last-of-type .hero-cta a:any-link:hover {
+  background: #fff;
+  color: rgb(0 175 235);
+}
+
+@media (width >= 900px) {
+  .section.grey .hero-cta > div {
+    flex-direction: row;
+    justify-content: space-around;
+  }
+
+  .section.grey .hero-cta h2 {
+    font-size: 34px;
+  }
+
+  .page-content-free-cmms .section:last-of-type .hero-cta {
+    padding: 120px 0 80px;
+  }
+
+  .page-content-free-cmms .section:last-of-type .hero-cta h2 {
+    font-size: 48px;
+  }
+}
+
+/* ============================================================
+   `promo` variant — a centered promotional CTA on a plain light band: an icon +
+   dark heading + copy + a single cyan/blue pill button (cloud-page "kick the
+   tires"). The base hero-cta colours the heading white (var(--background-color))
+   and only flips to dark under `.no-image`; a promo CTA HAS an icon, so this
+   variant forces the dark heading + pill button. Authorable ("hero-cta (promo)"
+   -> .hero-cta.promo) so any page can reuse it; the base/image-hero white-text
+   treatment is untouched. Values from production: H2 48/700 #212021, button bg
+   #14499a, white text, 27px radius. */
+
+/* stylelint-disable no-descending-specificity */
+.hero-cta.promo h2,
+.hero-cta.promo p {
+  color: var(--text-color);
+}
+
+.hero-cta.promo a.button:any-link,
+.hero-cta.promo a:any-link {
+  display: inline-block;
+  margin-top: 8px;
+  padding: 12px 28px;
+  border: 2px solid #14499a;
+  border-radius: 27px;
+  background: #14499a;
+  color: #fff;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.2;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.hero-cta.promo a:any-link:hover {
+  border-color: #0f3877;
+  background: #0f3877;
+  color: #fff;
+}
+
+/* stylelint-enable no-descending-specificity */
