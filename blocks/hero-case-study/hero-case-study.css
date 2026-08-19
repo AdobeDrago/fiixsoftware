@@ -147,7 +147,7 @@ body:has(.hero-case-study) main > .section.hero-case-study-container {
   }
 
   /* Logo-led case studies use the taller production hero variant. */
-  main:has(.case-study-logo-container) .hero-case-study {
+  body:has(.case-study-logo-container) .hero-case-study {
     min-height: 700px;
   }
 }
