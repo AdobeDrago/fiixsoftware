@@ -1,0 +1,20 @@
+.youtube-video {
+  box-sizing: border-box;
+  width: 90%;
+  max-width: 560px;
+  margin: 30px auto 0;
+  padding: 0;
+}
+
+.youtube-video iframe {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border: 0;
+}
+
+.youtube-video-invalid a:any-link {
+  color: #14499a;
+  font-weight: 500;
+  text-decoration: underline;
+}
