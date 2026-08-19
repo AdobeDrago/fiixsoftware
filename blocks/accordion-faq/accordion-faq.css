@@ -79,6 +79,12 @@
   background-color: transparent;
 }
 
+/* Hide synced image panel below desktop; accordion-only on tablet/mobile. */
+main .section.enterprise-scale .accordion-faq-panel,
+main .section.pf-explore .accordion-faq-panel {
+  display: none;
+}
+
 /* enterprise-scale: accordion left, synced image panel right.
    pf-explore: image panel left, accordion right. Colours per row measured
    from production. */
@@ -86,7 +92,7 @@
   main .section.enterprise-scale .accordion-faq-flex,
   main .section.pf-explore .accordion-faq-flex {
     display: flex;
-    gap: 40px;
+    column-gap: 100px;
     align-items: stretch;
   }
 
@@ -139,14 +145,39 @@ main .section.pf-explore .accordion-faq-figure-4 { background-color: #4d3e8d; }
 main .section.pf-explore .accordion-faq-figure-5 { background-color: #132748; }
 main .section.pf-explore .accordion-faq-figure-6 { background-color: #00afeb; }
 
-/* enterprise-scale open row: elevated white card, no dotted rule; padding
-   matches on open/closed so nothing shifts. */
+/* pf-explore + enterprise-scale accordion row styles. */
+main .section.pf-explore .accordion-faq details {
+  border-bottom: 2px solid #e1e1e1;
+}
+
 main .section.enterprise-scale .accordion-faq details {
   border-bottom: 0;
 }
 
+main .section.pf-explore .accordion-faq details summary {
+  padding: 30px 40px;
+}
+
 main .section.enterprise-scale .accordion-faq details summary {
   padding: 14px 46px 14px 40px;
+}
+
+@media (width >= 768px) {
+  main .section.pf-explore .accordion-faq details summary {
+    padding: 10px 40px;
+  }
+}
+
+main .section.pf-explore .accordion-faq details[open] {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 21px;
+  column-gap: 5px;
+  margin-top: -2px;
+  border-bottom: 0;
+  background-color: #fff;
+  box-shadow: 3px 3px 25px rgb(0 0 0 / 12%);
+  padding: 40px;
 }
 
 main .section.enterprise-scale .accordion-faq details[open] {
@@ -155,10 +186,115 @@ main .section.enterprise-scale .accordion-faq details[open] {
   padding: 40px;
 }
 
+main .section.pf-explore .accordion-faq details[open] summary {
+  grid-column: 1 / -1;
+  padding: 0;
+}
+
 main .section.enterprise-scale .accordion-faq details[open] summary {
   padding: 0 46px 0 0;
 }
 
+main .section.pf-explore .accordion-faq details[open] .accordion-faq-item-body {
+  grid-column: 1;
+  padding: 0;
+}
+
 main .section.enterprise-scale .accordion-faq details[open] .accordion-faq-item-body {
   padding: 16px 0 0;
+}
+
+main .section.pf-explore .accordion-faq .accordion-faq-item-body p {
+  margin: 0;
+  font-size: 14px;
+}
+
+@media (width >= 768px) {
+  main .section.pf-explore .accordion-faq .accordion-faq-item-body p {
+    font-size: 20px;
+  }
+}
+
+/* Feature-panel accordions: chevron caps on h3 (matches production h3::after). */
+main .section.enterprise-scale .accordion-faq details summary::before,
+main .section.pf-explore .accordion-faq details summary::before,
+main .section.enterprise-scale .accordion-faq details summary::after,
+main .section.pf-explore .accordion-faq details summary::after {
+  display: none;
+}
+
+main .section.enterprise-scale .accordion-faq details summary h3,
+main .section.pf-explore .accordion-faq details summary h3 {
+  display: grid;
+  grid-template-columns: 1fr 21px;
+  column-gap: 5px;
+  align-items: center;
+}
+
+main .section.pf-explore .accordion-faq details summary h3 {
+  line-height: 20px;
+}
+
+@media (width >= 768px) {
+  main .section.pf-explore .accordion-faq details summary h3 {
+    line-height: 60px;
+  }
+}
+
+@media (width >= 960px) {
+  main .section.pf-explore .accordion-faq details summary h3 {
+    min-height: 60px;
+  }
+}
+
+main .section.enterprise-scale .accordion-faq details summary h3::after,
+main .section.pf-explore .accordion-faq details summary h3::after {
+  content: '';
+  grid-column: 2;
+  width: 21px;
+  height: 21px;
+  border: 0;
+  padding: 0;
+  background-color: #212021;
+  mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 21 21"><path d="M1 7.5 10.5 16.5 20 7.5 18.5 6 10.5 13.5 2.5 6z"/></svg>') center / 100% 100% no-repeat;
+  transition: transform 0.2s;
+}
+
+main .section.enterprise-scale .accordion-faq details[open] summary h3::after,
+main .section.pf-explore .accordion-faq details[open] summary h3::after {
+  transform: rotate(180deg);
+}
+
+/* "Explore now" CTA pulled closer to body copy (production span margin). */
+main .section.pf-explore .accordion-faq .accordion-faq-item-body span {
+  display: block;
+  margin-top: 20px;
+}
+
+main .section.pf-explore .accordion-faq a.arrow-cta {
+  display: inline-flex;
+  align-items: center;
+  font-size: 20px;
+  font-weight: 700;
+  color: #14499a;
+  text-decoration: none;
+}
+
+main .section.pf-explore .accordion-faq a.arrow-cta:hover,
+main .section.pf-explore .accordion-faq a.arrow-cta:focus-visible {
+  color: #0f3675;
+  text-decoration: none;
+}
+
+main .section.pf-explore .accordion-faq a.arrow-cta::after {
+  content: '';
+  display: inline-block;
+  width: 24px;
+  height: 22px;
+  margin: 0;
+  padding-left: 10px;
+  box-sizing: content-box;
+  background-color: currentcolor;
+  vertical-align: middle;
+  mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11h12.17l-5.59-5.59L12 4l8 8-8 8-1.41-1.41L16.17 13H4z"/></svg>') right center / 24px 22px no-repeat;
 }
