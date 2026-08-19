@@ -112,6 +112,25 @@ function decorateInlineImages(column) {
 }
 
 /**
+ * Pairs a standalone icon (a `<picture>` alone in its paragraph) with the
+ * caption paragraph that follows it into a row, matching the source's icon +
+ * text layout instead of stacking them full-width.
+ * @param {Element} column The reading column
+ */
+function decorateIconRows(column) {
+  [...column.querySelectorAll(':scope > p > picture')].forEach((picture) => {
+    const { parentElement: iconParagraph } = picture;
+    if (iconParagraph.children.length > 1 || iconParagraph.textContent.trim()) return;
+    const caption = iconParagraph.nextElementSibling;
+    if (!caption || caption.tagName !== 'P' || !caption.querySelector(':scope > strong')) return;
+    const row = document.createElement('div');
+    row.className = 'blog-body-icon-row';
+    iconParagraph.before(row);
+    row.append(iconParagraph, caption);
+  });
+}
+
+/**
  * Adds the reading progress bar and keeps it in step with the scroll position.
  * @param {Element} block The block element
  */
@@ -151,6 +170,7 @@ export default function decorate(block) {
   decorateInlineCtas(column);
   decorateTableOfContents(column);
   decorateInlineImages(column);
+  decorateIconRows(column);
   decorateRail(layout, column);
   hideNewTabLabels(block);
   addReadingProgress(block);

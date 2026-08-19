@@ -219,6 +219,12 @@ body.blog-article main > .section.blog-promo {
 body.blog-article main > .section.cta-selected {
   display: block;
   margin: 0;
+
+  /* columns-blog-cta bleeds full-bleed with a 100vw band; clip it here so
+     that bleed doesn't stretch the document ~100vw wide and give the whole
+     page a horizontal scrollbar (same pattern used for the other 100vw
+     bleeds in styles.css). */
+  overflow-x: clip;
 }
 
 body.blog-article .section.blog-share .default-content-wrapper {
@@ -323,6 +329,24 @@ body.blog-article .section.blog-share p:last-of-type a:any-link::before {
   transform: translateY(-50%);
   background-color: #14499a;
   mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg>') no-repeat center / contain;
+}
+
+@media (width >= 960px) {
+  /* Production centres the share row in the page rather than lining it up under
+     the reading column: `.blog-share` is a shrink-to-fit block, capped at the
+     664px column width, carrying a 300px right gutter, and the pair is centred
+     as a whole. A grid (rather than `blog-body`'s flex row) keeps every authored
+     element stacked in the first column without needing an extra wrapper div,
+     since any div `decorateSections` sees becomes a block of its own. */
+  body.blog-article .section.blog-share .default-content-wrapper {
+    display: grid;
+    grid-template-columns: fit-content(664px) 300px;
+    justify-content: center;
+  }
+
+  body.blog-article .section.blog-share .default-content-wrapper > * {
+    grid-column: 1;
+  }
 }
 
 /* Blog listing: academy + recent posts */
