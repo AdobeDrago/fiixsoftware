@@ -1,0 +1,182 @@
+/* Captioned image gallery used within case-study narrative content. */
+.carousel-case-study {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 664px;
+  margin: 0 auto;
+  padding: 40px 0 60px;
+  color: var(--text-color);
+}
+
+.carousel-case-study .carousel-case-study-caption {
+  margin-bottom: 20px;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: normal;
+}
+
+.carousel-case-study .carousel-case-study-caption p {
+  margin: 0;
+  font: inherit;
+}
+
+.carousel-case-study .carousel-case-study-track {
+  display: flex;
+  align-items: flex-start;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+}
+
+.carousel-case-study .carousel-case-study-track::-webkit-scrollbar {
+  display: none;
+}
+
+.carousel-case-study .carousel-case-study-slide {
+  flex: 0 0 100%;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+}
+
+.carousel-case-study .carousel-case-study-slide figure {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  height: 400px;
+  margin: 0;
+}
+
+.carousel-case-study .carousel-case-study-slide figure > div,
+.carousel-case-study .carousel-case-study-slide picture,
+.carousel-case-study .carousel-case-study-slide a,
+.carousel-case-study .carousel-case-study-slide p {
+  display: block;
+  width: 100%;
+  margin: 0;
+  line-height: 0;
+}
+
+.carousel-case-study .carousel-case-study-slide img,
+.carousel-case-study .carousel-case-study-slide video {
+  display: block;
+  width: auto;
+  max-width: 100%;
+  max-height: 100%;
+  height: auto;
+  margin: 0 auto;
+}
+
+.carousel-case-study .carousel-case-study-navigation {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  margin-top: 0;
+  padding-top: 20px;
+}
+
+.carousel-case-study .carousel-case-study-previous,
+.carousel-case-study .carousel-case-study-next {
+  display: none;
+  position: relative;
+  box-sizing: border-box;
+  width: 40px;
+  height: 40px;
+  margin: 0;
+  border: 0;
+  padding: 0;
+  background: transparent;
+  color: #58595b;
+  cursor: pointer;
+}
+
+.carousel-case-study .carousel-case-study-previous::before,
+.carousel-case-study .carousel-case-study-next::before {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 10px;
+  height: 10px;
+  border: solid currentcolor;
+  border-width: 0 2px 2px 0;
+  content: '';
+}
+
+.carousel-case-study .carousel-case-study-previous::before {
+  transform: translate(-35%, -50%) rotate(135deg);
+}
+
+.carousel-case-study .carousel-case-study-next::before {
+  transform: translate(-65%, -50%) rotate(-45deg);
+}
+
+.carousel-case-study .carousel-case-study-dots {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.carousel-case-study .carousel-case-study-dot {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 26px;
+  margin: 0;
+  border: 0;
+  padding: 7px;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.carousel-case-study .carousel-case-study-dot::before {
+  display: block;
+  width: 10px;
+  height: 10px;
+  border: 2px solid #999;
+  border-radius: 50%;
+  content: '';
+  background-color: #999;
+}
+
+.carousel-case-study .carousel-case-study-dot.is-active::before {
+  border-color: #00afeb;
+  background-color: #00afeb;
+}
+
+.carousel-case-study .carousel-case-study-previous:focus-visible,
+.carousel-case-study .carousel-case-study-next:focus-visible,
+.carousel-case-study .carousel-case-study-dot:focus-visible {
+  outline: 2px solid #14499a;
+  outline-offset: 2px;
+}
+
+@media (width >= 768px) {
+  .carousel-case-study .carousel-case-study-slide figure {
+    align-items: center;
+  }
+
+  .carousel-case-study .carousel-case-study-previous,
+  .carousel-case-study .carousel-case-study-next {
+    display: block;
+  }
+
+  .carousel-case-study .carousel-case-study-dots {
+    display: none;
+  }
+
+  .carousel-case-study .carousel-case-study-slide img {
+    max-width: min(80%, 533px);
+  }
+
+  .carousel-case-study .carousel-case-study-slide video {
+    max-width: min(80%, 400px);
+  }
+
+}

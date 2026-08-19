@@ -1,0 +1,77 @@
+.quote {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 664px;
+  margin: 80px auto;
+  padding: 0 24px;
+  color: var(--text-color);
+}
+
+.quote .quote-text {
+  position: relative;
+  margin: 0 0 24px;
+  padding: 0;
+  border: 0;
+  font-family: var(--heading-font-family);
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 1.5;
+}
+
+.quote .quote-text::before {
+  content: '\201C';
+  position: absolute;
+  top: -20px;
+  left: -14px;
+  color: #00afeb;
+  font-size: 56px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.quote .quote-text p {
+  margin: 0;
+  font: inherit;
+}
+
+.quote .quote-attribution {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 300;
+  line-height: normal;
+}
+
+.quote .quote-attribution p {
+  margin: 0;
+  font: inherit;
+}
+
+@media (width >= 768px) {
+  .quote {
+    margin-top: 100px;
+    margin-bottom: 100px;
+    padding-right: 0;
+    padding-left: 0;
+  }
+
+  .quote .quote-text {
+    margin-bottom: 30px;
+    padding-right: 100px;
+    padding-left: 100px;
+    font-size: 24px;
+    line-height: 36px;
+  }
+
+  .quote .quote-text::before {
+    top: -25px;
+    left: 10px;
+    padding-left: 50px;
+    font-size: 70px;
+    line-height: 1.5;
+  }
+
+  .quote .quote-attribution {
+    padding-right: 100px;
+    padding-left: 100px;
+  }
+}

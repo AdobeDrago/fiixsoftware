@@ -48,7 +48,7 @@ const PAGE_TEMPLATE = {
   sections: [
     { id: 'case-study-hero', name: 'Case study hero', selector: ['div.case-studies-temp > header'], style: null, blocks: ['hero-case-study'], defaultContent: [] },
     { id: 'case-study-intro', name: 'Case study intro', selector: ['div.case-studies-temp > .company-intro'], style: 'case-study-intro', blocks: ['case-study-logo', 'case-study-profiles', 'case-study-lead', 'youtube-video', 'columns-media'], defaultContent: [] },
-    { id: 'case-study-overview', name: 'Case study overview', selector: ['div.case-studies-temp > .container.content'], style: null, blocks: [], defaultContent: [] },
+    { id: 'case-study-overview', name: 'Case study overview', selector: ['div.case-studies-temp > .container.content'], style: 'case-study-overview', blocks: [], defaultContent: [] },
     { id: 'case-study-cta', name: 'Free tour CTA', selector: ['div.kick-the-tires', '.kick-the-tires'], style: 'cta', blocks: ['hero-cta'], defaultContent: [] },
   ],
 };
