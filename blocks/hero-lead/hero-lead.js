@@ -24,7 +24,7 @@ function buildHeroVideo(picture, href) {
   source.setAttribute('src', href);
   source.setAttribute('type', 'video/mp4');
   video.append(source);
-  
+
   // Keep the screenshot as graceful fallback inside the <video>.
   video.append(picture.cloneNode(true));
   return video;
