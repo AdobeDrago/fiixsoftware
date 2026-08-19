@@ -32,6 +32,14 @@ function compareDates(left, right) {
   return String(right.date || '').localeCompare(String(left.date || ''));
 }
 
+function parseCategories(value) {
+  if (Array.isArray(value)) {
+    return value.map((item) => String(item).trim()).filter(Boolean);
+  }
+  if (!value) return [];
+  return String(value).split(',').map((item) => item.trim()).filter(Boolean);
+}
+
 function matchesQuery(entry, query) {
   if (!query) return true;
   const haystack = `${entry.title || ''} ${entry.description || ''}`.toLowerCase();
@@ -39,16 +47,19 @@ function matchesQuery(entry, query) {
 }
 
 function matchesCategory(entry, category) {
-  if (!category) return true;
-  return (entry.category || '') === category;
+  if (!category || category === 'Press') return true;
+  return parseCategories(entry.category).includes(category);
 }
 
 function filterEntries(entries, query, category) {
-  return entries
+  const filtered = entries
     .filter(isArticle)
     .filter((entry) => matchesCategory(entry, category))
     .filter((entry) => matchesQuery(entry, query))
     .sort(compareDates);
+
+  if (category === 'Press') return filtered.slice(0, 6);
+  return filtered;
 }
 
 function createCard(entry) {
@@ -72,10 +83,11 @@ function createCard(entry) {
   const body = document.createElement('div');
   body.className = 'blog-listing-card-body';
 
-  if (entry.category) {
+  const categories = parseCategories(entry.category);
+  if (categories.length) {
     const category = document.createElement('p');
     category.className = 'blog-listing-card-category';
-    category.textContent = entry.category;
+    category.textContent = categories.join(' · ');
     body.append(category);
   }
 
