@@ -15,6 +15,30 @@ const FEATURE_PANEL_VARIANTS = {
   'pf-explore': 'before', // panel left
 };
 
+function wrapBodyContent(body) {
+  let paragraph = body.querySelector(':scope > p');
+  if (!paragraph) {
+    paragraph = document.createElement('p');
+    paragraph.append(...body.childNodes);
+    body.append(paragraph);
+  }
+  const link = paragraph.querySelector(':scope > a, :scope > span > a');
+  if (link && !link.classList.contains('arrow-cta')) {
+    link.classList.add('arrow-cta');
+    if (!link.parentElement.matches('span')) {
+      const span = document.createElement('span');
+      span.append(link);
+      paragraph.append(span);
+    }
+  }
+}
+
+function syncItemState(details, index) {
+  details.dataset.featureMenu = String(index + 1);
+  details.classList.toggle('open', details.open);
+  details.classList.toggle('closed', !details.open);
+}
+
 function decorateFeaturePanel(block, section, panelPosition) {
   const details = [...block.querySelectorAll('.accordion-faq-item')];
   if (details.length < 2) return;
@@ -56,11 +80,19 @@ function decorateFeaturePanel(block, section, panelPosition) {
 
   const figures = [...panel.children];
   const setActive = (idx) => {
-    details.forEach((d, i) => { if (i !== idx) d.open = false; });
+    details.forEach((d, i) => {
+      if (i !== idx) d.open = false;
+      syncItemState(d, i);
+    });
     figures.forEach((f, i) => f.classList.toggle('active', i === idx));
   };
   details.forEach((d, i) => {
-    d.addEventListener('toggle', () => { if (d.open) setActive(i); });
+    wrapBodyContent(d.querySelector('.accordion-faq-item-body'));
+    syncItemState(d, i);
+    d.addEventListener('toggle', () => {
+      syncItemState(d, i);
+      if (d.open) setActive(i);
+    });
   });
   if (!details.some((d) => d.open)) { details[0].open = true; setActive(0); }
 }
