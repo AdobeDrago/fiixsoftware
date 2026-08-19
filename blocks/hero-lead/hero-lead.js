@@ -75,6 +75,56 @@ function decorateVideoVariant(mediaCell) {
   desktopQuery.addEventListener('change', syncMedia);
 }
 
+/**
+ * Layers a media cell that has more than one picture (hero screenshot +
+ * decorative shape/accent graphics, e.g. the mobile-cmms app promo) and tags
+ * the app-store badge row, if present, for its own layout. No-ops when the
+ * media cell only has the usual single screenshot.
+ * @param {Element} mediaCell the block's media cell
+ */
+function decorateMediaLayers(mediaCell) {
+  if (!mediaCell) return;
+  const pictures = [...mediaCell.querySelectorAll('picture')];
+  if (pictures.length < 2) return;
+
+  const badgePictures = pictures.filter((p) => {
+    const link = p.closest('a');
+    return link && /apps\.apple\.com|play\.google\.com/.test(link.href);
+  });
+  const badgesPara = badgePictures[0]?.closest('p');
+  if (badgesPara) badgesPara.classList.add('hero-lead-app-badges');
+
+  const layered = pictures.filter((p) => !badgePictures.includes(p));
+  if (layered.length < 2) return;
+
+  const [hero, ...decorations] = layered;
+  hero.classList.add('hero-lead-media-hero');
+  // biggest of the rest is the background shape; anything smaller is a small accent
+  decorations.sort((a, b) => (Number(b.querySelector('img')?.getAttribute('width')) || 0)
+    - (Number(a.querySelector('img')?.getAttribute('width')) || 0));
+  const [shape, ...accents] = decorations;
+  shape.classList.add('hero-lead-media-shape');
+  accents.forEach((p) => p.classList.add('hero-lead-media-accent'));
+
+  const heroPara = hero.closest('p');
+  if (!heroPara) return;
+  heroPara.classList.add('hero-lead-media-layers');
+
+  // Move the trailing caption text (e.g. "Available on iOS and Android") out
+  // to its own element after the layered picture group -- left inside, its
+  // height would count towards the positioning box the shape/accent
+  // percentages are relative to, throwing off their placement.
+  [...heroPara.childNodes]
+    .filter((n) => n.nodeType === Node.TEXT_NODE && n.textContent.trim())
+    .forEach((n) => {
+      const span = document.createElement('span');
+      span.className = 'hero-lead-app-caption';
+      span.textContent = n.textContent.trim();
+      n.remove();
+      heroPara.after(span);
+    });
+}
+
 export default function decorate(block) {
   const rows = [...block.children];
 
@@ -82,7 +132,10 @@ export default function decorate(block) {
   const imageCell = rows[0]?.firstElementChild;
   const contentCell = rows[1]?.firstElementChild;
 
-  if (imageCell) imageCell.classList.add('hero-lead-media');
+  if (imageCell) {
+    imageCell.classList.add('hero-lead-media');
+    decorateMediaLayers(imageCell);
+  }
 
   // video only, no form/stats content
   if (block.classList.contains('video-without-form')) {

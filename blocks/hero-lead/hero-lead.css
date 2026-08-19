@@ -221,6 +221,60 @@
   object-fit: contain;
 }
 
+/* --- layered media (hero screenshot + decorative shape/accent graphics,
+   e.g. mobile-cmms's app promo) -- only present when hero-lead.js finds
+   more than one picture in the media cell; a plain single-screenshot hero
+   is unaffected. Percentages are approximate, tuned to look right at the
+   ~420px desktop media column width; adjust to taste. --- */
+.hero-lead .hero-lead-media-layers {
+  position: relative;
+}
+
+.hero-lead .hero-lead-media-hero {
+  position: relative;
+  z-index: 1;
+}
+
+.hero-lead .hero-lead-media-shape {
+  position: absolute;
+  z-index: 0;
+  top: 38%;
+  left: 10%;
+  width: 62%;
+}
+
+.hero-lead .hero-lead-media-accent {
+  position: absolute;
+  z-index: 2;
+  top: 4%;
+  left: -4%;
+  width: 14%;
+}
+
+.hero-lead .hero-lead-app-caption {
+  display: block;
+  margin-top: 12px;
+  font-size: 14px;
+  color: var(--hero-lead-ink);
+}
+
+.hero-lead .hero-lead-app-badges {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.hero-lead .hero-lead-app-badges br {
+  display: none;
+}
+
+.hero-lead .hero-lead-media .hero-lead-app-badges img {
+  width: auto;
+  height: 35px;
+  margin-left: 0;
+}
+
 /* ============================================================
    `video-without-form` — /free-cmms split intro hero: full-bleed purple
    media panel, no form. `video-with-form` (hero-lead.js) needs no CSS of its
