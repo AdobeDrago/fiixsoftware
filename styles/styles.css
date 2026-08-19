@@ -2234,10 +2234,14 @@ main > .section.pf-hero .hero-lead-content > p:has(> picture:only-child):not(:ha
     padding-bottom: 80px;
   }
 
-  /* Only a genuine media-ONLY column gets the panel. `:not(:has(h2))` excludes
-     single-column heroes (e.g. mobile-cmms) whose one div holds BOTH the
-     heading and the image -- without this guard the whole hero turns purple. */
-  main > .section.pf-hero .hero-lead > div:has(.hero-lead-media):not(:has(h2)) {
+  /* Only a genuine media-ONLY column with a single screenshot gets the panel.
+     `:not(:has(h2))` excludes single-column heroes whose one div holds BOTH
+     the heading and the image; `:not(:has(.hero-lead-media-layers))` excludes
+     the layered app-promo media (e.g. mobile-cmms's screenshot + decorative
+     shapes + app-store badges, see hero-lead.js/css) -- that composition
+     brings its own light background and positioning, not a boxed panel.
+     Without these guards the whole hero turns purple/boxed. */
+  main > .section.pf-hero .hero-lead > div:has(.hero-lead-media):not(:has(h2), :has(.hero-lead-media-layers)) {
     position: relative;
     align-self: stretch;
     display: flex;
@@ -2250,7 +2254,7 @@ main > .section.pf-hero .hero-lead-content > p:has(> picture:only-child):not(:ha
     border-radius: 0;
   }
 
-  main > .section.pf-hero .hero-lead > div:has(.hero-lead-media):not(:has(h2))::after {
+  main > .section.pf-hero .hero-lead > div:has(.hero-lead-media):not(:has(h2), :has(.hero-lead-media-layers))::after {
     content: '';
     position: absolute;
     top: 0;
@@ -2265,7 +2269,7 @@ main > .section.pf-hero .hero-lead-content > p:has(> picture:only-child):not(:ha
      (rgb 98 92 226 vs the rgb 107 100 239 panel) inset within the panel -- on
      prod this is baked into the hero video's backdrop; reproduce it as a
      darker box behind the static screenshot. */
-  main > .section.pf-hero .hero-lead > div:has(.hero-lead-media):not(:has(h2)) .hero-lead-media {
+  main > .section.pf-hero .hero-lead > div:has(.hero-lead-media):not(:has(h2), :has(.hero-lead-media-layers)) .hero-lead-media {
     position: relative;
     z-index: 1;
     width: auto;
@@ -2276,7 +2280,7 @@ main > .section.pf-hero .hero-lead-content > p:has(> picture:only-child):not(:ha
     border-radius: 2px;
   }
 
-  main > .section.pf-hero .hero-lead > div:has(.hero-lead-media):not(:has(h2)) .hero-lead-media img {
+  main > .section.pf-hero .hero-lead > div:has(.hero-lead-media):not(:has(h2), :has(.hero-lead-media-layers)) .hero-lead-media img {
     display: block;
     width: 100%;
     max-width: 300px;
