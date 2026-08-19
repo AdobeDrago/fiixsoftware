@@ -2365,15 +2365,15 @@ main .section.training-community .columns-media li img {
    fixed nav, so the screenshot is ~11px below the bar. The EDS header
    spacer would otherwise push the whole purple band down by --nav-height. */
 main > .section.fc-hero {
-  margin: calc(-1 * var(--nav-height)) 0 0;
-  background-color: #f7f9fc;
-  overflow-x: clip;
+    margin: calc(-1 * var(--nav-height)) 0 0;
+    background-color: #f7f9fc;
+    overflow-x: clip;
 }
 
 @media (width >= 960px) {
-  main > .section.fc-hero {
-    margin-top: 0;
-  }
+    main > .section.fc-hero {
+        margin-top: 0;
+    }
 }
 
 /* ---- pf-hero: light band, text left + product screenshot on a
@@ -2414,41 +2414,45 @@ main > .section.pf-hero.hero-teal {
 /* eyebrow (authored as h1). Production `.new-product .header h1` is 20px/500
    uppercase, dropping to 12px below ~650px. */
 main > .section.pf-hero .hero-lead-content h1 {
-  margin: 0 0 40px;
-  max-width: none;
-  font-size: 20px;
-  font-weight: 500;
-  line-height: 1.1;
-  text-align: left;
-  text-transform: uppercase;
-  color: var(--text-color);
+    margin: 0 0 40px;
+    max-width: none;
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 1.1;
+    text-align: left;
+    text-transform: uppercase;
+    color: var(--text-color);
 }
 
 /* headline (authored as h2). */
 main > .section.pf-hero .hero-lead-content h2 {
-  margin: 0 0 30px;
-  max-width: none;
-  padding-bottom: 0;
-  font-size: 38px;
-  font-weight: 700;
-  line-height: 38px;
-  text-align: left;
-  color: var(--text-color);
+    margin: 0 0 30px;
+    max-width: none;
+    padding-bottom: 0;
+    font-size: 38px;
+    font-weight: 700;
+    line-height: 38px;
+    text-align: left;
+    color: var(--text-color);
 }
 
-main > .section.pf-hero .hero-lead:has(.hero-lead-media-layers) .hero-lead-content h1 {
-  margin-bottom: 10px;
+main
+    > .section.pf-hero
+    .hero-lead:has(.hero-lead-media-layers)
+    .hero-lead-content
+    h1 {
+    margin-bottom: 10px;
 }
 
 /* "Based on 900+ reviews" support line + the review award-logo row.
    These live as bare paragraphs after the demo link in the content
    column. Keep them left-aligned and understated. */
 main > .section.pf-hero .hero-lead-content .hero-lead-support {
-  margin: 0 0 20px;
-  font-size: 20px;
-  font-weight: 300;
-  line-height: 1.34;
-  text-align: left;
+    margin: 0 0 20px;
+    font-size: 20px;
+    font-weight: 300;
+    line-height: 1.34;
+    text-align: left;
 }
 
 /* review stars + award logos: the stars, the "Based on…" line, and the
@@ -2477,285 +2481,453 @@ main
 }
 
 .pf-hero .hero-lead-wrapper .hero-lead {
-  gap: 0;
-  padding: 0;
+    gap: 0;
+    padding: 0;
 }
 
 /* Layered app-promo (mobile-cmms): full-bleed grey crop + copy, matching
    live `#mobile-product .header`. Wrapper padding would inset the crop. */
 main > .section.pf-hero:has(.hero-lead-media-layers) > .hero-lead-wrapper {
-  max-width: none;
-  padding: 0;
+    max-width: none;
+    padding: 0;
 }
 
 .pf-hero .hero-lead-wrapper .hero-lead:has(.hero-lead-media-layers) {
-  margin-bottom: 30px;
+    margin-bottom: 30px;
 }
 
-.pf-hero .hero-lead-wrapper .hero-lead:has(.hero-lead-media-layers) > div:has(.hero-lead-media) {
-  height: 250px;
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-  background-color: #f7f7f7;
+.pf-hero
+    .hero-lead-wrapper
+    .hero-lead:has(.hero-lead-media-layers)
+    > div:has(.hero-lead-media) {
+    height: 250px;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #f7f7f7;
 }
 
-.pf-hero .hero-lead-wrapper .hero-lead:has(.hero-lead-media-layers) > div:has(.hero-lead-media) .hero-lead-media,
-.pf-hero .hero-lead-wrapper .hero-lead:has(.hero-lead-media-layers) .hero-lead-media-layers {
-  height: 100%;
-  margin: 0;
+.pf-hero
+    .hero-lead-wrapper
+    .hero-lead:has(.hero-lead-media-layers)
+    > div:has(.hero-lead-media)
+    .hero-lead-media,
+.pf-hero
+    .hero-lead-wrapper
+    .hero-lead:has(.hero-lead-media-layers)
+    .hero-lead-media-layers {
+    height: 100%;
+    margin: 0;
 }
 
-.pf-hero .hero-lead-wrapper .hero-lead:has(.hero-lead-media-layers) .hero-lead-content {
-  padding: 30px 20px;
+.pf-hero
+    .hero-lead-wrapper
+    .hero-lead:has(.hero-lead-media-layers)
+    .hero-lead-content {
+    padding: 30px 20px;
 
-  /* Live lays the stars and the "Based on 900+ reviews" line out as a 27px
+    /* Live lays the stars and the "Based on 900+ reviews" line out as a 27px
      flex row (`.sp-hero span`). Ours are inline paragraphs, so the line box --
      not the content -- has to set that rhythm. */
-  line-height: 27px;
+    line-height: 27px;
 }
 
-.pf-hero .hero-lead-wrapper .hero-lead:has(.hero-lead-media-layers) .hero-lead-media-content {
-  margin-top: 10px;
+.pf-hero
+    .hero-lead-wrapper
+    .hero-lead:has(.hero-lead-media-layers)
+    .hero-lead-media-content {
+    margin-top: 10px;
 }
 
 /* Live `#mobile-product` sets `line-height: normal` on the intro and lays the
    review stars and award logos out as flex rows with `figure { padding: 0 }`,
    so each logo contributes only its own height. Our equivalents are inline
    paragraphs, which pick up the line box's leading unless topped out. */
-.pf-hero .hero-lead-wrapper .hero-lead:has(.hero-lead-media-layers) .hero-lead-content .hero-lead-support {
-  line-height: normal;
+.pf-hero
+    .hero-lead-wrapper
+    .hero-lead:has(.hero-lead-media-layers)
+    .hero-lead-content
+    .hero-lead-support {
+    line-height: normal;
 }
 
-.pf-hero .hero-lead-wrapper .hero-lead:has(.hero-lead-media-layers) .hero-lead-content > p:has(img[alt*="stars" i]) + p {
-  line-height: 20px;
+.pf-hero
+    .hero-lead-wrapper
+    .hero-lead:has(.hero-lead-media-layers)
+    .hero-lead-content
+    > p:has(img[alt*="stars" i])
+    + p {
+    line-height: 20px;
 }
 
 /* Live spaces the reviews line off the demo link (`.mobile-cta`), not with a
    top margin of its own (`#mobile-product .header .sp-hero { margin-top: 0 }`). */
-.pf-hero .hero-lead-wrapper .hero-lead:has(.hero-lead-media-layers) .hero-lead-content > p:not(.hero-lead-support):has(a) {
-  margin-bottom: 20px;
+.pf-hero
+    .hero-lead-wrapper
+    .hero-lead:has(.hero-lead-media-layers)
+    .hero-lead-content
+    > p:not(.hero-lead-support):has(a) {
+    margin-bottom: 20px;
 }
 
-.pf-hero .hero-lead-wrapper .hero-lead:has(.hero-lead-media-layers) .hero-lead-content > p:has(img[alt*="stars" i]),
-.pf-hero .hero-lead-wrapper .hero-lead:has(.hero-lead-media-layers) .hero-lead-content > p:has(img[alt*="stars" i]) + p {
-  margin-top: 0;
-  vertical-align: top;
+.pf-hero
+    .hero-lead-wrapper
+    .hero-lead:has(.hero-lead-media-layers)
+    .hero-lead-content
+    > p:has(img[alt*="stars" i]),
+.pf-hero
+    .hero-lead-wrapper
+    .hero-lead:has(.hero-lead-media-layers)
+    .hero-lead-content
+    > p:has(img[alt*="stars" i])
+    + p {
+    margin-top: 0;
+    vertical-align: top;
 }
 
 /* Live's award logos are flex items that centre in the row (`.awards figure {
    align-items: center }`), so every logo box is as tall as the row's tallest.
    G2 is the exception: it wraps onto a row of its own on phones. */
-.pf-hero .hero-lead-wrapper .hero-lead:has(.hero-lead-media-layers) .hero-lead-content > p:has(> picture:only-child):not(:has(img[alt*="stars" i])) {
-  height: 49px;
-  margin: 0;
-  vertical-align: top;
+.pf-hero
+    .hero-lead-wrapper
+    .hero-lead:has(.hero-lead-media-layers)
+    .hero-lead-content
+    > p:has(> picture:only-child):not(:has(img[alt*="stars" i])) {
+    height: 49px;
+    margin: 0;
+    vertical-align: top;
 }
 
-.pf-hero .hero-lead-wrapper .hero-lead:has(.hero-lead-media-layers) .hero-lead-content > p:has(> picture:only-child):has(img[alt*="g2" i]) {
-  height: auto;
+.pf-hero
+    .hero-lead-wrapper
+    .hero-lead:has(.hero-lead-media-layers)
+    .hero-lead-content
+    > p:has(> picture:only-child):has(img[alt*="g2" i]) {
+    height: auto;
 }
 
-.pf-hero .hero-lead-wrapper .hero-lead:has(.hero-lead-media-layers) .hero-lead-content > p:has(> picture:only-child) picture,
-.pf-hero .hero-lead-wrapper .hero-lead:has(.hero-lead-media-layers) .hero-lead-content > p:has(> picture:only-child) img {
-  display: block;
+.pf-hero
+    .hero-lead-wrapper
+    .hero-lead:has(.hero-lead-media-layers)
+    .hero-lead-content
+    > p:has(> picture:only-child)
+    picture,
+.pf-hero
+    .hero-lead-wrapper
+    .hero-lead:has(.hero-lead-media-layers)
+    .hero-lead-content
+    > p:has(> picture:only-child)
+    img {
+    display: block;
 }
 
 @media (width >= 768px) {
-  .pf-hero .hero-lead-wrapper .hero-lead:has(.hero-lead-media-layers) > div:has(.hero-lead-media) {
+    .pf-hero
+        .hero-lead-wrapper
+        .hero-lead:has(.hero-lead-media-layers)
+        > div:has(.hero-lead-media) {
+        height: 350px;
+    }
+
+    .pf-hero
+        .hero-lead-wrapper
+        .hero-lead:has(.hero-lead-media-layers)
+        .hero-lead-content {
+        padding: 30px 5%;
+    }
+
+    /* the logos fit on one 47px row from here up, G2 included */
+    .pf-hero
+        .hero-lead-wrapper
+        .hero-lead:has(.hero-lead-media-layers)
+        .hero-lead-content
+        > p:has(> picture:only-child):not(:has(img[alt*="stars" i])),
+    .pf-hero
+        .hero-lead-wrapper
+        .hero-lead:has(.hero-lead-media-layers)
+        .hero-lead-content
+        > p:has(> picture:only-child):has(img[alt*="g2" i]) {
+        height: 47px;
+    }
+}
+
+.pf-hero
+    .hero-lead-wrapper
+    .hero-lead
+    > div:has(.hero-lead-media):not(:has(h2), :has(.hero-lead-media-layers)) {
+    position: relative;
+    display: block;
     height: 350px;
-  }
-
-  .pf-hero .hero-lead-wrapper .hero-lead:has(.hero-lead-media-layers) .hero-lead-content {
-    padding: 30px 5%;
-  }
-
-  /* the logos fit on one 47px row from here up, G2 included */
-  .pf-hero .hero-lead-wrapper .hero-lead:has(.hero-lead-media-layers) .hero-lead-content > p:has(> picture:only-child):not(:has(img[alt*="stars" i])),
-  .pf-hero .hero-lead-wrapper .hero-lead:has(.hero-lead-media-layers) .hero-lead-content > p:has(> picture:only-child):has(img[alt*="g2" i]) {
-    height: 47px;
-  }
+    overflow: hidden;
+    background-color: var(--hero-panel, #6b64ef);
 }
 
-.pf-hero .hero-lead-wrapper .hero-lead > div:has(.hero-lead-media):not(:has(h2), :has(.hero-lead-media-layers)) {
-  position: relative;
-  display: block;
-  height: 350px;
-  overflow: hidden;
-  background-color: var(--hero-panel, #6b64ef);
+.pf-hero
+    .hero-lead-wrapper
+    .hero-lead
+    > div:not(:has(h2), :has(.hero-lead-media-layers))
+    .hero-lead-media {
+    position: absolute;
+    bottom: -50px;
+    left: 55%;
+    width: 300px;
+    height: 320px;
+    padding-top: 0;
+    transform: translateX(-50%);
+
+    @media (width >= 768px) {
+        bottom: -200px;
+        width: 400px;
+        height: 427px;
+    }
 }
 
-.pf-hero .hero-lead-wrapper .hero-lead > div:not(:has(h2), :has(.hero-lead-media-layers)) .hero-lead-media {
-  position: absolute;
-  bottom: -50px;
-  left: 55%;
-  width: 300px;
-  height: 320px;
-  padding-top: 0;
-  transform: translateX(-50%);
-
-  @media (width >= 768px) {
-    bottom: -200px;
-    width: 400px;
-    height: 427px;
-  }
-}
-
-.pf-hero .hero-lead-wrapper .hero-lead > div:not(:has(h2), :has(.hero-lead-media-layers)) .hero-lead-media img,
-.pf-hero .hero-lead-wrapper .hero-lead > div:not(:has(h2), :has(.hero-lead-media-layers)) .hero-lead-media video {
-  width: 100%;
-  max-width: none;
-  height: 100%;
-  margin: 0;
-  object-fit: cover;
-  object-position: top;
+.pf-hero
+    .hero-lead-wrapper
+    .hero-lead
+    > div:not(:has(h2), :has(.hero-lead-media-layers))
+    .hero-lead-media
+    img,
+.pf-hero
+    .hero-lead-wrapper
+    .hero-lead
+    > div:not(:has(h2), :has(.hero-lead-media-layers))
+    .hero-lead-media
+    video {
+    width: 100%;
+    max-width: none;
+    height: 100%;
+    margin: 0;
+    object-fit: cover;
+    object-position: top;
 }
 
 @media (width < 768px) {
-  main > .section.pf-hero .hero-lead-content h1 {
-    margin-bottom: 20px;
-    font-size: 12px;
-  }
+    main > .section.pf-hero .hero-lead-content h1 {
+        margin-bottom: 20px;
+        font-size: 12px;
+    }
 
-  main > .section.pf-hero .hero-lead-content h2 {
-    font-size: 30px;
-    line-height: 30px;
-  }
+    main > .section.pf-hero .hero-lead-content h2 {
+        font-size: 30px;
+        line-height: 30px;
+    }
 }
 
 @media (width < 960px) {
-  main > .section.pf-hero:not(:has(.hero-lead-media-layers)) {
-    margin-top: calc(-1 * var(--nav-height));
-  }
+    main > .section.pf-hero:not(:has(.hero-lead-media-layers)) {
+        margin-top: calc(-1 * var(--nav-height));
+    }
 
-  .pf-hero .hero-lead-wrapper .hero-lead:not(:has(.hero-lead-media-layers)) .hero-lead-content {
-    padding: 40px 20px;
-  }
+    .pf-hero
+        .hero-lead-wrapper
+        .hero-lead:not(:has(.hero-lead-media-layers))
+        .hero-lead-content {
+        padding: 40px 20px;
+    }
 
-  main > .section.pf-hero .hero-lead:not(:has(.hero-lead-media-layers)) .hero-lead-content h1,
-  main > .section.pf-hero .hero-lead:not(:has(.hero-lead-media-layers)) .hero-lead-content h2 {
-    max-width: 96%;
-  }
+    main
+        > .section.pf-hero
+        .hero-lead:not(:has(.hero-lead-media-layers))
+        .hero-lead-content
+        h1,
+    main
+        > .section.pf-hero
+        .hero-lead:not(:has(.hero-lead-media-layers))
+        .hero-lead-content
+        h2 {
+        max-width: 96%;
+    }
 }
 
 .pf-hero .hero-lead-wrapper .hero-lead .hero-lead-form {
-  display: none;
+    display: none;
 }
 
-.pf-hero .hero-lead-wrapper .hero-lead .hero-lead-content .hero-lead-app-badges img {
-  width: auto;
-  max-width: none;
-  max-height: none;
-  height: 30px;
+.pf-hero
+    .hero-lead-wrapper
+    .hero-lead
+    .hero-lead-content
+    .hero-lead-app-badges
+    img {
+    width: auto;
+    max-width: none;
+    max-height: none;
+    height: 30px;
 }
 
-.pf-hero .hero-lead-wrapper .hero-lead .hero-lead-content > p:not(.hero-lead-support):has(a) {
-  margin: 0;
-  text-align: left;
+.pf-hero
+    .hero-lead-wrapper
+    .hero-lead
+    .hero-lead-content
+    > p:not(.hero-lead-support):has(a) {
+    margin: 0;
+    text-align: left;
 }
 
-.pf-hero .hero-lead-wrapper .hero-lead .hero-lead-content > p:not(.hero-lead-support) a {
-  box-sizing: border-box;
-  min-width: 160px;
-  padding: 0 20px;
-  font-size: 16px;
-  font-weight: 700;
-  line-height: 40px;
+.pf-hero
+    .hero-lead-wrapper
+    .hero-lead
+    .hero-lead-content
+    > p:not(.hero-lead-support)
+    a {
+    box-sizing: border-box;
+    min-width: 160px;
+    padding: 0 20px;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 40px;
 }
 
 .pf-hero .hero-lead-wrapper .hero-lead .hero-lead-content > p img {
-  max-height: 49px;
+    max-height: 49px;
 }
 
-.pf-hero .hero-lead-wrapper .hero-lead .hero-lead-content > p:has(img[alt*="stars" i]) {
-  display: inline-block;
-  margin: 40px 0 0;
-  vertical-align: middle;
+.pf-hero
+    .hero-lead-wrapper
+    .hero-lead
+    .hero-lead-content
+    > p:has(img[alt*="stars" i]) {
+    display: inline-block;
+    margin: 40px 0 0;
+    vertical-align: middle;
 }
 
-.pf-hero .hero-lead-wrapper .hero-lead .hero-lead-content > p:has(img[alt*="stars" i]) img {
-  width: 100px;
-  max-height: none;
+.pf-hero
+    .hero-lead-wrapper
+    .hero-lead
+    .hero-lead-content
+    > p:has(img[alt*="stars" i])
+    img {
+    width: 100px;
+    max-height: none;
 }
 
-.pf-hero .hero-lead-wrapper .hero-lead .hero-lead-content > p:has(img[alt*="stars" i]) + p {
-  display: inline-block;
-  width: calc(100% - 115px);
-  margin: 40px 0 0 10px;
-  font-size: 14px;
-  vertical-align: middle;
+.pf-hero
+    .hero-lead-wrapper
+    .hero-lead
+    .hero-lead-content
+    > p:has(img[alt*="stars" i])
+    + p {
+    display: inline-block;
+    width: calc(100% - 115px);
+    margin: 40px 0 0 10px;
+    font-size: 14px;
+    vertical-align: middle;
 }
 
-.pf-hero .hero-lead-wrapper .hero-lead .hero-lead-content > p:has(> picture:only-child):not(:has(img[alt*="stars" i])) {
-  display: inline-flex;
-  align-items: center;
-  height: 49px;
-  margin: 0 20px 0 0;
+.pf-hero
+    .hero-lead-wrapper
+    .hero-lead
+    .hero-lead-content
+    > p:has(> picture:only-child):not(:has(img[alt*="stars" i])) {
+    display: inline-flex;
+    align-items: center;
+    height: 49px;
+    margin: 0 20px 0 0;
 }
 
-.pf-hero .hero-lead-wrapper .hero-lead .hero-lead-content > p img[alt*="capterra" i] {
-  width: 80px;
+.pf-hero
+    .hero-lead-wrapper
+    .hero-lead
+    .hero-lead-content
+    > p
+    img[alt*="capterra" i] {
+    width: 80px;
 }
 
-.pf-hero .hero-lead-wrapper .hero-lead .hero-lead-content > p img[alt*="software advice" i],
-.pf-hero .hero-lead-wrapper .hero-lead .hero-lead-content > p img[alt*="peerinsights" i] {
-  width: 130px;
+.pf-hero
+    .hero-lead-wrapper
+    .hero-lead
+    .hero-lead-content
+    > p
+    img[alt*="software advice" i],
+.pf-hero
+    .hero-lead-wrapper
+    .hero-lead
+    .hero-lead-content
+    > p
+    img[alt*="peerinsights" i] {
+    width: 130px;
 }
 
 .pf-hero .hero-lead-wrapper .hero-lead .hero-lead-content > p img[alt*="g2" i] {
-  width: 25px;
+    width: 25px;
 }
 
 @media (width >= 768px) {
-  .pf-hero .hero-lead-wrapper .hero-lead .hero-lead-content > p img[alt*="capterra" i] {
-    width: 93px;
-  }
+    .pf-hero
+        .hero-lead-wrapper
+        .hero-lead
+        .hero-lead-content
+        > p
+        img[alt*="capterra" i] {
+        width: 93px;
+    }
 
-  .pf-hero .hero-lead-wrapper .hero-lead .hero-lead-content > p img[alt*="software advice" i],
-  .pf-hero .hero-lead-wrapper .hero-lead .hero-lead-content > p img[alt*="peerinsights" i] {
-    width: 124px;
-  }
+    .pf-hero
+        .hero-lead-wrapper
+        .hero-lead
+        .hero-lead-content
+        > p
+        img[alt*="software advice" i],
+    .pf-hero
+        .hero-lead-wrapper
+        .hero-lead
+        .hero-lead-content
+        > p
+        img[alt*="peerinsights" i] {
+        width: 124px;
+    }
 
-  .pf-hero .hero-lead-wrapper .hero-lead .hero-lead-content > p img[alt*="g2" i] {
-    width: 30px;
-  }
+    .pf-hero
+        .hero-lead-wrapper
+        .hero-lead
+        .hero-lead-content
+        > p
+        img[alt*="g2" i] {
+        width: 30px;
+    }
 }
 
 @media (width >= 960px) {
-  main > .section.pf-hero .hero-lead-content h2 {
-    font-size: 50px;
-    line-height: 50px;
-  }
+    main > .section.pf-hero .hero-lead-content h2 {
+        font-size: 50px;
+        line-height: 50px;
+    }
 
-  main > .section.pf-hero .hero-lead {
-    box-sizing: border-box;
-    gap: 11%;
-    max-width: 1264px;
-    padding: 0 32px;
-  }
+    main > .section.pf-hero .hero-lead {
+        box-sizing: border-box;
+        gap: 11%;
+        max-width: 1264px;
+        padding: 0 32px;
+    }
 
-  main > .section.pf-hero .hero-lead:not(:has(.hero-lead-media-layers)) {
-    align-items: center;
-    min-height: 850px;
-    max-width: 1200px;
-    padding: 0 20px;
-  }
+    main > .section.pf-hero .hero-lead:not(:has(.hero-lead-media-layers)) {
+        align-items: center;
+        min-height: 850px;
+        max-width: 1200px;
+        padding: 0 20px;
+    }
 
-  main > .section.pf-hero .hero-lead > div:has(.hero-lead-content) {
-    flex: 0 0 45%;
-  }
+    main > .section.pf-hero .hero-lead > div:has(.hero-lead-content) {
+        flex: 0 0 45%;
+    }
 
-  main > .section.pf-hero .hero-lead-content {
-    flex: 1 1 auto;
-    max-width: none;
-    padding-top: 137px;
-    padding-bottom: 137px;
-  }
+    main > .section.pf-hero .hero-lead-content {
+        flex: 1 1 auto;
+        max-width: none;
+        padding-top: 137px;
+        padding-bottom: 137px;
+    }
 
-  main > .section.pf-hero .hero-lead:not(:has(.hero-lead-media-layers)) .hero-lead-content {
-    padding-top: 0;
-    padding-bottom: 0;
-  }
+    main
+        > .section.pf-hero
+        .hero-lead:not(:has(.hero-lead-media-layers))
+        .hero-lead-content {
+        padding-top: 0;
+        padding-bottom: 0;
+    }
 
     /* Only a genuine media-ONLY column with a single screenshot gets the panel.
      `:not(:has(h2))` excludes single-column heroes whose one div holds BOTH
@@ -2764,21 +2936,27 @@ main > .section.pf-hero:has(.hero-lead-media-layers) > .hero-lead-wrapper {
      shapes + app-store badges, see hero-lead.js/css) -- that composition
      brings its own light background and positioning, not a boxed panel.
      Without these guards the whole hero turns purple/boxed. */
-  main > .section.pf-hero .hero-lead > div:has(.hero-lead-media):not(:has(h2), :has(.hero-lead-media-layers)) {
-    position: relative;
-    align-self: stretch;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex: 1 1 auto;
-    max-width: none;
-    height: auto;
-    overflow: visible;
-    margin-right: calc(50% - 50vw);
-    padding: 70px 0;
-    background-color: var(--hero-panel, #6b64ef);
-    border-radius: 0;
-  }
+    main
+        > .section.pf-hero
+        .hero-lead
+        > div:has(.hero-lead-media):not(
+            :has(h2),
+            :has(.hero-lead-media-layers)
+        ) {
+        position: relative;
+        align-self: stretch;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex: 1 1 auto;
+        max-width: none;
+        height: auto;
+        overflow: visible;
+        margin-right: calc(50% - 50vw);
+        padding: 70px 0;
+        background-color: var(--hero-panel, #6b64ef);
+        border-radius: 0;
+    }
 
     main
         > .section.pf-hero
@@ -2801,272 +2979,427 @@ main > .section.pf-hero:has(.hero-lead-media-layers) > .hero-lead-wrapper {
      (rgb 98 92 226 vs the rgb 107 100 239 panel) inset within the panel -- on
      prod this is baked into the hero video's backdrop; reproduce it as a
      darker box behind the static screenshot. */
-  main > .section.pf-hero .hero-lead > div:has(.hero-lead-media):not(:has(h2), :has(.hero-lead-media-layers)) .hero-lead-media {
-    position: relative;
-    inset: auto;
-    transform: none;
-    height: auto;
-    z-index: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 475px;
-    max-width: 100%;
-    aspect-ratio: 475 / 713;
-    padding: 0;
-    text-align: center;
-    background-color: var(--hero-inner, rgb(98 92 226));
-    border-radius: 2px;
-  }
+    main
+        > .section.pf-hero
+        .hero-lead
+        > div:has(.hero-lead-media):not(:has(h2), :has(.hero-lead-media-layers))
+        .hero-lead-media {
+        position: relative;
+        inset: auto;
+        transform: none;
+        height: auto;
+        z-index: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 475px;
+        max-width: 100%;
+        aspect-ratio: 475 / 713;
+        padding: 0;
+        text-align: center;
+        background-color: var(--hero-inner, rgb(98 92 226));
+        border-radius: 2px;
+    }
 
-  main > .section.pf-hero .hero-lead > div:has(.hero-lead-media):not(:has(h2), :has(.hero-lead-media-layers)) .hero-lead-media video,
-  main > .section.pf-hero .hero-lead > div:has(.hero-lead-media):not(:has(h2), :has(.hero-lead-media-layers)) .hero-lead-media img {
-    display: block;
-    width: 100%;
-    height: 100%;
-    max-width: none;
-    margin: 0;
-    object-fit: contain;
-    object-position: center;
-  }
+    main
+        > .section.pf-hero
+        .hero-lead
+        > div:has(.hero-lead-media):not(:has(h2), :has(.hero-lead-media-layers))
+        .hero-lead-media
+        video,
+    main
+        > .section.pf-hero
+        .hero-lead
+        > div:has(.hero-lead-media):not(:has(h2), :has(.hero-lead-media-layers))
+        .hero-lead-media
+        img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        max-width: none;
+        margin: 0;
+        object-fit: contain;
+        object-position: center;
+    }
 
-  main > .section.pf-hero:has(.hero-lead-media-layers) {
-    background-color: #f7f9fc;
-  }
+    main > .section.pf-hero:has(.hero-lead-media-layers) {
+        background-color: #f7f9fc;
+    }
 
-  /* Live `#mobile-product .header`: full-bleed band, copy in a 960px well
+    /* Live `#mobile-product .header`: full-bleed band, copy in a 960px well
      (45%), media stage pinned to the viewport right. */
-  main > .section.pf-hero .hero-lead:has(.hero-lead-media-layers) {
-    position: relative;
-    display: flex;
-    align-items: center;
-    overflow: hidden;
-    gap: 0;
-    max-width: none;
-    min-height: 0;
-    margin: 0 0 30px;
-    padding: 95px 0 35px;
-  }
+    main > .section.pf-hero .hero-lead:has(.hero-lead-media-layers) {
+        position: relative;
+        display: flex;
+        align-items: center;
+        overflow: hidden;
+        gap: 0;
+        max-width: none;
+        min-height: 0;
+        margin: 0 0 30px;
+        padding: 95px 0 35px;
+    }
 
-  main > .section.pf-hero .hero-lead:has(.hero-lead-media-layers) > div:has(.hero-lead-content) {
-    box-sizing: border-box;
-    display: block;
-    flex: none;
-    width: 100%;
-    max-width: 960px;
-    margin: 0 auto;
-  }
+    main
+        > .section.pf-hero
+        .hero-lead:has(.hero-lead-media-layers)
+        > div:has(.hero-lead-content) {
+        box-sizing: border-box;
+        display: block;
+        flex: none;
+        width: 100%;
+        max-width: 960px;
+        margin: 0 auto;
+    }
 
-  main > .section.pf-hero .hero-lead:has(.hero-lead-media-layers) .hero-lead-content {
-    width: 45%;
-    max-width: none;
-    flex: none;
-    padding: 0;
-  }
+    main
+        > .section.pf-hero
+        .hero-lead:has(.hero-lead-media-layers)
+        .hero-lead-content {
+        width: 45%;
+        max-width: none;
+        flex: none;
+        padding: 0;
+    }
 
-  main > .section.pf-hero .hero-lead:has(.hero-lead-media-layers) .hero-lead-content h1,
-  main > .section.pf-hero .hero-lead:has(.hero-lead-media-layers) .hero-lead-content h2 {
-    max-width: 96%;
-  }
+    main
+        > .section.pf-hero
+        .hero-lead:has(.hero-lead-media-layers)
+        .hero-lead-content
+        h1,
+    main
+        > .section.pf-hero
+        .hero-lead:has(.hero-lead-media-layers)
+        .hero-lead-content
+        h2 {
+        max-width: 96%;
+    }
 
-  main > .section.pf-hero .hero-lead:has(.hero-lead-media-layers) .hero-lead-content h1 {
-    margin-bottom: 10px;
-  }
+    main
+        > .section.pf-hero
+        .hero-lead:has(.hero-lead-media-layers)
+        .hero-lead-content
+        h1 {
+        margin-bottom: 10px;
+    }
 
-  main > .section.pf-hero .hero-lead:has(.hero-lead-media-layers) > div:has(.hero-lead-media) {
-    position: absolute;
-    top: -52px;
-    right: 0;
-    display: block;
-    align-self: auto;
-    flex: none;
-    width: 600px;
-    height: 850px;
-    max-width: none;
-    margin: 0;
-    padding: 0;
-    overflow: visible;
-    background-color: transparent;
-  }
+    main
+        > .section.pf-hero
+        .hero-lead:has(.hero-lead-media-layers)
+        > div:has(.hero-lead-media) {
+        position: absolute;
+        top: -52px;
+        right: 0;
+        display: block;
+        align-self: auto;
+        flex: none;
+        width: 600px;
+        height: 850px;
+        max-width: none;
+        margin: 0;
+        padding: 0;
+        overflow: visible;
+        background-color: transparent;
+    }
 
-  main > .section.pf-hero .hero-lead:has(.hero-lead-media-layers) .hero-lead-media {
-    width: 100%;
-    height: 100%;
-  }
+    main
+        > .section.pf-hero
+        .hero-lead:has(.hero-lead-media-layers)
+        .hero-lead-media {
+        width: 100%;
+        height: 100%;
+    }
 
-  main > .section.pf-hero .hero-lead:has(.hero-lead-media-layers) .hero-lead-media-layers {
-    width: 600px;
-    height: 850px;
-  }
+    main
+        > .section.pf-hero
+        .hero-lead:has(.hero-lead-media-layers)
+        .hero-lead-media-layers {
+        width: 600px;
+        height: 850px;
+    }
 
-  main > .section.pf-hero .hero-lead:has(.hero-lead-media-layers) .hero-lead-form {
-    min-height: 43px;
-    align-items: stretch;
-    margin-bottom: 20px;
-  }
+    main
+        > .section.pf-hero
+        .hero-lead:has(.hero-lead-media-layers)
+        .hero-lead-form {
+        min-height: 43px;
+        align-items: stretch;
+        margin-bottom: 20px;
+    }
 
-  main > .section.pf-hero .hero-lead:has(.hero-lead-media-layers) .hero-lead-input,
-  main > .section.pf-hero .hero-lead:has(.hero-lead-media-layers) .hero-lead-cta {
-    height: 43px;
-  }
+    main
+        > .section.pf-hero
+        .hero-lead:has(.hero-lead-media-layers)
+        .hero-lead-input,
+    main
+        > .section.pf-hero
+        .hero-lead:has(.hero-lead-media-layers)
+        .hero-lead-cta {
+        height: 43px;
+    }
 
-  main > .section.pf-hero .hero-lead:has(.hero-lead-media-layers) .hero-lead-media-content {
-    margin-top: 20px;
-  }
+    main
+        > .section.pf-hero
+        .hero-lead:has(.hero-lead-media-layers)
+        .hero-lead-media-content {
+        margin-top: 20px;
+    }
 }
 
 @media (width >= 1200px) {
-  main > .section.pf-hero .hero-lead-content h2 {
-    font-size: 64px;
-    line-height: 64px;
-  }
+    main > .section.pf-hero .hero-lead-content h2 {
+        font-size: 64px;
+        line-height: 64px;
+    }
 
-  main > .section.pf-hero .hero-lead:not(:has(.hero-lead-media-layers)) {
-    padding: 0;
-  }
+    main > .section.pf-hero .hero-lead:not(:has(.hero-lead-media-layers)) {
+        padding: 0;
+    }
 
-  main > .section.pf-hero .hero-lead:has(.hero-lead-media-layers) > div:has(.hero-lead-content) {
-    max-width: 1200px;
-  }
+    main
+        > .section.pf-hero
+        .hero-lead:has(.hero-lead-media-layers)
+        > div:has(.hero-lead-content) {
+        max-width: 1200px;
+    }
 
-  /* From here up the app-store block sits under the phone rather than under the
+    /* From here up the app-store block sits under the phone rather than under the
      copy, level with the award logos -- live's wide-screen arrangement
      (`#mobile-product .header .availability`). It hangs off the phone's right
      edge so it clears the engineer, and `bottom` matches the hero's bottom
      padding to line up with the logos. */
-  main > .section.pf-hero .hero-lead:has(.hero-lead-media-layers) .hero-lead-media-content {
-    position: absolute;
-    z-index: 3;
-    right: max(10px, calc((100% - 1200px) / 2 - 10px));
-    bottom: 35px;
-    margin-top: 0;
-  }
+    main
+        > .section.pf-hero
+        .hero-lead:has(.hero-lead-media-layers)
+        .hero-lead-media-content {
+        position: absolute;
+        z-index: 3;
+        right: max(10px, calc((100% - 1200px) / 2 - 10px));
+        bottom: 35px;
+        margin-top: 0;
+    }
 
-  .pf-hero .hero-lead-wrapper .hero-lead:has(.hero-lead-media-layers) .hero-lead-content > p:has(> picture:only-child):not(:has(img[alt*="stars" i])),
-  .pf-hero .hero-lead-wrapper .hero-lead:has(.hero-lead-media-layers) .hero-lead-content > p:has(> picture:only-child):has(img[alt*="g2" i]) {
-    height: 56px;
-  }
+    .pf-hero
+        .hero-lead-wrapper
+        .hero-lead:has(.hero-lead-media-layers)
+        .hero-lead-content
+        > p:has(> picture:only-child):not(:has(img[alt*="stars" i])),
+    .pf-hero
+        .hero-lead-wrapper
+        .hero-lead:has(.hero-lead-media-layers)
+        .hero-lead-content
+        > p:has(> picture:only-child):has(img[alt*="g2" i]) {
+        height: 56px;
+    }
 
-  main > .section.pf-hero .hero-lead:has(.hero-lead-media-layers) .hero-lead-content h1,
-  main > .section.pf-hero .hero-lead:has(.hero-lead-media-layers) .hero-lead-content h2 {
-    max-width: none;
-  }
+    main
+        > .section.pf-hero
+        .hero-lead:has(.hero-lead-media-layers)
+        .hero-lead-content
+        h1,
+    main
+        > .section.pf-hero
+        .hero-lead:has(.hero-lead-media-layers)
+        .hero-lead-content
+        h2 {
+        max-width: none;
+    }
 
-  main > .section.pf-hero .hero-lead:has(.hero-lead-media-layers) > div:has(.hero-lead-media),
-  main > .section.pf-hero .hero-lead:has(.hero-lead-media-layers) .hero-lead-media-layers {
-    width: 800px;
-  }
+    main
+        > .section.pf-hero
+        .hero-lead:has(.hero-lead-media-layers)
+        > div:has(.hero-lead-media),
+    main
+        > .section.pf-hero
+        .hero-lead:has(.hero-lead-media-layers)
+        .hero-lead-media-layers {
+        width: 800px;
+    }
 
-  /* The phone lines up with the right edge of the 1200px well the header and
+    /* The phone lines up with the right edge of the 1200px well the header and
      copy share, rather than running out to the viewport edge -- the stage
      itself is 20px wider than the phone, hence the -20px. The centre of the
      stage sits 30px below the hero's, so the graphics ride up with the copy
      column now that the app-store block has left the flow. */
-  main > .section.pf-hero .hero-lead:has(.hero-lead-media-layers) > div:has(.hero-lead-media) {
-    top: 50%;
-    right: max(0px, calc((100% - 1200px) / 2 - 20px));
-    margin-top: -395px;
-  }
+    main
+        > .section.pf-hero
+        .hero-lead:has(.hero-lead-media-layers)
+        > div:has(.hero-lead-media) {
+        top: 50%;
+        right: max(0px, calc((100% - 1200px) / 2 - 20px));
+        margin-top: -395px;
+    }
 
-  .pf-hero .hero-lead-wrapper .hero-lead .hero-lead-content > p:has(> picture:only-child):not(:has(img[alt*="stars" i])) {
-    margin-right: 15px;
-  }
+    .pf-hero
+        .hero-lead-wrapper
+        .hero-lead
+        .hero-lead-content
+        > p:has(> picture:only-child):not(:has(img[alt*="stars" i])) {
+        margin-right: 15px;
+    }
 }
 
 @media (width >= 960px) {
-  .pf-hero .hero-lead-wrapper .hero-lead .hero-lead-form {
-    display: flex;
-    gap: 20px;
-    margin: 0 0 40px;
-  }
+    .pf-hero .hero-lead-wrapper .hero-lead .hero-lead-form {
+        display: flex;
+        gap: 20px;
+        margin: 0 0 40px;
+    }
 
-  /* `#mobile-product .header .twoStep-form { margin-bottom: 20px }` */
-  .pf-hero .hero-lead:has(.hero-lead-media-layers) .hero-lead-form {
-    margin-bottom: 20px;
-  }
+    /* `#mobile-product .header .twoStep-form { margin-bottom: 20px }` */
+    .pf-hero .hero-lead:has(.hero-lead-media-layers) .hero-lead-form {
+        margin-bottom: 20px;
+    }
 
-  .pf-hero .hero-lead-wrapper .hero-lead .hero-lead-content .hero-lead-app-badges img {
-    width: auto;
-    max-width: none;
-    max-height: none;
-    height: 35px;
-  }
+    .pf-hero
+        .hero-lead-wrapper
+        .hero-lead
+        .hero-lead-content
+        .hero-lead-app-badges
+        img {
+        width: auto;
+        max-width: none;
+        max-height: none;
+        height: 35px;
+    }
 
-  .pf-hero .hero-lead-wrapper .hero-lead .hero-lead-input {
-    flex: 1 1 200px;
-    width: auto;
-    max-width: 270px;
-  }
+    .pf-hero .hero-lead-wrapper .hero-lead .hero-lead-input {
+        flex: 1 1 200px;
+        width: auto;
+        max-width: 270px;
+    }
 
-  .pf-hero .hero-lead-wrapper .hero-lead .hero-lead-cta {
-    height: 38px;
-    padding: 5px 17px;
-    font-weight: 700;
-  }
+    .pf-hero .hero-lead-wrapper .hero-lead .hero-lead-cta {
+        height: 38px;
+        padding: 5px 17px;
+        font-weight: 700;
+    }
 
-  .pf-hero .hero-lead-wrapper .hero-lead .hero-lead-content > p:not(.hero-lead-support):has(a) {
-    display: none;
-  }
+    .pf-hero
+        .hero-lead-wrapper
+        .hero-lead
+        .hero-lead-content
+        > p:not(.hero-lead-support):has(a) {
+        display: none;
+    }
 
-  .pf-hero .hero-lead-wrapper .hero-lead .hero-lead-content > p img {
-    max-height: 56px;
-  }
+    .pf-hero .hero-lead-wrapper .hero-lead .hero-lead-content > p img {
+        max-height: 56px;
+    }
 
-  .pf-hero .hero-lead-wrapper .hero-lead .hero-lead-content > p:has(img[alt*="stars" i]) {
-    display: inline-block;
-    margin: 0;
-    vertical-align: middle;
-  }
+    .pf-hero
+        .hero-lead-wrapper
+        .hero-lead
+        .hero-lead-content
+        > p:has(img[alt*="stars" i]) {
+        display: inline-block;
+        margin: 0;
+        vertical-align: middle;
+    }
 
-  .pf-hero .hero-lead-wrapper .hero-lead .hero-lead-content > p:has(img[alt*="stars" i]) img {
-    width: 100px;
-    max-height: none;
-  }
+    .pf-hero
+        .hero-lead-wrapper
+        .hero-lead
+        .hero-lead-content
+        > p:has(img[alt*="stars" i])
+        img {
+        width: 100px;
+        max-height: none;
+    }
 
-  
-  .pf-hero .hero-lead-wrapper .hero-lead .hero-lead-content > p:has(img[alt*="stars" i]) + p {
-    display: inline-block;
-    width: calc(100% - 125px);
-    margin: 0 0 0 10px;
-    padding-top: 5px;
-    font-size: 14px;
-    vertical-align: middle;
-  }
+    .pf-hero
+        .hero-lead-wrapper
+        .hero-lead
+        .hero-lead-content
+        > p:has(img[alt*="stars" i])
+        + p {
+        display: inline-block;
+        width: calc(100% - 125px);
+        margin: 0 0 0 10px;
+        padding-top: 5px;
+        font-size: 14px;
+        vertical-align: middle;
+    }
 
-  .pf-hero .hero-lead-wrapper .hero-lead .hero-lead-content > p:has(> picture:only-child):not(:has(img[alt*="stars" i])) {
-    display: inline-flex;
-    align-items: center;
-    height: 56px;
-    margin: 0 8px 0 0;
-  }
+    .pf-hero
+        .hero-lead-wrapper
+        .hero-lead
+        .hero-lead-content
+        > p:has(> picture:only-child):not(:has(img[alt*="stars" i])) {
+        display: inline-flex;
+        align-items: center;
+        height: 56px;
+        margin: 0 8px 0 0;
+    }
 
-  .pf-hero .hero-lead-wrapper .hero-lead .hero-lead-content > p img[alt*="capterra" i] {
-    width: 93px;
-  }
+    .pf-hero
+        .hero-lead-wrapper
+        .hero-lead
+        .hero-lead-content
+        > p
+        img[alt*="capterra" i] {
+        width: 93px;
+    }
 
-  .pf-hero .hero-lead-wrapper .hero-lead .hero-lead-content > p img[alt*="software advice" i],
-  .pf-hero .hero-lead-wrapper .hero-lead .hero-lead-content > p img[alt*="peerinsights" i] {
-    width: 124px;
-  }
+    .pf-hero
+        .hero-lead-wrapper
+        .hero-lead
+        .hero-lead-content
+        > p
+        img[alt*="software advice" i],
+    .pf-hero
+        .hero-lead-wrapper
+        .hero-lead
+        .hero-lead-content
+        > p
+        img[alt*="peerinsights" i] {
+        width: 124px;
+    }
 
-  .pf-hero .hero-lead-wrapper .hero-lead .hero-lead-content > p:has(> picture:only-child):not(:has(img[alt*="stars" i])):has(img[alt*="software advice" i]) {
-    margin-right: 0;
-  }
+    .pf-hero
+        .hero-lead-wrapper
+        .hero-lead
+        .hero-lead-content
+        > p:has(> picture:only-child):not(:has(img[alt*="stars" i])):has(
+            img[alt*="software advice" i]
+        ) {
+        margin-right: 0;
+    }
 
-  .pf-hero .hero-lead-wrapper .hero-lead .hero-lead-content > p img[alt*="g2" i] {
-    width: 30px;
-  }
+    .pf-hero
+        .hero-lead-wrapper
+        .hero-lead
+        .hero-lead-content
+        > p
+        img[alt*="g2" i] {
+        width: 30px;
+    }
 }
 
 @media (width >= 1200px) {
-  .pf-hero .hero-lead-wrapper .hero-lead .hero-lead-content > p img[alt*="capterra" i] {
-    width: 100px;
-  }
+    .pf-hero
+        .hero-lead-wrapper
+        .hero-lead
+        .hero-lead-content
+        > p
+        img[alt*="capterra" i] {
+        width: 100px;
+    }
 
-  .pf-hero .hero-lead-wrapper .hero-lead .hero-lead-content > p img[alt*="software advice" i],
-  .pf-hero .hero-lead-wrapper .hero-lead .hero-lead-content > p img[alt*="peerinsights" i] {
-    width: 150px;
-  }
+    .pf-hero
+        .hero-lead-wrapper
+        .hero-lead
+        .hero-lead-content
+        > p
+        img[alt*="software advice" i],
+    .pf-hero
+        .hero-lead-wrapper
+        .hero-lead
+        .hero-lead-content
+        > p
+        img[alt*="peerinsights" i] {
+        width: 150px;
+    }
 }
 
 /* ---- pf-logos: white band, centered heading + customer-logo strip ---- */
@@ -3114,87 +3447,100 @@ main > .section.pf-logos .columns-logos img {
    borderless heading+paragraph blurbs. Production H2 48/700, intro P
    28/300, blurb H3 24/700, blurb P 20/300. ---- */
 main > .section.pf-features {
-  margin: 0;
-  padding: 0 0 40px;
+    margin: 0;
+    padding: 0 0 40px;
 }
 
 main > .section.pf-features .default-content-wrapper h2 {
-  margin: 0 0 20px;
-  font-size: 30px;
-  font-weight: 700;
-  line-height: 1;
-  color: var(--text-color);
+    margin: 0 0 20px;
+    font-size: 30px;
+    font-weight: 700;
+    line-height: 1;
+    color: var(--text-color);
 }
 
 main > .section.pf-features .default-content-wrapper > p {
-  margin: 0;
-  font-size: 20px;
-  font-weight: 300;
-  line-height: 1.2;
-  color: var(--text-color);
+    margin: 0;
+    font-size: 20px;
+    font-weight: 300;
+    line-height: 1.2;
+    color: var(--text-color);
 }
 
 /* Production separates the intro heading from its subtext with a purple bar
    (the heading's ::after, 540x5, rgb 99 92 232) and constrains the intro block
    to the left ~540px column. Target the intro default-content-wrapper (the one
    directly before the cards), not the trailing "See what…" link heading. */
-main > .section.pf-features .default-content-wrapper:has(+ .cards-features-wrapper) {
-  margin-bottom: 40px;
+main
+    > .section.pf-features
+    .default-content-wrapper:has(+ .cards-features-wrapper) {
+    margin-bottom: 40px;
 }
 
 @media (width >= 768px) {
-  main > .section.pf-features {
-    padding-bottom: 70px;
-  }
+    main > .section.pf-features {
+        padding-bottom: 70px;
+    }
 
-  main > .section.pf-features .default-content-wrapper:has(+ .cards-features-wrapper) {
-    margin-top: 60px;
-    margin-bottom: 100px;
-  }
+    main
+        > .section.pf-features
+        .default-content-wrapper:has(+ .cards-features-wrapper) {
+        margin-top: 60px;
+        margin-bottom: 100px;
+    }
 }
 
-main > .section.pf-features .default-content-wrapper:has(+ .cards-features-wrapper) h2,
-main > .section.pf-features .default-content-wrapper:has(+ .cards-features-wrapper) > p {
-  max-width: 540px;
+main
+    > .section.pf-features
+    .default-content-wrapper:has(+ .cards-features-wrapper)
+    h2,
+main
+    > .section.pf-features
+    .default-content-wrapper:has(+ .cards-features-wrapper)
+    > p {
+    max-width: 540px;
 }
 
-main > .section.pf-features .default-content-wrapper:has(+ .cards-features-wrapper) h2::after {
-  content: '';
-  display: block;
-  width: 540px;
-  max-width: 100%;
-  height: 5px;
-  margin-top: 20px;
-  background-color: var(--feature-bar, rgb(99 92 232));
+main
+    > .section.pf-features
+    .default-content-wrapper:has(+ .cards-features-wrapper)
+    h2::after {
+    content: "";
+    display: block;
+    width: 540px;
+    max-width: 100%;
+    height: 5px;
+    margin-top: 20px;
+    background-color: var(--feature-bar, rgb(99 92 232));
 }
 
 /* The intro bar colour is per-page (matches the page accent). Default (cmms and
    others) is purple; override for the yellow / teal pages via the URL-derived
    body page-class. Measured from production. */
 body.page-cmms-asset-management-software {
-  --feature-bar: rgb(255 214 0);
+    --feature-bar: rgb(255 214 0);
 }
 
 body.page-cmms-parts-inventory-management-software {
-  --feature-bar: rgb(60 192 203);
+    --feature-bar: rgb(60 192 203);
 }
 
 body.page-cmms-mobile-cmms {
-  --feature-bar: rgb(0 175 235);
+    --feature-bar: rgb(0 175 235);
 }
 
 /* borderless, transparent feature blurbs */
 main > .section.pf-features .cards-features > ul {
-  grid-template-columns: 1fr;
-  gap: 40px;
+    grid-template-columns: 1fr;
+    gap: 40px;
 }
 
 main > .section.pf-features .cards-features > ul > li {
-  border: 0;
-  background-color: transparent;
-  display: flex;
-  gap: 16px;
-  align-items: flex-start;
+    border: 0;
+    background-color: transparent;
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
 }
 
 /* per-card icon: production shows a small (~32px) icon to the LEFT of the
@@ -3202,68 +3548,68 @@ main > .section.pf-features .cards-features > ul > li {
    block's default full-width 4:3 image rule blows it up to ~490px, so size it
    down here and let the text cell take the rest. */
 main > .section.pf-features .cards-features .cards-features-card-image {
-  flex: 0 0 auto;
-  margin: 0;
-  line-height: 0;
+    flex: 0 0 auto;
+    margin: 0;
+    line-height: 0;
 }
 
 main > .section.pf-features .cards-features .cards-features-card-image img {
-  width: 32px;
-  height: 32px;
-  aspect-ratio: auto;
-  object-fit: contain;
+    width: 32px;
+    height: 32px;
+    aspect-ratio: auto;
+    object-fit: contain;
 }
 
 main > .section.pf-features .cards-features .cards-features-card-body {
-  flex: 1;
-  min-width: 0;
-  margin: 0;
+    flex: 1;
+    min-width: 0;
+    margin: 0;
 }
 
 main > .section.pf-features .cards-features h3 {
-  margin: 0 0 20px;
-  font-size: 22px;
-  font-weight: 700;
-  line-height: 1;
-  color: var(--text-color);
+    margin: 0 0 20px;
+    font-size: 22px;
+    font-weight: 700;
+    line-height: 1;
+    color: var(--text-color);
 }
 
 @media (width >= 768px) {
-  main > .section.pf-features .cards-features h3 {
-    font-size: 24px;
-  }
+    main > .section.pf-features .cards-features h3 {
+        font-size: 24px;
+    }
 }
 
 main > .section.pf-features .cards-features .cards-features-card-body p {
-  margin: 0;
-  font-size: 20px;
-  font-weight: 300;
-  line-height: 1.3;
-  color: var(--text-color);
+    margin: 0;
+    font-size: 20px;
+    font-weight: 300;
+    line-height: 1.3;
+    color: var(--text-color);
 }
 
 /* trailing "See what easier maintenance…" heading link, centered */
 main > .section.pf-features .default-content-wrapper:last-child h2 {
-  margin: 40px 0 0;
-  font-size: 28px;
-  text-align: center;
+    margin: 40px 0 0;
+    font-size: 28px;
+    text-align: center;
 }
 
 main > .section.pf-features .default-content-wrapper:last-child h2 a:any-link {
-  color: #14499a;
-  font-weight: 700;
+    color: #14499a;
+    font-weight: 700;
 }
 
 @media (width >= 960px) {
-  main > .section.pf-features .default-content-wrapper h2 {
-    font-size: 48px;
-  }
+    main > .section.pf-features .default-content-wrapper h2 {
+        font-size: 48px;
+    }
 
-  main > .section.pf-features .default-content-wrapper > p {
-    font-size: 28px;
-  }
+    main > .section.pf-features .default-content-wrapper > p {
+        font-size: 28px;
+    }
 
-  /* Production spacing: 490px-wide blurbs with a 170px column gap and 70px row
+    /* Production spacing: 490px-wide blurbs with a 170px column gap and 70px row
      gap (measured), not the tight 60/40 that made the grid feel cramped.
      Production also fills COLUMN-major (left column first), so switch to column
      auto-flow with an explicit row count (tagged by the block JS as
@@ -3271,18 +3617,32 @@ main > .section.pf-features .default-content-wrapper:last-child h2 a:any-link {
      Columns and gutter are capped rather than fixed: 490+170+490 = 1150px is
      wider than the container below ~1264px, so fixed tracks pushed the blurbs
      outside the section on tablet/small-desktop viewports. */
-  main > .section.pf-features .cards-features > ul {
-    grid-template-columns: repeat(2, minmax(0, 490px));
-    grid-auto-flow: column;
-    justify-content: center;
-    gap: 70px 10%;
-  }
+    main > .section.pf-features .cards-features > ul {
+        grid-template-columns: repeat(2, minmax(0, 490px));
+        grid-auto-flow: column;
+        justify-content: center;
+        gap: 70px 10%;
+    }
 
-  main > .section.pf-features .cards-features > ul.cards-features-rows-2 { grid-template-rows: repeat(2, auto); }
-  main > .section.pf-features .cards-features > ul.cards-features-rows-3 { grid-template-rows: repeat(3, auto); }
-  main > .section.pf-features .cards-features > ul.cards-features-rows-4 { grid-template-rows: repeat(4, auto); }
-  main > .section.pf-features .cards-features > ul.cards-features-rows-5 { grid-template-rows: repeat(5, auto); }
-  main > .section.pf-features .cards-features > ul.cards-features-rows-6 { grid-template-rows: repeat(6, auto); }
+    main > .section.pf-features .cards-features > ul.cards-features-rows-2 {
+        grid-template-rows: repeat(2, auto);
+    }
+
+    main > .section.pf-features .cards-features > ul.cards-features-rows-3 {
+        grid-template-rows: repeat(3, auto);
+    }
+
+    main > .section.pf-features .cards-features > ul.cards-features-rows-4 {
+        grid-template-rows: repeat(4, auto);
+    }
+
+    main > .section.pf-features .cards-features > ul.cards-features-rows-5 {
+        grid-template-rows: repeat(5, auto);
+    }
+
+    main > .section.pf-features .cards-features > ul.cards-features-rows-6 {
+        grid-template-rows: repeat(6, auto);
+    }
 }
 
 /* ---- pf-video: light band, centered heading, thumbnail-card grid.
@@ -3593,7 +3953,8 @@ main
    instead of rendering inline. ---- */
 main > .section.pf-explore {
     margin: 0;
-    padding: 60px 0;
+    padding: 0 0 120px;
+    background-color: #f7f7f7;
 }
 
 main > .section.pf-explore .default-content-wrapper h2 {
@@ -3631,6 +3992,10 @@ main > .section.pf-explore .accordion-faq a:any-link {
     font-weight: 700;
 }
 
+main > .section.pf-explore .columns-logos-wrapper {
+    padding: 90px 0;
+}
+
 @media (width >= 960px) {
     main > .section.pf-explore .default-content-wrapper h2 {
         font-size: 48px;
@@ -3648,7 +4013,6 @@ main > .section.pf-resources {
 
 main > .section.pf-resources .default-content-wrapper h2 {
     margin: 0 auto 40px;
-    max-width: 760px;
     font-size: 32px;
     font-weight: 700;
     line-height: 1;
@@ -3665,13 +4029,12 @@ main > .section.pf-resources .cards-cta {
 
 main > .section.pf-resources .cards-cta .cards-cta-panel {
     align-items: stretch;
-    padding: 0;
     background-color: transparent;
     text-align: left;
 }
 
 main > .section.pf-resources .cards-cta .cards-cta-figure {
-    position: static;
+    position: absolute;
     margin: 0 0 16px;
 }
 
@@ -3684,7 +4047,7 @@ main > .section.pf-resources .cards-cta .cards-cta-body {
 }
 
 main > .section.pf-resources .cards-cta .cards-cta-body h3 {
-    margin: 0 0 16px;
+    margin: 0 0 20px;
     font-size: 24px;
     line-height: 1;
 }
@@ -3710,7 +4073,6 @@ main > .section.pf-resources .cards-cta a.cards-cta-button:hover,
 main > .section.pf-resources .cards-cta a.cards-cta-button:focus-visible {
     background-color: transparent;
     color: #0f3877;
-    text-decoration: underline;
 }
 
 @media (width >= 960px) {
@@ -3721,6 +4083,22 @@ main > .section.pf-resources .cards-cta a.cards-cta-button:focus-visible {
     main > .section.pf-resources .cards-cta {
         gap: 48px;
     }
+
+    main > .section.pf-resources.cards-cta-container {
+        padding: 0;
+    }
+
+    main > .section.pf-resources.cards-cta-container .default-content-wrapper {
+        border-top: solid 2px #e1e1e1;
+    }
+
+    main
+        > .section.pf-resources.cards-cta-container
+        .default-content-wrapper
+        h2 {
+        margin-top: 80px;
+        max-width: 530px;
+    }
 }
 
 /* ---- pf-final-cta: centered "Ready to see more?" heading + paragraph
@@ -3730,6 +4108,48 @@ main > .section.pf-final-cta {
     margin: 0;
     padding: 80px 0;
     text-align: center;
+}
+
+/* Production also draws a grey (#f7f7f7) band rotated 5deg across the
+   seam between the grey pf-resources section and the section right after
+   it (.home-seemore .grey), so that boundary reads as a diagonal cut
+   instead of a flat line. Recreated here as a ::before since there's no
+   authored element for it. Scoped to only fire when pf-final-cta
+   directly follows the cards-cta-container variant of pf-resources —
+   this is specific to that section transition, not every pf-final-cta. */
+main > .section.pf-resources.cards-cta-container + .section.pf-final-cta {
+    position: relative;
+    padding-top: 100px;
+    padding-bottom: 40px;
+
+    /* the angle band bleeds past the section's left/right edges; clip
+       (not hidden) contains that without adding a document scrollbar,
+       while leaving vertical overflow visible so the band still pokes
+       up into the pf-resources section above. */
+    overflow-x: clip;
+}
+
+main
+    > .section.pf-resources.cards-cta-container
+    + .section.pf-final-cta::before {
+    content: "";
+    position: absolute;
+    top: -300px;
+    left: -150px;
+    z-index: 0;
+    width: 200%;
+    height: 350px;
+    background-color: #f7f7f7;
+    transform: rotate(5deg);
+    pointer-events: none;
+}
+
+main
+    > .section.pf-resources.cards-cta-container
+    + .section.pf-final-cta
+    .default-content-wrapper {
+    position: relative;
+    z-index: 1;
 }
 
 main > .section.pf-final-cta .default-content-wrapper h2 {
@@ -3788,6 +4208,18 @@ main
 }
 
 @media (width >= 960px) {
+    main > .section.pf-resources.cards-cta-container + .section.pf-final-cta {
+        padding-top: 300px;
+        padding-bottom: 80px;
+    }
+
+    main
+        > .section.pf-resources.cards-cta-container
+        + .section.pf-final-cta::before {
+        top: -100px;
+        height: 300px;
+    }
+
     main > .section.pf-final-cta .default-content-wrapper h2 {
         font-size: 48px;
     }
@@ -4633,122 +5065,125 @@ main > .section.optix-getstarted .default-content-wrapper li {
 
 /* Blog listing header — gray featured band matching fiixsoftware.com/blog */
 main > .section.blog-header {
-  margin: 55px 0 40px;
-  padding: 40px 0;
-  background-color: #e1e1e1;
+    margin: 55px 0 40px;
+    padding: 40px 0;
+    background-color: #e1e1e1;
 }
 
 main > .section.blog-header:first-of-type {
-  margin-top: 55px;
+    margin-top: 55px;
 }
 
 main > .section.blog-header > .default-content-wrapper {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
 }
 
 main > .section.blog-header .blog-header-copy h1 {
-  display: inline-block;
-  margin: 0 0 20px;
-  color: var(--text-color);
-  font-size: 20px;
-  font-weight: 300;
-  line-height: 34px;
+    display: inline-block;
+    margin: 0 0 20px;
+    color: var(--text-color);
+    font-size: 20px;
+    font-weight: 300;
+    line-height: 34px;
 }
 
 main > .section.blog-header .blog-header-copy h2 {
-  margin: 0 0 30px;
-  color: var(--text-color);
-  font-size: 40px;
-  font-weight: 700;
-  line-height: 1;
+    margin: 0 0 30px;
+    color: var(--text-color);
+    font-size: 40px;
+    font-weight: 700;
+    line-height: 1;
 }
 
 main > .section.blog-header .blog-header-copy .button-wrapper {
-  margin: 0 0 20px;
+    margin: 0 0 20px;
 }
 
 main > .section.blog-header .blog-header-copy a.button.primary {
-  display: inline-block;
-  min-height: 53px;
-  padding: 0 20px;
-  border: 2px solid #14499a;
-  border-radius: 27px;
-  background-color: #14499a;
-  color: #fff;
-  font-size: 20px;
-  font-weight: 700;
-  line-height: 53px;
-  white-space: nowrap;
+    display: inline-block;
+    min-height: 53px;
+    padding: 0 20px;
+    border: 2px solid #14499a;
+    border-radius: 27px;
+    background-color: #14499a;
+    color: #fff;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 53px;
+    white-space: nowrap;
 }
 
 main > .section.blog-header .blog-header-copy a.button.primary:hover,
 main > .section.blog-header .blog-header-copy a.button.primary:focus-visible {
-  border-color: #0f3c7a;
-  background-color: #0f3c7a;
-  color: #fff;
+    border-color: #0f3c7a;
+    background-color: #0f3c7a;
+    color: #fff;
 }
 
 main > .section.blog-header .blog-header-media {
-  display: none;
+    display: none;
 }
 
 @media (width >= 900px) {
-  main > .section.blog-header {
-    height: 400px;
-    margin: 80px 0 40px;
-    padding: 0;
-  }
+    main > .section.blog-header {
+        height: 400px;
+        margin: 80px 0 40px;
+        padding: 0;
+    }
 
-  main > .section.blog-header:first-of-type {
-    margin-top: 80px;
-  }
+    main > .section.blog-header:first-of-type {
+        margin-top: 80px;
+    }
 
-  main > .section.blog-header > .default-content-wrapper {
-    height: 100%;
-    padding: 0;
-  }
+    main > .section.blog-header > .default-content-wrapper {
+        height: 100%;
+        padding: 0;
+    }
 
-  main > .section.blog-header .blog-header-copy {
-    flex: 1 1 auto;
-    min-width: 0;
-    padding-right: 40px;
-  }
+    main > .section.blog-header .blog-header-copy {
+        flex: 1 1 auto;
+        min-width: 0;
+        padding-right: 40px;
+    }
 
-  main > .section.blog-header .blog-header-copy h2 {
-    font-size: 50px;
-    line-height: 1;
-  }
+    main > .section.blog-header .blog-header-copy h2 {
+        font-size: 50px;
+        line-height: 1;
+    }
 
-  main > .section.blog-header .blog-header-media {
-    display: block;
-    flex: 0 0 420px;
-    width: 420px;
-    margin: 0;
-  }
+    main > .section.blog-header .blog-header-media {
+        display: block;
+        flex: 0 0 420px;
+        width: 420px;
+        margin: 0;
+    }
 
-  main > .section.blog-header .blog-header-media img {
-    display: block;
-    width: 420px;
-    max-width: 100%;
-    height: auto;
-  }
+    main > .section.blog-header .blog-header-media img {
+        display: block;
+        width: 420px;
+        max-width: 100%;
+        height: auto;
+    }
 }
 
 /* Keep long-form case-study copy on the production reading measure. The
    structural selector also supports pages authored before the overview style
    metadata was added. This is intentionally at the end of the stylesheet so
    it wins over the boilerplate section wrapper defaults. */
-body:has(.hero-case-study) main > .section:has(> .default-content-wrapper) > .default-content-wrapper {
-  box-sizing: border-box;
-  width: 100%;
-  max-width: 702px;
-  margin-right: auto;
-  margin-left: auto;
-  padding-right: 19px;
-  padding-left: 19px;
+body:has(.hero-case-study)
+    main
+    > .section:has(> .default-content-wrapper)
+    > .default-content-wrapper {
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 702px;
+    margin-right: auto;
+    margin-left: auto;
+    padding-right: 19px;
+    padding-left: 19px;
 }
 
 /* stylelint-enable no-descending-specificity */
