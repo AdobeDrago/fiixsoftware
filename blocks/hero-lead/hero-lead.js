@@ -24,9 +24,6 @@ function buildHeroVideo(picture, href) {
   source.setAttribute('src', href);
   source.setAttribute('type', 'video/mp4');
   video.append(source);
-
-  // Keep the screenshot as graceful fallback inside the <video>.
-  video.append(picture.cloneNode(true));
   return video;
 }
 
@@ -110,6 +107,9 @@ function decorateMediaLayers(mediaCell) {
   if (!heroPara) return;
   heroPara.classList.add('hero-lead-media-layers');
 
+  const mediaContent = document.createElement('div');
+  mediaContent.className = 'hero-lead-media-content';
+
   // Move the trailing caption text (e.g. "Available on iOS and Android") out
   // to its own element after the layered picture group -- left inside, its
   // height would count towards the positioning box the shape/accent
@@ -121,8 +121,12 @@ function decorateMediaLayers(mediaCell) {
       span.className = 'hero-lead-app-caption';
       span.textContent = n.textContent.trim();
       n.remove();
-      heroPara.after(span);
+      mediaContent.append(span);
     });
+
+  if (badgesPara) mediaContent.append(badgesPara);
+
+  if (mediaContent.childNodes.length) heroPara.after(mediaContent);
 }
 
 export default function decorate(block) {
@@ -140,6 +144,10 @@ export default function decorate(block) {
   // video only, no form/stats content
   if (block.classList.contains('video-without-form')) {
     decorateVideoVariant(imageCell);
+    const cta = contentCell?.querySelector('a');
+    if (cta?.parentElement?.tagName === 'P') {
+      cta.parentElement.classList.add('button-container');
+    }
     return;
   }
 
@@ -230,4 +238,7 @@ export default function decorate(block) {
 
     contentCell.append(stats);
   }
+
+  const mediaContent = block.querySelector('.hero-lead-media-content');
+  if (mediaContent) contentCell.append(mediaContent);
 }
