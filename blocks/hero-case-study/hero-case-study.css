@@ -139,14 +139,25 @@ body:has(.hero-case-study) main > .section.hero-case-study-container {
   .hero-case-study {
     /* tablet/desktop: purple banner covers the right side, full height,
        anchored to the bottom-right corner. */
+    min-height: 500px;
     padding-right: 24px;
     padding-left: 24px;
     background-position: right bottom;
     background-size: 40% 100%;
   }
+
+  /* Logo-led case studies use the taller production hero variant. */
+  main:has(.case-study-logo-container) .hero-case-study {
+    min-height: 700px;
+  }
 }
 
 @media (width >= 900px) {
+  main .section.hero-case-study-container > .default-content-wrapper,
+  .hero-case-study > div > div {
+    max-width: 950px;
+  }
+
   .hero-case-study {
     background-size: 35% 100%;
   }
