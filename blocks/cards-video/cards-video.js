@@ -1,17 +1,11 @@
 import { createOptimizedPicture } from '../../scripts/aem.js';
 
-/*
- * Infinite carousel matching production: clone a buffer of cards onto each
- * end of the track, and whenever a scroll settles on a clone, silently
- * reposition to the pixel-identical real card so the wrap is invisible.
- * Falls back to the static row when there are three or fewer cards.
- */
+// Infinite carousel: clone cards onto both ends, snap back to the real card once a clone settles.
 function buildCarousel(block, ul) {
   const realCards = [...ul.children];
   const count = realCards.length;
   if (count <= 3) return;
 
-  // must exceed the max cards visible at once (~4.2 at the widest breakpoint)
   const CLONE_COUNT = Math.min(count - 1, 5);
   const cloneOf = (li) => {
     const clone = li.cloneNode(true);
@@ -28,31 +22,15 @@ function buildCarousel(block, ul) {
 
   const targetLeftFor = (i) => cards[i].offsetLeft - ul.offsetLeft;
 
-  // set once real layout is available (see jumpToStartWhenVisible) -- the
-  // section is display:none at build time, so this would measure as 0 now
-  let unit = 0; // uniform width+gap of one card
+  let unit = 0; // width+gap of one card, set once layout is measurable
   let lap = 0; // scroll distance of one full lap of real cards
+  let index = CLONE_COUNT; // logical slide index
 
-  // logical slide position; prev/next/dots always retarget an absolute index
-  let index = CLONE_COUNT;
-
-  // Own easing loop rather than ul.scrollTo({behavior: 'smooth'}): the
-  // browser's native smooth-scroll silently drops distance when retargeted
-  // repeatedly mid-animation. A rAF loop that always re-reads one shared
-  // target can't drop anything -- each click just redirects it.
-  //
-  // scroll-snap-type: x mandatory fights this too, clamping mid-animation
-  // scrollLeft writes back to the previous snap point. Suspend it for the
-  // move and restore once the settle handler confirms we're done -- by then
-  // we're already on a snap-aligned card, so it's a no-op visually.
+  // rAF-driven easing instead of scrollTo({behavior:'smooth'}), which drops distance on retarget
   let animTarget = null;
   let animFrame = null;
 
-  // A long click burst can target a card many cards past the clone buffer
-  // before the animation gets a chance to settle, and the browser's real
-  // scrollable range can't reach that far. Whenever the position (or target)
-  // drifts into the outer edge of the buffer, shift both by exactly one lap
-  // -- lands on a pixel-identical clone, so it's invisible either way.
+  // shifts position by one lap when it drifts near the clone buffer edge, landing on an identical clone
   const recenter = () => {
     if (!unit) return; // layout not ready yet
     const maxScroll = ul.scrollWidth - ul.clientWidth;
@@ -77,9 +55,7 @@ function buildCarousel(block, ul) {
     ul.style.scrollSnapType = 'none';
     const step = () => {
       const diff = animTarget - ul.scrollLeft;
-      // scrollLeft is an integer, so a small enough diff * 0.25 rounds away
-      // to nothing -- snap the last few pixels directly instead of looping
-      // forever just short of the target.
+      // snap the last few pixels directly; integer scrollLeft rounds smaller diffs to zero
       if (Math.abs(diff) < 4) {
         ul.scrollLeft = animTarget;
         animFrame = null;
@@ -105,8 +81,7 @@ function buildCarousel(block, ul) {
     animateToIndex(index);
   };
 
-  // the enclosing section stays display:none until loadSection finishes
-  // (scripts/aem.js), so offsetLeft reads as 0 until then
+  // section is display:none until loadSection finishes, so offsetLeft reads 0 until then
   const jumpToStartWhenVisible = () => {
     if (ul.clientWidth) {
       unit = targetLeftFor(1) - targetLeftFor(0);
@@ -162,15 +137,11 @@ function buildCarousel(block, ul) {
     return closest;
   };
 
-  // once a scroll settles: wrap out of the clone buffer if needed, sync the
-  // tracked index (also covers manual drag/swipe), then sync dots
   let settleTimer;
   ul.addEventListener('scroll', () => {
     clearTimeout(settleTimer);
     settleTimer = setTimeout(() => {
-      // a newer click can start a fresh animation before this (now-stale)
-      // timer fires -- skip so it can't stomp the index that click already
-      // advanced to; that animation gets its own settle once it finishes.
+      // skip if a newer click already started animating; that one gets its own settle
       if (animFrame !== null) return;
       let realIndex = leftmostIndex() - CLONE_COUNT;
       if (realIndex < 0) {
@@ -209,10 +180,7 @@ function vidyardUuidFrom(href) {
 }
 
 function wireVidyardVideo(li, uuid) {
-  // Vidyard's SDK renders its own thumbnail/play button into the
-  // vidyard-player-embed div once it initializes, overriding any `hidden`
-  // attribute set on it directly -- a separate wrapper that only our CSS
-  // controls keeps it out of the layout regardless.
+  // wrapper div keeps the embed hidden via CSS; Vidyard's SDK overrides a `hidden` attr directly
   const hideWrap = document.createElement('div');
   hideWrap.className = 'cards-video-embed-hide';
   const embed = document.createElement('div');
