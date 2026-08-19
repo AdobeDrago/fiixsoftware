@@ -357,3 +357,9 @@ main > .section:not(.challenge-solution-result-container) > .default-content-wra
   font-size: 40px;
   line-height: 48px;
 }
+
+/* Keep nested case-study bullets filled like their first-level lists. */
+/* stylelint-disable-next-line no-descending-specificity */
+.challenge-solution-result .challenge-solution-result-item ul ul {
+  list-style-type: disc;
+}
