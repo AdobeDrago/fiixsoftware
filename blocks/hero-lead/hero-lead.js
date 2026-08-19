@@ -1,3 +1,80 @@
+/** Matches the project's desktop breakpoint (also where the nav switches off the hamburger). */
+const DESKTOP_MEDIA_QUERY = '(min-width: 960px)';
+
+/**
+ * Builds the autoplay <video> (muted + looping), using the screenshot as its
+ * poster and graceful fallback content.
+ * @param {Element} picture the screenshot to use as poster/fallback
+ * @param {string} href the hero .mp4 URL
+ * @returns {HTMLVideoElement}
+ */
+function buildHeroVideo(picture, href) {
+  const posterImg = picture.querySelector('img');
+  const video = document.createElement('video');
+  video.className = 'hero-lead-video';
+  video.muted = true;
+  video.autoplay = true;
+  video.loop = true;
+  video.playsInline = true;
+  video.setAttribute('muted', '');
+  video.setAttribute('playsinline', '');
+  if (posterImg && posterImg.src) video.setAttribute('poster', posterImg.src);
+
+  const source = document.createElement('source');
+  source.setAttribute('src', href);
+  source.setAttribute('type', 'video/mp4');
+  video.append(source);
+
+  // Keep the screenshot as graceful fallback inside the <video>.
+  video.append(picture.cloneNode(true));
+  return video;
+}
+
+/**
+ * Swaps the media cell's screenshot for an autoplay video, desktop only
+ * (mobile/tablet keep the static screenshot to save bandwidth). Re-evaluated
+ * on resize. Shared by the `video-without-form` and `video-with-form` variants.
+ * @param {Element} mediaCell the block's media cell
+ */
+function decorateVideoVariant(mediaCell) {
+  if (!mediaCell) return;
+  const picture = mediaCell.querySelector('picture');
+  const videoLink = mediaCell.querySelector('a[href*=".mp4"]');
+  if (!picture || !videoLink) return;
+
+  const href = videoLink.getAttribute('href');
+
+  // aem.js's wrapTextNodes() wraps this column's picture + link pair in a <p>
+  // (it always runs here, since the column has 2+ children). Replace that
+  // wrapper outright so the picture/video lands as a direct flex child of the
+  // media cell -- left nested in the <p>, it's a flex item with
+  // flex-basis: auto, so it shrinks to fit its own content instead of
+  // filling the panel.
+  const wrapper = picture.parentElement !== mediaCell ? picture.parentElement : picture;
+  wrapper.replaceWith(picture);
+  videoLink.remove();
+
+  const desktopQuery = window.matchMedia(DESKTOP_MEDIA_QUERY);
+  let current = picture;
+
+  const syncMedia = () => {
+    if (desktopQuery.matches && current === picture) {
+      const video = buildHeroVideo(picture, href);
+      current.replaceWith(video);
+      current = video;
+      // Some browsers ignore the autoplay attribute until play() is called.
+      const tryPlay = video.play();
+      if (tryPlay && typeof tryPlay.catch === 'function') tryPlay.catch(() => {});
+    } else if (!desktopQuery.matches && current !== picture) {
+      current.replaceWith(picture);
+      current = picture;
+    }
+  };
+
+  syncMedia();
+  desktopQuery.addEventListener('change', syncMedia);
+}
+
 export default function decorate(block) {
   const rows = [...block.children];
 
@@ -6,6 +83,17 @@ export default function decorate(block) {
   const contentCell = rows[1]?.firstElementChild;
 
   if (imageCell) imageCell.classList.add('hero-lead-media');
+
+  // video only, no form/stats content
+  if (block.classList.contains('video-without-form')) {
+    decorateVideoVariant(imageCell);
+    return;
+  }
+
+  // video + the standard form/stats content decorated below
+  if (block.classList.contains('video-with-form')) {
+    decorateVideoVariant(imageCell);
+  }
 
   if (!contentCell) {
     if (!block.querySelector(':scope > div:first-child picture')) {
