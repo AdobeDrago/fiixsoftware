@@ -3114,81 +3114,87 @@ main > .section.pf-logos .columns-logos img {
    borderless heading+paragraph blurbs. Production H2 48/700, intro P
    28/300, blurb H3 24/700, blurb P 20/300. ---- */
 main > .section.pf-features {
-    margin: 0;
-    padding: 50px 0;
+  margin: 0;
+  padding: 0 0 40px;
 }
 
 main > .section.pf-features .default-content-wrapper h2 {
-    margin: 0 0 20px;
-    font-size: 32px;
-    font-weight: 700;
-    line-height: 1;
-    color: var(--text-color);
+  margin: 0 0 20px;
+  font-size: 30px;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--text-color);
 }
 
 main > .section.pf-features .default-content-wrapper > p {
-    margin: 0;
-    font-size: 22px;
-    font-weight: 300;
-    line-height: 1.2;
-    color: var(--text-color);
+  margin: 0;
+  font-size: 20px;
+  font-weight: 300;
+  line-height: 1.2;
+  color: var(--text-color);
 }
 
 /* Production separates the intro heading from its subtext with a purple bar
    (the heading's ::after, 540x5, rgb 99 92 232) and constrains the intro block
    to the left ~540px column. Target the intro default-content-wrapper (the one
    directly before the cards), not the trailing "See what…" link heading. */
-main
-    > .section.pf-features
-    .default-content-wrapper:has(+ .cards-features-wrapper)
-    h2,
-main
-    > .section.pf-features
-    .default-content-wrapper:has(+ .cards-features-wrapper)
-    > p {
-    max-width: 540px;
+main > .section.pf-features .default-content-wrapper:has(+ .cards-features-wrapper) {
+  margin-bottom: 40px;
 }
 
-main
-    > .section.pf-features
-    .default-content-wrapper:has(+ .cards-features-wrapper)
-    h2::after {
-    content: "";
-    display: block;
-    width: 540px;
-    max-width: 100%;
-    height: 5px;
-    margin-top: 20px;
-    background-color: var(--feature-bar, rgb(99 92 232));
+@media (width >= 768px) {
+  main > .section.pf-features {
+    padding-bottom: 70px;
+  }
+
+  main > .section.pf-features .default-content-wrapper:has(+ .cards-features-wrapper) {
+    margin-top: 60px;
+    margin-bottom: 100px;
+  }
+}
+
+main > .section.pf-features .default-content-wrapper:has(+ .cards-features-wrapper) h2,
+main > .section.pf-features .default-content-wrapper:has(+ .cards-features-wrapper) > p {
+  max-width: 540px;
+}
+
+main > .section.pf-features .default-content-wrapper:has(+ .cards-features-wrapper) h2::after {
+  content: '';
+  display: block;
+  width: 540px;
+  max-width: 100%;
+  height: 5px;
+  margin-top: 20px;
+  background-color: var(--feature-bar, rgb(99 92 232));
 }
 
 /* The intro bar colour is per-page (matches the page accent). Default (cmms and
    others) is purple; override for the yellow / teal pages via the URL-derived
    body page-class. Measured from production. */
 body.page-cmms-asset-management-software {
-    --feature-bar: rgb(255 214 0);
+  --feature-bar: rgb(255 214 0);
 }
 
 body.page-cmms-parts-inventory-management-software {
-    --feature-bar: rgb(60 192 203);
+  --feature-bar: rgb(60 192 203);
 }
 
 body.page-cmms-mobile-cmms {
-    --feature-bar: rgb(0 175 235);
+  --feature-bar: rgb(0 175 235);
 }
 
 /* borderless, transparent feature blurbs */
 main > .section.pf-features .cards-features > ul {
-    grid-template-columns: 1fr;
-    gap: 40px 60px;
+  grid-template-columns: 1fr;
+  gap: 40px;
 }
 
 main > .section.pf-features .cards-features > ul > li {
-    border: 0;
-    background-color: transparent;
-    display: flex;
-    gap: 16px;
-    align-items: flex-start;
+  border: 0;
+  background-color: transparent;
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
 }
 
 /* per-card icon: production shows a small (~32px) icon to the LEFT of the
@@ -3196,62 +3202,68 @@ main > .section.pf-features .cards-features > ul > li {
    block's default full-width 4:3 image rule blows it up to ~490px, so size it
    down here and let the text cell take the rest. */
 main > .section.pf-features .cards-features .cards-features-card-image {
-    flex: 0 0 auto;
-    margin: 0;
-    line-height: 0;
+  flex: 0 0 auto;
+  margin: 0;
+  line-height: 0;
 }
 
 main > .section.pf-features .cards-features .cards-features-card-image img {
-    width: 32px;
-    height: 32px;
-    aspect-ratio: auto;
-    object-fit: contain;
+  width: 32px;
+  height: 32px;
+  aspect-ratio: auto;
+  object-fit: contain;
 }
 
 main > .section.pf-features .cards-features .cards-features-card-body {
-    flex: 1;
-    min-width: 0;
-    margin: 0;
+  flex: 1;
+  min-width: 0;
+  margin: 0;
 }
 
 main > .section.pf-features .cards-features h3 {
-    margin: 0 0 16px;
+  margin: 0 0 20px;
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--text-color);
+}
+
+@media (width >= 768px) {
+  main > .section.pf-features .cards-features h3 {
     font-size: 24px;
-    font-weight: 700;
-    line-height: 1;
-    color: var(--text-color);
+  }
 }
 
 main > .section.pf-features .cards-features .cards-features-card-body p {
-    margin: 0;
-    font-size: 20px;
-    font-weight: 300;
-    line-height: 1.3;
-    color: var(--text-color);
+  margin: 0;
+  font-size: 20px;
+  font-weight: 300;
+  line-height: 1.3;
+  color: var(--text-color);
 }
 
 /* trailing "See what easier maintenance…" heading link, centered */
 main > .section.pf-features .default-content-wrapper:last-child h2 {
-    margin: 40px 0 0;
-    font-size: 28px;
-    text-align: center;
+  margin: 40px 0 0;
+  font-size: 28px;
+  text-align: center;
 }
 
 main > .section.pf-features .default-content-wrapper:last-child h2 a:any-link {
-    color: #14499a;
-    font-weight: 700;
+  color: #14499a;
+  font-weight: 700;
 }
 
 @media (width >= 960px) {
-    main > .section.pf-features .default-content-wrapper h2 {
-        font-size: 48px;
-    }
+  main > .section.pf-features .default-content-wrapper h2 {
+    font-size: 48px;
+  }
 
-    main > .section.pf-features .default-content-wrapper > p {
-        font-size: 28px;
-    }
+  main > .section.pf-features .default-content-wrapper > p {
+    font-size: 28px;
+  }
 
-    /* Production spacing: 490px-wide blurbs with a 170px column gap and 70px row
+  /* Production spacing: 490px-wide blurbs with a 170px column gap and 70px row
      gap (measured), not the tight 60/40 that made the grid feel cramped.
      Production also fills COLUMN-major (left column first), so switch to column
      auto-flow with an explicit row count (tagged by the block JS as
@@ -3259,32 +3271,18 @@ main > .section.pf-features .default-content-wrapper:last-child h2 a:any-link {
      Columns and gutter are capped rather than fixed: 490+170+490 = 1150px is
      wider than the container below ~1264px, so fixed tracks pushed the blurbs
      outside the section on tablet/small-desktop viewports. */
-    main > .section.pf-features .cards-features > ul {
-        grid-template-columns: repeat(2, minmax(0, 490px));
-        grid-auto-flow: column;
-        justify-content: center;
-        gap: 70px min(170px, 14%);
-    }
+  main > .section.pf-features .cards-features > ul {
+    grid-template-columns: repeat(2, minmax(0, 490px));
+    grid-auto-flow: column;
+    justify-content: center;
+    gap: 70px 10%;
+  }
 
-    main > .section.pf-features .cards-features > ul.cards-features-rows-2 {
-        grid-template-rows: repeat(2, auto);
-    }
-
-    main > .section.pf-features .cards-features > ul.cards-features-rows-3 {
-        grid-template-rows: repeat(3, auto);
-    }
-
-    main > .section.pf-features .cards-features > ul.cards-features-rows-4 {
-        grid-template-rows: repeat(4, auto);
-    }
-
-    main > .section.pf-features .cards-features > ul.cards-features-rows-5 {
-        grid-template-rows: repeat(5, auto);
-    }
-
-    main > .section.pf-features .cards-features > ul.cards-features-rows-6 {
-        grid-template-rows: repeat(6, auto);
-    }
+  main > .section.pf-features .cards-features > ul.cards-features-rows-2 { grid-template-rows: repeat(2, auto); }
+  main > .section.pf-features .cards-features > ul.cards-features-rows-3 { grid-template-rows: repeat(3, auto); }
+  main > .section.pf-features .cards-features > ul.cards-features-rows-4 { grid-template-rows: repeat(4, auto); }
+  main > .section.pf-features .cards-features > ul.cards-features-rows-5 { grid-template-rows: repeat(5, auto); }
+  main > .section.pf-features .cards-features > ul.cards-features-rows-6 { grid-template-rows: repeat(6, auto); }
 }
 
 /* ---- pf-video: light band, centered heading, thumbnail-card grid.
