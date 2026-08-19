@@ -1,26 +1,9 @@
 /* eslint-disable */
 var CustomImportScript = (() => {
   var __defProp = Object.defineProperty;
-  var __defProps = Object.defineProperties;
   var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
-  var __getOwnPropDescs = Object.getOwnPropertyDescriptors;
   var __getOwnPropNames = Object.getOwnPropertyNames;
-  var __getOwnPropSymbols = Object.getOwnPropertySymbols;
   var __hasOwnProp = Object.prototype.hasOwnProperty;
-  var __propIsEnum = Object.prototype.propertyIsEnumerable;
-  var __defNormalProp = (obj, key, value) => key in obj ? __defProp(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
-  var __spreadValues = (a, b) => {
-    for (var prop in b || (b = {}))
-      if (__hasOwnProp.call(b, prop))
-        __defNormalProp(a, prop, b[prop]);
-    if (__getOwnPropSymbols)
-      for (var prop of __getOwnPropSymbols(b)) {
-        if (__propIsEnum.call(b, prop))
-          __defNormalProp(a, prop, b[prop]);
-      }
-    return a;
-  };
-  var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
   var __export = (target, all) => {
     for (var name in all)
       __defProp(target, name, { get: all[name], enumerable: true });
@@ -67,8 +50,80 @@ var CustomImportScript = (() => {
     element.replaceWith(block);
   }
 
-  // tools/importer/parsers/columns-media.js
+  // tools/importer/parsers/case-study-intro-components.js
   function parse2(element, { document }) {
+    const container = element.querySelector(":scope > .container") || element;
+    const output = [];
+    const children = Array.from(element.children).flatMap((child) => child === container ? Array.from(container.children) : [child]);
+    const createBlock = (name, cells) => WebImporter.Blocks.createBlock(document, { name, cells });
+    const flushProfiles = (cells) => {
+      if (cells.length) output.push(createBlock("case-study-profiles", cells));
+    };
+    const isLogo = (node) => node.matches("figure.large-logo");
+    const isProfile = (node) => node.matches(".intro-flex");
+    const isLead = (node) => node.matches("p");
+    const getLogoBlockName = (logo) => {
+      const sourceWidth = Number.parseFloat(logo.ownerDocument.defaultView?.getComputedStyle(logo).width);
+      if (sourceWidth >= 280) return "case-study-logo (large)";
+      if (sourceWidth >= 200) return "case-study-logo (wide)";
+      return "case-study-logo";
+    };
+    const getYoutubeIframe = (node) => node.matches('iframe[src*="youtube.com"], iframe[src*="youtu.be"]') ? node : node.querySelector('iframe[src*="youtube.com"], iframe[src*="youtu.be"]');
+    const createYoutubeBlock = (iframe) => {
+      const link = document.createElement("a");
+      const title = iframe.title.trim();
+      link.href = iframe.src;
+      link.textContent = iframe.src;
+      return createBlock("youtube-video", [title ? [link, title] : [link]]);
+    };
+    for (let index = 0; index < children.length; ) {
+      const child = children[index];
+      if (isLogo(child)) {
+        output.push(createBlock(getLogoBlockName(child), [[child]]));
+        index += 1;
+        continue;
+      }
+      if (isLead(child)) {
+        const cells = [];
+        while (children[index] && isLead(children[index])) {
+          cells.push([children[index]]);
+          index += 1;
+        }
+        output.push(createBlock("case-study-lead", cells));
+        continue;
+      }
+      if (isProfile(child)) {
+        const cells = [];
+        while (children[index] && isProfile(children[index])) {
+          const profile = children[index];
+          const image = profile.querySelector(":scope > figure, :scope > picture, :scope > img");
+          const details = Array.from(profile.children).find((node) => node !== image && node.textContent.trim());
+          if (image && details) {
+            cells.push([image, details]);
+          } else {
+            flushProfiles(cells);
+            cells.length = 0;
+            output.push(profile);
+          }
+          index += 1;
+        }
+        flushProfiles(cells);
+        continue;
+      }
+      const iframe = getYoutubeIframe(child);
+      if (iframe) {
+        output.push(createYoutubeBlock(iframe));
+        index += 1;
+        continue;
+      }
+      output.push(child);
+      index += 1;
+    }
+    element.replaceWith(...output);
+  }
+
+  // tools/importer/parsers/columns-media.js
+  function parse3(element, { document }) {
     const normalizeLazy = (root) => root.querySelectorAll("img").forEach((img) => {
       if (!img.getAttribute("src")) {
         const lazy = img.getAttribute("data-src") || img.getAttribute("data-lazy-src");
@@ -232,7 +287,7 @@ var CustomImportScript = (() => {
   }
 
   // tools/importer/parsers/hero-cta.js
-  function parse3(element, { document }) {
+  function parse4(element, { document }) {
     const inner = element.querySelector(".container > div") || element;
     const image = inner.querySelector("figure img, img, picture");
     const heading = inner.querySelector("h1, h2, h3");
@@ -287,6 +342,25 @@ var CustomImportScript = (() => {
         a.textContent = url;
         p.append(a);
         vid.replaceWith(p);
+      });
+      element.querySelectorAll("div#gallery").forEach((gallery) => {
+        const imgs = [];
+        const seen = /* @__PURE__ */ new Set();
+        gallery.querySelectorAll("img").forEach((img) => {
+          const src = img.getAttribute("src") || img.getAttribute("data-src") || img.getAttribute("data-lazy-src");
+          if (!src || seen.has(src)) return;
+          seen.add(src);
+          if (!img.getAttribute("src")) img.setAttribute("src", src);
+          imgs.push(img);
+        });
+        if (imgs.length === 0) return;
+        const frag = element.ownerDocument.createDocumentFragment();
+        imgs.forEach((img) => {
+          const p = element.ownerDocument.createElement("p");
+          p.append(img);
+          frag.append(p);
+        });
+        gallery.replaceWith(frag);
       });
       element.querySelectorAll("q").forEach((q) => {
         q.replaceWith(element.ownerDocument.createTextNode(q.textContent));
@@ -351,25 +425,39 @@ var CustomImportScript = (() => {
   // tools/importer/import-case-study-page.js
   var parsers = {
     "hero-case-study": parse,
-    "columns-media": parse2,
-    "hero-cta": parse3
+    "case-study-intro-components": parse2,
+    "columns-media": parse3,
+    "hero-cta": parse4
   };
   var PAGE_TEMPLATE = {
     name: "case-study-page",
-    description: "Customer case study page: hero (customer name + headline), customer intro with logo/headshot/quote and challenge-solution-result columns, company overview narrative with embedded video, and a closing free-tour CTA band.",
-    urls: ["https://fiixsoftware.com/resource-center/case-studies/universal-pure/"],
+    description: "Customer case study page: hero, composable company-intro blocks, challenge-solution-result columns, company overview, and a closing free-tour CTA band.",
+    urls: [
+      "https://fiixsoftware.com/resource-center/case-studies/universal-pure/",
+      "https://fiixsoftware.com/resource-center/case-studies/dlg-group/",
+      "https://fiixsoftware.com/resource-center/case-studies/farming-maintenance/",
+      "https://fiixsoftware.com/resource-center/case-studies/edms-consultants/",
+      "https://fiixsoftware.com/resource-center/case-studies/pro-vac-fleet/",
+      "https://fiixsoftware.com/resource-center/case-studies/perth-county-ingredients/"
+    ],
+    // Selectors are keyed on the shared `div.case-studies-temp` wrapper rather than
+    // a specific layout modifier: universal-pure/dlg-group use `.cloeren`, the older
+    // farming-maintenance page uses `.jf`. `.ba-fiix` (challenge/solution/result
+    // columns) is absent on farming-maintenance — that page's infographic + narrative
+    // fall through to default content, which the empty-block guard handles cleanly.
     blocks: [
-      { name: "hero-case-study", instances: ["div.case-studies-temp.cloeren > header"] },
+      { name: "hero-case-study", instances: ["div.case-studies-temp > header"] },
+      { name: "case-study-intro-components", instances: ["div.case-studies-temp > .company-intro"] },
       { name: "columns-media", instances: ["div.company-intro div.ba-fiix", ".ba-fiix"] },
       { name: "hero-cta", instances: ["div.kick-the-tires"] }
     ],
-    // The closing "kick the tires" CTA is split into its own section carrying the
-    // shared `cta` section style (soft cyan→white gradient + centered layout),
-    // matching the pricing/premium/enterprise CTA bands. Everything above the CTA
-    // stays in the first (unstyled) section. Two sections → the section transformer
-    // emits one <hr> break before the CTA plus its Section Metadata block.
+    // Split the top experience into independently authorable hero, company-intro,
+    // and overview sections. The intro section owns only shared layout treatment;
+    // its logo, profile, copy, and YouTube blocks remain independently reusable.
     sections: [
-      { id: "case-study-body", name: "Case study body", selector: ["div.case-studies-temp.cloeren > header"], style: null, blocks: ["hero-case-study", "columns-media"], defaultContent: [] },
+      { id: "case-study-hero", name: "Case study hero", selector: ["div.case-studies-temp > header"], style: null, blocks: ["hero-case-study"], defaultContent: [] },
+      { id: "case-study-intro", name: "Case study intro", selector: ["div.case-studies-temp > .company-intro"], style: "case-study-intro", blocks: ["case-study-logo", "case-study-profiles", "case-study-lead", "youtube-video", "columns-media"], defaultContent: [] },
+      { id: "case-study-overview", name: "Case study overview", selector: ["div.case-studies-temp > .container.content"], style: null, blocks: [], defaultContent: [] },
       { id: "case-study-cta", name: "Free tour CTA", selector: ["div.kick-the-tires", ".kick-the-tires"], style: "cta", blocks: ["hero-cta"], defaultContent: [] }
     ]
   };
@@ -378,7 +466,7 @@ var CustomImportScript = (() => {
     ...PAGE_TEMPLATE.sections && PAGE_TEMPLATE.sections.length > 1 ? [transform2] : []
   ];
   function executeTransformers(hookName, element, payload) {
-    const enhancedPayload = __spreadProps(__spreadValues({}, payload), { template: PAGE_TEMPLATE });
+    const enhancedPayload = { ...payload, template: PAGE_TEMPLATE };
     transformers.forEach((transformerFn) => {
       try {
         transformerFn.call(null, hookName, element, enhancedPayload);

@@ -1405,15 +1405,26 @@
     {
       "name": "case-study-page",
       "urls": [
-        "https://fiixsoftware.com/resource-center/case-studies/universal-pure/"
+        "https://fiixsoftware.com/resource-center/case-studies/universal-pure/",
+        "https://fiixsoftware.com/resource-center/case-studies/dlg-group/",
+        "https://fiixsoftware.com/resource-center/case-studies/pro-vac-fleet/",
+        "https://fiixsoftware.com/resource-center/case-studies/perth-county-ingredients/",
+        "https://fiixsoftware.com/resource-center/case-studies/farming-maintenance/",
+        "https://fiixsoftware.com/resource-center/case-studies/edms-consultants/"
       ],
       "coverageGaps": [],
-      "description": "Customer case study page: hero (customer name + headline), customer intro with logo/headshot/quote and challenge-solution-result columns, company overview narrative with embedded video, and a closing free-tour CTA band.",
+      "description": "Customer case study page: hero, composable company-intro blocks, challenge-solution-result columns, company overview, and a closing free-tour CTA band.",
       "blocks": [
         {
           "name": "hero-case-study",
           "instances": [
-            "div.case-studies-temp.cloeren > header"
+            "div.case-studies-temp > header"
+          ]
+        },
+        {
+          "name": "case-study-intro-components",
+          "instances": [
+            "div.case-studies-temp > .company-intro"
           ]
         },
         {
@@ -1432,16 +1443,41 @@
       ],
       "sections": [
         {
-          "id": "case-study-body",
-          "name": "Case study body",
+          "id": "case-study-hero",
+          "name": "Case study hero",
           "selector": [
-            "div.case-studies-temp.cloeren > header"
+            "div.case-studies-temp > header"
           ],
           "style": null,
           "blocks": [
-            "hero-case-study",
+            "hero-case-study"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "case-study-intro",
+          "name": "Case study intro",
+          "selector": [
+            "div.case-studies-temp > .company-intro"
+          ],
+          "style": "case-study-intro",
+          "blocks": [
+            "case-study-logo",
+            "case-study-profiles",
+            "case-study-lead",
+            "youtube-video",
             "columns-media"
           ],
+          "defaultContent": []
+        },
+        {
+          "id": "case-study-overview",
+          "name": "Case study overview",
+          "selector": [
+            "div.case-studies-temp > .container.content"
+          ],
+          "style": null,
+          "blocks": [],
           "defaultContent": []
         },
         {
