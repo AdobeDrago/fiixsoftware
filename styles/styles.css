@@ -339,6 +339,51 @@ main .section.highlight {
   padding: 40px 0;
 }
 
+/* Case-study company-intro section. Individual logo, profiles, lead-copy, and
+   video blocks own their content; this section supplies only their shared white
+   surface and lower hero overlap context. */
+body:has(.hero-case-study) main > .section:is(.case-study-intro, :has(> .case-study-logo-wrapper, > .case-study-profiles-wrapper, > .case-study-lead-wrapper, > .youtube-video-wrapper)) {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  margin: 0;
+  padding: 100px 0 80px;
+  background-color: var(--background-color);
+  box-shadow: 3px 3px 25px rgb(0 0 0 / 12%);
+}
+
+body:has(.hero-case-study) main > .section:is(.case-study-intro, :has(> .case-study-logo-wrapper, > .case-study-profiles-wrapper, > .case-study-lead-wrapper, > .youtube-video-wrapper)) > :is(.case-study-logo-wrapper, .case-study-profiles-wrapper, .case-study-lead-wrapper, .youtube-video-wrapper) {
+  max-width: none;
+  padding: 0;
+}
+
+/* The logo block overlaps this section's top edge. Draw the section edge above
+   that overlap so its shadow remains continuous across the viewport. */
+body:has(.hero-case-study) main > .section:is(.case-study-intro, :has(> .case-study-logo-wrapper, > .case-study-profiles-wrapper, > .case-study-lead-wrapper, > .youtube-video-wrapper))::after {
+  content: '';
+  position: absolute;
+  z-index: 2;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 1px;
+  box-shadow: 3px 3px 25px rgb(0 0 0 / 12%);
+  pointer-events: none;
+}
+
+@media (width >= 768px) {
+  body:has(.hero-case-study) main > .section:is(.case-study-intro, :has(> .case-study-logo-wrapper, > .case-study-profiles-wrapper, > .case-study-lead-wrapper, > .youtube-video-wrapper)) {
+    padding-top: 150px;
+    padding-bottom: 150px;
+  }
+}
+
+@media (width >= 960px) {
+  body:has(.hero-case-study) main > .section:is(.case-study-intro, :has(> .case-study-logo-wrapper, > .case-study-profiles-wrapper, > .case-study-lead-wrapper, > .youtube-video-wrapper)) {
+    width: 80%;
+  }
+}
+
 /* FAQ section — full-bleed light-gray band (production #f7f7f7, 50px vertical
    padding). Band background lives here; typography/alignment/CTA rules are
    grouped at the end of this file to satisfy specificity ordering. */

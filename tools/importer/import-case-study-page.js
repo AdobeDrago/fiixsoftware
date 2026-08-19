@@ -1,8 +1,9 @@
 /* eslint-disable */
 /* global WebImporter */
 
-// PARSER IMPORTS (reuse existing blocks; new hero-case-study extractor).
+// PARSER IMPORTS (reuse existing blocks and decompose legacy case-study intros).
 import heroCaseStudyParser from './parsers/hero-case-study.js';
+import caseStudyIntroComponentsParser from './parsers/case-study-intro-components.js';
 import columnsMediaParser from './parsers/columns-media.js';
 import heroCtaParser from './parsers/hero-cta.js';
 
@@ -13,6 +14,7 @@ import sectionsTransformer from './transformers/fiix-sections.js';
 // PARSER REGISTRY - Map parser names to functions
 const parsers = {
   'hero-case-study': heroCaseStudyParser,
+  'case-study-intro-components': caseStudyIntroComponentsParser,
   'columns-media': columnsMediaParser,
   'hero-cta': heroCtaParser,
 };
@@ -20,20 +22,33 @@ const parsers = {
 // PAGE TEMPLATE CONFIGURATION - Embedded from page-templates.json (case-study-page)
 const PAGE_TEMPLATE = {
   name: 'case-study-page',
-  description: 'Customer case study page: hero (customer name + headline), customer intro with logo/headshot/quote and challenge-solution-result columns, company overview narrative with embedded video, and a closing free-tour CTA band.',
-  urls: ['https://fiixsoftware.com/resource-center/case-studies/universal-pure/'],
+  description: 'Customer case study page: hero, composable company-intro blocks, challenge-solution-result columns, company overview, and a closing free-tour CTA band.',
+  urls: [
+    'https://fiixsoftware.com/resource-center/case-studies/universal-pure/',
+    'https://fiixsoftware.com/resource-center/case-studies/dlg-group/',
+    'https://fiixsoftware.com/resource-center/case-studies/farming-maintenance/',
+    'https://fiixsoftware.com/resource-center/case-studies/edms-consultants/',
+    'https://fiixsoftware.com/resource-center/case-studies/pro-vac-fleet/',
+    'https://fiixsoftware.com/resource-center/case-studies/perth-county-ingredients/',
+  ],
+  // Selectors are keyed on the shared `div.case-studies-temp` wrapper rather than
+  // a specific layout modifier: universal-pure/dlg-group use `.cloeren`, the older
+  // farming-maintenance page uses `.jf`. `.ba-fiix` (challenge/solution/result
+  // columns) is absent on farming-maintenance — that page's infographic + narrative
+  // fall through to default content, which the empty-block guard handles cleanly.
   blocks: [
-    { name: 'hero-case-study', instances: ['div.case-studies-temp.cloeren > header'] },
+    { name: 'hero-case-study', instances: ['div.case-studies-temp > header'] },
+    { name: 'case-study-intro-components', instances: ['div.case-studies-temp > .company-intro'] },
     { name: 'columns-media', instances: ['div.company-intro div.ba-fiix', '.ba-fiix'] },
     { name: 'hero-cta', instances: ['div.kick-the-tires'] },
   ],
-  // The closing "kick the tires" CTA is split into its own section carrying the
-  // shared `cta` section style (soft cyan→white gradient + centered layout),
-  // matching the pricing/premium/enterprise CTA bands. Everything above the CTA
-  // stays in the first (unstyled) section. Two sections → the section transformer
-  // emits one <hr> break before the CTA plus its Section Metadata block.
+  // Split the top experience into independently authorable hero, company-intro,
+  // and overview sections. The intro section owns only shared layout treatment;
+  // its logo, profile, copy, and YouTube blocks remain independently reusable.
   sections: [
-    { id: 'case-study-body', name: 'Case study body', selector: ['div.case-studies-temp.cloeren > header'], style: null, blocks: ['hero-case-study', 'columns-media'], defaultContent: [] },
+    { id: 'case-study-hero', name: 'Case study hero', selector: ['div.case-studies-temp > header'], style: null, blocks: ['hero-case-study'], defaultContent: [] },
+    { id: 'case-study-intro', name: 'Case study intro', selector: ['div.case-studies-temp > .company-intro'], style: 'case-study-intro', blocks: ['case-study-logo', 'case-study-profiles', 'case-study-lead', 'youtube-video', 'columns-media'], defaultContent: [] },
+    { id: 'case-study-overview', name: 'Case study overview', selector: ['div.case-studies-temp > .container.content'], style: null, blocks: [], defaultContent: [] },
     { id: 'case-study-cta', name: 'Free tour CTA', selector: ['div.kick-the-tires', '.kick-the-tires'], style: 'cta', blocks: ['hero-cta'], defaultContent: [] },
   ],
 };

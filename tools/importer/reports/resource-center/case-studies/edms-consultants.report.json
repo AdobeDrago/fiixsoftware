@@ -1,0 +1,13 @@
+{
+  "status": "success",
+  "url": "https://fiixsoftware.com/resource-center/case-studies/edms-consultants/",
+  "path": "resource-center/case-studies/edms-consultants",
+  "timestamp": "2026-08-18T13:43:44.138Z",
+  "title": "EDMS Consultants: A Maintenance Case Study | Fiix CMMS",
+  "template": "case-study-page",
+  "blocks": [
+    "hero-case-study",
+    "columns-media",
+    "hero-cta"
+  ]
+}
