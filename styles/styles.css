@@ -3740,6 +3740,112 @@ main > .section.optix-getstarted .default-content-wrapper li {
   }
 }
 
+/* Blog listing header — gray featured band matching fiixsoftware.com/blog */
+main > .section.blog-header {
+  margin: 55px 0 40px;
+  padding: 40px 0;
+  background-color: #e1e1e1;
+}
+
+main > .section.blog-header:first-of-type {
+  margin-top: 55px;
+}
+
+main > .section.blog-header > .default-content-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+main > .section.blog-header .blog-header-copy h1 {
+  display: inline-block;
+  margin: 0 0 20px;
+  color: var(--text-color);
+  font-size: 20px;
+  font-weight: 300;
+  line-height: 34px;
+}
+
+main > .section.blog-header .blog-header-copy h2 {
+  margin: 0 0 30px;
+  color: var(--text-color);
+  font-size: 40px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+main > .section.blog-header .blog-header-copy .button-wrapper {
+  margin: 0 0 20px;
+}
+
+main > .section.blog-header .blog-header-copy a.button.primary {
+  display: inline-block;
+  min-height: 53px;
+  padding: 0 20px;
+  border: 2px solid #14499a;
+  border-radius: 27px;
+  background-color: #14499a;
+  color: #fff;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 53px;
+  white-space: nowrap;
+}
+
+main > .section.blog-header .blog-header-copy a.button.primary:hover,
+main > .section.blog-header .blog-header-copy a.button.primary:focus-visible {
+  border-color: #0f3c7a;
+  background-color: #0f3c7a;
+  color: #fff;
+}
+
+main > .section.blog-header .blog-header-media {
+  display: none;
+}
+
+@media (width >= 900px) {
+  main > .section.blog-header {
+    height: 400px;
+    margin: 80px 0 40px;
+    padding: 0;
+  }
+
+  main > .section.blog-header:first-of-type {
+    margin-top: 80px;
+  }
+
+  main > .section.blog-header > .default-content-wrapper {
+    height: 100%;
+    padding: 0;
+  }
+
+  main > .section.blog-header .blog-header-copy {
+    flex: 1 1 auto;
+    min-width: 0;
+    padding-right: 40px;
+  }
+
+  main > .section.blog-header .blog-header-copy h2 {
+    font-size: 50px;
+    line-height: 1;
+  }
+
+  main > .section.blog-header .blog-header-media {
+    display: block;
+    flex: 0 0 420px;
+    width: 420px;
+    margin: 0;
+  }
+
+  main > .section.blog-header .blog-header-media img {
+    display: block;
+    width: 420px;
+    max-width: 100%;
+    height: auto;
+  }
+}
+
 /* Keep long-form case-study copy on the production reading measure. The
    structural selector also supports pages authored before the overview style
    metadata was added. This is intentionally at the end of the stylesheet so
