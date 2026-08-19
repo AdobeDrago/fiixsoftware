@@ -2558,6 +2558,53 @@ main > .section.pf-video .default-content-wrapper h2 {
    carousel track and made the cards wrap into a static 3x3 grid. The block CSS
    (.cards-video-track) handles the layout. */
 
+/* Production's carousel spans the full viewport at every breakpoint (verified:
+   the slider container's bounding box is edge-to-edge, not boxed to the usual
+   1200px content width). Opt this wrapper out of the sitewide
+   `main > .section > div` max-width/padding so the track can do the same. */
+main > .section.pf-video > .cards-video-wrapper {
+  max-width: none;
+  padding: 0;
+}
+
+/* "Try Fiix yourself with a free tour" -- production renders this as a plain
+   centered link with an arrow icon (same treatment as the "Watch now" links
+   in the cards above it), not the boxed pill button the sitewide default
+   gives every button-wrapper link. */
+main > .section.pf-video .button-wrapper {
+  margin: 32px 0 0;
+  text-align: center;
+}
+
+main > .section.pf-video .button-wrapper a.button {
+  display: inline-flex;
+  align-items: center;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  padding: 0;
+  font-size: 20px;
+  font-weight: 700;
+  color: #14499a;
+}
+
+main > .section.pf-video .button-wrapper a.button:hover {
+  color: #0f3675;
+  background: none;
+  text-decoration: underline;
+}
+
+main > .section.pf-video .button-wrapper a.button::after {
+  content: '';
+  display: inline-block;
+  width: 0.9em;
+  height: 0.7em;
+  margin-left: 0.4em;
+  background-color: currentcolor;
+  vertical-align: middle;
+  mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11h12.17l-5.59-5.59L12 4l8 8-8 8-1.41-1.41L16.17 13H4z"/></svg>') no-repeat center / contain;
+}
+
 /* ---- pf-media-left / pf-media-right: image + text feature rows.
    Production H2 48/700, P 28/300. -left = image left, -right = image
    right. columns-media stacks image-first on mobile (block default). ---- */
