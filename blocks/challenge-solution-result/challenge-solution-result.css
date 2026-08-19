@@ -28,6 +28,14 @@ body:has(.hero-case-study) main > .section.challenge-solution-result-container
   padding: 0 19px;
 }
 
+/* Match the production paragraph rhythm for the long-form case-study narrative. */
+main > .section:not(.challenge-solution-result-container) > .default-content-wrapper > p {
+  margin: 0 0 20px;
+  font-size: 20px;
+  font-weight: 300;
+  line-height: normal;
+}
+
 body:has(.hero-case-study) main > .section.challenge-solution-result-container
   > .default-content-wrapper {
   display: grid;
@@ -314,4 +322,12 @@ body:has(.hero-case-study)
     .challenge-solution-result .challenge-solution-result-item > ol {
     padding-left: 50px;
   }
+}
+
+/* Match the production heading typography for the long-form case-study narrative. */
+main > .section:not(.challenge-solution-result-container) > .default-content-wrapper > h2 {
+  margin: 0 0 40px;
+  padding-top: 60px;
+  font-size: 40px;
+  line-height: 48px;
 }

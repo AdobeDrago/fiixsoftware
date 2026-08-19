@@ -155,7 +155,7 @@ body:has(.hero-case-study) main > .section.hero-case-study-container {
 @media (width >= 900px) {
   main .section.hero-case-study-container > .default-content-wrapper,
   .hero-case-study > div > div {
-    max-width: 950px;
+    max-width: 680px;
   }
 
   .hero-case-study {
