@@ -17,6 +17,17 @@ main .section > .hero-case-study-wrapper {
   padding: 0;
 }
 
+/* Keep authored/default hero content on the production reading measure while
+   leaving the block wrapper full-bleed for the decorative background. */
+main .section.hero-case-study-container > .default-content-wrapper {
+  box-sizing: border-box;
+  width: calc(100% - 38px);
+  max-width: 680px;
+  margin-right: auto;
+  margin-left: auto;
+  padding: 0;
+}
+
 body:has(.hero-case-study) main > .section.hero-case-study-container {
   margin-bottom: 0;
 }

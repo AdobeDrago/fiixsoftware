@@ -3736,4 +3736,18 @@ main > .section.optix-getstarted .default-content-wrapper li {
   }
 }
 
+/* Keep long-form case-study copy on the production reading measure. The
+   structural selector also supports pages authored before the overview style
+   metadata was added. This is intentionally at the end of the stylesheet so
+   it wins over the boilerplate section wrapper defaults. */
+body:has(.hero-case-study) main > .section:has(> .default-content-wrapper) > .default-content-wrapper {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 702px;
+  margin-right: auto;
+  margin-left: auto;
+  padding-right: 19px;
+  padding-left: 19px;
+}
+
 /* stylelint-enable no-descending-specificity */
