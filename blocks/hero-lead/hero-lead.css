@@ -221,59 +221,194 @@
   object-fit: contain;
 }
 
-/* --- layered media (hero screenshot + decorative shape/accent graphics,
-   e.g. mobile-cmms's app promo) -- only present when hero-lead.js finds
-   more than one picture in the media cell; a plain single-screenshot hero
-   is unaffected. Percentages are approximate, tuned to look right at the
-   ~420px desktop media column width; adjust to taste. --- */
+/* --- layered media (mobile-cmms app promo): screenshot + decorative
+   graphics. Positions match live `#mobile-product .header-video`. --- */
 .hero-lead .hero-lead-media-layers {
   position: relative;
+  height: 250px;
+  overflow: hidden;
 }
 
+.hero-lead .hero-lead-media-layers picture img {
+  display: block;
+  width: 100%;
+  max-width: none;
+  height: auto;
+  margin: 0;
+}
+
+/* the authored app screenshot: the crop's subject below 960, replaced by the
+   desktop composition above it (live `.mobile-gif`) */
 .hero-lead .hero-lead-media-hero {
-  position: relative;
+  position: absolute;
   z-index: 1;
+  bottom: 0;
+  left: 50%;
+  width: 280px;
+  transform: translateX(-50%);
 }
 
 .hero-lead .hero-lead-media-shape {
   position: absolute;
   z-index: 0;
-  top: 38%;
+  bottom: -5%;
   left: 10%;
-  width: 62%;
+  width: 50%;
 }
 
 .hero-lead .hero-lead-media-accent {
   position: absolute;
   z-index: 2;
-  top: 4%;
-  left: -4%;
-  width: 14%;
+  top: 200px;
+  right: 10%;
+  width: 20px;
+}
+
+@media (width >= 768px) {
+  .hero-lead .hero-lead-media-layers {
+    height: 350px;
+  }
+
+  .hero-lead .hero-lead-media-hero {
+    bottom: -70px;
+    width: 500px;
+  }
+}
+
+@media (width >= 960px) {
+  .hero-lead .hero-lead-media-layers {
+    width: 600px;
+    height: 850px;
+    overflow: visible;
+  }
+
+  /* The desktop composition adds two graphics the document doesn't carry (the
+     engineer cut-out and the animated app screen). They're decorative, so they
+     ride on the layer group's pseudo elements rather than being authored. */
+  .hero-lead .hero-lead-media-layers::before,
+  .hero-lead .hero-lead-media-layers::after {
+    content: "";
+    position: absolute;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+  }
+
+  /* engineer — live `height: 500px; left: 70px; bottom: 110px` */
+  .hero-lead .hero-lead-media-layers::before {
+    z-index: 1;
+    top: 240px;
+    left: 70px;
+    width: 371px;
+    height: 500px;
+    background-image: url("https://fiixsoftware.com/wp-content/uploads/2024/09/MobileLPHeroengineer@2x.png");
+  }
+
+  /* app screen — live `width: 400px; left: 200px; bottom: 190px` */
+  .hero-lead .hero-lead-media-layers::after {
+    z-index: 0;
+    top: 55px;
+    left: 200px;
+    width: 400px;
+    height: 605px;
+    background-image: url("https://fiixsoftware.com/wp-content/uploads/2024/09/MobileLPHero@2x.gif");
+  }
+
+  .hero-lead .hero-lead-media picture.hero-lead-media-hero {
+    display: none;
+  }
+
+  .hero-lead .hero-lead-media-shape {
+    top: 450px;
+    bottom: auto;
+    left: 0;
+    width: 400px;
+  }
+
+  .hero-lead .hero-lead-media-accent {
+    top: 200px;
+    right: auto;
+    left: 70px;
+    width: 45px;
+  }
+}
+
+@media (width >= 1200px) {
+  .hero-lead .hero-lead-media-layers {
+    width: 800px;
+  }
+
+  /* live's wide composition — `bottom: 120px` for the engineer and `bottom:
+     10%` for the hexagon, both clearing the shorter hero */
+  .hero-lead .hero-lead-media-layers::before {
+    top: 230px;
+    left: 200px;
+  }
+
+  .hero-lead .hero-lead-media-layers::after {
+    left: 380px;
+  }
+
+  .hero-lead .hero-lead-media-shape {
+    top: 318px;
+    left: 100px;
+    width: 500px;
+  }
+
+  .hero-lead .hero-lead-media-accent {
+    left: 200px;
+  }
+}
+
+.hero-lead .hero-lead-media-content {
+  margin-top: 20px;
 }
 
 .hero-lead .hero-lead-app-caption {
   display: block;
-  margin-top: 12px;
   font-size: 14px;
+  font-weight: 700;
+  line-height: 1.4;
   color: var(--hero-lead-ink);
+  margin: 0 0 10px;
 }
 
 .hero-lead .hero-lead-app-badges {
   display: flex;
-  flex-direction: column;
-  gap: 8px;
-  margin-top: 8px;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: 20px;
+  margin: 0;
+  width: max-content;
+  max-width: 100%;
 }
 
 .hero-lead .hero-lead-app-badges br {
   display: none;
 }
 
-.hero-lead .hero-lead-media .hero-lead-app-badges img {
+/* stylelint-disable no-descending-specificity */
+.hero-lead .hero-lead-app-badges a,
+.hero-lead .hero-lead-app-badges picture {
+  display: block;
+  flex: 0 0 auto;
+}
+
+.hero-lead .hero-lead-app-badges img {
+  display: block;
   width: auto;
-  height: 35px;
+  max-width: none;
+  max-height: none;
+  height: 30px;
   margin-left: 0;
 }
+
+@media (width >= 960px) {
+  .hero-lead .hero-lead-app-badges img {
+    height: 35px;
+  }
+}
+/* stylelint-enable no-descending-specificity */
 
 /* ============================================================
    `video-without-form` — /free-cmms split intro hero: full-bleed purple
@@ -289,8 +424,8 @@
   background-color: var(--light-color); /* #f7f9fc */
 }
 
-.hero-lead.video-container .hero-lead-wrapper,
-.section.video-hero .hero-lead-wrapper {
+.hero-lead-container:has(.video-without-form) .hero-lead-wrapper,
+main > .section.fc-hero > .hero-lead-wrapper {
   max-width: none;
   padding: 0;
 }
@@ -309,54 +444,48 @@
   background-color: #6d68ea;
 }
 
-.hero-lead.video-without-form > div:first-child picture {
-  display: block;
-  width: 100%;
+.hero-lead.video-without-form > div:first-child .hero-lead-media {
   height: 100%;
 }
 
-.hero-lead.video-without-form .hero-lead-video,
+.hero-lead.video-without-form > div:first-child picture {
+  position: absolute;
+  bottom: -50px;
+  left: 60%;
+  display: block;
+  width: 100%;
+  max-width: none;
+  height: auto;
+  margin: 0;
+  transform: translateX(-50%);
+}
+
 .hero-lead.video-without-form > div:first-child img {
   display: block;
   width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: left top;
-}
-
-/* --- tablet (768–959px): production switches the shot from a full-bleed
-   crop to a capped-width, centered, natural-aspect image at this range --
-   the panel's fixed height (above) still crops it, but now off the bottom
-   instead of the right edge. --- */
-@media (width >= 768px) {
-  .hero-lead.video-without-form > div:first-child picture,
-  .hero-lead.video-without-form .hero-lead-video,
-  .hero-lead.video-without-form > div:first-child img {
-    width: auto;
-    height: auto;
-    max-width: 500px;
-    margin: 0 auto;
-    object-fit: contain;
-    object-position: center top;
-  }
+  height: auto;
+  object-fit: contain;
 }
 
 /* copy row */
 .hero-lead.video-without-form > div:last-child {
-  margin: 0;
-  padding: 40px 24px;
+  box-sizing: border-box;
+  max-width: 1264px;
+  margin: 0 auto;
+  padding: 40px 20px;
 }
 
 .hero-lead.video-without-form > div:last-child > div {
-  max-width: 540px;
-  margin: 0 auto;
+  width: 100%;
+  max-width: none;
+  margin: 0;
 }
 
 /* eyebrow */
 .hero-lead.video-without-form h1 {
-  margin: 0 0 24px;
+  margin: 0 0 20px;
   max-width: none;
-  font-size: 20px;
+  font-size: 12px;
   font-weight: 500;
   line-height: 1.1;
   text-align: left;
@@ -366,12 +495,13 @@
 
 /* headline */
 .hero-lead.video-without-form h2 {
-  margin: 0 0 24px;
+  margin: 0 0 30px;
   max-width: none;
   padding: 0;
-  font-size: 40px;
+  font-size: 30px;
   font-weight: 700;
-  line-height: 1;
+  line-height: 30px;
+  letter-spacing: 0;
   text-align: left;
   color: var(--text-color);
 }
@@ -381,20 +511,21 @@
   margin: 0 0 20px;
   font-size: 20px;
   font-weight: 300;
-  line-height: 1.4;
+  line-height: normal;
   text-align: left;
   color: var(--text-color);
 }
 
 /* CTA — a plain bold dark-blue text link with a trailing arrow, not a pill. */
 .hero-lead.video-without-form p.button-container {
-  margin: 0;
+  margin: 40px 0 0;
   text-align: left;
 }
 
 /* stylelint-disable no-descending-specificity */
 .hero-lead.video-without-form a.button:any-link,
 .hero-lead.video-without-form a:any-link {
+  position: relative;
   display: inline;
   padding: 0;
   border: 0;
@@ -403,20 +534,27 @@
   color: #14499a;
   font-size: 20px;
   font-weight: 700;
-  line-height: 1.25;
+  line-height: 1.3;
   text-align: left;
   text-decoration: none;
   white-space: normal;
 }
 
 .hero-lead.video-without-form a:any-link::after {
-  content: ' \2192';
+  content: '\2192';
+  position: absolute;
+  padding-left: 10px;
   font-weight: 700;
 }
 
 .hero-lead.video-without-form a:hover {
   color: var(--link-hover-color);
   text-decoration: none;
+}
+
+/* Authored "Hero video" file link — never shown in the purple panel. */
+.hero-lead.video-without-form > div:first-child a {
+  display: none;
 }
 
 /* stylelint-enable no-descending-specificity */
@@ -434,6 +572,17 @@
 
   .hero-lead .hero-lead-support {
     text-align: left;
+  }
+
+  .hero-lead.video-without-form > div:first-child picture {
+    bottom: -200px;
+    left: 50%;
+    width: 500px;
+  }
+
+  .hero-lead.video-without-form h1 {
+    margin-bottom: 40px;
+    font-size: 20px;
   }
 }
 
@@ -500,9 +649,9 @@
 
   .hero-lead .hero-lead-media img,
   .hero-lead .hero-lead-media .hero-lead-video {
-    width: 420px;
-    max-width: 100%;
-    margin-left: auto;
+    max-width: 475px;
+    width: 100%;
+    margin: 0 auto;
   }
 
   /* Keep the three stat metrics on a single row like production: let each chip
@@ -520,60 +669,106 @@
   /* `video` variant: two equal columns, copy left / purple media panel right,
      both filling an 850px-min-height band (production). */
   .hero-lead.video-without-form {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    align-items: stretch;
+    position: relative;
+    display: block;
+    height: 850px;
     min-height: 850px;
     padding: 0;
   }
 
-  /* copy on the left (row 2 in DOM) */
+  /* copy on the left (row 2 in DOM). Live centers a 960px well until 1200,
+     then a 1200px well -- not a full-bleed 1200 with 16px sides. */
   .hero-lead.video-without-form > div:last-child {
-    grid-column: 1;
-    grid-row: 1;
+    box-sizing: border-box;
     display: flex;
-    flex-direction: column;
-    justify-content: center;
-
-    /* left edge aligns to the centered 1200px container gutter (text starts
-       ~120px from the viewport edge at 1440px). */
-    padding: 60px 40px 60px max(32px, calc((100vw - 1200px) / 2));
+    align-items: center;
+    width: 100%;
+    max-width: 960px;
+    height: 850px;
+    margin: 0 auto;
+    padding: 0;
   }
 
   .hero-lead.video-without-form > div:last-child > div {
+    width: 45%;
+    max-width: none;
     margin: 0;
+  }
+
+  .hero-lead.video-without-form h1,
+  .hero-lead.video-without-form h2 {
+    max-width: 96%;
   }
 
   /* purple media panel on the right (row 1 in DOM). Undo the mobile crop box
      -- room enough here to show the whole video/screenshot uncropped. */
   /* stylelint-disable-next-line no-descending-specificity */
   .hero-lead.video-without-form > div:first-child {
-    grid-column: 2;
-    grid-row: 1;
+    position: absolute;
+    top: 0;
+    right: 0;
     display: flex;
-    overflow: visible;
-    height: auto;
+    overflow: hidden;
+    width: 45%;
+    height: 850px;
     align-items: center;
     justify-content: center;
-    padding: 60px 48px;
+    padding: 0;
   }
 
-  .hero-lead.video-without-form > div:first-child picture,
-  .hero-lead.video-without-form .hero-lead-video,
-  .hero-lead.video-without-form > div:first-child img {
+  .hero-lead.video-without-form > div:first-child .hero-lead-media {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: 100%;
-    max-width: 620px;
+    height: 100%;
+  }
+
+  .hero-lead.video-without-form > div:first-child picture {
+    position: static;
+    bottom: auto;
+    left: auto;
+    width: 100%;
+    max-width: 700px;
+    transform: none;
+  }
+
+  .hero-lead.video-without-form .hero-lead-media .hero-lead-video {
+    width: 100%;
+    max-width: 700px;
     height: auto;
+    aspect-ratio: 800 / 900;
+    margin: 0 auto;
     object-fit: contain;
   }
 
-  .hero-lead.video-without-form h1 {
-    margin-bottom: 40px;
+  .hero-lead.video-without-form .hero-lead-media img {
+    width: 100%;
+    max-width: 700px;
+    height: auto;
+    margin: 0 auto;
+    object-fit: contain;
   }
 
   .hero-lead.video-without-form h2 {
-    margin-bottom: 30px;
+    font-size: 50px;
+    line-height: 50px;
+  }
+}
+
+@media (width >= 1200px) {
+  .hero-lead.video-without-form > div:last-child {
+    max-width: 1200px;
+    padding: 0;
+  }
+
+  .hero-lead.video-without-form h1,
+  .hero-lead.video-without-form h2 {
+    max-width: none;
+  }
+
+  .hero-lead.video-without-form h2 {
     font-size: 64px;
-    line-height: 1;
+    line-height: 64px;
   }
 }
