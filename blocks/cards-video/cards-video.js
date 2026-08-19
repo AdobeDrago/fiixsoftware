@@ -30,7 +30,7 @@ function buildCarousel(block, ul) {
   let animTarget = null;
   let animFrame = null;
 
-  // shifts position by one lap when it drifts near the clone buffer edge, landing on an identical clone
+  // shifts by one lap when near the clone buffer edge, landing on an identical clone
   const recenter = () => {
     if (!unit) return; // layout not ready yet
     const maxScroll = ul.scrollWidth - ul.clientWidth;
@@ -198,7 +198,6 @@ function wireVidyardVideo(li, uuid) {
 }
 
 export default function decorate(block) {
-  /* change to ul, li */
   const ul = document.createElement('ul');
   [...block.children].forEach((row) => {
     const li = document.createElement('li');
