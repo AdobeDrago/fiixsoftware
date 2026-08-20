@@ -373,7 +373,7 @@ body:has(.hero-case-study)
     position: relative;
     z-index: 1;
     width: 100%;
-    margin: 0;
+    margin: -200px 0 0;
     padding: 100px 0 80px;
     background-color: var(--background-color);
     box-shadow: 3px 3px 25px rgb(0 0 0 / 12%);
@@ -5184,6 +5184,54 @@ body:has(.hero-case-study)
     margin-left: auto;
     padding-right: 19px;
     padding-left: 19px;
+}
+
+/* Match the live case-study ordered-list markers: a numbered gray circle sits
+   beside each item while the copy keeps the production 20px/34px rhythm. */
+body:has(.hero-case-study)
+    main
+    > .section.case-study-overview
+    > .default-content-wrapper
+    ol {
+    margin: 50px 0 0 50px;
+    padding: 0;
+    font-size: 16px;
+    line-height: 27.2px;
+}
+
+body:has(.hero-case-study)
+    main
+    > .section.case-study-overview
+    > .default-content-wrapper
+    ol > li {
+    position: relative;
+    margin: 0 0 20px;
+    list-style: none;
+    counter-increment: my-awesome-counter;
+    font-size: 20px;
+    line-height: 34px;
+}
+
+body:has(.hero-case-study)
+    main
+    > .section.case-study-overview
+    > .default-content-wrapper
+    ol > li::before {
+    --size: 30px;
+
+    content: counter(my-awesome-counter);
+    position: absolute;
+    top: 4px;
+    left: calc(-1 * var(--size) - 20px);
+    width: var(--size);
+    height: var(--size);
+    border-radius: 50%;
+    background-color: #e8e8e8;
+    color: #58595b;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 26px;
+    text-align: center;
 }
 
 /* stylelint-enable no-descending-specificity */

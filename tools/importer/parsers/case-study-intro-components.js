@@ -20,6 +20,7 @@ export default function parse(element, { document }) {
   const isLogo = (node) => node.matches('figure.large-logo');
   const isProfile = (node) => node.matches('.intro-flex');
   const isLead = (node) => node.matches('p');
+  const isStats = (node) => node.matches('.stats-multi');
   const getLogoBlockName = (logo) => {
     const sourceWidth = Number.parseFloat(logo.ownerDocument.defaultView?.getComputedStyle(logo).width);
     if (sourceWidth >= 280) return 'case-study-logo (large)';
@@ -37,6 +38,13 @@ export default function parse(element, { document }) {
     link.href = iframe.src;
     link.textContent = iframe.src;
     return createBlock('youtube-video', [title ? [link, title] : [link]]);
+  };
+  const createStatsBlock = (stats) => {
+    const cells = Array.from(stats.children).map((item) => {
+      const fields = Array.from(item.children).filter((field) => field.textContent.trim());
+      return fields.slice(0, 2);
+    });
+    return createBlock('stats-multi', cells);
   };
 
   for (let index = 0; index < children.length;) {
@@ -74,6 +82,12 @@ export default function parse(element, { document }) {
         index += 1;
       }
       flushProfiles(cells);
+      continue;
+    }
+
+    if (isStats(child)) {
+      output.push(createStatsBlock(child));
+      index += 1;
       continue;
     }
 
