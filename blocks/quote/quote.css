@@ -217,8 +217,11 @@ main > .section:has(.quote.wrap) .quote-wrapper {
   position: absolute;
   right: 0;
   z-index: 1;
+  box-sizing: border-box;
   width: 95%;
-  margin-top: 30px;
+  max-width: none;
+  margin: 30px 0 0;
+  padding: 0;
   filter: drop-shadow(0 0 8px rgb(0 0 0 / 20%));
 }
 
@@ -230,7 +233,7 @@ main > .section:has(.quote.wrap) + .section {
 
 @media (width >= 768px) {
   main > .section:has(.quote.wrap) .quote-wrapper {
-    margin-top: 60px;
+    margin: 60px 0 0;
   }
 
   main > .section:has(.quote.wrap) + .section {
