@@ -3451,6 +3451,13 @@ main > .section.pf-features {
     padding: 0 0 40px;
 }
 
+/* Production runs one continuous grey band from the case-study slider straight
+   into the explore section below it. This section's own bottom padding would
+   cut a white stripe between the two, so drop it when the slider ends it. */
+main > .section.pf-features:has(.carousel-testimonial.case-study) {
+    padding-bottom: 0;
+}
+
 main > .section.pf-features .default-content-wrapper h2 {
     margin: 0 0 20px;
     font-size: 30px;

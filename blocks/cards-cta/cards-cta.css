@@ -74,8 +74,12 @@
     font-weight: 300;
 }
 
-.cards-cta .cards-cta-body p:last-child {
+/* Direct-child combinator: the CTA <p> is the only p directly in
+   cards-cta-body -- the description paragraph sits nested one level deeper,
+   inside cards-cta-text, so it isn't also matched here as a :last-child. */
+.cards-cta .cards-cta-body > p:last-child {
     margin-top: auto;
+    margin-bottom: 0;
     padding-bottom: 0;
 }
 
@@ -118,8 +122,8 @@
         min-height: 350px;
     }
 
-    .cards-cta .cards-cta-body p:last-child {
-        margin-bottom: 0;
+    .cards-cta .cards-cta-body p {
+        margin: 0;
     }
 }
 
