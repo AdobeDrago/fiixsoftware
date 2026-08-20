@@ -1,0 +1,49 @@
+{
+  "variantName": "vidyard-video-player",
+  "baseBlock": "vidyard-video-player",
+  "version": "1.1.0",
+  "created": "2026-08-20T00:00:00.000Z",
+  "sourceContext": {
+    "originUrl": "https://fiixsoftware.com/cmms/ai/",
+    "originPage": "Fiix AI page",
+    "blockPosition": "fiixMAX-info / vid-cont"
+  },
+  "visualCharacteristics": {
+    "colorScheme": "light",
+    "density": "spacious",
+    "purpose": "video",
+    "imagePattern": "large"
+  },
+  "contentPattern": {
+    "structure": "Vidyard URL row; optional autoplay key/value; optional poster key/value (image or link)",
+    "buttonCount": 1,
+    "imageCount": 1
+  },
+  "reuseGuidance": {
+    "suitableFor": [
+      "Inline Vidyard embeds (default)",
+      "Poster thumbnail that opens a Vidyard lightbox (popover variation)"
+    ],
+    "notSuitableFor": [
+      "Multi-card video carousels (use cards-video)",
+      "Columns with inline Vidyard (use columns-media vidyard)"
+    ]
+  },
+  "usage": {
+    "pagesUsing": [
+      "/cmms/ai-update"
+    ],
+    "authoring": {
+      "default": [
+        "Row 1: Vidyard URL (https://play.vidyard.com/<uuid>)",
+        "Optional row: autoplay | true/false"
+      ],
+      "popover": [
+        "Block name: vidyard-video-player (popover)",
+        "Row 1: Vidyard URL (lightbox-capable)",
+        "Optional row: autoplay | false",
+        "Row: poster | image (or image URL link)"
+      ]
+    }
+  }
+}
