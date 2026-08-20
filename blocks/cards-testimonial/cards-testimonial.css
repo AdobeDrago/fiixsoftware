@@ -69,8 +69,66 @@
   color: var(--cards-testimonial-ink);
 }
 
-/* ---- Desktop: three cards side by side ---- */
-@media (width >= 960px) {
+main > .section.cards-testimonial-container > .default-content-wrapper:first-child h2 {
+  font-size: 24px;
+  margin-bottom: 50px;
+}
+
+/* trailing "See how other maintenance teams…" link + arrow */
+main > .section.cards-testimonial-container .default-content-wrapper:last-child h2 {
+  font-size: 20px;
+  text-align: center;
+}
+
+main > .section.cards-testimonial-container .default-content-wrapper:last-child a:any-link {
+  font-size: 20px;
+  font-weight: 700;
+  color: #14499a;
+  text-decoration: none;
+}
+
+main > .section.cards-testimonial-container .default-content-wrapper:last-child a:any-link:hover,
+main > .section.cards-testimonial-container .default-content-wrapper:last-child a:any-link:focus-visible {
+  color: #0f3675;
+  text-decoration: none;
+}
+
+main > .section.cards-testimonial-container .default-content-wrapper:last-child a:any-link::after {
+  content: '';
+  display: inline-block;
+  width: 24px;
+  height: 22px;
+  margin: 0;
+  padding-left: 10px;
+  box-sizing: content-box;
+  background-color: currentcolor;
+  vertical-align: middle;
+  mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11h12.17l-5.59-5.59L12 4l8 8-8 8-1.41-1.41L16.17 13H4z"/></svg>') right center / 24px 22px no-repeat;
+}
+
+main > .section.cards-testimonial-container {
+  margin: 40px 0 70px;
+  padding-top: 40px;
+  padding-bottom: 10px;
+}
+
+/* ---- Tablet + desktop: section spacing + 3-up grid ---- */
+@media (width >= 768px) {
+  main > .section.cards-testimonial-container {
+    padding-top: 70px;
+    padding-bottom: 40px;
+  }
+
+  main > .section.cards-testimonial-container > .default-content-wrapper:first-child h2 {
+    max-width: 600px;
+    margin: 0 auto 50px;
+  }
+
+  main > .section.cards-testimonial-container .default-content-wrapper:last-child h2 {
+    max-width: none;
+    margin: 50px auto 30px;
+  }
+
   .cards-testimonial .cards-testimonial-list {
     grid-template-columns: repeat(3, 1fr);
   }
