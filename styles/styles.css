@@ -177,6 +177,10 @@ main > div {
     margin: 40px 16px;
 }
 
+main > .section.grey-background {
+    background-color: #f2f2f2;
+}
+
 input,
 textarea,
 select,
