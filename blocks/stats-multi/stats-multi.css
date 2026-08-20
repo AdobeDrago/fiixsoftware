@@ -1,0 +1,131 @@
+.stats-multi {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  width: min(664px, calc(90vw - 13.5px));
+  max-width: 664px;
+  margin: 0 auto 60px;
+}
+
+.stats-multi .stats-multi-item {
+  width: 100%;
+}
+
+.stats-multi .stats-multi-item + .stats-multi-item {
+  margin-top: 30px;
+}
+
+.stats-multi .stats-multi-value,
+.stats-multi .stats-multi-value-cell > :first-child {
+  margin: 0 0 30px;
+  font-size: 40px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.stats-multi .stats-multi-label,
+.stats-multi .stats-multi-label-cell > :first-child {
+  width: 100%;
+  margin: 0;
+  border-top: 4px solid #00afeb;
+  padding-top: 20px;
+  font-size: 22px;
+  font-weight: 500;
+  line-height: 1.2;
+}
+
+/* A bullets variant compares two lists rather than three numeric statistics.
+   Give both entries equal space so longer list items remain readable. */
+.stats-multi.bullets {
+  display: grid;
+  gap: 40px;
+  text-align: left;
+}
+
+.stats-multi.bullets .stats-multi-item,
+.stats-multi.bullets .stats-multi-item + .stats-multi-item {
+  width: 100%;
+  margin: 0;
+}
+
+.stats-multi.bullets .stats-multi-value,
+.stats-multi.bullets .stats-multi-value-cell > :first-child {
+  position: relative;
+  display: inline-block;
+  width: fit-content;
+  max-width: 100%;
+  margin-bottom: 20px;
+  padding-bottom: 14px;
+  line-height: 1.1;
+}
+
+.stats-multi.bullets .stats-multi-value::after,
+.stats-multi.bullets .stats-multi-value-cell > :first-child::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  border-bottom: 6px solid #00afeb;
+}
+
+.stats-multi.bullets .stats-multi-label,
+.stats-multi.bullets .stats-multi-label-cell > :first-child {
+  width: 100%;
+  border-top: 0;
+  padding: 0 0 0 24px;
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 1.7;
+}
+
+@media (width >= 768px) {
+  .stats-multi.bullets {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 64px;
+  }
+}
+
+@media (width <= 600px) {
+  .stats-multi {
+    text-align: center;
+  }
+
+  .stats-multi .stats-multi-item {
+    width: 50%;
+    margin-right: auto;
+    margin-left: auto;
+  }
+}
+
+@media (width <= 400px) {
+  .stats-multi .stats-multi-item {
+    width: 75%;
+  }
+}
+
+@media (width >= 601px) {
+  .stats-multi {
+    flex-flow: row wrap;
+    justify-content: space-between;
+  }
+
+  .stats-multi .stats-multi-item {
+    width: 30%;
+  }
+
+  .stats-multi .stats-multi-item + .stats-multi-item {
+    margin-top: 0;
+  }
+
+  .stats-multi .stats-multi-label,
+  .stats-multi .stats-multi-label-cell > :first-child {
+    width: 80%;
+  }
+}
+
+@media (width >= 601px) and (width < 1200px) {
+  .stats-multi {
+    max-width: 575px;
+  }
+}

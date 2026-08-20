@@ -11,105 +11,105 @@
  */
 
 :root {
-  /* colors */
-  --background-color: white;
-  --light-color: #f7f9fc;
-  --dark-color: #505050;
-  --text-color: #212021;
-  --link-color: #1650e6;
-  --link-hover-color: #0f3cb0;
+    /* colors */
+    --background-color: white;
+    --light-color: #f7f9fc;
+    --dark-color: #505050;
+    --text-color: #212021;
+    --link-color: #1650e6;
+    --link-hover-color: #0f3cb0;
 
-  /* Fiix brand */
-  --fiix-blue: #1650e6;
-  --fiix-blue-dark: #0f3cb0;
-  --fiix-green: #4aa525;
-  --fiix-green-dark: #3a831d;
-  --fiix-teal: #0e9c94;
-  --fiix-gold: #f4c430;
-  --hero-gradient-start: #dcecfb;
-  --hero-gradient-end: #f4f9ff;
-  --border-color: #e2e6ea;
+    /* Fiix brand */
+    --fiix-blue: #1650e6;
+    --fiix-blue-dark: #0f3cb0;
+    --fiix-green: #4aa525;
+    --fiix-green-dark: #3a831d;
+    --fiix-teal: #0e9c94;
+    --fiix-gold: #f4c430;
+    --hero-gradient-start: #dcecfb;
+    --hero-gradient-end: #f4f9ff;
+    --border-color: #e2e6ea;
 
-  /* fonts — Sofia Pro (Adobe Typekit) matches the live Fiix site. Production
+    /* fonts — Sofia Pro (Adobe Typekit) matches the live Fiix site. Production
      uses sofia-pro with only a sans-serif fallback (no roboto). */
-  --body-font-family: sofia-pro, sans-serif;
-  --heading-font-family: sofia-pro, sans-serif;
+    --body-font-family: sofia-pro, sans-serif;
+    --heading-font-family: sofia-pro, sans-serif;
 
-  /* body sizes — match production (body element 16px, content copy scales up
+    /* body sizes — match production (body element 16px, content copy scales up
      to 20px on ≥960). */
-  --body-font-size-m: 16px;
-  --body-font-size-s: 16px;
-  --body-font-size-xs: 14px;
+    --body-font-size-m: 16px;
+    --body-font-size-s: 16px;
+    --body-font-size-xs: 14px;
 
-  /* heading sizes — production renders 36px h1 / 38px h2 / 20px h3 on mobile. */
-  --heading-font-size-xxl: 36px;
-  --heading-font-size-xl: 38px;
-  --heading-font-size-l: 20px;
-  --heading-font-size-m: 22px;
-  --heading-font-size-s: 20px;
-  --heading-font-size-xs: 18px;
-
-  /* nav height */
-  --nav-height: 64px;
-}
-
-/* fallback fonts */
-@font-face {
-  font-family: roboto-condensed-fallback;
-  size-adjust: 88.82%;
-  src: local('Arial');
-}
-
-@font-face {
-  font-family: roboto-fallback;
-  size-adjust: 99.529%;
-  src: local('Arial');
-}
-
-@media (width >= 960px) {
-  :root {
-    /* body sizes — production content copy reads at 20px on desktop. */
-    --body-font-size-m: 20px;
-    --body-font-size-s: 18px;
-    --body-font-size-xs: 16px;
-
-    /* heading sizes — production desktop: 50px h1 / 48px h2 / 20px h3. */
-    --heading-font-size-xxl: 50px;
-    --heading-font-size-xl: 48px;
+    /* heading sizes — production renders 36px h1 / 38px h2 / 20px h3 on mobile. */
+    --heading-font-size-xxl: 36px;
+    --heading-font-size-xl: 38px;
     --heading-font-size-l: 20px;
     --heading-font-size-m: 22px;
     --heading-font-size-s: 20px;
     --heading-font-size-xs: 18px;
-  }
+
+    /* nav height */
+    --nav-height: 64px;
+}
+
+/* fallback fonts */
+@font-face {
+    font-family: roboto-condensed-fallback;
+    size-adjust: 88.82%;
+    src: local("Arial");
+}
+
+@font-face {
+    font-family: roboto-fallback;
+    size-adjust: 99.529%;
+    src: local("Arial");
+}
+
+@media (width >= 960px) {
+    :root {
+        /* body sizes — production content copy reads at 20px on desktop. */
+        --body-font-size-m: 20px;
+        --body-font-size-s: 18px;
+        --body-font-size-xs: 16px;
+
+        /* heading sizes — production desktop: 50px h1 / 48px h2 / 20px h3. */
+        --heading-font-size-xxl: 50px;
+        --heading-font-size-xl: 48px;
+        --heading-font-size-l: 20px;
+        --heading-font-size-m: 22px;
+        --heading-font-size-s: 20px;
+        --heading-font-size-xs: 18px;
+    }
 }
 
 body {
-  display: none;
-  margin: 0;
-  background-color: var(--background-color);
-  color: var(--text-color);
-  font-family: var(--body-font-family);
-  font-size: var(--body-font-size-m);
-  font-weight: 300;
-  line-height: 1.5;
+    display: none;
+    margin: 0;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    font-family: var(--body-font-family);
+    font-size: var(--body-font-size-m);
+    font-weight: 300;
+    line-height: 1.5;
 }
 
 body.appear {
-  display: block;
+    display: block;
 }
 
 header {
-  height: var(--nav-height);
+    height: var(--nav-height);
 }
 
 header .header,
 footer .footer {
-  visibility: hidden;
+    visibility: hidden;
 }
 
 header .header[data-block-status="loaded"],
 footer .footer[data-block-status="loaded"] {
-  visibility: visible;
+    visibility: visible;
 }
 
 h1,
@@ -118,20 +118,37 @@ h3,
 h4,
 h5,
 h6 {
-  margin-top: 0.8em;
-  margin-bottom: 0.25em;
-  font-family: var(--heading-font-family);
-  font-weight: 700;
-  line-height: 1.25;
-  scroll-margin: 40px;
+    margin-top: 0.8em;
+    margin-bottom: 0.25em;
+    font-family: var(--heading-font-family);
+    font-weight: 700;
+    line-height: 1.25;
+    scroll-margin: 40px;
 }
 
-h1 { font-size: var(--heading-font-size-xxl); }
-h2 { font-size: var(--heading-font-size-xl); }
-h3 { font-size: var(--heading-font-size-l); }
-h4 { font-size: var(--heading-font-size-m); }
-h5 { font-size: var(--heading-font-size-s); }
-h6 { font-size: var(--heading-font-size-xs); }
+h1 {
+    font-size: var(--heading-font-size-xxl);
+}
+
+h2 {
+    font-size: var(--heading-font-size-xl);
+}
+
+h3 {
+    font-size: var(--heading-font-size-l);
+}
+
+h4 {
+    font-size: var(--heading-font-size-m);
+}
+
+h5 {
+    font-size: var(--heading-font-size-s);
+}
+
+h6 {
+    font-size: var(--heading-font-size-xs);
+}
 
 p,
 dl,
@@ -139,92 +156,92 @@ ol,
 ul,
 pre,
 blockquote {
-  margin-top: 0.8em;
-  margin-bottom: 0.25em;
+    margin-top: 0.8em;
+    margin-bottom: 0.25em;
 }
 
 code,
 pre {
-  font-size: var(--body-font-size-s);
+    font-size: var(--body-font-size-s);
 }
 
 pre {
-  padding: 16px;
-  border-radius: 8px;
-  background-color: var(--light-color);
-  overflow-x: auto;
-  white-space: pre;
+    padding: 16px;
+    border-radius: 8px;
+    background-color: var(--light-color);
+    overflow-x: auto;
+    white-space: pre;
 }
 
 main > div {
-  margin: 40px 16px;
+    margin: 40px 16px;
 }
 
 input,
 textarea,
 select,
 button {
-  font: inherit;
+    font: inherit;
 }
 
 /* links */
 a:any-link {
-  color: var(--link-color);
-  text-decoration: none;
-  overflow-wrap: break-word;
+    color: var(--link-color);
+    text-decoration: none;
+    overflow-wrap: break-word;
 }
 
 a:hover {
-  color: var(--link-hover-color);
-  text-decoration: underline;
+    color: var(--link-hover-color);
+    text-decoration: underline;
 }
 
 /* buttons */
 p.button-wrapper {
-  margin: 12px 0;
+    margin: 12px 0;
 }
 
 a.button:any-link,
 button.button {
-  box-sizing: border-box;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  max-width: 100%;
-  margin: 0;
-  border: 2px solid transparent;
-  border-radius: 2.4em;
-  padding: 0.5em 1.2em;
-  font: inherit;
-  font-weight: 500;
-  line-height: 1.25;
-  text-decoration: none;
-  cursor: pointer;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+    box-sizing: border-box;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 100%;
+    margin: 0;
+    border: 2px solid transparent;
+    border-radius: 2.4em;
+    padding: 0.5em 1.2em;
+    font: inherit;
+    font-weight: 500;
+    line-height: 1.25;
+    text-decoration: none;
+    cursor: pointer;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 a.button[aria-disabled="true"],
 button.button:disabled {
-  cursor: not-allowed;
-  pointer-events: none;
+    cursor: not-allowed;
+    pointer-events: none;
 }
 
 a.button.primary,
 button.button.primary {
-  border-color: var(--fiix-blue);
-  background-color: var(--fiix-blue);
-  color: #fff;
+    border-color: var(--fiix-blue);
+    background-color: var(--fiix-blue);
+    color: #fff;
 }
 
 a.button.primary:hover,
 a.button.primary:focus-visible,
 button.button.primary:hover,
 button.button.primary:focus-visible {
-  border-color: var(--fiix-blue-dark);
-  background-color: var(--fiix-blue-dark);
-  color: #fff;
+    border-color: var(--fiix-blue-dark);
+    background-color: var(--fiix-blue-dark);
+    color: #fff;
 }
 
 a.button.primary[aria-disabled="true"],
@@ -233,25 +250,25 @@ a.button.primary[aria-disabled="true"]:focus-visible,
 button.button.primary:disabled,
 button.button.primary:disabled:hover,
 button.button.primary:disabled:focus-visible {
-  background-color: var(--light-color);
-  border-color: var(--light-color);
-  color: var(--dark-color);
+    background-color: var(--light-color);
+    border-color: var(--light-color);
+    color: var(--dark-color);
 }
 
 a.button.secondary,
 button.button.secondary {
-  border-color: var(--text-color);
-  background-color: transparent;
-  color: var(--text-color);
+    border-color: var(--text-color);
+    background-color: transparent;
+    color: var(--text-color);
 }
 
 a.button.secondary:hover,
 a.button.secondary:focus-visible,
 button.button.secondary:hover,
 button.button.secondary:focus-visible {
-  border-color: var(--dark-color);
-  background-color: var(--light-color);
-  color: var(--dark-color);
+    border-color: var(--dark-color);
+    background-color: var(--light-color);
+    color: var(--dark-color);
 }
 
 a.button.secondary[aria-disabled="true"],
@@ -260,26 +277,26 @@ a.button.secondary[aria-disabled="true"]:focus-visible,
 button.button.secondary:disabled,
 button.button.secondary:disabled:hover,
 button.button.secondary:disabled:focus-visible {
-  background-color: var(--light-color);
-  border-color: var(--light-color);
-  color: var(--dark-color);
+    background-color: var(--light-color);
+    border-color: var(--light-color);
+    color: var(--dark-color);
 }
 
 /* high-impact call-to-action (Fiix green, e.g. "Free tour") */
 a.button.accent,
 button.button.accent {
-  border-color: var(--fiix-green);
-  background-color: var(--fiix-green);
-  color: #fff;
+    border-color: var(--fiix-green);
+    background-color: var(--fiix-green);
+    color: #fff;
 }
 
 a.button.accent:hover,
 a.button.accent:focus-visible,
 button.button.accent:hover,
 button.button.accent:focus-visible {
-  border-color: var(--fiix-green-dark);
-  background-color: var(--fiix-green-dark);
-  color: #fff;
+    border-color: var(--fiix-green-dark);
+    background-color: var(--fiix-green-dark);
+    color: #fff;
 }
 
 a.button.accent[aria-disabled="true"],
@@ -288,134 +305,190 @@ a.button.accent[aria-disabled="true"]:focus-visible,
 button.button.accent:disabled,
 button.button.accent:disabled:hover,
 button.button.accent:disabled:focus-visible {
-  background-color: var(--light-color);
-  border-color: var(--light-color);
-  color: var(--dark-color);
+    background-color: var(--light-color);
+    border-color: var(--light-color);
+    color: var(--dark-color);
 }
 
 main img {
-  max-width: 100%;
-  width: auto;
-  height: auto;
+    max-width: 100%;
+    width: auto;
+    height: auto;
 }
 
 .icon {
-  display: inline-block;
-  height: 24px;
-  width: 24px;
+    display: inline-block;
+    height: 24px;
+    width: 24px;
 }
 
 .icon img {
-  height: 100%;
-  width: 100%;
+    height: 100%;
+    width: 100%;
 }
 
 /* sections */
 main > .section {
-  margin: 40px 0;
+    margin: 40px 0;
 }
 
 main > .section > div {
-  max-width: 1200px;
-  margin: auto;
-  padding: 0 24px;
+    max-width: 1200px;
+    margin: auto;
+    padding: 0 24px;
 }
 
 main > .section:first-of-type {
-  margin-top: 0;
+    margin-top: 0;
 }
 
 @media (width >= 960px) {
-  main > .section > div {
-    padding: 0 32px;
-  }
+    main > .section > div {
+        padding: 0 32px;
+    }
 }
 
 /* section metadata */
 main .section.light,
 main .section.highlight {
-  background-color: var(--light-color);
-  margin: 0;
-  padding: 40px 0;
+    background-color: var(--light-color);
+    margin: 0;
+    padding: 40px 0;
 }
 
 /* Case-study company-intro section. Individual logo, profiles, lead-copy, and
    video blocks own their content; this section supplies only their shared white
    surface and lower hero overlap context. */
-body:has(.hero-case-study) main > .section:is(.case-study-intro, :has(> .case-study-logo-wrapper, > .case-study-profiles-wrapper, > .case-study-lead-wrapper, > .youtube-video-wrapper)) {
-  position: relative;
-  z-index: 1;
-  width: 100%;
-  margin: 0;
-  padding: 100px 0 80px;
-  background-color: var(--background-color);
-  box-shadow: 3px 3px 25px rgb(0 0 0 / 12%);
+body:has(.hero-case-study)
+    main
+    > .section:is(
+        .case-study-intro,
+        :has(
+            > .case-study-logo-wrapper,
+            > .case-study-profiles-wrapper,
+            > .case-study-lead-wrapper,
+            > .youtube-video-wrapper
+        )
+    ) {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    margin: -200px 0 0;
+    padding: 100px 0 80px;
+    background-color: var(--background-color);
+    box-shadow: 3px 3px 25px rgb(0 0 0 / 12%);
 }
 
-body:has(.hero-case-study) main > .section:is(.case-study-intro, :has(> .case-study-logo-wrapper, > .case-study-profiles-wrapper, > .case-study-lead-wrapper, > .youtube-video-wrapper)) > :is(.case-study-logo-wrapper, .case-study-profiles-wrapper, .case-study-lead-wrapper, .youtube-video-wrapper) {
-  max-width: none;
-  padding: 0;
+body:has(.hero-case-study)
+    main
+    > .section:is(
+        .case-study-intro,
+        :has(
+            > .case-study-logo-wrapper,
+            > .case-study-profiles-wrapper,
+            > .case-study-lead-wrapper,
+            > .youtube-video-wrapper
+        )
+    )
+    > :is(
+        .case-study-logo-wrapper,
+        .case-study-profiles-wrapper,
+        .case-study-lead-wrapper,
+        .youtube-video-wrapper
+    ) {
+    max-width: none;
+    padding: 0;
 }
 
 /* The logo block overlaps this section's top edge. Draw the section edge above
    that overlap so its shadow remains continuous across the viewport. */
-body:has(.hero-case-study) main > .section:is(.case-study-intro, :has(> .case-study-logo-wrapper, > .case-study-profiles-wrapper, > .case-study-lead-wrapper, > .youtube-video-wrapper))::after {
-  content: '';
-  position: absolute;
-  z-index: 2;
-  top: 0;
-  right: 0;
-  left: 0;
-  height: 1px;
-  box-shadow: 3px 3px 25px rgb(0 0 0 / 12%);
-  pointer-events: none;
+body:has(.hero-case-study)
+    main
+    > .section:is(
+        .case-study-intro,
+        :has(
+            > .case-study-logo-wrapper,
+            > .case-study-profiles-wrapper,
+            > .case-study-lead-wrapper,
+            > .youtube-video-wrapper
+        )
+    )::after {
+    content: "";
+    position: absolute;
+    z-index: 2;
+    top: 0;
+    right: 0;
+    left: 0;
+    height: 1px;
+    box-shadow: 3px 3px 25px rgb(0 0 0 / 12%);
+    pointer-events: none;
 }
 
 @media (width >= 768px) {
-  body:has(.hero-case-study) main > .section:is(.case-study-intro, :has(> .case-study-logo-wrapper, > .case-study-profiles-wrapper, > .case-study-lead-wrapper, > .youtube-video-wrapper)) {
-    padding-top: 150px;
-    padding-bottom: 150px;
-  }
+    body:has(.hero-case-study)
+        main
+        > .section:is(
+            .case-study-intro,
+            :has(
+                > .case-study-logo-wrapper,
+                > .case-study-profiles-wrapper,
+                > .case-study-lead-wrapper,
+                > .youtube-video-wrapper
+            )
+        ) {
+        padding-top: 150px;
+        padding-bottom: 150px;
+    }
 }
 
 @media (width >= 960px) {
-  body:has(.hero-case-study) main > .section:is(.case-study-intro, :has(> .case-study-logo-wrapper, > .case-study-profiles-wrapper, > .case-study-lead-wrapper, > .youtube-video-wrapper)) {
-    width: 80%;
-  }
+    body:has(.hero-case-study)
+        main
+        > .section:is(
+            .case-study-intro,
+            :has(
+                > .case-study-logo-wrapper,
+                > .case-study-profiles-wrapper,
+                > .case-study-lead-wrapper,
+                > .youtube-video-wrapper
+            )
+        ) {
+        width: 80%;
+    }
 }
 
 /* FAQ section — full-bleed light-gray band (production #f7f7f7, 50px vertical
    padding). Band background lives here; typography/alignment/CTA rules are
    grouped at the end of this file to satisfy specificity ordering. */
 main .section.faq {
-  margin: 0;
-  padding: 50px 0;
-  background-color: #f7f7f7;
+    margin: 0;
+    padding: 50px 0;
+    background-color: #f7f7f7;
 }
 
 /* "Contact our team" — full-bleed gray band (production #ced1d8, 50px vertical
    padding), heading left + form right on desktop. */
 main .section.contact-team {
-  margin: 0;
-  padding: 50px 0;
-  background-color: #ced1d8;
+    margin: 0;
+    padding: 50px 0;
+    background-color: #ced1d8;
 }
 
 @media (width >= 960px) {
-  main .section.contact-team {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    column-gap: 40px;
-    align-items: start;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 50px 32px;
-  }
+    main .section.contact-team {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        column-gap: 40px;
+        align-items: start;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 50px 32px;
+    }
 
-  main .section.contact-team > div {
-    max-width: none;
-    margin: 0;
-  }
+    main .section.contact-team > div {
+        max-width: none;
+        margin: 0;
+    }
 }
 
 /* ============================================================
@@ -429,139 +502,169 @@ main .section.contact-team {
    base), tighter than the global 1.25 heading line-height. */
 main > .section.pricing-hero .default-content-wrapper h1,
 main > .section.cards-pricing-container .default-content-wrapper h1 {
-  line-height: 1.1;
+    line-height: 1.1;
 }
 
 /* "Compare pricing plans" intro link — production renders it bold,
    underlined, in the darker Fiix blue (#14499a). */
 main > .section.pricing-hero .default-content-wrapper a[href="#compare"] {
-  font-weight: 600;
-  color: #14499a;
-  text-decoration: underline;
+    font-weight: 600;
+    color: #14499a;
+    text-decoration: underline;
 }
 
 main .section.text-center .default-content-wrapper {
-  text-align: center;
+    text-align: center;
 }
 
 @media (width >= 1200px) {
-  main > .section.pricing-hero,
-  main > .section.cards-pricing-container {
-    position: relative;
-    display: grid;
-    grid-template-columns: minmax(300px, 360px) 1fr;
-    column-gap: 40px;
-    align-items: start;
-    max-width: 1200px;
-    margin: 0 auto 40px;
-    padding: 48px 32px;
-  }
+    main > .section.pricing-hero,
+    main > .section.cards-pricing-container {
+        position: relative;
+        display: grid;
+        grid-template-columns: minmax(300px, 360px) 1fr;
+        column-gap: 40px;
+        align-items: start;
+        max-width: 1200px;
+        margin: 0 auto 40px;
+        padding: 48px 32px;
+    }
 
-  /* Decorative angled blue band with the plus-texture, matching production.
+    /* Decorative angled blue band with the plus-texture, matching production.
      Production anchors an 839px-wide artwork to the page's left edge behind
      the hero + pricing cards, so the band bleeds past the centered container
      to the viewport's left edge. A full-viewport-width ::before reproduces
      that; the artwork sits at the left, the remainder is transparent. */
-  main > .section.cards-pricing-container::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: calc(50% - 50vw);
-    z-index: -1;
-    width: 100vw;
-    background: url('../images/pricing-hero-background.webp') left top / 839px 100% no-repeat;
-    pointer-events: none;
-  }
+    main > .section.cards-pricing-container::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: calc(50% - 50vw);
+        z-index: -1;
+        width: 100vw;
+        background: url("../images/pricing-hero-background.webp") left top /
+            839px 100% no-repeat;
+        pointer-events: none;
+    }
 
-  /* the section itself is now the centered container, so drop the
+    /* the section itself is now the centered container, so drop the
      per-wrapper max-width/centering that main > .section > div adds */
-  main > .section.cards-pricing-container > div {
-    max-width: none;
-    margin: 0;
-    padding: 0;
-  }
+    main > .section.cards-pricing-container > div {
+        max-width: none;
+        margin: 0;
+        padding: 0;
+    }
 
-  /* left column: heading + review logos both live in row 1. The pricing cards
+    /* left column: heading + review logos both live in row 1. The pricing cards
      (col 2) now own row 1 and make it tall, so the logos must NOT be placed in
      row 2 (that row is below the cards — it dragged the logos ~570px down,
      away from the reviews text). Instead the logos sit in the same cell as the
      heading, pushed just below the "Based on 900+ reviews on" line via
      padding-top — directly under the reviews, matching production. */
-  main > .section.cards-pricing-container > .default-content-wrapper:first-child {
-    grid-column: 1;
-    grid-row: 1;
-  }
+    main
+        > .section.cards-pricing-container
+        > .default-content-wrapper:first-child {
+        grid-column: 1;
+        grid-row: 1;
+    }
 
-  main > .section.cards-pricing-container > .columns-logos-wrapper {
-    grid-column: 1;
-    grid-row: 1;
-    align-self: start;
-    padding-top: 340px;
-  }
+    main > .section.cards-pricing-container > .columns-logos-wrapper {
+        grid-column: 1;
+        grid-row: 1;
+        align-self: start;
+        padding-top: 340px;
+    }
 
-  /* review logos as a 2 x 2 grid in the narrow left column */
-  main > .section.cards-pricing-container > .columns-logos-wrapper .columns-logos > div {
-    flex-wrap: wrap;
-    gap: 20px 24px;
-  }
+    /* review logos as a 2 x 2 grid in the narrow left column */
+    main
+        > .section.cards-pricing-container
+        > .columns-logos-wrapper
+        .columns-logos
+        > div {
+        flex-wrap: wrap;
+        gap: 20px 24px;
+    }
 
-  main > .section.cards-pricing-container > .columns-logos-wrapper .columns-logos > div > div {
-    flex: 0 0 40%;
-  }
+    main
+        > .section.cards-pricing-container
+        > .columns-logos-wrapper
+        .columns-logos
+        > div
+        > div {
+        flex: 0 0 40%;
+    }
 
-  /* right column, row 1: the four pricing cards. This must NOT span both
+    /* right column, row 1: the four pricing cards. This must NOT span both
      rows — the two left-column rows are sized by the (shorter) heading and
      review logos, so a spanning card grid overflowed its rows and the
      add-on callout below overlapped the cards by ~256px. Letting the cards
      own row 1 makes that row grow to the cards' true height. */
-  main > .section.cards-pricing-container > .cards-pricing-wrapper {
-    grid-column: 2;
-    grid-row: 1;
-  }
+    main > .section.cards-pricing-container > .cards-pricing-wrapper {
+        grid-column: 2;
+        grid-row: 1;
+    }
 
-  main > .section.cards-pricing-container .cards-pricing > ul {
-    grid-template-columns: repeat(4, 200px);
+    main > .section.cards-pricing-container .cards-pricing > ul {
+        grid-template-columns: repeat(4, 200px);
 
-    /* 10px gap = production's even 210px card step. This section rule wins
+        /* 10px gap = production's even 210px card step. This section rule wins
        over the block's own gap at >=1200px, so the value must live here too. */
-    gap: 10px;
-  }
+        gap: 10px;
+    }
 
-  /* add-on callout: row 2 of column 2, guaranteed below the pricing cards
+    /* add-on callout: row 2 of column 2, guaranteed below the pricing cards
      (row 1) so it can never overlap them — matching production. */
-  main > .section.cards-pricing-container > .columns-callout-wrapper {
-    grid-column: 2;
-    grid-row: 2;
-  }
+    main > .section.cards-pricing-container > .columns-callout-wrapper {
+        grid-column: 2;
+        grid-row: 2;
+    }
 
-  /* trailing decoration runs full width below the grid */
-  main > .section.cards-pricing-container > .default-content-wrapper:last-child {
-    grid-column: 1 / -1;
-  }
+    /* trailing decoration runs full width below the grid */
+    main
+        > .section.cards-pricing-container
+        > .default-content-wrapper:last-child {
+        grid-column: 1 / -1;
+    }
 }
 
 /* Hero review logos — production sizes each by an explicit width so the
    different logo aspect ratios read at a consistent visual weight (Capterra
    80px, Gartner/Software Advice 120px, G2 20px), height auto. Scoped to the
    hero so the "Over 4,500 teams" row and home-page logos are unaffected. */
-main > .section.cards-pricing-container > .columns-logos-wrapper .columns-logos img[alt*="Capterra" i] {
-  width: 80px;
-  height: auto;
-  max-height: none;
+main
+    > .section.cards-pricing-container
+    > .columns-logos-wrapper
+    .columns-logos
+    img[alt*="Capterra" i] {
+    width: 80px;
+    height: auto;
+    max-height: none;
 }
 
-main > .section.cards-pricing-container > .columns-logos-wrapper .columns-logos img[alt*="Gartner" i],
-main > .section.cards-pricing-container > .columns-logos-wrapper .columns-logos img[alt*="Software Advice" i] {
-  width: 120px;
-  height: auto;
-  max-height: none;
+main
+    > .section.cards-pricing-container
+    > .columns-logos-wrapper
+    .columns-logos
+    img[alt*="Gartner" i],
+main
+    > .section.cards-pricing-container
+    > .columns-logos-wrapper
+    .columns-logos
+    img[alt*="Software Advice" i] {
+    width: 120px;
+    height: auto;
+    max-height: none;
 }
 
-main > .section.cards-pricing-container > .columns-logos-wrapper .columns-logos img[alt*="G2" i] {
-  width: 20px;
-  height: auto;
-  max-height: none;
+main
+    > .section.cards-pricing-container
+    > .columns-logos-wrapper
+    .columns-logos
+    img[alt*="G2" i] {
+    width: 20px;
+    height: auto;
+    max-height: none;
 }
 
 /* ============================================================
@@ -573,135 +676,167 @@ main > .section.cards-pricing-container > .columns-logos-wrapper .columns-logos 
    into an explicit grid on desktop/wide; mobile/tablet stack.
    ============================================================ */
 main .section.security {
-  margin: 0;
-  padding: 100px 0;
-  background: radial-gradient(circle, rgb(24 53 90) 27%, rgb(24 53 90 / 98%) 100%);
+    margin: 0;
+    padding: 100px 0;
+    background: radial-gradient(
+        circle,
+        rgb(24 53 90) 27%,
+        rgb(24 53 90 / 98%) 100%
+    );
 }
 
 /* stylelint-disable-next-line no-descending-specificity */
 .security .default-content-wrapper {
-  text-align: center;
-  color: #fff;
+    text-align: center;
+    color: #fff;
 }
 
 .security h2,
 .security h3,
 .security .default-content-wrapper > p {
-  font-family: sofia-pro, sans-serif;
-  color: #fff;
-  text-align: center;
+    font-family: sofia-pro, sans-serif;
+    color: #fff;
+    text-align: center;
 }
 
 .security h2 {
-  margin: 0 auto 20px;
-  max-width: 96%;
-  font-size: 32px;
-  font-weight: 700;
-  line-height: 35.2px;
+    margin: 0 auto 20px;
+    max-width: 96%;
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 35.2px;
 }
 
 .security h3 {
-  margin: 0;
-  font-size: 16px;
-  font-weight: 700;
-  line-height: 17.6px;
+    margin: 0;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 17.6px;
 }
 
 /* icon paragraphs: hide the accessibility label word, keep the circle */
 .security .default-content-wrapper > p:has(picture) {
-  margin: 0;
-  font-size: 0;
+    margin: 0;
+    font-size: 0;
 }
 
 .security .default-content-wrapper > p:has(picture) img {
-  width: 40px;
-  height: 40px;
+    width: 40px;
+    height: 40px;
 }
 
 /* closing link line */
 .security .default-content-wrapper > p:has(a) {
-  margin: 0;
-  font-size: 20px;
-  font-weight: 300;
-  line-height: 34px;
+    margin: 0;
+    font-size: 20px;
+    font-weight: 300;
+    line-height: 34px;
 }
 
 .security .default-content-wrapper > p:has(a) a:any-link {
-  color: #fff;
-  font-weight: 700;
+    color: #fff;
+    font-weight: 700;
 }
 
 /* intro line (first paragraph, no icon/link) */
 .security .default-content-wrapper > p:first-of-type {
-  margin: 0 auto;
-  max-width: 600px;
-  font-size: 16px;
-  font-weight: 300;
-  line-height: 27.2px;
+    margin: 0 auto;
+    max-width: 600px;
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 27.2px;
 }
 
 @media (width >= 768px) {
-  .security h2 {
-    max-width: 96%;
-    font-size: 44px;
-    line-height: 48.4px;
-  }
+    .security h2 {
+        max-width: 96%;
+        font-size: 44px;
+        line-height: 48.4px;
+    }
 
-  .security h3 {
-    max-width: 100%;
-  }
+    .security h3 {
+        max-width: 100%;
+    }
 
-  .security .default-content-wrapper > p:first-of-type {
-    margin: 0 45.6px;
-    max-width: 600px;
-    font-size: 20px;
-    line-height: 34px;
-  }
+    .security .default-content-wrapper > p:first-of-type {
+        margin: 0 45.6px;
+        max-width: 600px;
+        font-size: 20px;
+        line-height: 34px;
+    }
 }
 
 @media (width >= 1200px) {
-  .security .default-content-wrapper {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    place-items: start center;
-    row-gap: 16px;
-  }
+    .security .default-content-wrapper {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        place-items: start center;
+        row-gap: 16px;
+    }
 
-  .security h2 {
-    grid-column: 1 / -1;
-    grid-row: 1;
-    margin: 0 auto 20px;
-    line-height: 48.4px;
-  }
+    .security h2 {
+        grid-column: 1 / -1;
+        grid-row: 1;
+        margin: 0 auto 20px;
+        line-height: 48.4px;
+    }
 
-  .security h3 {
-    margin: 0 35px;
-    max-width: 170px;
-  }
+    .security h3 {
+        margin: 0 35px;
+        max-width: 170px;
+    }
 
-  .security h3:nth-of-type(1) { grid-area: 4 / 1; }
-  .security h3:nth-of-type(2) { grid-area: 4 / 2; }
-  .security h3:nth-of-type(3) { grid-area: 4 / 3; }
-  .security h3:nth-of-type(4) { grid-area: 4 / 4; }
-  .security h3:nth-of-type(5) { grid-area: 4 / 5; }
+    .security h3:nth-of-type(1) {
+        grid-area: 4 / 1;
+    }
 
-  .security .default-content-wrapper > p:has(a) {
-    grid-column: 1 / -1;
-    grid-row: 5;
-    margin: 40px 0 0;
-  }
+    .security h3:nth-of-type(2) {
+        grid-area: 4 / 2;
+    }
 
-  .security .default-content-wrapper > p:first-of-type {
-    grid-column: 1 / -1;
-    grid-row: 2;
-    margin: 0 300px;
-  }
+    .security h3:nth-of-type(3) {
+        grid-area: 4 / 3;
+    }
 
-  .security .default-content-wrapper > p:nth-of-type(2) { grid-area: 3 / 1; }
-  .security .default-content-wrapper > p:nth-of-type(3) { grid-area: 3 / 2; }
-  .security .default-content-wrapper > p:nth-of-type(4) { grid-area: 3 / 3; }
-  .security .default-content-wrapper > p:nth-of-type(5) { grid-area: 3 / 4; }
-  .security .default-content-wrapper > p:nth-of-type(6) { grid-area: 3 / 5; }
+    .security h3:nth-of-type(4) {
+        grid-area: 4 / 4;
+    }
+
+    .security h3:nth-of-type(5) {
+        grid-area: 4 / 5;
+    }
+
+    .security .default-content-wrapper > p:has(a) {
+        grid-column: 1 / -1;
+        grid-row: 5;
+        margin: 40px 0 0;
+    }
+
+    .security .default-content-wrapper > p:first-of-type {
+        grid-column: 1 / -1;
+        grid-row: 2;
+        margin: 0 300px;
+    }
+
+    .security .default-content-wrapper > p:nth-of-type(2) {
+        grid-area: 3 / 1;
+    }
+
+    .security .default-content-wrapper > p:nth-of-type(3) {
+        grid-area: 3 / 2;
+    }
+
+    .security .default-content-wrapper > p:nth-of-type(4) {
+        grid-area: 3 / 3;
+    }
+
+    .security .default-content-wrapper > p:nth-of-type(5) {
+        grid-area: 3 / 4;
+    }
+
+    .security .default-content-wrapper > p:nth-of-type(6) {
+        grid-area: 3 / 5;
+    }
 }
 
 /* ============================================================
@@ -712,64 +847,64 @@ main .section.security {
    (used elsewhere) is unaffected.
    ============================================================ */
 main > .section.customer-success .default-content-wrapper h2 {
-  margin: 0 0 40px;
-  font-family: var(--heading-font-family);
-  font-size: 36px;
-  font-weight: 700;
-  line-height: 1.1;
-  color: var(--text-color);
+    margin: 0 0 40px;
+    font-family: var(--heading-font-family);
+    font-size: 36px;
+    font-weight: 700;
+    line-height: 1.1;
+    color: var(--text-color);
 }
 
 .customer-success .cards-icon > ul {
-  gap: 32px;
+    gap: 32px;
 }
 
 .customer-success .cards-icon > ul > li {
-  border: 0;
-  background-color: transparent;
+    border: 0;
+    background-color: transparent;
 }
 
 .customer-success .cards-icon .cards-icon-card-image {
-  line-height: 0;
+    line-height: 0;
 }
 
 .customer-success .cards-icon > ul > li img {
-  width: 135px;
-  height: auto;
-  aspect-ratio: auto;
-  object-fit: contain;
+    width: 135px;
+    height: auto;
+    aspect-ratio: auto;
+    object-fit: contain;
 }
 
 .customer-success .cards-icon .cards-icon-card-body {
-  margin: 16px 0 0;
+    margin: 16px 0 0;
 }
 
 .customer-success .cards-icon h3 {
-  margin: 0 0 12px;
-  font-size: 24px;
-  font-weight: 700;
-  line-height: 1.2;
-  color: var(--text-color);
+    margin: 0 0 12px;
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--text-color);
 }
 
 .customer-success .cards-icon .cards-icon-card-body p {
-  margin: 0;
-  font-size: 20px;
-  font-weight: 300;
-  line-height: 1.5;
-  color: var(--text-color);
+    margin: 0;
+    font-size: 20px;
+    font-weight: 300;
+    line-height: 1.5;
+    color: var(--text-color);
 }
 
 @media (width >= 960px) {
-  main > .section.customer-success .default-content-wrapper h2 {
-    font-size: 64px;
-    margin-bottom: 100px;
-  }
+    main > .section.customer-success .default-content-wrapper h2 {
+        font-size: 64px;
+        margin-bottom: 100px;
+    }
 
-  .customer-success .cards-icon > ul {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 40px;
-  }
+    .customer-success .cards-icon > ul {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 40px;
+    }
 }
 
 /* ============================================================
@@ -778,40 +913,40 @@ main > .section.customer-success .default-content-wrapper h2 {
    48px bold headline and a 20px light lead constrained to ~750px.
    ============================================================ */
 main .section.insights-tabs .default-content-wrapper {
-  max-width: 750px;
-  margin: 0 auto 40px;
-  text-align: center;
+    max-width: 750px;
+    margin: 0 auto 40px;
+    text-align: center;
 }
 
 main .section.insights-tabs .default-content-wrapper h2 {
-  margin: 0 auto 20px;
-  font-family: sofia-pro, sans-serif;
-  font-size: 32px;
-  font-weight: 700;
-  line-height: 1.1;
-  text-align: center;
-  color: var(--text-color);
+    margin: 0 auto 20px;
+    font-family: sofia-pro, sans-serif;
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 1.1;
+    text-align: center;
+    color: var(--text-color);
 }
 
 main .section.insights-tabs .default-content-wrapper p {
-  margin: 0 auto;
-  font-family: sofia-pro, sans-serif;
-  font-size: 20px;
-  font-weight: 300;
-  line-height: 1.7;
-  text-align: center;
-  color: var(--text-color);
+    margin: 0 auto;
+    font-family: sofia-pro, sans-serif;
+    font-size: 20px;
+    font-weight: 300;
+    line-height: 1.7;
+    text-align: center;
+    color: var(--text-color);
 }
 
 @media (width >= 960px) {
-  main .section.insights-tabs .default-content-wrapper h2 {
-    font-size: 48px;
-    line-height: 52.8px;
-  }
+    main .section.insights-tabs .default-content-wrapper h2 {
+        font-size: 48px;
+        line-height: 52.8px;
+    }
 
-  main .section.insights-tabs .default-content-wrapper p {
-    line-height: 34px;
-  }
+    main .section.insights-tabs .default-content-wrapper p {
+        line-height: 34px;
+    }
 }
 
 /* ============================================================
@@ -824,29 +959,29 @@ main .section.insights-tabs .default-content-wrapper p {
    (100px each side). Use padding, not margin, so it doesn't collapse
    against the adjacent sections' margins. */
 main .section.feature-tabs {
-  margin: 0;
-  padding: 60px 0;
+    margin: 0;
+    padding: 60px 0;
 }
 
 main .section.feature-tabs .default-content-wrapper h2 {
-  margin: 0 0 20px;
-  max-width: 96%;
-  font-family: sofia-pro, sans-serif;
-  font-size: 32px;
-  font-weight: 700;
-  line-height: 1.1;
-  color: var(--text-color);
+    margin: 0 0 20px;
+    max-width: 96%;
+    font-family: sofia-pro, sans-serif;
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 1.1;
+    color: var(--text-color);
 }
 
 @media (width >= 960px) {
-  main .section.feature-tabs {
-    padding: 100px 0;
-  }
+    main .section.feature-tabs {
+        padding: 100px 0;
+    }
 
-  main .section.feature-tabs .default-content-wrapper h2 {
-    font-size: 48px;
-    line-height: 52.8px;
-  }
+    main .section.feature-tabs .default-content-wrapper h2 {
+        font-size: 48px;
+        line-height: 52.8px;
+    }
 }
 
 /* ============================================================
@@ -857,67 +992,67 @@ main .section.feature-tabs .default-content-wrapper h2 {
 main .section.logos .default-content-wrapper h2,
 main .section.video-cards .default-content-wrapper h2,
 main .section.testimonials .default-content-wrapper h2 {
-  font-family: sofia-pro, sans-serif;
-  font-weight: 700;
-  text-align: center;
-  color: var(--text-color);
+    font-family: sofia-pro, sans-serif;
+    font-weight: 700;
+    text-align: center;
+    color: var(--text-color);
 }
 
 main .section.logos .default-content-wrapper h2 {
-  max-width: 600px;
-  margin: 0 0 20px;
-  font-size: 24px;
-  line-height: 26px;
-  text-align: left;
+    max-width: 600px;
+    margin: 0 0 20px;
+    font-size: 24px;
+    line-height: 26px;
+    text-align: left;
 }
 
 @media (width >= 960px) {
-  main .section.logos .default-content-wrapper h2 {
-    margin: 0 auto 40px;
-    text-align: center;
-  }
+    main .section.logos .default-content-wrapper h2 {
+        margin: 0 auto 40px;
+        text-align: center;
+    }
 }
 
 main .section.video-cards .default-content-wrapper h2,
 main .section.testimonials .default-content-wrapper h2 {
-  margin: 0 auto 40px;
-  max-width: 900px;
-  font-size: 32px;
-  line-height: 1.1;
+    margin: 0 auto 40px;
+    max-width: 900px;
+    font-size: 32px;
+    line-height: 1.1;
 }
 
 @media (width >= 960px) {
-  main .section.video-cards .default-content-wrapper h2,
-  main .section.testimonials .default-content-wrapper h2 {
-    font-size: 44px;
-    line-height: 48.4px;
-  }
+    main .section.video-cards .default-content-wrapper h2,
+    main .section.testimonials .default-content-wrapper h2 {
+        font-size: 44px;
+        line-height: 48.4px;
+    }
 
-  main .section.video-cards .default-content-wrapper h2 {
-    margin-bottom: 60px;
-  }
+    main .section.video-cards .default-content-wrapper h2 {
+        margin-bottom: 60px;
+    }
 }
 
 /* FAQ closing line + CTA — centered under the accordion, with a cyan pill CTA
    (production #00afeb). Placed at file end so the .default-content-wrapper p
    rule wins over earlier section-specific paragraph rules. */
 main .section.faq .accordion-faq-wrapper ~ .default-content-wrapper p {
-  text-align: center;
+    text-align: center;
 }
 
 main .section.faq a.button.primary {
-  border-color: #00afeb;
-  background-color: #00afeb;
-  border-radius: 27px;
-  padding: 16px 20px;
-  font-size: 20px;
-  font-weight: 700;
+    border-color: #00afeb;
+    background-color: #00afeb;
+    border-radius: 27px;
+    padding: 16px 20px;
+    font-size: 20px;
+    font-weight: 700;
 }
 
 main .section.faq a.button.primary:hover,
 main .section.faq a.button.primary:focus-visible {
-  border-color: #0095c8;
-  background-color: #0095c8;
+    border-color: #0095c8;
+    background-color: #0095c8;
 }
 
 /* ============================================================
@@ -928,11 +1063,11 @@ main .section.faq a.button.primary:focus-visible {
    ============================================================ */
 main .section.faq .default-content-wrapper h2,
 main > .section.cta .hero-cta h2 {
-  line-height: 1;
+    line-height: 1;
 }
 
 main > .section.connect-users .columns-media h2 {
-  line-height: 1.1;
+    line-height: 1.1;
 }
 
 /* Connect-users hero — grey band with a fixed (parallax) background image on
@@ -941,66 +1076,66 @@ main > .section.connect-users .columns-media h2 {
    cyan #00afeb Contact-sales button). The image is supplied by columns-media.js
    as --connect-media from the authored asset. */
 main > .section.connect-users .columns-media.columns-media-parallax {
-  display: flex;
-  align-items: center;
+    display: flex;
+    align-items: center;
 
-  /* Full-bleed: span the whole viewport width like production, breaking out of
+    /* Full-bleed: span the whole viewport width like production, breaking out of
      the section's centered max-width container (otherwise the grey band shows
      white gutters on both sides). The card's margin-left then positions it
      100px from the viewport edge, matching production. */
-  width: 100vw;
-  max-width: none;
-  margin-left: calc(50% - 50vw);
-  background-color: #ced1d8;
-  background-image: var(--connect-media);
-  background-repeat: no-repeat;
-  background-position: calc(100% + 120px) 100%;
-  background-size: auto;
+    width: 100vw;
+    max-width: none;
+    margin-left: calc(50% - 50vw);
+    background-color: #ced1d8;
+    background-image: var(--connect-media);
+    background-repeat: no-repeat;
+    background-position: calc(100% + 120px) 100%;
+    background-size: auto;
 }
 
 main > .section.connect-users .columns-media-parallax > div {
-  display: block;
-  width: 100%;
-  margin: 0;
+    display: block;
+    width: 100%;
+    margin: 0;
 }
 
 main > .section.connect-users .columns-media-card {
-  box-sizing: border-box;
-  padding: 40px 24px;
-  background-color: #fff;
-  box-shadow: 3px 3px 25px rgb(0 0 0 / 12%);
+    box-sizing: border-box;
+    padding: 40px 24px;
+    background-color: #fff;
+    box-shadow: 3px 3px 25px rgb(0 0 0 / 12%);
 }
 
 main > .section.connect-users .columns-media-card h2 {
-  margin: 0 0 20px;
-  font-size: 32px;
-  font-weight: 700;
-  line-height: 1.1;
-  color: #212021;
+    margin: 0 0 20px;
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 1.1;
+    color: #212021;
 }
 
 /* stylelint-disable-next-line no-descending-specificity */
 main > .section.connect-users .columns-media-card p {
-  font-size: 18px;
-  font-weight: 300;
-  color: #212021;
+    font-size: 18px;
+    font-weight: 300;
+    color: #212021;
 }
 
 main > .section.connect-users .columns-media-card a.button {
-  margin-top: 20px;
-  padding: 0 24px;
-  height: 54px;
-  border: none;
-  border-radius: 27px;
-  background-color: #00afeb;
-  color: #fff;
-  font-size: 20px;
-  font-weight: 700;
-  line-height: 54px;
+    margin-top: 20px;
+    padding: 0 24px;
+    height: 54px;
+    border: none;
+    border-radius: 27px;
+    background-color: #00afeb;
+    color: #fff;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 54px;
 }
 
 main > .section.connect-users .columns-media-card a.button:hover {
-  background-color: #0098cc;
+    background-color: #0098cc;
 }
 
 /* Desktop: production values — tall band, right-positioned FIXED background
@@ -1008,38 +1143,38 @@ main > .section.connect-users .columns-media-card a.button:hover {
    keeps a normal (non-fixed) background, matching how production actually
    renders on mobile. */
 @media (width >= 960px) {
-  main > .section.connect-users .columns-media.columns-media-parallax {
-    min-height: 731px;
-    background-attachment: fixed;
-    background-position: calc(100% + 200px) 100%;
-  }
+    main > .section.connect-users .columns-media.columns-media-parallax {
+        min-height: 731px;
+        background-attachment: fixed;
+        background-position: calc(100% + 200px) 100%;
+    }
 
-  main > .section.connect-users .columns-media-card {
-    max-width: 850px;
-    margin-left: 100px;
-    padding: 100px 120px;
-  }
+    main > .section.connect-users .columns-media-card {
+        max-width: 850px;
+        margin-left: 100px;
+        padding: 100px 120px;
+    }
 
-  main > .section.connect-users .columns-media-card h2 {
-    font-size: 48px;
-  }
+    main > .section.connect-users .columns-media-card h2 {
+        font-size: 48px;
+    }
 
-  main > .section.connect-users .columns-media-card p {
-    font-size: 20px;
-  }
+    main > .section.connect-users .columns-media-card p {
+        font-size: 20px;
+    }
 }
 
 /* feature blurbs ("A supercharged…", "Customer success", etc.) */
 main > .section.features .cards-features h3 {
-  font-size: 24px;
-  line-height: 1.1;
+    font-size: 24px;
+    line-height: 1.1;
 }
 
 /* Body copy in these feature cards is 20px on production (EDS defaulted to
    16px, which read as a smaller/different font). */
 main > .section.features .cards-features .cards-features-card-body p {
-  font-size: 20px;
-  line-height: normal;
+    font-size: 20px;
+    line-height: normal;
 }
 
 /* ============================================================
@@ -1052,110 +1187,115 @@ main > .section.features .cards-features .cards-features-card-body p {
 
 /* ---- Hero: blue gradient band, white centered content ---- */
 main .section.enterprise-hero {
-  margin: 0;
-  padding: 80px 0 50px;
-  background-image: linear-gradient(0deg, #14499a 0%, #14499a 40%, #3069b3 100%);
-  text-align: center;
+    margin: 0;
+    padding: 80px 0 50px;
+    background-image: linear-gradient(
+        0deg,
+        #14499a 0%,
+        #14499a 40%,
+        #3069b3 100%
+    );
+    text-align: center;
 }
 
 main .section.enterprise-hero .default-content-wrapper {
-  max-width: 900px;
-  margin: 0 auto;
-  color: #fff;
+    max-width: 900px;
+    margin: 0 auto;
+    color: #fff;
 }
 
 /* eyebrow (authored as h1) */
 /* stylelint-disable-next-line no-descending-specificity */
 main .section.enterprise-hero h1 {
-  margin: 0 0 12px;
-  font-size: 16px;
-  font-weight: 600;
-  line-height: 1.1;
-  color: #fff;
+    margin: 0 0 12px;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.1;
+    color: #fff;
 }
 
 /* main headline (authored as h2) */
 /* stylelint-disable-next-line no-descending-specificity */
 main .section.enterprise-hero h2 {
-  margin: 0 auto 20px;
-  max-width: 850px;
-  font-size: 40px;
-  font-weight: 700;
-  line-height: 1.05;
-  color: #fff;
+    margin: 0 auto 20px;
+    max-width: 850px;
+    font-size: 40px;
+    font-weight: 700;
+    line-height: 1.05;
+    color: #fff;
 }
 
 /* stylelint-disable-next-line no-descending-specificity */
 main .section.enterprise-hero .default-content-wrapper > p {
-  max-width: 850px;
-  margin: 0 auto 24px;
-  font-size: 20px;
-  font-weight: 300;
-  line-height: 1.4;
-  color: #fff;
+    max-width: 850px;
+    margin: 0 auto 24px;
+    font-size: 20px;
+    font-weight: 300;
+    line-height: 1.4;
+    color: #fff;
 }
 
 /* hero CTA — cyan pill */
 /* stylelint-disable-next-line no-descending-specificity */
 main .section.enterprise-hero .default-content-wrapper a.button,
 main .section.enterprise-hero .default-content-wrapper a:any-link {
-  display: inline-block;
-  margin: 0 0 32px;
-  padding: 12px 26px;
-  border: 0;
-  border-radius: 44px;
-  background-color: #00afeb;
-  color: #fff;
-  font-size: 16px;
-  font-weight: 700;
+    display: inline-block;
+    margin: 0 0 32px;
+    padding: 12px 26px;
+    border: 0;
+    border-radius: 44px;
+    background-color: #00afeb;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 700;
 }
 
 /* "Over 900 five-star reviews" sub-heading (the last h2 in the hero) */
 /* stylelint-disable-next-line no-descending-specificity */
 main .section.enterprise-hero .default-content-wrapper h2:last-child {
-  margin-top: 24px;
-  font-size: 24px;
-  line-height: 1.1;
+    margin-top: 24px;
+    font-size: 24px;
+    line-height: 1.1;
 }
 
 /* review-logo strip on the gradient */
 main .section.enterprise-hero .columns-logos > div {
-  justify-content: center;
-  gap: 40px;
+    justify-content: center;
+    gap: 40px;
 }
 
 main .section.enterprise-hero .columns-logos img {
-  max-height: 40px;
+    max-height: 40px;
 }
 
 /* testimonial carousel over the gradient — keep cards white (block default) */
 main .section.enterprise-hero .carousel-testimonial {
-  margin-top: 40px;
+    margin-top: 40px;
 }
 
 @media (width >= 960px) {
-/* stylelint-disable-next-line no-descending-specificity */
-  main .section.enterprise-hero h2 {
-    font-size: 64px;
-    line-height: 1;
-  }
+    /* stylelint-disable-next-line no-descending-specificity */
+    main .section.enterprise-hero h2 {
+        font-size: 64px;
+        line-height: 1;
+    }
 }
 
 /* ---- Tools: white band, centered headings, logo strip, 4 product cards ---- */
 main .section.enterprise-tools {
-  margin: 0;
-  padding: 100px 0;
-  text-align: center;
+    margin: 0;
+    padding: 100px 0;
+    text-align: center;
 }
 
 /* stylelint-disable-next-line no-descending-specificity */
 main .section.enterprise-tools .default-content-wrapper h2 {
-  margin: 0 auto 40px;
-  max-width: 900px;
-  font-size: 24px;
-  font-weight: 700;
-  line-height: 1.1;
-  color: var(--text-color);
+    margin: 0 auto 40px;
+    max-width: 900px;
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 1.1;
+    color: var(--text-color);
 }
 
 /* The section heading that follows the partner-logo strip ("Fiix's maintenance
@@ -1163,137 +1303,146 @@ main .section.enterprise-tools .default-content-wrapper h2 {
    first "Helping the biggest companies…" heading stays 24px). Target only the
    default-content-wrapper that comes AFTER the logos, and give it the ~206px of
    whitespace production leaves above it. */
-main .section.enterprise-tools .columns-logos-wrapper ~ .default-content-wrapper h2 {
-  margin: 206px auto 40px;
-  font-size: 48px;
-  line-height: 1;
+main
+    .section.enterprise-tools
+    .columns-logos-wrapper
+    ~ .default-content-wrapper
+    h2 {
+    margin: 206px auto 40px;
+    font-size: 48px;
+    line-height: 1;
 }
 
 /* Partner logos: production clusters them centered in fixed 150px boxes (step
    150, ~600px group), not spread edge-to-edge across the band. */
 main .section.enterprise-tools .columns-logos > div {
-  justify-content: center;
-  gap: 0;
+    justify-content: center;
+    gap: 0;
 }
 
 main .section.enterprise-tools .columns-logos > div > div {
-  flex: 0 0 150px;
+    flex: 0 0 150px;
 }
 
 main .section.enterprise-tools .columns-logos img {
-  max-height: 56px;
+    max-height: 56px;
 }
 
 /* product cards: 4-up flex, borderless, centered icon on top */
 main .section.enterprise-tools .cards-icon > ul {
-  grid-template-columns: repeat(4, 1fr);
-  gap: 24px;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
 }
 
 main .section.enterprise-tools .cards-icon > ul > li {
-  border: 0;
-  background: transparent;
-  text-align: center;
+    border: 0;
+    background: transparent;
+    text-align: center;
 }
 
 main .section.enterprise-tools .cards-icon > ul > li img {
-  width: auto;
-  max-height: 90px;
-  aspect-ratio: auto;
-  object-fit: contain;
-  margin: 0 auto;
+    width: auto;
+    max-height: 90px;
+    aspect-ratio: auto;
+    object-fit: contain;
+    margin: 0 auto;
 }
 
 main .section.enterprise-tools .cards-icon h3 {
-  margin: 16px 0 8px;
-  font-size: 20px;
-  font-weight: 700;
+    margin: 16px 0 8px;
+    font-size: 20px;
+    font-weight: 700;
 }
 
 main .section.enterprise-tools .cards-icon .cards-icon-card-body p {
-  font-size: 16px;
-  line-height: 1.4;
+    font-size: 16px;
+    line-height: 1.4;
 }
 
 main .section.enterprise-tools .cards-icon a:any-link {
-  color: #14499a;
-  font-weight: 700;
+    color: #14499a;
+    font-weight: 700;
 }
 
 /* ---- Scale: light band, alternating media rows, IT accordion + badges ---- */
 main .section.enterprise-scale {
-  margin: 0;
-  padding: 100px 0;
-  background-color: #f7fafc;
+    margin: 0;
+    padding: 100px 0;
+    background-color: #f7fafc;
 }
 
 /* stylelint-disable-next-line no-descending-specificity */
 main .section.enterprise-scale .default-content-wrapper h2 {
-  margin: 0 0 40px;
-  font-size: 48px;
-  font-weight: 700;
-  line-height: 1;
-  color: var(--text-color);
+    margin: 0 0 40px;
+    font-size: 48px;
+    font-weight: 700;
+    line-height: 1;
+    color: var(--text-color);
 }
 
 /* "How you can scale faster with Fiix" (the section intro heading, directly
    before the first columns-media row) is constrained to 500px on production so
    it wraps to two lines instead of one wide line. */
-main .section.enterprise-scale .default-content-wrapper:has(+ .columns-media-wrapper) h2 {
-  max-width: 500px;
+main
+    .section.enterprise-scale
+    .default-content-wrapper:has(+ .columns-media-wrapper)
+    h2 {
+    max-width: 500px;
 }
 
 /* "Maintenance software even IT will love" (the heading directly before the IT
    accordion) is centered on production. */
-main .section.enterprise-scale .default-content-wrapper:has(+ .accordion-faq-wrapper) {
-  text-align: center;
+main
+    .section.enterprise-scale
+    .default-content-wrapper:has(+ .accordion-faq-wrapper) {
+    text-align: center;
 }
 
 /* Production spaces the feature rows 150px apart (EDS was 60) and uses a 120px
    column gap (making each column 540px, and scaling the images to match prod)
    rather than the block default 24px. */
 main .section.enterprise-scale .columns-media {
-  margin: 0 0 150px;
+    margin: 0 0 150px;
 }
 
 main .section.enterprise-scale .columns-media h3 {
-  font-size: 32px;
-  font-weight: 700;
-  line-height: 1.1;
-  color: var(--text-color);
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 1.1;
+    color: var(--text-color);
 }
 
 /* stylelint-disable-next-line no-descending-specificity */
 main .section.enterprise-scale .columns-media p {
-  font-size: 18px;
-  font-weight: 300;
-  line-height: 1.5;
+    font-size: 18px;
+    font-weight: 300;
+    line-height: 1.5;
 }
 
 @media (width >= 960px) {
-  main .section.enterprise-scale .columns-media > div {
-    gap: 120px;
-  }
+    main .section.enterprise-scale .columns-media > div {
+        gap: 120px;
+    }
 }
 
 /* security badge row (cards-icon <dl> variant) */
 main .section.enterprise-scale .cards-icon > ul {
-  grid-template-columns: repeat(5, 1fr);
-  gap: 16px;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 16px;
 }
 
 main .section.enterprise-scale .cards-icon > ul > li {
-  border: 0;
-  background: transparent;
-  text-align: center;
+    border: 0;
+    background: transparent;
+    text-align: center;
 }
 
 main .section.enterprise-scale .cards-icon > ul > li img {
-  width: auto;
-  max-height: 90px;
-  aspect-ratio: auto;
-  object-fit: contain;
-  margin: 0 auto;
+    width: auto;
+    max-height: 90px;
+    aspect-ratio: auto;
+    object-fit: contain;
+    margin: 0 auto;
 }
 
 /* "How you know Fiix is secure" group: on production the heading (32px/700),
@@ -1304,159 +1453,178 @@ main .section.enterprise-scale .cards-icon > ul > li img {
    one directly AFTER it -- targeted with :has()/adjacency so the section's
    other, left-aligned headings ("Maintenance software even IT will love") stay
    untouched. */
-main .section.enterprise-scale .default-content-wrapper:has(+ .cards-icon-wrapper) {
-  margin-top: 130px;
-  text-align: center;
+main
+    .section.enterprise-scale
+    .default-content-wrapper:has(+ .cards-icon-wrapper) {
+    margin-top: 130px;
+    text-align: center;
 }
 
 /* stylelint-disable-next-line no-descending-specificity */
-main .section.enterprise-scale .default-content-wrapper:has(+ .cards-icon-wrapper) h2,
-main .section.enterprise-scale .default-content-wrapper:has(+ .cards-icon-wrapper) h3 {
-  margin: 0 auto 20px;
-  font-size: 32px;
-  font-weight: 700;
-  line-height: 1;
-  color: var(--text-color);
+main
+    .section.enterprise-scale
+    .default-content-wrapper:has(+ .cards-icon-wrapper)
+    h2,
+main
+    .section.enterprise-scale
+    .default-content-wrapper:has(+ .cards-icon-wrapper)
+    h3 {
+    margin: 0 auto 20px;
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 1;
+    color: var(--text-color);
 }
 
-main .section.enterprise-scale .default-content-wrapper:has(+ .cards-icon-wrapper) p {
-  max-width: 640px;
-  margin: 0 auto;
-  font-size: 20px;
-  font-weight: 300;
-  line-height: 1.3;
+main
+    .section.enterprise-scale
+    .default-content-wrapper:has(+ .cards-icon-wrapper)
+    p {
+    max-width: 640px;
+    margin: 0 auto;
+    font-size: 20px;
+    font-weight: 300;
+    line-height: 1.3;
 }
 
 /* icons sit in a fixed-height band so every label starts on the same line */
 main .section.enterprise-scale .cards-icon .cards-icon-card-image {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 90px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 90px;
 }
 
 /* stylelint-disable-next-line no-descending-specificity */
 main .section.enterprise-scale .cards-icon h3 {
-  max-width: 150px;
-  margin: 14px auto 0;
-  font-size: 16px;
-  font-weight: 300;
-  line-height: 1.3;
-  color: var(--text-color);
+    max-width: 150px;
+    margin: 14px auto 0;
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 1.3;
+    color: var(--text-color);
 }
 
 main .section.enterprise-scale .cards-icon-wrapper + .default-content-wrapper {
-  margin-top: 40px;
-  text-align: center;
+    margin-top: 40px;
+    text-align: center;
 }
 
-main .section.enterprise-scale .cards-icon-wrapper + .default-content-wrapper a:any-link {
-  font-size: 20px;
-  font-weight: 700;
-  color: rgb(20 73 154);
-  text-decoration: none;
+main
+    .section.enterprise-scale
+    .cards-icon-wrapper
+    + .default-content-wrapper
+    a:any-link {
+    font-size: 20px;
+    font-weight: 700;
+    color: rgb(20 73 154);
+    text-decoration: none;
 }
 
-main .section.enterprise-scale .cards-icon-wrapper + .default-content-wrapper a:any-link::after {
-  content: ' \2192';
+main
+    .section.enterprise-scale
+    .cards-icon-wrapper
+    + .default-content-wrapper
+    a:any-link::after {
+    content: " \2192";
 }
 
 /* ---- Social proof: centered heading + Liberty quote ---- */
 main .section.enterprise-social-proof {
-  margin: 0;
-  padding: 100px 0;
-  text-align: center;
+    margin: 0;
+    padding: 100px 0;
+    text-align: center;
 }
 
 /* stylelint-disable-next-line no-descending-specificity */
 main .section.enterprise-social-proof .default-content-wrapper h2 {
-  margin: 0 auto 48px;
-  max-width: 1000px;
-  font-size: 40px;
-  font-weight: 700;
-  line-height: 1.1;
-  color: var(--text-color);
+    margin: 0 auto 48px;
+    max-width: 1000px;
+    font-size: 40px;
+    font-weight: 700;
+    line-height: 1.1;
+    color: var(--text-color);
 }
 
 main .section.enterprise-social-proof .columns-media {
-  max-width: 900px;
-  margin: 0 auto;
-  text-align: left;
+    max-width: 900px;
+    margin: 0 auto;
+    text-align: left;
 }
 
 /* ---- Operation: light band, two feature-checklist rows ---- */
 main .section.enterprise-operation {
-  margin: 0;
-  padding: 100px 0;
-  background-color: #f7fafc;
-  text-align: center;
+    margin: 0;
+    padding: 100px 0;
+    background-color: #f7fafc;
+    text-align: center;
 }
 
 /* stylelint-disable-next-line no-descending-specificity */
 main .section.enterprise-operation .default-content-wrapper h2 {
-  margin: 0 auto 48px;
-  max-width: 900px;
-  font-size: 40px;
-  font-weight: 700;
-  line-height: 1.1;
-  color: var(--text-color);
+    margin: 0 auto 48px;
+    max-width: 900px;
+    font-size: 40px;
+    font-weight: 700;
+    line-height: 1.1;
+    color: var(--text-color);
 }
 
 main .section.enterprise-operation .columns-media {
-  margin: 0 0 40px;
-  text-align: left;
+    margin: 0 0 40px;
+    text-align: left;
 }
 
 /* stylelint-disable-next-line no-descending-specificity */
 main .section.enterprise-operation .columns-media p {
-  font-size: 18px;
-  font-weight: 300;
-  line-height: 1.5;
+    font-size: 18px;
+    font-weight: 300;
+    line-height: 1.5;
 }
 
 /* ---- Success: white band, copy + checklist ---- */
 main .section.enterprise-success {
-  margin: 0;
-  padding: 100px 0;
+    margin: 0;
+    padding: 100px 0;
 }
 
 /* stylelint-disable-next-line no-descending-specificity */
 main .section.enterprise-success .columns-media h2 {
-  max-width: 480px;
-  font-size: 48px;
-  font-weight: 700;
-  line-height: 1.05;
-  color: var(--text-color);
+    max-width: 480px;
+    font-size: 48px;
+    font-weight: 700;
+    line-height: 1.05;
+    color: var(--text-color);
 }
 
 /* stylelint-disable-next-line no-descending-specificity */
 main .section.enterprise-success .columns-media p {
-  font-size: 18px;
-  font-weight: 300;
-  line-height: 1.5;
+    font-size: 18px;
+    font-weight: 300;
+    line-height: 1.5;
 }
 
 main .section.enterprise-success .columns-media ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
+    list-style: none;
+    margin: 0;
+    padding: 0;
 }
 
 main .section.enterprise-success .columns-media ul li {
-  position: relative;
-  margin: 0 0 16px;
-  padding-left: 34px;
-  font-size: 18px;
-  font-weight: 300;
-  line-height: 1.4;
+    position: relative;
+    margin: 0 0 16px;
+    padding-left: 34px;
+    font-size: 18px;
+    font-weight: 300;
+    line-height: 1.4;
 }
 
 main .section.enterprise-success .columns-media ul li img {
-  position: absolute;
-  left: 0;
-  top: 2px;
-  width: 22px;
-  height: auto;
+    position: absolute;
+    left: 0;
+    top: 2px;
+    width: 22px;
+    height: auto;
 }
 
 /* "Your partner for success" graphics composition: production overlaps the
@@ -1469,36 +1637,50 @@ main .section.enterprise-success .columns-media ul li img {
    images are authored as stacked <p><picture> in the default-content-wrapper.
    Desktop only -- they stack on mobile like production. */
 @media (width >= 960px) {
-  main .section.enterprise-success .default-content-wrapper {
-    position: relative;
-    min-height: 430px;
-  }
+    main .section.enterprise-success .default-content-wrapper {
+        position: relative;
+        min-height: 430px;
+    }
 
-  main .section.enterprise-success .default-content-wrapper p:has(img[alt*="experts" i]) {
-    position: absolute;
-    top: 0;
-    left: calc((100% - 100vw) / 2 + 100px);
-    z-index: 1;
-    margin: 0;
-  }
+    main
+        .section.enterprise-success
+        .default-content-wrapper
+        p:has(img[alt*="experts" i]) {
+        position: absolute;
+        top: 0;
+        left: calc((100% - 100vw) / 2 + 100px);
+        z-index: 1;
+        margin: 0;
+    }
 
-  main .section.enterprise-success .default-content-wrapper p:has(img[alt*="experts" i]) img {
-    width: 325px;
-    height: auto;
-  }
+    main
+        .section.enterprise-success
+        .default-content-wrapper
+        p:has(img[alt*="experts" i])
+        img {
+        width: 325px;
+        height: auto;
+    }
 
-  main .section.enterprise-success .default-content-wrapper p:has(img[alt*="hexagon" i]) {
-    position: absolute;
-    top: 14px;
-    left: calc((100% - 100vw) / 2 - 120px);
-    z-index: 0;
-    margin: 0;
-  }
+    main
+        .section.enterprise-success
+        .default-content-wrapper
+        p:has(img[alt*="hexagon" i]) {
+        position: absolute;
+        top: 14px;
+        left: calc((100% - 100vw) / 2 - 120px);
+        z-index: 0;
+        margin: 0;
+    }
 
-  main .section.enterprise-success .default-content-wrapper p:has(img[alt*="hexagon" i]) img {
-    width: 400px;
-    height: 400px;
-  }
+    main
+        .section.enterprise-success
+        .default-content-wrapper
+        p:has(img[alt*="hexagon" i])
+        img {
+        width: 400px;
+        height: 400px;
+    }
 }
 
 /* ---- Closing CTA (.demo → style "cta") ----
@@ -1507,32 +1689,32 @@ main .section.enterprise-success .columns-media ul li img {
    The enterprise CTA has no image, so scope the overrides via .no-image so the
    pricing CTA (which has the metal-ring image) is unaffected. */
 main .section.cta .hero-cta.no-image {
-  background: #fff;
-  padding: 0;
+    background: #fff;
+    padding: 0;
 }
 
 main .section.cta .hero-cta.no-image h2 {
-  max-width: 1000px;
-  font-size: 48px;
-  line-height: 1;
+    max-width: 1000px;
+    font-size: 48px;
+    line-height: 1;
 }
 
 main .section.cta .hero-cta.no-image a.button,
 main .section.cta .hero-cta.no-image a:any-link {
-  display: inline-block;
-  margin-top: 8px;
-  padding: 12px 26px;
-  border: 0;
-  border-radius: 44px;
-  background-color: #635ce8;
-  color: #fff;
-  font-size: 20px;
-  font-weight: 700;
+    display: inline-block;
+    margin-top: 8px;
+    padding: 12px 26px;
+    border: 0;
+    border-radius: 44px;
+    background-color: #635ce8;
+    color: #fff;
+    font-size: 20px;
+    font-weight: 700;
 }
 
 /* the enterprise .cta band itself is plain white (override pricing gradient) */
 main > .section.cta:has(.hero-cta.no-image) {
-  background: #fff;
+    background: #fff;
 }
 
 /* ============================================================
@@ -1544,146 +1726,146 @@ main > .section.cta:has(.hero-cta.no-image) {
 
 /* ---- Hero: blue band, white text, copy + logo two columns ---- */
 main .section.contact-hero {
-  margin: 0;
-  padding: 60px 0;
-  background-color: #14499a;
+    margin: 0;
+    padding: 60px 0;
+    background-color: #14499a;
 }
 
 /* stylelint-disable-next-line no-descending-specificity */
 main .section.contact-hero .columns-media > div {
-  align-items: center;
-  gap: 40px;
+    align-items: center;
+    gap: 40px;
 }
 
 main .section.contact-hero .columns-media h1 {
-  margin: 0 0 12px;
-  font-size: 40px;
-  font-weight: 700;
-  line-height: 1.05;
-  color: #fff;
+    margin: 0 0 12px;
+    font-size: 40px;
+    font-weight: 700;
+    line-height: 1.05;
+    color: #fff;
 }
 
 /* stylelint-disable-next-line no-descending-specificity */
 main .section.contact-hero .columns-media p {
-  font-size: 20px;
-  font-weight: 300;
-  color: #fff;
+    font-size: 20px;
+    font-weight: 300;
+    color: #fff;
 }
 
 /* CTA pills: first ("Contact sales") is a cyan filled pill, second is an
    outlined white pill — matching production. */
 /* stylelint-disable-next-line no-descending-specificity */
 main .section.contact-hero .columns-media a:any-link {
-  display: inline-block;
-  margin: 12px 12px 0 0;
-  padding: 10px 24px;
-  border: 2px solid #00afeb;
-  border-radius: 27px;
-  background-color: #00afeb;
-  color: #fff;
-  font-weight: 700;
+    display: inline-block;
+    margin: 12px 12px 0 0;
+    padding: 10px 24px;
+    border: 2px solid #00afeb;
+    border-radius: 27px;
+    background-color: #00afeb;
+    color: #fff;
+    font-weight: 700;
 }
 
 main .section.contact-hero .columns-media a:any-link + a:any-link {
-  border-color: #fff;
-  background-color: transparent;
-  color: #fff;
+    border-color: #fff;
+    background-color: transparent;
+    color: #fff;
 }
 
 /* stylelint-disable-next-line no-descending-specificity */
 main .section.contact-hero .columns-media img {
-  width: auto;
-  max-height: 90px;
+    width: auto;
+    max-height: 90px;
 }
 
 @media (width >= 960px) {
-  main .section.contact-hero .columns-media h1 {
-    font-size: 64px;
-    line-height: 1;
-  }
+    main .section.contact-hero .columns-media h1 {
+        font-size: 64px;
+        line-height: 1;
+    }
 }
 
 /* ---- Connect cards: white band, section heading, 4 icon cards ---- */
 main .section.contact-connect {
-  margin: 0;
-  padding: 80px 0;
+    margin: 0;
+    padding: 80px 0;
 }
 
 /* stylelint-disable-next-line no-descending-specificity */
 main .section.contact-connect .default-content-wrapper h2 {
-  margin: 0 0 40px;
-  font-size: 48px;
-  font-weight: 700;
-  line-height: 1;
-  color: var(--text-color);
+    margin: 0 0 40px;
+    font-size: 48px;
+    font-weight: 700;
+    line-height: 1;
+    color: var(--text-color);
 }
 
 main .section.contact-connect .cards-icon > ul {
-  grid-template-columns: repeat(4, 1fr);
-  gap: 32px;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 32px;
 }
 
 main .section.contact-connect .cards-icon > ul > li {
-  border: 0;
-  background: transparent;
+    border: 0;
+    background: transparent;
 }
 
 main .section.contact-connect .cards-icon > ul > li img {
-  width: auto;
-  max-height: 80px;
-  aspect-ratio: auto;
-  object-fit: contain;
+    width: auto;
+    max-height: 80px;
+    aspect-ratio: auto;
+    object-fit: contain;
 }
 
 /* stylelint-disable-next-line no-descending-specificity */
 main .section.contact-connect .cards-icon h3 {
-  margin: 16px 0 8px;
-  font-size: 22px;
-  font-weight: 700;
-  color: var(--text-color);
+    margin: 16px 0 8px;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--text-color);
 }
 
 main .section.contact-connect .cards-icon .cards-icon-card-body p {
-  font-size: 16px;
-  line-height: 1.5;
-  font-weight: 300;
+    font-size: 16px;
+    line-height: 1.5;
+    font-weight: 300;
 }
 
 /* ---- Office info + map: grey band, two columns ---- */
 main .section.contact-office {
-  margin: 0;
-  padding: 60px 0;
-  background-color: #f2f2f2;
+    margin: 0;
+    padding: 60px 0;
+    background-color: #f2f2f2;
 }
 
 /* stylelint-disable-next-line no-descending-specificity */
 main .section.contact-office .columns-media > div {
-  align-items: center;
-  gap: 40px;
+    align-items: center;
+    gap: 40px;
 }
 
 /* stylelint-disable-next-line no-descending-specificity */
 main .section.contact-office .columns-media h2 {
-  margin: 0 0 16px;
-  font-size: 48px;
-  font-weight: 700;
-  line-height: 1;
-  color: var(--text-color);
+    margin: 0 0 16px;
+    font-size: 48px;
+    font-weight: 700;
+    line-height: 1;
+    color: var(--text-color);
 }
 
 /* stylelint-disable-next-line no-descending-specificity */
 main .section.contact-office .columns-media p {
-  font-size: 16px;
-  line-height: 1.6;
+    font-size: 16px;
+    line-height: 1.6;
 }
 
 /* social links row */
 main .section.contact-office .columns-media ul {
-  display: flex;
-  gap: 16px;
-  list-style: none;
-  margin: 16px 0 0;
-  padding: 0;
+    display: flex;
+    gap: 16px;
+    list-style: none;
+    margin: 16px 0 0;
+    padding: 0;
 }
 
 /* ============================================================
@@ -1696,180 +1878,179 @@ main .section.contact-office .columns-media ul {
 
 /* ---- Hero: white band, copy + video, eyebrow H1 + large H2 ---- */
 main .section.premium-hero {
-  margin: 0;
-  padding: 80px 0 60px;
+    margin: 0;
+    padding: 80px 0 60px;
 }
 
 /* stylelint-disable-next-line no-descending-specificity */
 main .section.premium-hero .columns-media > div {
-  align-items: center;
-  gap: 40px;
+    align-items: center;
+    gap: 40px;
 }
 
 /* eyebrow (authored as h1) */
 /* stylelint-disable-next-line no-descending-specificity */
 main .section.premium-hero .columns-media h1 {
-  margin: 0 0 12px;
-  font-size: 16px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-  color: var(--text-color);
+    margin: 0 0 12px;
+    font-size: 16px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--text-color);
 }
 
 /* subhead — the first paragraph reads as the big headline */
 /* stylelint-disable-next-line no-descending-specificity */
 main .section.premium-hero .columns-media p:first-of-type {
-  font-size: 32px;
-  font-weight: 600;
-  line-height: 1.1;
-  color: var(--text-color);
+    font-size: 32px;
+    font-weight: 600;
+    line-height: 1.1;
+    color: var(--text-color);
 }
 
 /* stylelint-disable-next-line no-descending-specificity */
 main .section.premium-hero .columns-media p {
-  font-size: 18px;
-  font-weight: 300;
-  line-height: 1.5;
+    font-size: 18px;
+    font-weight: 300;
+    line-height: 1.5;
 }
 
 @media (width >= 960px) {
-  main .section.premium-hero .columns-media p:first-of-type {
-    font-size: 40px;
-  }
+    main .section.premium-hero .columns-media p:first-of-type {
+        font-size: 40px;
+    }
 }
 
 /* ---- Benefit cards: white band, centered heading, 4 icon cards ---- */
 main .section.premium-benefits {
-  margin: 0;
-  padding: 50px 0;
-  text-align: center;
+    margin: 0;
+    padding: 50px 0;
+    text-align: center;
 }
 
 /* stylelint-disable-next-line no-descending-specificity */
 main .section.premium-benefits .default-content-wrapper h2 {
-  margin: 0 auto 40px;
-  font-size: 32px;
-  font-weight: 700;
-  line-height: 1.1;
-  color: var(--text-color);
+    margin: 0 auto 40px;
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 1.1;
+    color: var(--text-color);
 }
 
 main .section.premium-benefits .cards-icon > ul {
-  grid-template-columns: repeat(4, 1fr);
-  gap: 24px;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
 }
 
 main .section.premium-benefits .cards-icon > ul > li {
-  border: 0;
-  background: transparent;
-  text-align: center;
+    border: 0;
+    background: transparent;
+    text-align: center;
 }
 
 main .section.premium-benefits .cards-icon > ul > li img {
-  width: auto;
-  max-height: 72px;
-  aspect-ratio: auto;
-  object-fit: contain;
-  margin: 0 auto;
+    width: auto;
+    max-height: 72px;
+    aspect-ratio: auto;
+    object-fit: contain;
+    margin: 0 auto;
 }
 
 /* stylelint-disable-next-line no-descending-specificity */
 main .section.premium-benefits .cards-icon h3 {
-  margin: 16px 0 8px;
-  font-size: 20px;
-  font-weight: 700;
+    margin: 16px 0 8px;
+    font-size: 20px;
+    font-weight: 700;
 }
-
 
 /* ---- Meet the team: light band, testimonial carousel ---- */
 main .section.premium-team {
-  margin: 0;
-  padding: 60px 0;
-  background-color: #f7f9fc;
+    margin: 0;
+    padding: 60px 0;
+    background-color: #f7f9fc;
 }
 
 /* stylelint-disable-next-line no-descending-specificity */
 main .section.premium-team .default-content-wrapper h2 {
-  margin: 0 0 16px;
-  font-size: 40px;
-  font-weight: 700;
-  color: var(--text-color);
+    margin: 0 0 16px;
+    font-size: 40px;
+    font-weight: 700;
+    color: var(--text-color);
 }
 
 /* stylelint-disable-next-line no-descending-specificity */
 main .section.premium-team .default-content-wrapper p {
-  max-width: 900px;
-  font-size: 18px;
-  font-weight: 300;
-  line-height: 1.5;
-  margin: 0 auto 2rem;
+    max-width: 900px;
+    font-size: 18px;
+    font-weight: 300;
+    line-height: 1.5;
+    margin: 0 auto 2rem;
 }
 
 /* ---- Success story: two-column story + stats ---- */
 main .section.premium-success {
-  margin: 0;
-  padding: 80px 0;
+    margin: 0;
+    padding: 80px 0;
 }
 
 /* stylelint-disable-next-line no-descending-specificity */
 main .section.premium-success .columns-media > div {
-  align-items: center;
-  gap: 40px;
+    align-items: center;
+    gap: 40px;
 }
 
 main .section.premium-success .columns-media .eyebrow,
 main .section.premium-success .columns-media p:first-child {
-  font-size: 16px;
-  font-weight: 700;
-  text-transform: uppercase;
-  color: #14499a;
+    font-size: 16px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #14499a;
 }
 
 /* stylelint-disable-next-line no-descending-specificity */
 main .section.premium-success .columns-media h2 {
-  margin: 8px 0 16px;
-  font-size: 36px;
-  font-weight: 700;
-  line-height: 1.1;
-  color: var(--text-color);
+    margin: 8px 0 16px;
+    font-size: 36px;
+    font-weight: 700;
+    line-height: 1.1;
+    color: var(--text-color);
 }
 
 main .section.premium-success .columns-media ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
+    list-style: none;
+    margin: 0;
+    padding: 0;
 }
 
 /* stylelint-disable-next-line no-descending-specificity */
 main .section.premium-success .columns-media li {
-  position: relative;
-  margin: 0 0 12px;
-  padding-left: 28px;
-  font-size: 16px;
-  line-height: 1.5;
+    position: relative;
+    margin: 0 0 12px;
+    padding-left: 28px;
+    font-size: 16px;
+    line-height: 1.5;
 }
 
 main .section.premium-success .columns-media li::before {
-  content: '✓';
-  position: absolute;
-  left: 0;
-  color: #20a51e;
-  font-weight: 700;
+    content: "✓";
+    position: absolute;
+    left: 0;
+    color: #20a51e;
+    font-weight: 700;
 }
 
 /* ---- Exclusive benefits table (reuses table-compare styling) ---- */
 main .section.premium-table {
-  margin: 0;
-  padding: 70px 0;
+    margin: 0;
+    padding: 70px 0;
 }
 
 /* stylelint-disable-next-line no-descending-specificity */
 main .section.premium-table .default-content-wrapper h2 {
-  margin: 0 0 8px;
-  font-size: 32px;
-  font-weight: 700;
-  color: var(--text-color);
+    margin: 0 0 8px;
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--text-color);
 }
 
 /* ============================================================
@@ -1881,20 +2062,20 @@ main .section.premium-table .default-content-wrapper h2 {
 
 /* ---- Hero: light band, copy + photo ---- */
 main .section.training-hero {
-  margin: 0;
-  padding: 80px 0;
-  background-color: #f6f9fb;
+    margin: 0;
+    padding: 80px 0;
+    background-color: #f6f9fb;
 
-  /* Production tiles a faint gray hexagon texture across the hero band. */
-  background-image: url("https://fiixsoftware.com/wp-content/uploads/2019/05/e1e1e1-fade-2.png");
-  background-repeat: repeat;
-  background-position: 0 0;
+    /* Production tiles a faint gray hexagon texture across the hero band. */
+    background-image: url("https://fiixsoftware.com/wp-content/uploads/2019/05/e1e1e1-fade-2.png");
+    background-repeat: repeat;
+    background-position: 0 0;
 }
 
 /* stylelint-disable-next-line no-descending-specificity */
 main .section.training-hero .columns-media > div {
-  align-items: center;
-  gap: 40px;
+    align-items: center;
+    gap: 40px;
 }
 
 /* Production: the h1 is a small uppercase eyebrow, the h2 the large headline,
@@ -1903,251 +2084,260 @@ main .section.training-hero .columns-media > div {
    plain link, and no circle. */
 /* stylelint-disable-next-line no-descending-specificity */
 main .section.training-hero .columns-media h1 {
-  margin: 0 0 20px;
-  font-size: 16px;
-  font-weight: 600;
-  line-height: 1.1;
-  text-transform: uppercase;
-  color: var(--text-color);
+    margin: 0 0 20px;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.1;
+    text-transform: uppercase;
+    color: var(--text-color);
 }
 
 /* stylelint-disable-next-line no-descending-specificity */
 main .section.training-hero .columns-media h2 {
-  margin: 0 0 28px;
-  font-size: 40px;
-  font-weight: 700;
-  line-height: 1.05;
-  color: var(--text-color);
+    margin: 0 0 28px;
+    font-size: 40px;
+    font-weight: 700;
+    line-height: 1.05;
+    color: var(--text-color);
 }
 
 /* stylelint-disable-next-line no-descending-specificity */
 main .section.training-hero .columns-media a:any-link {
-  display: inline-block;
-  padding: 16px 26px;
-  border-radius: 27px;
-  background-color: #14499a;
-  color: #fff;
-  font-size: 20px;
-  font-weight: 700;
-  line-height: 1.2;
-  text-decoration: none;
+    display: inline-block;
+    padding: 16px 26px;
+    border-radius: 27px;
+    background-color: #14499a;
+    color: #fff;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 1.2;
+    text-decoration: none;
 }
 
 @media (width >= 960px) {
-  main .section.training-hero .columns-media h2 {
-    font-size: 64px;
-  }
+    main .section.training-hero .columns-media h2 {
+        font-size: 64px;
+    }
 
-  main .section.training-hero .columns-media > div > .columns-media-img-col {
-    position: relative;
-    display: flex;
-    align-items: flex-start;
-    justify-content: flex-end;
-  }
+    main .section.training-hero .columns-media > div > .columns-media-img-col {
+        position: relative;
+        display: flex;
+        align-items: flex-start;
+        justify-content: flex-end;
+    }
 
-  main .section.training-hero .columns-media > div > .columns-media-img-col::before {
-    content: '';
-    position: absolute;
-    top: -100px;
-    left: auto;
+    main
+        .section.training-hero
+        .columns-media
+        > div
+        > .columns-media-img-col::before {
+        content: "";
+        position: absolute;
+        top: -100px;
+        left: auto;
 
-    /* Anchor a fixed offset past the container (img-col) right edge, matching
+        /* Anchor a fixed offset past the container (img-col) right edge, matching
        production: contained with a small right gap on wide screens, bleeding
        further off the right/bottom as the viewport narrows. */
-    right: -300px;
-    width: 620px;
-    height: 620px;
-    border-radius: 50%;
-    background-color: rgb(130 214 221);
-    z-index: 0;
-  }
+        right: -300px;
+        width: 620px;
+        height: 620px;
+        border-radius: 50%;
+        background-color: rgb(130 214 221);
+        z-index: 0;
+    }
 
-  main .section.training-hero .columns-media > div > .columns-media-img-col img {
-    position: relative;
-    z-index: 1;
-    width: 443px;
-    max-width: 100%;
-    margin-top: 60px;
-  }
+    main
+        .section.training-hero
+        .columns-media
+        > div
+        > .columns-media-img-col
+        img {
+        position: relative;
+        z-index: 1;
+        width: 443px;
+        max-width: 100%;
+        margin-top: 60px;
+    }
 }
 
 /* ---- Implementation services: light band, packages + benefits ---- */
 main .section.training-services {
-  margin: 0;
-  padding: 100px 0;
-  background-color: #f6f9fb;
-  text-align: center;
+    margin: 0;
+    padding: 100px 0;
+    background-color: #f6f9fb;
+    text-align: center;
 }
 
 /* stylelint-disable-next-line no-descending-specificity */
 main .section.training-services .default-content-wrapper h2 {
-  margin: 0 auto 20px;
-  font-size: 16px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-  color: var(--text-color);
+    margin: 0 auto 20px;
+    font-size: 16px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--text-color);
 }
 
 /* "Launch Fiix on time…" — production renders this paragraph as a large 38px/600
    headline (max-width 750px, centered). EDS left it as a 20px/300 body paragraph. */
 /* stylelint-disable-next-line no-descending-specificity */
 main .section.training-services .default-content-wrapper h2 + p {
-  max-width: 750px;
-  margin: 0 auto 20px;
-  font-size: 38px;
-  font-weight: 600;
-  line-height: 1.05;
-  color: var(--text-color);
+    max-width: 750px;
+    margin: 0 auto 20px;
+    font-size: 38px;
+    font-weight: 600;
+    line-height: 1.05;
+    color: var(--text-color);
 }
 
 /* stylelint-disable-next-line no-descending-specificity */
 main .section.training-services .default-content-wrapper h3 {
-  font-size: 28px;
-  font-weight: 700;
+    font-size: 28px;
+    font-weight: 700;
 }
 
 /* "Training and implementation packages" sits below the video with generous
    vertical rhythm on production (80px above, 60px below). */
 main .section.training-services .default-content-wrapper h3:first-of-type {
-  margin: 80px auto 60px;
+    margin: 80px auto 60px;
 }
 
 /* package cards (text) */
 main .section.training-services .cards-features > ul {
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 24px;
-  text-align: left;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 24px;
+    text-align: left;
 }
 
 main .section.training-services .cards-features > ul > li {
-  border: 1px solid #dadada;
-  border-radius: 8px;
-  background: #fff;
-  padding: 8px;
+    border: 1px solid #dadada;
+    border-radius: 8px;
+    background: #fff;
+    padding: 8px;
 }
 
 /* remote-training benefit cards (icons) */
 main .section.training-services .cards-icon > ul {
-  grid-template-columns: repeat(4, 1fr);
-  gap: 24px;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
 }
 
 main .section.training-services .cards-icon > ul > li {
-  border: 0;
-  background: transparent;
-  text-align: center;
+    border: 0;
+    background: transparent;
+    text-align: center;
 }
 
 main .section.training-services .cards-icon > ul > li img {
-  width: auto;
-  max-height: 64px;
-  aspect-ratio: auto;
-  object-fit: contain;
-  margin: 0 auto;
+    width: auto;
+    max-height: 64px;
+    aspect-ratio: auto;
+    object-fit: contain;
+    margin: 0 auto;
 }
 
 /* ---- Support: white band, Standard/Premium lists + table ---- */
 main .section.training-support {
-  margin: 0;
-  padding: 70px 0;
+    margin: 0;
+    padding: 70px 0;
 }
 
 /* stylelint-disable-next-line no-descending-specificity */
 main .section.training-support .default-content-wrapper h3 {
-  font-size: 32px;
-  font-weight: 700;
-  color: var(--text-color);
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--text-color);
 }
 
 /* stylelint-disable-next-line no-descending-specificity */
 main .section.training-support .columns-media > div {
-  align-items: start;
-  gap: 40px;
+    align-items: start;
+    gap: 40px;
 }
 
 main .section.training-support .columns-media h4 {
-  font-size: 24px;
-  font-weight: 700;
+    font-size: 24px;
+    font-weight: 700;
 }
 
 /* ---- On-demand: white band, 3 resource cards ---- */
 main .section.training-demand {
-  margin: 0;
-  padding: 100px 0;
-  text-align: center;
+    margin: 0;
+    padding: 100px 0;
+    text-align: center;
 }
 
 /* stylelint-disable-next-line no-descending-specificity */
 main .section.training-demand .default-content-wrapper h2 {
-  margin: 0 auto 8px;
-  font-size: 16px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-  color: var(--text-color);
+    margin: 0 auto 8px;
+    font-size: 16px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--text-color);
 }
 
 main .section.training-demand .cards-icon > ul {
-  grid-template-columns: repeat(3, 1fr);
-  gap: 32px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
 }
 
 main .section.training-demand .cards-icon > ul > li {
-  border: 0;
-  background: transparent;
-  text-align: center;
+    border: 0;
+    background: transparent;
+    text-align: center;
 }
 
 /* stylelint-disable-next-line no-descending-specificity */
 main .section.training-demand .cards-icon h3 {
-  font-size: 22px;
-  font-weight: 700;
+    font-size: 22px;
+    font-weight: 700;
 }
 
 /* ---- Fiixers community: light band, image + checklist ---- */
 main .section.training-community {
-  margin: 0;
-  padding: 100px 0;
-  background-color: #f7f9fc;
+    margin: 0;
+    padding: 100px 0;
+    background-color: #f7f9fc;
 }
 
 /* stylelint-disable-next-line no-descending-specificity */
 main .section.training-community .columns-media > div {
-  align-items: center;
-  gap: 40px;
+    align-items: center;
+    gap: 40px;
 }
 
 /* stylelint-disable-next-line no-descending-specificity */
 main .section.training-community .columns-media h3 {
-  font-size: 32px;
-  font-weight: 700;
-  line-height: 1.15;
-  color: var(--text-color);
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 1.15;
+    color: var(--text-color);
 }
 
 main .section.training-community .columns-media ul {
-  list-style: none;
-  margin: 16px 0;
-  padding: 0;
+    list-style: none;
+    margin: 16px 0;
+    padding: 0;
 }
 
 /* stylelint-disable-next-line no-descending-specificity */
 main .section.training-community .columns-media li {
-  position: relative;
-  margin: 0 0 16px;
-  padding-left: 34px;
-  font-size: 16px;
-  line-height: 1.5;
+    position: relative;
+    margin: 0 0 16px;
+    padding-left: 34px;
+    font-size: 16px;
+    line-height: 1.5;
 }
 
 /* stylelint-disable-next-line no-descending-specificity */
 main .section.training-community .columns-media li img {
-  position: absolute;
-  left: 0;
-  top: 2px;
-  width: 22px;
-  height: auto;
+    position: absolute;
+    left: 0;
+    top: 2px;
+    width: 22px;
+    height: auto;
 }
 
 /* ============================================================
@@ -2169,19 +2359,36 @@ main .section.training-community .columns-media li img {
 
 /* stylelint-disable no-descending-specificity */
 
+/* ---- fc-hero: /free-cmms split intro (hero-lead `video-without-form`).
+   Full-bleed light band; the purple 45% panel is positioned by the block.
+   On mobile production's `.header` has `margin-top: 0` and sits under the
+   fixed nav, so the screenshot is ~11px below the bar. The EDS header
+   spacer would otherwise push the whole purple band down by --nav-height. */
+main > .section.fc-hero {
+    margin: calc(-1 * var(--nav-height)) 0 0;
+    background-color: #f7f9fc;
+    overflow-x: clip;
+}
+
+@media (width >= 960px) {
+    main > .section.fc-hero {
+        margin-top: 0;
+    }
+}
+
 /* ---- pf-hero: light band, text left + product screenshot on a
    purple panel to the right. Reviews stars line + award-logo row below.
    Production: left band #f7f9fc, right panel #6b64ef; H1 is a small
    eyebrow, H2 the large headline, intro 20px/300. ---- */
 main > .section.pf-hero {
-  margin: 0;
-  background-color: #f7f9fc;
+    margin: 0;
+    background-color: #f7f9fc;
 
-  /* The purple hero panel bleeds to the viewport edge with a 100vw pseudo
+    /* The purple hero panel bleeds to the viewport edge with a 100vw pseudo
      element, which otherwise stretches the document ~100vw wide and gives the
      whole page a horizontal scrollbar. Clip (not hidden) contains the bleed
      without turning the section into a scroll container. */
-  overflow-x: clip;
+    overflow-x: clip;
 }
 
 /* Per-page hero panel colour. Production uses a different panel colour per page
@@ -2194,45 +2401,58 @@ main > .section.pf-hero {
    panel, --hero-inner = the darker inner box. Colours measured from production. */
 body.page-cmms-asset-management-software main > .section.pf-hero,
 main > .section.pf-hero.hero-yellow {
-  --hero-panel: rgb(255 219 0);
-  --hero-inner: rgb(255 214 11);
+    --hero-panel: rgb(255 219 0);
+    --hero-inner: rgb(255 214 11);
 }
 
 body.page-cmms-parts-inventory-management-software main > .section.pf-hero,
 main > .section.pf-hero.hero-teal {
-  --hero-panel: rgb(70 198 210);
-  --hero-inner: rgb(60 191 200);
+    --hero-panel: rgb(70 198 210);
+    --hero-inner: rgb(60 191 200);
 }
 
-/* eyebrow (authored as h1) */
+/* eyebrow (authored as h1). Production `.new-product .header h1` is 20px/500
+   uppercase, dropping to 12px below ~650px. */
 main > .section.pf-hero .hero-lead-content h1 {
-  margin: 0 0 24px;
-  max-width: none;
-  font-size: 20px;
-  font-weight: 500;
-  line-height: 1.1;
-  text-align: left;
-  text-transform: uppercase;
-  color: var(--text-color);
+    margin: 0 0 40px;
+    max-width: none;
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 1.1;
+    text-align: left;
+    text-transform: uppercase;
+    color: var(--text-color);
 }
 
-/* headline (authored as h2) */
+/* headline (authored as h2). */
 main > .section.pf-hero .hero-lead-content h2 {
-  margin: 0 0 20px;
-  max-width: none;
-  padding-bottom: 0;
-  font-size: 34px;
-  font-weight: 700;
-  line-height: 1;
-  text-align: left;
-  color: var(--text-color);
+    margin: 0 0 30px;
+    max-width: none;
+    padding-bottom: 0;
+    font-size: 38px;
+    font-weight: 700;
+    line-height: 38px;
+    text-align: left;
+    color: var(--text-color);
+}
+
+main
+    > .section.pf-hero
+    .hero-lead:has(.hero-lead-media-layers)
+    .hero-lead-content
+    h1 {
+    margin-bottom: 10px;
 }
 
 /* "Based on 900+ reviews" support line + the review award-logo row.
    These live as bare paragraphs after the demo link in the content
    column. Keep them left-aligned and understated. */
 main > .section.pf-hero .hero-lead-content .hero-lead-support {
-  text-align: left;
+    margin: 0 0 20px;
+    font-size: 20px;
+    font-weight: 300;
+    line-height: 1.34;
+    text-align: left;
 }
 
 /* review stars + award logos: the stars, the "Based on…" line, and the
@@ -2241,108 +2461,951 @@ main > .section.pf-hero .hero-lead-content .hero-lead-support {
    inline row (production shows Capterra / Software Advice / Gartner / G2
    side by side beneath the reviews line). */
 main > .section.pf-hero .hero-lead-content > p img {
-  width: auto;
-  max-height: 26px;
+    width: auto;
+    max-height: 26px;
 }
 
 main > .section.pf-hero .hero-lead-content > p:has(img[alt*="stars" i]) img {
-  max-height: 14px;
+    max-height: 14px;
 }
 
 /* the award-logo paragraphs (those whose only content is a single logo
    image, excluding the stars) flow inline into a wrapping row */
-main > .section.pf-hero .hero-lead-content > p:has(> picture:only-child):not(:has(img[alt*="stars" i])) {
-  display: inline-block;
-  margin: 8px 20px 0 0;
-  vertical-align: middle;
+main
+    > .section.pf-hero
+    .hero-lead-content
+    > p:has(> picture:only-child):not(:has(img[alt*="stars" i])) {
+    display: inline-block;
+    margin: 8px 20px 0 0;
+    vertical-align: middle;
+}
+
+.pf-hero .hero-lead-wrapper .hero-lead {
+    gap: 0;
+    padding: 0;
+}
+
+/* Layered app-promo (mobile-cmms): full-bleed grey crop + copy, matching
+   live `#mobile-product .header`. Wrapper padding would inset the crop. */
+main > .section.pf-hero:has(.hero-lead-media-layers) > .hero-lead-wrapper {
+    max-width: none;
+    padding: 0;
+}
+
+.pf-hero .hero-lead-wrapper .hero-lead:has(.hero-lead-media-layers) {
+    margin-bottom: 30px;
+}
+
+.pf-hero
+    .hero-lead-wrapper
+    .hero-lead:has(.hero-lead-media-layers)
+    > div:has(.hero-lead-media) {
+    height: 250px;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #f7f7f7;
+}
+
+.pf-hero
+    .hero-lead-wrapper
+    .hero-lead:has(.hero-lead-media-layers)
+    > div:has(.hero-lead-media)
+    .hero-lead-media,
+.pf-hero
+    .hero-lead-wrapper
+    .hero-lead:has(.hero-lead-media-layers)
+    .hero-lead-media-layers {
+    height: 100%;
+    margin: 0;
+}
+
+.pf-hero
+    .hero-lead-wrapper
+    .hero-lead:has(.hero-lead-media-layers)
+    .hero-lead-content {
+    padding: 30px 20px;
+
+    /* Live lays the stars and the "Based on 900+ reviews" line out as a 27px
+     flex row (`.sp-hero span`). Ours are inline paragraphs, so the line box --
+     not the content -- has to set that rhythm. */
+    line-height: 27px;
+}
+
+.pf-hero
+    .hero-lead-wrapper
+    .hero-lead:has(.hero-lead-media-layers)
+    .hero-lead-media-content {
+    margin-top: 10px;
+}
+
+/* Live `#mobile-product` sets `line-height: normal` on the intro and lays the
+   review stars and award logos out as flex rows with `figure { padding: 0 }`,
+   so each logo contributes only its own height. Our equivalents are inline
+   paragraphs, which pick up the line box's leading unless topped out. */
+.pf-hero
+    .hero-lead-wrapper
+    .hero-lead:has(.hero-lead-media-layers)
+    .hero-lead-content
+    .hero-lead-support {
+    line-height: normal;
+}
+
+.pf-hero
+    .hero-lead-wrapper
+    .hero-lead:has(.hero-lead-media-layers)
+    .hero-lead-content
+    > p:has(img[alt*="stars" i])
+    + p {
+    line-height: 20px;
+}
+
+/* Live spaces the reviews line off the demo link (`.mobile-cta`), not with a
+   top margin of its own (`#mobile-product .header .sp-hero { margin-top: 0 }`). */
+.pf-hero
+    .hero-lead-wrapper
+    .hero-lead:has(.hero-lead-media-layers)
+    .hero-lead-content
+    > p:not(.hero-lead-support):has(a) {
+    margin-bottom: 20px;
+}
+
+.pf-hero
+    .hero-lead-wrapper
+    .hero-lead:has(.hero-lead-media-layers)
+    .hero-lead-content
+    > p:has(img[alt*="stars" i]),
+.pf-hero
+    .hero-lead-wrapper
+    .hero-lead:has(.hero-lead-media-layers)
+    .hero-lead-content
+    > p:has(img[alt*="stars" i])
+    + p {
+    margin-top: 0;
+    vertical-align: top;
+}
+
+/* Live's award logos are flex items that centre in the row (`.awards figure {
+   align-items: center }`), so every logo box is as tall as the row's tallest.
+   G2 is the exception: it wraps onto a row of its own on phones. */
+.pf-hero
+    .hero-lead-wrapper
+    .hero-lead:has(.hero-lead-media-layers)
+    .hero-lead-content
+    > p:has(> picture:only-child):not(:has(img[alt*="stars" i])) {
+    height: 49px;
+    margin: 0;
+    vertical-align: top;
+}
+
+.pf-hero
+    .hero-lead-wrapper
+    .hero-lead:has(.hero-lead-media-layers)
+    .hero-lead-content
+    > p:has(> picture:only-child):has(img[alt*="g2" i]) {
+    height: auto;
+}
+
+.pf-hero
+    .hero-lead-wrapper
+    .hero-lead:has(.hero-lead-media-layers)
+    .hero-lead-content
+    > p:has(> picture:only-child)
+    picture,
+.pf-hero
+    .hero-lead-wrapper
+    .hero-lead:has(.hero-lead-media-layers)
+    .hero-lead-content
+    > p:has(> picture:only-child)
+    img {
+    display: block;
+}
+
+@media (width >= 768px) {
+    .pf-hero
+        .hero-lead-wrapper
+        .hero-lead:has(.hero-lead-media-layers)
+        > div:has(.hero-lead-media) {
+        height: 350px;
+    }
+
+    .pf-hero
+        .hero-lead-wrapper
+        .hero-lead:has(.hero-lead-media-layers)
+        .hero-lead-content {
+        padding: 30px 5%;
+    }
+
+    /* the logos fit on one 47px row from here up, G2 included */
+    .pf-hero
+        .hero-lead-wrapper
+        .hero-lead:has(.hero-lead-media-layers)
+        .hero-lead-content
+        > p:has(> picture:only-child):not(:has(img[alt*="stars" i])),
+    .pf-hero
+        .hero-lead-wrapper
+        .hero-lead:has(.hero-lead-media-layers)
+        .hero-lead-content
+        > p:has(> picture:only-child):has(img[alt*="g2" i]) {
+        height: 47px;
+    }
+}
+
+.pf-hero
+    .hero-lead-wrapper
+    .hero-lead
+    > div:has(.hero-lead-media):not(:has(h2), :has(.hero-lead-media-layers)) {
+    position: relative;
+    display: block;
+    height: 350px;
+    overflow: hidden;
+    background-color: var(--hero-panel, #6b64ef);
+}
+
+.pf-hero
+    .hero-lead-wrapper
+    .hero-lead
+    > div:not(:has(h2), :has(.hero-lead-media-layers))
+    .hero-lead-media {
+    position: absolute;
+    bottom: -50px;
+    left: 55%;
+    width: 300px;
+    height: 320px;
+    padding-top: 0;
+    transform: translateX(-50%);
+
+    @media (width >= 768px) {
+        bottom: -200px;
+        width: 400px;
+        height: 427px;
+    }
+}
+
+.pf-hero
+    .hero-lead-wrapper
+    .hero-lead
+    > div:not(:has(h2), :has(.hero-lead-media-layers))
+    .hero-lead-media
+    img,
+.pf-hero
+    .hero-lead-wrapper
+    .hero-lead
+    > div:not(:has(h2), :has(.hero-lead-media-layers))
+    .hero-lead-media
+    video {
+    width: 100%;
+    max-width: none;
+    height: 100%;
+    margin: 0;
+    object-fit: cover;
+    object-position: top;
+}
+
+@media (width < 768px) {
+    main > .section.pf-hero .hero-lead-content h1 {
+        margin-bottom: 20px;
+        font-size: 12px;
+    }
+
+    main > .section.pf-hero .hero-lead-content h2 {
+        font-size: 30px;
+        line-height: 30px;
+    }
+}
+
+@media (width < 960px) {
+    main > .section.pf-hero:not(:has(.hero-lead-media-layers)) {
+        margin-top: calc(-1 * var(--nav-height));
+    }
+
+    .pf-hero
+        .hero-lead-wrapper
+        .hero-lead:not(:has(.hero-lead-media-layers))
+        .hero-lead-content {
+        padding: 40px 20px;
+    }
+
+    main
+        > .section.pf-hero
+        .hero-lead:not(:has(.hero-lead-media-layers))
+        .hero-lead-content
+        h1,
+    main
+        > .section.pf-hero
+        .hero-lead:not(:has(.hero-lead-media-layers))
+        .hero-lead-content
+        h2 {
+        max-width: 96%;
+    }
+}
+
+.pf-hero .hero-lead-wrapper .hero-lead .hero-lead-form {
+    display: none;
+}
+
+.pf-hero
+    .hero-lead-wrapper
+    .hero-lead
+    .hero-lead-content
+    .hero-lead-app-badges
+    img {
+    width: auto;
+    max-width: none;
+    max-height: none;
+    height: 30px;
+}
+
+.pf-hero
+    .hero-lead-wrapper
+    .hero-lead
+    .hero-lead-content
+    > p:not(.hero-lead-support):has(a) {
+    margin: 0;
+    text-align: left;
+}
+
+.pf-hero
+    .hero-lead-wrapper
+    .hero-lead
+    .hero-lead-content
+    > p:not(.hero-lead-support)
+    a {
+    box-sizing: border-box;
+    min-width: 160px;
+    padding: 0 20px;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 40px;
+}
+
+.pf-hero .hero-lead-wrapper .hero-lead .hero-lead-content > p img {
+    max-height: 49px;
+}
+
+.pf-hero
+    .hero-lead-wrapper
+    .hero-lead
+    .hero-lead-content
+    > p:has(img[alt*="stars" i]) {
+    display: inline-block;
+    margin: 40px 0 0;
+    vertical-align: middle;
+}
+
+.pf-hero
+    .hero-lead-wrapper
+    .hero-lead
+    .hero-lead-content
+    > p:has(img[alt*="stars" i])
+    img {
+    width: 100px;
+    max-height: none;
+}
+
+.pf-hero
+    .hero-lead-wrapper
+    .hero-lead
+    .hero-lead-content
+    > p:has(img[alt*="stars" i])
+    + p {
+    display: inline-block;
+    width: calc(100% - 115px);
+    margin: 40px 0 0 10px;
+    font-size: 14px;
+    vertical-align: middle;
+}
+
+.pf-hero
+    .hero-lead-wrapper
+    .hero-lead
+    .hero-lead-content
+    > p:has(> picture:only-child):not(:has(img[alt*="stars" i])) {
+    display: inline-flex;
+    align-items: center;
+    height: 49px;
+    margin: 0 20px 0 0;
+}
+
+.pf-hero
+    .hero-lead-wrapper
+    .hero-lead
+    .hero-lead-content
+    > p
+    img[alt*="capterra" i] {
+    width: 80px;
+}
+
+.pf-hero
+    .hero-lead-wrapper
+    .hero-lead
+    .hero-lead-content
+    > p
+    img[alt*="software advice" i],
+.pf-hero
+    .hero-lead-wrapper
+    .hero-lead
+    .hero-lead-content
+    > p
+    img[alt*="peerinsights" i] {
+    width: 130px;
+}
+
+.pf-hero .hero-lead-wrapper .hero-lead .hero-lead-content > p img[alt*="g2" i] {
+    width: 25px;
+}
+
+@media (width >= 768px) {
+    .pf-hero
+        .hero-lead-wrapper
+        .hero-lead
+        .hero-lead-content
+        > p
+        img[alt*="capterra" i] {
+        width: 93px;
+    }
+
+    .pf-hero
+        .hero-lead-wrapper
+        .hero-lead
+        .hero-lead-content
+        > p
+        img[alt*="software advice" i],
+    .pf-hero
+        .hero-lead-wrapper
+        .hero-lead
+        .hero-lead-content
+        > p
+        img[alt*="peerinsights" i] {
+        width: 124px;
+    }
+
+    .pf-hero
+        .hero-lead-wrapper
+        .hero-lead
+        .hero-lead-content
+        > p
+        img[alt*="g2" i] {
+        width: 30px;
+    }
 }
 
 @media (width >= 960px) {
-  main > .section.pf-hero .hero-lead-content h1 {
-    font-size: 20px;
-  }
+    main > .section.pf-hero .hero-lead-content h2 {
+        font-size: 50px;
+        line-height: 50px;
+    }
 
-  main > .section.pf-hero .hero-lead-content h2 {
-    font-size: 56px;
-  }
+    main > .section.pf-hero .hero-lead {
+        box-sizing: border-box;
+        gap: 11%;
+        max-width: 1264px;
+        padding: 0 32px;
+    }
 
-  /* Purple product panel behind the screenshot, matching production: it bleeds
-     full-height and full-width out to the RIGHT viewport edge (not a contained
-     rounded card), with the screenshot enlarged and centered on it. The ::after
-     carries the same purple from the panel's right edge out to the viewport
-     edge; the taller content padding lets the stretched panel run the full
-     height of the hero like production. */
-  main > .section.pf-hero .hero-lead-content {
-    flex: 0 0 600px;
-    max-width: 600px;
-    padding-top: 80px;
-    padding-bottom: 80px;
-  }
+    main > .section.pf-hero .hero-lead:not(:has(.hero-lead-media-layers)) {
+        align-items: center;
+        min-height: 850px;
+        max-width: 1200px;
+        padding: 0 20px;
+    }
 
-  /* Only a genuine media-ONLY column with a single screenshot gets the panel.
+    main > .section.pf-hero .hero-lead > div:has(.hero-lead-content) {
+        flex: 0 0 45%;
+    }
+
+    main > .section.pf-hero .hero-lead-content {
+        flex: 1 1 auto;
+        max-width: none;
+        padding-top: 137px;
+        padding-bottom: 137px;
+    }
+
+    main
+        > .section.pf-hero
+        .hero-lead:not(:has(.hero-lead-media-layers))
+        .hero-lead-content {
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+
+    /* Only a genuine media-ONLY column with a single screenshot gets the panel.
      `:not(:has(h2))` excludes single-column heroes whose one div holds BOTH
      the heading and the image; `:not(:has(.hero-lead-media-layers))` excludes
      the layered app-promo media (e.g. mobile-cmms's screenshot + decorative
      shapes + app-store badges, see hero-lead.js/css) -- that composition
      brings its own light background and positioning, not a boxed panel.
      Without these guards the whole hero turns purple/boxed. */
-  main > .section.pf-hero .hero-lead > div:has(.hero-lead-media):not(:has(h2), :has(.hero-lead-media-layers)) {
-    position: relative;
-    align-self: stretch;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex: 1 1 auto;
-    max-width: none;
-    padding: 70px 48px;
-    background-color: var(--hero-panel, #6b64ef);
-    border-radius: 0;
-  }
+    main
+        > .section.pf-hero
+        .hero-lead
+        > div:has(.hero-lead-media):not(
+            :has(h2),
+            :has(.hero-lead-media-layers)
+        ) {
+        position: relative;
+        align-self: stretch;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex: 1 1 auto;
+        max-width: none;
+        height: auto;
+        overflow: visible;
+        margin-right: calc(50% - 50vw);
+        padding: 70px 0;
+        background-color: var(--hero-panel, #6b64ef);
+        border-radius: 0;
+    }
 
-  main > .section.pf-hero .hero-lead > div:has(.hero-lead-media):not(:has(h2), :has(.hero-lead-media-layers))::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 100%;
-    width: 100vw;
-    background-color: var(--hero-panel, #6b64ef);
-    z-index: 0;
-  }
+    main
+        > .section.pf-hero
+        .hero-lead
+        > div:has(.hero-lead-media):not(
+            :has(h2),
+            :has(.hero-lead-media-layers)
+        )::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 100%;
+        width: 100vw;
+        background-color: var(--hero-panel, #6b64ef);
+        z-index: 0;
+    }
 
-  /* Production centers the screenshot on a slightly darker purple inner box
+    /* Production centers the screenshot on a slightly darker purple inner box
      (rgb 98 92 226 vs the rgb 107 100 239 panel) inset within the panel -- on
      prod this is baked into the hero video's backdrop; reproduce it as a
      darker box behind the static screenshot. */
-  main > .section.pf-hero .hero-lead > div:has(.hero-lead-media):not(:has(h2), :has(.hero-lead-media-layers)) .hero-lead-media {
-    position: relative;
-    z-index: 1;
-    width: auto;
-    max-width: 400px;
-    padding: 40px;
-    text-align: center;
-    background-color: var(--hero-inner, rgb(98 92 226));
-    border-radius: 2px;
-  }
+    main
+        > .section.pf-hero
+        .hero-lead
+        > div:has(.hero-lead-media):not(:has(h2), :has(.hero-lead-media-layers))
+        .hero-lead-media {
+        position: relative;
+        inset: auto;
+        transform: none;
+        height: auto;
+        z-index: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 475px;
+        max-width: 100%;
+        aspect-ratio: 475 / 713;
+        padding: 0;
+        text-align: center;
+        background-color: var(--hero-inner, rgb(98 92 226));
+        border-radius: 2px;
+    }
 
-  main > .section.pf-hero .hero-lead > div:has(.hero-lead-media):not(:has(h2), :has(.hero-lead-media-layers)) .hero-lead-media img {
-    display: block;
-    width: 100%;
-    max-width: 300px;
-    margin: 0 auto;
-  }
+    main
+        > .section.pf-hero
+        .hero-lead
+        > div:has(.hero-lead-media):not(:has(h2), :has(.hero-lead-media-layers))
+        .hero-lead-media
+        video,
+    main
+        > .section.pf-hero
+        .hero-lead
+        > div:has(.hero-lead-media):not(:has(h2), :has(.hero-lead-media-layers))
+        .hero-lead-media
+        img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        max-width: none;
+        margin: 0;
+        object-fit: contain;
+        object-position: center;
+    }
+
+    main > .section.pf-hero:has(.hero-lead-media-layers) {
+        background-color: #f7f9fc;
+    }
+
+    /* Live `#mobile-product .header`: full-bleed band, copy in a 960px well
+     (45%), media stage pinned to the viewport right. */
+    main > .section.pf-hero .hero-lead:has(.hero-lead-media-layers) {
+        position: relative;
+        display: flex;
+        align-items: center;
+        overflow: hidden;
+        gap: 0;
+        max-width: none;
+        min-height: 0;
+        margin: 0 0 30px;
+        padding: 95px 0 35px;
+    }
+
+    main
+        > .section.pf-hero
+        .hero-lead:has(.hero-lead-media-layers)
+        > div:has(.hero-lead-content) {
+        box-sizing: border-box;
+        display: block;
+        flex: none;
+        width: 100%;
+        max-width: 960px;
+        margin: 0 auto;
+    }
+
+    main
+        > .section.pf-hero
+        .hero-lead:has(.hero-lead-media-layers)
+        .hero-lead-content {
+        width: 45%;
+        max-width: none;
+        flex: none;
+        padding: 0;
+    }
+
+    main
+        > .section.pf-hero
+        .hero-lead:has(.hero-lead-media-layers)
+        .hero-lead-content
+        h1,
+    main
+        > .section.pf-hero
+        .hero-lead:has(.hero-lead-media-layers)
+        .hero-lead-content
+        h2 {
+        max-width: 96%;
+    }
+
+    main
+        > .section.pf-hero
+        .hero-lead:has(.hero-lead-media-layers)
+        .hero-lead-content
+        h1 {
+        margin-bottom: 10px;
+    }
+
+    main
+        > .section.pf-hero
+        .hero-lead:has(.hero-lead-media-layers)
+        > div:has(.hero-lead-media) {
+        position: absolute;
+        top: -52px;
+        right: 0;
+        display: block;
+        align-self: auto;
+        flex: none;
+        width: 600px;
+        height: 850px;
+        max-width: none;
+        margin: 0;
+        padding: 0;
+        overflow: visible;
+        background-color: transparent;
+    }
+
+    main
+        > .section.pf-hero
+        .hero-lead:has(.hero-lead-media-layers)
+        .hero-lead-media {
+        width: 100%;
+        height: 100%;
+    }
+
+    main
+        > .section.pf-hero
+        .hero-lead:has(.hero-lead-media-layers)
+        .hero-lead-media-layers {
+        width: 600px;
+        height: 850px;
+    }
+
+    main
+        > .section.pf-hero
+        .hero-lead:has(.hero-lead-media-layers)
+        .hero-lead-form {
+        min-height: 43px;
+        align-items: stretch;
+        margin-bottom: 20px;
+    }
+
+    main
+        > .section.pf-hero
+        .hero-lead:has(.hero-lead-media-layers)
+        .hero-lead-input,
+    main
+        > .section.pf-hero
+        .hero-lead:has(.hero-lead-media-layers)
+        .hero-lead-cta {
+        height: 43px;
+    }
+
+    main
+        > .section.pf-hero
+        .hero-lead:has(.hero-lead-media-layers)
+        .hero-lead-media-content {
+        margin-top: 20px;
+    }
 }
 
 @media (width >= 1200px) {
-  main > .section.pf-hero .hero-lead-content h2 {
-    font-size: 64px;
-  }
+    main > .section.pf-hero .hero-lead-content h2 {
+        font-size: 64px;
+        line-height: 64px;
+    }
+
+    main > .section.pf-hero .hero-lead:not(:has(.hero-lead-media-layers)) {
+        padding: 0;
+    }
+
+    main
+        > .section.pf-hero
+        .hero-lead:has(.hero-lead-media-layers)
+        > div:has(.hero-lead-content) {
+        max-width: 1200px;
+    }
+
+    /* From here up the app-store block sits under the phone rather than under the
+     copy, level with the award logos -- live's wide-screen arrangement
+     (`#mobile-product .header .availability`). It hangs off the phone's right
+     edge so it clears the engineer, and `bottom` matches the hero's bottom
+     padding to line up with the logos. */
+    main
+        > .section.pf-hero
+        .hero-lead:has(.hero-lead-media-layers)
+        .hero-lead-media-content {
+        position: absolute;
+        z-index: 3;
+        right: max(10px, calc((100% - 1200px) / 2 - 10px));
+        bottom: 35px;
+        margin-top: 0;
+    }
+
+    .pf-hero
+        .hero-lead-wrapper
+        .hero-lead:has(.hero-lead-media-layers)
+        .hero-lead-content
+        > p:has(> picture:only-child):not(:has(img[alt*="stars" i])),
+    .pf-hero
+        .hero-lead-wrapper
+        .hero-lead:has(.hero-lead-media-layers)
+        .hero-lead-content
+        > p:has(> picture:only-child):has(img[alt*="g2" i]) {
+        height: 56px;
+    }
+
+    main
+        > .section.pf-hero
+        .hero-lead:has(.hero-lead-media-layers)
+        .hero-lead-content
+        h1,
+    main
+        > .section.pf-hero
+        .hero-lead:has(.hero-lead-media-layers)
+        .hero-lead-content
+        h2 {
+        max-width: none;
+    }
+
+    main
+        > .section.pf-hero
+        .hero-lead:has(.hero-lead-media-layers)
+        > div:has(.hero-lead-media),
+    main
+        > .section.pf-hero
+        .hero-lead:has(.hero-lead-media-layers)
+        .hero-lead-media-layers {
+        width: 800px;
+    }
+
+    /* The phone lines up with the right edge of the 1200px well the header and
+     copy share, rather than running out to the viewport edge -- the stage
+     itself is 20px wider than the phone, hence the -20px. The centre of the
+     stage sits 30px below the hero's, so the graphics ride up with the copy
+     column now that the app-store block has left the flow. */
+    main
+        > .section.pf-hero
+        .hero-lead:has(.hero-lead-media-layers)
+        > div:has(.hero-lead-media) {
+        top: 50%;
+        right: max(0px, calc((100% - 1200px) / 2 - 20px));
+        margin-top: -395px;
+    }
+
+    .pf-hero
+        .hero-lead-wrapper
+        .hero-lead
+        .hero-lead-content
+        > p:has(> picture:only-child):not(:has(img[alt*="stars" i])) {
+        margin-right: 15px;
+    }
+}
+
+@media (width >= 960px) {
+    .pf-hero .hero-lead-wrapper .hero-lead .hero-lead-form {
+        display: flex;
+        gap: 20px;
+        margin: 0 0 40px;
+    }
+
+    /* `#mobile-product .header .twoStep-form { margin-bottom: 20px }` */
+    .pf-hero .hero-lead:has(.hero-lead-media-layers) .hero-lead-form {
+        margin-bottom: 20px;
+    }
+
+    .pf-hero
+        .hero-lead-wrapper
+        .hero-lead
+        .hero-lead-content
+        .hero-lead-app-badges
+        img {
+        width: auto;
+        max-width: none;
+        max-height: none;
+        height: 35px;
+    }
+
+    .pf-hero .hero-lead-wrapper .hero-lead .hero-lead-input {
+        flex: 1 1 200px;
+        width: auto;
+        max-width: 270px;
+    }
+
+    .pf-hero .hero-lead-wrapper .hero-lead .hero-lead-cta {
+        height: 38px;
+        padding: 5px 17px;
+        font-weight: 700;
+    }
+
+    .pf-hero
+        .hero-lead-wrapper
+        .hero-lead
+        .hero-lead-content
+        > p:not(.hero-lead-support):has(a) {
+        display: none;
+    }
+
+    .pf-hero .hero-lead-wrapper .hero-lead .hero-lead-content > p img {
+        max-height: 56px;
+    }
+
+    .pf-hero
+        .hero-lead-wrapper
+        .hero-lead
+        .hero-lead-content
+        > p:has(img[alt*="stars" i]) {
+        display: inline-block;
+        margin: 0;
+        vertical-align: middle;
+    }
+
+    .pf-hero
+        .hero-lead-wrapper
+        .hero-lead
+        .hero-lead-content
+        > p:has(img[alt*="stars" i])
+        img {
+        width: 100px;
+        max-height: none;
+    }
+
+    .pf-hero
+        .hero-lead-wrapper
+        .hero-lead
+        .hero-lead-content
+        > p:has(img[alt*="stars" i])
+        + p {
+        display: inline-block;
+        width: calc(100% - 125px);
+        margin: 0 0 0 10px;
+        padding-top: 5px;
+        font-size: 14px;
+        vertical-align: middle;
+    }
+
+    .pf-hero
+        .hero-lead-wrapper
+        .hero-lead
+        .hero-lead-content
+        > p:has(> picture:only-child):not(:has(img[alt*="stars" i])) {
+        display: inline-flex;
+        align-items: center;
+        height: 56px;
+        margin: 0 8px 0 0;
+    }
+
+    .pf-hero
+        .hero-lead-wrapper
+        .hero-lead
+        .hero-lead-content
+        > p
+        img[alt*="capterra" i] {
+        width: 93px;
+    }
+
+    .pf-hero
+        .hero-lead-wrapper
+        .hero-lead
+        .hero-lead-content
+        > p
+        img[alt*="software advice" i],
+    .pf-hero
+        .hero-lead-wrapper
+        .hero-lead
+        .hero-lead-content
+        > p
+        img[alt*="peerinsights" i] {
+        width: 124px;
+    }
+
+    .pf-hero
+        .hero-lead-wrapper
+        .hero-lead
+        .hero-lead-content
+        > p:has(> picture:only-child):not(:has(img[alt*="stars" i])):has(
+            img[alt*="software advice" i]
+        ) {
+        margin-right: 0;
+    }
+
+    .pf-hero
+        .hero-lead-wrapper
+        .hero-lead
+        .hero-lead-content
+        > p
+        img[alt*="g2" i] {
+        width: 30px;
+    }
+}
+
+@media (width >= 1200px) {
+    .pf-hero
+        .hero-lead-wrapper
+        .hero-lead
+        .hero-lead-content
+        > p
+        img[alt*="capterra" i] {
+        width: 100px;
+    }
+
+    .pf-hero
+        .hero-lead-wrapper
+        .hero-lead
+        .hero-lead-content
+        > p
+        img[alt*="software advice" i],
+    .pf-hero
+        .hero-lead-wrapper
+        .hero-lead
+        .hero-lead-content
+        > p
+        img[alt*="peerinsights" i] {
+        width: 150px;
+    }
 }
 
 /* ---- pf-logos: white band, centered heading + customer-logo strip ---- */
 main > .section.pf-logos {
-  margin: 0;
-  padding: 40px 0 20px;
+    margin: 0;
+    padding: 40px 0 20px;
 }
 
 /* "Over 4,100 teams…" heading above the logos (authored as H2): 24/700,
@@ -2350,106 +3413,134 @@ main > .section.pf-logos {
    renders correctly once the heading is authored into this section (it is
    currently MISSING from the EDS content; see the authoring prompt). */
 main > .section.pf-logos .default-content-wrapper h2 {
-  margin: 0 auto 40px;
-  max-width: 640px;
-  font-size: 24px;
-  font-weight: 700;
-  line-height: 1.2;
-  text-align: center;
-  color: var(--text-color);
+    margin: 0 auto 40px;
+    max-width: 640px;
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 1.2;
+    text-align: center;
+    color: var(--text-color);
 }
 
 /* Production sizes each logo by WIDTH (~100px, uniform), not by a 46px height
    (which made them 130-288px wide). */
 main > .section.pf-logos .columns-logos img {
-  width: 100px;
-  height: auto;
-  max-height: none;
-  object-fit: contain;
+    width: 100px;
+    height: auto;
+    max-height: none;
+    object-fit: contain;
 }
 
 @media (width >= 960px) {
-  /* centered cluster with even gaps, not spread edge-to-edge across 1200px */
-  main > .section.pf-logos .columns-logos > div {
-    justify-content: center;
-    gap: 60px;
-  }
+    /* centered cluster with even gaps, not spread edge-to-edge across 1200px */
+    main > .section.pf-logos .columns-logos > div {
+        justify-content: center;
+        gap: 60px;
+    }
 
-  main > .section.pf-logos .columns-logos > div > div {
-    flex: 0 0 auto;
-  }
+    main > .section.pf-logos .columns-logos > div > div {
+        flex: 0 0 auto;
+    }
 }
 
 /* ---- pf-features: intro (H2 + lead P) above a 2-column grid of
    borderless heading+paragraph blurbs. Production H2 48/700, intro P
    28/300, blurb H3 24/700, blurb P 20/300. ---- */
 main > .section.pf-features {
-  margin: 0;
-  padding: 50px 0;
+    margin: 0;
+    padding: 0 0 40px;
 }
 
 main > .section.pf-features .default-content-wrapper h2 {
-  margin: 0 0 20px;
-  font-size: 32px;
-  font-weight: 700;
-  line-height: 1;
-  color: var(--text-color);
+    margin: 0 0 20px;
+    font-size: 30px;
+    font-weight: 700;
+    line-height: 1;
+    color: var(--text-color);
 }
 
 main > .section.pf-features .default-content-wrapper > p {
-  margin: 0;
-  font-size: 22px;
-  font-weight: 300;
-  line-height: 1.2;
-  color: var(--text-color);
+    margin: 0;
+    font-size: 20px;
+    font-weight: 300;
+    line-height: 1.2;
+    color: var(--text-color);
 }
 
 /* Production separates the intro heading from its subtext with a purple bar
    (the heading's ::after, 540x5, rgb 99 92 232) and constrains the intro block
    to the left ~540px column. Target the intro default-content-wrapper (the one
    directly before the cards), not the trailing "See what…" link heading. */
-main > .section.pf-features .default-content-wrapper:has(+ .cards-features-wrapper) h2,
-main > .section.pf-features .default-content-wrapper:has(+ .cards-features-wrapper) > p {
-  max-width: 540px;
+main
+    > .section.pf-features
+    .default-content-wrapper:has(+ .cards-features-wrapper) {
+    margin-bottom: 40px;
 }
 
-main > .section.pf-features .default-content-wrapper:has(+ .cards-features-wrapper) h2::after {
-  content: '';
-  display: block;
-  width: 540px;
-  max-width: 100%;
-  height: 5px;
-  margin-top: 20px;
-  background-color: var(--feature-bar, rgb(99 92 232));
+@media (width >= 768px) {
+    main > .section.pf-features {
+        padding-bottom: 70px;
+    }
+
+    main
+        > .section.pf-features
+        .default-content-wrapper:has(+ .cards-features-wrapper) {
+        margin-top: 60px;
+        margin-bottom: 100px;
+    }
+}
+
+main
+    > .section.pf-features
+    .default-content-wrapper:has(+ .cards-features-wrapper)
+    h2,
+main
+    > .section.pf-features
+    .default-content-wrapper:has(+ .cards-features-wrapper)
+    > p {
+    max-width: 540px;
+}
+
+main
+    > .section.pf-features
+    .default-content-wrapper:has(+ .cards-features-wrapper)
+    h2::after {
+    content: "";
+    display: block;
+    width: 540px;
+    max-width: 100%;
+    height: 5px;
+    margin-top: 20px;
+    background-color: var(--feature-bar, rgb(99 92 232));
 }
 
 /* The intro bar colour is per-page (matches the page accent). Default (cmms and
    others) is purple; override for the yellow / teal pages via the URL-derived
    body page-class. Measured from production. */
 body.page-cmms-asset-management-software {
-  --feature-bar: rgb(255 214 0);
+    --feature-bar: rgb(255 214 0);
 }
 
 body.page-cmms-parts-inventory-management-software {
-  --feature-bar: rgb(60 192 203);
+    --feature-bar: rgb(60 192 203);
 }
 
 body.page-cmms-mobile-cmms {
-  --feature-bar: rgb(0 175 235);
+    --feature-bar: rgb(0 175 235);
 }
 
 /* borderless, transparent feature blurbs */
 main > .section.pf-features .cards-features > ul {
-  grid-template-columns: 1fr;
-  gap: 40px 60px;
+    grid-template-columns: 1fr;
+    gap: 40px;
 }
 
 main > .section.pf-features .cards-features > ul > li {
-  border: 0;
-  background-color: transparent;
-  display: flex;
-  gap: 16px;
-  align-items: flex-start;
+    border: 0;
+    background-color: transparent;
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
 }
 
 /* per-card icon: production shows a small (~32px) icon to the LEFT of the
@@ -2457,62 +3548,68 @@ main > .section.pf-features .cards-features > ul > li {
    block's default full-width 4:3 image rule blows it up to ~490px, so size it
    down here and let the text cell take the rest. */
 main > .section.pf-features .cards-features .cards-features-card-image {
-  flex: 0 0 auto;
-  margin: 0;
-  line-height: 0;
+    flex: 0 0 auto;
+    margin: 0;
+    line-height: 0;
 }
 
 main > .section.pf-features .cards-features .cards-features-card-image img {
-  width: 32px;
-  height: 32px;
-  aspect-ratio: auto;
-  object-fit: contain;
+    width: 32px;
+    height: 32px;
+    aspect-ratio: auto;
+    object-fit: contain;
 }
 
 main > .section.pf-features .cards-features .cards-features-card-body {
-  flex: 1;
-  min-width: 0;
-  margin: 0;
+    flex: 1;
+    min-width: 0;
+    margin: 0;
 }
 
 main > .section.pf-features .cards-features h3 {
-  margin: 0 0 16px;
-  font-size: 24px;
-  font-weight: 700;
-  line-height: 1;
-  color: var(--text-color);
+    margin: 0 0 20px;
+    font-size: 22px;
+    font-weight: 700;
+    line-height: 1;
+    color: var(--text-color);
+}
+
+@media (width >= 768px) {
+    main > .section.pf-features .cards-features h3 {
+        font-size: 24px;
+    }
 }
 
 main > .section.pf-features .cards-features .cards-features-card-body p {
-  margin: 0;
-  font-size: 20px;
-  font-weight: 300;
-  line-height: 1.3;
-  color: var(--text-color);
+    margin: 0;
+    font-size: 20px;
+    font-weight: 300;
+    line-height: 1.3;
+    color: var(--text-color);
 }
 
 /* trailing "See what easier maintenance…" heading link, centered */
 main > .section.pf-features .default-content-wrapper:last-child h2 {
-  margin: 40px 0 0;
-  font-size: 28px;
-  text-align: center;
+    margin: 40px 0 0;
+    font-size: 28px;
+    text-align: center;
 }
 
 main > .section.pf-features .default-content-wrapper:last-child h2 a:any-link {
-  color: #14499a;
-  font-weight: 700;
+    color: #14499a;
+    font-weight: 700;
 }
 
 @media (width >= 960px) {
-  main > .section.pf-features .default-content-wrapper h2 {
-    font-size: 48px;
-  }
+    main > .section.pf-features .default-content-wrapper h2 {
+        font-size: 48px;
+    }
 
-  main > .section.pf-features .default-content-wrapper > p {
-    font-size: 28px;
-  }
+    main > .section.pf-features .default-content-wrapper > p {
+        font-size: 28px;
+    }
 
-  /* Production spacing: 490px-wide blurbs with a 170px column gap and 70px row
+    /* Production spacing: 490px-wide blurbs with a 170px column gap and 70px row
      gap (measured), not the tight 60/40 that made the grid feel cramped.
      Production also fills COLUMN-major (left column first), so switch to column
      auto-flow with an explicit row count (tagged by the block JS as
@@ -2520,36 +3617,50 @@ main > .section.pf-features .default-content-wrapper:last-child h2 a:any-link {
      Columns and gutter are capped rather than fixed: 490+170+490 = 1150px is
      wider than the container below ~1264px, so fixed tracks pushed the blurbs
      outside the section on tablet/small-desktop viewports. */
-  main > .section.pf-features .cards-features > ul {
-    grid-template-columns: repeat(2, minmax(0, 490px));
-    grid-auto-flow: column;
-    justify-content: center;
-    gap: 70px min(170px, 14%);
-  }
+    main > .section.pf-features .cards-features > ul {
+        grid-template-columns: repeat(2, minmax(0, 490px));
+        grid-auto-flow: column;
+        justify-content: center;
+        gap: 70px 10%;
+    }
 
-  main > .section.pf-features .cards-features > ul.cards-features-rows-2 { grid-template-rows: repeat(2, auto); }
-  main > .section.pf-features .cards-features > ul.cards-features-rows-3 { grid-template-rows: repeat(3, auto); }
-  main > .section.pf-features .cards-features > ul.cards-features-rows-4 { grid-template-rows: repeat(4, auto); }
-  main > .section.pf-features .cards-features > ul.cards-features-rows-5 { grid-template-rows: repeat(5, auto); }
-  main > .section.pf-features .cards-features > ul.cards-features-rows-6 { grid-template-rows: repeat(6, auto); }
+    main > .section.pf-features .cards-features > ul.cards-features-rows-2 {
+        grid-template-rows: repeat(2, auto);
+    }
+
+    main > .section.pf-features .cards-features > ul.cards-features-rows-3 {
+        grid-template-rows: repeat(3, auto);
+    }
+
+    main > .section.pf-features .cards-features > ul.cards-features-rows-4 {
+        grid-template-rows: repeat(4, auto);
+    }
+
+    main > .section.pf-features .cards-features > ul.cards-features-rows-5 {
+        grid-template-rows: repeat(5, auto);
+    }
+
+    main > .section.pf-features .cards-features > ul.cards-features-rows-6 {
+        grid-template-rows: repeat(6, auto);
+    }
 }
 
 /* ---- pf-video: light band, centered heading, thumbnail-card grid.
    Production band #f7f9fc, H2 24/700 centered. ---- */
 main > .section.pf-video {
-  margin: 0;
-  padding: 60px 0;
-  background-color: #f7f9fc;
+    margin: 0;
+    padding: 60px 0;
+    background-color: #f7f9fc;
 }
 
 main > .section.pf-video .default-content-wrapper h2 {
-  margin: 0 auto 40px;
-  max-width: 760px;
-  font-size: 24px;
-  font-weight: 700;
-  line-height: 1.2;
-  text-align: center;
-  color: var(--text-color);
+    margin: 0 auto 40px;
+    max-width: 760px;
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 1.2;
+    text-align: center;
+    color: var(--text-color);
 }
 
 /* pf-video reuses cards-video, which now renders a horizontal carousel (three
@@ -2558,60 +3669,109 @@ main > .section.pf-video .default-content-wrapper h2 {
    carousel track and made the cards wrap into a static 3x3 grid. The block CSS
    (.cards-video-track) handles the layout. */
 
+/* Production's carousel spans the full viewport at every breakpoint (verified:
+   the slider container's bounding box is edge-to-edge, not boxed to the usual
+   1200px content width). Opt this wrapper out of the sitewide
+   `main > .section > div` max-width/padding so the track can do the same. */
+main > .section.pf-video > .cards-video-wrapper {
+    max-width: none;
+    padding: 0;
+}
+
+/* "Try Fiix yourself with a free tour" -- production renders this as a plain
+   centered link with an arrow icon (same treatment as the "Watch now" links
+   in the cards above it), not the boxed pill button the sitewide default
+   gives every button-wrapper link. */
+main > .section.pf-video .button-wrapper {
+    margin: 32px 0 0;
+    text-align: center;
+}
+
+main > .section.pf-video .button-wrapper a.button {
+    display: inline-flex;
+    align-items: center;
+    border: 0;
+    border-radius: 0;
+    background: none;
+    padding: 0;
+    font-size: 20px;
+    font-weight: 700;
+    color: #14499a;
+}
+
+main > .section.pf-video .button-wrapper a.button:hover {
+    color: #0f3675;
+    background: none;
+    text-decoration: underline;
+}
+
+main > .section.pf-video .button-wrapper a.button::after {
+    content: "";
+    display: inline-block;
+    width: 24px;
+    height: 22px;
+    margin-left: 5px;
+    margin-top: 5px;
+    background-color: currentcolor;
+    vertical-align: middle;
+    mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11h12.17l-5.59-5.59L12 4l8 8-8 8-1.41-1.41L16.17 13H4z"/></svg>')
+        no-repeat center / contain;
+}
+
 /* ---- pf-media-left / pf-media-right: image + text feature rows.
    Production H2 48/700, P 28/300. -left = image left, -right = image
    right. columns-media stacks image-first on mobile (block default). ---- */
 main > .section.pf-media-left,
 main > .section.pf-media-right {
-  margin: 0;
-  padding: 50px 0;
+    margin: 0;
+    padding: 50px 0;
 
-  /* The media accent panel bleeds past the centered container with a 100vw
+    /* The media accent panel bleeds past the centered container with a 100vw
      pseudo element; clip it here so the right-hand bleed doesn't stretch the
      document and scroll the whole page sideways. */
-  overflow-x: clip;
+    overflow-x: clip;
 }
 
 main > .section.pf-media-left .columns-media h2,
 main > .section.pf-media-right .columns-media h2 {
-  margin: 0 0 20px;
-  font-size: 32px;
-  font-weight: 700;
-  line-height: 1;
-  color: var(--text-color);
+    margin: 0 0 20px;
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 1;
+    color: var(--text-color);
 }
 
 main > .section.pf-media-left .columns-media p,
 main > .section.pf-media-right .columns-media p {
-  margin: 0;
-  font-size: 22px;
-  font-weight: 300;
-  line-height: 1.2;
-  color: var(--text-color);
+    margin: 0;
+    font-size: 22px;
+    font-weight: 300;
+    line-height: 1.2;
+    color: var(--text-color);
 }
 
 @media (width >= 960px) {
-  main > .section.pf-media-left .columns-media > div,
-  main > .section.pf-media-right .columns-media > div {
-    align-items: center;
-    gap: 60px;
-  }
+    main > .section.pf-media-left .columns-media > div,
+    main > .section.pf-media-right .columns-media > div {
+        align-items: center;
+        gap: 60px;
+    }
 
-  main > .section.pf-media-left .columns-media h2,
-  main > .section.pf-media-right .columns-media h2 {
-    font-size: 48px;
-  }
+    main > .section.pf-media-left .columns-media h2,
+    main > .section.pf-media-right .columns-media h2 {
+        font-size: 48px;
+    }
 
-  main > .section.pf-media-left .columns-media p,
-  main > .section.pf-media-right .columns-media p {
-    font-size: 28px;
-  }
+    main > .section.pf-media-left .columns-media p,
+    main > .section.pf-media-right .columns-media p {
+        font-size: 28px;
+    }
 
-  /* -right: image column sits on the right (text first). The block always
+    /* -right: image column sits on the right (text first). The block always
      orders the image column first, so flip the row for -right. */
-  main > .section.pf-media-right .columns-media > div {
-    flex-direction: row-reverse;
-  }
+    main > .section.pf-media-right .columns-media > div {
+        flex-direction: row-reverse;
+    }
 }
 
 /* pf-media accent: production overlays each media row's image on a full-bleed
@@ -2621,83 +3781,169 @@ main > .section.pf-media-right .columns-media p {
    via a Section-Metadata Style that adds one of the media-* classes below. The
    panel/underline only render when such a class is present, so every other
    columns-media usage (ai/optix/enterprise) is untouched. */
-main > .section.media-gold   { --media-accent: #ffd600; }
-main > .section.media-teal   { --media-accent: #3cc0cb; }
-main > .section.media-cyan   { --media-accent: #00afeb; }
-main > .section.media-purple { --media-accent: #4d3e8d; }
-main > .section.media-orange { --media-accent: #ffa40e; }
-main > .section.media-navy   { --media-accent: #003e7e; }
+main > .section.media-gold {
+    --media-accent: #ffd600;
+}
 
-main > .section:is(.media-gold, .media-teal, .media-cyan, .media-purple, .media-orange, .media-navy):is(.pf-media-left, .pf-media-right) .columns-media h2::after {
-  content: '';
-  display: block;
-  width: 540px;
-  max-width: 100%;
-  height: 5px;
-  margin-top: 24px;
-  background: var(--media-accent);
+main > .section.media-teal {
+    --media-accent: #3cc0cb;
+}
+
+main > .section.media-cyan {
+    --media-accent: #00afeb;
+}
+
+main > .section.media-purple {
+    --media-accent: #4d3e8d;
+}
+
+main > .section.media-orange {
+    --media-accent: #ffa40e;
+}
+
+main > .section.media-navy {
+    --media-accent: #003e7e;
+}
+
+main
+    > .section:is(
+        .media-gold,
+        .media-teal,
+        .media-cyan,
+        .media-purple,
+        .media-orange,
+        .media-navy
+    ):is(.pf-media-left, .pf-media-right)
+    .columns-media
+    h2::after {
+    content: "";
+    display: block;
+    width: 540px;
+    max-width: 100%;
+    height: 5px;
+    margin-top: 24px;
+    background: var(--media-accent);
 }
 
 @media (width >= 960px) {
-  main > .section:is(.media-gold, .media-teal, .media-cyan, .media-purple, .media-orange, .media-navy):is(.pf-media-left, .pf-media-right) .columns-media > div > .columns-media-img-col {
-    position: relative;
-    padding: 40px;
-    background: var(--media-accent);
-  }
+    main
+        > .section:is(
+            .media-gold,
+            .media-teal,
+            .media-cyan,
+            .media-purple,
+            .media-orange,
+            .media-navy
+        ):is(.pf-media-left, .pf-media-right)
+        .columns-media
+        > div
+        > .columns-media-img-col {
+        position: relative;
+        padding: 40px;
+        background: var(--media-accent);
+    }
 
-  /* bleed the colour panel out to the viewport edge on the image's outer side */
-  main > .section:is(.media-gold, .media-teal, .media-cyan, .media-purple, .media-orange, .media-navy):is(.pf-media-left, .pf-media-right) .columns-media > div > .columns-media-img-col::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    width: 100vw;
-    background: var(--media-accent);
-    z-index: 0;
-  }
+    /* bleed the colour panel out to the viewport edge on the image's outer side */
+    main
+        > .section:is(
+            .media-gold,
+            .media-teal,
+            .media-cyan,
+            .media-purple,
+            .media-orange,
+            .media-navy
+        ):is(.pf-media-left, .pf-media-right)
+        .columns-media
+        > div
+        > .columns-media-img-col::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 100vw;
+        background: var(--media-accent);
+        z-index: 0;
+    }
 
-  main > .section.pf-media-left:is(.media-gold, .media-teal, .media-cyan, .media-purple, .media-orange, .media-navy) .columns-media-img-col::before { right: 100%; }
-  main > .section.pf-media-right:is(.media-gold, .media-teal, .media-cyan, .media-purple, .media-orange, .media-navy) .columns-media-img-col::before { left: 100%; }
+    main
+        > .section.pf-media-left:is(
+            .media-gold,
+            .media-teal,
+            .media-cyan,
+            .media-purple,
+            .media-orange,
+            .media-navy
+        )
+        .columns-media-img-col::before {
+        right: 100%;
+    }
 
-  main > .section:is(.media-gold, .media-teal, .media-cyan, .media-purple, .media-orange, .media-navy):is(.pf-media-left, .pf-media-right) .columns-media-img-col img {
-    position: relative;
-    z-index: 1;
-  }
+    main
+        > .section.pf-media-right:is(
+            .media-gold,
+            .media-teal,
+            .media-cyan,
+            .media-purple,
+            .media-orange,
+            .media-navy
+        )
+        .columns-media-img-col::before {
+        left: 100%;
+    }
+
+    main
+        > .section:is(
+            .media-gold,
+            .media-teal,
+            .media-cyan,
+            .media-purple,
+            .media-orange,
+            .media-navy
+        ):is(.pf-media-left, .pf-media-right)
+        .columns-media-img-col
+        img {
+        position: relative;
+        z-index: 1;
+    }
 }
 
 /* ---- pf-testimonials: light band, centered heading + 3 quote cards.
    Production band #f7f9fc, H2 ~44/700 centered. ---- */
 main > .section.pf-testimonials {
-  margin: 0;
-  padding: 70px 0 40px;
-  background-color: #f7f9fc;
+    margin: 0;
+    padding: 70px 0 40px;
+    background-color: #f7f9fc;
 }
 
 main > .section.pf-testimonials .default-content-wrapper h2 {
-  margin: 0 auto 40px;
-  max-width: 900px;
-  font-size: 32px;
-  font-weight: 700;
-  line-height: 1.1;
-  text-align: center;
-  color: var(--text-color);
+    margin: 0 auto 40px;
+    max-width: 900px;
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 1.1;
+    text-align: center;
+    color: var(--text-color);
 }
 
 /* trailing "See how other maintenance teams…" heading link, centered */
 main > .section.pf-testimonials .default-content-wrapper:last-child h2 {
-  margin: 40px auto 0;
-  font-size: 28px;
+    margin: 40px auto 0;
+    font-size: 28px;
 }
 
-main > .section.pf-testimonials .default-content-wrapper:last-child h2 a:any-link {
-  color: #14499a;
-  font-weight: 700;
+main
+    > .section.pf-testimonials
+    .default-content-wrapper:last-child
+    h2
+    a:any-link {
+    color: #14499a;
+    font-weight: 700;
 }
 
 @media (width >= 960px) {
-  main > .section.pf-testimonials .default-content-wrapper h2 {
-    font-size: 44px;
-  }
+    main > .section.pf-testimonials .default-content-wrapper h2 {
+        font-size: 44px;
+    }
 }
 
 /* ---- pf-explore: case-study carousel + "Explore" heading + award
@@ -2706,200 +3952,277 @@ main > .section.pf-testimonials .default-content-wrapper:last-child h2 a:any-lin
    into a synced image panel beside the accordion (see accordion-faq.css)
    instead of rendering inline. ---- */
 main > .section.pf-explore {
-  margin: 0;
-  padding: 60px 0;
+    margin: 0;
+    padding: 0 0 120px;
+    background-color: #f7f7f7;
 }
 
 main > .section.pf-explore .default-content-wrapper h2 {
-  margin: 40px auto 32px;
-  font-size: 32px;
-  font-weight: 700;
-  line-height: 1.1;
-  text-align: center;
-  color: var(--text-color);
+    margin: 40px auto 32px;
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 1.1;
+    text-align: center;
+    color: var(--text-color);
 }
 
 /* award-badge strip (columns-logos) centered */
 main > .section.pf-explore .columns-logos > div {
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
-  gap: 32px;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 32px;
 }
 
 main > .section.pf-explore .columns-logos img {
-  width: auto;
-  height: auto;
-  max-height: 90px;
-  object-fit: contain;
+    width: auto;
+    height: auto;
+    max-height: 90px;
+    object-fit: contain;
 }
 
 main > .section.pf-explore .accordion-faq h3 {
-  font-size: 20px;
-  font-weight: 700;
-  color: var(--text-color);
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--text-color);
 }
 
 main > .section.pf-explore .accordion-faq a:any-link {
-  color: #14499a;
-  font-weight: 700;
+    color: #14499a;
+    font-weight: 700;
+}
+
+main > .section.pf-explore .columns-logos-wrapper {
+    padding: 90px 0;
 }
 
 @media (width >= 960px) {
-  main > .section.pf-explore .default-content-wrapper h2 {
-    font-size: 48px;
-  }
+    main > .section.pf-explore .default-content-wrapper h2 {
+        font-size: 48px;
+    }
 }
 
 /* ---- pf-resources: grey band, centered heading, 3 resource cards
    (icon + heading + text + "Uncover details"). Production band #f7f7f7,
    H2 48/700 centered, cards transparent, link 20/700 #14499a. ---- */
 main > .section.pf-resources {
-  margin: 0;
-  padding: 80px 0;
-  background-color: #f7f7f7;
+    margin: 0;
+    padding: 80px 0;
+    background-color: #f7f7f7;
 }
 
 main > .section.pf-resources .default-content-wrapper h2 {
-  margin: 0 auto 40px;
-  max-width: 760px;
-  font-size: 32px;
-  font-weight: 700;
-  line-height: 1;
-  text-align: center;
-  color: var(--text-color);
+    margin: 0 auto 40px;
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 1;
+    text-align: center;
+    color: var(--text-color);
 }
 
 /* cards-cta reused: production renders these as flat, transparent,
    left-aligned cards with a small decorative icon (not the block's grey
    panels with an overflowing triangle). */
 main > .section.pf-resources .cards-cta {
-  gap: 32px;
+    gap: 32px;
 }
 
 main > .section.pf-resources .cards-cta .cards-cta-panel {
-  align-items: stretch;
-  padding: 0;
-  background-color: transparent;
-  text-align: left;
+    align-items: stretch;
+    background-color: transparent;
+    text-align: left;
 }
 
 main > .section.pf-resources .cards-cta .cards-cta-figure {
-  position: static;
-  margin: 0 0 16px;
+    position: absolute;
+    margin: 0 0 16px;
 }
 
 main > .section.pf-resources .cards-cta .cards-cta-figure img {
-  width: 70px;
+    width: 70px;
 }
 
 main > .section.pf-resources .cards-cta .cards-cta-body {
-  align-items: flex-start;
+    align-items: flex-start;
 }
 
 main > .section.pf-resources .cards-cta .cards-cta-body h3 {
-  margin: 0 0 16px;
-  font-size: 24px;
-  line-height: 1;
+    margin: 0 0 20px;
+    font-size: 24px;
+    line-height: 1;
 }
 
 main > .section.pf-resources .cards-cta .cards-cta-body p {
-  font-size: 20px;
-  line-height: 1.3;
+    font-size: 20px;
+    line-height: 1.3;
 }
 
 /* "Uncover details" as a plain blue text link, not the purple pill */
 main > .section.pf-resources .cards-cta a.cards-cta-button:any-link {
-  margin-top: 16px;
-  padding: 0;
-  border: 0;
-  border-radius: 0;
-  background-color: transparent;
-  color: #14499a;
-  font-size: 20px;
-  font-weight: 700;
+    margin-top: 16px;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background-color: transparent;
+    color: #14499a;
+    font-size: 20px;
+    font-weight: 700;
 }
 
 main > .section.pf-resources .cards-cta a.cards-cta-button:hover,
 main > .section.pf-resources .cards-cta a.cards-cta-button:focus-visible {
-  background-color: transparent;
-  color: #0f3877;
-  text-decoration: underline;
+    background-color: transparent;
+    color: #0f3877;
 }
 
 @media (width >= 960px) {
-  main > .section.pf-resources .default-content-wrapper h2 {
-    font-size: 48px;
-  }
+    main > .section.pf-resources .default-content-wrapper h2 {
+        font-size: 48px;
+    }
 
-  main > .section.pf-resources .cards-cta {
-    gap: 48px;
-  }
+    main > .section.pf-resources .cards-cta {
+        gap: 48px;
+    }
+
+    main > .section.pf-resources.cards-cta-container {
+        padding: 0;
+    }
+
+    main > .section.pf-resources.cards-cta-container .default-content-wrapper {
+        border-top: solid 2px #e1e1e1;
+    }
+
+    main
+        > .section.pf-resources.cards-cta-container
+        .default-content-wrapper
+        h2 {
+        margin-top: 80px;
+        max-width: 530px;
+    }
 }
 
 /* ---- pf-final-cta: centered "Ready to see more?" heading + paragraph
    + two buttons (Book a demo / Take a free tour). The two links are
    authored as a bulleted list. Production H2 48/700 centered. ---- */
 main > .section.pf-final-cta {
-  margin: 0;
-  padding: 80px 0;
-  text-align: center;
+    margin: 0;
+    padding: 80px 0;
+    text-align: center;
+}
+
+/* Production also draws a grey (#f7f7f7) band rotated 5deg across the
+   seam between the grey pf-resources section and the section right after
+   it (.home-seemore .grey), so that boundary reads as a diagonal cut
+   instead of a flat line. Recreated here as a ::before since there's no
+   authored element for it. Scoped to only fire when pf-final-cta
+   directly follows the cards-cta-container variant of pf-resources —
+   this is specific to that section transition, not every pf-final-cta. */
+main > .section.pf-resources.cards-cta-container + .section.pf-final-cta {
+    position: relative;
+    padding-top: 100px;
+    padding-bottom: 40px;
+
+    /* the angle band bleeds past the section's left/right edges; clip
+       (not hidden) contains that without adding a document scrollbar,
+       while leaving vertical overflow visible so the band still pokes
+       up into the pf-resources section above. */
+    overflow-x: clip;
+}
+
+main
+    > .section.pf-resources.cards-cta-container
+    + .section.pf-final-cta::before {
+    content: "";
+    position: absolute;
+    top: -300px;
+    left: -150px;
+    z-index: 0;
+    width: 200%;
+    height: 350px;
+    background-color: #f7f7f7;
+    transform: rotate(5deg);
+    pointer-events: none;
+}
+
+main
+    > .section.pf-resources.cards-cta-container
+    + .section.pf-final-cta
+    .default-content-wrapper {
+    position: relative;
+    z-index: 1;
 }
 
 main > .section.pf-final-cta .default-content-wrapper h2 {
-  margin: 0 auto 20px;
-  font-size: 32px;
-  font-weight: 700;
-  line-height: 1;
-  color: var(--text-color);
+    margin: 0 auto 20px;
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 1;
+    color: var(--text-color);
 }
 
 main > .section.pf-final-cta .default-content-wrapper > p {
-  margin: 0 auto 24px;
-  font-size: 20px;
-  font-weight: 300;
-  color: var(--text-color);
+    margin: 0 auto 24px;
+    font-size: 20px;
+    font-weight: 300;
+    color: var(--text-color);
 }
 
 /* the two CTA links live in a <ul>; render them as an inline button row */
 main > .section.pf-final-cta .default-content-wrapper ul {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
-  gap: 16px;
-  margin: 0;
-  padding: 0;
-  list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
 }
 
 main > .section.pf-final-cta .default-content-wrapper ul li {
-  margin: 0;
+    margin: 0;
 }
 
 main > .section.pf-final-cta .default-content-wrapper ul a:any-link {
-  display: inline-block;
-  padding: 10px 24px;
-  border: 2px solid #14499a;
-  border-radius: 40px;
-  background-color: #14499a;
-  color: #fff;
-  font-size: 16px;
-  font-weight: 600;
+    display: inline-block;
+    padding: 10px 24px;
+    border: 2px solid #14499a;
+    border-radius: 40px;
+    background-color: #14499a;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 600;
 }
 
 /* second link ("Take a free tour") = cyan outlined pill */
-main > .section.pf-final-cta .default-content-wrapper ul li:last-child a:any-link {
-  border-color: #00afeb;
-  background-color: #fff;
-  color: #00afeb;
-  font-weight: 700;
+main
+    > .section.pf-final-cta
+    .default-content-wrapper
+    ul
+    li:last-child
+    a:any-link {
+    border-color: #00afeb;
+    background-color: #fff;
+    color: #00afeb;
+    font-weight: 700;
 }
 
 @media (width >= 960px) {
-  main > .section.pf-final-cta .default-content-wrapper h2 {
-    font-size: 48px;
-  }
+    main > .section.pf-resources.cards-cta-container + .section.pf-final-cta {
+        padding-top: 300px;
+        padding-bottom: 80px;
+    }
+
+    main
+        > .section.pf-resources.cards-cta-container
+        + .section.pf-final-cta::before {
+        top: -100px;
+        height: 300px;
+    }
+
+    main > .section.pf-final-cta .default-content-wrapper h2 {
+        font-size: 48px;
+    }
 }
 
 /* ============================================================
@@ -2920,104 +4243,104 @@ main > .section.pf-final-cta .default-content-wrapper ul li:last-child a:any-lin
    right). Shared by the AI hero and the Optix hero. Production H1
    48/700, intro 20/300, CTA = orange gradient pill. ---- */
 main > .section.ai-hero {
-  margin: 0;
-  padding: 40px 0;
+    margin: 0;
+    padding: 40px 0;
 }
 
 main > .section.ai-hero .columns-media h1 {
-  margin: 0 0 24px;
-  font-size: 36px;
-  font-weight: 700;
-  line-height: 1.1;
-  color: var(--text-color);
+    margin: 0 0 24px;
+    font-size: 36px;
+    font-weight: 700;
+    line-height: 1.1;
+    color: var(--text-color);
 }
 
 main > .section.ai-hero .columns-media p {
-  margin: 0 0 20px;
-  font-size: 20px;
-  font-weight: 300;
-  line-height: 1.35;
-  color: var(--text-color);
+    margin: 0 0 20px;
+    font-size: 20px;
+    font-weight: 300;
+    line-height: 1.35;
+    color: var(--text-color);
 }
 
 /* hero logo (Optix hero has a product logo above the H1) */
 main > .section.ai-hero .columns-media p:has(img) img {
-  width: auto;
-  max-height: 48px;
+    width: auto;
+    max-height: 48px;
 }
 
 /* orange gradient CTA pill */
 main > .section.ai-hero .columns-media a:any-link {
-  display: inline-block;
-  margin-top: 8px;
-  padding: 8px 40px;
-  border: 0;
-  border-radius: 5px;
-  background-image: linear-gradient(90deg, #cd163f 0%, #f58025 100%);
-  color: #fff;
-  font-size: 16px;
-  font-weight: 700;
-  line-height: 1.7;
+    display: inline-block;
+    margin-top: 8px;
+    padding: 8px 40px;
+    border: 0;
+    border-radius: 5px;
+    background-image: linear-gradient(90deg, #cd163f 0%, #f58025 100%);
+    color: #fff;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1.7;
 }
 
 main > .section.ai-hero .columns-media a:hover,
 main > .section.ai-hero .columns-media a:focus-visible {
-  color: #fff;
-  text-decoration: none;
-  opacity: 0.92;
+    color: #fff;
+    text-decoration: none;
+    opacity: 0.92;
 }
 
 /* keep the hero text above the illustration on mobile */
 main > .section.ai-hero .columns-media > div > div {
-  order: 0;
+    order: 0;
 }
 
 main > .section.ai-hero .columns-media > div > .columns-media-img-col {
-  order: 1;
+    order: 1;
 }
 
 @media (width >= 960px) {
-  main > .section.ai-hero {
-    padding: 50px 0;
-  }
+    main > .section.ai-hero {
+        padding: 50px 0;
+    }
 
-  main > .section.ai-hero .columns-media h1 {
-    font-size: 48px;
-  }
+    main > .section.ai-hero .columns-media h1 {
+        font-size: 48px;
+    }
 
-  main > .section.ai-hero .columns-media > div {
-    justify-content: space-between;
-    gap: 48px;
-  }
+    main > .section.ai-hero .columns-media > div {
+        justify-content: space-between;
+        gap: 48px;
+    }
 
-  main > .section.ai-hero .columns-media > div > .columns-media-img-col {
-    flex: 0 0 40%;
-    max-width: 40%;
-  }
+    main > .section.ai-hero .columns-media > div > .columns-media-img-col {
+        flex: 0 0 40%;
+        max-width: 40%;
+    }
 }
 
 /* ---- ai-timeline: grey band, centered "AI at Fiix" heading, the
    cards-timeline block draws the connected rail (see the block CSS).
    Production band #f7f7f7, 50px top / 80px bottom, H2 48/500. ---- */
 main > .section.ai-timeline {
-  margin: 0;
-  padding: 50px 0 80px;
-  background-color: #f7f7f7;
+    margin: 0;
+    padding: 50px 0 80px;
+    background-color: #f7f7f7;
 }
 
 main > .section.ai-timeline .default-content-wrapper h2 {
-  margin: 0 auto 40px;
-  font-size: 40px;
-  font-weight: 500;
-  line-height: 1.1;
-  text-align: center;
-  color: var(--text-color);
+    margin: 0 auto 40px;
+    font-size: 40px;
+    font-weight: 500;
+    line-height: 1.1;
+    text-align: center;
+    color: var(--text-color);
 }
 
 @media (width >= 960px) {
-  main > .section.ai-timeline .default-content-wrapper h2 {
-    font-size: 48px;
-  }
+    main > .section.ai-timeline .default-content-wrapper h2 {
+        font-size: 48px;
+    }
 }
 
 /* ---- ai-fiixmax: dark gradient band, white centered logo + heading,
@@ -3025,261 +4348,261 @@ main > .section.ai-timeline .default-content-wrapper h2 {
    Vidyard promo videos are intentionally omitted; style around the
    text. Production band 70px top / 160px bottom, H2 48/700 white. ---- */
 main > .section.ai-fiixmax {
-  margin: 0;
-  padding: 70px 0 90px;
-  background-image: linear-gradient(269deg, #00afeb 0%, #003e7e 100%);
-  color: #fff;
+    margin: 0;
+    padding: 70px 0 90px;
+    background-image: linear-gradient(269deg, #00afeb 0%, #003e7e 100%);
+    color: #fff;
 }
 
 main > .section.ai-fiixmax .default-content-wrapper {
-  text-align: center;
+    text-align: center;
 }
 
 main > .section.ai-fiixmax .default-content-wrapper h2 {
-  margin: 0 auto 20px;
-  font-size: 40px;
-  font-weight: 700;
-  line-height: 1.1;
-  color: #fff;
+    margin: 0 auto 20px;
+    font-size: 40px;
+    font-weight: 700;
+    line-height: 1.1;
+    color: #fff;
 }
 
 /* Fiix MAX logo */
 main > .section.ai-fiixmax .default-content-wrapper p:has(img) {
-  margin: 0 0 12px;
+    margin: 0 0 12px;
 }
 
 main > .section.ai-fiixmax .default-content-wrapper p:has(img) img {
-  width: auto;
-  max-height: 32px;
+    width: auto;
+    max-height: 32px;
 }
 
 /* customer quote → white card, dark text */
 main > .section.ai-fiixmax .default-content-wrapper blockquote {
-  max-width: 900px;
-  margin: 32px auto 12px;
-  padding: 48px 60px;
-  border: 0;
-  border-radius: 10px;
-  background-color: #fff;
-  color: var(--text-color);
+    max-width: 900px;
+    margin: 32px auto 12px;
+    padding: 48px 60px;
+    border: 0;
+    border-radius: 10px;
+    background-color: #fff;
+    color: var(--text-color);
 }
 
 main > .section.ai-fiixmax .default-content-wrapper blockquote p {
-  margin: 0;
-  font-size: 16px;
-  font-weight: 300;
-  line-height: 1.7;
-  color: var(--text-color);
+    margin: 0;
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 1.7;
+    color: var(--text-color);
 }
 
 main > .section.ai-fiixmax .default-content-wrapper > p {
-  margin: 0 auto;
-  font-size: 16px;
-  font-weight: 300;
-  color: #fff;
+    margin: 0 auto;
+    font-size: 16px;
+    font-weight: 300;
+    color: #fff;
 }
 
 /* "Learn more about Fiix MAX" → orange gradient pill */
 main > .section.ai-fiixmax .default-content-wrapper a:any-link {
-  display: inline-block;
-  margin: 20px auto;
-  padding: 8px 40px;
-  border-radius: 5px;
-  background-image: linear-gradient(90deg, #cd163f 0%, #f58025 100%);
-  color: #fff;
-  font-size: 16px;
-  font-weight: 700;
+    display: inline-block;
+    margin: 20px auto;
+    padding: 8px 40px;
+    border-radius: 5px;
+    background-image: linear-gradient(90deg, #cd163f 0%, #f58025 100%);
+    color: #fff;
+    font-size: 16px;
+    font-weight: 700;
 }
 
 main > .section.ai-fiixmax .default-content-wrapper a:hover,
 main > .section.ai-fiixmax .default-content-wrapper a:focus-visible {
-  color: #fff;
-  text-decoration: none;
-  opacity: 0.92;
+    color: #fff;
+    text-decoration: none;
+    opacity: 0.92;
 }
 
 /* the three feature rows become white rounded product cards */
 main > .section.ai-fiixmax .columns-media {
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
 }
 
 main > .section.ai-fiixmax .columns-media > div {
-  margin: 0;
-  padding: 32px;
-  border-radius: 10px;
-  background-color: #fff;
-  gap: 24px;
+    margin: 0;
+    padding: 32px;
+    border-radius: 10px;
+    background-color: #fff;
+    gap: 24px;
 }
 
 main > .section.ai-fiixmax .columns-media p {
-  color: var(--text-color);
-  font-size: 16px;
-  font-weight: 300;
-  line-height: 1.6;
+    color: var(--text-color);
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 1.6;
 }
 
 main > .section.ai-fiixmax .columns-media p:first-child strong,
 main > .section.ai-fiixmax .columns-media p strong {
-  font-weight: 700;
+    font-weight: 700;
 }
 
 @media (width >= 960px) {
-  main > .section.ai-fiixmax {
-    padding: 70px 0 120px;
-  }
+    main > .section.ai-fiixmax {
+        padding: 70px 0 120px;
+    }
 
-  main > .section.ai-fiixmax .default-content-wrapper h2 {
-    font-size: 48px;
-  }
+    main > .section.ai-fiixmax .default-content-wrapper h2 {
+        font-size: 48px;
+    }
 
-  main > .section.ai-fiixmax .columns-media > div {
-    align-items: center;
-    padding: 40px 50px;
-    gap: 50px;
-  }
+    main > .section.ai-fiixmax .columns-media > div {
+        align-items: center;
+        padding: 40px 50px;
+        gap: 50px;
+    }
 }
 
 /* ---- ai-philosophy: light band, "Our AI Philosophy" heading + a
    4-item icon grid (cards-icon). Production H2 40/700 center, icons
    ~60px tall, captions 20/500 center, borderless transparent cards. */
 main > .section.ai-philosophy {
-  margin: 0;
-  padding: 60px 0;
-  text-align: center;
+    margin: 0;
+    padding: 60px 0;
+    text-align: center;
 }
 
 main > .section.ai-philosophy .default-content-wrapper h2 {
-  margin: 0 auto 40px;
-  font-size: 40px;
-  font-weight: 700;
-  line-height: 1.1;
-  text-align: center;
-  color: var(--text-color);
+    margin: 0 auto 40px;
+    font-size: 40px;
+    font-weight: 700;
+    line-height: 1.1;
+    text-align: center;
+    color: var(--text-color);
 }
 
 main > .section.ai-philosophy .cards-icon > ul {
-  grid-template-columns: repeat(2, 1fr);
-  gap: 32px;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 32px;
 }
 
 main > .section.ai-philosophy .cards-icon > ul > li {
-  border: 0;
-  background: transparent;
-  text-align: center;
+    border: 0;
+    background: transparent;
+    text-align: center;
 }
 
 main > .section.ai-philosophy .cards-icon .cards-icon-card-image {
-  margin-bottom: 16px;
+    margin-bottom: 16px;
 }
 
 main > .section.ai-philosophy .cards-icon > ul > li img {
-  width: auto;
-  max-height: 60px;
-  aspect-ratio: auto;
-  object-fit: contain;
-  margin: 0 auto;
+    width: auto;
+    max-height: 60px;
+    aspect-ratio: auto;
+    object-fit: contain;
+    margin: 0 auto;
 }
 
 main > .section.ai-philosophy .cards-icon .cards-icon-card-body {
-  margin: 0 8px;
+    margin: 0 8px;
 }
 
 main > .section.ai-philosophy .cards-icon .cards-icon-card-body p {
-  margin: 0;
-  font-size: 20px;
-  font-weight: 500;
-  line-height: 1.3;
-  color: var(--text-color);
+    margin: 0;
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 1.3;
+    color: var(--text-color);
 }
 
 @media (width >= 960px) {
-  main > .section.ai-philosophy .cards-icon > ul {
-    grid-template-columns: repeat(4, 1fr);
-  }
+    main > .section.ai-philosophy .cards-icon > ul {
+        grid-template-columns: repeat(4, 1fr);
+    }
 }
 
 /* ---- ai-augury: grey band, eyebrow + large heading (centered) over
    a 2-column logo/copy + CTA (columns-media). Production band #f7f7f7,
    50px vertical padding, eyebrow 20/500, H2 40/700, h3 26/700. ---- */
 main > .section.ai-augury {
-  margin: 0;
-  padding: 50px 0;
-  background-color: #f7f7f7;
+    margin: 0;
+    padding: 50px 0;
+    background-color: #f7f7f7;
 }
 
 /* eyebrow ("PREDICTIVE MAINTENANCE") + heading in the default content */
 main > .section.ai-augury .default-content-wrapper {
-  text-align: center;
+    text-align: center;
 }
 
 main > .section.ai-augury .default-content-wrapper p {
-  margin: 0;
-  font-size: 20px;
-  font-weight: 500;
-  color: var(--text-color);
+    margin: 0;
+    font-size: 20px;
+    font-weight: 500;
+    color: var(--text-color);
 }
 
 main > .section.ai-augury .default-content-wrapper h2 {
-  margin: 0 auto 20px;
-  font-size: 40px;
-  font-weight: 700;
-  line-height: 1.1;
-  text-align: center;
-  color: var(--text-color);
+    margin: 0 auto 20px;
+    font-size: 40px;
+    font-weight: 700;
+    line-height: 1.1;
+    text-align: center;
+    color: var(--text-color);
 }
 
 main > .section.ai-augury .columns-media h3 {
-  margin: 0 0 20px;
-  font-size: 26px;
-  font-weight: 700;
-  line-height: 1.1;
-  color: var(--text-color);
+    margin: 0 0 20px;
+    font-size: 26px;
+    font-weight: 700;
+    line-height: 1.1;
+    color: var(--text-color);
 }
 
 main > .section.ai-augury .columns-media p {
-  margin: 0 0 20px;
-  font-size: 20px;
-  font-weight: 300;
-  line-height: 1.4;
-  color: var(--text-color);
+    margin: 0 0 20px;
+    font-size: 20px;
+    font-weight: 300;
+    line-height: 1.4;
+    color: var(--text-color);
 }
 
 /* logo above the copy */
 main > .section.ai-augury .columns-media p:has(img) img {
-  width: auto;
-  max-height: 60px;
+    width: auto;
+    max-height: 60px;
 }
 
 /* "Book a demo" → orange gradient pill */
 main > .section.ai-augury .columns-media a:any-link {
-  display: inline-block;
-  margin-top: 8px;
-  padding: 8px 40px;
-  border-radius: 5px;
-  background-image: linear-gradient(90deg, #cd163f 0%, #f58025 100%);
-  color: #fff;
-  font-size: 16px;
-  font-weight: 700;
+    display: inline-block;
+    margin-top: 8px;
+    padding: 8px 40px;
+    border-radius: 5px;
+    background-image: linear-gradient(90deg, #cd163f 0%, #f58025 100%);
+    color: #fff;
+    font-size: 16px;
+    font-weight: 700;
 }
 
 main > .section.ai-augury .columns-media a:hover,
 main > .section.ai-augury .columns-media a:focus-visible {
-  color: #fff;
-  text-decoration: none;
-  opacity: 0.92;
+    color: #fff;
+    text-decoration: none;
+    opacity: 0.92;
 }
 
 @media (width >= 960px) {
-  main > .section.ai-augury .default-content-wrapper h2 {
-    font-size: 48px;
-  }
+    main > .section.ai-augury .default-content-wrapper h2 {
+        font-size: 48px;
+    }
 
-  main > .section.ai-augury .columns-media > div {
-    align-items: center;
-    gap: 48px;
-  }
+    main > .section.ai-augury .columns-media > div {
+        align-items: center;
+        gap: 48px;
+    }
 }
 
 /* ---- ai-faq / optix-faq: both FAQ sections carry BOTH the ai-faq and
@@ -3288,37 +4611,37 @@ main > .section.ai-augury .columns-media a:focus-visible {
    more" link. Production H2 40/500-700 center. The duplicated section
    metadata leaks a visible "style / optix-faq" block — hide it. ---- */
 main > .section.ai-faq {
-  margin: 0;
-  padding: 60px 0;
+    margin: 0;
+    padding: 60px 0;
 }
 
 main > .section.ai-faq .default-content-wrapper h2 {
-  margin: 0 auto 20px;
-  font-size: 40px;
-  font-weight: 700;
-  line-height: 1.1;
-  text-align: center;
-  color: var(--text-color);
+    margin: 0 auto 20px;
+    font-size: 40px;
+    font-weight: 700;
+    line-height: 1.1;
+    text-align: center;
+    color: var(--text-color);
 }
 
 /* "Learn more about CBM with Fiix" intro link → centered blue link */
 main > .section.ai-faq .default-content-wrapper a:any-link {
-  display: block;
-  margin: 0 auto 24px;
-  text-align: center;
-  color: #14499a;
-  font-weight: 700;
+    display: block;
+    margin: 0 auto 24px;
+    text-align: center;
+    color: #14499a;
+    font-weight: 700;
 }
 
 main > .section.ai-faq .accordion-faq {
-  max-width: 900px;
-  margin: 0 auto;
+    max-width: 900px;
+    margin: 0 auto;
 }
 
 /* suppress the leaked duplicate section-metadata block */
 main > .section.ai-faq .section-metadata-wrapper,
 main > .section.ai-faq .section-metadata {
-  display: none;
+    display: none;
 }
 
 /* ---- ai-tabs: two tabbed-panel sections (tabs-feature). White band,
@@ -3326,38 +4649,38 @@ main > .section.ai-faq .section-metadata {
    tabs-feature block styles the tabs/panels; some panel screenshots
    were intentionally omitted during import. ---- */
 main > .section.ai-tabs {
-  margin: 0;
-  padding: 50px 0;
+    margin: 0;
+    padding: 50px 0;
 }
 
 main > .section.ai-tabs .default-content-wrapper {
-  text-align: center;
+    text-align: center;
 }
 
 main > .section.ai-tabs .default-content-wrapper h2 {
-  margin: 0 auto 30px;
-  max-width: 760px;
-  font-size: 28px;
-  font-weight: 700;
-  line-height: 1.1;
-  text-align: center;
-  color: var(--text-color);
+    margin: 0 auto 30px;
+    max-width: 760px;
+    font-size: 28px;
+    font-weight: 700;
+    line-height: 1.1;
+    text-align: center;
+    color: var(--text-color);
 }
 
 /* product logo above the heading (Fiix Foresight) */
 main > .section.ai-tabs .default-content-wrapper p:has(img) {
-  text-align: center;
+    text-align: center;
 }
 
 main > .section.ai-tabs .default-content-wrapper p:has(img) img {
-  width: auto;
-  max-height: 40px;
+    width: auto;
+    max-height: 40px;
 }
 
 @media (width >= 960px) {
-  main > .section.ai-tabs .default-content-wrapper h2 {
-    font-size: 40px;
-  }
+    main > .section.ai-tabs .default-content-wrapper h2 {
+        font-size: 40px;
+    }
 }
 
 /* ---- ai-dual-cta: dark gradient band, a pair of white CTA cards
@@ -3365,67 +4688,67 @@ main > .section.ai-tabs .default-content-wrapper p:has(img) img {
    with a soft shadow, 10px radius, 50px 80px padding; card H2 40/500,
    copy 20/300, CTA = orange gradient pill. ---- */
 main > .section.ai-dual-cta {
-  margin: 0;
-  padding: 55px 0 90px;
-  background-image: linear-gradient(269deg, #00afeb 0%, #003e7e 100%);
+    margin: 0;
+    padding: 55px 0 90px;
+    background-image: linear-gradient(269deg, #00afeb 0%, #003e7e 100%);
 }
 
 main > .section.ai-dual-cta .cards-cta .cards-cta-panel {
-  padding: 50px 40px;
-  border-radius: 10px;
-  background-color: #fff;
-  box-shadow: 0 0 10px 0 rgb(0 0 0 / 16%);
+    padding: 50px 40px;
+    border-radius: 10px;
+    background-color: #fff;
+    box-shadow: 0 0 10px 0 rgb(0 0 0 / 16%);
 }
 
 main > .section.ai-dual-cta .cards-cta .cards-cta-body h2,
 main > .section.ai-dual-cta .cards-cta .cards-cta-body h3 {
-  margin: 0 0 20px;
-  font-size: 40px;
-  font-weight: 500;
-  line-height: 1.1;
-  color: var(--text-color);
+    margin: 0 0 20px;
+    font-size: 40px;
+    font-weight: 500;
+    line-height: 1.1;
+    color: var(--text-color);
 }
 
 main > .section.ai-dual-cta .cards-cta .cards-cta-body p {
-  margin: 0 0 20px;
-  font-size: 20px;
-  font-weight: 300;
-  line-height: 1.4;
-  color: var(--text-color);
+    margin: 0 0 20px;
+    font-size: 20px;
+    font-weight: 300;
+    line-height: 1.4;
+    color: var(--text-color);
 }
 
 main > .section.ai-dual-cta .cards-cta a.cards-cta-button:any-link {
-  margin-top: 10px;
-  padding: 8px 40px;
-  border: 0;
-  border-radius: 5px;
-  background-color: transparent;
-  background-image: linear-gradient(90deg, #cd163f 0%, #f58025 100%);
-  color: #fff;
-  font-size: 16px;
-  font-weight: 700;
+    margin-top: 10px;
+    padding: 8px 40px;
+    border: 0;
+    border-radius: 5px;
+    background-color: transparent;
+    background-image: linear-gradient(90deg, #cd163f 0%, #f58025 100%);
+    color: #fff;
+    font-size: 16px;
+    font-weight: 700;
 }
 
 main > .section.ai-dual-cta .cards-cta a.cards-cta-button:hover,
 main > .section.ai-dual-cta .cards-cta a.cards-cta-button:focus-visible {
-  background-color: transparent;
-  color: #fff;
-  text-decoration: none;
-  opacity: 0.92;
+    background-color: transparent;
+    color: #fff;
+    text-decoration: none;
+    opacity: 0.92;
 }
 
 @media (width >= 960px) {
-  main > .section.ai-dual-cta {
-    padding: 55px 0 140px;
-  }
+    main > .section.ai-dual-cta {
+        padding: 55px 0 140px;
+    }
 
-  main > .section.ai-dual-cta .cards-cta {
-    gap: 100px;
-  }
+    main > .section.ai-dual-cta .cards-cta {
+        gap: 100px;
+    }
 
-  main > .section.ai-dual-cta .cards-cta .cards-cta-panel {
-    padding: 50px 80px;
-  }
+    main > .section.ai-dual-cta .cards-cta .cards-cta-panel {
+        padding: 50px 80px;
+    }
 }
 
 /* ============================================================
@@ -3438,63 +4761,63 @@ main > .section.ai-dual-cta .cards-cta a.cards-cta-button:focus-visible {
    benefit list (right). Production band 55px top / 70px bottom, white
    text, H2 40/700 center, copy 20/300, list 22/300. ---- */
 main > .section.optix-intro {
-  margin: 0;
-  padding: 55px 0 70px;
-  background-image: linear-gradient(269deg, #00afeb 0%, #003e7e 100%);
-  color: #fff;
+    margin: 0;
+    padding: 55px 0 70px;
+    background-image: linear-gradient(269deg, #00afeb 0%, #003e7e 100%);
+    color: #fff;
 }
 
 main > .section.optix-intro .default-content-wrapper h2 {
-  margin: 0 0 24px;
-  font-size: 40px;
-  font-weight: 700;
-  line-height: 1.1;
-  text-align: center;
-  color: #fff;
+    margin: 0 0 24px;
+    font-size: 40px;
+    font-weight: 700;
+    line-height: 1.1;
+    text-align: center;
+    color: #fff;
 }
 
 main > .section.optix-intro .default-content-wrapper p {
-  margin: 0 0 20px;
-  font-size: 20px;
-  font-weight: 300;
-  line-height: 1.5;
-  color: #fff;
+    margin: 0 0 20px;
+    font-size: 20px;
+    font-weight: 300;
+    line-height: 1.5;
+    color: #fff;
 }
 
 main > .section.optix-intro .default-content-wrapper ul {
-  margin: 0;
-  padding-left: 24px;
-  color: #fff;
+    margin: 0;
+    padding-left: 24px;
+    color: #fff;
 }
 
 main > .section.optix-intro .default-content-wrapper li {
-  margin: 0 0 16px;
-  font-size: 22px;
-  font-weight: 300;
-  line-height: 1.5;
-  color: #fff;
+    margin: 0 0 16px;
+    font-size: 22px;
+    font-weight: 300;
+    line-height: 1.5;
+    color: #fff;
 }
 
 @media (width >= 960px) {
-  main > .section.optix-intro .default-content-wrapper {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    column-gap: 60px;
-  }
+    main > .section.optix-intro .default-content-wrapper {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        column-gap: 60px;
+    }
 
-  main > .section.optix-intro .default-content-wrapper h2 {
-    grid-column: 1 / -1;
-  }
+    main > .section.optix-intro .default-content-wrapper h2 {
+        grid-column: 1 / -1;
+    }
 
-  main > .section.optix-intro .default-content-wrapper p {
-    grid-column: 1;
-  }
+    main > .section.optix-intro .default-content-wrapper p {
+        grid-column: 1;
+    }
 
-  main > .section.optix-intro .default-content-wrapper ul {
-    grid-column: 2;
-    grid-row: 2;
-    align-self: start;
-  }
+    main > .section.optix-intro .default-content-wrapper ul {
+        grid-column: 2;
+        grid-row: 2;
+        align-self: start;
+    }
 }
 
 /* ---- optix-connect: white band, "Connect your CMMS to the plant
@@ -3502,59 +4825,59 @@ main > .section.optix-intro .default-content-wrapper li {
    center, icons ~60px, captions 20/500 center. (The 2x2 benefit-card
    grid below the icons did not survive import — noted as a delta.) ---- */
 main > .section.optix-connect {
-  margin: 0;
-  padding: 75px 0 65px;
-  text-align: center;
+    margin: 0;
+    padding: 75px 0 65px;
+    text-align: center;
 }
 
 main > .section.optix-connect .default-content-wrapper h2 {
-  margin: 0 auto 40px;
-  font-size: 40px;
-  font-weight: 700;
-  line-height: 1.1;
-  text-align: center;
-  color: var(--text-color);
+    margin: 0 auto 40px;
+    font-size: 40px;
+    font-weight: 700;
+    line-height: 1.1;
+    text-align: center;
+    color: var(--text-color);
 }
 
 main > .section.optix-connect .cards-icon > ul {
-  grid-template-columns: repeat(2, 1fr);
-  gap: 32px;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 32px;
 }
 
 main > .section.optix-connect .cards-icon > ul > li {
-  border: 0;
-  background: transparent;
-  text-align: center;
+    border: 0;
+    background: transparent;
+    text-align: center;
 }
 
 main > .section.optix-connect .cards-icon .cards-icon-card-image {
-  margin-bottom: 16px;
+    margin-bottom: 16px;
 }
 
 main > .section.optix-connect .cards-icon > ul > li img {
-  width: auto;
-  max-height: 60px;
-  aspect-ratio: auto;
-  object-fit: contain;
-  margin: 0 auto;
+    width: auto;
+    max-height: 60px;
+    aspect-ratio: auto;
+    object-fit: contain;
+    margin: 0 auto;
 }
 
 main > .section.optix-connect .cards-icon .cards-icon-card-body {
-  margin: 0 8px;
+    margin: 0 8px;
 }
 
 main > .section.optix-connect .cards-icon .cards-icon-card-body p {
-  margin: 0;
-  font-size: 20px;
-  font-weight: 500;
-  line-height: 1.3;
-  color: var(--text-color);
+    margin: 0;
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 1.3;
+    color: var(--text-color);
 }
 
 @media (width >= 960px) {
-  main > .section.optix-connect .cards-icon > ul {
-    grid-template-columns: repeat(4, 1fr);
-  }
+    main > .section.optix-connect .cards-icon > ul {
+        grid-template-columns: repeat(4, 1fr);
+    }
 }
 
 /* ---- optix-casestudy: dark gradient band, customer quote + stat list
@@ -3562,86 +4885,86 @@ main > .section.optix-connect .cards-icon .cards-icon-card-body p {
    quote 28/500 center. (Only the customer portrait imported; the quote
    text + stat numbers did not survive import — noted as a delta.) ---- */
 main > .section.optix-casestudy {
-  margin: 0;
-  padding: 55px 0 70px;
-  background-image: linear-gradient(269deg, #00afeb 0%, #003e7e 100%);
-  color: #fff;
+    margin: 0;
+    padding: 55px 0 70px;
+    background-image: linear-gradient(269deg, #00afeb 0%, #003e7e 100%);
+    color: #fff;
 }
 
 main > .section.optix-casestudy .columns-media,
 main > .section.optix-casestudy .columns-media p,
 main > .section.optix-casestudy .columns-media blockquote {
-  color: #fff;
+    color: #fff;
 }
 
 main > .section.optix-casestudy .columns-media blockquote p {
-  font-size: 28px;
-  font-weight: 500;
-  line-height: 1.3;
-  text-align: center;
+    font-size: 28px;
+    font-weight: 500;
+    line-height: 1.3;
+    text-align: center;
 }
 
 main > .section.optix-casestudy .columns-media img {
-  width: auto;
-  max-width: 200px;
-  border-radius: 50%;
+    width: auto;
+    max-width: 200px;
+    border-radius: 50%;
 }
 
 /* ---- optix-together: white band, "Fiix and FactoryTalk Better
    Together" heading + a 2-column logo/copy comparison (columns-media).
    Production H2 40/700 center, body 20/300, logos ~60px tall. ---- */
 main > .section.optix-together {
-  margin: 0;
-  padding: 80px 0 100px;
+    margin: 0;
+    padding: 80px 0 100px;
 }
 
 main > .section.optix-together .default-content-wrapper h2 {
-  margin: 0 auto 40px;
-  font-size: 40px;
-  font-weight: 700;
-  line-height: 1.15;
-  text-align: center;
-  color: var(--text-color);
+    margin: 0 auto 40px;
+    font-size: 40px;
+    font-weight: 700;
+    line-height: 1.15;
+    text-align: center;
+    color: var(--text-color);
 }
 
 main > .section.optix-together .columns-media > div {
-  gap: 24px;
+    gap: 24px;
 }
 
 main > .section.optix-together .columns-media > div > div {
-  padding: 32px;
-  border: 1px solid var(--border-color);
-  border-radius: 8px;
-  text-align: center;
+    padding: 32px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    text-align: center;
 }
 
 main > .section.optix-together .columns-media p {
-  margin: 0 0 16px;
-  font-size: 20px;
-  font-weight: 300;
-  line-height: 1.4;
-  color: var(--text-color);
-  text-align: left;
+    margin: 0 0 16px;
+    font-size: 20px;
+    font-weight: 300;
+    line-height: 1.4;
+    color: var(--text-color);
+    text-align: left;
 }
 
 main > .section.optix-together .columns-media p:has(img) {
-  text-align: center;
+    text-align: center;
 }
 
 main > .section.optix-together .columns-media p:has(img) img {
-  width: auto;
-  max-height: 60px;
+    width: auto;
+    max-height: 60px;
 }
 
 @media (width >= 960px) {
-  main > .section.optix-together .columns-media > div {
-    align-items: stretch;
-    gap: 40px;
-  }
+    main > .section.optix-together .columns-media > div {
+        align-items: stretch;
+        gap: 40px;
+    }
 
-  main > .section.optix-together .columns-media > div > div {
-    padding: 40px;
-  }
+    main > .section.optix-together .columns-media > div > div {
+        padding: 40px;
+    }
 }
 
 /* ---- optix-getstarted: a "Getting Started" CTA band (hero-cta) on a
@@ -3651,213 +4974,264 @@ main > .section.optix-together .columns-media p:has(img) img {
    (noted as a delta). Band padding 40px 60px 50px, H2 40/700 white,
    copy 20/300 white, CTA = white pill with dark-blue text. ---- */
 main > .section.optix-getstarted {
-  margin: 0;
-  padding: 40px 0 60px;
+    margin: 0;
+    padding: 40px 0 60px;
 }
 
 main > .section.optix-getstarted .hero-cta-wrapper {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 24px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
 }
 
 main > .section.optix-getstarted .hero-cta.no-image {
-  min-height: 0;
-  padding: 40px 60px 50px;
-  border-radius: 6px;
-  background: linear-gradient(120deg, #14499a 0%, #003e7e 100%);
+    min-height: 0;
+    padding: 40px 60px 50px;
+    border-radius: 6px;
+    background: linear-gradient(120deg, #14499a 0%, #003e7e 100%);
 }
 
 main > .section.optix-getstarted .hero-cta.no-image h2 {
-  max-width: none;
-  margin: 0 0 16px;
-  font-size: 32px;
-  font-weight: 700;
-  line-height: 1.1;
-  text-align: left;
-  color: #fff;
+    max-width: none;
+    margin: 0 0 16px;
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 1.1;
+    text-align: left;
+    color: #fff;
 }
 
 main > .section.optix-getstarted .hero-cta.no-image p {
-  max-width: 640px;
-  margin: 0 0 20px;
-  font-size: 20px;
-  font-weight: 300;
-  line-height: 1.5;
-  text-align: left;
-  color: #fff;
+    max-width: 640px;
+    margin: 0 0 20px;
+    font-size: 20px;
+    font-weight: 300;
+    line-height: 1.5;
+    text-align: left;
+    color: #fff;
 }
 
 main > .section.optix-getstarted .hero-cta.no-image a:any-link {
-  display: inline-block;
-  padding: 8px 40px;
-  border: 0;
-  border-radius: 5px;
-  background: #fff;
-  color: #003e7e;
-  font-size: 16px;
-  font-weight: 700;
+    display: inline-block;
+    padding: 8px 40px;
+    border: 0;
+    border-radius: 5px;
+    background: #fff;
+    color: #003e7e;
+    font-size: 16px;
+    font-weight: 700;
 }
 
 main > .section.optix-getstarted .hero-cta.no-image a:hover,
 main > .section.optix-getstarted .hero-cta.no-image a:focus-visible {
-  color: #003e7e;
-  text-decoration: none;
-  opacity: 0.9;
+    color: #003e7e;
+    text-decoration: none;
+    opacity: 0.9;
 }
 
 /* trailing "Pricing and Requirements" list on white */
 main > .section.optix-getstarted .default-content-wrapper {
-  margin-top: 40px;
+    margin-top: 40px;
 }
 
 main > .section.optix-getstarted .default-content-wrapper h2 {
-  margin: 0 auto 24px;
-  font-size: 40px;
-  font-weight: 700;
-  line-height: 1.1;
-  text-align: center;
-  color: var(--text-color);
+    margin: 0 auto 24px;
+    font-size: 40px;
+    font-weight: 700;
+    line-height: 1.1;
+    text-align: center;
+    color: var(--text-color);
 }
 
 main > .section.optix-getstarted .default-content-wrapper ul {
-  max-width: 900px;
-  margin: 0 auto;
-  padding-left: 24px;
+    max-width: 900px;
+    margin: 0 auto;
+    padding-left: 24px;
 }
 
 main > .section.optix-getstarted .default-content-wrapper li {
-  margin: 0 0 12px;
-  font-size: 18px;
-  font-weight: 300;
-  line-height: 1.5;
-  color: var(--text-color);
+    margin: 0 0 12px;
+    font-size: 18px;
+    font-weight: 300;
+    line-height: 1.5;
+    color: var(--text-color);
 }
 
 @media (width >= 960px) {
-  main > .section.optix-getstarted .hero-cta.no-image h2 {
-    font-size: 40px;
-  }
+    main > .section.optix-getstarted .hero-cta.no-image h2 {
+        font-size: 40px;
+    }
 }
 
 /* Blog listing header — gray featured band matching fiixsoftware.com/blog */
 main > .section.blog-header {
-  margin: 55px 0 40px;
-  padding: 40px 0;
-  background-color: #e1e1e1;
+    margin: 55px 0 40px;
+    padding: 40px 0;
+    background-color: #e1e1e1;
 }
 
 main > .section.blog-header:first-of-type {
-  margin-top: 55px;
+    margin-top: 55px;
 }
 
 main > .section.blog-header > .default-content-wrapper {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
 }
 
 main > .section.blog-header .blog-header-copy h1 {
-  display: inline-block;
-  margin: 0 0 20px;
-  color: var(--text-color);
-  font-size: 20px;
-  font-weight: 300;
-  line-height: 34px;
+    display: inline-block;
+    margin: 0 0 20px;
+    color: var(--text-color);
+    font-size: 20px;
+    font-weight: 300;
+    line-height: 34px;
 }
 
 main > .section.blog-header .blog-header-copy h2 {
-  margin: 0 0 30px;
-  color: var(--text-color);
-  font-size: 40px;
-  font-weight: 700;
-  line-height: 1;
+    margin: 0 0 30px;
+    color: var(--text-color);
+    font-size: 40px;
+    font-weight: 700;
+    line-height: 1;
 }
 
 main > .section.blog-header .blog-header-copy .button-wrapper {
-  margin: 0 0 20px;
+    margin: 0 0 20px;
 }
 
 main > .section.blog-header .blog-header-copy a.button.primary {
-  display: inline-block;
-  min-height: 53px;
-  padding: 0 20px;
-  border: 2px solid #14499a;
-  border-radius: 27px;
-  background-color: #14499a;
-  color: #fff;
-  font-size: 20px;
-  font-weight: 700;
-  line-height: 53px;
-  white-space: nowrap;
+    display: inline-block;
+    min-height: 53px;
+    padding: 0 20px;
+    border: 2px solid #14499a;
+    border-radius: 27px;
+    background-color: #14499a;
+    color: #fff;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 53px;
+    white-space: nowrap;
 }
 
 main > .section.blog-header .blog-header-copy a.button.primary:hover,
 main > .section.blog-header .blog-header-copy a.button.primary:focus-visible {
-  border-color: #0f3c7a;
-  background-color: #0f3c7a;
-  color: #fff;
+    border-color: #0f3c7a;
+    background-color: #0f3c7a;
+    color: #fff;
 }
 
 main > .section.blog-header .blog-header-media {
-  display: none;
+    display: none;
 }
 
 @media (width >= 900px) {
-  main > .section.blog-header {
-    height: 400px;
-    margin: 80px 0 40px;
-    padding: 0;
-  }
+    main > .section.blog-header {
+        height: 400px;
+        margin: 80px 0 40px;
+        padding: 0;
+    }
 
-  main > .section.blog-header:first-of-type {
-    margin-top: 80px;
-  }
+    main > .section.blog-header:first-of-type {
+        margin-top: 80px;
+    }
 
-  main > .section.blog-header > .default-content-wrapper {
-    height: 100%;
-    padding: 0;
-  }
+    main > .section.blog-header > .default-content-wrapper {
+        height: 100%;
+        padding: 0;
+    }
 
-  main > .section.blog-header .blog-header-copy {
-    flex: 1 1 auto;
-    min-width: 0;
-    padding-right: 40px;
-  }
+    main > .section.blog-header .blog-header-copy {
+        flex: 1 1 auto;
+        min-width: 0;
+        padding-right: 40px;
+    }
 
-  main > .section.blog-header .blog-header-copy h2 {
-    font-size: 50px;
-    line-height: 1;
-  }
+    main > .section.blog-header .blog-header-copy h2 {
+        font-size: 50px;
+        line-height: 1;
+    }
 
-  main > .section.blog-header .blog-header-media {
-    display: block;
-    flex: 0 0 420px;
-    width: 420px;
-    margin: 0;
-  }
+    main > .section.blog-header .blog-header-media {
+        display: block;
+        flex: 0 0 420px;
+        width: 420px;
+        margin: 0;
+    }
 
-  main > .section.blog-header .blog-header-media img {
-    display: block;
-    width: 420px;
-    max-width: 100%;
-    height: auto;
-  }
+    main > .section.blog-header .blog-header-media img {
+        display: block;
+        width: 420px;
+        max-width: 100%;
+        height: auto;
+    }
 }
 
 /* Keep long-form case-study copy on the production reading measure. The
    structural selector also supports pages authored before the overview style
    metadata was added. This is intentionally at the end of the stylesheet so
    it wins over the boilerplate section wrapper defaults. */
-body:has(.hero-case-study) main > .section:has(> .default-content-wrapper) > .default-content-wrapper {
-  box-sizing: border-box;
-  width: 100%;
-  max-width: 702px;
-  margin-right: auto;
-  margin-left: auto;
-  padding-right: 19px;
-  padding-left: 19px;
+body:has(.hero-case-study)
+    main
+    > .section:has(> .default-content-wrapper)
+    > .default-content-wrapper {
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 702px;
+    margin-right: auto;
+    margin-left: auto;
+    padding-right: 19px;
+    padding-left: 19px;
+}
+
+/* Match the live case-study ordered-list markers: a numbered gray circle sits
+   beside each item while the copy keeps the production 20px/34px rhythm. */
+body:has(.hero-case-study)
+    main
+    > .section.case-study-overview
+    > .default-content-wrapper
+    ol {
+    margin: 50px 0 0 50px;
+    padding: 0;
+    font-size: 16px;
+    line-height: 27.2px;
+}
+
+body:has(.hero-case-study)
+    main
+    > .section.case-study-overview
+    > .default-content-wrapper
+    ol > li {
+    position: relative;
+    margin: 0 0 20px;
+    list-style: none;
+    counter-increment: my-awesome-counter;
+    font-size: 20px;
+    line-height: 34px;
+}
+
+body:has(.hero-case-study)
+    main
+    > .section.case-study-overview
+    > .default-content-wrapper
+    ol > li::before {
+    --size: 30px;
+
+    content: counter(my-awesome-counter);
+    position: absolute;
+    top: 4px;
+    left: calc(-1 * var(--size) - 20px);
+    width: var(--size);
+    height: var(--size);
+    border-radius: 50%;
+    background-color: #e8e8e8;
+    color: #58595b;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 26px;
+    text-align: center;
 }
 
 /* stylelint-enable no-descending-specificity */
