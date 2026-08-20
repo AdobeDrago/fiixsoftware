@@ -39,6 +39,13 @@ function markBackLink(navigation) {
   backLink?.closest('p')?.classList.add('resource-navigation-back');
 }
 
+function removeBackLinkOnResourceIndex(navigation) {
+  const path = window.location.pathname.replace(/\/+$/, '');
+  if (path === '/resource-center') {
+    navigation.querySelector('.resource-navigation-back')?.remove();
+  }
+}
+
 /**
  * Loads and decorates the centrally managed resource navigation.
  * @param {Element} block The resource navigation block element
@@ -65,6 +72,7 @@ export default async function decorate(block) {
   navigation.setAttribute('aria-label', 'Resource center navigation');
   navigation.append(...fragment.children);
   markBackLink(navigation);
+  removeBackLinkOnResourceIndex(navigation);
   addMobileSelects(navigation);
   block.append(navigation);
   block.hidden = false;
