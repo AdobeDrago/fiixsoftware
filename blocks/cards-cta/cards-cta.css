@@ -51,6 +51,12 @@
     text-align: left;
 }
 
+/* Source gives the heading + copy a fixed min-height so every CTA link starts
+   on the same baseline; it is released once the cards stack. */
+.cards-cta .cards-cta-text {
+    display: block;
+}
+
 .cards-cta .cards-cta-body h3 {
     margin: 0 0 16px;
     color: #212021;
@@ -66,12 +72,10 @@
     font-size: 20px;
     line-height: normal;
     font-weight: 300;
-    padding-bottom: 70px;
 }
 
 .cards-cta .cards-cta-body p:last-child {
     margin-top: auto;
-    margin-bottom: 0;
     padding-bottom: 0;
 }
 
@@ -79,7 +83,7 @@
 .cards-cta a.cards-cta-button:any-link {
     display: inline-flex;
     align-items: center;
-    gap: 8px;
+    gap: 10px;
     margin-top: auto;
     color: #14499a;
     font-size: 20px;
@@ -97,15 +101,30 @@
     margin-left: 10px;
 }
 
-@media (width >= 960px) {
+/* Cards stack until desktop, where they sit three-across. */
+@media (width >=960px) {
     .cards-cta {
         flex-flow: row wrap;
         justify-content: space-between;
-        padding-top: 50px;
+        gap: 0;
     }
 
     .cards-cta .cards-cta-panel {
         width: 30%;
         padding: 70px 40px 40px;
+    }
+
+    .cards-cta .cards-cta-text {
+        min-height: 350px;
+    }
+
+    .cards-cta .cards-cta-body p:last-child {
+        margin-bottom: 0;
+    }
+}
+
+@media (width >=1200px) {
+    .cards-cta .cards-cta-text {
+        min-height: 275px;
     }
 }

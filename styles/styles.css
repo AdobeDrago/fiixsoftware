@@ -335,7 +335,7 @@ main > .section {
 main > .section > div {
     max-width: 1200px;
     margin: auto;
-    padding: 0 24px;
+    padding: 0 20px;
 }
 
 main > .section:first-of-type {
@@ -4007,29 +4007,33 @@ main > .section.pf-explore .columns-logos-wrapper {
    H2 48/700 centered, cards transparent, link 20/700 #14499a. ---- */
 main > .section.pf-resources {
     margin: 0;
-    padding: 80px 0;
+    padding:  0 20px;
     background-color: #f7f7f7;
 }
 
+main > .section.pf-resources .default-content-wrapper {
+    padding: 40px 0 100px;
+}
+
 main > .section.pf-resources .default-content-wrapper h2 {
-    margin: 0 auto 40px;
-    font-size: 32px;
+    max-width: 100%;
+    margin: 0 auto;
+    font-size: 30px;
     font-weight: 700;
     line-height: 1;
     text-align: center;
     color: var(--text-color);
 }
 
-/* cards-cta reused: production renders these as flat, transparent,
-   left-aligned cards with a small decorative icon (not the block's grey
-   panels with an overflowing triangle). */
-main > .section.pf-resources .cards-cta {
-    gap: 32px;
+main > .section.pf-resources .cards-cta-wrapper {
+   padding: 0 0 40px;
 }
+
+/* cards-cta reused: production keeps the block's white, shadowed card, and
+   left-aligns the content behind a decorative icon that overflows the top. */
 
 main > .section.pf-resources .cards-cta .cards-cta-panel {
     align-items: stretch;
-    background-color: transparent;
     text-align: left;
 }
 
@@ -4054,12 +4058,11 @@ main > .section.pf-resources .cards-cta .cards-cta-body h3 {
 
 main > .section.pf-resources .cards-cta .cards-cta-body p {
     font-size: 20px;
-    line-height: 1.3;
+    line-height: normal;
 }
 
 /* "Uncover details" as a plain blue text link, not the purple pill */
 main > .section.pf-resources .cards-cta a.cards-cta-button:any-link {
-    margin-top: 16px;
     padding: 0;
     border: 0;
     border-radius: 0;
@@ -4067,6 +4070,7 @@ main > .section.pf-resources .cards-cta a.cards-cta-button:any-link {
     color: #14499a;
     font-size: 20px;
     font-weight: 700;
+    line-height: 34px;
 }
 
 main > .section.pf-resources .cards-cta a.cards-cta-button:hover,
@@ -4075,29 +4079,38 @@ main > .section.pf-resources .cards-cta a.cards-cta-button:focus-visible {
     color: #0f3877;
 }
 
+/* The heading steps up 30 -> 38 -> 48, and is only constrained to half the
+   container once the cards go three-across. */
+@media (width >= 768px) {
+    main > .section.pf-resources .default-content-wrapper h2 {
+        font-size: 38px;
+    }
+}
+
 @media (width >= 960px) {
     main > .section.pf-resources .default-content-wrapper h2 {
         font-size: 48px;
-    }
-
-    main > .section.pf-resources .cards-cta {
-        gap: 48px;
     }
 
     main > .section.pf-resources.cards-cta-container {
         padding: 0;
     }
 
-    main > .section.pf-resources.cards-cta-container .default-content-wrapper {
-        border-top: solid 2px #e1e1e1;
+    main > .section.pf-resources .default-content-wrapper {
+        padding: 100px 0;
     }
 
     main
         > .section.pf-resources.cards-cta-container
         .default-content-wrapper
         h2 {
-        margin-top: 80px;
-        max-width: 530px;
+        max-width: 50%;
+    }
+
+    /* the cards sit flush with the bottom of the band; the section that
+       follows supplies the spacing (and the diagonal cut). */
+    main > .section.pf-resources .cards-cta-wrapper {
+        padding-bottom: 0;
     }
 }
 
