@@ -219,6 +219,12 @@ body.blog-article main > .section.blog-promo {
 body.blog-article main > .section.cta-selected {
   display: block;
   margin: 0;
+
+  /* columns-blog-cta bleeds full-bleed with a 100vw band; clip it here so
+     that bleed doesn't stretch the document ~100vw wide and give the whole
+     page a horizontal scrollbar (same pattern used for the other 100vw
+     bleeds in styles.css). */
+  overflow-x: clip;
 }
 
 body.blog-article .section.blog-share .default-content-wrapper {
@@ -323,4 +329,80 @@ body.blog-article .section.blog-share p:last-of-type a:any-link::before {
   transform: translateY(-50%);
   background-color: #14499a;
   mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg>') no-repeat center / contain;
+}
+
+@media (width >= 960px) {
+  /* Production centres the share row in the page rather than lining it up under
+     the reading column: `.blog-share` is a shrink-to-fit block, capped at the
+     664px column width, carrying a 300px right gutter, and the pair is centred
+     as a whole. A grid (rather than `blog-body`'s flex row) keeps every authored
+     element stacked in the first column without needing an extra wrapper div,
+     since any div `decorateSections` sees becomes a block of its own. */
+  body.blog-article .section.blog-share .default-content-wrapper {
+    display: grid;
+    grid-template-columns: fit-content(664px) 300px;
+    justify-content: center;
+  }
+
+  body.blog-article .section.blog-share .default-content-wrapper > * {
+    grid-column: 1;
+  }
+}
+
+/* Blog listing: academy + recent posts */
+main > .section.blog-academy,
+main > .section.blog-recent {
+  padding-top: 24px;
+  padding-bottom: 48px;
+}
+
+main > .section.blog-academy .default-content-wrapper h2,
+main > .section.blog-recent .default-content-wrapper h2 {
+  margin: 0 0 24px;
+  text-align: center;
+}
+
+/* the source shows the card art at its authored size rather than cropping it
+   into a fixed ratio, and fills the card with a light grey card, not a border */
+main > .section.blog-academy .cards > ul > li {
+  border: none;
+  background-color: #f7f7f7;
+}
+
+main > .section.blog-academy .cards > ul > li img {
+  aspect-ratio: auto;
+  object-fit: fill;
+}
+
+main > .section.blog-academy .cards .cards-card-body {
+  margin: 0;
+  padding: 0 0 20px;
+  text-align: center;
+}
+
+main > .section.blog-academy .cards .cards-card-body p:first-child {
+  margin: 20px 0 0;
+  color: var(--text-color);
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: normal;
+}
+
+/* the title reads as plain dark copy on the source — the whole card is the
+   link, so the title itself isn't styled like one */
+main > .section.blog-academy .cards .cards-card-body p:last-child {
+  margin: 0;
+  font-size: var(--body-font-size-xs);
+  font-weight: 300;
+}
+
+main > .section.blog-academy .cards .cards-card-body p:last-child a:any-link {
+  color: var(--text-color);
+  font-weight: inherit;
+  text-decoration: none;
+}
+
+main > .section.blog-academy .cards .cards-card-body p:last-child a:hover {
+  text-decoration: underline;
 }

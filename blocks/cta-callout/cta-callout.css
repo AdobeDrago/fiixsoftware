@@ -1,0 +1,86 @@
+.cta-callout {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 664px;
+  margin: 40px auto;
+  padding: 40px 20px;
+  background-color: #f2f2f2;
+  color: var(--text-color);
+}
+
+.cta-callout h2 {
+  width: 100%;
+  margin: 0;
+  font-family: var(--heading-font-family);
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 24px;
+  text-align: center;
+}
+
+.cta-callout .cta-callout-action {
+  width: 100%;
+  margin: 0;
+  text-align: center;
+}
+
+.cta-callout .cta-callout-action p {
+  margin: 0;
+}
+
+.cta-callout .cta-callout-action a:any-link {
+  box-sizing: border-box;
+  display: inline-flex;
+  justify-content: center;
+  margin: 20px 0 0;
+  border: 0;
+  border-radius: 40px;
+  padding: 15px 20px;
+  background-color: #00afeb;
+  color: #fff;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 24px;
+  text-align: center;
+  text-decoration: none;
+}
+
+.cta-callout .cta-callout-action a:hover,
+.cta-callout .cta-callout-action a:focus-visible {
+  background-color: #14499a;
+  color: #fff;
+  text-decoration: none;
+}
+
+.cta-callout .cta-callout-action a:focus-visible {
+  outline: 2px solid var(--text-color);
+  outline-offset: 3px;
+}
+
+@media (width >= 768px) {
+  .cta-callout {
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 100px;
+    margin-bottom: 100px;
+    padding: 40px;
+  }
+
+  .cta-callout h2 {
+    width: 50%;
+    text-align: left;
+  }
+
+  .cta-callout .cta-callout-action {
+    width: 42%;
+    text-align: right;
+  }
+
+  .cta-callout .cta-callout-action a:any-link {
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+}

@@ -1,4 +1,36 @@
-.columns-logos > div {
+.columns-logos {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* optional heading + paragraph rows above the logos. Either, both, or
+   neither may be authored -- the flex gap on .columns-logos above spaces
+   only the rows that actually exist, so a missing row leaves no gap.
+   Sizes match production (fiixsoftware.com .new-product .section6 h2 /
+   .social-badges h3). */
+.columns-logos-heading-row,
+.columns-logos-text-row {
+  margin: 0;
+  text-align: center;
+}
+
+.columns-logos-heading-row :is(h1, h2, h3, h4, h5, h6) {
+  margin: 0;
+  font-size: 30px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.columns-logos-text-row p {
+  margin: 0 auto;
+  max-width: 600px;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+.columns-logos-row {
   display: flex;
   flex-direction: column;
 }
@@ -10,29 +42,43 @@
   object-fit: contain;
 }
 
-.columns-logos > div > div {
+.columns-logos-row > div {
   display: flex;
   align-items: center;
   justify-content: center;
   order: 1;
 }
 
-.columns-logos > div > .columns-logos-img-col {
+.columns-logos-row > .columns-logos-img-col {
   order: 0;
 }
 
-.columns-logos > div > .columns-logos-img-col img {
+.columns-logos-row > .columns-logos-img-col img {
   display: block;
 }
 
+@media (width >= 768px) {
+  .columns-logos-heading-row :is(h1, h2, h3, h4, h5, h6) {
+    font-size: 38px;
+  }
+}
+
 @media (width >= 960px) {
-  .columns-logos > div {
+  .columns-logos {
+    gap: 40px;
+  }
+
+  .columns-logos-heading-row :is(h1, h2, h3, h4, h5, h6) {
+    font-size: 48px;
+  }
+
+  .columns-logos-row {
     align-items: center;
     flex-direction: unset;
     gap: 24px;
   }
 
-  .columns-logos > div > div {
+  .columns-logos-row > div {
     flex: 1;
     order: unset;
   }
@@ -51,12 +97,12 @@
    production (first logo flush left, last flush right) instead of centering
    each in an equal flex cell, which left a ~40px inset (WCT-HOME HP-4). */
 @media (width >= 960px) {
-  .section.logos .columns-logos > div {
+  .section.logos .columns-logos-row {
     justify-content: space-between;
     gap: 0;
   }
 
-  .section.logos .columns-logos > div > div {
+  .section.logos .columns-logos-row > div {
     flex: 0 0 auto;
   }
 }
@@ -67,12 +113,12 @@
    group, centered in the section -- not spread across the full width in equal
    flex cells with visible gaps. */
 @media (width >= 960px) {
-  main .section.enterprise-hero .columns-logos > div {
+  main .section.enterprise-hero .columns-logos-row {
     justify-content: center;
     gap: 0;
   }
 
-  main .section.enterprise-hero .columns-logos > div > div {
+  main .section.enterprise-hero .columns-logos-row > div {
     flex: 0 0 auto;
   }
 }

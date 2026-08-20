@@ -1,9 +1,26 @@
 /* eslint-disable */
 var CustomImportScript = (() => {
   var __defProp = Object.defineProperty;
+  var __defProps = Object.defineProperties;
   var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
+  var __getOwnPropDescs = Object.getOwnPropertyDescriptors;
   var __getOwnPropNames = Object.getOwnPropertyNames;
+  var __getOwnPropSymbols = Object.getOwnPropertySymbols;
   var __hasOwnProp = Object.prototype.hasOwnProperty;
+  var __propIsEnum = Object.prototype.propertyIsEnumerable;
+  var __defNormalProp = (obj, key, value) => key in obj ? __defProp(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
+  var __spreadValues = (a, b) => {
+    for (var prop in b || (b = {}))
+      if (__hasOwnProp.call(b, prop))
+        __defNormalProp(a, prop, b[prop]);
+    if (__getOwnPropSymbols)
+      for (var prop of __getOwnPropSymbols(b)) {
+        if (__propIsEnum.call(b, prop))
+          __defNormalProp(a, prop, b[prop]);
+      }
+    return a;
+  };
+  var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
   var __export = (target, all) => {
     for (var name in all)
       __defProp(target, name, { get: all[name], enumerable: true });
@@ -63,7 +80,8 @@ var CustomImportScript = (() => {
     const isProfile = (node) => node.matches(".intro-flex");
     const isLead = (node) => node.matches("p");
     const getLogoBlockName = (logo) => {
-      const sourceWidth = Number.parseFloat(logo.ownerDocument.defaultView?.getComputedStyle(logo).width);
+      var _a;
+      const sourceWidth = Number.parseFloat((_a = logo.ownerDocument.defaultView) == null ? void 0 : _a.getComputedStyle(logo).width);
       if (sourceWidth >= 280) return "case-study-logo (large)";
       if (sourceWidth >= 200) return "case-study-logo (wide)";
       return "case-study-logo";
@@ -457,7 +475,7 @@ var CustomImportScript = (() => {
     sections: [
       { id: "case-study-hero", name: "Case study hero", selector: ["div.case-studies-temp > header"], style: null, blocks: ["hero-case-study"], defaultContent: [] },
       { id: "case-study-intro", name: "Case study intro", selector: ["div.case-studies-temp > .company-intro"], style: "case-study-intro", blocks: ["case-study-logo", "case-study-profiles", "case-study-lead", "youtube-video", "columns-media"], defaultContent: [] },
-      { id: "case-study-overview", name: "Case study overview", selector: ["div.case-studies-temp > .container.content"], style: null, blocks: [], defaultContent: [] },
+      { id: "case-study-overview", name: "Case study overview", selector: ["div.case-studies-temp > .container.content"], style: "case-study-overview", blocks: [], defaultContent: [] },
       { id: "case-study-cta", name: "Free tour CTA", selector: ["div.kick-the-tires", ".kick-the-tires"], style: "cta", blocks: ["hero-cta"], defaultContent: [] }
     ]
   };
@@ -466,7 +484,7 @@ var CustomImportScript = (() => {
     ...PAGE_TEMPLATE.sections && PAGE_TEMPLATE.sections.length > 1 ? [transform2] : []
   ];
   function executeTransformers(hookName, element, payload) {
-    const enhancedPayload = { ...payload, template: PAGE_TEMPLATE };
+    const enhancedPayload = __spreadProps(__spreadValues({}, payload), { template: PAGE_TEMPLATE });
     transformers.forEach((transformerFn) => {
       try {
         transformerFn.call(null, hookName, element, enhancedPayload);

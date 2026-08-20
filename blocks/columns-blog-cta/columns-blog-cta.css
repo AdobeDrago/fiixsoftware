@@ -32,8 +32,9 @@
   flex-direction: column;
 }
 
-/* text/card cell */
-.columns-blog-cta > div > div {
+/* text/card cell — the image cell is excluded rather than reset, so the card
+   geometry can never leak into the image's own layout */
+.columns-blog-cta > div > div:not(.columns-blog-cta-img-col) {
   order: 1;
   margin: 0 16px 40px;
   padding: 40px 24px;
@@ -41,15 +42,7 @@
   box-shadow: 3px 3px 25px rgb(0 0 0 / 12%);
 }
 
-/* image cell on top, bleeds edge to edge */
-.columns-blog-cta > div > .columns-blog-cta-img-col {
-  order: 0;
-  margin: 0;
-  padding: 0;
-  background: none;
-  box-shadow: none;
-}
-
+/* image cell stays edge to edge above that card */
 .columns-blog-cta > div > .columns-blog-cta-img-col img {
   height: 100%;
   object-fit: cover;
@@ -83,8 +76,10 @@
 .columns-blog-cta a.button:any-link,
 .columns-blog-cta a:any-link {
   display: inline-block;
+  min-width: 165px;
   margin: 0;
   padding: 0 20px;
+  text-align: center;
   border: 2px solid #00afeb;
   border-radius: 27px;
   background-color: #00afeb;
@@ -106,9 +101,8 @@
 
 /* --- desktop: image bleeds left, white card floats over the right --- */
 @media (width >= 960px) {
-  /* fixed-height band; card is allowed to overhang the bottom edge (production
-     lets the card hang ~50px below the 500px band), so keep overflow visible.
-     The image's own wrapper clips separately. */
+  /* fixed-height band; the card is allowed to overhang its top edge, so keep
+     overflow visible. The image's own wrapper clips separately. */
   .columns-blog-cta {
     height: 500px;
     min-height: 500px;
@@ -128,62 +122,40 @@
     padding: 0;
   }
 
-  /* image wrapper: anchored to the LEFT VIEWPORT EDGE, right edge inset 440px
-     (production figure: left:0; right:440px; height:500; overflow:hidden). */
+  /* image wrapper: anchored to the left edge of the band, a fixed 1000px wide —
+     the width of the source screenshot — with the band's 500px height clipping
+     the bottom of it (production figure: left:0; width:1000px; top/bottom:0;
+     overflow:hidden). */
   .columns-blog-cta > div > .columns-blog-cta-img-col {
     position: absolute;
-    top: 0;
-
-    /* right edge inset 440px from the viewport at 1440px; expressed relative to
-       the centered 1200px container so it tracks page content on wider screens
-       (at 1440: (1440-1200)/2 + 320 = 440). */
-    right: calc((100vw - 1200px) / 2 + 320px);
-    left: 0;
-    width: auto;
-
-    /* the general `> div > div` card rule also matches this cell: reset the width
-       clamp so left/right stretch governs the width instead, and the stacking so
-       the image stays behind the card where they overlap. */
-    z-index: auto;
-    max-width: none;
-    height: 500px;
-    margin: 0;
-    padding: 0;
-    order: unset;
+    inset: 0 auto 0 0;
+    width: 1000px;
     overflow: hidden;
   }
 
-  /* image top-aligned crop (production shows the top of the 4:3 dashboard,
-     clipping the bottom — not a centered crop). */
   .columns-blog-cta > div > .columns-blog-cta-img-col img {
     width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: top;
+    height: auto;
   }
 
-  /* white card: absolute, anchored to the RIGHT VIEWPORT EDGE (inset 216px),
-     500px wide, 100px from the top so it overhangs the band bottom by ~50px,
-     content vertically centred (production .cta_message). */
-  .columns-blog-cta > div > div {
+  /* white card: absolute, inset 15% from the right edge, 500px wide and centred
+     on a line 100px below the top of the band, so it overhangs that edge by half
+     its height (production .cta_message: top:100px; transform:translate(0,-50%)). */
+  .columns-blog-cta > div > div:not(.columns-blog-cta-img-col) {
     position: absolute;
     top: 100px;
-
-    /* right edge inset 216px from viewport at 1440px; tracks the centered
-       1200px container (at 1440: (1440-1200)/2 + 96 = 216) so the card keeps a
-       ~96px gutter to the content edge on wider screens. */
-    right: calc((100vw - 1200px) / 2 + 96px);
+    right: 15%;
     z-index: 1;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    order: unset;
     width: 500px;
     max-width: 500px;
     min-height: 450px;
     margin: 0;
     padding: 80px;
     box-sizing: border-box;
+    transform: translateY(-50%);
   }
 
   .columns-blog-cta h3 {
@@ -196,17 +168,9 @@
   .columns-blog-cta.promo > div > .columns-blog-cta-img-col {
     inset: 138px auto 0 19%;
     width: 650px;
-    max-width: none;
-    height: auto;
   }
 
-  .columns-blog-cta.promo > div > .columns-blog-cta-img-col img {
-    height: auto;
-    object-fit: contain;
-  }
-
-  .columns-blog-cta.promo > div > div {
-    right: 12%;
+  .columns-blog-cta.promo > div > div:not(.columns-blog-cta-img-col) {
     width: 525px;
     max-width: 525px;
     min-height: 400px;

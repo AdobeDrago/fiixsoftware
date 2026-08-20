@@ -28,6 +28,40 @@ body:has(.hero-case-study) main > .section.challenge-solution-result-container
   padding: 0 19px;
 }
 
+/* Match the production paragraph rhythm for the long-form case-study narrative. */
+main > .section:not(.challenge-solution-result-container) > .default-content-wrapper > p {
+  margin: 0 0 20px;
+  font-size: 20px;
+  font-weight: 300;
+  line-height: normal;
+}
+
+/* Show the production external-link marker on long-form case-study copy. */
+body:has(.case-study-logo-container)
+  main > .section:not(.hero-case-study-container, .challenge-solution-result-container)
+  > .default-content-wrapper
+  a[href^='http']:not([href^='https://fiixsoftware.com']):not(.challenge-solution-result-external-link):any-link {
+  color: #14499a;
+  font-weight: 500;
+  text-decoration: underline;
+}
+
+body:has(.case-study-logo-container)
+  main > .section:not(.hero-case-study-container, .challenge-solution-result-container)
+  > .default-content-wrapper
+  a[href^='http']:not([href^='https://fiixsoftware.com']):not(.challenge-solution-result-external-link)::after {
+  content: '';
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  margin-left: 5px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='2 2 20 20' fill='none' stroke='%2314499a' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M14 3h7v7'/%3E%3Cpath d='M10 14 21 3'/%3E%3Cpath d='M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5'/%3E%3C/svg%3E");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  vertical-align: -2px;
+}
+
 body:has(.hero-case-study) main > .section.challenge-solution-result-container
   > .default-content-wrapper {
   display: grid;
@@ -314,4 +348,18 @@ body:has(.hero-case-study)
     .challenge-solution-result .challenge-solution-result-item > ol {
     padding-left: 50px;
   }
+}
+
+/* Match the production heading typography for the long-form case-study narrative. */
+main > .section:not(.challenge-solution-result-container) > .default-content-wrapper > h2 {
+  margin: 0 0 40px;
+  padding-top: 60px;
+  font-size: 40px;
+  line-height: 48px;
+}
+
+/* Keep nested case-study bullets filled like their first-level lists. */
+/* stylelint-disable-next-line no-descending-specificity */
+.challenge-solution-result .challenge-solution-result-item ul ul {
+  list-style-type: disc;
 }
