@@ -1411,7 +1411,8 @@
         "https://fiixsoftware.com/resource-center/case-studies/perth-county-ingredients/",
         "https://fiixsoftware.com/resource-center/case-studies/farming-maintenance/",
         "https://fiixsoftware.com/resource-center/case-studies/edms-consultants/",
-        "https://fiixsoftware.com/resource-center/case-studies/scotts-miracle-gro/"
+        "https://fiixsoftware.com/resource-center/case-studies/scotts-miracle-gro/",
+        "https://fiixsoftware.com/resource-center/case-studies/liberty-oilfield/"
       ],
       "coverageGaps": [],
       "description": "Customer case study page: hero, composable company-intro blocks, challenge-solution-result columns, company overview, and a closing free-tour CTA band.",
@@ -1466,6 +1467,7 @@
             "case-study-logo",
             "case-study-profiles",
             "case-study-lead",
+            "solutions-comparison",
             "youtube-video",
             "columns-media"
           ],

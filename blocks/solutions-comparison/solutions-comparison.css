@@ -1,0 +1,135 @@
+/* Connected solution comparison from the Liberty Oilfield case study. */
+.solutions-comparison {
+  box-sizing: border-box;
+  width: calc(90vw - 13.5px);
+  margin: 40px auto 0;
+  color: var(--text-color);
+}
+
+.solutions-comparison .solutions-comparison-list {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.solutions-comparison .solutions-comparison-item {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-bottom: 50px;
+  text-align: center;
+}
+
+.solutions-comparison .solutions-comparison-solution {
+  margin-bottom: 20px;
+}
+
+.solutions-comparison .solutions-comparison-label,
+.solutions-comparison .solutions-comparison-title,
+.solutions-comparison .solutions-comparison-result p {
+  margin: 0;
+}
+
+.solutions-comparison .solutions-comparison-label,
+.solutions-comparison .solutions-comparison-result {
+  font-size: 16px;
+  font-weight: 300;
+  line-height: normal;
+}
+
+.solutions-comparison .solutions-comparison-title {
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 22px;
+}
+
+.solutions-comparison .solutions-comparison-icon {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 82px;
+  height: 82px;
+  margin: 0 auto;
+  border: 1px solid #f2f2f2;
+  border-radius: 50%;
+  background: #f2f2f2;
+  line-height: 0;
+}
+
+.solutions-comparison .solutions-comparison-icon picture,
+.solutions-comparison .solutions-comparison-icon img,
+.solutions-comparison .solutions-comparison-fallback-icon {
+  display: block;
+}
+
+.solutions-comparison .solutions-comparison-icon img {
+  width: 45px;
+  height: 45px;
+  object-fit: contain;
+}
+
+.solutions-comparison .solutions-comparison-fallback-icon svg {
+  width: 45px;
+  height: 45px;
+  fill: none;
+  stroke: #474747;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.5;
+}
+
+.solutions-comparison .solutions-comparison-result {
+  margin-top: 0;
+}
+
+@media (width >= 601px) {
+  .solutions-comparison {
+    width: min(575px, calc(90vw - 13.5px));
+  }
+
+  .solutions-comparison .solutions-comparison-list {
+    position: relative;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .solutions-comparison .solutions-comparison-list::before {
+    position: absolute;
+    z-index: 0;
+    top: 135px;
+    left: 10px;
+    width: 500px;
+    height: 5px;
+    background: #f2f2f2;
+    content: '';
+  }
+
+  .solutions-comparison .solutions-comparison-item {
+    z-index: 1;
+    width: 25%;
+    margin-bottom: 0;
+    text-align: left;
+  }
+
+  .solutions-comparison .solutions-comparison-solution {
+    min-height: 100px;
+    margin-bottom: 0;
+  }
+
+  .solutions-comparison .solutions-comparison-icon {
+    margin: 0 0 30px;
+  }
+}
+
+@media (width >= 901px) {
+  .solutions-comparison {
+    width: min(664px, calc(90vw - 13.5px));
+  }
+
+  .solutions-comparison .solutions-comparison-list::before {
+    left: 50px;
+  }
+}
