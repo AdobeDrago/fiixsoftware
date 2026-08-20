@@ -21,6 +21,7 @@ export default function parse(element, { document }) {
   const isProfile = (node) => node.matches('.intro-flex');
   const isLead = (node) => node.matches('p');
   const isStats = (node) => node.matches('.stats-multi');
+  const isSolutionsComparison = (node) => node.matches('.solutions');
   const getLogoBlockName = (logo) => {
     const sourceWidth = Number.parseFloat(logo.ownerDocument.defaultView?.getComputedStyle(logo).width);
     if (sourceWidth >= 280) return 'case-study-logo (large)';
@@ -45,6 +46,15 @@ export default function parse(element, { document }) {
       return fields.slice(0, 2);
     });
     return createBlock('stats-multi', cells);
+  };
+  const createSolutionsComparisonBlock = (solutions) => {
+    const cells = Array.from(solutions.querySelectorAll(':scope > .icon-group')).map((item) => {
+      const solution = item.querySelector(':scope > div');
+      const icon = item.querySelector(':scope > .timeline-icon');
+      const result = item.querySelector(':scope > p');
+      return [solution || '', icon || '', result || ''];
+    }).filter((row) => row.some((cell) => cell !== ''));
+    return cells.length ? createBlock('solutions-comparison', cells) : null;
   };
 
   for (let index = 0; index < children.length;) {
@@ -87,6 +97,13 @@ export default function parse(element, { document }) {
 
     if (isStats(child)) {
       output.push(createStatsBlock(child));
+      index += 1;
+      continue;
+    }
+
+    if (isSolutionsComparison(child)) {
+      const block = createSolutionsComparisonBlock(child);
+      if (block) output.push(block);
       index += 1;
       continue;
     }
