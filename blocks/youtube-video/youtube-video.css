@@ -1,14 +1,15 @@
 .youtube-video {
   box-sizing: border-box;
   width: 90%;
-  max-width: 560px;
+  max-width: 664px;
   margin: 30px auto 0;
   padding: 0;
 }
 
 .youtube-video iframe {
   display: block;
-  width: 100%;
+  width: 560px;
+  max-width: 100%;
   aspect-ratio: 16 / 9;
   border: 0;
 }
@@ -17,4 +18,10 @@
   color: #14499a;
   font-weight: 500;
   text-decoration: underline;
+}
+
+@media (width >= 768px) {
+  .youtube-video {
+    width: 75vw;
+  }
 }
