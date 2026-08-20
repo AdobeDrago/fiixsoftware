@@ -1,93 +1,469 @@
 .columns-media > div {
-  display: flex;
-  flex-direction: column;
-}
-
-.columns-media img {
-  width: 100%;
+    display: flex;
+    flex-direction: column;
 }
 
 .columns-media > div > div {
-  order: 1;
+    order: 1;
 }
 
 .columns-media > div > .columns-media-img-col {
-  order: 0;
-}
-
-.columns-media > div > .columns-media-img-col img {
-  display: block;
-}
-
-/* Vidyard: text above video on mobile and tablet (overrides image-first). */
-.columns-media.vidyard > div > div {
-  order: 0;
-}
-
-.columns-media.vidyard > div > .columns-media-img-col {
-  order: 1;
-}
-
-/* Vidyard media columns — style: vidyard. Initial placeholder only; after
-   render Vidyard owns container/iframe sizing via its padding-box. */
-.columns-media.vidyard .columns-media-img-col > .vidyard-player-embed {
-  display: block;
-  width: 100%;
-  aspect-ratio: 16 / 9;
-  object-fit: cover;
-}
-
-.columns-media.vidyard .columns-media-img-col .vidyard-player-container {
-  width: 100%;
-  max-width: 100%;
-}
-
-@media (width >= 768px) {
-  .columns-media > div {
-    gap: 20px;
-  }
+    order: 0;
 }
 
 @media (width >= 960px) {
-  .columns-media > div {
-    align-items: center;
-    flex-direction: unset;
-    gap: 24px;
-  }
+    .columns-media > div {
+        align-items: center;
+        flex-direction: unset;
+        gap: 24px;
+    }
 
-  .columns-media > div > div {
-    flex: 1;
-    order: unset;
-  }
+    .columns-media > div > div {
+        flex: 1;
+        order: unset;
+    }
 
-  .columns-media.columns-media-3-cols > div {
-    align-items: flex-start;
-  }
+    .columns-media.columns-media-3-cols > div {
+        align-items: flex-start;
+    }
+}
 
-  /* columns-media(right[, vidyard]): media authored in cell 1 → show on right */
-  .columns-media.right > div {
-    flex-direction: row-reverse;
-  }
+/* ---- left / right: image + text feature rows.
+   Authored as block variants, e.g. block name "Columns Media (Left, Orange)"
+   -> <div class="columns-media left orange">.
+   Mobile-first: the base rules below are the small-screen treatment (colour
+   band bleeds full viewport width via the zeroed wrapper padding, small
+   rotated shape + overflowing screenshot). @media (width >= 960px) then
+   layers in the two-column desktop layout (image column | text column) with
+   the wider viewport-edge bleed panel. Production H2 30/700 mobile, 48/700
+   desktop; P 20/300 mobile, 28/300 desktop. ---- */
+.columns-media-wrapper:has(> .columns-media.left),
+.columns-media-wrapper:has(> .columns-media.right) {
+    max-width: none;
+    margin-bottom: 0;
+    padding: 0;
+}
 
-  /* columns-media(left[, vidyard]): media authored in cell 1 → keep on left */
-  .columns-media.left > div {
-    flex-direction: row;
-  }
+main > .section:has(> .columns-media-wrapper > .columns-media.left),
+main > .section:has(> .columns-media-wrapper > .columns-media.right) {
+    padding-bottom: 0;
+}
 
-  /* Desktop: restore natural/left-right placement for vidyard rows */
-  .columns-media.vidyard > div > div,
-  .columns-media.vidyard > div > .columns-media-img-col {
-    order: unset;
-  }
+.columns-media.left h2,
+.columns-media.right h2 {
+    margin: 0 0 20px;
+    font-size: 30px;
+    font-weight: 700;
+    line-height: 1;
+    color: var(--text-color);
+}
 
-  /* Multi-row columns-media(vidyard) without left/right: zigzag layout */
-  .columns-media.vidyard:not(.left, .right) > div:nth-child(odd) {
-    flex-direction: row-reverse;
-  }
+.columns-media.left p,
+.columns-media.right p {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 300;
+    line-height: 1.2;
+    color: var(--text-color);
+}
+
+.columns-media:is(.gold, .teal, .cyan, .orange, .purple):is(.left, .right)
+    > div
+    > .columns-media-text-col {
+    padding: 0 20px;
+}
+
+/* accent colour: production overlays each media row's image on a full-bleed
+   colour panel (bleeding to the outer viewport edge) and underlines the heading
+   with a 540x5 bar in the same colour. The colour is arbitrary per row, so it
+   can't be derived from the left/right class -- it is authored as an extra
+   colour block variant below. The panel/underline only render when such a
+   class is present, so every other columns-media usage (ai/optix/enterprise)
+   is untouched. */
+.columns-media.gold {
+    --media-accent: #ffd600;
+}
+
+.columns-media.teal {
+    --media-accent: #3cc0cb;
+}
+
+.columns-media.cyan {
+    --media-accent: #00afeb;
+}
+
+.columns-media.purple {
+    --media-accent: #4d3e8d;
+}
+
+.columns-media.orange {
+    --media-accent: #ffa40e;
+}
+
+.columns-media.navy {
+    --media-accent: #003e7e;
+}
+
+.columns-media:is(.gold, .teal, .cyan, .purple, .orange, .navy):is(
+        .left,
+        .right
+    )
+    h2::after {
+    content: "";
+    display: inline-block;
+    width: 540px;
+    max-width: 100%;
+    height: 5px;
+    margin-top: 24px;
+    background: var(--media-accent);
+}
+
+/* mobile per-colour band + shape/screenshot treatment (base/default).
+   Offsets below are approximated from mobile screenshots of production, not
+   measured in devtools -- compare against the live mobile view and nudge
+   them if any row looks off. */
+.columns-media.gold .columns-media-img-col {
+    justify-content: end;
+}
+
+.columns-media.teal .columns-media-img-col {
+    justify-content: space-evenly;
+}
+
+.columns-media.cyan .columns-media-img-col {
+    justify-content: end;
+}
+
+.columns-media.orange .columns-media-img-col {
+    justify-content: space-evenly;
+}
+
+/* purple's accent graphic is a single logo-grid image, not a
+   shape + screenshot pair -- no overflow trick, just contain it with
+   padding, same as the other colours get from the shared rule below. */
+.columns-media.right.purple .columns-media-img-col {
+    padding: 24px;
+    background: var(--media-accent);
+    margin-bottom: 30px;
+}
+
+.columns-media:is(.gold, .teal, .cyan, .orange):is(.left, .right)
+    > div
+    > .columns-media-img-col {
+    position: relative;
+    overflow: visible;
+    background: var(--media-accent);
+    display: flex;
+    align-items: end;
+    padding-top: 50px;
+    margin-bottom: 40px;
+}
+
+.columns-media:is(.gold, .teal, .cyan, .orange):is(.left, .right)
+    .columns-media-img-col
+    .columns-media-img-1
+    img {
+    position: absolute;
+}
+
+.columns-media:is(.gold, .teal, .cyan, .orange):is(.left, .right)
+    .columns-media-img-col
+    .columns-media-img-2
+    img {
+    position: relative;
+    z-index: 2;
+    display: block;
+    width: 100%;
+}
+
+.columns-media.right.purple .columns-media-img-col .columns-media-img-1 img {
+    width: 100%;
+}
+
+.columns-media.left.gold .columns-media-img-col .columns-media-img-1 img {
+    top: -52px;
+    left: -50px;
+    max-width: 150px;
+    transform: rotate(130deg);
+}
+
+.columns-media.left.gold .columns-media-img-col .columns-media-img-2 img {
+    max-width: 370px;
+}
+
+.columns-media.right.teal .columns-media-img-col .columns-media-img-1 img {
+    top: 126px;
+    left: 0;
+    max-width: 120px;
+    transform: rotate(0deg);
+}
+
+.columns-media.right.teal .columns-media-img-col .columns-media-img-2 img {
+    max-width: 260px;
+}
+
+.columns-media.left.cyan .columns-media-img-col .columns-media-img-1 img {
+    top: -48px;
+    left: -38px;
+    max-width: 100px;
+    transform: rotate(130deg);
+}
+
+.columns-media.left.cyan .columns-media-img-col .columns-media-img-2 img {
+    max-width: 370px;
+}
+
+.columns-media.left.orange .columns-media-img-col .columns-media-img-1 img {
+    top: 120px;
+    right: 59px;
+    max-width: 120px;
+    transform: rotate(130deg);
+}
+
+.columns-media.left.orange .columns-media-img-col .columns-media-img-2 img {
+    max-width: 260px;
+}
+
+@media (width >= 960px) {
+    .columns-media.left > div,
+    .columns-media.right > div {
+        align-items: end;
+        gap: 60px;
+    }
+
+    .columns-media.left h2,
+    .columns-media.right h2 {
+        font-size: 48px;
+    }
+
+    .columns-media.left p,
+    .columns-media.right p {
+        font-size: 28px;
+    }
+
+    /* .right: image column sits on the right (text first). The block always
+   orders the image column first, so flip the row for .right. */
+    .columns-media.right > div {
+        flex-direction: row-reverse;
+    }
+
+    /* restore the desktop wrapper/section spacing that the mobile base above
+       zeroes out to let the colour band bleed full viewport width. */
+    .columns-media-wrapper:has(> .columns-media.left),
+    .columns-media-wrapper:has(> .columns-media.right) {
+        margin-bottom: 50px;
+        padding: 0 32px;
+    }
+
+    main > .section:has(> .columns-media-wrapper > .columns-media.left),
+    main > .section:has(> .columns-media-wrapper > .columns-media.right) {
+        max-width: 1920px;
+        margin: 0 auto;
+        padding: 40px 0;
+
+        /* The media accent panel bleeds past the centered container with a
+       100vw pseudo element; clip it here so the right-hand bleed doesn't
+       stretch the document and scroll the whole page sideways. */
+        overflow-x: clip;
+    }
+
+    .columns-media:is(.gold, .teal, .cyan, .orange, .purple):is(.left, .right)
+        > div
+        > .columns-media-text-col {
+        padding: 0;
+    }
+
+    /* direction-driven layout, identical for every colour: image column
+       justifies toward the image's outer edge; the (narrower, max-width)
+       heading/copy in the text column pushes flush to the image's inner
+       edge via margin-left: auto (below). Only the shape/screenshot
+       placement further down varies per row. */
+    .columns-media.left:is(.gold, .teal, .cyan, .purple, .orange, .navy)
+        .columns-media-img-col {
+        justify-content: end;
+    }
+
+    .columns-media.right:is(.gold, .teal, .cyan, .purple, .orange, .navy)
+        .columns-media-img-col {
+        justify-content: flex-start;
+    }
+
+    .columns-media.right.purple .columns-media-img-col {
+        justify-content: end;
+    }
+
+    .columns-media:is(.gold, .teal, .cyan, .purple, .orange, .navy):is(
+            .left,
+            .right
+        )
+        > div
+        > .columns-media-img-col {
+        position: relative;
+        display: flex;
+        padding: 0;
+        padding-top: 100px;
+        margin-bottom: 0;
+        background: var(--media-accent);
+    }
+
+    .columns-media.left:is(.gold, .teal, .cyan, .purple, .orange, .navy)
+        .columns-media-img-col::before {
+        right: 100%;
+    }
+
+    .columns-media.right:is(.gold, .teal, .cyan, .purple, .orange, .navy)
+        .columns-media-img-col::before {
+        left: 100%;
+    }
+
+    /* bleed the colour panel out to the viewport edge on the image's outer side */
+    .columns-media:is(.gold, .teal, .cyan, .purple, .orange, .navy):is(
+            .left,
+            .right
+        )
+        > div
+        > .columns-media-img-col::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 100vw;
+        background: var(--media-accent);
+        z-index: 0;
+    }
+
+    .columns-media:is(.gold, .teal, .cyan, .purple, .orange, .navy):is(
+            .left,
+            .right
+        )
+        .columns-media-text-col
+        h2 {
+        max-width: 350px;
+    }
+
+    .columns-media.left:is(.gold, .teal, .cyan, .purple, .orange, .navy)
+        .columns-media-text-col
+        p {
+        max-width: 500px;
+    }
+
+    .columns-media.right:is(.gold, .teal, .cyan, .purple, .orange, .navy)
+        .columns-media-text-col
+        p {
+        max-width: 350px;
+    }
+
+    .columns-media.right:is(.gold, .teal, .cyan, .purple, .orange, .navy)
+        .columns-media-text-col
+        h2,
+    .columns-media.right:is(.gold, .teal, .cyan, .purple, .orange, .navy)
+        .columns-media-text-col
+        p {
+        margin-left: auto;
+    }
+
+    /* per-row decorative shape (img-1) + screenshot (img-2) placement, tuned
+       to match each production photo's own crop and composition. left:auto/
+       right:auto below cancel the mobile-only offset on the opposite side. */
+    .columns-media.left.gold .columns-media-img-col .columns-media-img-1 img {
+        position: absolute;
+        z-index: 1;
+        right: 50px;
+        left: auto;
+        top: -48px;
+        max-width: 160px;
+        transform: rotate(130deg);
+    }
+
+    .columns-media.left.gold .columns-media-img-col .columns-media-img-2 img {
+        position: relative;
+        z-index: 2;
+        max-width: 550px;
+        margin-bottom: -7px;
+    }
+
+    .columns-media.right.teal .columns-media-img-col .columns-media-img-1 img {
+        position: absolute;
+        z-index: 1;
+        right: 30px;
+        left: auto;
+        top: 100px;
+        max-width: 140px;
+    }
+
+    .columns-media.right.teal .columns-media-img-col .columns-media-img-2 img {
+        position: relative;
+        z-index: 2;
+        width: 370px;
+        max-width: none;
+        margin-bottom: -7px;
+        padding-left: 100px;
+    }
+
+    .columns-media.left.cyan .columns-media-img-col .columns-media-img-1 img {
+        position: absolute;
+        z-index: 1;
+        right: 60px;
+        left: auto;
+        top: -48px;
+        max-width: 120px;
+        transform: rotate(130deg);
+    }
+
+    .columns-media.left.cyan .columns-media-img-col .columns-media-img-2 img {
+        position: relative;
+        z-index: 2;
+        max-width: 550px;
+        margin-bottom: -7px;
+    }
+
+    /* TODO: right.purple has no .columns-media-img-1 rule -- its decorative
+       shape image has no placement/size override yet (falls back to the
+       block default 100%-width image). Confirm against production and add
+       one, matching the pattern above. */
+    .columns-media.right.purple
+        .columns-media-img-col
+        .columns-media-img-2
+        img {
+        position: relative;
+        z-index: 2;
+        width: 370px;
+        margin-bottom: -7px;
+        padding-left: 100px;
+    }
+
+    .columns-media.left.orange .columns-media-img-col .columns-media-img-1 img {
+        position: absolute;
+        z-index: 1;
+        left: 80px;
+        right: auto;
+        top: 100px;
+        max-width: 200px;
+        transform: rotate(130deg);
+    }
+
+    .columns-media.left.orange .columns-media-img-col .columns-media-img-2 img {
+        position: relative;
+        z-index: 2;
+        max-width: 370px;
+        margin-bottom: -7px;
+        margin-right: 40px;
+    }
 }
 
 @media (width >= 1200px) {
-  .columns-media > div {
-    gap: 32px;
-  }
+    .columns-media:is(.gold, .teal, .cyan, .purple, .orange, .navy):is(
+            .left,
+            .right
+        )
+        .columns-media-text-col
+        h2 {
+        max-width: 540px;
+    }
+
+    .columns-media.right:is(.gold, .teal, .cyan, .purple, .orange, .navy)
+        .columns-media-text-col
+        p {
+        max-width: 540px;
+    }
 }

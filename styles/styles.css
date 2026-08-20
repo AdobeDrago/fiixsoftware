@@ -3412,20 +3412,6 @@ main > .section.pf-logos {
     padding: 40px 0 20px;
 }
 
-/* "Over 4,100 teams…" heading above the logos (authored as H2): 24/700,
-   centered, 40px below to the logos -- matching production. Pre-styled so it
-   renders correctly once the heading is authored into this section (it is
-   currently MISSING from the EDS content; see the authoring prompt). */
-main > .section.pf-logos .default-content-wrapper h2 {
-    margin: 0 auto 40px;
-    max-width: 640px;
-    font-size: 24px;
-    font-weight: 700;
-    line-height: 1.2;
-    text-align: center;
-    color: var(--text-color);
-}
-
 /* Production sizes each logo by WIDTH (~100px, uniform), not by a 46px height
    (which made them 130-288px wide). */
 main > .section.pf-logos .columns-logos img {
@@ -3722,195 +3708,6 @@ main > .section.pf-video .button-wrapper a.button::after {
         no-repeat center / contain;
 }
 
-/* ---- pf-media-left / pf-media-right: image + text feature rows.
-   Production H2 48/700, P 28/300. -left = image left, -right = image
-   right. columns-media stacks image-first on mobile (block default). ---- */
-main > .section.pf-media-left,
-main > .section.pf-media-right {
-    margin: 0;
-    padding: 50px 0;
-
-    /* The media accent panel bleeds past the centered container with a 100vw
-     pseudo element; clip it here so the right-hand bleed doesn't stretch the
-     document and scroll the whole page sideways. */
-    overflow-x: clip;
-}
-
-main > .section.pf-media-left .columns-media h2,
-main > .section.pf-media-right .columns-media h2 {
-    margin: 0 0 20px;
-    font-size: 32px;
-    font-weight: 700;
-    line-height: 1;
-    color: var(--text-color);
-}
-
-main > .section.pf-media-left .columns-media p,
-main > .section.pf-media-right .columns-media p {
-    margin: 0;
-    font-size: 22px;
-    font-weight: 300;
-    line-height: 1.2;
-    color: var(--text-color);
-}
-
-@media (width >= 960px) {
-    main > .section.pf-media-left .columns-media > div,
-    main > .section.pf-media-right .columns-media > div {
-        align-items: center;
-        gap: 60px;
-    }
-
-    main > .section.pf-media-left .columns-media h2,
-    main > .section.pf-media-right .columns-media h2 {
-        font-size: 48px;
-    }
-
-    main > .section.pf-media-left .columns-media p,
-    main > .section.pf-media-right .columns-media p {
-        font-size: 28px;
-    }
-
-    /* -right: image column sits on the right (text first). The block always
-     orders the image column first, so flip the row for -right. */
-    main > .section.pf-media-right .columns-media > div {
-        flex-direction: row-reverse;
-    }
-}
-
-/* pf-media accent: production overlays each media row's image on a full-bleed
-   colour panel (bleeding to the outer viewport edge) and underlines the heading
-   with a 540x5 bar in the same colour. The colour is arbitrary per section, so
-   it can't be derived from the -left/-right class -- it is authored per section
-   via a Section-Metadata Style that adds one of the media-* classes below. The
-   panel/underline only render when such a class is present, so every other
-   columns-media usage (ai/optix/enterprise) is untouched. */
-main > .section.media-gold {
-    --media-accent: #ffd600;
-}
-
-main > .section.media-teal {
-    --media-accent: #3cc0cb;
-}
-
-main > .section.media-cyan {
-    --media-accent: #00afeb;
-}
-
-main > .section.media-purple {
-    --media-accent: #4d3e8d;
-}
-
-main > .section.media-orange {
-    --media-accent: #ffa40e;
-}
-
-main > .section.media-navy {
-    --media-accent: #003e7e;
-}
-
-main
-    > .section:is(
-        .media-gold,
-        .media-teal,
-        .media-cyan,
-        .media-purple,
-        .media-orange,
-        .media-navy
-    ):is(.pf-media-left, .pf-media-right)
-    .columns-media
-    h2::after {
-    content: "";
-    display: block;
-    width: 540px;
-    max-width: 100%;
-    height: 5px;
-    margin-top: 24px;
-    background: var(--media-accent);
-}
-
-@media (width >= 960px) {
-    main
-        > .section:is(
-            .media-gold,
-            .media-teal,
-            .media-cyan,
-            .media-purple,
-            .media-orange,
-            .media-navy
-        ):is(.pf-media-left, .pf-media-right)
-        .columns-media
-        > div
-        > .columns-media-img-col {
-        position: relative;
-        padding: 40px;
-        background: var(--media-accent);
-    }
-
-    /* bleed the colour panel out to the viewport edge on the image's outer side */
-    main
-        > .section:is(
-            .media-gold,
-            .media-teal,
-            .media-cyan,
-            .media-purple,
-            .media-orange,
-            .media-navy
-        ):is(.pf-media-left, .pf-media-right)
-        .columns-media
-        > div
-        > .columns-media-img-col::before {
-        content: "";
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        width: 100vw;
-        background: var(--media-accent);
-        z-index: 0;
-    }
-
-    main
-        > .section.pf-media-left:is(
-            .media-gold,
-            .media-teal,
-            .media-cyan,
-            .media-purple,
-            .media-orange,
-            .media-navy
-        )
-        .columns-media-img-col::before {
-        right: 100%;
-    }
-
-    main
-        > .section.pf-media-right:is(
-            .media-gold,
-            .media-teal,
-            .media-cyan,
-            .media-purple,
-            .media-orange,
-            .media-navy
-        )
-        .columns-media-img-col::before {
-        left: 100%;
-    }
-
-    main
-        > .section:is(
-            .media-gold,
-            .media-teal,
-            .media-cyan,
-            .media-purple,
-            .media-orange,
-            .media-navy
-        ):is(.pf-media-left, .pf-media-right)
-        .columns-media-img-col
-        img {
-        position: relative;
-        z-index: 1;
-    }
-}
-
 /* ---- pf-testimonials: light band, centered heading + 3 quote cards.
    Production band #f7f9fc, H2 ~44/700 centered. ---- */
 main > .section.pf-testimonials {
@@ -3970,21 +3767,6 @@ main > .section.pf-explore .default-content-wrapper h2 {
     color: var(--text-color);
 }
 
-/* award-badge strip (columns-logos) centered */
-main > .section.pf-explore .columns-logos > div {
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: center;
-    gap: 32px;
-}
-
-main > .section.pf-explore .columns-logos img {
-    width: auto;
-    height: auto;
-    max-height: 90px;
-    object-fit: contain;
-}
-
 main > .section.pf-explore .accordion-faq h3 {
     font-size: 20px;
     font-weight: 700;
@@ -3997,7 +3779,7 @@ main > .section.pf-explore .accordion-faq a:any-link {
 }
 
 main > .section.pf-explore .columns-logos-wrapper {
-    padding: 90px 0;
+    padding: 60px 0;
 }
 
 @media (width >= 960px) {
@@ -5231,7 +5013,8 @@ body:has(.hero-case-study)
     main
     > .section.case-study-overview
     > .default-content-wrapper
-    ol > li {
+    ol
+    > li {
     position: relative;
     margin: 0 0 20px;
     list-style: none;
@@ -5244,7 +5027,8 @@ body:has(.hero-case-study)
     main
     > .section.case-study-overview
     > .default-content-wrapper
-    ol > li::before {
+    ol
+    > li::before {
     --size: 30px;
 
     content: counter(my-awesome-counter);
