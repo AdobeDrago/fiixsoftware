@@ -3,12 +3,26 @@
     flex-direction: column;
 }
 
+.columns-media img {
+    width: 100%;
+}
+
 .columns-media > div > div {
     order: 1;
 }
 
 .columns-media > div > .columns-media-img-col {
     order: 0;
+}
+
+.columns-media > div > .columns-media-img-col img {
+    display: block;
+}
+
+@media (width >= 768px) {
+    .columns-media > div {
+        gap: 20px;
+    }
 }
 
 @media (width >= 960px) {
@@ -26,31 +40,42 @@
     .columns-media.columns-media-3-cols > div {
         align-items: flex-start;
     }
+
+    /* Direction for left/right without accent full-bleed (vidyard, info-flex). */
+    .columns-media.right > div {
+        flex-direction: row-reverse;
+    }
+
+    .columns-media.left > div {
+        flex-direction: row;
+    }
 }
 
-/* ---- left / right: image + text feature rows.
-   Authored as block variants, e.g. block name "Columns Media (Left, Orange)"
-   -> <div class="columns-media left orange">.
-   Mobile-first: the base rules below are the small-screen treatment (colour
-   band bleeds full viewport width via the zeroed wrapper padding, small
-   rotated shape + overflowing screenshot). @media (width >= 960px) then
-   layers in the two-column desktop layout (image column | text column) with
-   the wider viewport-edge bleed panel. Production H2 30/700 mobile, 48/700
-   desktop; P 20/300 mobile, 28/300 desktop. ---- */
-.columns-media-wrapper:has(> .columns-media.left),
-.columns-media-wrapper:has(> .columns-media.right) {
+@media (width >= 1200px) {
+    .columns-media > div {
+        gap: 32px;
+    }
+}
+
+/* ---- accent left / right: image + text feature rows (gold/teal/cyan/…).
+   Full-bleed colour panels are ONLY for accent variants. Plain .left/.right
+   (vidyard, info-flex, etc.) keep the default 1200px section wrapper. ---- */
+.columns-media-wrapper:has(
+    > .columns-media:is(.left, .right):is(.gold, .teal, .cyan, .orange, .purple, .navy)
+) {
     max-width: none;
     margin-bottom: 0;
     padding: 0;
 }
 
-main > .section:has(> .columns-media-wrapper > .columns-media.left),
-main > .section:has(> .columns-media-wrapper > .columns-media.right) {
+main > .section:has(
+    > .columns-media-wrapper
+        > .columns-media:is(.left, .right):is(.gold, .teal, .cyan, .orange, .purple, .navy)
+) {
     padding-bottom: 0;
 }
 
-.columns-media.left h2,
-.columns-media.right h2 {
+.columns-media:is(.left, .right):is(.gold, .teal, .cyan, .orange, .purple, .navy) h2 {
     margin: 0 0 20px;
     font-size: 30px;
     font-weight: 700;
@@ -58,8 +83,7 @@ main > .section:has(> .columns-media-wrapper > .columns-media.right) {
     color: var(--text-color);
 }
 
-.columns-media.left p,
-.columns-media.right p {
+.columns-media:is(.left, .right):is(.gold, .teal, .cyan, .orange, .purple, .navy) p {
     margin: 0;
     font-size: 20px;
     font-weight: 300;
@@ -225,38 +249,35 @@ main > .section:has(> .columns-media-wrapper > .columns-media.right) {
 }
 
 @media (width >= 960px) {
-    .columns-media.left > div,
-    .columns-media.right > div {
+    .columns-media:is(.left, .right):is(.gold, .teal, .cyan, .orange, .purple, .navy)
+        > div {
         align-items: end;
         gap: 60px;
     }
 
-    .columns-media.left h2,
-    .columns-media.right h2 {
+    .columns-media:is(.left, .right):is(.gold, .teal, .cyan, .orange, .purple, .navy)
+        h2 {
         font-size: 48px;
     }
 
-    .columns-media.left p,
-    .columns-media.right p {
+    .columns-media:is(.left, .right):is(.gold, .teal, .cyan, .orange, .purple, .navy)
+        p {
         font-size: 28px;
-    }
-
-    /* .right: image column sits on the right (text first). The block always
-   orders the image column first, so flip the row for .right. */
-    .columns-media.right > div {
-        flex-direction: row-reverse;
     }
 
     /* restore the desktop wrapper/section spacing that the mobile base above
        zeroes out to let the colour band bleed full viewport width. */
-    .columns-media-wrapper:has(> .columns-media.left),
-    .columns-media-wrapper:has(> .columns-media.right) {
+    .columns-media-wrapper:has(
+        > .columns-media:is(.left, .right):is(.gold, .teal, .cyan, .orange, .purple, .navy)
+    ) {
         margin-bottom: 50px;
         padding: 0 32px;
     }
 
-    main > .section:has(> .columns-media-wrapper > .columns-media.left),
-    main > .section:has(> .columns-media-wrapper > .columns-media.right) {
+    main > .section:has(
+        > .columns-media-wrapper
+            > .columns-media:is(.left, .right):is(.gold, .teal, .cyan, .orange, .purple, .navy)
+    ) {
         max-width: 1920px;
         margin: 0 auto;
         padding: 40px 0;
@@ -468,6 +489,43 @@ main > .section:has(> .columns-media-wrapper > .columns-media.right) {
     }
 }
 
+/* Vidyard + info-flex are independent variations stacked after accent
+   left/right. Their selectors intentionally do not compete with accent
+   rules, so descending-specificity across variation boundaries is OK. */
+/* stylelint-disable no-descending-specificity */
+
+/* Vidyard: text above video on mobile/tablet; gated on .vidyard only. */
+.columns-media.vidyard > div > div {
+    order: 0;
+}
+
+.columns-media.vidyard > div > .columns-media-img-col {
+    order: 1;
+}
+
+.columns-media.vidyard .columns-media-img-col > .vidyard-player-embed {
+    display: block;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+}
+
+.columns-media.vidyard .columns-media-img-col .vidyard-player-container {
+    width: 100%;
+    max-width: 100%;
+}
+
+@media (width >= 960px) {
+    .columns-media.vidyard > div > div,
+    .columns-media.vidyard > div > .columns-media-img-col {
+        order: unset;
+    }
+
+    .columns-media.vidyard:not(.left, .right) > div:nth-child(odd) {
+        flex-direction: row-reverse;
+    }
+}
+
 /* ---- info-flex: production .info-flex (text card 60% + graphic 40%).
    Gated on .info-flex only — does not affect other columns-media. ---- */
 .columns-media.info-flex {
@@ -481,8 +539,8 @@ div.columns-media.info-flex > div {
 }
 
 /* Cancel default mobile image-first order; column-reverse matches production. */
-.columns-media.info-flex > div > div,
-.columns-media.info-flex > div > .columns-media-img-col {
+div.columns-media.info-flex > div > div,
+div.columns-media.info-flex > div > .columns-media-img-col {
   order: unset;
 }
 
@@ -516,6 +574,7 @@ div.columns-media.info-flex > div {
   max-width: 295px;
 }
 
+.columns-media.info-flex .columns-media-info-text > p:has(picture) img,
 .columns-media.info-flex .columns-media-info-text > p:has(img) img {
   display: block;
   width: auto;
@@ -587,3 +646,5 @@ div.columns-media.info-flex > div {
     max-width: 40%;
   }
 }
+
+/* stylelint-enable no-descending-specificity */
