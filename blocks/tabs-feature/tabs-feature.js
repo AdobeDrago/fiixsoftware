@@ -350,10 +350,41 @@ function decorateDefault(block) {
   block.prepend(tablist);
 }
 
+/**
+ * Scope: .ai-tabs non-toggle only. Tags the panel eyebrow as a mobile
+ * accordion control that activates the matching tab (desktop tablist stays).
+ */
+function enhanceAiTabs(block) {
+  block.querySelectorAll('.tabs-feature-panel').forEach((panel) => {
+    const content = panel.querySelector(':scope > div');
+    if (!content) return;
+    const label = [...content.querySelectorAll(':scope > p')]
+      .find((p) => !p.classList.contains('tabs-feature-media') && !p.classList.contains('tabs-feature-cta'));
+    if (!label) return;
+
+    label.classList.add('tabs-feature-label');
+    label.setAttribute('role', 'button');
+    label.tabIndex = 0;
+
+    const activate = () => {
+      const tab = block.querySelector(`[aria-controls="${panel.id}"]`);
+      if (tab) tab.click();
+    };
+    label.addEventListener('click', activate);
+    label.addEventListener('keydown', (event) => {
+      if (event.key !== 'Enter' && event.key !== ' ') return;
+      event.preventDefault();
+      activate();
+    });
+  });
+}
+
 export default async function decorate(block) {
   if (block.classList.contains('toggle')) {
     decorateToggle(block);
     return;
   }
   decorateDefault(block);
+  // AI page Foresight switcher only — mobile accordion labels; no-op elsewhere.
+  if (block.closest('.ai-tabs')) enhanceAiTabs(block);
 }

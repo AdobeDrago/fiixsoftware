@@ -4522,13 +4522,14 @@ main > .section.ai-faq .section-metadata {
     display: none;
 }
 
-/* ---- ai-tabs: two tabbed-panel sections (tabs-feature). White band,
-   centered heading (with an optional product logo above it). The
-   tabs-feature block styles the tabs/panels; some panel screenshots
-   were intentionally omitted during import. ---- */
+/* ---- ai-tabs: section chrome for tabs-feature instances.
+   Shared band styles apply to both; #homepage (Foresight switcher)
+   overrides are limited to sections that contain a non-toggle
+   tabs-feature so the Asset Insights toggle instance is unchanged. ---- */
 main > .section.ai-tabs {
     margin: 0;
     padding: 50px 0;
+    background-color: #fff;
 }
 
 main > .section.ai-tabs .default-content-wrapper {
@@ -4545,7 +4546,7 @@ main > .section.ai-tabs .default-content-wrapper h2 {
     color: var(--text-color);
 }
 
-/* product logo above the heading (Fiix Foresight) */
+/* product logo above the heading (Fiix Foresight) — toggle sections omit this */
 main > .section.ai-tabs .default-content-wrapper p:has(img) {
     text-align: center;
 }
@@ -4558,6 +4559,55 @@ main > .section.ai-tabs .default-content-wrapper p:has(img) img {
 @media (width >= 960px) {
     main > .section.ai-tabs .default-content-wrapper h2 {
         font-size: 40px;
+    }
+}
+
+/* #fiixAI #homepage parity — only the default (non-toggle) switcher */
+main > .section.ai-tabs:has(.tabs-feature:not(.toggle)) {
+    padding: 40px 0 0;
+    margin-bottom: 40px;
+}
+
+main > .section.ai-tabs:has(.tabs-feature:not(.toggle)) .default-content-wrapper h2 {
+    margin: 0 auto;
+    max-width: 650px;
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 32px;
+    text-align: center;
+}
+
+main > .section.ai-tabs:has(.tabs-feature:not(.toggle)) .default-content-wrapper p:has(img) {
+    width: 140px;
+    margin: 0 auto 10px;
+}
+
+main > .section.ai-tabs:has(.tabs-feature:not(.toggle)) .default-content-wrapper p:has(img) img {
+    display: block;
+    width: 140px;
+    max-width: 100%;
+    height: auto;
+    max-height: none;
+}
+
+/* production accordion / #features spacing above switcher */
+main > .section.ai-tabs:has(.tabs-feature:not(.toggle)) .tabs-feature-wrapper {
+    margin-top: 30px;
+}
+
+@media (width >= 768px) {
+    main > .section.ai-tabs:has(.tabs-feature:not(.toggle)) {
+        padding: 60px 0 0;
+        margin-bottom: 80px;
+    }
+
+    main > .section.ai-tabs:has(.tabs-feature:not(.toggle)) .default-content-wrapper h2 {
+        font-size: 40px;
+        line-height: normal;
+    }
+
+    main > .section.ai-tabs:has(.tabs-feature:not(.toggle)) .tabs-feature-wrapper {
+        margin-top: 70px;
     }
 }
 
