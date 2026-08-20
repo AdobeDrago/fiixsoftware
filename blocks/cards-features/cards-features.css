@@ -37,6 +37,14 @@
     margin-bottom: 60px;
   }
 
+  /* Constrain the heading/lead themselves (not the wrapper) to the left
+     ~540px column, matching production — the wrapper stays a full-width,
+     left-aligned block so it isn't pulled to the centre of the row. */
+  .section.cards-features-container .default-content-wrapper h2,
+  .section.cards-features-container .default-content-wrapper p {
+    max-width: 540px;
+  }
+
   .section.cards-features-container .default-content-wrapper h2 {
     font-size: 48px;
     line-height: 1;
@@ -47,32 +55,82 @@
   }
 }
 
+/* Each row is a two-column card: a small feature icon in the first column,
+   the heading + copy in the second (production: fiixsoftware.com/free-cmms).
+   Borderless, so the icon reads as a feature glyph beside its text rather
+   than a bordered media card — a plain vertical list of rows, paired into two
+   columns once there's room (measured on prod at 1440px: 30px icon, 20px
+   gutter to the text, 60px between the two card columns). */
 .cards-features > ul {
   list-style: none;
   margin: 0;
   padding: 0;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(257px, 1fr));
-  gap: 24px;
+  gap: 0;
 }
 
 .cards-features > ul > li {
-  border: 1px solid #dadada;
-  background-color: var(--background-color);
+  display: grid;
+  grid-template-columns: 30px 1fr;
+  align-items: start;
+  gap: 20px;
+  padding: 24px 0;
 }
 
-.cards-features .cards-features-card-body {
-  margin: 16px;
+.cards-features > ul > li + li {
+  border-top: 1px solid #dadada;
 }
 
 .cards-features .cards-features-card-image {
-  line-height: 0;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
 }
 
-.cards-features > ul > li img {
+.cards-features .cards-features-card-image img {
   width: 100%;
-  aspect-ratio: 4 / 3;
-  object-fit: cover;
+  max-width: 30px;
+  height: auto;
+  object-fit: contain;
+}
+
+.cards-features .cards-features-card-body {
+  margin: 0;
+}
+
+.cards-features .cards-features-card-body h3 {
+  margin: 0 0 16px;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+/* stylelint-disable-next-line no-descending-specificity */
+.cards-features .cards-features-card-body p {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 300;
+  line-height: 1.4;
+}
+
+/* Two cards per row on wider screens (matches production's paired layout). */
+@media (width >= 900px) {
+  .cards-features > ul {
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: 60px;
+  }
+
+  .cards-features > ul > li + li {
+    border-top: 0;
+  }
+}
+
+/* On narrow phones the icon column narrows so the copy keeps a usable width. */
+@media (width < 600px) {
+  .cards-features > ul > li {
+    grid-template-columns: 24px 1fr;
+    gap: 16px;
+  }
 }
 
 /* Trailing "Featured" / "New" heading label as production's yellow badge
@@ -100,6 +158,7 @@
 }
 
 .cards-features:not(:has(.cards-features-card-image)) > ul > li {
+  display: block;
   border: 0;
   background-color: transparent;
 }
@@ -123,53 +182,55 @@
   line-height: 1.4;
 }
 
-/* Purple feature icon to the left of each heading (prod: FA glyph, #6d68ea,
-   ~30px, aligned to the heading top). The card body gets left padding to make
-   room and the icon is absolutely positioned in that gutter. */
-/* stylelint-disable-next-line no-descending-specificity */
-.cards-features-iconed .cards-features-card-body {
-  position: relative;
-  padding-left: 50px;
-}
-
-.cards-features-iconed .cards-features-icon {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 30px;
-  height: 30px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.cards-features-iconed .cards-features-icon img,
-.cards-features-iconed .cards-features-icon svg {
-  width: 30px;
-  height: 30px;
-  object-fit: contain;
-}
-
-/* Authorable tint. `.icon-masked` is added by the block JS ONLY when an author
-   sets an "Icon color" on the section — so by default the icon keeps its authored
-   colour (the fill baked into the SVG, shown via the plain <img>). When masked,
-   the icon is painted with the author's --icon-color, shaped by the SVG mask;
-   the inner <img> is the mask source only — hidden. */
-.cards-features-iconed .cards-features-icon.icon-masked {
-  background-color: var(--icon-color);
-  mask: var(--icon-mask) no-repeat center / contain;
-}
-
-.cards-features-iconed .cards-features-icon.icon-masked img {
-  visibility: hidden;
-}
-
 /* Column-major flow: fill the left column top-to-bottom, then the right,
    matching production (which stacks two cards per column). */
 @media (width >= 900px) {
   .cards-features:not(:has(.cards-features-card-image)) > ul.cards-features-rows-2 {
     grid-template-rows: repeat(2, auto);
     grid-auto-flow: column;
+  }
+}
+
+/* ============================================================
+   Row-level content types, shared by every cards-features layout (the
+   icon+text rows and the bare text grid): an authored row may hold no
+   content at all (a spacer needed to keep column-paired grids aligned) or a
+   single link (a footer call-to-action) standing in for a card. Both still
+   need to occupy their grid slot, so they are tagged by the block JS rather
+   than dropped. Declared after the layout variants above so these overrides
+   win regardless of variant.
+   ============================================================ */
+.cards-features > ul > li.cards-features-empty {
+  visibility: hidden;
+}
+
+/* No display/grid-template-columns override here: the icon+text layout's
+   empty first (icon) cell must stay in the row's normal 30px/1fr grid so the
+   link lands in the same column as every other row's heading/copy, instead of
+   flush against the row's left edge. */
+.cards-features > ul > li.cards-features-cta {
+  border: 0;
+  background: none;
+}
+
+.cards-features > ul > li.cards-features-cta a {
+  color: var(--link-color);
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1;
+  text-decoration: none;
+}
+
+.cards-features > ul > li.cards-features-cta a::after {
+  content: ' →';
+  white-space: nowrap;
+}
+
+/* On mobile (single column) an empty spacer cell would leave a confusing gap,
+   so collapse it entirely; the CTA still flows inline after the cards. */
+@media (width < 900px) {
+  .cards-features > ul > li.cards-features-empty {
+    display: none;
   }
 }
 
