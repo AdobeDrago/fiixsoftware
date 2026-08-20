@@ -46,6 +46,92 @@
   font: inherit;
 }
 
+.quote .quote-attribution strong {
+  font-weight: 700;
+}
+
+/* wrap: match production `.quote.text-center > .wrap` on /cmms/ai/
+   Outer wrapper is absolute (right, 60% width); this block is the white slit card. */
+.quote.wrap {
+  --quote-wrap-slit: 80px;
+
+  box-sizing: border-box;
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  padding: 40px;
+  overflow: visible;
+  background-color: #fff;
+  color: #212021;
+  text-align: center;
+  clip-path: polygon(
+    0 0,
+    100% 0,
+    100% 100%,
+    var(--quote-wrap-slit) 100%,
+    0 calc(100% - var(--quote-wrap-slit))
+  );
+}
+
+.quote.wrap .quote-text {
+  margin: 0 auto 20px;
+  padding: 0;
+  border: 0;
+  color: #202120;
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 1.7;
+}
+
+.quote.wrap .quote-text::before,
+.quote.wrap .quote-text::after {
+  display: none;
+}
+
+.quote.wrap .quote-text p {
+  position: relative;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 0;
+  border: 0;
+  font-size: 22px;
+  font-weight: 500;
+  line-height: normal;
+}
+
+/* Production marks live on the quote paragraph */
+.quote.wrap .quote-text p::before,
+.quote.wrap .quote-text p::after {
+  content: '\201C';
+  position: absolute;
+  top: -30px;
+  left: -25px;
+  color: rgb(0 174 239 / 50%);
+  font-size: 80px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.quote.wrap .quote-text p::after {
+  content: '\201D';
+  inset: auto -25px -40px auto;
+}
+
+.quote.wrap .quote-attribution {
+  margin: 0;
+  padding: 0;
+  color: #212021;
+  font-size: 16px;
+  font-weight: 300;
+  line-height: normal;
+}
+
+.quote.wrap .quote-attribution p + p {
+  margin-top: 0;
+  font-size: 16px;
+}
+
 @media (width >= 768px) {
   .quote {
     margin-top: 100px;
@@ -73,5 +159,87 @@
   .quote .quote-attribution {
     padding-right: 100px;
     padding-left: 100px;
+  }
+
+  .quote.wrap {
+    padding: 65px 80px;
+  }
+
+  .quote.wrap .quote-text {
+    margin-bottom: 20px;
+    padding: 0;
+    font-size: 16px;
+    line-height: 1.7;
+  }
+
+  .quote.wrap .quote-text p::before,
+  .quote.wrap .quote-text p::after {
+    top: -60px;
+    left: -60px;
+    font-size: 150px;
+  }
+
+  .quote.wrap .quote-text p::after {
+    inset: auto -70px -80px auto;
+  }
+
+  .quote.wrap .quote-attribution {
+    padding: 0;
+    font-size: 20px;
+  }
+
+  .quote.wrap .quote-attribution p + p {
+    font-size: 20px;
+  }
+}
+
+@media (width >= 960px) {
+  .quote.wrap .quote-text p {
+    font-size: 22px;
+  }
+}
+
+/* Prefer quote(wrap) over a leftover default-content blockquote in the same section */
+main > .section:has(.quote.wrap) .default-content-wrapper > blockquote,
+main > .section:has(.quote.wrap) .default-content-wrapper > blockquote ~ p {
+  display: none;
+}
+
+/* wrap layout: hang into the following section (production .quote.text-center).
+   Kept in the block stylesheet — no section style metadata required. */
+main > .section:has(.quote.wrap) {
+  position: relative;
+  overflow: visible;
+  padding-bottom: 160px;
+}
+
+main > .section:has(.quote.wrap) .quote-wrapper {
+  position: absolute;
+  right: 0;
+  z-index: 1;
+  width: 95%;
+  margin-top: 30px;
+  filter: drop-shadow(0 0 8px rgb(0 0 0 / 20%));
+}
+
+main > .section:has(.quote.wrap) + .section {
+  position: relative;
+  z-index: 0;
+  padding-top: 150px;
+}
+
+@media (width >= 768px) {
+  main > .section:has(.quote.wrap) .quote-wrapper {
+    margin-top: 60px;
+  }
+
+  main > .section:has(.quote.wrap) + .section {
+    padding-top: 220px;
+  }
+}
+
+@media (width >= 960px) {
+  main > .section:has(.quote.wrap) .quote-wrapper {
+    width: 60%;
   }
 }

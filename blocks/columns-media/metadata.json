@@ -15,9 +15,14 @@
     "imagePattern": "large"
   },
   "contentPattern": {
-    "structure": "image + (heading + description + CTA)",
+    "structure": "image|vidyard-url + (heading + description + CTA)",
     "buttonCount": 1,
-    "imageCount": 1
+    "imageCount": 1,
+    "variants": [
+      "vidyard — media cell is a play.vidyard.com URL; loads inline Vidyard player",
+      "left — media column on the left (desktop)",
+      "right — media column on the right (desktop)"
+    ]
   },
   "reuseGuidance": {
     "suitableFor": [
