@@ -603,7 +603,7 @@
 }
 
 /* ---- Desktop (768+): horizontal tabs + two-column panel ---- */
-@media (width >= 768px) {
+@media (width > 768px) {
   .ai-tabs .tabs-feature:not(.toggle) .tabs-feature-list {
     display: flex;
     flex-wrap: nowrap;
