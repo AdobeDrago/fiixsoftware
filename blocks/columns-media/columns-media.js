@@ -128,16 +128,21 @@ export default async function decorate(block) {
   const cols = [...block.firstElementChild.children];
   block.classList.add(`columns-media-${cols.length}-cols`);
 
-  // setup image columns
+  // tag each column as an image column (no text, only image(s)) or a text column
   [...block.children].forEach((row) => {
     [...row.children].forEach((col) => {
       const pic = col.querySelector('picture');
-      if (pic) {
-        const picWrapper = pic.closest('div');
-        if (picWrapper && picWrapper.children.length === 1) {
-          // picture is only content in column
-          picWrapper.classList.add('columns-media-img-col');
-        }
+      const picWrapper = pic ? pic.closest('div') : null;
+      if (picWrapper && picWrapper.textContent.trim() === '') {
+        picWrapper.classList.add('columns-media-img-col');
+        // tag each image individually (in authored order) so a column with
+        // more than one image (e.g. a decorative graphic + a screenshot) can
+        // style each one differently
+        [...picWrapper.children].forEach((child, i) => {
+          child.classList.add(`columns-media-img-${i + 1}`);
+        });
+      } else {
+        col.classList.add('columns-media-text-col');
       }
     });
   });

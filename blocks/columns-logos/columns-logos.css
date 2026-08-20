@@ -1,7 +1,32 @@
 .columns-logos {
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    padding: 25px 0;
+}
+.columns-logos.with-heading {
+    gap: 50px;
+}
+
+.columns-logos.with-heading .columns-logos-row {
+    flex-flow: nowrap;
+    justify-content: center;
+    margin: 0 auto;
+}
+.columns-logos.with-heading img {
+    max-height: 58px;
+    max-width: 100px;
+}
+
+@media (width>=768px) {
+    .columns-logos.with-heading img {
+        max-height: 77px;
+    }
+}
+@media (width>=1200px) {
+    .columns-logos.with-heading .columns-logos-row {
+        gap: 55px;
+    }
 }
 
 /* optional heading + paragraph rows above the logos. Either, both, or
@@ -11,100 +36,136 @@
    .social-badges h3). */
 .columns-logos-heading-row,
 .columns-logos-text-row {
-  margin: 0;
-  text-align: center;
+    margin: 0;
+    text-align: left;
 }
 
 .columns-logos-heading-row :is(h1, h2, h3, h4, h5, h6) {
-  margin: 0;
-  font-size: 30px;
-  font-weight: 700;
-  line-height: 1;
+    margin: 0;
+    font-size: 30px;
+    font-weight: 700;
+    line-height: 1;
 }
 
-.columns-logos-text-row p {
-  margin: 0 auto;
-  max-width: 600px;
-  font-size: 24px;
-  font-weight: 700;
-  line-height: 1.1;
+.columns-logos-text-row :is(h1, h2, h3, h4, h5, h6, p) {
+    margin: 0 auto;
+    max-width: 600px;
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 1.1;
+}
+
+/* the browser's default UA style is "strong { font-weight: bolder }", which
+   resolves to 900 against a 700 parent instead of staying 700 -- reset it so
+   authors can wrap this text in <strong> without it going heavier. */
+.columns-logos-heading-row strong,
+.columns-logos-text-row strong {
+    font-weight: inherit;
+}
+
+.columns-logos.with-heading .columns-logos-heading-row,
+.columns-logos.with-heading .columns-logos-text-row {
+    text-align: center;
 }
 
 .columns-logos-row {
-  display: flex;
-  flex-direction: column;
+    display: flex;
+    flex-flow: row wrap;
+    gap: 20px;
+    max-width: 240px;
 }
 
 .columns-logos img {
-  width: auto;
-  max-width: 100%;
-  max-height: 46px;
-  object-fit: contain;
+    width: auto;
+    max-width: 100px;
+    max-height: 46px;
+    object-fit: contain;
 }
 
 .columns-logos-row > div {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  order: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    order: 1;
 }
 
 .columns-logos-row > .columns-logos-img-col {
-  order: 0;
+    order: 0;
 }
 
 .columns-logos-row > .columns-logos-img-col img {
-  display: block;
+    display: block;
 }
 
 @media (width >= 768px) {
-  .columns-logos-heading-row :is(h1, h2, h3, h4, h5, h6) {
-    font-size: 38px;
-  }
+    .columns-logos-heading-row :is(h1, h2, h3, h4, h5, h6) {
+        font-size: 38px;
+    }
 }
 
 @media (width >= 960px) {
-  .columns-logos {
-    gap: 40px;
-  }
+    .columns-logos {
+        gap: 40px;
+    }
 
-  .columns-logos-heading-row :is(h1, h2, h3, h4, h5, h6) {
-    font-size: 48px;
-  }
+    .columns-logos-heading-row :is(h1, h2, h3, h4, h5, h6) {
+        font-size: 48px;
+    }
 
-  .columns-logos-row {
-    align-items: center;
-    flex-direction: unset;
-    gap: 24px;
-  }
+    .columns-logos-row {
+        align-items: center;
+        margin: 0 auto;
+        flex-wrap: nowrap;
+    }
 
-  .columns-logos-row > div {
-    flex: 1;
-    order: unset;
-  }
+    .columns-logos-row > div {
+        flex: 1;
+        order: unset;
+    }
+}
+
+/* "Columns Logos (Wide Logos)" variant: wide customer/partner wordmark logos
+   (e.g. "Over 4,100 teams…" band) sized by width, not the default height cap
+   used for compact award badges. */
+.columns-logos.wide-logos img {
+    width: 100px;
+    height: auto;
+    max-height: none;
+    object-fit: contain;
+}
+
+@media (width >= 960px) {
+    .columns-logos.wide-logos .columns-logos-row {
+        justify-content: center;
+        gap: 60px;
+    }
+
+    .columns-logos.wide-logos .columns-logos-row > div {
+        flex: 0 0 auto;
+    }
 }
 
 /* Partner logos ("Over 4,500 teams…" band) sized to production — each ~100px
    wide, full color. Scoped to .logos so the hero review-logos row is unaffected. */
 .section.logos .columns-logos img {
-  width: 100px;
-  height: auto;
-  max-height: none;
-  object-fit: contain;
+    width: 100px;
+    height: auto;
+    max-height: none;
+    object-fit: contain;
 }
 
 /* Distribute the partner logos edge-to-edge across the full band like
    production (first logo flush left, last flush right) instead of centering
    each in an equal flex cell, which left a ~40px inset (WCT-HOME HP-4). */
 @media (width >= 960px) {
-  .section.logos .columns-logos-row {
-    justify-content: space-between;
-    gap: 0;
-  }
+    .section.logos .columns-logos-row {
+        justify-content: space-between;
+        gap: 0;
+    }
 
-  .section.logos .columns-logos-row > div {
-    flex: 0 0 auto;
-  }
+    .section.logos .columns-logos-row > div {
+        flex: 0 0 auto;
+    }
 }
 
 /* Enterprise hero review-logos row ("Over 900 five-star reviews"): production
@@ -113,12 +174,30 @@
    group, centered in the section -- not spread across the full width in equal
    flex cells with visible gaps. */
 @media (width >= 960px) {
-  main .section.enterprise-hero .columns-logos-row {
-    justify-content: center;
-    gap: 0;
-  }
+    main .section.enterprise-hero .columns-logos-row {
+        justify-content: center;
+        gap: 0;
+    }
 
-  main .section.enterprise-hero .columns-logos-row > div {
-    flex: 0 0 auto;
-  }
+    main .section.enterprise-hero .columns-logos-row > div {
+        flex: 0 0 auto;
+    }
+}
+
+@media (width >= 768px) {
+    .columns-logos-heading-row,
+    .columns-logos-text-row {
+        text-align: center;
+    }
+
+    .columns-logos-row {
+        flex-direction: row;
+        gap: 60px;
+        justify-content: center;
+        max-width: none;
+    }
+
+    .columns-logos {
+        gap: 40px;
+    }
 }
