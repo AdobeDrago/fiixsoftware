@@ -288,6 +288,10 @@ main > .section:has(> .columns-media-wrapper > .columns-media.right) {
         justify-content: flex-start;
     }
 
+    .columns-media.right.purple .columns-media-img-col {
+        justify-content: end;
+    }
+
     .columns-media:is(.gold, .teal, .cyan, .purple, .orange, .navy):is(
             .left,
             .right
@@ -411,9 +415,6 @@ main > .section:has(> .columns-media-wrapper > .columns-media.right) {
         z-index: 2;
         max-width: 550px;
         margin-bottom: -7px;
-    }
-    .columns-media.right.purple .columns-media-img-col {
-        justify-content: end;
     }
 
     /* TODO: right.purple has no .columns-media-img-1 rule -- its decorative
