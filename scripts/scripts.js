@@ -62,7 +62,9 @@ const SECTION_CORNER_BACKGROUNDS = {
  * @returns {string}
  */
 function toSectionBackgroundImage(value) {
-  const trimmed = value.trim();
+  // Authors often paste a full CSS declaration including a trailing `;`.
+  // `element.style.backgroundImage = '…;'` is rejected by the browser.
+  const trimmed = value.trim().replace(/;+\s*$/, '');
   if (!trimmed) return '';
   if (/^(?:url\(|(?:repeating-)?(?:linear|radial|conic)-gradient\()/i.test(trimmed)) {
     return trimmed;
@@ -107,6 +109,21 @@ function decorateSectionCornerBackgrounds(main) {
       hasCorner = true;
     });
     if (hasCorner) section.classList.add('has-section-bg');
+  });
+}
+
+/**
+ * Applies authored `background` / `background-image` section metadata as the
+ * section's CSS background-image (gradients or image URLs).
+ * @param {Element} main
+ */
+function decorateSectionBackgroundImages(main) {
+  main.querySelectorAll(':scope > div.section').forEach((section) => {
+    const value = section.dataset.backgroundImage || section.dataset.background;
+    if (!value) return;
+    const backgroundImage = toSectionBackgroundImage(value);
+    if (!backgroundImage) return;
+    section.style.backgroundImage = backgroundImage;
   });
 }
 
@@ -352,6 +369,7 @@ export function decorateMain(main) {
   buildAutoBlocks(main);
   decorateSections(main);
   decorateSectionMetadata(main);
+  decorateSectionBackgroundImages(main);
   decorateSectionCornerBackgrounds(main);
   decorateBlocks(main);
   decorateButtons(main);
