@@ -3649,18 +3649,40 @@ main > .section.pf-features .default-content-wrapper:last-child h2 a:any-link {
    Production band #f7f9fc, H2 24/700 centered. ---- */
 main > .section.pf-video {
     margin: 0;
-    padding: 60px 0;
+    padding: 100px 0;
     background-color: #f7f9fc;
 }
 
 main > .section.pf-video .default-content-wrapper h2 {
-    margin: 0 auto 40px;
+    margin: 0 auto 30px;
     max-width: 760px;
     font-size: 24px;
     font-weight: 700;
     line-height: 1.2;
     text-align: center;
     color: var(--text-color);
+}
+
+@media (width >= 768px) {
+    main > .section.pf-video .default-content-wrapper h2 {
+        margin-bottom: 40px;
+    }
+}
+
+main > .section.pf-video > .default-content-wrapper {
+    padding: 0;
+}
+
+@media (width >= 768px) and (width < 960px) {
+    main > .section.pf-video > .default-content-wrapper {
+        padding: 0 54px;
+    }
+}
+
+@media (width >= 960px) {
+    main > .section.pf-video > .default-content-wrapper {
+        padding: 0 32px;
+    }
 }
 
 /* pf-video reuses cards-video, which now renders a horizontal carousel (three
@@ -3683,7 +3705,7 @@ main > .section.pf-video > .cards-video-wrapper {
    in the cards above it), not the boxed pill button the sitewide default
    gives every button-wrapper link. */
 main > .section.pf-video .button-wrapper {
-    margin: 32px 0 0;
+    margin: 40px 0 0;
     text-align: center;
 }
 
@@ -3702,20 +3724,19 @@ main > .section.pf-video .button-wrapper a.button {
 main > .section.pf-video .button-wrapper a.button:hover {
     color: #0f3675;
     background: none;
-    text-decoration: underline;
+    text-decoration: none;
 }
 
 main > .section.pf-video .button-wrapper a.button::after {
     content: "";
     display: inline-block;
     width: 24px;
-    height: 22px;
-    margin-left: 5px;
-    margin-top: 5px;
+    height: 19px;
+    margin-left: 10px;
     background-color: currentcolor;
     vertical-align: middle;
-    mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11h12.17l-5.59-5.59L12 4l8 8-8 8-1.41-1.41L16.17 13H4z"/></svg>')
-        no-repeat center / contain;
+    mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>')
+        no-repeat center / 24px 19px;
 }
 
 /* ---- pf-media-left / pf-media-right: image + text feature rows.
