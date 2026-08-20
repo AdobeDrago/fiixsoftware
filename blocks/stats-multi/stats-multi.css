@@ -7,23 +7,23 @@
 
 .stats-multi.text {
   display: flex;
-  flex-direction: column;
-  margin-top: 60px;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  margin-top: 100px;
   font-family: sofia-pro, sans-serif;
-  row-gap: 30px;
-  text-align: center;
+  text-align: left;
 }
 
 .stats-multi.text .stats-multi-item {
-  width: 90%;
-  margin: 0 auto;
+  width: 30%;
+  margin: 0;
 }
 
 .stats-multi.text .stats-multi-value,
 .stats-multi.text .stats-multi-value-cell > :first-child {
   margin: 0 0 30px;
   font-family: sofia-pro, sans-serif;
-  font-size: 70px;
+  font-size: 50px;
   font-weight: 700;
   line-height: 1;
 }
@@ -32,7 +32,7 @@
 .stats-multi.text .stats-multi-label-cell > :first-child {
   width: 100%;
   margin: 0;
-  border-top: 6px solid #00afeb;
+  border-top: 4px solid #00afeb;
   padding-top: 20px;
   font-family: sofia-pro, sans-serif;
   font-size: 20px;
@@ -95,30 +95,32 @@
   }
 }
 
-@media (width >= 401px) {
-  .stats-multi.text .stats-multi-item {
-    width: 60%;
-  }
-}
-
-@media (width >= 601px) {
+@media (width <= 600px) {
   .stats-multi.text {
-    flex-flow: row wrap;
-    justify-content: space-between;
-    margin-top: 100px;
-    row-gap: 0;
-    text-align: left;
+    flex-direction: column;
+    margin-top: 60px;
+    text-align: center;
   }
 
   .stats-multi.text .stats-multi-item {
-    width: auto;
-    margin: 0;
+    width: 50%;
+    margin: 0 auto;
+  }
+
+  .stats-multi.text .stats-multi-item:nth-child(1),
+  .stats-multi.text .stats-multi-item:nth-child(2) {
+    margin-bottom: 30px;
+  }
+
+  .stats-multi.text .stats-multi-value,
+  .stats-multi.text .stats-multi-value-cell > :first-child {
+    font-size: 70px;
   }
 
 }
 
-@media (width >= 601px) and (width < 1200px) {
-  .stats-multi {
-    max-width: 575px;
+@media (width <= 400px) {
+  .stats-multi.text .stats-multi-item {
+    width: 75%;
   }
 }
