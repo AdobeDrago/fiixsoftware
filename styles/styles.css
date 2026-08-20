@@ -332,7 +332,7 @@ main > .section {
     margin: 40px 0;
 }
 
-main > .section > div {
+main > .section > div:not(.section-bg) {
     max-width: 1200px;
     margin: auto;
     padding: 0 24px;
@@ -343,8 +343,75 @@ main > .section:first-of-type {
 }
 
 @media (width >= 960px) {
-    main > .section > div {
+    main > .section > div:not(.section-bg) {
         padding: 0 32px;
+    }
+}
+
+/* section-metadata corner backgrounds (background-top-right, etc.) —
+   decorative layers matching production .augury::before / ::after */
+main > .section.has-section-bg {
+    position: relative;
+    overflow: visible;
+}
+
+main > .section.has-section-bg > :not(.section-bg) {
+    position: relative;
+    z-index: 1;
+}
+
+.section-bg {
+    position: absolute;
+    z-index: 0;
+    pointer-events: none;
+    background-repeat: no-repeat;
+}
+
+.section-bg-top-right {
+    top: 0;
+    right: 0;
+    width: 20%;
+    height: 618px;
+    max-height: 100%;
+    background-position: center;
+    background-size: cover;
+    opacity: 0.4;
+    transform: rotate(180deg);
+}
+
+.section-bg-top-left {
+    top: 0;
+    left: 0;
+    width: 20%;
+    height: 618px;
+    max-height: 100%;
+    background-position: center;
+    background-size: cover;
+    opacity: 0.4;
+}
+
+.section-bg-bottom-left {
+    bottom: 0;
+    left: 0;
+    width: 95%;
+    height: 80px;
+    background-size: cover;
+    clip-path: polygon(0 0, 92% 0, 100% 100%, 0 100%);
+}
+
+.section-bg-bottom-right {
+    bottom: 0;
+    right: 0;
+    width: 95%;
+    height: 80px;
+    background-size: cover;
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 8% 100%);
+}
+
+@media (width >= 960px) {
+    .section-bg-bottom-left,
+    .section-bg-bottom-right {
+        width: 50%;
     }
 }
 
@@ -4623,7 +4690,8 @@ main > .section.ai-augury .columns-media a:focus-visible {
         font-size: 48px;
     }
 
-    main > .section.ai-augury .columns-media > div {
+    /* Non-info-flex only; info-flex owns its 60/40 + gap:0 layout in the block CSS */
+    main > .section.ai-augury .columns-media:not(.info-flex) > div {
         align-items: center;
         gap: 48px;
     }
