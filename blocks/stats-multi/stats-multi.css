@@ -1,37 +1,43 @@
 .stats-multi {
   box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
   width: min(664px, calc(90vw - 13.5px));
   max-width: 664px;
   margin: 0 auto 60px;
 }
 
-.stats-multi .stats-multi-item {
-  width: 100%;
+.stats-multi.text {
+  display: flex;
+  flex-direction: column;
+  margin-top: 60px;
+  font-family: sofia-pro, sans-serif;
+  row-gap: 30px;
+  text-align: center;
 }
 
-.stats-multi .stats-multi-item + .stats-multi-item {
-  margin-top: 30px;
+.stats-multi.text .stats-multi-item {
+  width: 90%;
+  margin: 0 auto;
 }
 
-.stats-multi .stats-multi-value,
-.stats-multi .stats-multi-value-cell > :first-child {
+.stats-multi.text .stats-multi-value,
+.stats-multi.text .stats-multi-value-cell > :first-child {
   margin: 0 0 30px;
-  font-size: 40px;
+  font-family: sofia-pro, sans-serif;
+  font-size: 70px;
   font-weight: 700;
   line-height: 1;
 }
 
-.stats-multi .stats-multi-label,
-.stats-multi .stats-multi-label-cell > :first-child {
+.stats-multi.text .stats-multi-label,
+.stats-multi.text .stats-multi-label-cell > :first-child {
   width: 100%;
   margin: 0;
-  border-top: 4px solid #00afeb;
+  border-top: 6px solid #00afeb;
   padding-top: 20px;
-  font-size: 22px;
-  font-weight: 500;
-  line-height: 1.2;
+  font-family: sofia-pro, sans-serif;
+  font-size: 20px;
+  font-weight: 300;
+  line-height: normal;
 }
 
 /* A bullets variant compares two lists rather than three numeric statistics.
@@ -56,6 +62,8 @@
   max-width: 100%;
   margin-bottom: 20px;
   padding-bottom: 14px;
+  font-size: 40px;
+  font-weight: 700;
   line-height: 1.1;
 }
 
@@ -72,6 +80,7 @@
 .stats-multi.bullets .stats-multi-label,
 .stats-multi.bullets .stats-multi-label-cell > :first-child {
   width: 100%;
+  margin: 0;
   border-top: 0;
   padding: 0 0 0 24px;
   font-size: 16px;
@@ -86,42 +95,26 @@
   }
 }
 
-@media (width <= 600px) {
-  .stats-multi {
-    text-align: center;
-  }
-
-  .stats-multi .stats-multi-item {
-    width: 50%;
-    margin-right: auto;
-    margin-left: auto;
-  }
-}
-
-@media (width <= 400px) {
-  .stats-multi .stats-multi-item {
-    width: 75%;
+@media (width >= 401px) {
+  .stats-multi.text .stats-multi-item {
+    width: 60%;
   }
 }
 
 @media (width >= 601px) {
-  .stats-multi {
+  .stats-multi.text {
     flex-flow: row wrap;
     justify-content: space-between;
+    margin-top: 100px;
+    row-gap: 0;
+    text-align: left;
   }
 
-  .stats-multi .stats-multi-item {
-    width: 30%;
+  .stats-multi.text .stats-multi-item {
+    width: auto;
+    margin: 0;
   }
 
-  .stats-multi .stats-multi-item + .stats-multi-item {
-    margin-top: 0;
-  }
-
-  .stats-multi .stats-multi-label,
-  .stats-multi .stats-multi-label-cell > :first-child {
-    width: 80%;
-  }
 }
 
 @media (width >= 601px) and (width < 1200px) {
