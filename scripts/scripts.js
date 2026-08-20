@@ -48,6 +48,68 @@ function decorateSectionMetadata(main) {
   });
 }
 
+const SECTION_CORNER_BACKGROUNDS = {
+  backgroundTopRight: 'section-bg-top-right',
+  backgroundBottomLeft: 'section-bg-bottom-left',
+  backgroundTopLeft: 'section-bg-top-left',
+  backgroundBottomRight: 'section-bg-bottom-right',
+};
+
+/**
+ * Turns an authored metadata value into a CSS background-image.
+ * Accepts image URLs or raw CSS (e.g. linear-gradient(...)).
+ * @param {string} value
+ * @returns {string}
+ */
+function toSectionBackgroundImage(value) {
+  const trimmed = value.trim();
+  if (!trimmed) return '';
+  if (/^(?:url\(|(?:repeating-)?(?:linear|radial|conic)-gradient\()/i.test(trimmed)) {
+    return trimmed;
+  }
+  let src = trimmed;
+  try {
+    const url = new URL(trimmed, window.location.href);
+    // Content sometimes authors https://localhost/... — use the current origin.
+    if (url.hostname === 'localhost' || url.hostname === '127.0.0.1') {
+      src = `${window.location.origin}${url.pathname}${url.search}`;
+    } else {
+      src = url.href;
+    }
+  } catch {
+    // keep authored string
+  }
+  const escaped = src.replace(/\\/g, '\\\\').replace(/"/g, '\\"');
+  return `url("${escaped}")`;
+}
+
+/**
+ * Renders section-metadata corner backgrounds
+ * (`background-top-right`, `background-bottom-left`, `background-top-left`,
+ * `background-bottom-right`) as decorative layers — same role as production
+ * `.augury::before` / `::after` on /cmms/ai/.
+ * @param {Element} main
+ */
+function decorateSectionCornerBackgrounds(main) {
+  main.querySelectorAll(':scope > div.section').forEach((section) => {
+    let hasCorner = false;
+    Object.entries(SECTION_CORNER_BACKGROUNDS).forEach(([datasetKey, className]) => {
+      const value = section.dataset[datasetKey];
+      if (!value) return;
+      const backgroundImage = toSectionBackgroundImage(value);
+      if (!backgroundImage) return;
+
+      const layer = document.createElement('div');
+      layer.className = `section-bg ${className}`;
+      layer.setAttribute('aria-hidden', 'true');
+      layer.style.backgroundImage = backgroundImage;
+      section.prepend(layer);
+      hasCorner = true;
+    });
+    if (hasCorner) section.classList.add('has-section-bg');
+  });
+}
+
 if (window.trustedTypes && window.trustedTypes.createPolicy) {
   const innerTT = window.trustedTypes.createPolicy('tt-inner', {
     createHTML: (s) => s, // avoid stack overflow
@@ -290,6 +352,7 @@ export function decorateMain(main) {
   buildAutoBlocks(main);
   decorateSections(main);
   decorateSectionMetadata(main);
+  decorateSectionCornerBackgrounds(main);
   decorateBlocks(main);
   decorateButtons(main);
   decorateBlogHeader(main);

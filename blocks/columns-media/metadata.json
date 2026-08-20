@@ -21,7 +21,8 @@
     "variants": [
       "vidyard — media cell is a play.vidyard.com URL; loads inline Vidyard player",
       "left — media column on the left (desktop)",
-      "right — media column on the right (desktop)"
+      "right — media column on the right (desktop)",
+      "info-flex — white text card (60%) + graphic (40%); production .info-flex layout"
     ]
   },
   "reuseGuidance": {

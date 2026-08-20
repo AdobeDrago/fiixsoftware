@@ -467,3 +467,123 @@ main > .section:has(> .columns-media-wrapper > .columns-media.right) {
         max-width: 540px;
     }
 }
+
+/* ---- info-flex: production .info-flex (text card 60% + graphic 40%).
+   Gated on .info-flex only — does not affect other columns-media. ---- */
+.columns-media.info-flex {
+  position: relative;
+  z-index: 1;
+  margin-top: 50px;
+}
+
+div.columns-media.info-flex > div {
+  gap: 0;
+}
+
+/* Cancel default mobile image-first order; column-reverse matches production. */
+.columns-media.info-flex > div > div,
+.columns-media.info-flex > div > .columns-media-img-col {
+  order: unset;
+}
+
+.columns-media.info-flex .columns-media-info-text {
+  box-sizing: border-box;
+  background: #fff;
+  padding: 40px 30px;
+  box-shadow: rgb(0 0 0 / 16%) 0 0 10px;
+  z-index: 1;
+}
+
+.columns-media.info-flex .columns-media-info-text h3 {
+  margin: 0 0 20px;
+  font-size: 26px;
+  font-weight: 700;
+  line-height: 1.1;
+  color: var(--text-color);
+}
+
+.columns-media.info-flex .columns-media-info-text p {
+  margin: 0 0 20px;
+  font-size: 20px;
+  font-weight: 300;
+  line-height: 1.4;
+  color: var(--text-color);
+}
+
+.columns-media.info-flex .columns-media-info-text > p:has(picture),
+.columns-media.info-flex .columns-media-info-text > p:has(img) {
+  margin: 0 0 30px;
+  max-width: 295px;
+}
+
+.columns-media.info-flex .columns-media-info-text > p:has(img) img {
+  display: block;
+  width: auto;
+  max-width: 100%;
+  height: auto;
+}
+
+.columns-media.info-flex .columns-media-info-text p.button-container {
+  margin: 0;
+}
+
+.columns-media.info-flex .columns-media-info-text a.button:any-link,
+.columns-media.info-flex .columns-media-info-text p.button-container a:any-link {
+  display: inline-block;
+  margin: 0;
+  padding: 8px 40px;
+  border: 0;
+  border-radius: 5px;
+  background-image: linear-gradient(90deg, #cd163f 0%, #f58025 100%);
+  color: #fff;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.columns-media.info-flex .columns-media-info-text a.button:hover,
+.columns-media.info-flex .columns-media-info-text a.button:focus-visible,
+.columns-media.info-flex .columns-media-info-text p.button-container a:hover,
+.columns-media.info-flex .columns-media-info-text p.button-container a:focus-visible {
+  color: #fff;
+  text-decoration: none;
+  opacity: 0.92;
+}
+
+/* Mobile / tablet: graphic above white card (production column-reverse) */
+@media (width < 960px) {
+  div.columns-media.info-flex > div {
+    flex-direction: column-reverse;
+  }
+
+  .columns-media.info-flex .columns-media-info-text,
+  .columns-media.info-flex .columns-media-img-col,
+  .columns-media.info-flex .columns-media-img-col img {
+    width: 100%;
+  }
+}
+
+@media (width >= 768px) {
+  .columns-media.info-flex .columns-media-info-text {
+    padding: 40px 50px;
+  }
+}
+
+@media (width >= 960px) {
+  /* Beat equal-flex defaults and section gap overrides for this variation only */
+  main div.columns-media.info-flex > div {
+    align-items: center;
+    gap: 0;
+  }
+
+  .columns-media.info-flex .columns-media-info-text {
+    flex: 0 0 60%;
+    width: 60%;
+    max-width: 60%;
+  }
+
+  .columns-media.info-flex .columns-media-img-col {
+    flex: 0 0 40%;
+    width: 40%;
+    max-width: 40%;
+  }
+}

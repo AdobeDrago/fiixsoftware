@@ -177,5 +177,17 @@ export default async function decorate(block) {
     }
   }
 
+  // info-flex: text column is the white card; media column stays .columns-media-img-col.
+  // Scoped so default / vidyard / connect-users columns-media are untouched.
+  if (block.classList.contains('info-flex')) {
+    [...block.children].forEach((row) => {
+      [...row.children].forEach((col) => {
+        if (!col.classList.contains('columns-media-img-col')) {
+          col.classList.add('columns-media-info-text');
+        }
+      });
+    });
+  }
+
   await decorateVidyard(block);
 }
