@@ -355,9 +355,13 @@ function decorateDefault(block) {
     button.setAttribute('role', 'tab');
     button.setAttribute('type', 'button');
 
+    tablist.append(button);
+    tab.remove();
+
     // Opt-in: a panel whose sole content is an internal link renders that
     // fragment (any block[s]) instead of flat default content. Active tab loads
     // now; others defer to first activation (parity with deferred videos).
+    // Read after tab.remove() so this is the content cell, not the label cell.
     const content = tabpanel.firstElementChild;
     const fragPath = fragmentPath(content);
 
@@ -378,8 +382,6 @@ function decorateDefault(block) {
         if (play && typeof play.catch === 'function') play.catch(() => {});
       }
     });
-    tablist.append(button);
-    tab.remove();
 
     if (fragPath) {
       // Fragment panel: skip flat-content decoration entirely. Load eagerly for
