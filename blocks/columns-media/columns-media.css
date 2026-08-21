@@ -754,6 +754,7 @@ div.columns-media.info-flex > div > .columns-media-img-col {
    ============================================================ */
 .columns-media-wrapper:has(> .columns-media.banner) {
     max-width: none;
+    padding: 0;
 }
 
 .columns-media.banner {
