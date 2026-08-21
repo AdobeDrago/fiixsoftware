@@ -1,0 +1,44 @@
+{
+  "variantName": "iframe-card",
+  "baseBlock": "iframe-card",
+  "version": "1.0.0",
+  "created": "2026-08-21T00:00:00.000Z",
+  "sourceContext": {
+    "originUrl": "https://fiixsoftware.com/cmms/mobile-cmms/",
+    "originPage": "Fiix CMMS Mobile page",
+    "blockPosition": "mid-page interactive tour CTA"
+  },
+  "visualCharacteristics": {
+    "colorScheme": "light",
+    "density": "spacious",
+    "purpose": "interactive-demo-embed",
+    "imagePattern": "decorative-background-shape"
+  },
+  "contentPattern": {
+    "structure": "heading row (CTA copy) + row with decorative image column and third-party (Storylane) embed URL column",
+    "buttonCount": 0,
+    "imageCount": 1
+  },
+  "reuseGuidance": {
+    "suitableFor": [
+      "Storylane or other third-party interactive product-tour embeds with a heading CTA",
+      "iframe embeds that need decorative background artwork around them"
+    ],
+    "notSuitableFor": [
+      "YouTube videos (use youtube-video)",
+      "Vidyard videos (use vidyard-video-player or columns-media vidyard)"
+    ]
+  },
+  "usage": {
+    "pagesUsing": [
+      "/cmms/mobile-cmms"
+    ],
+    "authoring": {
+      "default": [
+        "Row 1: heading text (e.g. 'Click here to take a tour of <em>Fiix CMMS Mobile</em>')",
+        "Row 2, column 1: decorative image",
+        "Row 2, column 2: embed URL (e.g. Storylane demo link)"
+      ]
+    }
+  }
+}
