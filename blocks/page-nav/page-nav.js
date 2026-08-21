@@ -1,29 +1,21 @@
 /**
- * page-nav -- sticky in-page anchor navigation.
+ * page-nav -- in-page anchor navigation bar.
  *
- * Renders a horizontal bar of links that jump to sections elsewhere on the
- * same page (href="#section-id"). The bar sticks to the top of the viewport
- * as the reader scrolls, smooth-scrolls to the target on click, and highlights
- * the link whose target section is currently in view.
+ * Authoring model (2-column table, one row per link):
+ *   | col 1: icon image | col 2: link text -> #section-id |
+ * The icon sits stacked above its label (matching the source design). Column 1
+ * may be empty (label-only link). Order is preserved.
  *
- * Authoring model: one link per row (a single column containing an anchor
- * whose href is an in-page fragment, e.g. #reviews). Order is preserved.
+ * A legacy single-column model (a <ul> of anchor links, no icons) is also
+ * supported so older authored content keeps working.
+ *
+ * The `sticky` variant pins the bar below the fixed site header while scrolling
+ * and enables an active-section highlight; the base bar scrolls with the page.
  */
 
 /**
- * Collect the anchors authored in the block into a single nav list.
- * @param {Element} block the block element
- * @returns {HTMLAnchorElement[]} the anchors, in document order
- */
-function collectLinks(block) {
-  const links = [...block.querySelectorAll('a[href]')];
-  return links.filter((a) => a.getAttribute('href').startsWith('#'));
-}
-
-/**
- * Smooth-scroll to the target section. When the bar is sticky it overlaps the
- * content, so offset by its height; a static bar has already scrolled away and
- * needs no offset.
+ * Smooth-scroll to the target section. When sticky, the bar overlaps content so
+ * offset by its height; a static bar has scrolled away and needs no offset.
  * @param {Element} block the block element (carries the `sticky` variant)
  * @param {Element} nav the nav element
  * @param {string} hash the target fragment (e.g. "#reviews")
@@ -54,7 +46,6 @@ function observeSections(nav, linkByHash) {
   if (targets.length === 0) return;
 
   const observer = new IntersectionObserver((entries) => {
-    // Prefer the entry closest to the top of the viewport that is intersecting.
     const visible = entries
       .filter((e) => e.isIntersecting)
       .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
@@ -67,13 +58,42 @@ function observeSections(nav, linkByHash) {
 }
 
 /**
+ * Collect the authored links as { icon, href, label } items, preserving order.
+ * Handles the 2-column table (icon | link) and the legacy list-of-anchors.
+ * @param {Element} block the block element
+ * @returns {{icon: Element|null, href: string, label: string}[]}
+ */
+function collectItems(block) {
+  const items = [];
+
+  // 2-column rows: block > div (row) > div (col). First col = icon, last = link.
+  const rows = [...block.children].filter((row) => row.querySelector('a[href^="#"]'));
+  rows.forEach((row) => {
+    const cols = [...row.children];
+    if (!cols.length) return;
+    const link = row.querySelector('a[href^="#"]');
+    if (!link) return;
+    const icon = cols.length > 1 ? cols[0].querySelector('picture, img') : null;
+    items.push({ icon, href: link.getAttribute('href'), label: link.textContent.trim() });
+  });
+
+  if (items.length) return items;
+
+  // Legacy: a flat list of in-page anchors, no icons.
+  [...block.querySelectorAll('a[href^="#"]')].forEach((a) => {
+    items.push({ icon: null, href: a.getAttribute('href'), label: a.textContent.trim() });
+  });
+  return items;
+}
+
+/**
  * loads and decorates the block
  * @param {Element} block The block element
  */
 export default function decorate(block) {
-  const links = collectLinks(block);
+  const items = collectItems(block);
   // Nothing to build if the author added no in-page anchor links.
-  if (links.length === 0) return;
+  if (items.length === 0) return;
 
   const nav = document.createElement('nav');
   nav.className = 'page-nav-bar';
@@ -84,25 +104,37 @@ export default function decorate(block) {
 
   const linkByHash = new Map();
 
-  links.forEach((a) => {
-    const hash = a.getAttribute('href');
+  items.forEach(({ icon, href, label }) => {
     const item = document.createElement('li');
     item.className = 'page-nav-item';
 
     const link = document.createElement('a');
     link.className = 'page-nav-link';
-    link.href = hash;
-    link.textContent = a.textContent.trim();
+    link.href = href;
+
+    // Icon (stacked above the label) — decorative, so hidden from a11y tree.
+    if (icon) {
+      const iconWrap = document.createElement('span');
+      iconWrap.className = 'page-nav-icon';
+      iconWrap.setAttribute('aria-hidden', 'true');
+      iconWrap.append(icon);
+      link.append(iconWrap);
+    }
+
+    const text = document.createElement('span');
+    text.className = 'page-nav-label';
+    text.textContent = label;
+    link.append(text);
 
     link.addEventListener('click', (e) => {
       e.preventDefault();
-      scrollToTarget(block, nav, hash);
-      window.history.replaceState(null, '', hash);
+      scrollToTarget(block, nav, href);
+      window.history.replaceState(null, '', href);
     });
 
     // Keyed by hash for the scroll-spy; if two links share a target the later
     // one wins the highlight (both still render and scroll correctly).
-    linkByHash.set(hash, link);
+    linkByHash.set(href, link);
     item.append(link);
     list.append(item);
   });
