@@ -3889,7 +3889,7 @@ main > .section.pf-explore .columns-logos-wrapper {
    H2 48/700 centered, cards transparent, link 20/700 #14499a. ---- */
 main > .section.pf-resources {
     margin: 0;
-    padding:  0 20px;
+    padding: 0 20px;
     background-color: #f7f7f7;
 }
 
@@ -3908,7 +3908,7 @@ main > .section.pf-resources .default-content-wrapper h2 {
 }
 
 main > .section.pf-resources .cards-cta-wrapper {
-   padding: 0 0 40px;
+    padding: 0 0 40px;
 }
 
 /* cards-cta reused: production keeps the block's white, shadowed card, and

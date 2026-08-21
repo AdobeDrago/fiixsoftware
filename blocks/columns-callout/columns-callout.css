@@ -1,229 +1,220 @@
-.columns-callout > div {
-  display: flex;
-  flex-direction: column;
+.columns-callout img {
+    width: 100%;
 }
 
-.columns-callout img {
-  width: 100%;
+.columns-callout.block.columns-callout-2-cols {
+    padding-top: 20px;
+}
+
+.columns-callout > div {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    gap: 0;
+    margin: 0;
+    padding: 40px;
+    background-color: #f2f2f2;
 }
 
 .columns-callout > div > div {
-  order: 1;
+    flex: none;
+    order: 1;
+    text-align: center;
 }
 
 .columns-callout > div > .columns-callout-img-col {
-  order: 0;
+    order: 0;
 }
 
 .columns-callout > div > .columns-callout-img-col img {
-  display: block;
+    display: block;
 }
 
-.pricing-hero .columns-callout > div p {
-  font-size: 14px;
-  font-weight: 300;
+.columns-callout h2 {
+    margin: 0;
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--text-color);
 }
 
-/* Pricing add-on cards: "Add-on" eyebrow above the heading and a yellow
-   "New" badge inline in the heading (matches production). Scoped to the
-   pricing-hero so other columns-callout instances are unaffected. */
-.pricing-hero .columns-callout > div > div > p:first-child {
-  margin: 0 0 4px;
-  font-size: 14px;
-  font-weight: 300;
-  color: var(--text-color);
+.columns-callout > div > div > p {
+    margin: 0;
 }
 
-.pricing-hero .columns-callout h2 em {
-  display: inline-block;
-  margin-left: 8px;
-  padding: 2px 5px;
-  border-radius: 2px;
-  background-color: #ffe01b;
-  color: #151b26;
-  font-size: 10px;
-  font-weight: 500;
-  font-style: normal;
-  text-transform: uppercase;
-  vertical-align: middle;
+.columns-callout a:any-link {
+    display: inline-block;
+    width: auto;
+    height: 48px;
+    margin: 20px 0 0;
+    padding: 0 10px;
+    border: 2px solid #00afeb;
+    border-radius: 27px;
+    background-color: #00afeb;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 48px;
+    text-align: center;
+    text-decoration: none;
+    transition:
+        background-color 0.2s,
+        border-color 0.2s;
 }
 
-/* Production renders the two add-ons as side-by-side grey cards, each with a
-   blue circular "+" badge on the top edge, content stacked above a green CTA.
-   Scoped to the pricing-hero so other columns-callout instances are unchanged. */
-.pricing-hero .columns-callout.columns-callout-2-cols {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 40px 20px;
-  margin-top: 15px;
-}
-
-.pricing-hero .columns-callout > div {
-  position: relative;
-  flex-direction: column;
-  align-items: stretch;
-  justify-content: space-between;
-  gap: 0;
-  background-color: #f2f2f2;
-  padding: 20px 17.5px 30px;
-}
-
-.pricing-hero .columns-callout > div::before {
-  content: "+";
-  position: absolute;
-  top: -15px;
-  left: 50%;
-  width: 30px;
-  height: 30px;
-  transform: translateX(-50%);
-  border-radius: 50%;
-  background-color: #00aeef;
-  color: #fff;
-  font-size: 20px;
-  line-height: 30px;
-  text-align: center;
-}
-
-.pricing-hero .columns-callout > div > div {
-  flex: none;
-  order: unset;
-}
-
-.pricing-hero .columns-callout h2 {
-  margin: 0 0 15px;
-  font-size: 20px;
-  font-weight: 700;
-  line-height: 1;
-  color: var(--text-color);
-}
-
-.pricing-hero .columns-callout a.button {
-  align-self: flex-start;
-  margin-top: 8px;
-  padding: 0.6em 2.5em;
-  border-radius: 27px;
-
-  /* Match the border to the green fill. These are `.button.primary`, which
-     sets a blue (--fiix-blue) border; without this the green "Contact us"
-     buttons keep a blue outline that production doesn't have. */
-  border-color: #20a51e;
-  background-color: #20a51e;
-  font-size: 16px;
-  font-weight: 700;
-}
-
-
- .section.pf-features .columns-callout > div {
-  box-sizing: border-box;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-around;
-  gap: 0;
-  margin: 0;
-  padding: 40px 20px;
-  background-color: #f2f2f2;
-}
-
- .section.pf-features .columns-callout > div > div {
-  flex: none;
-  order: unset;
-  text-align: center;
-}
-
-.section.pf-features .columns-callout > div > div:first-child {
-  width: 90%;
-}
-
- .section.pf-features .columns-callout h2 {
-  margin: 0;
-  font-size: 24px;
-  font-weight: 700;
-  line-height: 1.2;
-  color: var(--text-color);
-}
-
- .section.pf-features .columns-callout > div > div > p {
-  margin: 0;
-}
-
- .section.pf-features .columns-callout a:any-link {
-  display: inline-block;
-  width: auto;
-  height: 48px;
-  margin: 20px 0 0;
-  padding: 0 10px;
-  border: 2px solid #00afeb;
-  border-radius: 27px;
-  background-color: #00afeb;
-  color: #fff;
-  font-size: 14px;
-  font-weight: 700;
-  line-height: 48px;
-  text-align: center;
-  text-decoration: none;
-  transition: background-color 0.2s, border-color 0.2s;
-}
-
- .section.pf-features .columns-callout a:any-link:hover,
- .section.pf-features .columns-callout a:any-link:focus {
-  border-color: #14499a;
-  background-color: #14499a;
-  color: #fff;
-  text-decoration: none;
+.columns-callout a:any-link:hover,
+.columns-callout a:any-link:focus {
+    border-color: #14499a;
+    background-color: #14499a;
+    color: #fff;
+    text-decoration: none;
 }
 
 /* Tablet: the pill returns to its full size and the band regains the space
    below it. */
 @media (width >= 768px) {
-   .section.pf-features .columns-callout > div {
-    margin-bottom: 60px;
-  }
+    .columns-callout > div {
+        margin-bottom: 60px;
+        flex-direction: row;
+        gap: 30px;
+        padding: 40px 30px;
+    }
 
-  .section.pf-features .columns-callout a:any-link {
-    height: 53px;
-    padding: 0 20px;
-    font-size: 20px;
-    line-height: 53px;
-  }
+    .columns-callout a:any-link {
+        height: 53px;
+        padding: 0 20px;
+        font-size: 20px;
+        line-height: 53px;
+    }
+    .columns-callout > div > div:first-child {
+        flex: 1;
+        text-align: left;
+    }
+    .columns-callout h2 {
+        font-size: 34px;
+    }
 }
 
+/* Desktop lays the heading and CTA out side by side, with the heading taking
+   half the band and losing the centred alignment. */
 @media (width >= 960px) {
-  .columns-callout > div {
-    align-items: center;
-    flex-direction: unset;
-    gap: 24px;
-  }
+    .columns-callout > div {
+        align-items: center;
+        gap: 115px;
+        margin: 60px 0;
+        padding: 40px 80px;
+    }
 
-  .columns-callout > div > div {
-    flex: 1;
+    .columns-callout h2 {
+        font-size: 34px;
+    }
+
+    .columns-callout a:any-link {
+        margin-top: 0;
+    }
+}
+
+/* Pricing add-on cards: rendered as side-by-side grey cards, each with a blue
+   circular "+" badge on the top edge and content stacked above a green CTA.
+   Scoped to the pricing-hero so other columns-callout instances keep the
+   default banner styling above. */
+.pricing-hero .columns-callout > div p {
+    font-size: 14px;
+    font-weight: 300;
+}
+
+/* "Add-on" eyebrow above the heading and a yellow "New" badge inline in the
+   heading (matches production). */
+.pricing-hero .columns-callout > div > div > p:first-child {
+    margin: 0 0 4px;
+    font-size: 14px;
+    font-weight: 300;
+    color: var(--text-color);
+}
+
+.pricing-hero .columns-callout h2 em {
+    display: inline-block;
+    margin-left: 8px;
+    padding: 2px 5px;
+    border-radius: 2px;
+    background-color: #ffe01b;
+    color: #151b26;
+    font-size: 10px;
+    font-weight: 500;
+    font-style: normal;
+    text-transform: uppercase;
+    vertical-align: middle;
+}
+
+.pricing-hero .columns-callout.columns-callout-2-cols {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 40px 20px;
+    margin-top: 15px;
+}
+
+.pricing-hero .columns-callout > div {
+    position: relative;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: space-between;
+    gap: 0;
+    background-color: #f2f2f2;
+    padding: 20px 17.5px 30px;
+}
+
+.pricing-hero .columns-callout > div::before {
+    content: "+";
+    position: absolute;
+    top: -15px;
+    left: 50%;
+    width: 30px;
+    height: 30px;
+    transform: translateX(-50%);
+    border-radius: 50%;
+    background-color: #00aeef;
+    color: #fff;
+    font-size: 20px;
+    line-height: 30px;
+    text-align: center;
+}
+
+.pricing-hero .columns-callout > div > div {
+    flex: none;
     order: unset;
-  }
+}
 
-  .pricing-hero .columns-callout.columns-callout-2-cols {
-    grid-template-columns: 1fr 1fr;
-  }
+.pricing-hero .columns-callout h2 {
+    margin: 0 0 15px;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 1;
+    color: var(--text-color);
+}
 
-  /* Desktop lays the heading and CTA out side by side, with the heading taking
-     half the band and losing the centred alignment. */
-  .section.pf-features .columns-callout > div {
-    flex-direction: row;
-    margin: 60px 0;
-  }
+.pricing-hero .columns-callout a.button {
+    align-self: flex-start;
+    margin-top: 8px;
+    padding: 0.6em 2.5em;
+    border-radius: 27px;
 
-   .section.pf-features .columns-callout > div > div {
-    width: auto;
-    text-align: left;
-  }
+    /* Match the border to the green fill. These are `.button.primary`, which
+     sets a blue (--fiix-blue) border; without this the green "Contact us"
+     buttons keep a blue outline that production doesn't have. */
+    border-color: #20a51e;
+    background-color: #20a51e;
+    font-size: 16px;
+    font-weight: 700;
+}
 
-  .section.pf-features .columns-callout > div > div:first-child {
-    width: 50%;
-  }
+/* Mobile/tablet width for the default banner's first column (paired with the
+   960px override below). Placed after the pricing-hero rules to satisfy
+   stylelint's selector-specificity ordering. */
 
-   .section.pf-features .columns-callout h2 {
-    font-size: 34px;
-  }
-
-   .section.pf-features .columns-callout a:any-link {
-    margin-top: 0;
-  }
+@media (width >= 960px) {
+    .pricing-hero .columns-callout.columns-callout-2-cols {
+        grid-template-columns: 1fr 1fr;
+    }
 }
