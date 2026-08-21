@@ -321,6 +321,29 @@ button.button.accent:disabled:focus-visible {
     color: var(--dark-color);
 }
 
+/* CTA link — plain text link with a trailing arrow. Applied to any link whose
+   authored text starts with `cta-link:` (see decorateCtaLinks in scripts.js),
+   regardless of which block it's in. */
+a.cta-link:any-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    color: #14499a;
+    font-size: 20px;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+a.cta-link::after {
+    content: "\2192";
+    transition: margin-left 0.2s;
+}
+
+a.cta-link:hover::after,
+a.cta-link:focus-visible::after {
+    margin-left: 10px;
+}
+
 main img {
     max-width: 100%;
     width: auto;
@@ -433,6 +456,20 @@ main .section.highlight {
     background-color: var(--light-color);
     margin: 0;
     padding: 40px 0;
+}
+
+main .section.dark {
+    color: #fff;
+}
+
+main .section.header {
+    height: 230px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
 }
 
 /* Case-study company-intro section. Individual logo, profiles, lead-copy, and
@@ -5508,3 +5545,40 @@ main > .section.grey-background + .section:empty {
 }
 
 /* stylelint-enable no-descending-specificity */
+
+/* stylelint-disable no-descending-specificity */
+main .section.header h1,
+main .section.header h2,
+main .section.header h3,
+main .section.header h4,
+main .section.header h5,
+main .section.header h6 {
+    margin-top: 0;
+}
+/* stylelint-enable no-descending-specificity */
+
+/* stylelint-disable-next-line no-descending-specificity */
+main .section.centre .default-content-wrapper {
+    text-align: center;
+}
+
+main .section.padding-small,
+main .padding-small.block {
+    padding: 20px 0;
+}
+
+main .section.padding-medium,
+main .padding-medium.block {
+    padding: 40px 0;
+}
+
+main .section.padding-large,
+main .padding-large.block {
+    padding: 80px 0;
+}
+
+main .section.padding-xlarge,
+main .padding-xlarge.block {
+    padding: 100px 0;
+}
+

@@ -25,3 +25,111 @@
   aspect-ratio: 4 / 3;
   object-fit: cover;
 }
+
+/* ============================================================
+   `points` variant — feature-point rows (from the columns-media .plan-points on
+   the cloud page). The image cell holds either an authorable EDS icon token
+   (`:name:`) or a directly authored photo; each renders with its own
+   treatment, matching how production's own `.plan-points` handles both under
+   one class rather than a separate variant per content type: a 30px tinted
+   icon on its own line above left-aligned 20px copy (cloud-page
+   #designed/#data/#features), or an 85px centred photo above centred copy
+   (cloud-page #reliable/#connect). Authorable (block name "cards-icon
+   (points)" -> .cards-icon.points) so any page can reuse it; the base
+   cards-icon keeps its bordered full-bleed-image card treatment. Values from
+   production: icon 30px, photo 85px, text 20px/1.4, 3 or 4 items spread
+   across the row.
+   ============================================================ */
+
+/* stylelint-disable no-descending-specificity */
+.cards-icon.points > ul {
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 40px;
+}
+
+.cards-icon.points > ul > li {
+  border: 0;
+  background: none;
+}
+
+/* A photo icon centres the whole card (production's #reliable/#connect
+   treatment); a token icon stays left-aligned (#designed/#data/#features). */
+.cards-icon.points > ul > li:has(.cards-icon-card-image-photo) {
+  text-align: center;
+}
+
+.cards-icon.points .cards-icon-card-image {
+  margin: 0 0 12px;
+  line-height: 1;
+}
+
+.cards-icon.points .cards-icon-card-image-photo {
+  display: flex;
+  justify-content: center;
+}
+
+.cards-icon.points .cards-icon-card-image-icon .icon {
+  display: inline-flex;
+  width: 30px;
+  height: 30px;
+}
+
+/* Authorable tint. `.icon-masked` is added by the block JS ONLY when an author
+   sets an "Icon color" on the section — so by default each icon renders as
+   authored (an SVG's own fill, or a photo's own colours). When masked, the
+   icon's own alpha silhouette shapes the mask and the cell/icon is painted
+   with the author's --icon-color; the source <img> then serves only as the
+   mask silhouette and is hidden. */
+.cards-icon.points .cards-icon-card-image-icon .icon.icon-masked {
+  background-color: var(--icon-color);
+  mask: var(--icon-mask) no-repeat center / contain;
+}
+
+.cards-icon.points .cards-icon-card-image-icon .icon.icon-masked img {
+  visibility: hidden;
+}
+
+.cards-icon.points .cards-icon-card-image-photo.icon-masked {
+  width: 85px;
+  height: 85px;
+  margin: 0 auto 12px;
+  background-color: var(--icon-color);
+  mask: var(--icon-mask) no-repeat center / contain;
+}
+
+.cards-icon.points .cards-icon-card-image-photo.icon-masked img {
+  visibility: hidden;
+}
+
+.cards-icon.points .cards-icon-card-image-icon img,
+.cards-icon.points .cards-icon-card-image-icon svg {
+  width: 30px;
+  height: 30px;
+  min-width: 30px;
+  aspect-ratio: 1;
+  object-fit: contain;
+}
+
+.cards-icon.points .cards-icon-card-image-photo img {
+  width: 85px;
+  height: auto;
+  aspect-ratio: auto;
+  object-fit: contain;
+}
+
+.cards-icon.points .cards-icon-card-body {
+  margin: 0;
+}
+
+.cards-icon.points .cards-icon-card-body p {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 300;
+  line-height: 1.4;
+}
+
+@media (width < 960px) {
+  .cards-icon.points > ul {
+    grid-template-columns: 1fr;
+  }
+}
