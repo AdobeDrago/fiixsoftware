@@ -21,12 +21,6 @@
 
 @media (width >= 768px) {
     .columns-media > div {
-        gap: 20px;
-    }
-}
-
-@media (width >= 960px) {
-    .columns-media > div {
         align-items: center;
         flex-direction: unset;
         gap: 24px;
@@ -61,21 +55,44 @@
    Full-bleed colour panels are ONLY for accent variants. Plain .left/.right
    (vidyard, info-flex, etc.) keep the default 1200px section wrapper. ---- */
 .columns-media-wrapper:has(
-    > .columns-media:is(.left, .right):is(.gold, .teal, .cyan, .orange, .purple, .navy)
+    > .columns-media:is(.left, .right):is(
+            .gold,
+            .teal,
+            .cyan,
+            .orange,
+            .purple,
+            .navy
+        )
 ) {
     max-width: none;
     margin-bottom: 0;
     padding: 0;
 }
 
-main > .section:has(
-    > .columns-media-wrapper
-        > .columns-media:is(.left, .right):is(.gold, .teal, .cyan, .orange, .purple, .navy)
-) {
+main
+    > .section:has(
+        > .columns-media-wrapper
+            > .columns-media:is(.left, .right):is(
+                .gold,
+                .teal,
+                .cyan,
+                .orange,
+                .purple,
+                .navy
+            )
+    ) {
     padding-bottom: 0;
 }
 
-.columns-media:is(.left, .right):is(.gold, .teal, .cyan, .orange, .purple, .navy) h2 {
+.columns-media:is(.left, .right):is(
+        .gold,
+        .teal,
+        .cyan,
+        .orange,
+        .purple,
+        .navy
+    )
+    h2 {
     margin: 0 0 20px;
     font-size: 30px;
     font-weight: 700;
@@ -83,7 +100,15 @@ main > .section:has(
     color: var(--text-color);
 }
 
-.columns-media:is(.left, .right):is(.gold, .teal, .cyan, .orange, .purple, .navy) p {
+.columns-media:is(.left, .right):is(
+        .gold,
+        .teal,
+        .cyan,
+        .orange,
+        .purple,
+        .navy
+    )
+    p {
     margin: 0;
     font-size: 20px;
     font-weight: 300;
@@ -248,36 +273,72 @@ main > .section:has(
     max-width: 260px;
 }
 
-@media (width >= 960px) {
-    .columns-media:is(.left, .right):is(.gold, .teal, .cyan, .orange, .purple, .navy)
+@media (width >= 768px) {
+    .columns-media:is(.left, .right):is(
+            .gold,
+            .teal,
+            .cyan,
+            .orange,
+            .purple,
+            .navy
+        )
         > div {
         align-items: end;
         gap: 60px;
     }
 
-    .columns-media:is(.left, .right):is(.gold, .teal, .cyan, .orange, .purple, .navy)
+    .columns-media:is(.left, .right):is(
+            .gold,
+            .teal,
+            .cyan,
+            .orange,
+            .purple,
+            .navy
+        )
         h2 {
-        font-size: 48px;
+        font-size: 38px;
     }
 
-    .columns-media:is(.left, .right):is(.gold, .teal, .cyan, .orange, .purple, .navy)
+    .columns-media:is(.left, .right):is(
+            .gold,
+            .teal,
+            .cyan,
+            .orange,
+            .purple,
+            .navy
+        )
         p {
-        font-size: 28px;
+        font-size: 20px;
     }
 
     /* restore the desktop wrapper/section spacing that the mobile base above
        zeroes out to let the colour band bleed full viewport width. */
     .columns-media-wrapper:has(
-        > .columns-media:is(.left, .right):is(.gold, .teal, .cyan, .orange, .purple, .navy)
+        > .columns-media:is(.left, .right):is(
+                .gold,
+                .teal,
+                .cyan,
+                .orange,
+                .purple,
+                .navy
+            )
     ) {
         margin-bottom: 50px;
         padding: 0 32px;
     }
 
-    main > .section:has(
-        > .columns-media-wrapper
-            > .columns-media:is(.left, .right):is(.gold, .teal, .cyan, .orange, .purple, .navy)
-    ) {
+    main
+        > .section:has(
+            > .columns-media-wrapper
+                > .columns-media:is(.left, .right):is(
+                    .gold,
+                    .teal,
+                    .cyan,
+                    .orange,
+                    .purple,
+                    .navy
+                )
+        ) {
         max-width: 1920px;
         margin: 0 auto;
         padding: 40px 0;
@@ -415,7 +476,7 @@ main > .section:has(
     .columns-media.right.teal .columns-media-img-col .columns-media-img-2 img {
         position: relative;
         z-index: 2;
-        width: 370px;
+        width: 250px;
         max-width: none;
         margin-bottom: -7px;
         padding-left: 100px;
@@ -472,6 +533,36 @@ main > .section:has(
     }
 }
 
+@media (width >= 992px) {
+    .columns-media.right.teal .columns-media-img-col .columns-media-img-2 img {
+        width: 370px;
+    }
+
+    .columns-media:is(.left, .right):is(
+            .gold,
+            .teal,
+            .cyan,
+            .orange,
+            .purple,
+            .navy
+        )
+        h2 {
+        font-size: 48px;
+    }
+
+    .columns-media:is(.left, .right):is(
+            .gold,
+            .teal,
+            .cyan,
+            .orange,
+            .purple,
+            .navy
+        )
+        p {
+        font-size: 28px;
+    }
+}
+
 @media (width >= 1200px) {
     .columns-media:is(.gold, .teal, .cyan, .purple, .orange, .navy):is(
             .left,
@@ -515,7 +606,7 @@ main > .section:has(
     max-width: 100%;
 }
 
-@media (width >= 960px) {
+@media (width >= 768px) {
     .columns-media.vidyard > div > div,
     .columns-media.vidyard > div > .columns-media-img-col {
         order: unset;
@@ -529,122 +620,128 @@ main > .section:has(
 /* ---- info-flex: production .info-flex (text card 60% + graphic 40%).
    Gated on .info-flex only — does not affect other columns-media. ---- */
 .columns-media.info-flex {
-  position: relative;
-  z-index: 1;
-  margin-top: 50px;
+    position: relative;
+    z-index: 1;
+    margin-top: 50px;
 }
 
 div.columns-media.info-flex > div {
-  gap: 0;
+    gap: 0;
 }
 
 /* Cancel default mobile image-first order; column-reverse matches production. */
 div.columns-media.info-flex > div > div,
 div.columns-media.info-flex > div > .columns-media-img-col {
-  order: unset;
+    order: unset;
 }
 
 .columns-media.info-flex .columns-media-info-text {
-  box-sizing: border-box;
-  background: #fff;
-  padding: 40px 30px;
-  box-shadow: rgb(0 0 0 / 16%) 0 0 10px;
-  z-index: 1;
+    box-sizing: border-box;
+    background: #fff;
+    padding: 40px 30px;
+    box-shadow: rgb(0 0 0 / 16%) 0 0 10px;
+    z-index: 1;
 }
 
 .columns-media.info-flex .columns-media-info-text h3 {
-  margin: 0 0 20px;
-  font-size: 26px;
-  font-weight: 700;
-  line-height: 1.1;
-  color: var(--text-color);
+    margin: 0 0 20px;
+    font-size: 26px;
+    font-weight: 700;
+    line-height: 1.1;
+    color: var(--text-color);
 }
 
 .columns-media.info-flex .columns-media-info-text p {
-  margin: 0 0 20px;
-  font-size: 20px;
-  font-weight: 300;
-  line-height: 1.4;
-  color: var(--text-color);
+    margin: 0 0 20px;
+    font-size: 20px;
+    font-weight: 300;
+    line-height: 1.4;
+    color: var(--text-color);
 }
 
 .columns-media.info-flex .columns-media-info-text > p:has(picture),
 .columns-media.info-flex .columns-media-info-text > p:has(img) {
-  margin: 0 0 30px;
-  max-width: 295px;
+    margin: 0 0 30px;
+    max-width: 295px;
 }
 
 .columns-media.info-flex .columns-media-info-text > p:has(picture) img,
 .columns-media.info-flex .columns-media-info-text > p:has(img) img {
-  display: block;
-  width: auto;
-  max-width: 100%;
-  height: auto;
+    display: block;
+    width: auto;
+    max-width: 100%;
+    height: auto;
 }
 
 .columns-media.info-flex .columns-media-info-text p.button-container {
-  margin: 0;
+    margin: 0;
 }
 
 .columns-media.info-flex .columns-media-info-text a.button:any-link,
-.columns-media.info-flex .columns-media-info-text p.button-container a:any-link {
-  display: inline-block;
-  margin: 0;
-  padding: 8px 40px;
-  border: 0;
-  border-radius: 5px;
-  background-image: linear-gradient(90deg, #cd163f 0%, #f58025 100%);
-  color: #fff;
-  font-size: 16px;
-  font-weight: 700;
+.columns-media.info-flex
+    .columns-media-info-text
+    p.button-container
+    a:any-link {
+    display: inline-block;
+    margin: 0;
+    padding: 8px 40px;
+    border: 0;
+    border-radius: 5px;
+    background-image: linear-gradient(90deg, #cd163f 0%, #f58025 100%);
+    color: #fff;
+    font-size: 16px;
+    font-weight: 700;
 }
 
 .columns-media.info-flex .columns-media-info-text a.button:hover,
 .columns-media.info-flex .columns-media-info-text a.button:focus-visible,
 .columns-media.info-flex .columns-media-info-text p.button-container a:hover,
-.columns-media.info-flex .columns-media-info-text p.button-container a:focus-visible {
-  color: #fff;
-  text-decoration: none;
-  opacity: 0.92;
+.columns-media.info-flex
+    .columns-media-info-text
+    p.button-container
+    a:focus-visible {
+    color: #fff;
+    text-decoration: none;
+    opacity: 0.92;
 }
 
 /* Mobile / tablet: graphic above white card (production column-reverse) */
-@media (width < 960px) {
-  div.columns-media.info-flex > div {
-    flex-direction: column-reverse;
-  }
+@media (width < 768px) {
+    div.columns-media.info-flex > div {
+        flex-direction: column-reverse;
+    }
 
-  .columns-media.info-flex .columns-media-info-text,
-  .columns-media.info-flex .columns-media-img-col,
-  .columns-media.info-flex .columns-media-img-col img {
-    width: 100%;
-  }
+    .columns-media.info-flex .columns-media-info-text,
+    .columns-media.info-flex .columns-media-img-col,
+    .columns-media.info-flex .columns-media-img-col img {
+        width: 100%;
+    }
 }
 
 @media (width >= 768px) {
-  .columns-media.info-flex .columns-media-info-text {
-    padding: 40px 50px;
-  }
+    .columns-media.info-flex .columns-media-info-text {
+        padding: 40px 50px;
+    }
 }
 
-@media (width >= 960px) {
-  /* Beat equal-flex defaults and section gap overrides for this variation only */
-  main div.columns-media.info-flex > div {
-    align-items: center;
-    gap: 0;
-  }
+@media (width >= 768px) {
+    /* Beat equal-flex defaults and section gap overrides for this variation only */
+    main div.columns-media.info-flex > div {
+        align-items: center;
+        gap: 0;
+    }
 
-  .columns-media.info-flex .columns-media-info-text {
-    flex: 0 0 60%;
-    width: 60%;
-    max-width: 60%;
-  }
+    .columns-media.info-flex .columns-media-info-text {
+        flex: 0 0 60%;
+        width: 60%;
+        max-width: 60%;
+    }
 
-  .columns-media.info-flex .columns-media-img-col {
-    flex: 0 0 40%;
-    width: 40%;
-    max-width: 40%;
-  }
+    .columns-media.info-flex .columns-media-img-col {
+        flex: 0 0 40%;
+        width: 40%;
+        max-width: 40%;
+    }
 }
 
 /* stylelint-enable no-descending-specificity */
