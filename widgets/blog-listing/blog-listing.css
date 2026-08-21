@@ -7,6 +7,7 @@
 .blog-listing .blog-listing-toolbar {
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
   gap: 16px;
 }
 
@@ -29,6 +30,7 @@
 
 .blog-listing .blog-listing-search input,
 .blog-listing .blog-listing-category select {
+  box-sizing: border-box;
   width: 350px;
   max-width: 100%;
   height: 50px;
@@ -41,6 +43,12 @@
   font-size: 20px;
   font-weight: 300;
   box-shadow: 6px 6px 20px rgb(0 0 0 / 20%);
+
+  /* unprefixed `appearance` alone isn't enough on iOS Safari for
+     `type="search"` — it keeps its native rounded corners/decoration
+     (and reserves space for its own icon) without the -webkit- prefix too */
+  /* stylelint-disable-next-line property-no-vendor-prefix */
+  -webkit-appearance: none;
   appearance: none;
 }
 
@@ -49,14 +57,29 @@
   padding-right: 50px;
 }
 
+/* strip iOS Safari's own search-field decorations so only our custom icon
+   shows */
+.blog-listing .blog-listing-search input::-webkit-search-decoration,
+.blog-listing .blog-listing-search input::-webkit-search-cancel-button,
+.blog-listing .blog-listing-search input::-webkit-search-results-button,
+.blog-listing .blog-listing-search input::-webkit-search-results-decoration {
+  display: none;
+}
+
 .blog-listing .blog-listing-search::after {
   content: '';
   position: absolute;
+  top: 50%;
   right: 20px;
-  bottom: 15px;
   width: 20px;
   height: 20px;
+  transform: translateY(-50%);
   background-color: #58595b;
+
+  /* the unprefixed `mask` shorthand alone isn't reliable on mobile Safari/
+     WebKit, which silently drops the icon without the -webkit- prefix */
+  /* stylelint-disable-next-line property-no-vendor-prefix */
+  -webkit-mask: url('../../icons/search.svg') no-repeat center / contain;
   mask: url('../../icons/search.svg') no-repeat center / contain;
   pointer-events: none;
 }
@@ -141,8 +164,10 @@
   color: var(--dark-color);
 }
 
-/* the source switches the toolbar from a stacked column to a row at 769px */
-@media (width >= 768px) {
+/* the source keeps the search field and category list stacked through the
+   whole tablet width — it only switches to a row much closer to desktop —
+   so this only fires at this project's desktop breakpoint, not 768px. */
+@media (width >= 960px) {
   .blog-listing .blog-listing-toolbar {
     flex-direction: row;
     justify-content: space-between;
@@ -150,13 +175,13 @@
   }
 }
 
-@media (width >= 600px) {
+@media (width >= 768px) {
   .blog-listing .blog-listing-results {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
-@media (width >= 900px) {
+@media (width >= 960px) {
   .blog-listing .blog-listing-results {
     grid-template-columns: repeat(3, 1fr);
   }
