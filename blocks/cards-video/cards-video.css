@@ -13,13 +13,21 @@
 }
 
 .cards-video > ul > li {
-    background-color: var(--background-color);
     width: 100%;
     max-width: 380px;
     cursor: pointer;
+    display: flex;
+    flex-direction: column;
+}
+
+.cards-video .cards-video-card {
+    background-color: var(--background-color);
     box-shadow: 0 10px 30px rgb(0 0 0 / 12%);
     display: flex;
     flex-direction: column;
+    flex: 1 1 auto;
+    width: 100%;
+    min-height: 0;
 }
 
 /* image / thumbnail (play overlay is baked into the source PNG) */
@@ -49,7 +57,7 @@
 /* caption + watch link */
 .cards-video .cards-video-card-body {
     text-align: center;
-    padding: 24px 32px 40px;
+    padding: 30px;
     flex: 1 1 auto;
     display: flex;
     flex-direction: column;
@@ -63,31 +71,101 @@
 .cards-video .cards-video-card-body p:first-child {
     font-size: 20px;
     font-weight: 300;
-    line-height: 34px;
+    line-height: 1.2;
     color: #212021;
-    margin: 0 0 24px;
+    margin: 0;
 }
 
-/* "Watch now" link (last paragraph in the card body), pinned to the card
-   bottom so links align across cards of differing caption length */
+/* "Watch now" link (last paragraph in the card body) */
 .cards-video .cards-video-card-body p:last-child {
-    margin-top: auto;
+    position: relative;
+    margin-top: 30px;
     font-size: 20px;
     font-weight: 700;
     line-height: 1.2;
     color: #14499a;
 }
 
+.cards-video .cards-video-card-body a:any-link,
+.cards-video .cards-video-card-body a:hover {
+    text-decoration: none;
+}
+
+/* Line arrow (shaft + open chevron), sized to match production. */
 .cards-video .cards-video-card-body p:last-child::after {
     content: "";
-    display: inline-block;
-    width: 0.9em;
-    height: 0.7em;
-    margin-left: 0.4em;
+    position: absolute;
+    top: 4px;
+    margin-left: 10px;
+    width: 24px;
+    height: 19px;
     background-color: currentcolor;
-    vertical-align: middle;
-    mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11h12.17l-5.59-5.59L12 4l8 8-8 8-1.41-1.41L16.17 13H4z"/></svg>')
-        no-repeat center / contain;
+    mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>')
+        center / 24px 19px no-repeat;
+}
+
+/* "Watch more demos" link tile — centered in the stretched card */
+.cards-video > ul > li.cards-video-more .cards-video-card {
+    box-shadow: none;
+    justify-content: center;
+    align-items: center;
+}
+
+.cards-video > ul > li.cards-video-more {
+    position: relative;
+    justify-content: center;
+    align-items: center;
+}
+
+.cards-video > ul > li.cards-video-more .cards-video-card-body {
+    flex: 1 1 auto;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    text-align: center;
+}
+
+.cards-video > ul > li.cards-video-more .cards-video-card-body:not(:has(a)),
+.cards-video > ul > li.cards-video-more .cards-video-card-body:empty {
+    display: none;
+}
+
+.cards-video > ul > li.cards-video-more .cards-video-card-body > a {
+    position: relative;
+    display: inline-block;
+
+    /* room for absolute arrow so text+arrow center as one unit */
+    padding-right: 34px;
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 1.2;
+    color: #14499a;
+    text-decoration: none;
+}
+
+.cards-video > ul > li.cards-video-more .cards-video-card-body > p:only-child {
+    font-weight: 500;
+}
+
+.cards-video > ul > li.cards-video-more .cards-video-card-body > a::after {
+    content: "";
+    position: absolute;
+    top: 4px;
+    margin-left: 10px;
+    width: 24px;
+    height: 19px;
+    background-color: currentcolor;
+    mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>')
+        center / 24px 19px no-repeat;
+}
+
+/* tablet inherits mobile body padding / margins; keep more-tile padding reset */
+@media (width >= 768px) {
+    .cards-video > ul > li.cards-video-more .cards-video-card-body {
+        padding: 0;
+    }
 }
 
 /* desktop: two cards side by side */
@@ -96,6 +174,14 @@
         flex-direction: row;
         align-items: stretch;
         gap: 60px;
+    }
+
+    .cards-video .cards-video-card-body p:first-child {
+        margin-bottom: 30px;
+    }
+
+    .cards-video .cards-video-card-body p:last-child {
+        margin-top: 0;
     }
 }
 
@@ -112,6 +198,8 @@
     align-items: stretch;
     justify-content: flex-start;
     gap: 30px;
+    padding-top: 30px;
+    padding-bottom: 30px;
     overflow-x: auto;
     scroll-snap-type: x mandatory;
     scrollbar-width: none;
@@ -125,6 +213,33 @@
     flex: 0 0 100%;
     max-width: none;
     scroll-snap-align: start;
+}
+
+/* Mobile: one full-width slide; card is 310×350 centered (production margin: 0 auto) */
+@media (width < 768px) {
+    .cards-video > ul.cards-video-track {
+        gap: 0;
+    }
+
+    .cards-video > ul.cards-video-track > li {
+        flex: 0 0 100%;
+        width: 100%;
+        max-width: none;
+        height: 350px;
+        align-items: center;
+        justify-content: center;
+        box-sizing: border-box;
+        scroll-snap-align: center;
+    }
+
+    .cards-video > ul.cards-video-track > li .cards-video-card {
+        width: 310px;
+        max-width: 310px;
+        height: 350px;
+        margin: 0 auto;
+        overflow: hidden;
+        box-sizing: border-box;
+    }
 }
 
 @media (width >= 768px) {
@@ -158,7 +273,7 @@
     align-items: center;
     justify-content: center;
     gap: 24px;
-    margin-top: 32px;
+    margin-top: 30px;
 }
 
 .cards-video-prev,
@@ -173,6 +288,14 @@
     background-color: #14499a;
     cursor: pointer;
     transition: background-color 0.2s;
+}
+
+/* Mobile: dots only — hide prev/next arrows (matches production) */
+@media (width < 768px) {
+    .cards-video-prev,
+    .cards-video-next {
+        display: none;
+    }
 }
 
 .cards-video-prev:hover,
@@ -202,7 +325,7 @@
 .cards-video-dots {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 16px;
 }
 
 .cards-video-dot {
