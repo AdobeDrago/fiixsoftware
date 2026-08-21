@@ -100,6 +100,7 @@ body.appear {
 
 header {
     height: var(--nav-height);
+    padding-bottom: 7px;
 }
 
 header .header,
@@ -175,6 +176,10 @@ pre {
 
 main > div {
     margin: 40px 16px;
+}
+
+main > .section.grey-background {
+    background-color: #f2f2f2;
 }
 
 input,
@@ -332,7 +337,7 @@ main > .section {
     margin: 40px 0;
 }
 
-main > .section > div {
+main > .section > div:not(.section-bg) {
     max-width: 1200px;
     margin: auto;
     padding: 0 24px;
@@ -343,8 +348,75 @@ main > .section:first-of-type {
 }
 
 @media (width >= 960px) {
-    main > .section > div {
+    main > .section > div:not(.section-bg) {
         padding: 0 32px;
+    }
+}
+
+/* section-metadata corner backgrounds (background-top-right, etc.) —
+   decorative layers matching production .augury::before / ::after */
+main > .section.has-section-bg {
+    position: relative;
+    overflow: visible;
+}
+
+main > .section.has-section-bg > :not(.section-bg) {
+    position: relative;
+    z-index: 1;
+}
+
+.section-bg {
+    position: absolute;
+    z-index: 0;
+    pointer-events: none;
+    background-repeat: no-repeat;
+}
+
+.section-bg-top-right {
+    top: 0;
+    right: 0;
+    width: 20%;
+    height: 618px;
+    max-height: 100%;
+    background-position: center;
+    background-size: cover;
+    opacity: 0.4;
+    transform: rotate(180deg);
+}
+
+.section-bg-top-left {
+    top: 0;
+    left: 0;
+    width: 20%;
+    height: 618px;
+    max-height: 100%;
+    background-position: center;
+    background-size: cover;
+    opacity: 0.4;
+}
+
+.section-bg-bottom-left {
+    bottom: 0;
+    left: 0;
+    width: 95%;
+    height: 80px;
+    background-size: cover;
+    clip-path: polygon(0 0, 92% 0, 100% 100%, 0 100%);
+}
+
+.section-bg-bottom-right {
+    bottom: 0;
+    right: 0;
+    width: 95%;
+    height: 80px;
+    background-size: cover;
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 8% 100%);
+}
+
+@media (width >= 960px) {
+    .section-bg-bottom-left,
+    .section-bg-bottom-right {
+        width: 50%;
     }
 }
 
@@ -3408,20 +3480,6 @@ main > .section.pf-logos {
     padding: 40px 0 20px;
 }
 
-/* "Over 4,100 teams…" heading above the logos (authored as H2): 24/700,
-   centered, 40px below to the logos -- matching production. Pre-styled so it
-   renders correctly once the heading is authored into this section (it is
-   currently MISSING from the EDS content; see the authoring prompt). */
-main > .section.pf-logos .default-content-wrapper h2 {
-    margin: 0 auto 40px;
-    max-width: 640px;
-    font-size: 24px;
-    font-weight: 700;
-    line-height: 1.2;
-    text-align: center;
-    color: var(--text-color);
-}
-
 /* Production sizes each logo by WIDTH (~100px, uniform), not by a 46px height
    (which made them 130-288px wide). */
 main > .section.pf-logos .columns-logos img {
@@ -3739,195 +3797,6 @@ main > .section.pf-video .button-wrapper a.button::after {
         no-repeat center / 24px 19px;
 }
 
-/* ---- pf-media-left / pf-media-right: image + text feature rows.
-   Production H2 48/700, P 28/300. -left = image left, -right = image
-   right. columns-media stacks image-first on mobile (block default). ---- */
-main > .section.pf-media-left,
-main > .section.pf-media-right {
-    margin: 0;
-    padding: 50px 0;
-
-    /* The media accent panel bleeds past the centered container with a 100vw
-     pseudo element; clip it here so the right-hand bleed doesn't stretch the
-     document and scroll the whole page sideways. */
-    overflow-x: clip;
-}
-
-main > .section.pf-media-left .columns-media h2,
-main > .section.pf-media-right .columns-media h2 {
-    margin: 0 0 20px;
-    font-size: 32px;
-    font-weight: 700;
-    line-height: 1;
-    color: var(--text-color);
-}
-
-main > .section.pf-media-left .columns-media p,
-main > .section.pf-media-right .columns-media p {
-    margin: 0;
-    font-size: 22px;
-    font-weight: 300;
-    line-height: 1.2;
-    color: var(--text-color);
-}
-
-@media (width >= 960px) {
-    main > .section.pf-media-left .columns-media > div,
-    main > .section.pf-media-right .columns-media > div {
-        align-items: center;
-        gap: 60px;
-    }
-
-    main > .section.pf-media-left .columns-media h2,
-    main > .section.pf-media-right .columns-media h2 {
-        font-size: 48px;
-    }
-
-    main > .section.pf-media-left .columns-media p,
-    main > .section.pf-media-right .columns-media p {
-        font-size: 28px;
-    }
-
-    /* -right: image column sits on the right (text first). The block always
-     orders the image column first, so flip the row for -right. */
-    main > .section.pf-media-right .columns-media > div {
-        flex-direction: row-reverse;
-    }
-}
-
-/* pf-media accent: production overlays each media row's image on a full-bleed
-   colour panel (bleeding to the outer viewport edge) and underlines the heading
-   with a 540x5 bar in the same colour. The colour is arbitrary per section, so
-   it can't be derived from the -left/-right class -- it is authored per section
-   via a Section-Metadata Style that adds one of the media-* classes below. The
-   panel/underline only render when such a class is present, so every other
-   columns-media usage (ai/optix/enterprise) is untouched. */
-main > .section.media-gold {
-    --media-accent: #ffd600;
-}
-
-main > .section.media-teal {
-    --media-accent: #3cc0cb;
-}
-
-main > .section.media-cyan {
-    --media-accent: #00afeb;
-}
-
-main > .section.media-purple {
-    --media-accent: #4d3e8d;
-}
-
-main > .section.media-orange {
-    --media-accent: #ffa40e;
-}
-
-main > .section.media-navy {
-    --media-accent: #003e7e;
-}
-
-main
-    > .section:is(
-        .media-gold,
-        .media-teal,
-        .media-cyan,
-        .media-purple,
-        .media-orange,
-        .media-navy
-    ):is(.pf-media-left, .pf-media-right)
-    .columns-media
-    h2::after {
-    content: "";
-    display: block;
-    width: 540px;
-    max-width: 100%;
-    height: 5px;
-    margin-top: 24px;
-    background: var(--media-accent);
-}
-
-@media (width >= 960px) {
-    main
-        > .section:is(
-            .media-gold,
-            .media-teal,
-            .media-cyan,
-            .media-purple,
-            .media-orange,
-            .media-navy
-        ):is(.pf-media-left, .pf-media-right)
-        .columns-media
-        > div
-        > .columns-media-img-col {
-        position: relative;
-        padding: 40px;
-        background: var(--media-accent);
-    }
-
-    /* bleed the colour panel out to the viewport edge on the image's outer side */
-    main
-        > .section:is(
-            .media-gold,
-            .media-teal,
-            .media-cyan,
-            .media-purple,
-            .media-orange,
-            .media-navy
-        ):is(.pf-media-left, .pf-media-right)
-        .columns-media
-        > div
-        > .columns-media-img-col::before {
-        content: "";
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        width: 100vw;
-        background: var(--media-accent);
-        z-index: 0;
-    }
-
-    main
-        > .section.pf-media-left:is(
-            .media-gold,
-            .media-teal,
-            .media-cyan,
-            .media-purple,
-            .media-orange,
-            .media-navy
-        )
-        .columns-media-img-col::before {
-        right: 100%;
-    }
-
-    main
-        > .section.pf-media-right:is(
-            .media-gold,
-            .media-teal,
-            .media-cyan,
-            .media-purple,
-            .media-orange,
-            .media-navy
-        )
-        .columns-media-img-col::before {
-        left: 100%;
-    }
-
-    main
-        > .section:is(
-            .media-gold,
-            .media-teal,
-            .media-cyan,
-            .media-purple,
-            .media-orange,
-            .media-navy
-        ):is(.pf-media-left, .pf-media-right)
-        .columns-media-img-col
-        img {
-        position: relative;
-        z-index: 1;
-    }
-}
-
 /* ---- pf-testimonials: light band, centered heading + 3 quote cards.
    Production band #f7f9fc, H2 ~44/700 centered. ---- */
 main > .section.pf-testimonials {
@@ -3987,21 +3856,6 @@ main > .section.pf-explore .default-content-wrapper h2 {
     color: var(--text-color);
 }
 
-/* award-badge strip (columns-logos) centered */
-main > .section.pf-explore .columns-logos > div {
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: center;
-    gap: 32px;
-}
-
-main > .section.pf-explore .columns-logos img {
-    width: auto;
-    height: auto;
-    max-height: 90px;
-    object-fit: contain;
-}
-
 main > .section.pf-explore .accordion-faq h3 {
     font-size: 20px;
     font-weight: 700;
@@ -4014,7 +3868,7 @@ main > .section.pf-explore .accordion-faq a:any-link {
 }
 
 main > .section.pf-explore .columns-logos-wrapper {
-    padding: 90px 0;
+    padding: 60px 0;
 }
 
 @media (width >= 960px) {
@@ -4365,9 +4219,10 @@ main > .section.ai-timeline .default-content-wrapper h2 {
 }
 
 /* ---- ai-fiixmax: dark gradient band, white centered logo + heading,
-   a white quote card, and white product cards (columns-media). The
-   Vidyard promo videos are intentionally omitted; style around the
-   text. Production band 70px top / 160px bottom, H2 48/700 white. ---- */
+   a white quote card, and white product cards (columns-media). When
+   columns-media is authored with the vidyard style, Vidyard embeds
+   replace the media-cell links. Production band 70px top / 160px
+   bottom, H2 48/700 white. ---- */
 main > .section.ai-fiixmax {
     margin: 0;
     padding: 70px 0 90px;
@@ -4442,7 +4297,17 @@ main > .section.ai-fiixmax .default-content-wrapper a:focus-visible {
     opacity: 0.92;
 }
 
-/* the three feature rows become white rounded product cards */
+/* Fiix MAX section theming for columns-media cards (white cards on the
+   gradient band). Block layout/vidyard/left/right live in columns-media.css
+   and work without this section style. */
+main > .section.ai-fiixmax .columns-media-wrapper {
+    margin: 0 auto 24px;
+}
+
+main > .section.ai-fiixmax .columns-media-wrapper:last-of-type {
+    margin-bottom: 0;
+}
+
 main > .section.ai-fiixmax .columns-media {
     display: flex;
     flex-direction: column;
@@ -4451,10 +4316,10 @@ main > .section.ai-fiixmax .columns-media {
 
 main > .section.ai-fiixmax .columns-media > div {
     margin: 0;
-    padding: 32px;
+    padding: 24px;
     border-radius: 10px;
     background-color: #fff;
-    gap: 24px;
+    gap: 20px;
 }
 
 main > .section.ai-fiixmax .columns-media p {
@@ -4467,6 +4332,13 @@ main > .section.ai-fiixmax .columns-media p {
 main > .section.ai-fiixmax .columns-media p:first-child strong,
 main > .section.ai-fiixmax .columns-media p strong {
     font-weight: 700;
+}
+
+@media (width >= 768px) {
+    main > .section.ai-fiixmax .columns-media > div {
+        padding: 32px;
+        gap: 24px;
+    }
 }
 
 @media (width >= 960px) {
@@ -4482,6 +4354,12 @@ main > .section.ai-fiixmax .columns-media p strong {
         align-items: center;
         padding: 40px 50px;
         gap: 50px;
+    }
+}
+
+@media (width >= 1200px) {
+    main > .section.ai-fiixmax .columns-media > div {
+        gap: 60px;
     }
 }
 
@@ -4620,7 +4498,8 @@ main > .section.ai-augury .columns-media a:focus-visible {
         font-size: 48px;
     }
 
-    main > .section.ai-augury .columns-media > div {
+    /* Non-info-flex only; info-flex owns its 60/40 + gap:0 layout in the block CSS */
+    main > .section.ai-augury .columns-media:not(.info-flex) > div {
         align-items: center;
         gap: 48px;
     }
@@ -4665,13 +4544,14 @@ main > .section.ai-faq .section-metadata {
     display: none;
 }
 
-/* ---- ai-tabs: two tabbed-panel sections (tabs-feature). White band,
-   centered heading (with an optional product logo above it). The
-   tabs-feature block styles the tabs/panels; some panel screenshots
-   were intentionally omitted during import. ---- */
+/* ---- ai-tabs: section chrome for tabs-feature instances.
+   Shared band styles apply to both; #homepage (Foresight switcher)
+   overrides are limited to sections that contain a non-toggle
+   tabs-feature so the Asset Insights toggle instance is unchanged. ---- */
 main > .section.ai-tabs {
     margin: 0;
     padding: 50px 0;
+    background-color: #fff;
 }
 
 main > .section.ai-tabs .default-content-wrapper {
@@ -4688,7 +4568,7 @@ main > .section.ai-tabs .default-content-wrapper h2 {
     color: var(--text-color);
 }
 
-/* product logo above the heading (Fiix Foresight) */
+/* product logo above the heading (Fiix Foresight) — toggle sections omit this */
 main > .section.ai-tabs .default-content-wrapper p:has(img) {
     text-align: center;
 }
@@ -4704,71 +4584,140 @@ main > .section.ai-tabs .default-content-wrapper p:has(img) img {
     }
 }
 
-/* ---- ai-dual-cta: dark gradient band, a pair of white CTA cards
-   (cards-cta). Production band 55px top / 200px bottom, cards white
-   with a soft shadow, 10px radius, 50px 80px padding; card H2 40/500,
-   copy 20/300, CTA = orange gradient pill. ---- */
+/* #fiixAI #homepage parity — only the default (non-toggle) switcher */
+main > .section.ai-tabs:has(.tabs-feature:not(.toggle)) {
+    padding: 40px 0 0;
+    margin-bottom: 40px;
+}
+
+main
+    > .section.ai-tabs:has(.tabs-feature:not(.toggle))
+    .default-content-wrapper
+    h2 {
+    margin: 0 auto;
+    max-width: 650px;
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 32px;
+    text-align: center;
+}
+
+main
+    > .section.ai-tabs:has(.tabs-feature:not(.toggle))
+    .default-content-wrapper
+    p:has(img) {
+    width: 140px;
+    margin: 0 auto 10px;
+}
+
+main
+    > .section.ai-tabs:has(.tabs-feature:not(.toggle))
+    .default-content-wrapper
+    p:has(img)
+    img {
+    display: block;
+    width: 140px;
+    max-width: 100%;
+    height: auto;
+    max-height: none;
+}
+
+/* production accordion / #features spacing above switcher */
+main > .section.ai-tabs:has(.tabs-feature:not(.toggle)) .tabs-feature-wrapper {
+    margin-top: 30px;
+}
+
+@media (width >= 768px) {
+    main > .section.ai-tabs:has(.tabs-feature:not(.toggle)) {
+        padding: 60px 0 0;
+        margin-bottom: 80px;
+    }
+
+    main
+        > .section.ai-tabs:has(.tabs-feature:not(.toggle))
+        .default-content-wrapper
+        h2 {
+        font-size: 40px;
+        line-height: normal;
+    }
+
+    main
+        > .section.ai-tabs:has(.tabs-feature:not(.toggle))
+        .tabs-feature-wrapper {
+        margin-top: 70px;
+    }
+}
+
+/* ---- ai-dual-cta: section band — production `.dualCTA-box.RA-bg-gradient`
+   on /cmms/ai/. Prefer authored `data-background-image` (applied in
+   scripts.js); CSS fallback matches the live gradient. Card look lives on
+   `.cards-cta.article`. `data-overlap="top|bottom"` lifts/drops the cards
+   across the section edge like production `.CTAbox-flex { top: -100px }`. ---- */
 main > .section.ai-dual-cta {
     margin: 0;
-    padding: 55px 0 90px;
-    background-image: linear-gradient(269deg, #00afeb 0%, #003e7e 100%);
+    padding: 30px 0 60px;
+    overflow: visible;
+    background-image: linear-gradient(269deg, #00aeef 0%, #003e7e 100%);
 }
 
-main > .section.ai-dual-cta .cards-cta .cards-cta-panel {
-    padding: 50px 40px;
-    border-radius: 10px;
-    background-color: #fff;
-    box-shadow: 0 0 10px 0 rgb(0 0 0 / 16%);
+/* Beat global `main > .section > div` gutter so cards sit full 1200px like
+   production `.CTAbox-flex` — scoped to this section only. */
+main > .section.ai-dual-cta > .cards-cta-wrapper {
+    padding-right: 0;
+    padding-left: 0;
 }
 
-main > .section.ai-dual-cta .cards-cta .cards-cta-body h2,
-main > .section.ai-dual-cta .cards-cta .cards-cta-body h3 {
-    margin: 0 0 20px;
-    font-size: 40px;
-    font-weight: 500;
-    line-height: 1.1;
-    color: var(--text-color);
+/* Mobile/tablet: lighter top margin when overlapping upward (production
+   #fiixAI .dualCTA-box @max-width 1199). */
+main > .section.ai-dual-cta[data-overlap="top"] {
+    margin-top: 60px;
 }
 
-main > .section.ai-dual-cta .cards-cta .cards-cta-body p {
-    margin: 0 0 20px;
-    font-size: 20px;
-    font-weight: 300;
-    line-height: 1.4;
-    color: var(--text-color);
+main > .section.ai-dual-cta[data-overlap="bottom"] {
+    margin-bottom: 60px;
 }
 
-main > .section.ai-dual-cta .cards-cta a.cards-cta-button:any-link {
-    margin-top: 10px;
-    padding: 8px 40px;
-    border: 0;
-    border-radius: 5px;
-    background-color: transparent;
-    background-image: linear-gradient(90deg, #cd163f 0%, #f58025 100%);
-    color: #fff;
-    font-size: 16px;
-    font-weight: 700;
-}
-
-main > .section.ai-dual-cta .cards-cta a.cards-cta-button:hover,
-main > .section.ai-dual-cta .cards-cta a.cards-cta-button:focus-visible {
-    background-color: transparent;
-    color: #fff;
-    text-decoration: none;
-    opacity: 0.92;
-}
-
-@media (width >= 960px) {
+@media (width >= 1200px) {
     main > .section.ai-dual-cta {
-        padding: 55px 0 140px;
+        padding: 55px 0 200px;
     }
 
-    main > .section.ai-dual-cta .cards-cta {
-        gap: 100px;
+    /* Production: margin-top 240px + absolute cards at top -150px so panels
+       straddle the previous section / this band. */
+    main > .section.ai-dual-cta[data-overlap="top"],
+    main > .section.ai-dual-cta[data-overlap="bottom"] {
+        position: relative;
     }
 
-    main > .section.ai-dual-cta .cards-cta .cards-cta-panel {
-        padding: 50px 80px;
+    main > .section.ai-dual-cta[data-overlap="top"] {
+        margin-top: 240px;
+    }
+
+    main > .section.ai-dual-cta[data-overlap="bottom"] {
+        margin-bottom: 240px;
+    }
+
+    main > .section.ai-dual-cta[data-overlap="top"] > .cards-cta-wrapper,
+    main > .section.ai-dual-cta[data-overlap="bottom"] > .cards-cta-wrapper {
+        position: absolute;
+        left: 0;
+        right: 0;
+        z-index: 2;
+        box-sizing: border-box;
+        width: 100%;
+        max-width: 1200px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    main > .section.ai-dual-cta[data-overlap="top"] > .cards-cta-wrapper {
+        top: -100px;
+        bottom: auto;
+    }
+
+    main > .section.ai-dual-cta[data-overlap="bottom"] > .cards-cta-wrapper {
+        top: auto;
+        bottom: -100px;
     }
 }
 
@@ -5224,7 +5173,8 @@ body:has(.hero-case-study)
     main
     > .section.case-study-overview
     > .default-content-wrapper
-    ol > li {
+    ol
+    > li {
     position: relative;
     margin: 0 0 20px;
     list-style: none;
@@ -5237,7 +5187,8 @@ body:has(.hero-case-study)
     main
     > .section.case-study-overview
     > .default-content-wrapper
-    ol > li::before {
+    ol
+    > li::before {
     --size: 30px;
 
     content: counter(my-awesome-counter);
