@@ -13,11 +13,38 @@ function moveRowContent(row, destination) {
 }
 
 /**
+ * When quote + attribution are authored in one cell, move the name/title
+ * paragraphs out of the quote into the attribution container.
+ * Name is detected as a paragraph whose only text is wrapped in <strong>.
+ *
+ * @param {Element} quote the quote element
+ * @param {Element} attribution the attribution element
+ */
+function extractInlineAttribution(quote, attribution) {
+  if (attribution.hasChildNodes()) return;
+
+  const children = [...quote.children];
+  const nameIndex = children.findIndex((el) => {
+    if (el.tagName !== 'P') return false;
+    const strong = el.querySelector(':scope > strong');
+    if (!strong) return false;
+    return el.textContent.trim() === strong.textContent.trim();
+  });
+
+  if (nameIndex < 1) return;
+
+  children.slice(nameIndex).forEach((el) => attribution.append(el));
+}
+
+/**
  * Decorates a reusable pull quote.
  *
  * Author with a quote in the first row and an optional attribution in the
  * second row. A single row with two columns is also accepted for compact
- * authoring: quote | attribution.
+ * authoring: quote | attribution. A single cell may also include the
+ * attribution after the quote (name in <strong>, then title).
+ *
+ * Variation: wrap — white overlapping card with bottom-left slit.
  *
  * @param {Element} block The block element
  */
@@ -42,6 +69,15 @@ export default function decorate(block) {
   } else {
     moveRowContent(quoteRow, quote);
     if (rows[1]) moveRowContent(rows[1], attribution);
+  }
+
+  extractInlineAttribution(quote, attribution);
+
+  // Ensure a paragraph so wrap variation can style production-like quote marks
+  if (![...quote.children].some((el) => el.tagName === 'P')) {
+    const paragraph = document.createElement('p');
+    while (quote.firstChild) paragraph.append(quote.firstChild);
+    quote.append(paragraph);
   }
 
   block.replaceChildren(quote);

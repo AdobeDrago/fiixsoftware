@@ -1,15 +1,7 @@
-// authors sometimes style the paragraph line with a Heading style in the
-// doc; demote it to a real <p> so the DOM keeps a correct heading hierarchy
-// instead of just faking the look with CSS.
-function demoteHeadingsToParagraphs(row) {
-  row.querySelectorAll('h1, h2, h3, h4, h5, h6').forEach((heading) => {
-    const p = document.createElement('p');
-    p.append(...heading.childNodes);
-    heading.replaceWith(p);
-  });
-}
-
 export default function decorate(block) {
+  // "columns-logos (with-heading)" adds a heading row before the paragraph;
+  // plain "columns-logos" has only the paragraph row.
+  const withHeading = block.classList.contains('with-heading');
   let logoRowCols = 0;
   let textRowIndex = 0;
 
@@ -31,21 +23,15 @@ export default function decorate(block) {
       return;
     }
 
-    // non-image rows are the fixed heading/paragraph slots, in document
-    // order: the first is always the heading, the second the paragraph --
-    // by position, not by whatever tag the author's rich-text style
-    // produced (a subtext line styled as "Heading 2" in the doc must still
-    // render as the smaller paragraph, not the big headline).
-    const role = textRowIndex === 0 ? 'columns-logos-heading-row' : 'columns-logos-text-row';
+    const role = withHeading && textRowIndex === 0
+      ? 'columns-logos-heading-row'
+      : 'columns-logos-text-row';
     textRowIndex += 1;
 
     if (row.textContent.trim()) {
-      if (role === 'columns-logos-text-row') {
-        demoteHeadingsToParagraphs(row);
-      }
       row.classList.add(role);
     } else {
-      // author left this slot empty: drop it so it doesn't leave a gap
+      // author left this row empty: drop it so it doesn't leave a gap
       row.remove();
     }
   });
