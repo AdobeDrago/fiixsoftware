@@ -38,12 +38,21 @@
   font-weight: 500;
   text-decoration: none;
   white-space: nowrap;
-  border-bottom: 3px solid transparent;
 }
 
+/* Colour-only hover/active, matching source (no underline indicator). */
 .page-nav .page-nav-link:hover,
 .page-nav .page-nav-link.page-nav-active {
   color: var(--link-color, #14499a);
+}
+
+/* The `sticky` variant pins the bar, so an active-section indicator is useful
+   there; add the underline back only when sticky (the scroll-spy runs then). */
+.page-nav.sticky .page-nav-link {
+  border-bottom: 3px solid transparent;
+}
+
+.page-nav.sticky .page-nav-link.page-nav-active {
   border-bottom-color: var(--link-color, #14499a);
 }
 

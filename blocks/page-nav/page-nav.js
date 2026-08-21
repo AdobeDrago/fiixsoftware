@@ -21,14 +21,17 @@ function collectLinks(block) {
 }
 
 /**
- * Smooth-scroll to the target section, accounting for the sticky bar height.
+ * Smooth-scroll to the target section. When the bar is sticky it overlaps the
+ * content, so offset by its height; a static bar has already scrolled away and
+ * needs no offset.
+ * @param {Element} block the block element (carries the `sticky` variant)
  * @param {Element} nav the nav element
  * @param {string} hash the target fragment (e.g. "#reviews")
  */
-function scrollToTarget(nav, hash) {
+function scrollToTarget(block, nav, hash) {
   const target = document.querySelector(hash);
   if (!target) return;
-  const offset = nav.getBoundingClientRect().height;
+  const offset = block.classList.contains('sticky') ? nav.getBoundingClientRect().height : 0;
   const top = target.getBoundingClientRect().top + window.scrollY - offset;
   window.scrollTo({ top, behavior: 'smooth' });
 }
@@ -69,6 +72,8 @@ function observeSections(nav, linkByHash) {
  */
 export default function decorate(block) {
   const links = collectLinks(block);
+  // Nothing to build if the author added no in-page anchor links.
+  if (links.length === 0) return;
 
   const nav = document.createElement('nav');
   nav.className = 'page-nav-bar';
@@ -91,10 +96,12 @@ export default function decorate(block) {
 
     link.addEventListener('click', (e) => {
       e.preventDefault();
-      scrollToTarget(nav, hash);
+      scrollToTarget(block, nav, hash);
       window.history.replaceState(null, '', hash);
     });
 
+    // Keyed by hash for the scroll-spy; if two links share a target the later
+    // one wins the highlight (both still render and scroll correctly).
     linkByHash.set(hash, link);
     item.append(link);
     list.append(item);
@@ -105,5 +112,7 @@ export default function decorate(block) {
   block.textContent = '';
   block.append(nav);
 
-  observeSections(nav, linkByHash);
+  // The active-section highlight is only visible while the bar stays on screen,
+  // i.e. the sticky variant. A static bar scrolls away, so skip the observer.
+  if (block.classList.contains('sticky')) observeSections(nav, linkByHash);
 }
