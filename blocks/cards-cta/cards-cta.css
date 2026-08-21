@@ -118,17 +118,17 @@
         padding: 70px 40px 40px;
     }
 
-    .cards-cta .cards-cta-text {
+    .cards-cta:not(.article) .cards-cta-text {
         min-height: 350px;
     }
 
-    .cards-cta .cards-cta-body p {
+    .cards-cta:not(.article) .cards-cta-body p {
         margin: 0;
     }
 }
 
 @media (width >=1200px) {
-    .cards-cta .cards-cta-text {
+    .cards-cta:not(.article) .cards-cta-text {
         min-height: 275px;
     }
 }
@@ -182,6 +182,7 @@
 .cards-cta.article .cards-cta-body {
     align-items: center;
     text-align: center;
+    gap: 20px;
 }
 
 .cards-cta.article .cards-cta-body h2,
