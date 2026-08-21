@@ -4049,14 +4049,16 @@ main
 
 main > .section.pf-final-cta .default-content-wrapper h2 {
     margin: 0 auto 20px;
-    font-size: 32px;
+    font-size: 38px;
     font-weight: 700;
     line-height: 1;
     color: var(--text-color);
 }
 
 main > .section.pf-final-cta .default-content-wrapper > p {
-    margin: 0 auto 24px;
+    width: 100%;
+    max-width: 350px;
+    margin: 0 auto 20px;
     font-size: 20px;
     font-weight: 300;
     color: var(--text-color);
@@ -4068,7 +4070,7 @@ main > .section.pf-final-cta .default-content-wrapper ul {
     flex-wrap: wrap;
     align-items: center;
     justify-content: center;
-    gap: 16px;
+    column-gap: 30px;
     margin: 0;
     padding: 0;
     list-style: none;
@@ -4080,13 +4082,17 @@ main > .section.pf-final-cta .default-content-wrapper ul li {
 
 main > .section.pf-final-cta .default-content-wrapper ul a:any-link {
     display: inline-block;
-    padding: 10px 24px;
-    border: 2px solid #14499a;
-    border-radius: 40px;
-    background-color: #14499a;
+    padding: 0 22px;
+    border: 2px solid #20a51e;
+    border-radius: 27px;
+    background-color: #20a51e;
     color: #fff;
-    font-size: 16px;
-    font-weight: 600;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 53px;
+    margin-bottom: 20px;
+    height: 53px;
+    width: 165px;
 }
 
 /* second link ("Take a free tour") = cyan outlined pill */
@@ -4096,6 +4102,7 @@ main
     ul
     li:last-child
     a:any-link {
+    padding: 0 20px;
     border-color: #00afeb;
     background-color: #fff;
     color: #00afeb;
