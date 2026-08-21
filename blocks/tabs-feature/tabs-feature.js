@@ -1,5 +1,7 @@
 // eslint-disable-next-line import/no-unresolved
 import { toClassName } from '../../scripts/aem.js';
+// eslint-disable-next-line import/no-cycle
+import { loadFragment } from '../fragment/fragment.js';
 
 // Feature videos are hosted on the origin site; the poster (still frame)
 // filenames don't follow a strict transform of the video name, so map them
@@ -20,6 +22,47 @@ const VIDEO_POSTERS = {
 const HOTSPOT_RE = /^\s*(\d+(?:\.\d+)?)\s*%?\s*[,x×]\s*(\d+(?:\.\d+)?)\s*%?\s*(?:(?:[—–\-|:])\s*(.+))?$/i;
 
 const toAbsolute = (path) => (/^https?:/i.test(path) ? path : `${VIDEO_ORIGIN}${path}`);
+
+/**
+ * A panel is a "fragment panel" when its content is nothing but a single
+ * internal link/path (e.g. `/fragments/industry/manufacturing`). This is the
+ * opt-in signal to render an external fragment; every existing panel shape
+ * (text, media, video link, list, hotspots) fails this test and is untouched.
+ * @param {Element} content the panel's content wrapper
+ * @returns {string|null} the fragment path, or null if not a fragment panel
+ */
+function fragmentPath(content) {
+  if (!content) return null;
+  const links = content.querySelectorAll('a[href]');
+  if (links.length !== 1) return null;
+  const href = links[0].getAttribute('href') || '';
+  // Internal path only (not an asset/video link, not an external URL).
+  if (!href.startsWith('/') || href.startsWith('//')) return null;
+  if (/\.(mp4|webm|mov|m4v|jpg|jpeg|png|gif|svg|webp)$/i.test(href)) return null;
+  // The link must be the panel's sole meaningful content (ignore whitespace).
+  if (content.querySelector('picture, img, video, ol, ul')) return null;
+  const linkText = (links[0].textContent || '').replace(/\s+/g, ' ').trim();
+  const allText = (content.textContent || '').replace(/\s+/g, ' ').trim();
+  if (allText !== linkText && allText !== href) return null;
+  return href;
+}
+
+/**
+ * Load a fragment into a panel and inject its platform-decorated content.
+ * loadFragment runs decorateMain + loadSections, so any block inside the
+ * fragment is fully initialised — no manual decorateBlock, no nested tables.
+ * Idempotent: only loads once per panel.
+ * @param {Element} panel the tabpanel element
+ * @param {string} path the fragment path
+ */
+async function loadPanelFragment(panel, path) {
+  if (!path || panel.dataset.fragmentLoaded) return;
+  panel.dataset.fragmentLoaded = 'true';
+  const fragment = await loadFragment(path);
+  if (!fragment) return;
+  const target = panel.firstElementChild || panel;
+  target.replaceChildren(...fragment.childNodes);
+}
 
 /**
  * Replace a bare video-asset link with a looping, muted inline video that
@@ -170,6 +213,13 @@ function buildHotspot(hotspot, index, open) {
 function decorateTogglePanel(content, hotspotCell) {
   if (!content) return;
 
+  // Fragment panel takes precedence over the hotspot/list chrome.
+  const fragPath = fragmentPath(content);
+  if (fragPath) {
+    loadPanelFragment(content.closest('.tabs-feature-panel') || content, fragPath);
+    return;
+  }
+
   const list = content.querySelector(':scope > ol, :scope > ul');
   if (list) list.classList.add('tabs-feature-points');
 
@@ -304,6 +354,13 @@ function decorateDefault(block) {
     button.setAttribute('aria-selected', !i);
     button.setAttribute('role', 'tab');
     button.setAttribute('type', 'button');
+
+    // Opt-in: a panel whose sole content is an internal link renders that
+    // fragment (any block[s]) instead of flat default content. Active tab loads
+    // now; others defer to first activation (parity with deferred videos).
+    const content = tabpanel.firstElementChild;
+    const fragPath = fragmentPath(content);
+
     button.addEventListener('click', () => {
       block.querySelectorAll('[role=tabpanel]').forEach((panel) => {
         panel.setAttribute('aria-hidden', true);
@@ -313,6 +370,7 @@ function decorateDefault(block) {
       });
       tabpanel.setAttribute('aria-hidden', false);
       button.setAttribute('aria-selected', true);
+      if (fragPath) loadPanelFragment(tabpanel, fragPath);
       // start the newly shown panel's video (deferred tabs preload="none")
       const video = tabpanel.querySelector('video');
       if (video) {
@@ -323,9 +381,15 @@ function decorateDefault(block) {
     tablist.append(button);
     tab.remove();
 
+    if (fragPath) {
+      // Fragment panel: skip flat-content decoration entirely. Load eagerly for
+      // the initially-visible tab; the rest load on first activation.
+      if (i === 0) loadPanelFragment(tabpanel, fragPath);
+      return;
+    }
+
     // tag panel content for styling hooks (no behavioral change):
     // the media paragraph (screenshot/video) vs. the trailing stat/quote note
-    const content = tabpanel.firstElementChild;
     if (content) {
       const paras = [...content.querySelectorAll(':scope > p')];
       const mediaPara = paras.find((p) => isMediaPara(p) || isAssetLinkPara(p));
