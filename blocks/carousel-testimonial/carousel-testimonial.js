@@ -21,19 +21,29 @@ function updateNavState(block) {
   const prev = block.querySelector('.slide-prev');
   const next = block.querySelector('.slide-next');
   if (!prev || !next) return;
-  // The case-study controls wrap around at both ends (matching the source,
-  // where they are always live), so there is no disabled state to track.
-  if (block.classList.contains('case-study')) return;
-  // Before the track has been laid out (the block is decorated while the page
-  // is still hidden) scrollWidth and clientWidth are both zero, which reads as
-  // "nothing to scroll" and would disable both controls for good.
-  if (!slides.clientWidth) return;
-  // Scroll snapping aligns the first slide's edge with the snapport, so at rest
-  // scrollLeft sits at the track's inline padding rather than 0.
-  const tolerance = parseFloat(getComputedStyle(slides).paddingInlineStart) + 1;
-  const maxScroll = slides.scrollWidth - slides.clientWidth;
-  prev.disabled = slides.scrollLeft <= tolerance;
-  next.disabled = slides.scrollLeft >= maxScroll - tolerance;
+  // The case-study and quote controls wrap around at both ends (matching the
+  // source, where they are always live), so there is no disabled state to
+  // track for them.
+  const loops = block.classList.contains('case-study') || block.classList.contains('quote');
+  if (!loops) {
+    // Before the track has been laid out (the block is decorated while the
+    // page is still hidden) scrollWidth and clientWidth are both zero, which
+    // reads as "nothing to scroll" and would disable both controls for good.
+    if (!slides.clientWidth) return;
+    // Scroll snapping aligns the first slide's edge with the snapport, so at
+    // rest scrollLeft sits at the track's inline padding rather than 0.
+    const tolerance = parseFloat(getComputedStyle(slides).paddingInlineStart) + 1;
+    const maxScroll = slides.scrollWidth - slides.clientWidth;
+    prev.disabled = slides.scrollLeft <= tolerance;
+    next.disabled = slides.scrollLeft >= maxScroll - tolerance;
+  }
+  // Sync dot indicators (visible in the `quote` variant) with the current slide.
+  const indicators = [...block.querySelectorAll('.carousel-testimonial-slide-indicator')];
+  if (indicators.length) {
+    const step = getSlideStep(block) || slides.clientWidth || 1;
+    const current = Math.round(slides.scrollLeft / step);
+    indicators.forEach((li, i) => li.setAttribute('aria-selected', i === current ? 'true' : 'false'));
+  }
 }
 
 /**
@@ -64,15 +74,17 @@ function syncActiveSlideHeight(block) {
 }
 
 /**
- * Scroll the track by one card in the given direction. Case-study carousels
- * wrap around instead of stopping, so their controls are never dead ends.
+ * Scroll the track by one card in the given direction. Case-study and quote
+ * carousels wrap around instead of stopping, so their controls are never
+ * dead ends.
  * @param {Element} block the carousel block
  * @param {number} direction -1 for previous, 1 for next
  */
 export function showSlide(block, direction = 1) {
   const slides = block.querySelector('.carousel-testimonial-slides');
   const step = getSlideStep(block);
-  if (!block.classList.contains('case-study')) {
+  const loops = block.classList.contains('case-study') || block.classList.contains('quote');
+  if (!loops) {
     slides.scrollBy({ top: 0, left: step * direction, behavior: 'smooth' });
     return;
   }
@@ -93,6 +105,13 @@ function bindEvents(block, isCaseStudy) {
 
   block.querySelector('.slide-prev').addEventListener('click', () => showSlide(block, -1));
   block.querySelector('.slide-next').addEventListener('click', () => showSlide(block, 1));
+
+  // Dot indicators (quote variant): clicking one scrolls to that slide.
+  block.querySelectorAll('.carousel-testimonial-slide-indicator button').forEach((btn, idx) => {
+    btn.addEventListener('click', () => {
+      slides.scrollTo({ left: getSlideStep(block) * idx, behavior: 'smooth' });
+    });
+  });
 
   let scrollRaf;
   slides.addEventListener('scroll', () => {
@@ -267,7 +286,29 @@ function decorateCaseStudySlide(slide) {
   slide.append(row);
 }
 
-function createSlide(row, slideIndex, carouselId, isCaseStudy) {
+// Matches production's free-cmms markup, which wraps the leading/trailing
+// curly (or straight) double-quote character in its own `<span>` so it can be
+// colored separately from the quote text. Single quotes are left alone --
+// production only colors the outer double quotes, not e.g. 'easy' inside one.
+const QUOTE_MARK_CHARS = ['“', '”', '"'];
+
+function wrapQuoteMark(textNode, atStart) {
+  const { textContent } = textNode;
+  const char = atStart ? textContent[0] : textContent[textContent.length - 1];
+  if (!QUOTE_MARK_CHARS.includes(char)) return;
+  const mark = document.createElement('span');
+  mark.classList.add('carousel-testimonial-quote-mark');
+  mark.textContent = char;
+  if (atStart) {
+    textNode.textContent = textContent.slice(1);
+    textNode.before(mark);
+  } else {
+    textNode.textContent = textContent.slice(0, -1);
+    textNode.after(mark);
+  }
+}
+
+function createSlide(row, slideIndex, carouselId, isCaseStudy, isQuoteVariant) {
   const slide = document.createElement('li');
   slide.dataset.slideIndex = slideIndex;
   slide.setAttribute('id', `carousel-testimonial-${carouselId}-slide-${slideIndex}`);
@@ -276,9 +317,11 @@ function createSlide(row, slideIndex, carouselId, isCaseStudy) {
   row.querySelectorAll(':scope > div').forEach((column, colIdx) => {
     // Case-study rows lead with the copy and follow with a media column holding
     // the company logo and the case-study photo. The default testimonial rows
-    // lead with the author headshot instead.
+    // lead with the author headshot instead. The quote variant has no
+    // headshot/media column at all -- its single column is the content.
     let role;
     if (isCaseStudy) role = colIdx === 0 ? 'content' : 'media';
+    else if (isQuoteVariant) role = 'content';
     else role = colIdx === 0 ? 'image' : 'content';
     column.classList.add(`carousel-testimonial-slide-${role}`);
     slide.append(column);
@@ -291,6 +334,24 @@ function createSlide(row, slideIndex, carouselId, isCaseStudy) {
 
   if (isCaseStudy) {
     decorateCaseStudySlide(slide);
+  } else if (isQuoteVariant) {
+    // The `quote` variant is a single large centered testimonial (quote + author
+    // line) with no headshot/logo footer, so skip the card-footer regrouping —
+    // that logic would misread the quote/author paragraphs as name/role. Just tag
+    // the two paragraphs for the variant's typography.
+    const content = slide.querySelector('.carousel-testimonial-slide-content');
+    if (content) {
+      const paras = [...content.querySelectorAll(':scope > p')];
+      if (paras[0]) {
+        paras[0].classList.add('carousel-testimonial-quote-text');
+        const { firstChild, lastChild } = paras[0];
+        if (firstChild?.nodeType === Node.TEXT_NODE) wrapQuoteMark(firstChild, true);
+        // Re-read lastChild: if the quote is a single text node, the line
+        // above already mutated it in place, and it is still the last child.
+        if (lastChild?.nodeType === Node.TEXT_NODE) wrapQuoteMark(lastChild, false);
+      }
+      if (paras[1]) paras[1].classList.add('carousel-testimonial-quote-author');
+    }
   } else {
     decorateTestimonialCard(slide);
   }
@@ -305,6 +366,7 @@ export default async function decorate(block) {
   const isCaseStudy = block.classList.contains('case-study');
   const rows = block.querySelectorAll(':scope > div');
   const isSingleSlide = rows.length < 2;
+  const isQuoteVariant = block.classList.contains('quote');
 
   const placeholders = {};
 
@@ -338,7 +400,7 @@ export default async function decorate(block) {
   }
 
   rows.forEach((row, idx) => {
-    const slide = createSlide(row, idx, carouselId, isCaseStudy);
+    const slide = createSlide(row, idx, carouselId, isCaseStudy, isQuoteVariant);
     slidesWrapper.append(slide);
 
     if (slideIndicators) {
