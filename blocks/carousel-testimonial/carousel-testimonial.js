@@ -21,6 +21,13 @@ function updateNavState(block) {
   const prev = block.querySelector('.slide-prev');
   const next = block.querySelector('.slide-next');
   if (!prev || !next) return;
+  // The case-study controls wrap around at both ends (matching the source,
+  // where they are always live), so there is no disabled state to track.
+  if (block.classList.contains('case-study')) return;
+  // Before the track has been laid out (the block is decorated while the page
+  // is still hidden) scrollWidth and clientWidth are both zero, which reads as
+  // "nothing to scroll" and would disable both controls for good.
+  if (!slides.clientWidth) return;
   // Scroll snapping aligns the first slide's edge with the snapport, so at rest
   // scrollLeft sits at the track's inline padding rather than 0.
   const tolerance = parseFloat(getComputedStyle(slides).paddingInlineStart) + 1;
@@ -30,17 +37,59 @@ function updateNavState(block) {
 }
 
 /**
- * Scroll the track by one card in the given direction.
+ * Case-study slides show one card at a time, but flex's default stretch
+ * behavior sizes the track to the tallest slide regardless of which is
+ * scrolled into view, pushing the nav buttons down by that difference. Pin
+ * the track's height to the currently visible slide's own content instead.
+ * @param {Element} block the carousel block
+ */
+function syncActiveSlideHeight(block) {
+  const slides = block.querySelector('.carousel-testimonial-slides');
+  const trackLeft = slides.getBoundingClientRect().left;
+  const active = [...slides.children].find((slide) => {
+    const { left } = slide.getBoundingClientRect();
+    return left >= trackLeft - 1;
+  }) || slides.children[0];
+  const row = active && active.firstElementChild;
+  const height = row ? row.getBoundingClientRect().height : 0;
+  // The block is decorated while the page is still hidden, so the first few
+  // measurements read zero. Latching that would collapse the track for good --
+  // leave it auto until there is a real height to pin.
+  if (!height) return;
+  // Keep the track's own vertical padding, which is what stops the card's
+  // shadow being clipped by the track's overflow.
+  const { paddingTop, paddingBottom } = getComputedStyle(slides);
+  const padding = parseFloat(paddingTop) + parseFloat(paddingBottom);
+  slides.style.height = `${height + padding}px`;
+}
+
+/**
+ * Scroll the track by one card in the given direction. Case-study carousels
+ * wrap around instead of stopping, so their controls are never dead ends.
  * @param {Element} block the carousel block
  * @param {number} direction -1 for previous, 1 for next
  */
 export function showSlide(block, direction = 1) {
   const slides = block.querySelector('.carousel-testimonial-slides');
-  slides.scrollBy({ top: 0, left: getSlideStep(block) * direction, behavior: 'smooth' });
+  const step = getSlideStep(block);
+  if (!block.classList.contains('case-study')) {
+    slides.scrollBy({ top: 0, left: step * direction, behavior: 'smooth' });
+    return;
+  }
+  const tolerance = parseFloat(getComputedStyle(slides).paddingInlineStart) + 1;
+  const maxScroll = slides.scrollWidth - slides.clientWidth;
+  let left = slides.scrollLeft + step * direction;
+  if (direction > 0 && slides.scrollLeft >= maxScroll - tolerance) left = 0;
+  else if (direction < 0 && slides.scrollLeft <= tolerance) left = maxScroll;
+  slides.scrollTo({ top: 0, left, behavior: 'smooth' });
 }
 
-function bindEvents(block) {
+function bindEvents(block, isCaseStudy) {
   const slides = block.querySelector('.carousel-testimonial-slides');
+  const onTrackChange = () => {
+    updateNavState(block);
+    if (isCaseStudy) syncActiveSlideHeight(block);
+  };
 
   block.querySelector('.slide-prev').addEventListener('click', () => showSlide(block, -1));
   block.querySelector('.slide-next').addEventListener('click', () => showSlide(block, 1));
@@ -48,16 +97,28 @@ function bindEvents(block) {
   let scrollRaf;
   slides.addEventListener('scroll', () => {
     if (scrollRaf) cancelAnimationFrame(scrollRaf);
-    scrollRaf = requestAnimationFrame(() => updateNavState(block));
+    scrollRaf = requestAnimationFrame(onTrackChange);
   }, { passive: true });
 
   // Recompute on any track resize -- this also covers the case where the block
   // is decorated before it has a measurable width (e.g. still below the fold),
   // which would otherwise leave the controls incorrectly disabled.
-  const resizeObserver = new ResizeObserver(() => updateNavState(block));
+  const resizeObserver = new ResizeObserver(onTrackChange);
   resizeObserver.observe(slides);
+  // Observe the slides' own rows too, so a case-study track re-pins its height
+  // once late-loading images give the cards their real size. (Watching the
+  // track alone would have the observer reacting to its own height writes.)
+  [...slides.children].forEach((slide) => {
+    if (slide.firstElementChild) resizeObserver.observe(slide.firstElementChild);
+  });
 
-  updateNavState(block);
+  // Belt and braces for the measurements above: images finishing after
+  // decoration change the card heights, and the viewport width decides both
+  // the nav state and which card the track is sized to.
+  window.addEventListener('load', onTrackChange);
+  window.addEventListener('resize', onTrackChange);
+
+  onTrackChange();
 }
 
 /**
@@ -294,6 +355,6 @@ export default async function decorate(block) {
   block.prepend(container);
 
   if (!isSingleSlide) {
-    bindEvents(block);
+    bindEvents(block, isCaseStudy);
   }
 }
