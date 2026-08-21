@@ -100,6 +100,7 @@ body.appear {
 
 header {
     height: var(--nav-height);
+    padding-bottom: 7px;
 }
 
 header .header,
@@ -4568,7 +4569,10 @@ main > .section.ai-tabs:has(.tabs-feature:not(.toggle)) {
     margin-bottom: 40px;
 }
 
-main > .section.ai-tabs:has(.tabs-feature:not(.toggle)) .default-content-wrapper h2 {
+main
+    > .section.ai-tabs:has(.tabs-feature:not(.toggle))
+    .default-content-wrapper
+    h2 {
     margin: 0 auto;
     max-width: 650px;
     font-size: 32px;
@@ -4577,12 +4581,19 @@ main > .section.ai-tabs:has(.tabs-feature:not(.toggle)) .default-content-wrapper
     text-align: center;
 }
 
-main > .section.ai-tabs:has(.tabs-feature:not(.toggle)) .default-content-wrapper p:has(img) {
+main
+    > .section.ai-tabs:has(.tabs-feature:not(.toggle))
+    .default-content-wrapper
+    p:has(img) {
     width: 140px;
     margin: 0 auto 10px;
 }
 
-main > .section.ai-tabs:has(.tabs-feature:not(.toggle)) .default-content-wrapper p:has(img) img {
+main
+    > .section.ai-tabs:has(.tabs-feature:not(.toggle))
+    .default-content-wrapper
+    p:has(img)
+    img {
     display: block;
     width: 140px;
     max-width: 100%;
@@ -4601,12 +4612,17 @@ main > .section.ai-tabs:has(.tabs-feature:not(.toggle)) .tabs-feature-wrapper {
         margin-bottom: 80px;
     }
 
-    main > .section.ai-tabs:has(.tabs-feature:not(.toggle)) .default-content-wrapper h2 {
+    main
+        > .section.ai-tabs:has(.tabs-feature:not(.toggle))
+        .default-content-wrapper
+        h2 {
         font-size: 40px;
         line-height: normal;
     }
 
-    main > .section.ai-tabs:has(.tabs-feature:not(.toggle)) .tabs-feature-wrapper {
+    main
+        > .section.ai-tabs:has(.tabs-feature:not(.toggle))
+        .tabs-feature-wrapper {
         margin-top: 70px;
     }
 }
@@ -4632,11 +4648,11 @@ main > .section.ai-dual-cta > .cards-cta-wrapper {
 
 /* Mobile/tablet: lighter top margin when overlapping upward (production
    #fiixAI .dualCTA-box @max-width 1199). */
-main > .section.ai-dual-cta[data-overlap='top'] {
+main > .section.ai-dual-cta[data-overlap="top"] {
     margin-top: 60px;
 }
 
-main > .section.ai-dual-cta[data-overlap='bottom'] {
+main > .section.ai-dual-cta[data-overlap="bottom"] {
     margin-bottom: 60px;
 }
 
@@ -4647,21 +4663,21 @@ main > .section.ai-dual-cta[data-overlap='bottom'] {
 
     /* Production: margin-top 240px + absolute cards at top -150px so panels
        straddle the previous section / this band. */
-    main > .section.ai-dual-cta[data-overlap='top'],
-    main > .section.ai-dual-cta[data-overlap='bottom'] {
+    main > .section.ai-dual-cta[data-overlap="top"],
+    main > .section.ai-dual-cta[data-overlap="bottom"] {
         position: relative;
     }
 
-    main > .section.ai-dual-cta[data-overlap='top'] {
+    main > .section.ai-dual-cta[data-overlap="top"] {
         margin-top: 240px;
     }
 
-    main > .section.ai-dual-cta[data-overlap='bottom'] {
+    main > .section.ai-dual-cta[data-overlap="bottom"] {
         margin-bottom: 240px;
     }
 
-    main > .section.ai-dual-cta[data-overlap='top'] > .cards-cta-wrapper,
-    main > .section.ai-dual-cta[data-overlap='bottom'] > .cards-cta-wrapper {
+    main > .section.ai-dual-cta[data-overlap="top"] > .cards-cta-wrapper,
+    main > .section.ai-dual-cta[data-overlap="bottom"] > .cards-cta-wrapper {
         position: absolute;
         left: 0;
         right: 0;
@@ -4673,12 +4689,12 @@ main > .section.ai-dual-cta[data-overlap='bottom'] {
         margin-right: auto;
     }
 
-    main > .section.ai-dual-cta[data-overlap='top'] > .cards-cta-wrapper {
+    main > .section.ai-dual-cta[data-overlap="top"] > .cards-cta-wrapper {
         top: -100px;
         bottom: auto;
     }
 
-    main > .section.ai-dual-cta[data-overlap='bottom'] > .cards-cta-wrapper {
+    main > .section.ai-dual-cta[data-overlap="bottom"] > .cards-cta-wrapper {
         top: auto;
         bottom: -100px;
     }
