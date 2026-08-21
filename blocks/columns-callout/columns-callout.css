@@ -88,10 +88,12 @@
         font-size: 20px;
         line-height: 53px;
     }
+
     .columns-callout > div > div:first-child {
         flex: 1;
         text-align: left;
     }
+
     .columns-callout h2 {
         font-size: 34px;
     }
@@ -208,10 +210,6 @@
     font-size: 16px;
     font-weight: 700;
 }
-
-/* Mobile/tablet width for the default banner's first column (paired with the
-   960px override below). Placed after the pricing-hero rules to satisfy
-   stylelint's selector-specificity ordering. */
 
 @media (width >= 960px) {
     .pricing-hero .columns-callout.columns-callout-2-cols {

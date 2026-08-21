@@ -5,6 +5,12 @@
    product screenshot. Values extracted from fiixsoftware.com.
    ============================================================ */
 
+.hero-lead-container:has(.video-without-form) .hero-lead-wrapper,
+main > .section.fc-hero > .hero-lead-wrapper {
+    max-width: none;
+    padding: 0;
+}
+
 /* Let the hero span the section width; center its own inner grid. */
 main .pf-hero.section.hero-lead-container .hero-lead-wrapper {
     max-width: unset;
@@ -422,12 +428,6 @@ main .pf-hero.section.hero-lead-container .hero-lead-wrapper {
     margin: 0;
     padding: 0;
     background-color: var(--light-color); /* #f7f9fc */
-}
-
-.hero-lead-container:has(.video-without-form) .hero-lead-wrapper,
-main > .section.fc-hero > .hero-lead-wrapper {
-    max-width: none;
-    padding: 0;
 }
 
 /* media row -> purple panel. Below desktop it's a fixed-height, full-bleed
