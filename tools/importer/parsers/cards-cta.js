@@ -35,7 +35,8 @@ export default function parse(element, { document }) {
       cells.push([body]); // 1-column row: single cell holds heading + copy + CTA.
     });
     if (cells.length === 0) { element.replaceWith(...element.childNodes); return; }
-    const block = WebImporter.Blocks.createBlock(document, { name: 'cards-cta', cells });
+    // Article variation matches production `.CTAbox-flex > article` panels.
+    const block = WebImporter.Blocks.createBlock(document, { name: 'cards-cta (article)', cells });
     element.replaceWith(block);
     return;
   }

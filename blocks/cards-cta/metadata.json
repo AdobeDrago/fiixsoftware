@@ -1,7 +1,7 @@
 {
   "variantName": "cards-cta",
   "baseBlock": "cards",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "created": "2026-07-15T00:00:00.000Z",
   "sourceContext": {
     "originUrl": "https://fiixsoftware.com/",
@@ -19,10 +19,25 @@
     "buttonCount": 2,
     "imageCount": 2
   },
+  "variations": {
+    "article": {
+      "sourceContext": {
+        "originUrl": "https://fiixsoftware.com/cmms/ai/",
+        "originSelector": "section.dualCTA-box .CTAbox-flex > article"
+      },
+      "contentPattern": {
+        "structure": "text-only centered panels: heading + paragraph + orange gradient CTA pill; no image",
+        "buttonCount": 2,
+        "imageCount": 0
+      },
+      "sectionStyle": "ai-dual-cta (optional — section gradient band only; block renders without it)"
+    }
+  },
   "reuseGuidance": {
     "suitableFor": [
       "two or more side-by-side call-to-action panels",
-      "closing dual-CTA sections with heading + text + button per panel"
+      "closing dual-CTA sections with heading + text + button per panel",
+      "article: paired marketing CTAs without icons (Want to see more? / Want to test Fiix out?)"
     ],
     "notSuitableFor": [
       "single feature/highlight (use a hero or single callout)",
@@ -34,9 +49,10 @@
     "pagesUsing": [
       "/index",
       "/cmms/cmms-software/index",
-      "/cmms/ai/index"
+      "/cmms/ai/index",
+      "/cmms/ai-update"
     ],
-    "reuseCount": 3,
-    "lastUsed": "2026-08-11T00:00:00.000Z"
+    "reuseCount": 4,
+    "lastUsed": "2026-08-21T00:00:00.000Z"
   }
 }

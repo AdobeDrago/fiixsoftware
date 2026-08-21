@@ -48,6 +48,85 @@ function decorateSectionMetadata(main) {
   });
 }
 
+const SECTION_CORNER_BACKGROUNDS = {
+  backgroundTopRight: 'section-bg-top-right',
+  backgroundBottomLeft: 'section-bg-bottom-left',
+  backgroundTopLeft: 'section-bg-top-left',
+  backgroundBottomRight: 'section-bg-bottom-right',
+};
+
+/**
+ * Turns an authored metadata value into a CSS background-image.
+ * Accepts image URLs or raw CSS (e.g. linear-gradient(...)).
+ * @param {string} value
+ * @returns {string}
+ */
+function toSectionBackgroundImage(value) {
+  // Authors often paste a full CSS declaration including a trailing `;`.
+  // `element.style.backgroundImage = '…;'` is rejected by the browser.
+  const trimmed = value.trim().replace(/;+\s*$/, '');
+  if (!trimmed) return '';
+  if (/^(?:url\(|(?:repeating-)?(?:linear|radial|conic)-gradient\()/i.test(trimmed)) {
+    return trimmed;
+  }
+  let src = trimmed;
+  try {
+    const url = new URL(trimmed, window.location.href);
+    // Content sometimes authors https://localhost/... — use the current origin.
+    if (url.hostname === 'localhost' || url.hostname === '127.0.0.1') {
+      src = `${window.location.origin}${url.pathname}${url.search}`;
+    } else {
+      src = url.href;
+    }
+  } catch {
+    // keep authored string
+  }
+  const escaped = src.replace(/\\/g, '\\\\').replace(/"/g, '\\"');
+  return `url("${escaped}")`;
+}
+
+/**
+ * Renders section-metadata corner backgrounds
+ * (`background-top-right`, `background-bottom-left`, `background-top-left`,
+ * `background-bottom-right`) as decorative layers — same role as production
+ * `.augury::before` / `::after` on /cmms/ai/.
+ * @param {Element} main
+ */
+function decorateSectionCornerBackgrounds(main) {
+  main.querySelectorAll(':scope > div.section').forEach((section) => {
+    let hasCorner = false;
+    Object.entries(SECTION_CORNER_BACKGROUNDS).forEach(([datasetKey, className]) => {
+      const value = section.dataset[datasetKey];
+      if (!value) return;
+      const backgroundImage = toSectionBackgroundImage(value);
+      if (!backgroundImage) return;
+
+      const layer = document.createElement('div');
+      layer.className = `section-bg ${className}`;
+      layer.setAttribute('aria-hidden', 'true');
+      layer.style.backgroundImage = backgroundImage;
+      section.prepend(layer);
+      hasCorner = true;
+    });
+    if (hasCorner) section.classList.add('has-section-bg');
+  });
+}
+
+/**
+ * Applies authored `background` / `background-image` section metadata as the
+ * section's CSS background-image (gradients or image URLs).
+ * @param {Element} main
+ */
+function decorateSectionBackgroundImages(main) {
+  main.querySelectorAll(':scope > div.section').forEach((section) => {
+    const value = section.dataset.backgroundImage || section.dataset.background;
+    if (!value) return;
+    const backgroundImage = toSectionBackgroundImage(value);
+    if (!backgroundImage) return;
+    section.style.backgroundImage = backgroundImage;
+  });
+}
+
 if (window.trustedTypes && window.trustedTypes.createPolicy) {
   const innerTT = window.trustedTypes.createPolicy('tt-inner', {
     createHTML: (s) => s, // avoid stack overflow
@@ -74,10 +153,14 @@ if (window.trustedTypes && window.trustedTypes.createPolicy) {
 }
 
 /**
- * load fonts.css and set a session storage flag
+ * Load the local fallback fonts and brand font after the first section is
+ * ready, then set a session storage flag for subsequent navigations.
  */
 async function loadFonts() {
-  await loadCSS(`${window.hlx.codeBasePath}/styles/fonts.css`);
+  await Promise.all([
+    loadCSS(`${window.hlx.codeBasePath}/styles/fonts.css`),
+    loadCSS('https://use.typekit.net/xfz3qzj.css'),
+  ]);
   try {
     if (!window.location.hostname.includes('localhost')) sessionStorage.setItem('fonts-loaded', 'true');
   } catch (e) {
@@ -286,6 +369,8 @@ export function decorateMain(main) {
   buildAutoBlocks(main);
   decorateSections(main);
   decorateSectionMetadata(main);
+  decorateSectionBackgroundImages(main);
+  decorateSectionCornerBackgrounds(main);
   decorateBlocks(main);
   decorateButtons(main);
   decorateBlogHeader(main);
