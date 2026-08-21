@@ -112,6 +112,81 @@
   font-weight: 700;
 }
 
+
+ .section.pf-features .columns-callout > div {
+  box-sizing: border-box;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  gap: 0;
+  margin: 0;
+  padding: 40px 20px;
+  background-color: #f2f2f2;
+}
+
+ .section.pf-features .columns-callout > div > div {
+  flex: none;
+  order: unset;
+  text-align: center;
+}
+
+.section.pf-features .columns-callout > div > div:first-child {
+  width: 90%;
+}
+
+ .section.pf-features .columns-callout h2 {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--text-color);
+}
+
+ .section.pf-features .columns-callout > div > div > p {
+  margin: 0;
+}
+
+ .section.pf-features .columns-callout a:any-link {
+  display: inline-block;
+  width: auto;
+  height: 48px;
+  margin: 20px 0 0;
+  padding: 0 10px;
+  border: 2px solid #00afeb;
+  border-radius: 27px;
+  background-color: #00afeb;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 48px;
+  text-align: center;
+  text-decoration: none;
+  transition: background-color 0.2s, border-color 0.2s;
+}
+
+ .section.pf-features .columns-callout a:any-link:hover,
+ .section.pf-features .columns-callout a:any-link:focus {
+  border-color: #14499a;
+  background-color: #14499a;
+  color: #fff;
+  text-decoration: none;
+}
+
+/* Tablet: the pill returns to its full size and the band regains the space
+   below it. */
+@media (width >= 768px) {
+   .section.pf-features .columns-callout > div {
+    margin-bottom: 60px;
+  }
+
+  .section.pf-features .columns-callout a:any-link {
+    height: 53px;
+    padding: 0 20px;
+    font-size: 20px;
+    line-height: 53px;
+  }
+}
+
 @media (width >= 960px) {
   .columns-callout > div {
     align-items: center;
@@ -126,5 +201,29 @@
 
   .pricing-hero .columns-callout.columns-callout-2-cols {
     grid-template-columns: 1fr 1fr;
+  }
+
+  /* Desktop lays the heading and CTA out side by side, with the heading taking
+     half the band and losing the centred alignment. */
+  .section.pf-features .columns-callout > div {
+    flex-direction: row;
+    margin: 60px 0;
+  }
+
+   .section.pf-features .columns-callout > div > div {
+    width: auto;
+    text-align: left;
+  }
+
+  .section.pf-features .columns-callout > div > div:first-child {
+    width: 50%;
+  }
+
+   .section.pf-features .columns-callout h2 {
+    font-size: 34px;
+  }
+
+   .section.pf-features .columns-callout a:any-link {
+    margin-top: 0;
   }
 }

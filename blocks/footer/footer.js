@@ -32,30 +32,35 @@ const AWARD_LOGOS = [
     src: 'software-advice.png',
     label: 'Software Advice',
     logoClass: 'softwareadvice-logo',
+    dimensions: [300, 34],
   },
   {
     match: 'getapp',
     src: 'getapp.png',
     label: 'GetApp',
     logoClass: 'getapp-logo',
+    dimensions: [300, 84],
   },
   {
     match: 'gartner',
     src: 'gartner-peer-insights.png',
     label: 'Gartner Peer Insights',
     logoClass: 'gpi-logo',
+    dimensions: [300, 67],
   },
   {
     match: 'capterra',
     src: 'capterra.png',
     label: 'Capterra',
     logoClass: 'capterra-logo',
+    dimensions: [300, 66],
   },
   {
     match: 'g2.com',
     src: 'g2.png',
     label: 'G2',
     logoClass: 'g2-logo',
+    dimensions: [146, 150],
   },
 ];
 
@@ -141,6 +146,9 @@ export default async function decorate(block) {
       img.alt = `${award.label} logo`;
       img.className = award.logoClass;
       img.loading = 'lazy';
+      const [width, height] = award.dimensions;
+      img.width = width;
+      img.height = height;
       a.textContent = '';
       a.setAttribute('aria-label', award.label);
       a.setAttribute('title', award.label);

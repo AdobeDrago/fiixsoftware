@@ -45,7 +45,6 @@ function toggleMenu(nav, navSections, forceExpanded = null) {
 // Click/keyboard toggle for mega-menu items (no hover).
 function decorateDropItem(navItem, navSections) {
   navItem.classList.add('nav-drop');
-  navItem.setAttribute('role', 'button');
   navItem.setAttribute('aria-haspopup', 'true');
   navItem.setAttribute('aria-expanded', 'false');
   navItem.setAttribute('tabindex', '0');
@@ -115,6 +114,71 @@ function iconForHref(href) {
   return null;
 }
 
+// Split Features into two lists: primary features + download | secondary links.
+// Matches production `.navigation__dropdown__column-wrapper` with two `<ul>`s.
+// Drawer: download sits after Fiix app exchange (end of secondary list).
+// Desktop: download sits under the primary feature column.
+function splitFeaturesColumn(col) {
+  const list = col.querySelector(':scope > ul');
+  if (!list) return;
+
+  const items = [...list.children];
+  const download = items.find((li) => li.classList.contains('nav-link-download'));
+  const rest = items.filter((li) => li !== download);
+  // First four stay in the primary column; the rest move to a second column.
+  const secondary = rest.slice(4);
+  if (!secondary.length && !download) return;
+
+  const wrapper = document.createElement('div');
+  wrapper.className = 'nav-col-wrapper';
+  const secondaryList = document.createElement('ul');
+  secondary.forEach((li) => secondaryList.append(li));
+
+  list.replaceWith(wrapper);
+  wrapper.append(list, secondaryList);
+
+  const placeDownload = () => {
+    if (!download) return;
+    if (isDesktop.matches) list.append(download);
+    else secondaryList.append(download);
+  };
+  placeDownload();
+  isDesktop.addEventListener('change', placeDownload);
+}
+
+/** Shared Contact us / Request a demo footer for every mega-menu. */
+function buildMegaMenuFooter(source) {
+  const footerLi = document.createElement('li');
+  footerLi.className = 'nav-drop-footer';
+  if (source) {
+    source.querySelectorAll('a').forEach((a) => footerLi.append(a.cloneNode(true)));
+    return footerLi;
+  }
+  const contact = document.createElement('a');
+  contact.href = '/contact-us/';
+  contact.textContent = 'Contact us';
+  const demo = document.createElement('a');
+  demo.href = 'https://lp.fiixsoftware.com/request-fiix-demo.html';
+  demo.textContent = 'Request a demo';
+  footerLi.append(contact, demo);
+  return footerLi;
+}
+
+function ensureMegaMenuFooters(navSections) {
+  const drops = [...navSections.querySelectorAll(':scope .nav-drop')];
+  const source = drops.map((d) => d.querySelector(':scope > ul > .nav-drop-footer')).find(Boolean);
+  drops.forEach((drop) => {
+    const panel = drop.querySelector(':scope > ul');
+    if (!panel) return;
+    // Keep footer as a direct panel child so it can span the full mega-menu grid.
+    [...panel.querySelectorAll('.nav-drop-footer')].forEach((footer) => {
+      if (footer.parentElement !== panel) panel.append(footer);
+    });
+    if (panel.querySelector(':scope > .nav-drop-footer')) return;
+    panel.append(buildMegaMenuFooter(source));
+  });
+}
+
 // Wrap loose description text in .nav-item-desc for mobile hide.
 function wrapDescription(container) {
   const nodes = [...container.childNodes]
@@ -144,8 +208,10 @@ export default async function decorate(block) {
   // Load nav fragment (localhost /content, else root).
   const navMeta = getMetadata('nav');
   const navPath = navMeta ? new URL(navMeta, window.location).pathname : '/nav';
-  const fragment = (window.location.hostname === 'localhost' && await loadFragment('/content/nav'))
-    || await loadFragment(navPath);
+  // The local dev server serves the same root nav fragment as preview/live.
+  // Avoid probing the legacy /content/nav path, which is not present locally
+  // and creates a noisy 404 in the browser console on every page load.
+  const fragment = await loadFragment(navPath);
   if (!fragment) {
     // eslint-disable-next-line no-console
     console.warn('[header] no nav fragment found at', navPath);
@@ -202,8 +268,11 @@ export default async function decorate(block) {
               .map((n) => n.textContent)
               .join(' ')
               .trim();
-            // Features → two sub-columns.
+            // Features → two sub-columns matching production
+            // (main features + download | parts + app exchange).
             if (/^Features$/i.test(heading)) g.classList.add('nav-col-split');
+            // Industry is desktop mega-menu only.
+            if (/^Industry/i.test(heading)) g.classList.add('nav-col-industry');
             // Icon + title/badge + description.
             g.querySelectorAll(':scope > ul > li > a').forEach((a) => {
               const li = a.closest('li');
@@ -238,11 +307,35 @@ export default async function decorate(block) {
               const label = a.textContent.trim().toLowerCase();
               if (label.startsWith('download full features')) {
                 li.classList.add('nav-link-download');
-                // Drop "(PDF)…" suffix.
-                a.textContent = a.textContent.replace(/\s*\(PDF\).*$/i, '').trim();
+                const fullLabel = a.textContent.trim();
+                const clean = fullLabel.replace(/\s*\(PDF\).*$/i, '').trim();
+                const mobileText = /\(PDF\)/i.test(fullLabel) ? fullLabel : `${clean} (PDF)`;
+                a.textContent = '';
+                // Drawer: plain label + left icon. Desktop: see-all + trailing icon.
+                const mobileLabel = document.createElement('span');
+                mobileLabel.className = 'nav-download-mobile-label';
+                mobileLabel.textContent = mobileText;
+                const seeAll = document.createElement('span');
+                seeAll.className = 'nav-download-see-all';
+                const labelEl = document.createElement('span');
+                labelEl.className = 'nav-download-label';
+                labelEl.append(document.createTextNode(clean));
+                const sr = document.createElement('span');
+                sr.className = 'nav-sr-only';
+                sr.textContent = ' PDF document';
+                labelEl.append(sr);
+                const iconEl = document.createElement('span');
+                iconEl.className = 'nav-download-icon';
+                iconEl.setAttribute('aria-hidden', 'true');
+                iconEl.innerHTML = '<svg viewBox="0 0 24 24" width="12" height="12" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11"/><path d="m8 11 4 4 4-4"/><path d="M5 20h14"/></svg>';
+                seeAll.append(labelEl, iconEl);
+                a.append(mobileLabel, seeAll);
               }
               if (label.startsWith('more industry')) li.classList.add('nav-link-more');
             });
+
+            // Split Features into two lists like production column-wrapper.
+            if (g.classList.contains('nav-col-split')) splitFeaturesColumn(g);
           });
         } else if (panel.querySelector('li img')) {
           // Promo panel (text links + cards).
@@ -284,6 +377,10 @@ export default async function decorate(block) {
               textGroup.append(li);
             }
           });
+          // 2 columns; rows = ceil(n/2) so Support is 2×2 and Resources is 2×3.
+          const promoRows = Math.max(1, Math.ceil(textGroup.children.length / 2));
+          textGroup.style.setProperty('--promo-rows', String(promoRows));
+          textGroup.dataset.promoRows = String(promoRows);
           panel.append(textGroup, promoGroup);
         }
         // Footer is the <p> after the panel <ul>, not the label <p>.
@@ -299,6 +396,9 @@ export default async function decorate(block) {
         }
       }
     });
+
+    // Reuse Product footer links on Support / Resources when not authored.
+    ensureMegaMenuFooters(navSections);
   }
 
   // Click-away closes panels.
@@ -309,14 +409,58 @@ export default async function decorate(block) {
   // Mark CTAs; split Search/Login into utility row.
   const navTools = nav.querySelector('.nav-tools');
   if (navTools) {
+    const toolsList = navTools.querySelector('ul');
     navTools.querySelectorAll('a').forEach((a) => {
       const label = a.textContent.trim().toLowerCase();
-      if (label === 'book a demo') a.classList.add('nav-cta', 'nav-cta-primary');
+      if (label === 'book a demo' || label === 'request a demo') {
+        a.classList.add('nav-cta', 'nav-cta-primary');
+        a.dataset.labelDesktop = 'Book a demo';
+        a.dataset.labelMobile = 'Request a demo';
+      }
       if (label === 'free tour') a.classList.add('nav-cta', 'nav-cta-secondary');
-      if (label === 'search') a.classList.add('nav-search');
+      if (label === 'search' || label === 'search..') {
+        a.classList.add('nav-search');
+        a.textContent = 'Search..';
+      }
       if (label === 'login') a.classList.add('nav-login');
     });
-    const toolsList = navTools.querySelector('ul');
+
+    // Drawer-only Contact us (production mobile order).
+    if (toolsList && !toolsList.querySelector('.nav-contact-drawer')) {
+      const contactLi = document.createElement('li');
+      contactLi.className = 'nav-contact-drawer';
+      const contact = document.createElement('a');
+      contact.href = '/contact-us/';
+      contact.textContent = 'Contact us';
+      contact.classList.add('nav-cta', 'nav-contact');
+      contactLi.append(contact);
+      toolsList.append(contactLi);
+    }
+
+    const syncToolsForViewport = () => {
+      navTools.querySelectorAll('a[data-label-desktop]').forEach((a) => {
+        a.textContent = isDesktop.matches
+          ? a.dataset.labelDesktop
+          : a.dataset.labelMobile;
+      });
+      if (!toolsList) return;
+      const freeTour = toolsList.querySelector('a.nav-cta-secondary')?.closest('li');
+      const requestDemo = toolsList.querySelector('a.nav-cta-primary')?.closest('li');
+      const contact = toolsList.querySelector('.nav-contact-drawer');
+      if (isDesktop.matches) {
+        // Desktop pills: Book a demo, Free tour.
+        if (requestDemo) toolsList.append(requestDemo);
+        if (freeTour) toolsList.append(freeTour);
+      } else {
+        // Drawer: Free tour, Request a demo, Contact us.
+        if (freeTour) toolsList.append(freeTour);
+        if (requestDemo) toolsList.append(requestDemo);
+        if (contact) toolsList.append(contact);
+      }
+    };
+    syncToolsForViewport();
+    isDesktop.addEventListener('change', syncToolsForViewport);
+
     const utilityItems = [...(toolsList ? toolsList.children : [])]
       .filter((li) => li.querySelector('a.nav-search, a.nav-login'));
     if (utilityItems.length) {

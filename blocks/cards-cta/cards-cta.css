@@ -51,6 +51,12 @@
     text-align: left;
 }
 
+/* Source gives the heading + copy a fixed min-height so every CTA link starts
+   on the same baseline; it is released once the cards stack. */
+.cards-cta .cards-cta-text {
+    display: block;
+}
+
 .cards-cta .cards-cta-body h3 {
     margin: 0 0 16px;
     color: #212021;
@@ -66,10 +72,12 @@
     font-size: 20px;
     line-height: normal;
     font-weight: 300;
-    padding-bottom: 70px;
 }
 
-.cards-cta .cards-cta-body p:last-child {
+/* Direct-child combinator: the CTA <p> is the only p directly in
+   cards-cta-body -- the description paragraph sits nested one level deeper,
+   inside cards-cta-text, so it isn't also matched here as a :last-child. */
+.cards-cta .cards-cta-body > p:last-child {
     margin-top: auto;
     margin-bottom: 0;
     padding-bottom: 0;
@@ -79,7 +87,7 @@
 .cards-cta a.cards-cta-button:any-link {
     display: inline-flex;
     align-items: center;
-    gap: 8px;
+    gap: 10px;
     margin-top: auto;
     color: #14499a;
     font-size: 20px;
@@ -97,15 +105,184 @@
     margin-left: 10px;
 }
 
-@media (width >= 960px) {
+/* Cards stack until desktop, where they sit three-across. */
+@media (width >=960px) {
     .cards-cta {
         flex-flow: row wrap;
         justify-content: space-between;
-        padding-top: 50px;
+        gap: 0;
     }
 
     .cards-cta .cards-cta-panel {
         width: 30%;
         padding: 70px 40px 40px;
+    }
+
+    .cards-cta .cards-cta-text {
+        min-height: 350px;
+    }
+
+    .cards-cta .cards-cta-body p {
+        margin: 0;
+    }
+}
+
+@media (width >=1200px) {
+    .cards-cta .cards-cta-text {
+        min-height: 275px;
+    }
+}
+/* ============================================================
+   Article variation — production `.CTAbox-flex > article`
+   (https://fiixsoftware.com/cmms/ai/). Text-only centered panels with
+   orange gradient CTA pills. Works with or without a parent
+   `.ai-dual-cta` section (that class only supplies the band background).
+   Scoped under `.cards-cta.article` so default / pf-resources cards-cta
+   stay untouched.
+   Mobile-first: stack full-width, sit side-by-side at >= 1200px
+   (production stacks below 1200).
+   ============================================================ */
+
+.cards-cta.article {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    padding-top: 0;
+}
+
+.cards-cta.article .cards-cta-panel {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    width: 100%;
+    padding: 20px;
+    overflow: visible;
+    border-radius: 10px;
+    background-color: #fff;
+    box-shadow: 0 0 10px 0 rgb(0 0 0 / 16%);
+    z-index: auto;
+}
+
+.cards-cta.article .cards-cta-figure {
+    position: static;
+    top: auto;
+    left: auto;
+    height: auto;
+    margin: 0 0 16px;
+}
+
+.cards-cta.article .cards-cta-figure img {
+    width: auto;
+    max-height: 50px;
+    margin: 0 auto;
+}
+
+.cards-cta.article .cards-cta-body {
+    align-items: center;
+    text-align: center;
+}
+
+.cards-cta.article .cards-cta-body h2,
+.cards-cta.article .cards-cta-body h3 {
+    margin: 0 0 20px;
+    color: #212021;
+    font-size: 24px;
+    font-weight: 500;
+    line-height: 1.1;
+    letter-spacing: 0;
+    text-align: center;
+}
+
+.cards-cta.article .cards-cta-body p {
+    margin: 0 0 20px;
+    padding-bottom: 0;
+    color: #212021;
+    font-size: 20px;
+    font-weight: 300;
+    line-height: normal;
+    text-align: center;
+}
+
+.cards-cta.article .cards-cta-body p:last-child {
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+/* Orange gradient pill — production `.RA-BTN.RA-BTN-red`. No arrow. */
+.cards-cta.article a.cards-cta-button:any-link {
+    display: inline-block;
+    align-items: unset;
+    gap: unset;
+    margin-top: 0;
+    padding: 8px 40px;
+    border: 0;
+    border-radius: 5px;
+    background-color: transparent;
+    background-image: linear-gradient(90deg, #cd163f 0%, #f58025 100%);
+    color: #fff;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1.7;
+    text-align: center;
+    text-decoration: none;
+}
+
+.cards-cta.article a.cards-cta-button::after {
+    content: none;
+}
+
+.cards-cta.article a.cards-cta-button:hover,
+.cards-cta.article a.cards-cta-button:focus-visible {
+    color: #fff;
+    text-decoration: none;
+    opacity: 0.92;
+}
+
+.cards-cta.article a.cards-cta-button:hover::after,
+.cards-cta.article a.cards-cta-button:focus-visible::after {
+    margin-left: 0;
+}
+
+@media (width >= 768px) {
+    .cards-cta.article .cards-cta-panel {
+        padding: 50px 40px;
+    }
+
+    .cards-cta.article .cards-cta-body h2,
+    .cards-cta.article .cards-cta-body h3 {
+        font-size: 40px;
+        line-height: 1.1;
+    }
+}
+
+/* Beat default `.cards-cta` @960 row/30% rules until the live side-by-side
+   breakpoint (1200). */
+@media (width >= 960px) {
+    .cards-cta.article {
+        flex-flow: column nowrap;
+        justify-content: flex-start;
+        gap: 30px;
+        padding-top: 0;
+    }
+
+    .cards-cta.article .cards-cta-panel {
+        width: 100%;
+        padding: 50px 40px;
+    }
+}
+
+@media (width >= 1200px) {
+    .cards-cta.article {
+        flex-flow: row nowrap;
+        justify-content: space-between;
+        gap: 100px;
+        padding-top: 0;
+    }
+
+    .cards-cta.article .cards-cta-panel {
+        width: 50%;
+        padding: 50px 80px;
     }
 }

@@ -188,6 +188,7 @@
     background-color: var(--carousel-testimonial-nav-bg);
     transition: opacity 0.2s;
     cursor: pointer;
+    border:0;
 }
 
 .carousel-testimonial .carousel-testimonial-navigation-buttons button:hover,
@@ -238,12 +239,58 @@
    production computed styles at 1440px.
    ============================================================ */
 .carousel-testimonial.case-study {
-    --carousel-testimonial-cs-circle: rgb(60 192 203 / 80%);
+    /* sampled from the source's circle-robins-egg png */
+    --carousel-testimonial-cs-circle: rgb(59 191 203 / 75%);
     --carousel-testimonial-nav-bg: #14499a;
 }
 
+/* Production's `.section6` is a full-bleed light-grey band behind the case
+   study slider. The section here is shared with an unrelated cards-features
+   block above it (an authoring artifact -- production keeps them as separate
+   sections), so the grey can't live on the section itself; bleed it from the
+   wrapper instead, scoped to only fire when it holds a case-study carousel. */
+.carousel-testimonial-wrapper:has(> .carousel-testimonial.case-study) {
+    position: relative;
+    width: 100vw;
+    max-width: 100vw;
+    margin-left: calc(50% - 50vw);
+
+    /* 12px, not 40px: the track adds 28px of its own padding above the card
+       as shadow clearance, so this lands the card on the source's 40px. */
+    padding: 12px 0 80px;
+    background-color: #fff;
+    overflow: hidden;
+}
+
+/* 1256 = the source's 1200px content box plus 28px of slide gutter on each
+   side (shadow clearance that must live on the slide, not the track -- see
+   the slides rule below). */
+.carousel-testimonial-wrapper:has(> .carousel-testimonial.case-study)
+    .carousel-testimonial-slides-container {
+    max-width: 1256px;
+    margin: 0 auto;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 .carousel-testimonial.case-study .carousel-testimonial-slides {
+    /* No horizontal track padding: scroll-snap rests at paddingInlineStart, which
+       would eat side padding and clip the card's left shadow, while clientWidth
+       still counts that padding and lets the next slide's shadow peek on the
+       right. Vertical padding alone clears the top/bottom blur. */
     gap: 0;
+    padding: 28px 0;
+
+    /* Border-box so the JS-pinned height (row + vertical padding) includes the
+       padding rather than stacking it again; otherwise the nav sits ~56px too
+       far below the card versus production's 50px / 30px gaps. */
+    box-sizing: border-box;
+
+    /* Case studies show one slide at a time and vary in height; without this,
+       flex's default stretch sizes every slide -- and the track itself -- to
+       the tallest one, regardless of which is scrolled into view. The block
+       JS pins the track to the active slide's own height instead. */
+    align-items: flex-start;
 }
 
 .carousel-testimonial.case-study .carousel-testimonial-slide {
@@ -251,12 +298,15 @@
      the content div (below), so the slide itself is a plain, unconstrained
      layout box -- it must stay full-width (no max-width here) or its
      allocated track space in the flex carousel shrinks, letting the next
-     slide bleed into view. The centered 1200px cap lives on the row below. */
+     slide bleed into view. The centered 1200px cap lives on the row below.
+     Horizontal padding travels with the snapped slide so the 3px/25px card
+     shadow has room on both sides without a peek of the next slide. */
     flex: 0 0 100%;
+    box-sizing: border-box;
+    padding: 0 28px;
     background: none;
     border-radius: 0;
     box-shadow: none;
-    padding: 0;
     text-align: left;
 }
 
@@ -267,12 +317,15 @@
 .carousel-testimonial.case-study .carousel-testimonial-cs-row {
     display: flex;
     flex-direction: column;
+
+    /* No top margin: the space above the card comes from the grey band's
+       padding, so the two don't stack. */
     max-width: 1200px;
     margin: 0 auto;
     box-sizing: border-box;
     background-color: #fff;
     box-shadow: 3px 3px 25px rgb(0 0 0 / 12%);
-    padding: 24px;
+    padding: 20px;
 }
 
 .carousel-testimonial.case-study .carousel-testimonial-slide-content {
@@ -286,14 +339,16 @@
 }
 
 .carousel-testimonial.case-study .carousel-testimonial-cs-logo {
-    margin: 0 0 20px;
+    margin: 0 0 30px;
     line-height: 0;
 }
 
+/* In-card logo (the source's `figure.mobile`) is smaller than the one that
+   sits over the photo at desktop. */
 .carousel-testimonial.case-study .carousel-testimonial-cs-logo img {
     width: auto;
-    max-width: 160px;
-    max-height: 55px;
+    max-width: 80px;
+    max-height: 44px;
     object-fit: contain;
 }
 
@@ -308,13 +363,19 @@
 .carousel-testimonial.case-study
     .carousel-testimonial-slide-content
     p.carousel-testimonial-cs-title {
-    margin: 0 0 20px;
+    max-width: 100%;
+
+    /* No margin-bottom: the content column is a flex column, so adjacent
+       margins don't collapse the way they would in normal block flow --
+       the quote's own margin-top alone supplies the gap production gets by
+       collapsing this margin against that one. */
+    margin: 0;
     padding-top: 0;
     border-top: 0;
-    font-size: 24px;
+    font-size: 28px;
     font-weight: 600;
     line-height: 1.2;
-    color: var(--carousel-testimonial-ink);
+    color: #414042;
 }
 
 /* An <em> in the title marks the highlighted phrase -- drawn as a
@@ -330,10 +391,10 @@
 .carousel-testimonial.case-study
     .carousel-testimonial-slide-content
     p.carousel-testimonial-cs-quote {
-    margin: 30px 0 10px;
+    margin: 50px 0 10px;
     padding-top: 0;
     border-top: 0;
-    font-size: 18px;
+    font-size: 20px;
     font-weight: 300;
     line-height: 1.5;
     color: var(--carousel-testimonial-ink);
@@ -355,7 +416,7 @@
     font-size: 16px;
     font-weight: 600;
     line-height: 1.3;
-    color: var(--carousel-testimonial-ink);
+    color: #414042;
 }
 
 .carousel-testimonial.case-study
@@ -367,7 +428,7 @@
 }
 
 .carousel-testimonial.case-study .carousel-testimonial-cs-cta a:any-link {
-    font-size: 18px;
+    font-size: 20px;
     font-weight: 700;
     color: #14499a;
     text-decoration: none;
@@ -381,7 +442,7 @@
     .carousel-testimonial-cs-cta
     a:any-link::after {
     content: "→";
-    margin-left: 6px;
+    margin-left: 10px;
 }
 
 /* ---- Case-study photo + decorative circle: desktop only ---- */
@@ -389,17 +450,19 @@
     display: none;
 }
 
-/* ---- Prev/next controls: blue, left-aligned under the card. An explicit
-   width (not max-width) matches the row's 1200px box exactly, so the auto
-   margins center the same box the row centers -- keeping the buttons' left
-   edge flush with the card's left edge -- instead of shrinking to fit the
-   two buttons and centering that smaller box in the full track width. ---- */
+/* ---- Prev/next controls: blue, left-aligned under the card. The width and
+   gutter mirror the slides above so the buttons' left edge lands flush with
+   the card's, instead of shrinking to fit the two buttons and centering that
+   smaller box. The gap to the card is this margin plus the track's 28px
+   bottom padding (the shadow clearance), landing on the source's 30px. ---- */
 .carousel-testimonial.case-study .carousel-testimonial-navigation-buttons {
     justify-content: flex-start;
-    width: 1200px;
+    box-sizing: border-box;
+    width: 1256px;
     max-width: 100%;
     gap: 20px;
-    margin: 30px auto 0;
+    margin: 2px auto 0;
+    padding: 0 28px;
 }
 
 .carousel-testimonial.case-study
@@ -407,6 +470,34 @@
     button {
     width: 30px;
     height: 30px;
+}
+
+/* These controls stay solid: the shared fade would wash them out on click or
+   hover, and they wrap around rather than ever being disabled. Keyboard focus
+   still gets a visible ring instead. */
+.carousel-testimonial.case-study
+    .carousel-testimonial-navigation-buttons
+    button:hover,
+.carousel-testimonial.case-study
+    .carousel-testimonial-navigation-buttons
+    button:focus-visible,
+.carousel-testimonial.case-study
+    .carousel-testimonial-navigation-buttons
+    button:disabled {
+    opacity: 1;
+}
+
+.carousel-testimonial.case-study
+    .carousel-testimonial-navigation-buttons
+    button:hover {
+    background-color: #0f3773;
+}
+
+.carousel-testimonial.case-study
+    .carousel-testimonial-navigation-buttons
+    button:focus-visible {
+    outline: 2px solid #14499a;
+    outline-offset: 3px;
 }
 
 /* The case-study controls use full arrows rather than the chevrons of the
@@ -419,7 +510,7 @@
     height: auto;
     border: 0;
     color: #fff;
-    font-size: 15px;
+    font-size: 20px;
     line-height: 1;
     transform: translate(-50%, -50%);
     left: 50%;
@@ -433,41 +524,12 @@
     left: 50%;
 }
 
-@media (width >= 960px) {
-    /* Only the copy card sits in flow. The media column is anchored to the row's
-     bottom-right so the photo can overlap the card's right edge and hang below
-     it; the row reserves that overhang as bottom padding, because the slides
-     track clips block overflow and nothing may escape it. */
+/* Tablet: the card gains the source's full 60px padding and the title steps up
+   to its desktop size. Still card-only -- production hides the photo through
+   max-width: 960px, so the photo joins only above 960. */
+@media (width >= 768px) {
     .carousel-testimonial.case-study .carousel-testimonial-cs-row {
-        display: block;
-        position: relative;
-        background: none;
-        box-shadow: none;
-        padding: 0 0 100px;
-    }
-
-    .carousel-testimonial.case-study .carousel-testimonial-slide-content {
-        width: 68.5%;
-        min-height: 508px;
-        background-color: #fff;
-        box-shadow: 3px 3px 25px rgb(0 0 0 / 12%);
         padding: 60px;
-        position: relative;
-        z-index: 1;
-    }
-
-    .carousel-testimonial.case-study .carousel-testimonial-cs-media {
-        position: absolute;
-        right: 0;
-        bottom: 50px;
-        width: 33.5%;
-    }
-
-    /* Bottom-anchoring the column keeps the photo put whatever the logo's
-     height, so the logo just centers in the gap above it. */
-    .carousel-testimonial.case-study .carousel-testimonial-cs-logo {
-        margin: 0 0 56px;
-        text-align: center;
     }
 
     .carousel-testimonial.case-study
@@ -481,26 +543,91 @@
         .carousel-testimonial-slide-content
         p.carousel-testimonial-cs-quote {
         max-width: 80%;
-        margin-top: 50px;
-        font-size: 20px;
     }
 
-    .carousel-testimonial.case-study .carousel-testimonial-cs-cta a:any-link {
-        font-size: 20px;
+    /* The source opens the gap under the card up from 30px to 50px once the
+       card is no longer edge-to-edge (again less the 28px track padding). */
+    .carousel-testimonial.case-study .carousel-testimonial-navigation-buttons {
+        margin-top: 22px;
+    }
+}
+
+/* Production uses max-width: 960px for the card-only layout, so the two-column
+   photo layout starts strictly above 960 -- at our 960 breakpoint the UI stays
+   card-only to match. */
+@media (width > 960px) {
+    /* Only the copy card sits in flow. The media column is anchored to the row's
+     bottom-right so the photo can overlap the card's right edge and hang below
+     it; the row reserves that overhang as bottom padding, because the slides
+     track clips block overflow and nothing may escape it.
+     The explicit width matters too: the slide is a column flex container, so a
+     shrink-to-fit row would collapse onto the fixed-width card below and drag
+     the right-anchored photo in with it. */
+    .carousel-testimonial.case-study .carousel-testimonial-cs-row {
+        display: block;
+        position: relative;
+        width: 100%;
+        background: none;
+        box-shadow: none;
+        padding: 0 0 100px;
+    }
+
+    /* Source flex-basis 500px + 60px padding each side = 620px card. */
+    .carousel-testimonial.case-study .carousel-testimonial-slide-content {
+        width: 620px;
+        max-width: 100%;
+        min-height: 508px;
+        background-color: #fff;
+        box-shadow: 3px 3px 25px rgb(0 0 0 / 12%);
+        padding: 60px;
+        position: relative;
+        z-index: 1;
+    }
+
+    .carousel-testimonial.case-study .carousel-testimonial-cs-media {
+        position: absolute;
+        right: 0;
+        bottom: 50px;
+        width: 400px;
+    }
+
+    /* Bottom-anchoring the column keeps the photo put whatever the logo's
+     height, so the logo just centers in the gap above it. */
+    .carousel-testimonial.case-study .carousel-testimonial-cs-logo {
+        margin: 0 0 56px;
+        text-align: center;
+    }
+
+    /* Over the photo the logo is shown at its larger, full size. */
+    .carousel-testimonial.case-study .carousel-testimonial-cs-logo img {
+        max-width: 160px;
+        max-height: 55px;
+    }
+
+    .carousel-testimonial.case-study
+        .carousel-testimonial-slide-content
+        p.carousel-testimonial-cs-quote {
+        max-width: 80%;
     }
 
     /* The controls sit 50px below the card, inside the strip the row reserves for
      the photo overhang. They have to be lifted above the row, or the row's
-     padding covers them and swallows the clicks. */
+     padding covers them and swallows the clicks. With border-box track height,
+     the row's 100px overhang minus the desired 50px gap (less the track's own
+     28px bottom padding already inside that height) is a -78px pull. */
     .carousel-testimonial.case-study .carousel-testimonial-navigation-buttons {
         position: relative;
         z-index: 1;
-        margin-top: -50px;
+        margin-top: -78px;
     }
 
+    /* z-index roots the circle below: its own stacking context keeps the
+       negative-z circle behind the photo but still in front of the grey band,
+       which would otherwise paint over it and hide it entirely. */
     .carousel-testimonial.case-study .carousel-testimonial-cs-photo {
         display: block;
         position: relative;
+        z-index: 0;
         margin: 0;
         line-height: 0;
     }
@@ -537,5 +664,14 @@
         aspect-ratio: 1;
         border-radius: 50%;
         background-color: var(--carousel-testimonial-cs-circle);
+    }
+}
+
+/* Production keeps the 500px flex card through max-width: 1200px; the 700px
+   (820 with padding) card only appears above 1200. Expressed against the row
+   so the photo's fixed 400px overlaps the card's right edge by 20px. */
+@media (width > 1200px) {
+    .carousel-testimonial.case-study .carousel-testimonial-slide-content {
+        width: calc(100% - 380px);
     }
 }
