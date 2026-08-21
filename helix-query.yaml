@@ -24,3 +24,28 @@ indices:
       robots:
         select: head > meta[name="robots"]
         value: attribute(el, "content")
+  case-studies:
+    include:
+      - /resource-center/case-studies/**
+    exclude:
+      - /resource-center/case-studies
+    target: /case-studies-index.json
+    properties:
+      title:
+        select: head > meta[property="og:title"]
+        value: attribute(el, "content")
+      description:
+        select: head > meta[name="description"]
+        value: attribute(el, "content")
+      image:
+        select: head > meta[name="image"]
+        value: attribute(el, "content")
+      cardTitle:
+        select: head > meta[name="cardtitle"]
+        value: attribute(el, "content")
+      category:
+        select: head > meta[name="category"]
+        value: attribute(el, "content")
+      industry:
+        select: head > meta[name="industry"]
+        value: attribute(el, "content")
