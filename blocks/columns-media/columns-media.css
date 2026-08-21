@@ -187,10 +187,10 @@ main
     justify-content: space-evenly;
 }
 
-/* purple's accent graphic is a single logo-grid image, not a
+/* purple/navy's accent graphic is a single logo-grid image, not a
    shape + screenshot pair -- no overflow trick, just contain it with
    padding, same as the other colours get from the shared rule below. */
-.columns-media.right.purple .columns-media-img-col {
+.columns-media.right:is(.purple, .navy) .columns-media-img-col {
     padding: 24px;
     background: var(--media-accent);
     margin-bottom: 30px;
@@ -225,7 +225,10 @@ main
     width: 100%;
 }
 
-.columns-media.right.purple .columns-media-img-col .columns-media-img-1 img {
+.columns-media.right:is(.purple, .navy)
+    .columns-media-img-col
+    .columns-media-img-1
+    img {
     width: 100%;
 }
 
@@ -271,6 +274,10 @@ main
 
 .columns-media.left.orange .columns-media-img-col .columns-media-img-2 img {
     max-width: 260px;
+}
+
+.columns-media.teal.left .columns-media-img-col .columns-media-img-1 img {
+    position: relative;
 }
 
 @media (width >= 768px) {
@@ -370,8 +377,12 @@ main
         justify-content: flex-start;
     }
 
-    .columns-media.right.purple .columns-media-img-col {
+    .columns-media.right:is(.purple, .navy) .columns-media-img-col {
         justify-content: end;
+    }
+
+    .columns-media.right.navy .columns-media-img-col {
+        justify-content: flex-start;
     }
 
     .columns-media:is(.gold, .teal, .cyan, .purple, .orange, .navy):is(
@@ -482,6 +493,10 @@ main
         padding-left: 100px;
     }
 
+    .columns-media.right.navy .columns-media-img-col .columns-media-img-1 img {
+        padding-left: 100px;
+    }
+
     .columns-media.left.cyan .columns-media-img-col .columns-media-img-1 img {
         position: absolute;
         z-index: 1;
@@ -497,21 +512,6 @@ main
         z-index: 2;
         max-width: 550px;
         margin-bottom: -7px;
-    }
-
-    /* TODO: right.purple has no .columns-media-img-1 rule -- its decorative
-       shape image has no placement/size override yet (falls back to the
-       block default 100%-width image). Confirm against production and add
-       one, matching the pattern above. */
-    .columns-media.right.purple
-        .columns-media-img-col
-        .columns-media-img-2
-        img {
-        position: relative;
-        z-index: 2;
-        width: 370px;
-        margin-bottom: -7px;
-        padding-left: 100px;
     }
 
     .columns-media.left.orange .columns-media-img-col .columns-media-img-1 img {
@@ -530,6 +530,11 @@ main
         max-width: 370px;
         margin-bottom: -7px;
         margin-right: 40px;
+    }
+
+    .columns-media.left.teal > div > .columns-media-img-col,
+    .columns-media.right.navy > div > .columns-media-img-col {
+        padding-top: 50px;
     }
 }
 
@@ -571,6 +576,10 @@ main
         .columns-media-text-col
         h2 {
         max-width: 540px;
+    }
+
+    .columns-media.navy.right .columns-media-text-col h2 {
+        max-width: 535px;
     }
 
     .columns-media.right:is(.gold, .teal, .cyan, .purple, .orange, .navy)
@@ -741,6 +750,21 @@ div.columns-media.info-flex > div > .columns-media-img-col {
         flex: 0 0 40%;
         width: 40%;
         max-width: 40%;
+    }
+
+    .columns-media.left.teal .columns-media-img-col .columns-media-img-1 img,
+    .columns-media.right:is(.purple, .navy)
+        .columns-media-img-col
+        .columns-media-img-1
+        img {
+        position: relative;
+        width: 450px;
+        padding-right: 100px;
+    }
+
+    .columns-media.left.teal > div,
+    .columns-media.right:is(.purple, .navy) > div {
+        align-items: center;
     }
 }
 
