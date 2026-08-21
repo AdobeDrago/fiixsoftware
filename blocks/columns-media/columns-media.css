@@ -752,6 +752,10 @@ div.columns-media.info-flex > div > .columns-media-img-col {
    Values from source (fiixsoftware.com/customers header.header-height:
    1200px container, ~500px band, #f3f7fa, H1 64/700, H2 20/300, 370px image).
    ============================================================ */
+.columns-media-wrapper:has(> .columns-media.banner) {
+    max-width: none;
+}
+
 .columns-media.banner {
     background-color: #f3f7fa;
 }
@@ -799,15 +803,22 @@ div.columns-media.info-flex > div > .columns-media-img-col {
         padding: 48px 32px;
     }
 
-    /* Text column takes the larger share; the portrait sits in a fixed-width
-       column so it renders at its natural size like the source. */
-    .columns-media.banner .columns-media-text-col {
-        flex: 1 1 auto;
+    .columns-media.banner .columns-media-text-col,
+    .columns-media.banner .columns-media-img-col {
+        flex: 1 1 0;
+        max-width: none;
     }
 
-    .columns-media.banner .columns-media-img-col {
-        flex: 0 0 370px;
+    /* Equal-width columns give the image more room than its 370px column
+       used to; cap it here so it keeps its original rendered size instead of
+       scaling up and growing the row's height. The image is a block element
+       (see the shared `.columns-media-img-col img { display: block }` rule),
+       so margin-left: auto -- not the column's text-align -- is what pushes
+       it to the row's outer (right) edge instead of floating centred in the
+       column's now-larger extra space. */
+    .columns-media.banner .columns-media-img-col img {
         max-width: 370px;
+        margin-left: auto;
     }
 
     .columns-media.banner .columns-media-text-col h1 {
