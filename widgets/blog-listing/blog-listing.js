@@ -138,7 +138,10 @@ export default async function decorate(widget) {
   populateCategories(select);
 
   let entries = [];
-  const indexUrl = widget.dataset.index || '/query-index.json';
+  // this project has no real `/query-index.json` -- default straight to the
+  // widget's own index rather than probing a path that's guaranteed to 404
+  const fallbackIndex = `${window.hlx?.codeBasePath || ''}/widgets/blog-listing/blog-listing.json`;
+  const indexUrl = widget.dataset.index || fallbackIndex;
   try {
     entries = await loadIndex(indexUrl);
   } catch (error) {
