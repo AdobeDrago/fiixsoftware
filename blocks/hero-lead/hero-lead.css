@@ -5,408 +5,414 @@
    product screenshot. Values extracted from fiixsoftware.com.
    ============================================================ */
 
+.hero-lead-container:has(.video-without-form) .hero-lead-wrapper,
+main > .section.fc-hero > .hero-lead-wrapper {
+    max-width: none;
+    padding: 0;
+}
+
 /* Let the hero span the section width; center its own inner grid. */
-.hero-lead-container .hero-lead-wrapper {
-  max-width: unset;
-  padding: 0;
+main .pf-hero.section.hero-lead-container .hero-lead-wrapper {
+    max-width: unset;
+    padding: 0;
 }
 
 .hero-lead {
-  --hero-lead-ink: #212021;
-  --hero-lead-cta-bg: #14499a;
-  --hero-lead-cta-bg-hover: #0f3877;
+    --hero-lead-ink: #212021;
+    --hero-lead-cta-bg: #14499a;
+    --hero-lead-cta-bg-hover: #0f3877;
 
-  display: flex;
-  flex-direction: column;
-  gap: 32px;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 32px 24px;
-  color: var(--hero-lead-ink);
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 32px 24px;
+    color: var(--hero-lead-ink);
 }
 
 /* rows */
 .hero-lead > div {
-  margin: 0;
+    margin: 0;
 }
 
 /* --- content column ------------------------------------------------ */
 .hero-lead .hero-lead-content {
-  max-width: none;
-  font-family: sofia-pro, sans-serif;
+    max-width: none;
+    font-family: sofia-pro, sans-serif;
 }
 
 .hero-lead .hero-lead-content h1 {
-  margin: 0 auto 20px;
-  max-width: 96%;
-  font-family: sofia-pro, sans-serif;
-  font-size: 32px;
-  font-weight: 700;
-  line-height: 1.1;
-  text-align: center;
-  color: var(--hero-lead-ink);
+    margin: 0 auto 20px;
+    max-width: 96%;
+    font-family: sofia-pro, sans-serif;
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 1.1;
+    text-align: center;
+    color: var(--hero-lead-ink);
 }
 
 .hero-lead .hero-lead-content h2 {
-  margin: 0 auto 20px;
-  max-width: 96%;
-  padding-bottom: 10px;
-  font-family: sofia-pro, sans-serif;
-  font-size: 20px;
-  font-weight: 300;
-  line-height: 1.1;
-  text-align: center;
-  color: var(--hero-lead-ink);
+    margin: 0 auto 20px;
+    max-width: 96%;
+    padding-bottom: 10px;
+    font-family: sofia-pro, sans-serif;
+    font-size: 20px;
+    font-weight: 300;
+    line-height: 1.1;
+    text-align: center;
+    color: var(--hero-lead-ink);
 }
 
 /* --- email-capture form ------------------------------------------- */
 .hero-lead .hero-lead-form {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 16px;
-  margin: 20px 0;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 16px;
+    margin: 20px 0;
 }
 
 .hero-lead .hero-lead-input {
-  box-sizing: border-box;
-  width: 300px;
-  max-width: 100%;
-  height: 38px;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  background-color: #fff;
-  color: #000;
-  font-family: var(--body-font-family);
-  font-size: 16px;
-  line-height: 1.2;
+    box-sizing: border-box;
+    width: 300px;
+    max-width: 100%;
+    height: 38px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #fff;
+    color: #000;
+    font-family: var(--body-font-family);
+    font-size: 16px;
+    line-height: 1.2;
 }
 
 .hero-lead .hero-lead-cta {
-  box-sizing: border-box;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0;
-  padding: 10px 20px;
-  border: 0;
-  border-radius: 40px;
-  background-color: var(--hero-lead-cta-bg);
-  color: #fff;
-  font-family: var(--body-font-family);
-  font-size: 16px;
-  font-weight: 600;
-  line-height: 1.2;
-  white-space: nowrap;
-  cursor: pointer;
+    box-sizing: border-box;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    padding: 10px 20px;
+    border: 0;
+    border-radius: 40px;
+    background-color: var(--hero-lead-cta-bg);
+    color: #fff;
+    font-family: var(--body-font-family);
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.2;
+    white-space: nowrap;
+    cursor: pointer;
 }
 
 .hero-lead .hero-lead-cta:hover,
 .hero-lead .hero-lead-cta:focus-visible {
-  background-color: var(--hero-lead-cta-bg-hover);
+    background-color: var(--hero-lead-cta-bg-hover);
 }
 
 /* "Request a demo": a filled blue pill on mobile/tablet (desktop reverts
    it to a plain text link in the desktop media query below). The paragraph
    is centered so the inline-block button sits centered in the column. */
 .hero-lead .hero-lead-content > p:not(.hero-lead-support):has(a) {
-  text-align: center;
+    text-align: center;
 }
 
 .hero-lead .hero-lead-content > p:not(.hero-lead-support) a {
-  display: inline-block;
-  padding: 5px 17px;
-  border-radius: 40px;
-  background-color: var(--hero-lead-cta-bg);
-  color: #fff;
-  font-family: sofia-pro, sans-serif;
-  font-size: 16px;
-  font-weight: 600;
-  line-height: 27.2px;
-  text-align: center;
+    display: inline-block;
+    padding: 5px 17px;
+    border-radius: 40px;
+    background-color: var(--hero-lead-cta-bg);
+    color: #fff;
+    font-family: sofia-pro, sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 27.2px;
+    text-align: center;
 }
 
 /* --- supporting line ---------------------------------------------- */
 .hero-lead .hero-lead-support {
-  margin: 20px 0;
-  font-family: sofia-pro, sans-serif;
-  font-size: 14px;
-  font-weight: 300;
-  line-height: 1.7;
-  text-align: center;
-  color: var(--hero-lead-ink);
+    margin: 20px 0;
+    font-family: sofia-pro, sans-serif;
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 1.7;
+    text-align: center;
+    color: var(--hero-lead-ink);
 }
 
 /* --- stat metrics -------------------------------------------------- */
 .hero-lead .hero-lead-stats {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-  margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin: 0;
 }
 
 .hero-lead .hero-lead-stat {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  width: fit-content;
-  padding: 10px 15px;
-  border-radius: 8px;
-  background-color: var(--light-color);
-  max-width: 150px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: fit-content;
+    padding: 10px 15px;
+    border-radius: 8px;
+    background-color: var(--light-color);
+    max-width: 150px;
 }
 
 .hero-lead .hero-lead-stat-arrow {
-  flex: 0 0 auto;
-  position: relative;
-  width: 16px;
-  height: 16px;
-  border: 1.5px solid var(--fiix-green);
-  border-radius: 50%;
+    flex: 0 0 auto;
+    position: relative;
+    width: 16px;
+    height: 16px;
+    border: 1.5px solid var(--fiix-green);
+    border-radius: 50%;
 }
 
 /* down arrow drawn with borders, centered in the green circle */
 .hero-lead .hero-lead-stat-arrow::before {
-  content: "";
-  position: absolute;
-  top: 3px;
-  left: 50%;
-  width: 1.5px;
-  height: 5px;
-  background-color: var(--fiix-green);
-  transform: translateX(-50%);
+    content: "";
+    position: absolute;
+    top: 3px;
+    left: 50%;
+    width: 1.5px;
+    height: 5px;
+    background-color: var(--fiix-green);
+    transform: translateX(-50%);
 }
 
 .hero-lead .hero-lead-stat-arrow::after {
-  content: "";
-  position: absolute;
-  top: 5px;
-  left: 50%;
-  width: 5px;
-  height: 5px;
-  border-right: 1.5px solid var(--fiix-green);
-  border-bottom: 1.5px solid var(--fiix-green);
-  transform: translateX(-50%) rotate(45deg);
+    content: "";
+    position: absolute;
+    top: 5px;
+    left: 50%;
+    width: 5px;
+    height: 5px;
+    border-right: 1.5px solid var(--fiix-green);
+    border-bottom: 1.5px solid var(--fiix-green);
+    transform: translateX(-50%) rotate(45deg);
 }
 
 .hero-lead .hero-lead-stat-label {
-  margin: 0;
-  font-family: sofia-pro, sans-serif;
-  font-size: 14px;
-  font-weight: 300;
-  line-height: 1.3;
-  text-align: left;
-  color: var(--hero-lead-ink);
+    margin: 0;
+    font-family: sofia-pro, sans-serif;
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 1.3;
+    text-align: left;
+    color: var(--hero-lead-ink);
 }
 
 .hero-lead .hero-lead-stat-label strong {
-  font-weight: 700;
+    font-weight: 700;
 }
 
 /* --- product image ------------------------------------------------- */
 .hero-lead .hero-lead-media {
-  margin: 0;
+    margin: 0;
 }
 
 .hero-lead .hero-lead-media picture {
-  display: block;
+    display: block;
 }
 
 .hero-lead .hero-lead-media img,
 .hero-lead .hero-lead-media .hero-lead-video {
-  display: block;
-  width: 100%;
-  height: auto;
-  object-fit: contain;
+    display: block;
+    width: 100%;
+    height: auto;
+    object-fit: contain;
 }
 
 /* --- layered media (mobile-cmms app promo): screenshot + decorative
    graphics. Positions match live `#mobile-product .header-video`. --- */
 .hero-lead .hero-lead-media-layers {
-  position: relative;
-  height: 250px;
-  overflow: hidden;
+    position: relative;
+    height: 250px;
+    overflow: hidden;
 }
 
 .hero-lead .hero-lead-media-layers picture img {
-  display: block;
-  width: 100%;
-  max-width: none;
-  height: auto;
-  margin: 0;
+    display: block;
+    width: 100%;
+    max-width: none;
+    height: auto;
+    margin: 0;
 }
 
 /* the authored app screenshot: the crop's subject below 960, replaced by the
    desktop composition above it (live `.mobile-gif`) */
 .hero-lead .hero-lead-media-hero {
-  position: absolute;
-  z-index: 1;
-  bottom: 0;
-  left: 50%;
-  width: 280px;
-  transform: translateX(-50%);
+    position: absolute;
+    z-index: 1;
+    bottom: 0;
+    left: 50%;
+    width: 280px;
+    transform: translateX(-50%);
 }
 
 .hero-lead .hero-lead-media-shape {
-  position: absolute;
-  z-index: 0;
-  bottom: -5%;
-  left: 10%;
-  width: 50%;
+    position: absolute;
+    z-index: 0;
+    bottom: -5%;
+    left: 10%;
+    width: 50%;
 }
 
 .hero-lead .hero-lead-media-accent {
-  position: absolute;
-  z-index: 2;
-  top: 200px;
-  right: 10%;
-  width: 20px;
+    position: absolute;
+    z-index: 2;
+    top: 200px;
+    right: 10%;
+    width: 20px;
 }
 
 @media (width >= 768px) {
-  .hero-lead .hero-lead-media-layers {
-    height: 350px;
-  }
+    .hero-lead .hero-lead-media-layers {
+        height: 350px;
+    }
 
-  .hero-lead .hero-lead-media-hero {
-    bottom: -70px;
-    width: 500px;
-  }
+    .hero-lead .hero-lead-media-hero {
+        bottom: -70px;
+        width: 500px;
+    }
 }
 
 @media (width >= 960px) {
-  .hero-lead .hero-lead-media-layers {
-    width: 600px;
-    height: 850px;
-    overflow: visible;
-  }
+    .hero-lead .hero-lead-media-layers {
+        width: 600px;
+        height: 850px;
+        overflow: visible;
+    }
 
-  /* The desktop composition adds two graphics the document doesn't carry (the
+    /* The desktop composition adds two graphics the document doesn't carry (the
      engineer cut-out and the animated app screen). They're decorative, so they
      ride on the layer group's pseudo elements rather than being authored. */
-  .hero-lead .hero-lead-media-layers::before,
-  .hero-lead .hero-lead-media-layers::after {
-    content: "";
-    position: absolute;
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: contain;
-  }
+    .hero-lead .hero-lead-media-layers::before,
+    .hero-lead .hero-lead-media-layers::after {
+        content: "";
+        position: absolute;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: contain;
+    }
 
-  /* engineer — live `height: 500px; left: 70px; bottom: 110px` */
-  .hero-lead .hero-lead-media-layers::before {
-    z-index: 1;
-    top: 240px;
-    left: 70px;
-    width: 371px;
-    height: 500px;
-    background-image: url("https://fiixsoftware.com/wp-content/uploads/2024/09/MobileLPHeroengineer@2x.png");
-  }
+    /* engineer — live `height: 500px; left: 70px; bottom: 110px` */
+    .hero-lead .hero-lead-media-layers::before {
+        z-index: 1;
+        top: 240px;
+        left: 70px;
+        width: 371px;
+        height: 500px;
+        background-image: url("https://fiixsoftware.com/wp-content/uploads/2024/09/MobileLPHeroengineer@2x.png");
+    }
 
-  /* app screen — live `width: 400px; left: 200px; bottom: 190px` */
-  .hero-lead .hero-lead-media-layers::after {
-    z-index: 0;
-    top: 55px;
-    left: 200px;
-    width: 400px;
-    height: 605px;
-    background-image: url("https://fiixsoftware.com/wp-content/uploads/2024/09/MobileLPHero@2x.gif");
-  }
+    /* app screen — live `width: 400px; left: 200px; bottom: 190px` */
+    .hero-lead .hero-lead-media-layers::after {
+        z-index: 0;
+        top: 55px;
+        left: 200px;
+        width: 400px;
+        height: 605px;
+        background-image: url("https://fiixsoftware.com/wp-content/uploads/2024/09/MobileLPHero@2x.gif");
+    }
 
-  .hero-lead .hero-lead-media picture.hero-lead-media-hero {
-    display: none;
-  }
+    .hero-lead .hero-lead-media picture.hero-lead-media-hero {
+        display: none;
+    }
 
-  .hero-lead .hero-lead-media-shape {
-    top: 450px;
-    bottom: auto;
-    left: 0;
-    width: 400px;
-  }
+    .hero-lead .hero-lead-media-shape {
+        top: 450px;
+        bottom: auto;
+        left: 0;
+        width: 400px;
+    }
 
-  .hero-lead .hero-lead-media-accent {
-    top: 200px;
-    right: auto;
-    left: 70px;
-    width: 45px;
-  }
+    .hero-lead .hero-lead-media-accent {
+        top: 200px;
+        right: auto;
+        left: 70px;
+        width: 45px;
+    }
 }
 
 @media (width >= 1200px) {
-  .hero-lead .hero-lead-media-layers {
-    width: 800px;
-  }
+    .hero-lead .hero-lead-media-layers {
+        width: 800px;
+    }
 
-  /* live's wide composition — `bottom: 120px` for the engineer and `bottom:
+    /* live's wide composition — `bottom: 120px` for the engineer and `bottom:
      10%` for the hexagon, both clearing the shorter hero */
-  .hero-lead .hero-lead-media-layers::before {
-    top: 230px;
-    left: 200px;
-  }
+    .hero-lead .hero-lead-media-layers::before {
+        top: 230px;
+        left: 200px;
+    }
 
-  .hero-lead .hero-lead-media-layers::after {
-    left: 380px;
-  }
+    .hero-lead .hero-lead-media-layers::after {
+        left: 380px;
+    }
 
-  .hero-lead .hero-lead-media-shape {
-    top: 318px;
-    left: 100px;
-    width: 500px;
-  }
+    .hero-lead .hero-lead-media-shape {
+        top: 318px;
+        left: 100px;
+        width: 500px;
+    }
 
-  .hero-lead .hero-lead-media-accent {
-    left: 200px;
-  }
+    .hero-lead .hero-lead-media-accent {
+        left: 200px;
+    }
 }
 
 .hero-lead .hero-lead-media-content {
-  margin-top: 20px;
+    margin-top: 20px;
 }
 
 .hero-lead .hero-lead-app-caption {
-  display: block;
-  font-size: 14px;
-  font-weight: 700;
-  line-height: 1.4;
-  color: var(--hero-lead-ink);
-  margin: 0 0 10px;
+    display: block;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1.4;
+    color: var(--hero-lead-ink);
+    margin: 0 0 10px;
 }
 
 .hero-lead .hero-lead-app-badges {
-  display: flex;
-  flex-wrap: nowrap;
-  align-items: center;
-  gap: 20px;
-  margin: 0;
-  width: max-content;
-  max-width: 100%;
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: 20px;
+    margin: 0;
+    width: max-content;
+    max-width: 100%;
 }
 
 .hero-lead .hero-lead-app-badges br {
-  display: none;
+    display: none;
 }
 
 /* stylelint-disable no-descending-specificity */
 .hero-lead .hero-lead-app-badges a,
 .hero-lead .hero-lead-app-badges picture {
-  display: block;
-  flex: 0 0 auto;
+    display: block;
+    flex: 0 0 auto;
 }
 
 .hero-lead .hero-lead-app-badges img {
-  display: block;
-  width: auto;
-  max-width: none;
-  max-height: none;
-  height: 30px;
-  margin-left: 0;
+    display: block;
+    width: auto;
+    max-width: none;
+    max-height: none;
+    height: 30px;
+    margin-left: 0;
 }
 
 @media (width >= 960px) {
-  .hero-lead .hero-lead-app-badges img {
-    height: 35px;
-  }
+    .hero-lead .hero-lead-app-badges img {
+        height: 35px;
+    }
 }
 /* stylelint-enable no-descending-specificity */
 
@@ -417,17 +423,11 @@
    column's <img> for a <video> (see .hero-lead-media rules above).
    ============================================================ */
 .hero-lead.video-without-form {
-  display: block;
-  max-width: none;
-  margin: 0;
-  padding: 0;
-  background-color: var(--light-color); /* #f7f9fc */
-}
-
-.hero-lead-container:has(.video-without-form) .hero-lead-wrapper,
-main > .section.fc-hero > .hero-lead-wrapper {
-  max-width: none;
-  padding: 0;
+    display: block;
+    max-width: none;
+    margin: 0;
+    padding: 0;
+    background-color: var(--light-color); /* #f7f9fc */
 }
 
 /* media row -> purple panel. Below desktop it's a fixed-height, full-bleed
@@ -436,339 +436,339 @@ main > .section.fc-hero > .hero-lead-wrapper {
    down restores the uncropped `contain` treatment once there's room for the
    whole shot. */
 .hero-lead.video-without-form > div:first-child {
-  position: relative;
-  overflow: hidden;
-  height: 350px;
-  margin: 0;
-  padding: 0;
-  background-color: #6d68ea;
+    position: relative;
+    overflow: hidden;
+    height: 350px;
+    margin: 0;
+    padding: 0;
+    background-color: #6d68ea;
 }
 
 .hero-lead.video-without-form > div:first-child .hero-lead-media {
-  height: 100%;
+    height: 100%;
 }
 
 .hero-lead.video-without-form > div:first-child picture {
-  position: absolute;
-  bottom: -50px;
-  left: 60%;
-  display: block;
-  width: 100%;
-  max-width: none;
-  height: auto;
-  margin: 0;
-  transform: translateX(-50%);
+    position: absolute;
+    bottom: -50px;
+    left: 60%;
+    display: block;
+    width: 100%;
+    max-width: none;
+    height: auto;
+    margin: 0;
+    transform: translateX(-50%);
 }
 
 .hero-lead.video-without-form > div:first-child img {
-  display: block;
-  width: 100%;
-  height: auto;
-  object-fit: contain;
+    display: block;
+    width: 100%;
+    height: auto;
+    object-fit: contain;
 }
 
 /* copy row */
 .hero-lead.video-without-form > div:last-child {
-  box-sizing: border-box;
-  max-width: 1264px;
-  margin: 0 auto;
-  padding: 40px 20px;
+    box-sizing: border-box;
+    max-width: 1264px;
+    margin: 0 auto;
+    padding: 40px 20px;
 }
 
 .hero-lead.video-without-form > div:last-child > div {
-  width: 100%;
-  max-width: none;
-  margin: 0;
+    width: 100%;
+    max-width: none;
+    margin: 0;
 }
 
 /* eyebrow */
 .hero-lead.video-without-form h1 {
-  margin: 0 0 20px;
-  max-width: none;
-  font-size: 12px;
-  font-weight: 500;
-  line-height: 1.1;
-  text-align: left;
-  text-transform: uppercase;
-  color: var(--text-color);
+    margin: 0 0 20px;
+    max-width: none;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 1.1;
+    text-align: left;
+    text-transform: uppercase;
+    color: var(--text-color);
 }
 
 /* headline */
 .hero-lead.video-without-form h2 {
-  margin: 0 0 30px;
-  max-width: none;
-  padding: 0;
-  font-size: 30px;
-  font-weight: 700;
-  line-height: 30px;
-  letter-spacing: 0;
-  text-align: left;
-  color: var(--text-color);
+    margin: 0 0 30px;
+    max-width: none;
+    padding: 0;
+    font-size: 30px;
+    font-weight: 700;
+    line-height: 30px;
+    letter-spacing: 0;
+    text-align: left;
+    color: var(--text-color);
 }
 
 /* stylelint-disable-next-line no-descending-specificity */
 .hero-lead.video-without-form p {
-  margin: 0 0 20px;
-  font-size: 20px;
-  font-weight: 300;
-  line-height: normal;
-  text-align: left;
-  color: var(--text-color);
+    margin: 0 0 20px;
+    font-size: 20px;
+    font-weight: 300;
+    line-height: normal;
+    text-align: left;
+    color: var(--text-color);
 }
 
 /* CTA — a plain bold dark-blue text link with a trailing arrow, not a pill. */
 .hero-lead.video-without-form p.button-container {
-  margin: 40px 0 0;
-  text-align: left;
+    margin: 40px 0 0;
+    text-align: left;
 }
 
 /* stylelint-disable no-descending-specificity */
 .hero-lead.video-without-form a.button:any-link,
 .hero-lead.video-without-form a:any-link {
-  position: relative;
-  display: inline;
-  padding: 0;
-  border: 0;
-  border-radius: 0;
-  background: transparent;
-  color: #14499a;
-  font-size: 20px;
-  font-weight: 700;
-  line-height: 1.3;
-  text-align: left;
-  text-decoration: none;
-  white-space: normal;
+    position: relative;
+    display: inline;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    color: #14499a;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 1.3;
+    text-align: left;
+    text-decoration: none;
+    white-space: normal;
 }
 
 .hero-lead.video-without-form a:any-link::after {
-  content: '\2192';
-  position: absolute;
-  padding-left: 10px;
-  font-weight: 700;
+    content: "\2192";
+    position: absolute;
+    padding-left: 10px;
+    font-weight: 700;
 }
 
 .hero-lead.video-without-form a:hover {
-  color: var(--link-hover-color);
-  text-decoration: none;
+    color: var(--link-hover-color);
+    text-decoration: none;
 }
 
 /* Authored "Hero video" file link — never shown in the purple panel. */
 .hero-lead.video-without-form > div:first-child a {
-  display: none;
+    display: none;
 }
 
 /* stylelint-enable no-descending-specificity */
 
 /* --- tablet: wider column, headings left-aligned, button still filled -- */
 @media (width >= 768px) {
-  .hero-lead .hero-lead-content h1 {
-    font-size: 48px;
-    text-align: left;
-  }
+    .hero-lead .hero-lead-content h1 {
+        font-size: 48px;
+        text-align: left;
+    }
 
-  .hero-lead .hero-lead-content h2 {
-    text-align: left;
-  }
+    .hero-lead .hero-lead-content h2 {
+        text-align: left;
+    }
 
-  .hero-lead .hero-lead-support {
-    text-align: left;
-  }
+    .hero-lead .hero-lead-support {
+        text-align: left;
+    }
 
-  .hero-lead.video-without-form > div:first-child picture {
-    bottom: -200px;
-    left: 50%;
-    width: 500px;
-  }
+    .hero-lead.video-without-form > div:first-child picture {
+        bottom: -200px;
+        left: 50%;
+        width: 500px;
+    }
 
-  .hero-lead.video-without-form h1 {
-    margin-bottom: 40px;
-    font-size: 20px;
-  }
+    .hero-lead.video-without-form h1 {
+        margin-bottom: 40px;
+        font-size: 20px;
+    }
 }
 
 /* --- desktop: two columns side by side ----------------------------- */
 @media (width >= 960px) {
-  .hero-lead {
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    gap: 40px;
-    padding: 48px 32px;
-  }
+    .hero-lead {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        gap: 40px;
+        padding: 48px 32px;
+    }
 
-  .hero-lead > div {
-    margin: 0;
-  }
+    .hero-lead > div {
+        margin: 0;
+    }
 
-  /* the flex items are the two authored rows (each holds one cell);
+    /* the flex items are the two authored rows (each holds one cell);
      row holding the content sits on the left. Scoped off the `video` variant,
      which lays its rows out as grid columns (below) instead -- otherwise this
      max-width: 40% leaks in and clamps that grid column far below its track. */
-  .hero-lead:not(.video-without-form) > div:has(.hero-lead-content) {
-    display: flex;
-    order: 1;
-    flex: 1 1 600px;
-  }
+    .hero-lead:not(.video-without-form) > div:has(.hero-lead-content) {
+        display: flex;
+        order: 1;
+        flex: 1 1 600px;
+    }
 
-  /* row holding the product screenshot sits on the right */
-  .hero-lead:not(.video-without-form) > div:has(.hero-lead-media) {
-    display: flex;
-    order: 2;
-    flex: 0 0 420px;
-    max-width: 40%;
-    justify-content: flex-end;
-  }
+    /* row holding the product screenshot sits on the right */
+    .hero-lead:not(.video-without-form) > div:has(.hero-lead-media) {
+        display: flex;
+        order: 2;
+        flex: 0 0 420px;
+        max-width: 40%;
+        justify-content: flex-end;
+    }
 
-  .hero-lead .hero-lead-content {
-    flex: 1 1 auto;
-  }
+    .hero-lead .hero-lead-content {
+        flex: 1 1 auto;
+    }
 
-  .hero-lead .hero-lead-content h1 {
-    font-size: 48px;
-  }
+    .hero-lead .hero-lead-content h1 {
+        font-size: 48px;
+    }
 
-  /* desktop: "Request a demo" reverts to a plain understated text link */
-  .hero-lead .hero-lead-content > p:not(.hero-lead-support):has(a) {
-    text-align: left;
-  }
+    /* desktop: "Request a demo" reverts to a plain understated text link */
+    .hero-lead .hero-lead-content > p:not(.hero-lead-support):has(a) {
+        text-align: left;
+    }
 
-  .hero-lead .hero-lead-content > p:not(.hero-lead-support) a {
-    display: inline;
-    padding: 0;
-    border-radius: 0;
-    background-color: transparent;
-    color: var(--fiix-blue);
-    font-weight: 400;
-    line-height: 1.6;
-    text-align: left;
-  }
+    .hero-lead .hero-lead-content > p:not(.hero-lead-support) a {
+        display: inline;
+        padding: 0;
+        border-radius: 0;
+        background-color: transparent;
+        color: var(--fiix-blue);
+        font-weight: 400;
+        line-height: 1.6;
+        text-align: left;
+    }
 
-  .hero-lead .hero-lead-media {
-    width: 100%;
-  }
+    .hero-lead .hero-lead-media {
+        width: 100%;
+    }
 
-  .hero-lead .hero-lead-media img,
-  .hero-lead .hero-lead-media .hero-lead-video {
-    max-width: 475px;
-    width: 100%;
-    margin: 0 auto;
-  }
+    .hero-lead .hero-lead-media img,
+    .hero-lead .hero-lead-media .hero-lead-video {
+        max-width: 475px;
+        width: 100%;
+        margin: 0 auto;
+    }
 
-  /* Keep the three stat metrics on a single row like production: let each chip
+    /* Keep the three stat metrics on a single row like production: let each chip
      shrink to share the content column (labels wrap to two lines) instead of
      the third chip wrapping onto a second row (WCT-HOME HP-1). */
-  .hero-lead .hero-lead-stats {
-    flex-wrap: nowrap;
-  }
+    .hero-lead .hero-lead-stats {
+        flex-wrap: nowrap;
+    }
 
-  .hero-lead .hero-lead-stat {
-    flex: 1 1 0;
-    min-width: 0;
-  }
+    .hero-lead .hero-lead-stat {
+        flex: 1 1 0;
+        min-width: 0;
+    }
 
-  /* `video` variant: two equal columns, copy left / purple media panel right,
+    /* `video` variant: two equal columns, copy left / purple media panel right,
      both filling an 850px-min-height band (production). */
-  .hero-lead.video-without-form {
-    position: relative;
-    display: block;
-    height: 850px;
-    min-height: 850px;
-    padding: 0;
-  }
+    .hero-lead.video-without-form {
+        position: relative;
+        display: block;
+        height: 850px;
+        min-height: 850px;
+        padding: 0;
+    }
 
-  /* copy on the left (row 2 in DOM). Live centers a 960px well until 1200,
+    /* copy on the left (row 2 in DOM). Live centers a 960px well until 1200,
      then a 1200px well -- not a full-bleed 1200 with 16px sides. */
-  .hero-lead.video-without-form > div:last-child {
-    box-sizing: border-box;
-    display: flex;
-    align-items: center;
-    width: 100%;
-    max-width: 960px;
-    height: 850px;
-    margin: 0 auto;
-    padding: 0;
-  }
+    .hero-lead.video-without-form > div:last-child {
+        box-sizing: border-box;
+        display: flex;
+        align-items: center;
+        width: 100%;
+        max-width: 960px;
+        height: 850px;
+        margin: 0 auto;
+        padding: 0;
+    }
 
-  .hero-lead.video-without-form > div:last-child > div {
-    width: 45%;
-    max-width: none;
-    margin: 0;
-  }
+    .hero-lead.video-without-form > div:last-child > div {
+        width: 45%;
+        max-width: none;
+        margin: 0;
+    }
 
-  .hero-lead.video-without-form h1,
-  .hero-lead.video-without-form h2 {
-    max-width: 96%;
-  }
+    .hero-lead.video-without-form h1,
+    .hero-lead.video-without-form h2 {
+        max-width: 96%;
+    }
 
-  /* purple media panel on the right (row 1 in DOM). Undo the mobile crop box
+    /* purple media panel on the right (row 1 in DOM). Undo the mobile crop box
      -- room enough here to show the whole video/screenshot uncropped. */
-  /* stylelint-disable-next-line no-descending-specificity */
-  .hero-lead.video-without-form > div:first-child {
-    position: absolute;
-    top: 0;
-    right: 0;
-    display: flex;
-    overflow: hidden;
-    width: 45%;
-    height: 850px;
-    align-items: center;
-    justify-content: center;
-    padding: 0;
-  }
+    /* stylelint-disable-next-line no-descending-specificity */
+    .hero-lead.video-without-form > div:first-child {
+        position: absolute;
+        top: 0;
+        right: 0;
+        display: flex;
+        overflow: hidden;
+        width: 45%;
+        height: 850px;
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+    }
 
-  .hero-lead.video-without-form > div:first-child .hero-lead-media {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    height: 100%;
-  }
+    .hero-lead.video-without-form > div:first-child .hero-lead-media {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 100%;
+    }
 
-  .hero-lead.video-without-form > div:first-child picture {
-    position: static;
-    bottom: auto;
-    left: auto;
-    width: 100%;
-    max-width: 700px;
-    transform: none;
-  }
+    .hero-lead.video-without-form > div:first-child picture {
+        position: static;
+        bottom: auto;
+        left: auto;
+        width: 100%;
+        max-width: 700px;
+        transform: none;
+    }
 
-  .hero-lead.video-without-form .hero-lead-media .hero-lead-video {
-    width: 100%;
-    max-width: 700px;
-    height: auto;
-    aspect-ratio: 800 / 900;
-    margin: 0 auto;
-    object-fit: contain;
-  }
+    .hero-lead.video-without-form .hero-lead-media .hero-lead-video {
+        width: 100%;
+        max-width: 700px;
+        height: auto;
+        aspect-ratio: 800 / 900;
+        margin: 0 auto;
+        object-fit: contain;
+    }
 
-  .hero-lead.video-without-form .hero-lead-media img {
-    width: 100%;
-    max-width: 700px;
-    height: auto;
-    margin: 0 auto;
-    object-fit: contain;
-  }
+    .hero-lead.video-without-form .hero-lead-media img {
+        width: 100%;
+        max-width: 700px;
+        height: auto;
+        margin: 0 auto;
+        object-fit: contain;
+    }
 
-  .hero-lead.video-without-form h2 {
-    font-size: 50px;
-    line-height: 50px;
-  }
+    .hero-lead.video-without-form h2 {
+        font-size: 50px;
+        line-height: 50px;
+    }
 }
 
 @media (width >= 1200px) {
-  .hero-lead.video-without-form > div:last-child {
-    max-width: 1200px;
-    padding: 0;
-  }
+    .hero-lead.video-without-form > div:last-child {
+        max-width: 1200px;
+        padding: 0;
+    }
 
-  .hero-lead.video-without-form h1,
-  .hero-lead.video-without-form h2 {
-    max-width: none;
-  }
+    .hero-lead.video-without-form h1,
+    .hero-lead.video-without-form h2 {
+        max-width: none;
+    }
 
-  .hero-lead.video-without-form h2 {
-    font-size: 64px;
-    line-height: 64px;
-  }
+    .hero-lead.video-without-form h2 {
+        font-size: 64px;
+        line-height: 64px;
+    }
 }
