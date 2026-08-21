@@ -214,7 +214,19 @@ export default function decorate(block) {
         videoLink.removeAttribute('href');
         videoLink.setAttribute('role', 'button');
       }
+    } else if (!li.querySelector('.cards-video-card-image')
+      && li.querySelector('.cards-video-card-body a[href]')) {
+      // "Watch more demos" tile — link only, no thumbnail
+      li.classList.add('cards-video-more');
+      li.querySelectorAll('.cards-video-card-body').forEach((body) => {
+        if (!body.querySelector('a[href]')) body.remove();
+      });
     }
+    // Inner shell so mobile can use full-width slides with a centered 310px card
+    const card = document.createElement('div');
+    card.className = 'cards-video-card';
+    while (li.firstChild) card.append(li.firstChild);
+    li.append(card);
     ul.append(li);
   });
   ul.querySelectorAll('picture > img').forEach((img) => {

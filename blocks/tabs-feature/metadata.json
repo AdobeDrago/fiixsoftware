@@ -15,9 +15,10 @@
     "imagePattern": "large"
   },
   "contentPattern": {
-    "structure": "tab labels + per-tab panel (title + headline + description + CTA + note + screenshot image)",
+    "structure": "toggle variation: 3 columns per row — Label | ordered list + screenshot | hotspot coords (top%, left% list). Default variation unchanged: Label | panel content",
     "buttonCount": 1,
-    "imageCount": 1
+    "imageCount": 1,
+    "variations": ["toggle"]
   },
   "reuseGuidance": {
     "suitableFor": [

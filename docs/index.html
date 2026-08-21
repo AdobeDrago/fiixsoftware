@@ -1,0 +1,931 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fiix Software — EDS Documentation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300;400;600;700&family=Source+Code+Pro:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    /* Brand — swap these four for the project's own brand if it has one;
+       otherwise leave the Adobe Drago default navy/blue below. */
+    --brand-navy: #003b71;
+    --brand-blue: #0074ad;
+    --brand-blue-hover: #005a87;
+    --brand-text: #0d1c3d;
+    --brand-grey-text: #677083;
+    --brand-pale-blue: #f0f7fa;
+    --accent: var(--brand-blue);
+
+    --gray-50: #ffffff;
+    --gray-75: #fafafa;
+    --gray-100: #f5f5f5;
+    --gray-200: #eaeaea;
+    --gray-300: #e1e1e1;
+    --gray-400: #cacaca;
+    --gray-500: #b3b3b3;
+    --gray-600: #8e8e8e;
+    --gray-700: #6e6e6e;
+    --gray-800: #4b4b4b;
+    --gray-900: #2c2c2c;
+
+    --font: 'Source Sans 3', ui-sans-serif, system-ui, -apple-system, sans-serif;
+    --mono: 'Source Code Pro', 'Fira Mono', 'Courier New', monospace;
+    --sidebar-width: 248px;
+    --content-max: 860px;
+    --header-h: 56px;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--font);
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--gray-900);
+    background: var(--gray-50);
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+
+  /* ── TOP NAV ── */
+  .topnav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    height: var(--header-h);
+    background: #fff;
+    display: flex;
+    align-items: center;
+    padding: 0 24px;
+    gap: 16px;
+    z-index: 100;
+    box-shadow: 0 1px 0 var(--gray-200);
+  }
+  .topnav-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    font-weight: 700;
+    color: var(--brand-navy);
+    font-size: 15px;
+    letter-spacing: -0.01em;
+  }
+  .topnav-logo .mark {
+    width: 30px; height: 30px;
+    border-radius: 50%;
+    background: var(--brand-blue);
+    color: #fff;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 14px;
+    flex-shrink: 0;
+  }
+  .topnav-divider { width: 1px; height: 20px; background: var(--gray-300); }
+  .topnav-title {
+    color: var(--gray-800);
+    font-size: 14px;
+    font-weight: 400;
+    white-space: nowrap;
+  }
+  .topnav-badge {
+    margin-left: auto;
+    background: var(--brand-pale-blue);
+    color: var(--brand-blue);
+    font-size: 11px;
+    padding: 3px 10px;
+    border-radius: 12px;
+    letter-spacing: 0.04em;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+
+  /* ── LAYOUT ── */
+  .layout { display: flex; margin-top: var(--header-h); min-height: calc(100vh - var(--header-h)); }
+
+  /* ── SIDEBAR ── */
+  .sidebar {
+    width: var(--sidebar-width);
+    flex-shrink: 0;
+    position: sticky;
+    top: var(--header-h);
+    height: calc(100vh - var(--header-h));
+    overflow-y: auto;
+    border-right: 1px solid var(--gray-200);
+    background: var(--gray-75);
+    padding: 24px 0 40px;
+  }
+  .sidebar-section { margin-bottom: 8px; }
+  .sidebar-label {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--gray-600);
+    padding: 8px 20px 4px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .sidebar-link {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 7px 20px;
+    font-size: 13px;
+    color: var(--gray-800);
+    text-decoration: none;
+    border-left: 2px solid transparent;
+    transition: background 0.1s, color 0.1s, border-color 0.1s;
+  }
+  .sidebar-link:hover { background: var(--gray-200); color: var(--gray-900); }
+  .sidebar-link.active {
+    background: var(--brand-pale-blue);
+    color: var(--brand-blue);
+    border-left-color: var(--brand-blue);
+    font-weight: 700;
+  }
+  .sidebar-link .icon { width: 16px; height: 16px; opacity: 0.6; flex-shrink: 0; }
+  .sidebar-link.active .icon { opacity: 1; }
+
+  /* ── MAIN ── */
+  .main { flex: 1; min-width: 0; padding: 48px 56px 80px; }
+  .main-inner { max-width: var(--content-max); }
+
+  /* ── PAGE HERO ── */
+  .page-hero {
+    scroll-margin-top: var(--header-h);
+    margin-bottom: 48px;
+  }
+  .page-hero-eyebrow {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--brand-blue);
+    margin-bottom: 8px;
+  }
+  .page-hero h1 {
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--brand-navy);
+    line-height: 1.2;
+    margin-bottom: 12px;
+  }
+  .page-hero-sub { font-size: 16px; color: var(--gray-700); max-width: 640px; line-height: 1.5; }
+
+  /* ── SECTIONS ── */
+  .doc-section { margin-bottom: 56px; scroll-margin-top: calc(var(--header-h) + 24px); }
+  .doc-section h2 {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--brand-navy);
+    margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+  }
+  .section-rule { height: 1px; background: var(--gray-200); margin: 12px 0 24px; }
+  .doc-section h3 { font-size: 14px; font-weight: 700; color: var(--gray-900); margin: 24px 0 8px; }
+  .doc-section p { font-size: 14px; color: var(--gray-800); margin-bottom: 12px; line-height: 1.65; }
+
+  /* ── SECTION ICON BADGE ── */
+  .section-icon {
+    width: 28px; height: 28px;
+    border-radius: 6px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .icon-blue   { background: #e9f1fc; color: var(--brand-blue); }
+  .icon-navy   { background: #e6eef7; color: var(--brand-navy); }
+  .icon-green  { background: #eaf6f1; color: #268e6c; }
+  .icon-purple { background: #f3edfb; color: #7240ab; }
+  .icon-seafoam{ background: #e6f4f4; color: #16878c; }
+  .icon-orange { background: #fff4e5; color: #da7b11; }
+
+  /* ── URL CARDS ── */
+  .url-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+  .url-card {
+    background: var(--gray-50);
+    border: 1px solid var(--gray-200);
+    border-radius: 8px;
+    padding: 14px 16px;
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    transition: border-color 0.15s, box-shadow 0.15s;
+  }
+  .url-card:hover { border-color: var(--brand-blue); box-shadow: 0 0 0 1px var(--brand-blue); }
+  .url-card-label {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    color: var(--gray-600);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .url-card-label .dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+  .dot-blue   { background: var(--brand-blue); }
+  .dot-navy   { background: var(--brand-navy); }
+  .dot-green  { background: #268e6c; }
+  .dot-orange { background: #da7b11; }
+  .url-card-title { font-size: 13px; font-weight: 700; color: var(--gray-900); }
+  .url-card-url { font-size: 12px; font-family: var(--mono); color: var(--brand-blue); word-break: break-all; }
+  .url-card-desc { font-size: 12px; color: var(--gray-600); margin-top: 2px; }
+
+  /* ── STEPS ── */
+  .steps { counter-reset: step; list-style: none; display: flex; flex-direction: column; gap: 0; position: relative; }
+  .steps::before {
+    content: '';
+    position: absolute;
+    left: 15px; top: 30px; bottom: 30px;
+    width: 1px;
+    background: var(--gray-300);
+  }
+  .step { display: flex; gap: 16px; padding-bottom: 24px; position: relative; }
+  .step:last-child { padding-bottom: 0; }
+  .step-num {
+    counter-increment: step;
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    background: var(--brand-blue);
+    color: #fff;
+    font-size: 13px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    position: relative;
+    z-index: 1;
+  }
+  .step-num::after { content: counter(step); }
+  .step-body { padding-top: 5px; flex: 1; }
+  .step-title { font-size: 14px; font-weight: 700; color: var(--gray-900); margin-bottom: 6px; }
+  .step-body p { font-size: 13px; color: var(--gray-700); margin-bottom: 8px; }
+
+  /* ── CODE BLOCKS ── */
+  .code-block {
+    background: var(--gray-900);
+    color: #d4d4d4;
+    border-radius: 6px;
+    padding: 14px 16px;
+    font-family: var(--mono);
+    font-size: 12.5px;
+    line-height: 1.6;
+    overflow-x: auto;
+    margin: 8px 0 4px;
+    white-space: pre;
+  }
+  .code-block .cmt  { color: #6a9955; }
+  .code-block .str  { color: #ce9178; }
+  .code-block .kw   { color: #569cd6; }
+  .code-block .var  { color: #9cdcfe; }
+  .code-inline {
+    font-family: var(--mono);
+    font-size: 12px;
+    background: var(--gray-100);
+    border: 1px solid var(--gray-300);
+    color: var(--gray-900);
+    padding: 1px 5px;
+    border-radius: 4px;
+  }
+
+  /* ── NOTICES ── */
+  .notice {
+    border-radius: 6px;
+    padding: 12px 16px;
+    margin: 16px 0;
+    font-size: 13px;
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    line-height: 1.5;
+  }
+  .notice-icon { flex-shrink: 0; margin-top: 1px; }
+  .notice.info     { background: #e9f1fc; color: #0d51b5; border-left: 3px solid var(--brand-blue); }
+  .notice.tip      { background: #eaf6f1; color: #1a6b50; border-left: 3px solid #268e6c; }
+  .notice.warning  { background: #fff4e5; color: #8a4b08; border-left: 3px solid #da7b11; }
+  /* .todo is NOT part of the original DRiV template — added by this skill
+     to flag skipped/placeholder content distinctly from a normal warning. */
+  .notice.todo {
+    background: repeating-linear-gradient(45deg, #fff8ec, #fff8ec 10px, #fdf1d8 10px, #fdf1d8 20px);
+    color: #8a4b08;
+    border: 1px dashed #da7b11;
+    border-left: 3px dashed #da7b11;
+  }
+  .notice.todo strong { text-transform: uppercase; letter-spacing: 0.04em; font-size: 11px; }
+
+  /* ── SPEC TABLE ── */
+  .spec-table { width: 100%; border-collapse: collapse; font-size: 13px; margin: 12px 0; }
+  .spec-table th {
+    text-align: left;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    color: var(--gray-600);
+    padding: 8px 12px;
+    border-bottom: 2px solid var(--gray-200);
+    background: var(--gray-75);
+  }
+  .spec-table td { padding: 9px 12px; border-bottom: 1px solid var(--gray-200); color: var(--gray-800); vertical-align: top; }
+  .spec-table tr:last-child td { border-bottom: none; }
+  .spec-table td:first-child { font-weight: 700; color: var(--gray-900); }
+
+  /* ── STATUS PILL (sidebar/table use) ── */
+  .nav-status {
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    padding: 1px 6px;
+    border-radius: 8px;
+    text-transform: uppercase;
+  }
+  .ns-progress { background: #fff4e5; color: #8a4b08; }
+  .ns-done     { background: #eaf6f1; color: #1a6b50; }
+
+  .req-list { margin: 8px 0 0 18px; font-size: 13px; color: var(--gray-700); }
+  .req-list li { margin-bottom: 4px; }
+
+  /* ── FOOTER ── */
+  .doc-footer {
+    border-top: 1px solid var(--gray-200);
+    margin-top: 40px;
+    padding-top: 20px;
+    font-size: 12px;
+    color: var(--gray-500);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  @media (max-width: 768px) {
+    .sidebar { display: none; }
+    .main { padding: 24px 20px 60px; }
+    .page-hero h1 { font-size: 24px; }
+    .url-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <a class="topnav-logo" href="#site-intro">
+    <span class="mark">FX</span>
+    Fiix Software
+  </a>
+  <div class="topnav-divider"></div>
+  <span class="topnav-title">fiixsoftware.com — WordPress → EDS Migration</span>
+  <span class="topnav-badge">Docs</span>
+</nav>
+
+<div class="layout">
+
+  <nav class="sidebar" aria-label="Page navigation">
+
+    <div class="sidebar-section">
+      <div class="sidebar-label">Getting Started</div>
+      <a class="sidebar-link" href="#overview">
+        <svg class="icon" viewBox="0 0 16 16" fill="currentColor"><path d="M2 2h5v5H2zm7 0h5v5H9zM2 9h5v5H2zm7 0h5v5H9z"/></svg>
+        Overview
+      </a>
+      <a class="sidebar-link" href="#references">
+        <svg class="icon" viewBox="0 0 16 16" fill="currentColor"><path d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"/></svg>
+        Key references
+      </a>
+      <a class="sidebar-link" href="#setup">
+        <svg class="icon" viewBox="0 0 16 16" fill="currentColor"><path d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06l2.72 2.72 6.72-6.72a.75.75 0 011.06 0z"/></svg>
+        Install &amp; run
+      </a>
+      <a class="sidebar-link" href="#linting">
+        <svg class="icon" viewBox="0 0 16 16" fill="currentColor"><path d="M0 3.75C0 2.784.784 2 1.75 2h12.5c.966 0 1.75.784 1.75 1.75v8.5A1.75 1.75 0 0114.25 14H1.75A1.75 1.75 0 010 12.25v-8.5zm1.75-.25a.25.25 0 00-.25.25v.5h13v-.5a.25.25 0 00-.25-.25H1.75zM1.5 5.5v6.75c0 .138.112.25.25.25h12.5a.25.25 0 00.25-.25V5.5h-13z"/></svg>
+        Linting &amp; CI
+      </a>
+    </div>
+
+    <div class="sidebar-section">
+      <div class="sidebar-label">Architecture</div>
+      <a class="sidebar-link" href="#block-routing">
+        <svg class="icon" viewBox="0 0 16 16" fill="currentColor"><path d="M1 3.5A1.5 1.5 0 012.5 2h2A1.5 1.5 0 016 3.5v2A1.5 1.5 0 014.5 7h-2A1.5 1.5 0 011 5.5v-2zm5.5 0A1.5 1.5 0 018 2h2a1.5 1.5 0 011.5 1.5v2A1.5 1.5 0 0110 7H8A1.5 1.5 0 016.5 5.5v-2zm-5.5 5A1.5 1.5 0 012.5 7h2A1.5 1.5 0 016 8.5v2A1.5 1.5 0 014.5 12h-2A1.5 1.5 0 011 10.5v-2zm5.5 0A1.5 1.5 0 018 7h2a1.5 1.5 0 011.5 1.5v2A1.5 1.5 0 0110 12H8A1.5 1.5 0 016.5 10.5v-2z"/></svg>
+        Block-loading routing
+      </a>
+      <a class="sidebar-link" href="#page-decoration">
+        <svg class="icon" viewBox="0 0 16 16" fill="currentColor"><path d="M8 .25a.75.75 0 01.673.418l1.882 3.815 4.21.612a.75.75 0 01.416 1.279l-3.046 2.97.719 4.192a.75.75 0 01-1.088.791L8 12.347l-3.766 1.98a.75.75 0 01-1.088-.79l.72-4.194L.818 6.374a.75.75 0 01.416-1.28l4.21-.611L7.327.668A.75.75 0 018 .25z"/></svg>
+        Page decoration
+      </a>
+      <a class="sidebar-link" href="#eds-blocks">
+        <svg class="icon" viewBox="0 0 16 16" fill="currentColor"><path d="M2.5 1A1.5 1.5 0 001 2.5v11A1.5 1.5 0 002.5 15h11a1.5 1.5 0 001.5-1.5v-11A1.5 1.5 0 0013.5 1h-11zm8.4 1.3l-.1 1.6a.2.2 0 00.32.17l.55-.42.47.36a.2.2 0 00.32-.17l-.13-2.03h.8v11.4H4.4V2.3h6.5z"/></svg>
+        EDS blocks
+      </a>
+      <a class="sidebar-link" href="#supporting-modules">
+        <svg class="icon" viewBox="0 0 16 16" fill="currentColor"><path d="M4.5 2A2.5 2.5 0 002 4.5v7A2.5 2.5 0 004.5 14h7a2.5 2.5 0 002.5-2.5v-7A2.5 2.5 0 0011.5 2h-7zM5 5.5A.5.5 0 015.5 5h5a.5.5 0 010 1h-5A.5.5 0 015 5.5zm0 2.5a.5.5 0 01.5-.5h5a.5.5 0 010 1h-5A.5.5 0 015 8zm.5 2a.5.5 0 000 1h3a.5.5 0 000-1h-3z"/></svg>
+        Supporting modules
+      </a>
+      <a class="sidebar-link" href="#lighthouse-compare">
+        <svg class="icon" viewBox="0 0 16 16" fill="currentColor"><path d="M8 1.5a6.5 6.5 0 100 13 6.5 6.5 0 000-13zM0 8a8 8 0 1116 0A8 8 0 010 8zm8-3.25a.75.75 0 01.75.75v2.69l1.78 1.78a.75.75 0 11-1.06 1.06l-2-2A.75.75 0 017.25 8.5v-3a.75.75 0 01.75-.75z"/></svg>
+        Lighthouse comparison
+      </a>
+    </div>
+
+    <div class="sidebar-section">
+      <div class="sidebar-label">Content</div>
+      <a class="sidebar-link" href="#migrated-pages">
+        <svg class="icon" viewBox="0 0 16 16" fill="currentColor"><path d="M4 1.75C4 .784 4.784 0 5.75 0h5.586c.464 0 .909.184 1.237.513l2.914 2.914c.329.328.513.773.513 1.237v9.586A1.75 1.75 0 0114.25 16h-8.5A1.75 1.75 0 014 14.25V1.75zM5.75 1.5a.25.25 0 00-.25.25v12.5c0 .138.112.25.25.25h8.5a.25.25 0 00.25-.25V6h-2.75A1.75 1.75 0 0110 4.25V1.5H5.75z"/></svg>
+        Migrated pages
+      </a>
+    </div>
+
+    <div class="sidebar-section">
+      <div class="sidebar-label">Deployment</div>
+      <a class="sidebar-link" href="#deploying">
+        <svg class="icon" viewBox="0 0 16 16" fill="currentColor"><path d="M6.5 15.4V13a.5.5 0 01.5-.5h2a.5.5 0 01.5.5v2.4a5.5 5.5 0 002-1.1V9.5A5.5 5.5 0 003 9.5v4.8a5.5 5.5 0 003.5 1.1z"/></svg>
+        Deploying
+      </a>
+    </div>
+
+  </nav>
+
+    <main class="main">
+    <div class="main-inner">
+
+            <div class="page-hero" id="site-intro">
+        <div class="page-hero-eyebrow">Fiix Software · EDS</div>
+        <h1>EDS Migration Docs</h1>
+        <p class="page-hero-sub">Documentation for the Fiix Software (fiixsoftware.com) marketing site rebuild — migrating off WordPress onto Adobe Edge Delivery Services — architecture, blocks, and the page-by-page migration status.</p>
+      </div>
+
+            <div class="page-hero" id="overview">
+        <div class="page-hero-eyebrow">Fiix Software · Pilot</div>
+        <h1>Fiix Software EDS Pilot</h1>
+        <p class="page-hero-sub">A page-template-driven migration of fiixsoftware.com's marketing site off WordPress onto Edge Delivery Services, built on the standard <code class="code-inline">aem-boilerplate</code> and authored through DA.live.</p>
+      </div>
+
+      <section class="doc-section">
+        <h3>Purpose</h3>
+        <ul class="req-list">
+          <li>Fiix Software → Edge Delivery Services migration pilot: rebuild fiixsoftware.com's WordPress-based marketing site (home, pricing, enterprise, training, support, contact, product-feature, case-study, and campaign landing pages) block-by-block, pixel-matched to the live source.</li>
+        </ul>
+
+        <h3>Core engineering requirements</h3>
+        <ul class="req-list">
+          <li>Use the EDS block-based development model only (<code class="code-inline">scripts/aem.js</code> + <code class="code-inline">scripts/scripts.js</code>).</li>
+          <li>Restore standard <code class="code-inline">.section-metadata</code> handling that this project's <code class="code-inline">aem.js</code> omits — the migration pipeline (<code class="code-inline">tools/importer/transformers/fiix-sections.js</code>) emits section-metadata blocks to drive section styles like <code class="code-inline">.section.cta</code>; <code class="code-inline">decorateSectionMetadata()</code> in <code class="code-inline">scripts/scripts.js</code> converts them back into section classes/dataset entries.</li>
+          <li>Render section-metadata corner backgrounds (<code class="code-inline">background-top-right</code>, etc.) as decorative layers, matching production's <code class="code-inline">.augury</code> corner art (e.g. on <code class="code-inline">/cmms/ai/</code>).</li>
+          <li>Support a generic widget system: <code class="code-inline">/widgets/</code> links are auto-blocked into a <code class="code-inline">widget</code> block that lazy-loads a matching <code class="code-inline">widgets/&lt;path&gt;/&lt;name&gt;.{html,css,js}</code> bundle — currently used by <code class="code-inline">widgets/blog-listing</code>.</li>
+          <li>Blog articles are auto-blocked (<code class="code-inline">buildBlogArticleBlocks</code>): body content is wrapped in <code class="code-inline">blog-body</code>, and only one trailing CTA/promo band is revealed per page view, matching the live site's behavior.</li>
+          <li>A strict CSP (<code class="code-inline">head.html</code>) requires Trusted Types — <code class="code-inline">scripts/scripts.js</code> installs a default Trusted Types policy that sanitizes <code class="code-inline">srcdoc</code> and script-injection sinks.</li>
+          <li>Brand font loaded from Adobe Typekit (<code class="code-inline">use.typekit.net</code>) alongside the local fallback stack in <code class="code-inline">styles/fonts.css</code>.</li>
+        </ul>
+
+        <h3>Journeys</h3>
+        <p>Each journey below is a page template driven by its own importer/parser under <code class="code-inline">tools/importer/</code> (see <code class="code-inline">page-templates.json</code>); several cover multiple source URLs. <strong>Status reflects the code-side block/styling implementation, not raw content presence</strong> — DA.live content exists for every row here (see <a href="#migrated-pages" style="color:var(--brand-blue);">Migrated pages</a>), but "In progress" rows still have active iteration in git history: <code class="code-inline">case-studies-page</code> has 24 commits (including a literal "WIP on case-studies-page") with activity as recent as today, <code class="code-inline">cmms-ai-page</code> merged very recently (#113, #117), and the product-feature pages show only polish-fix commits with no clean "migrate and style" completion commit like the Complete rows below have.</p>
+        <table class="spec-table">
+          <thead>
+            <tr><th>Journey</th><th>Validates</th><th>Status</th><th>Preview</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Home page</td>
+              <td>fiixsoftware.com/</td>
+              <td><span class="nav-status ns-done">Complete</span></td>
+              <td><a href="https://main--fiixsoftware--AdobeDrago.aem.page/" target="_blank" rel="noopener" style="color:var(--brand-blue);">/</a></td>
+            </tr>
+            <tr>
+              <td>Pricing page</td>
+              <td>fiixsoftware.com/cmms/pricing/</td>
+              <td><span class="nav-status ns-done">Complete</span></td>
+              <td><a href="https://main--fiixsoftware--AdobeDrago.aem.page/cmms/pricing/" target="_blank" rel="noopener" style="color:var(--brand-blue);">/cmms/pricing/</a></td>
+            </tr>
+            <tr>
+              <td>Enterprise page</td>
+              <td>fiixsoftware.com/enterprise/</td>
+              <td><span class="nav-status ns-done">Complete</span></td>
+              <td><a href="https://main--fiixsoftware--AdobeDrago.aem.page/enterprise/" target="_blank" rel="noopener" style="color:var(--brand-blue);">/enterprise/</a></td>
+            </tr>
+            <tr>
+              <td>Training &amp; implementation page</td>
+              <td>fiixsoftware.com/training-and-implementation/</td>
+              <td><span class="nav-status ns-done">Complete</span></td>
+              <td><a href="https://main--fiixsoftware--AdobeDrago.aem.page/training-and-implementation/" target="_blank" rel="noopener" style="color:var(--brand-blue);">/training-and-implementation/</a></td>
+            </tr>
+            <tr>
+              <td>Premium support page</td>
+              <td>fiixsoftware.com/premium-support/</td>
+              <td><span class="nav-status ns-done">Complete</span></td>
+              <td><a href="https://main--fiixsoftware--AdobeDrago.aem.page/premium-support/" target="_blank" rel="noopener" style="color:var(--brand-blue);">/premium-support/</a></td>
+            </tr>
+            <tr>
+              <td>Contact us page</td>
+              <td>fiixsoftware.com/contact-us/</td>
+              <td><span class="nav-status ns-done">Complete</span></td>
+              <td><a href="https://main--fiixsoftware--AdobeDrago.aem.page/contact-us/" target="_blank" rel="noopener" style="color:var(--brand-blue);">/contact-us/</a></td>
+            </tr>
+            <tr>
+              <td>Product feature pages</td>
+              <td>The importer originally planned 4 URLs (cmms-software, mobile-cmms, asset-management-software, parts-inventory-management-software); the live DA.live tree also has a 5th, <code class="code-inline">/cmms/cloud-maintenance-software</code>, outside that scope — see <a href="#migrated-pages" style="color:var(--brand-blue);">Migrated pages</a></td>
+              <td><span class="nav-status ns-progress">In progress</span></td>
+              <td><a href="https://main--fiixsoftware--AdobeDrago.aem.page/cmms/cmms-software/" target="_blank" rel="noopener" style="color:var(--brand-blue);">/cmms/cmms-software/</a> +4 more</td>
+            </tr>
+            <tr>
+              <td>Marketing landing pages</td>
+              <td>2 URLs — /cmms/ai/, /optix/</td>
+              <td><span class="nav-status ns-progress">In progress</span></td>
+              <td><a href="https://main--fiixsoftware--AdobeDrago.aem.page/cmms/ai/" target="_blank" rel="noopener" style="color:var(--brand-blue);">/cmms/ai/</a> +1 more</td>
+            </tr>
+            <tr>
+              <td>Case study pages</td>
+              <td>The importer originally planned 8 URLs, but the live DA.live content tree now has 31 published case studies under /resource-center/case-studies/ — see <a href="#migrated-pages" style="color:var(--brand-blue);">Migrated pages</a> for the full list</td>
+              <td><span class="nav-status ns-progress">In progress</span></td>
+              <td><a href="https://main--fiixsoftware--AdobeDrago.aem.page/resource-center/case-studies/universal-pure/" target="_blank" rel="noopener" style="color:var(--brand-blue);">/resource-center/case-studies/universal-pure/</a> +30 more</td>
+            </tr>
+            <tr>
+              <td>Blog</td>
+              <td>25 published articles under /blog/, plus the listing page — built later, outside the original importer's page-templates.json (<code class="code-inline">blog-body</code>, <code class="code-inline">hero-article</code>, <code class="code-inline">columns-blog-cta</code>, <code class="code-inline">widgets/blog-listing</code>)</td>
+              <td><span class="nav-status ns-done">Complete</span></td>
+              <td><a href="https://main--fiixsoftware--AdobeDrago.aem.page/blog/how-much-time-is-data-entry-costing-you/" target="_blank" rel="noopener" style="color:var(--brand-blue);">/blog/how-much-time-is-data-entry-costing-you/</a> +24 more</td>
+            </tr>
+            <tr>
+              <td>Resource Center / Ebook</td>
+              <td>Listing page + 1 ebook page live in DA.live; <code class="code-inline">resource-list</code>, <code class="code-inline">resource-intro</code>, <code class="code-inline">resource-navigation</code> blocks are newer, also outside the original importer scope — active work is happening on the <code class="code-inline">ebook-page</code> branch</td>
+              <td><span class="nav-status ns-progress">In progress</span></td>
+              <td><a href="https://main--fiixsoftware--AdobeDrago.aem.page/resource-center/ebook/" target="_blank" rel="noopener" style="color:var(--brand-blue);">/resource-center/ebook/</a></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3>Repository</h3>
+        <table class="spec-table">
+          <tbody>
+            <tr><td>Effort</td><td>Fiix Software → Edge Delivery Services migration pilot</td></tr>
+            <tr><td>GitHub repo</td><td><code class="code-inline">AdobeDrago/fiixsoftware</code> · branch <code class="code-inline">main</code></td></tr>
+            <tr><td>Base</td><td><code class="code-inline">@adobe/aem-boilerplate</code> — <code class="code-inline">package.json</code>'s <code class="code-inline">name</code>, <code class="code-inline">repository</code>, <code class="code-inline">homepage</code>, and <code class="code-inline">bugs</code> fields still point at the upstream <code class="code-inline">adobe/aem-boilerplate</code> repo and list <code class="code-inline">author: "Adobe"</code> — none of it has been rebranded to this project yet</td></tr>
+            <tr><td>Dev model</td><td>EDS block-based only (<code class="code-inline">scripts/aem.js</code> + <code class="code-inline">scripts/scripts.js</code>)</td></tr>
+            <tr><td>Backend services</td><td>None — static block-driven pages only; no <code class="code-inline">workers/</code> or server-side integrations in this repo</td></tr>
+            <tr><td>Content source</td><td>DA.live — <code class="code-inline">adobedrago/fiixsoftware</code> (see <code class="code-inline">.migration/project.json</code>)</td></tr>
+            <tr><td>Reference site</td><td><a href="https://fiixsoftware.com" target="_blank" rel="noopener" style="color:var(--brand-blue);">fiixsoftware.com</a> — currently WordPress; this is the live source being migrated</td></tr>
+            <tr><td>Testing</td><td>None automated — <code class="code-inline">.github/workflows/main.yaml</code> runs <code class="code-inline">npm ci</code> + <code class="code-inline">npm run lint</code> only, no build/deploy/test step</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+            <section class="doc-section" id="references">
+        <h2>
+          <span class="section-icon icon-blue">
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"/></svg>
+          </span>
+          Key references
+        </h2>
+        <div class="section-rule"></div>
+        <div class="url-grid">
+          <a class="url-card" href="https://github.com/AdobeDrago/fiixsoftware" target="_blank" rel="noopener">
+            <span class="url-card-label"><span class="dot dot-navy"></span>Code</span>
+            <span class="url-card-title">GitHub repo</span>
+            <span class="url-card-url">github.com/AdobeDrago/fiixsoftware</span>
+          </a>
+          <a class="url-card" href="https://da.live/#/adobedrago/fiixsoftware" target="_blank" rel="noopener">
+            <span class="url-card-label"><span class="dot dot-navy"></span>Author</span>
+            <span class="url-card-title">DA.live</span>
+            <span class="url-card-url">da.live/#/adobedrago/fiixsoftware</span>
+          </a>
+          <a class="url-card" href="https://main--fiixsoftware--AdobeDrago.aem.page/" target="_blank" rel="noopener">
+            <span class="url-card-label"><span class="dot dot-blue"></span>Preview</span>
+            <span class="url-card-title">main branch preview</span>
+            <span class="url-card-url">main--fiixsoftware--AdobeDrago.aem.page</span>
+          </a>
+          <a class="url-card" href="https://main--fiixsoftware--AdobeDrago.aem.live/" target="_blank" rel="noopener">
+            <span class="url-card-label"><span class="dot dot-green"></span>Live</span>
+            <span class="url-card-title">main branch live</span>
+            <span class="url-card-url">main--fiixsoftware--AdobeDrago.aem.live</span>
+          </a>
+          <a class="url-card" href="https://fiixsoftware.com" target="_blank" rel="noopener">
+            <span class="url-card-label"><span class="dot dot-orange"></span>Reference</span>
+            <span class="url-card-title">Live WordPress site</span>
+            <span class="url-card-url">fiixsoftware.com</span>
+            <span class="url-card-desc">Source of truth this migration is pixel-matched against.</span>
+          </a>
+        </div>
+      </section>
+
+            <section class="doc-section" id="setup">
+        <h2>
+          <span class="section-icon icon-blue">
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06l2.72 2.72 6.72-6.72a.75.75 0 011.06 0z"/></svg>
+          </span>
+          Install &amp; run
+        </h2>
+        <div class="section-rule"></div>
+        <ol class="steps">
+          <li class="step">
+            <div class="step-num"></div>
+            <div class="step-body">
+              <div class="step-title">Clone and install</div>
+              <div class="code-block">git clone https://github.com/AdobeDrago/fiixsoftware.git
+cd fiixsoftware
+npm install</div>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-num"></div>
+            <div class="step-body">
+              <div class="step-title">Run the AEM CLI</div>
+              <div class="code-block">npm install -g @adobe/aem-cli
+aem up --no-open --forward-browser-logs</div>
+              <p>Starts the standard EDS local dev server at <code class="code-inline">http://localhost:3000</code>, serving local code against previewed DA.live content.</p>
+            </div>
+          </li>
+        </ol>
+      </section>
+
+            <section class="doc-section" id="linting">
+        <h2>
+          <span class="section-icon icon-navy">
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M0 3.75C0 2.784.784 2 1.75 2h12.5c.966 0 1.75.784 1.75 1.75v8.5A1.75 1.75 0 0114.25 14H1.75A1.75 1.75 0 010 12.25v-8.5zm1.75-.25a.25.25 0 00-.25.25v.5h13v-.5a.25.25 0 00-.25-.25H1.75zM1.5 5.5v6.75c0 .138.112.25.25.25h12.5a.25.25 0 00.25-.25V5.5h-13z"/></svg>
+          </span>
+          Linting &amp; CI
+        </h2>
+        <div class="section-rule"></div>
+        <div class="code-block">npm run lint       <span class="cmt"># runs lint:js (eslint, airbnb-base) + lint:css (stylelint-config-standard)</span>
+npm run lint:fix   <span class="cmt"># auto-fixes both</span></div>
+        <div class="notice info">
+          <svg class="notice-icon" width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M8 16A8 8 0 108 0a8 8 0 000 16zM8 4a1 1 0 110 2 1 1 0 010-2zm-1 4h2v5H7V8z"/></svg>
+          <span><code class="code-inline">.github/workflows/main.yaml</code> runs <code class="code-inline">npm ci</code> and <code class="code-inline">npm run lint</code> on every push — lint only, no build, deploy, or automated test step. Deployment happens separately via AEM Code Sync (see <a href="#deploying" style="color:inherit;">Deploying</a>).</span>
+        </div>
+        <div class="notice warning">
+          <svg class="notice-icon" width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M8.22 1.754a.25.25 0 00-.44 0L1.698 13.132a.25.25 0 00.22.368h12.164a.25.25 0 00.22-.368L8.22 1.754zM6.996 12a1 1 0 112 0 1 1 0 01-2 0zM8 6a.75.75 0 01.75.75v3.5a.75.75 0 01-1.5 0v-3.5A.75.75 0 018 6z"/></svg>
+          <span>The workflow step is labeled <code class="code-inline">Use Node.js 20</code> but its <code class="code-inline">actions/setup-node</code> config actually installs <code class="code-inline">node-version: 24</code> — a stale label, not a functional problem, but worth fixing so the next reader isn't misled.</span>
+        </div>
+      </section>
+
+            <section class="doc-section" id="block-routing">
+        <h2>
+          <span class="section-icon icon-navy">
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M1 3.5A1.5 1.5 0 012.5 2h2A1.5 1.5 0 016 3.5v2A1.5 1.5 0 014.5 7h-2A1.5 1.5 0 011 5.5v-2zm5.5 0A1.5 1.5 0 018 2h2a1.5 1.5 0 011.5 1.5v2A1.5 1.5 0 0110 7H8A1.5 1.5 0 016.5 5.5v-2zm-5.5 5A1.5 1.5 0 012.5 7h2A1.5 1.5 0 016 8.5v2A1.5 1.5 0 014.5 12h-2A1.5 1.5 0 011 10.5v-2zm5.5 0A1.5 1.5 0 018 7h2a1.5 1.5 0 011.5 1.5v2A1.5 1.5 0 0110 12H8A1.5 1.5 0 016.5 10.5v-2z"/></svg>
+          </span>
+          Block-loading routing
+        </h2>
+        <div class="section-rule"></div>
+        <p><code class="code-inline">scripts/aem.js</code> is unmodified from stock <code class="code-inline">aem-boilerplate</code> — block discovery, loading, and lifecycle (<code class="code-inline">decorateBlock</code>/<code class="code-inline">loadBlock</code>/<code class="code-inline">decorateBlocks</code>) are all standard. The project's real routing customizations live in <code class="code-inline">scripts/scripts.js</code>'s <code class="code-inline">decorateMain()</code>, which runs three extra passes around the stock sequence:</p>
+        <table class="spec-table">
+          <thead><tr><th>Pass</th><th>What it does</th></tr></thead>
+          <tbody>
+            <tr><td>decorateSectionMetadata</td><td>Restores standard <code class="code-inline">.section-metadata</code> → section-class/dataset handling, which this project's <code class="code-inline">aem.js</code> build omits. Without it, metadata blocks emitted by the importer (<code class="code-inline">fiix-sections.js</code>) would render as literal text and be picked up as unknown blocks.</td></tr>
+            <tr><td>decorateSectionCornerBackgrounds</td><td>Turns <code class="code-inline">background-top-right</code>/<code class="code-inline">-bottom-left</code>/<code class="code-inline">-top-left</code>/<code class="code-inline">-bottom-right</code> section-metadata values into decorative background layers (<code class="code-inline">.section-bg</code>), matching production's corner-art styling.</td></tr>
+            <tr><td>widget auto-blocking</td><td>Any <code class="code-inline">&lt;a href="/widgets/..."&gt;</code> is rewritten into a <code class="code-inline">widget</code> block, which lazy-fetches a matching <code class="code-inline">widgets/&lt;path&gt;/&lt;name&gt;.{html,css,js}</code> bundle at runtime — a parallel content model to standard EDS blocks, currently backing <code class="code-inline">widgets/blog-listing</code>.</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+            <section class="doc-section" id="page-decoration">
+        <h2>
+          <span class="section-icon icon-purple">
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M8 .25a.75.75 0 01.673.418l1.882 3.815 4.21.612a.75.75 0 01.416 1.279l-3.046 2.97.719 4.192a.75.75 0 01-1.088.791L8 12.347l-3.766 1.98a.75.75 0 01-1.088-.79l.72-4.194L.818 6.374a.75.75 0 01.416-1.28l4.21-.611L7.327.668A.75.75 0 018 .25z"/></svg>
+          </span>
+          Page decoration (<code class="code-inline">scripts/scripts.js</code>)
+        </h2>
+        <div class="section-rule"></div>
+        <table class="spec-table">
+          <thead><tr><th>Behavior</th><th>What triggers it</th></tr></thead>
+          <tbody>
+            <tr><td>Trusted Types policy</td><td>Runs immediately at module load if <code class="code-inline">window.trustedTypes</code> exists — the CSP in <code class="code-inline">head.html</code> requires Trusted Types for scripts, so a default policy sanitizes <code class="code-inline">srcdoc</code> attributes and script-injection sinks (<code class="code-inline">createContextualFragment</code>, <code class="code-inline">document.write</code>).</td></tr>
+            <tr><td>decoratePageClass</td><td>Runs in <code class="code-inline">loadEager</code>, before <code class="code-inline">.appear</code> — adds a <code class="code-inline">page-&lt;slugified-path&gt;</code> class to <code class="code-inline">&lt;body&gt;</code> so page-specific CSS can target one page without a flash of unstyled content.</td></tr>
+            <tr><td>Widened eager-section loading</td><td><code class="code-inline">loadEager</code> loads every section up to and including the first one containing an <code class="code-inline">&lt;img&gt;</code>, not just the first section — needed because some pages put an announcement bar ahead of the hero.</td></tr>
+            <tr><td>buildAutoBlocks → fragments</td><td>Any <code class="code-inline">&lt;a href*="/fragments/"&gt;</code> not already inside a <code class="code-inline">.fragment</code> block is replaced with the loaded fragment's content, via <code class="code-inline">blocks/fragment/fragment.js</code>'s <code class="code-inline">loadFragment</code>.</td></tr>
+            <tr><td>buildAutoBlocks → widgets</td><td><code class="code-inline">buildWidgetAutoBlocks</code> converts <code class="code-inline">/widgets/</code> links into <code class="code-inline">widget</code> blocks (see Block-loading routing above).</td></tr>
+            <tr><td>buildAutoBlocks → blog articles</td><td><code class="code-inline">buildBlogArticleBlocks</code> detects a <code class="code-inline">blog-article-header</code> section, wraps the body in a <code class="code-inline">blog-body</code> block, buttonizes external share links, and randomly reveals exactly one trailing <code class="code-inline">blog-cta</code>/promo band per page view.</td></tr>
+            <tr><td>decorateButtons</td><td>Standard boilerplate buttonization of authored <code class="code-inline">&lt;strong&gt;</code>/<code class="code-inline">&lt;em&gt;</code>-wrapped links into <code class="code-inline">.button</code> (primary/secondary/accent).</td></tr>
+            <tr><td>decorateBlogHeader</td><td>Splits a blog listing's header into copy + media columns and buttonizes its CTA, matching the live Fiix blog header layout.</td></tr>
+            <tr><td>loadFonts</td><td>Loads local fallback fonts (<code class="code-inline">styles/fonts.css</code>) plus the brand font from Adobe Typekit (<code class="code-inline">use.typekit.net</code>) — called eagerly on desktop/fast connections, and again in <code class="code-inline">loadLazy</code> otherwise.</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+            <section class="doc-section" id="eds-blocks">
+        <h2>
+          <span class="section-icon icon-green">
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M2.5 1A1.5 1.5 0 001 2.5v11A1.5 1.5 0 002.5 15h11a1.5 1.5 0 001.5-1.5v-11A1.5 1.5 0 0013.5 1h-11zm8.4 1.3l-.1 1.6a.2.2 0 00.32.17l.55-.42.47.36a.2.2 0 00.32-.17l-.13-2.03h.8v11.4H4.4V2.3h6.5z"/></svg>
+          </span>
+          EDS blocks
+        </h2>
+        <div class="section-rule"></div>
+        <p>45 blocks plus one widget, roughly grouped: <strong>hero/intro</strong> (<code class="code-inline">hero</code>, <code class="code-inline">hero-lead</code>, <code class="code-inline">hero-cta</code>, <code class="code-inline">hero-case-study</code>, <code class="code-inline">hero-article</code>); <strong>card grids</strong> sharing a common base (<code class="code-inline">cards</code>, <code class="code-inline">cards-icon</code>, <code class="code-inline">cards-features</code>, <code class="code-inline">cards-pricing</code>, <code class="code-inline">cards-testimonial</code>, <code class="code-inline">cards-timeline</code>, <code class="code-inline">cards-video</code>, <code class="code-inline">cards-cta</code>); <strong>case-study composable primitives</strong> (<code class="code-inline">case-study-intro</code>/<code class="code-inline">-lead</code>/<code class="code-inline">-logo</code>/<code class="code-inline">-profiles</code>/<code class="code-inline">-systems</code>, plus <code class="code-inline">challenge-solution-result</code> and <code class="code-inline">solutions-comparison</code>); <strong>layout/columns</strong> (<code class="code-inline">columns</code>, <code class="code-inline">columns-media</code>, <code class="code-inline">columns-logos</code>, <code class="code-inline">columns-callout</code>, <code class="code-inline">columns-blog-cta</code>); <strong>carousels</strong> (<code class="code-inline">carousel-testimonial</code>, <code class="code-inline">carousel-case-study</code>); <strong>navigation &amp; fragment loaders</strong> (<code class="code-inline">header</code>, <code class="code-inline">footer</code>, <code class="code-inline">fragment</code>, <code class="code-inline">resource-navigation</code>, <code class="code-inline">widget</code>); <strong>media embeds</strong> (<code class="code-inline">youtube-video</code>, <code class="code-inline">vidyard-video-player</code>); and <strong>tables/comparisons</strong> (<code class="code-inline">table</code>, <code class="code-inline">table-compare</code>). The rest — FAQ, blog body, contact form, CTA callouts, ebook list, quotes, stats, tabs — are one-off content blocks used by a single page family each.</p>
+        <table class="spec-table">
+          <thead><tr><th>Block</th><th>Purpose</th></tr></thead>
+          <tbody>
+            <tr><td>accordion-faq</td><td>Turns each row into a <code class="code-inline">&lt;details&gt;/&lt;summary&gt;</code> FAQ item; on the enterprise/product-feature pages it also builds a synced side-image panel that swaps figures as the open item changes.</td></tr>
+            <tr><td>blog-body</td><td>Splits a blog article into a reading column + CTA rail, applying ~15 targeted transforms (TOC, boxed CTAs, promo bands, embeds, logo rows) plus a scroll-driven reading-progress bar.</td></tr>
+            <tr><td>cards, cards-icon</td><td>Functionally identical (differ only in CSS class prefix and a cosmetic DOM-manipulation style, not logic): rebuild each row into a card <code class="code-inline">&lt;li&gt;</code>, split image vs. body content, and optimize images at 750px.</td></tr>
+            <tr><td>cards-cta</td><td>Side-by-side CTA panel per row, styling the last link in the text cell as the button.</td></tr>
+            <tr><td>cards-features</td><td>Same card-grid base as <code class="code-inline">cards</code>, plus spacer/trailing-CTA row detection, a "Featured/New" heading badge, and column-count tagging for feature grids.</td></tr>
+            <tr><td>cards-pricing</td><td>Same card-grid base as <code class="code-inline">cards</code>, plus pricing-specific price-row detection and inline price/paragraph grouping.</td></tr>
+            <tr><td>cards-testimonial</td><td>Static 3-up review grid: merges each row into a card, converts an "N out of 5 stars" line into accessible star glyphs, groups name/role into an author block.</td></tr>
+            <tr><td>cards-timeline</td><td>Horizontal milestone rail — each row becomes a marker with image/body split, date-vs-label detection, and a decorative dot.</td></tr>
+            <tr><td>cards-video</td><td>Card grid of Vidyard-linked videos (click-to-lightbox via the Vidyard v4 SDK); auto-wraps in an infinite, clone-padded scroll carousel once there are more than 3 cards.</td></tr>
+            <tr><td>carousel-case-study</td><td>Captioned image/video gallery (supports direct <code class="code-inline">.mp4</code>/<code class="code-inline">.webm</code>) with prev/next + dots synced to scroll position; hidden entirely for a single slide.</td></tr>
+            <tr><td>carousel-testimonial</td><td>Scroll-snap slide track with prev/next + dots; maps columns to image/content roles, or to a dedicated title/quote/author/CTA/photo layout for its <code class="code-inline">.case-study</code> variant.</td></tr>
+            <tr><td>case-study-intro</td><td>Empty block folder — no <code class="code-inline">.js</code> or <code class="code-inline">.css</code>; renders as unstyled default markup only.</td></tr>
+            <tr><td>case-study-lead</td><td>Has only a <code class="code-inline">.css</code>, no <code class="code-inline">.js</code> — styled but not decorated.</td></tr>
+            <tr><td>case-study-logo</td><td>One-liner: adds a "missing image" class when the block has no image, so CSS can suppress overlap styling.</td></tr>
+            <tr><td>case-study-profiles</td><td>Marks each image+details row as a valid profile, or flags it invalid if either half is missing.</td></tr>
+            <tr><td>case-study-systems</td><td>Parses a fixed row layout (heading, icon+label system rows, a "Number of users" row) into a heading, an icon list, and a stat.</td></tr>
+            <tr><td>challenge-solution-result</td><td>Tags up to three cells as challenge/solution/result, prepends an inline SVG icon per heading, and opens solution links in a new tab.</td></tr>
+            <tr><td>columns, columns-blog-cta, columns-callout</td><td>Identical logic (differ only by CSS class prefix): tag the block with a column count and mark any picture-only column as an image column.</td></tr>
+            <tr><td>columns-logos</td><td>Classifies rows as a logo row (tagging single-picture columns) or heading/text row; tags a logo-column count; supports a "with-heading" variant.</td></tr>
+            <tr><td>columns-media</td><td>Image-vs-text column tagging plus three special cases: an inline Vidyard player, a CSS background/parallax band for <code class="code-inline">.connect-users</code>, and a card treatment for <code class="code-inline">.info-flex</code> text columns.</td></tr>
+            <tr><td>contact-form</td><td>Static, non-functional visual replica of the production Marketo contact form built from authored field-type rows; the submit handler just calls <code class="code-inline">preventDefault()</code>.</td></tr>
+            <tr><td>cta-callout</td><td>Compact heading + CTA-link callout from either one two-column row or two single-column rows.</td></tr>
+            <tr><td>resource-list</td><td>Reads <code class="code-inline">image | title | subtitle | destination URL | content type | featured</code> rows into featured and standard resource card groups. Subtitle and content type are optional and omitted when empty. A featured value of <code class="code-inline">yes</code>, <code class="code-inline">true</code>, or <code class="code-inline">featured</code> highlights the card; rows missing a valid image, title, or safe destination are ignored. Legacy five-column rows without a subtitle remain supported, and the <code class="code-inline">ebook-list</code> name remains as a compatibility entry point during authoring migration.</td></tr>
+            <tr><td>footer</td><td>Loads the <code class="code-inline">/footer</code> fragment, then swaps the "Subscribe" link for a static newsletter form, social links for inline SVG icons, and the awards list for logo figures.</td></tr>
+            <tr><td>fragment</td><td>Exports <code class="code-inline">loadFragment(path)</code> (fetches <code class="code-inline">{path}.plain.html</code>, rebases media URLs, re-runs <code class="code-inline">decorateMain</code>/<code class="code-inline">loadSections</code>) — imported by <code class="code-inline">scripts/scripts.js</code>, <code class="code-inline">header</code>, <code class="code-inline">footer</code>, and <code class="code-inline">resource-navigation</code>.</td></tr>
+            <tr><td>header</td><td>Loads the <code class="code-inline">/nav</code> fragment, builds the mega-menu (click/keyboard drop panels, promo cards, per-item icons, badges), the mobile hamburger drawer, and the search/login utility row.</td></tr>
+            <tr><td>hero</td><td>The <code class="code-inline">.js</code> file is empty (0 bytes) — no JS decoration; <code class="code-inline">hero.css</code> styles the default authored markup only.</td></tr>
+            <tr><td>hero-article</td><td>Pulls in a lead image authored before the block, wrapping it and the first row's content into a layered blog-article header.</td></tr>
+            <tr><td>hero-case-study, hero-cta</td><td>Identical one-liner: adds a "no-image" class when the first column has no picture.</td></tr>
+            <tr><td>hero-lead</td><td>Classifies media vs. content rows; swaps the hero image for an autoplay video on desktop for video variants; layers decorative shape/accent images and converts specific paragraphs into an email-capture form and stat rows.</td></tr>
+            <tr><td>promo-bar</td><td>Flattens the block into one message paragraph and forces all its links to open in a new tab.</td></tr>
+            <tr><td>quote</td><td>Builds a blockquote + attribution from one or two rows, auto-splitting an inline-<code class="code-inline">&lt;strong&gt;</code> author name if no separate attribution row was authored.</td></tr>
+            <tr><td>resource-intro</td><td>Promotes the heading/description paragraphs the importer left as plain <code class="code-inline">&lt;p&gt;</code>s into real <code class="code-inline">&lt;h1&gt;</code>/<code class="code-inline">&lt;h2&gt;</code> elements.</td></tr>
+            <tr><td>resource-navigation</td><td>Loads the shared <code class="code-inline">/fragments/resource-center-navigation</code> fragment, manages the "back" link on the resource-center index, and converts heading+list groups into a mobile <code class="code-inline">&lt;select&gt;</code> navigator.</td></tr>
+            <tr><td>solutions-comparison</td><td>Ordered list of solution/icon/result steps, with a fallback decorative SVG icon when none is authored.</td></tr>
+            <tr><td>stats-multi</td><td>Tags each item as a stat, splitting it into value/label across two row formats (plain and legacy nested-cell).</td></tr>
+            <tr><td>table</td><td>Converts authored rows into a real semantic <code class="code-inline">&lt;table&gt;</code> with optional <code class="code-inline">&lt;thead&gt;</code>.</td></tr>
+            <tr><td>table-compare</td><td>Comparison table with section-header bands; when a header row exists, layers on a hardcoded sticky pricing header (prices + CTA buttons per plan) and inline check/info icons.</td></tr>
+            <tr><td>tabs-feature</td><td>Builds a <code class="code-inline">role=tablist</code>, wires click-to-switch panels, and replaces <code class="code-inline">.mp4</code> links with autoplaying video only in the active tab (others deferred).</td></tr>
+            <tr><td>vidyard-video-player</td><td>Extracts a Vidyard UUID and renders either an inline embed or a poster+lightbox popover via the Vidyard v4 SDK.</td></tr>
+            <tr><td>widget</td><td>Generic loader: fetches a widget's HTML/CSS/JS from <code class="code-inline">/widgets/&lt;name&gt;/</code>, runs its <code class="code-inline">decorate</code> export, and copies query-string params into <code class="code-inline">data-*</code> attributes — currently backs <code class="code-inline">widgets/blog-listing</code> only.</td></tr>
+            <tr><td>youtube-video</td><td>Extracts a YouTube ID from watch/embed/<code class="code-inline">youtu.be</code> URL forms and replaces the block with a lazy-loaded iframe embed, or flags it invalid.</td></tr>
+            <tr><td>widgets/blog-listing</td><td>Fetches <code class="code-inline">/query-index.json</code>, filters to <code class="code-inline">/blog/*</code> entries by search text and category, sorts by date, and renders a live-filterable card grid with search input + category select.</td></tr>
+          </tbody>
+        </table>
+        <div class="notice info">
+          <svg class="notice-icon" width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M8 1.5a6.5 6.5 0 100 13 6.5 6.5 0 000-13zM0 8a8 8 0 1116 0A8 8 0 010 8zm6.5-.25A.75.75 0 017.25 7h1a.75.75 0 01.75.75v2.75h.25a.75.75 0 010 1.5h-2a.75.75 0 010-1.5h.25v-2h-.25a.75.75 0 01-.75-.75zM8 6a1 1 0 100-2 1 1 0 000 2z"/></svg>
+          <span>Three blocks (<code class="code-inline">case-study-intro</code>, <code class="code-inline">case-study-lead</code>, <code class="code-inline">hero</code>) currently ship with no JS decoration (one has neither JS nor CSS) — likely fine if their default markup already renders correctly, but worth a deliberate check rather than assuming it's an oversight. Separately, <code class="code-inline">cards-video</code>, <code class="code-inline">columns-media</code>, and <code class="code-inline">vidyard-video-player</code> each independently load the same <code class="code-inline">play.vidyard.com/embed/v4.js</code> script — duplicated rather than shared, not necessarily wrong but a candidate for consolidation.</span>
+        </div>
+      </section>
+
+            <section class="doc-section" id="supporting-modules">
+        <h2>
+          <span class="section-icon icon-orange">
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M4.5 2A2.5 2.5 0 002 4.5v7A2.5 2.5 0 004.5 14h7a2.5 2.5 0 002.5-2.5v-7A2.5 2.5 0 0011.5 2h-7zM5 5.5A.5.5 0 015.5 5h5a.5.5 0 010 1h-5A.5.5 0 015 5.5zm0 2.5a.5.5 0 01.5-.5h5a.5.5 0 010 1h-5A.5.5 0 015 8zm.5 2a.5.5 0 000 1h3a.5.5 0 000-1h-3z"/></svg>
+          </span>
+          Supporting modules (<code class="code-inline">scripts/</code>)
+        </h2>
+        <div class="section-rule"></div>
+        <p><code class="code-inline">scripts/</code> contains only the three stock <code class="code-inline">aem-boilerplate</code> files — <code class="code-inline">aem.js</code>, <code class="code-inline">scripts.js</code>, and <code class="code-inline">delayed.js</code> (currently empty, a stub for future delayed-loaded functionality such as martech). There are no additional custom script modules; page-specific logic instead lives in individual blocks — e.g. <code class="code-inline">blocks/fragment/fragment.js</code> exports <code class="code-inline">loadFragment</code>, imported by <code class="code-inline">scripts/scripts.js</code> and by <code class="code-inline">blocks/header/header.js</code> and <code class="code-inline">blocks/footer/footer.js</code> to render nav/footer fragments.</p>
+      </section>
+
+            <section class="doc-section" id="lighthouse-compare">
+        <h2>
+          <span class="section-icon icon-green">
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M8 1.5a6.5 6.5 0 100 13 6.5 6.5 0 000-13zM0 8a8 8 0 1116 0A8 8 0 010 8zm8-3.25a.75.75 0 01.75.75v2.69l1.78 1.78a.75.75 0 11-1.06 1.06l-2-2A.75.75 0 017.25 8.5v-3a.75.75 0 01.75-.75z"/></svg>
+          </span>
+          Lighthouse comparison — Live vs EDS
+        </h2>
+        <div class="section-rule"></div>
+        <div class="notice todo">
+          <svg class="notice-icon" width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M8 1.5a6.5 6.5 0 100 13 6.5 6.5 0 000-13zM0 8a8 8 0 1116 0A8 8 0 010 8zm6.5-.25A.75.75 0 017.25 7h1a.75.75 0 01.75.75v2.75h.25a.75.75 0 010 1.5h-2a.75.75 0 010-1.5h.25v-2h-.25a.75.75 0 01-.75-.75zM8 6a1 1 0 100-2 1 1 0 000 2z"/></svg>
+          <span><strong>Placeholder</strong> — no Lighthouse/PSI scores or screenshots have been captured yet for live fiixsoftware.com vs. the EDS preview. Run audits against key pages (home, pricing, a case study, a product-feature page), save screenshots under <code class="code-inline">docs/images/</code>, and fill in this section using the <code class="code-inline">.lh-compare</code> markup.</span>
+        </div>
+      </section>
+
+            <section class="doc-section" id="migrated-pages">
+        <h2>
+          <span class="section-icon icon-seafoam">
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M4 1.75C4 .784 4.784 0 5.75 0h5.586c.464 0 .909.184 1.237.513l2.914 2.914c.329.328.513.773.513 1.237v9.586A1.75 1.75 0 0114.25 16h-8.5A1.75 1.75 0 014 14.25V1.75zM5.75 1.5a.25.25 0 00-.25.25v12.5c0 .138.112.25.25.25h8.5a.25.25 0 00.25-.25V6h-2.75A1.75 1.75 0 0110 4.25V1.5H5.75z"/></svg>
+          </span>
+          Migrated pages
+        </h2>
+        <div class="section-rule"></div>
+        <p>Every page below has been migrated off the live WordPress site (<a href="https://fiixsoftware.com" target="_blank" rel="noopener" style="color:var(--brand-blue);">fiixsoftware.com</a>) into this EDS/DA.live project. Crawled directly from the DA.live content source (<code class="code-inline">da_list_sources</code> against <code class="code-inline">adobedrago/fiixsoftware</code>) rather than inferred from the code — this is every document that actually exists in the authoring tree today, which is substantially larger than the 9 templates / 8 case studies the original importer config (<code class="code-inline">tools/importer/page-templates.json</code>) documents.</p>
+        <p><strong>82 documents total:</strong> 15 at the root (including the global <code class="code-inline">/nav</code> and <code class="code-inline">/footer</code> fragments), 9 product pages under <code class="code-inline">/cmms/</code>, 1 resource-center listing + 1 ebook, 31 case studies, 25 blog articles, and 1 shared resource-center fragment — 75 of those look like genuine finished pages, with the other 7 flagged below as likely drafts/duplicates.</p>
+
+        <table class="spec-table">
+          <thead><tr><th>Path</th><th>Type</th></tr></thead>
+          <tbody>
+            <tr><td><code class="code-inline">/</code> (index)</td><td>Home page</td></tr>
+            <tr><td><code class="code-inline">/enterprise</code></td><td>Enterprise landing page</td></tr>
+            <tr><td><code class="code-inline">/contact-us</code></td><td>Contact Us page</td></tr>
+            <tr><td><code class="code-inline">/premium-support</code></td><td>Premium Support page</td></tr>
+            <tr><td><code class="code-inline">/training-and-implementation</code></td><td>Training &amp; Implementation page</td></tr>
+            <tr><td><code class="code-inline">/optix</code></td><td>Optix/FactoryTalk marketing landing page</td></tr>
+            <tr><td><code class="code-inline">/cmms/ai</code></td><td>AI at Fiix marketing landing page</td></tr>
+            <tr><td><code class="code-inline">/cmms/pricing</code></td><td>Pricing page</td></tr>
+            <tr><td><code class="code-inline">/cmms/cmms-software</code></td><td>Product feature page</td></tr>
+            <tr><td><code class="code-inline">/cmms/mobile-cmms</code></td><td>Product feature page</td></tr>
+            <tr><td><code class="code-inline">/cmms/asset-management-software</code></td><td>Product feature page</td></tr>
+            <tr><td><code class="code-inline">/cmms/parts-inventory-management-software</code></td><td>Product feature page</td></tr>
+            <tr><td><code class="code-inline">/cmms/cloud-maintenance-software</code></td><td>Product feature page <span style="color:var(--gray-600);">(not in the original importer scope)</span></td></tr>
+            <tr><td><code class="code-inline">/resource-center</code></td><td>Resource Center listing</td></tr>
+            <tr><td><code class="code-inline">/resource-center/ebook</code></td><td>Ebook page</td></tr>
+            <tr><td><code class="code-inline">/blog</code></td><td>Blog listing (backs <code class="code-inline">widgets/blog-listing</code>)</td></tr>
+            <tr><td><code class="code-inline">/fragments/resource-center-navigation</code></td><td>Fragment — resource center sub-nav</td></tr>
+            <tr><td><code class="code-inline">/nav</code>, <code class="code-inline">/footer</code></td><td>Fragments — global header/footer</td></tr>
+          </tbody>
+        </table>
+
+        <h3>Case studies (31)</h3>
+        <p>365 Main, Anaren Microwave, Apollo America, BSW Timber, Bush Brothers, Callan Marine, Clinton Aluminum, Cloeren Inc, Daikin Comfort, DLG Group, Dunlop, EDMS Consultants, Farming Maintenance, Geislinger Corporation, JJ McDonnell, JSM Associates, Labrie Enviroquip Group, Liberty Oilfield, Magna Locations, MI Windows &amp; Doors, NOI Sirius, NZSK, Perth County Ingredients, Pro-Vac Fleet, Rambler, Scottish Sea Farms, Scotts Miracle-Gro, Takeoff Technologies, Universal Pure, Voltalia, Westrock Coffee — all under <code class="code-inline">/resource-center/case-studies/</code>.</p>
+
+        <h3>Blog articles (25)</h3>
+        <p>12 Maintenance Templates, 5 Ways to Reduce Energy With Good Maintenance, 5 Whys: Simple Root Cause Analysis, Advanced CMMS Metrics: Planned Maintenance Percentage, Asset Management Policy Complete Guide, CMMS and Sustainability, CMMS Integrations to Improve Maintenance, CN Tower Maintenance, Cybersecurity Requirements for CMMS, Do I Really Need Training for My CMMS?, Down With Maintenance, Up With Reliability, Establish an Effective Health and Safety Program With Your CMMS, Fiix Salesforce Security Incident Update, Fixing a Broken Maintenance Strategy: PM Optimization and FMEA, How Five Companies Found CMMS Success, How Much Time Is Data Entry Costing You?, How to Evaluate a CMMS, Maintenance Assistant Facilitates Practical Asset Catalog, Maintenance Planning and Scheduling Best Practices, Scheduled Maintenance Critical Percent, Software Integrations Guide, Three Reasons You Need Our Mobile App, Top Maintenance Podcast Episodes 2020, Why Culture Can Make or Break Your CMMS Implementation, Why Work Orders Matter — all under <code class="code-inline">/blog/</code>.</p>
+
+        <div class="notice warning">
+          <svg class="notice-icon" width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M8.22 1.754a.25.25 0 00-.44 0L1.698 13.132a.25.25 0 00.22.368h12.164a.25.25 0 00.22-.368L8.22 1.754zM6.996 12a1 1 0 112 0 1 1 0 01-2 0zM8 6a.75.75 0 01.75.75v3.5a.75.75 0 01-1.5 0v-3.5A.75.75 0 018 6z"/></svg>
+          <span>Seven documents in the tree don't correspond to anything in the code-side importer plan and look like drafts or duplicates rather than finished pages: <code class="code-inline">/community</code>, <code class="code-inline">/demo</code>, <code class="code-inline">/demopage</code>, <code class="code-inline">/free-cmms</code>, <code class="code-inline">/free-cmms-draft</code>, <code class="code-inline">/cmms/ai-update</code>, and <code class="code-inline">/cmms/cmms-software-preview</code>. Worth confirming with the content owner whether these are in-progress work or safe to remove.</span>
+        </div>
+
+        <h3>Blog content indexing</h3>
+        <p>The 25 blog articles above are indexed automatically by <code class="code-inline">helix-query.yaml</code>, which watches <code class="code-inline">/blog/**</code> and publishes a <code class="code-inline">/query-index.json</code> with each page's title, description, image, category, and publication date — this is what <code class="code-inline">widgets/blog-listing</code> fetches to build its live-filterable card grid.</p>
+        <div class="notice warning">
+          <svg class="notice-icon" width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M8.22 1.754a.25.25 0 00-.44 0L1.698 13.132a.25.25 0 00.22.368h12.164a.25.25 0 00.22-.368L8.22 1.754zM6.996 12a1 1 0 112 0 1 1 0 01-2 0zM8 6a.75.75 0 01.75.75v3.5a.75.75 0 01-1.5 0v-3.5A.75.75 0 018 6z"/></svg>
+          <span>If that live index ever fails to load, the widget falls back to a bundled snapshot (<code class="code-inline">widgets/blog-listing/blog-listing.json</code>) — and all 25 entries in that fallback file still hotlink their card images straight from the legacy WordPress media library (<code class="code-inline">fiixsoftware.com/wp-content/uploads/...</code>). The fallback path quietly depends on the WordPress site staying online even after the migration completes.</span>
+        </div>
+      </section>
+
+            <section class="doc-section" id="deploying">
+        <h2>
+          <span class="section-icon icon-navy">
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M6.5 15.4V13a.5.5 0 01.5-.5h2a.5.5 0 01.5.5v2.4a5.5 5.5 0 002-1.1V9.5A5.5 5.5 0 003 9.5v4.8a5.5 5.5 0 003.5 1.1z"/></svg>
+          </span>
+          Deploying
+        </h2>
+        <div class="section-rule"></div>
+        <p>There is no build or deploy script in <code class="code-inline">package.json</code> — deployment is entirely handled by the AEM Code Sync GitHub App, which watches the repo and syncs code changes to the corresponding preview/live environment on every push.</p>
+        <ol class="steps">
+          <li class="step">
+            <div class="step-num"></div>
+            <div class="step-body">
+              <div class="step-title">Push to a feature branch</div>
+              <p>AEM Code Sync automatically publishes it to <code class="code-inline">https://&lt;branch&gt;--fiixsoftware--AdobeDrago.aem.page/</code>.</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-num"></div>
+            <div class="step-body">
+              <div class="step-title">Open a PR to <code class="code-inline">main</code></div>
+              <p>CI (<code class="code-inline">.github/workflows/main.yaml</code>) runs lint on the PR. A human reviewer inspects the feature preview URL and merges.</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-num"></div>
+            <div class="step-body">
+              <div class="step-title">Merge to main</div>
+              <p>AEM Code Sync updates <code class="code-inline">main--fiixsoftware--AdobeDrago.aem.live</code> — production.</p>
+            </div>
+          </li>
+        </ol>
+      </section>
+
+      <div class="doc-footer">
+        <span>Fiix Software — AEM → Edge Delivery Services · docs/</span>
+      </div>
+
+    </div>
+  </main>
+</div>
+
+<script>
+(() => {
+  const links = document.querySelectorAll('.sidebar-link[href^="#"], .sidebar-project[href^="#"]');
+  const sections = new Map();
+  links.forEach((link) => {
+    const target = document.getElementById(link.getAttribute('href').slice(1));
+    if (target) sections.set(target, link);
+  });
+
+  const setActive = (link) => {
+    links.forEach((l) => l.classList.toggle('active', l === link));
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    const visible = entries.filter((entry) => entry.isIntersecting);
+    if (!visible.length) return;
+    visible.sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
+    setActive(sections.get(visible[0].target));
+  }, { rootMargin: '-64px 0px -70% 0px', threshold: 0 });
+
+  sections.forEach((_, target) => observer.observe(target));
+})();
+</script>
+</body>
+</html>
