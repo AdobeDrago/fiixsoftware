@@ -118,6 +118,15 @@ function isIconOnlyParagraph(element) {
   return !!image && Number(image.getAttribute('width')) <= ICON_WIDTH;
 }
 
+/* A promo teaser is a short marketing blurb (e.g. "Need help narrowing down
+   your options? Read our short guide to choosing a CMMS" -- a question plus
+   a call to action is still one teaser line), not multi-sentence body copy.
+   A long paragraph is an article paragraph that happens to sit next to an
+   image and a link -- not a promo band. */
+function looksLikePromoTeaser(text) {
+  return text.split(/\s+/).filter(Boolean).length <= 25;
+}
+
 /**
  * Boxes the "Get the guide"-style promo (an optional run of standalone icon
  * graphics, a plain-text teaser line, then a standalone link) into the
@@ -133,6 +142,7 @@ function decoratePromoBand(column) {
     const heading = link.previousElementSibling;
     if (!heading || heading.tagName !== 'P') return;
     if (heading.querySelector('a, picture') || !heading.textContent.trim()) return;
+    if (!looksLikePromoTeaser(heading.textContent.trim())) return;
 
     // artwork is what makes this a promo: without it, a teaser line followed by
     // a standalone link is just copy followed by an inline call to action, which

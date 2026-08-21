@@ -156,7 +156,10 @@ main > .section.hero-article-container > .hero-article-wrapper {
   box-shadow: none;
 }
 
-@media (width >= 768px) {
+/* the source keeps the card full-width through 768px itself and only narrows
+   it to the fixed overhanging card starting at 769px, so this is one pixel
+   past the project's 768px tablet tier rather than at it */
+@media (width > 768px) {
   /* the source slides the band 190px up behind the fixed nav, then lets the
      card overhang the band's bottom edge; the bottom margin reserves that
      overhang so the article clears the card by the same 10px as the source */
