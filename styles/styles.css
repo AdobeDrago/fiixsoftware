@@ -5077,7 +5077,6 @@ main > .section.blog-header > .default-content-wrapper {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    width: 100%;
 }
 
 main > .section.blog-header .blog-header-copy h1 {
@@ -5126,7 +5125,31 @@ main > .section.blog-header .blog-header-media {
     display: none;
 }
 
-@media (width >= 900px) {
+/* the source shows the featured image starting at tablet, well before the
+   960px desktop nav breakpoint -- just scaled down to a smaller column */
+@media (width >= 768px) {
+    main > .section.blog-header .blog-header-copy {
+        flex: 1 1 auto;
+        min-width: 0;
+        padding-right: 20px;
+    }
+
+    main > .section.blog-header .blog-header-media {
+        display: block;
+        flex: 0 0 250px;
+        width: 250px;
+        margin: 0;
+    }
+
+    main > .section.blog-header .blog-header-media img {
+        display: block;
+        width: 250px;
+        max-width: 100%;
+        height: auto;
+    }
+}
+
+@media (width >= 960px) {
     main > .section.blog-header {
         height: 400px;
         margin: 80px 0 40px;
@@ -5139,12 +5162,9 @@ main > .section.blog-header .blog-header-media {
 
     main > .section.blog-header > .default-content-wrapper {
         height: 100%;
-        padding: 0;
     }
 
     main > .section.blog-header .blog-header-copy {
-        flex: 1 1 auto;
-        min-width: 0;
         padding-right: 40px;
     }
 
@@ -5154,17 +5174,12 @@ main > .section.blog-header .blog-header-media {
     }
 
     main > .section.blog-header .blog-header-media {
-        display: block;
         flex: 0 0 420px;
         width: 420px;
-        margin: 0;
     }
 
     main > .section.blog-header .blog-header-media img {
-        display: block;
         width: 420px;
-        max-width: 100%;
-        height: auto;
     }
 }
 
