@@ -149,6 +149,16 @@
   }
 }
 
+/* A panel loaded from an external fragment (see loadPanelFragment in
+   tabs-feature.js, which sets data-fragment-loaded) supplies its own layout,
+   so it renders full-width instead of the two-column text/media grid above.
+   Higher specificity than the base and @960 rules (extra attribute selector)
+   so it wins at every width without touching any non-fragment panel. */
+.tabs-feature .tabs-feature-panel[data-fragment-loaded='true'] > div {
+  display: block;
+  width: 100%;
+}
+
 /* ============================================================
    Toggle variation — match production #fiixAI .integrations-feature
    / #features-twotoggle / .ai-toggle (Asset Insights). Scoped under
