@@ -1,0 +1,95 @@
+/* Resource center page introduction. */
+
+main > .section.resource-intro-container {
+  margin: 0;
+}
+
+main > .section.resource-intro-container > .resource-intro-wrapper {
+  max-width: none;
+  margin: 0;
+  padding: 0;
+}
+
+.resource-intro {
+  box-sizing: border-box;
+  padding: 50px 18px 10px;
+  background-color: transparent;
+  color: var(--text-color);
+  text-align: center;
+}
+
+.resource-intro > div {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.resource-intro .resource-intro-heading {
+  margin: 0 0 30px;
+  color: var(--text-color);
+  font-size: 40px;
+  font-weight: 700;
+  line-height: 50px;
+}
+
+.resource-intro .resource-intro-description {
+  max-width: 600px;
+  margin: 0 auto;
+  color: var(--text-color);
+  font-size: 20px;
+  font-weight: 300;
+  line-height: 1.7;
+}
+
+@media (width >= 960px) {
+  .resource-intro {
+    /* The local EDS header occupies the 100px space that the live site
+       overlays above this band. Keep the content at the same document y
+       positions while preserving the live band end at 486px. */
+    padding: 50px 0 140px;
+  }
+
+  .resource-intro .resource-intro-heading {
+    font-size: 64px;
+    line-height: 1;
+  }
+}
+
+@media (width >= 769px) and (width <= 959px) {
+  .resource-intro {
+    padding-top: 95px;
+    padding-bottom: 100px;
+  }
+}
+
+@media (width >= 768px) and (width <= 900px) {
+  .resource-intro .resource-intro-heading {
+    font-size: 50px;
+    line-height: 50px;
+  }
+}
+
+@media (width <= 768px) {
+  .resource-intro {
+    padding-top: 95px;
+    padding-bottom: 10px;
+  }
+}
+
+@media (width <= 460px) {
+  .resource-intro {
+    margin-top: 0;
+    padding-top: 50px;
+  }
+
+  .resource-intro .resource-intro-heading {
+    font-size: 40px;
+    line-height: 50px;
+  }
+}
+
+@media (width > 460px) and (width <= 900px) {
+  .resource-intro .resource-intro-heading {
+    font-size: 50px;
+    line-height: 50px;
+  }
+}

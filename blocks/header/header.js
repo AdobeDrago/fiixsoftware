@@ -45,7 +45,6 @@ function toggleMenu(nav, navSections, forceExpanded = null) {
 // Click/keyboard toggle for mega-menu items (no hover).
 function decorateDropItem(navItem, navSections) {
   navItem.classList.add('nav-drop');
-  navItem.setAttribute('role', 'button');
   navItem.setAttribute('aria-haspopup', 'true');
   navItem.setAttribute('aria-expanded', 'false');
   navItem.setAttribute('tabindex', '0');
@@ -209,8 +208,10 @@ export default async function decorate(block) {
   // Load nav fragment (localhost /content, else root).
   const navMeta = getMetadata('nav');
   const navPath = navMeta ? new URL(navMeta, window.location).pathname : '/nav';
-  const fragment = (window.location.hostname === 'localhost' && await loadFragment('/content/nav'))
-    || await loadFragment(navPath);
+  // The local dev server serves the same root nav fragment as preview/live.
+  // Avoid probing the legacy /content/nav path, which is not present locally
+  // and creates a noisy 404 in the browser console on every page load.
+  const fragment = await loadFragment(navPath);
   if (!fragment) {
     // eslint-disable-next-line no-console
     console.warn('[header] no nav fragment found at', navPath);
