@@ -675,3 +675,201 @@
         width: calc(100% - 380px);
     }
 }
+
+/* ============================================================
+   `quote` variant — a single, large, centered testimonial shown one slide at a
+   time (free-cmms `.quote-rotate`). A white, shadowed card; big centered quote
+   with cyan opening/closing quote marks + author line; chevron arrows inset
+   inside the card (hidden on small mobile); cyan dot indicators below the
+   card. The carousel loops (production clones slides for an infinite
+   `owl-carousel`), so the controls are never disabled.
+   Values measured from computed styles on production
+   (fiixsoftware.com/free-cmms): card max-width 1200px with a
+   10px/10px/33px rgba(0 0 0 / 10%) shadow; quote 28/700, author 20/600,
+   accent rgb(0 175 235), chevrons rgb(65 64 66), dots 6px
+   rgb(225 225 225)/accent. The quote-text side margin and arrow visibility
+   step at production's own 500px/951px breakpoints rather than this file's
+   usual 768/960 grid, so the fluid text column and arrow inset land exactly
+   where they do in production at every width tested (390/768/1440).
+   ============================================================ */
+
+/* Production's `.quote-rotate` sits 100px below the preceding section with no
+   gap after (the FAQ section follows immediately); the shared wrapper rule
+   above is tuned for the other variants, so override it here to match. */
+.carousel-testimonial-wrapper:has(> .carousel-testimonial.quote) {
+  padding-top: 100px;
+}
+
+.carousel-testimonial.quote {
+  --carousel-testimonial-accent: rgb(0 175 235);
+
+  position: relative;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* stylelint-disable-next-line no-descending-specificity */
+.carousel-testimonial.quote .carousel-testimonial-slides-container {
+  background-color: #fff;
+  box-shadow: 10px 10px 33px rgb(0 0 0 / 10%);
+}
+
+.carousel-testimonial.quote .carousel-testimonial-slides {
+  gap: 0;
+  padding: 0;
+  scroll-snap-type: x mandatory;
+}
+
+/* one full-width slide at a time, borderless/transparent */
+.carousel-testimonial.quote .carousel-testimonial-slide {
+  flex: 0 0 100%;
+  background: none;
+  border-radius: 0;
+  box-shadow: none;
+  padding: 0 20px;
+  text-align: center;
+}
+
+.carousel-testimonial.quote .carousel-testimonial-slide-content {
+  align-items: center;
+}
+
+/* big centered quote (scoped under -slide-content to beat the base card's
+   `> p:nth-of-type()` typography rules) */
+.carousel-testimonial.quote .carousel-testimonial-slide-content .carousel-testimonial-quote-text {
+  margin: 50px 20px;
+  padding: 0;
+  border: 0;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.15;
+  text-align: center;
+  color: var(--carousel-testimonial-ink);
+}
+
+/* opening/closing curly quote marks, split out into their own span by the
+   block JS (production hand-authors these as a separate cyan `<span>`). */
+.carousel-testimonial.quote .carousel-testimonial-quote-mark {
+  color: var(--carousel-testimonial-accent);
+  font-weight: 600;
+}
+
+/* author name/company line. Resets the base card's divider (border-top +
+   padding-top), which otherwise leaks in via `> p:nth-of-type(2)` since this
+   is also the second paragraph in the column. */
+.carousel-testimonial.quote .carousel-testimonial-slide-content .carousel-testimonial-quote-author {
+  margin: 0 20px 50px;
+  padding-top: 0;
+  border-top: 0;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 1.3;
+  text-align: center;
+  color: var(--carousel-testimonial-ink);
+}
+
+/* prev/next chevrons: inset inside the card, vertically centred. Hidden below
+   500px, matching production, where there is no room for them beside the
+   text. */
+.carousel-testimonial.quote .carousel-testimonial-navigation-buttons {
+  display: none;
+  order: 0;
+  z-index: 3; /* lift the whole nav layer above the slide track for clicks */
+  margin: 0;
+}
+
+/* stylelint-disable-next-line no-descending-specificity */
+.carousel-testimonial.quote .carousel-testimonial-navigation-buttons button {
+  position: absolute;
+  top: 50%;
+  z-index: 3; /* above the slide track, which otherwise intercepts the click */
+  width: 32px;
+  height: 32px;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  transform: translateY(-50%);
+}
+
+.carousel-testimonial.quote .carousel-testimonial-navigation-buttons button.slide-prev { left: 20px; }
+.carousel-testimonial.quote .carousel-testimonial-navigation-buttons button.slide-next { right: 20px; }
+
+/* dark chevron glyphs (override the white-on-dark circular style) */
+.carousel-testimonial.quote .carousel-testimonial-navigation-buttons button::after {
+  border-color: rgb(65 64 66);
+  border-width: 3px;
+  width: 12px;
+  height: 12px;
+}
+
+/* Controls stay solid even when the pointer or focus lands on them -- the
+   shared fade would wash them out, and this carousel loops so they are never
+   dead ends anyway. */
+.carousel-testimonial.quote .carousel-testimonial-navigation-buttons button:hover,
+.carousel-testimonial.quote .carousel-testimonial-navigation-buttons button:focus-visible,
+.carousel-testimonial.quote .carousel-testimonial-navigation-buttons button:disabled {
+  opacity: 1;
+}
+
+/* cyan dot indicators, centred below the card */
+.carousel-testimonial.quote .carousel-testimonial-slide-indicators {
+  display: flex;
+  order: 1;
+  justify-content: center;
+  gap: 10px;
+  margin: 24px 0 0;
+}
+
+.carousel-testimonial.quote .carousel-testimonial-slide-indicators li {
+  margin: 0;
+}
+
+/* stylelint-disable-next-line no-descending-specificity */
+.carousel-testimonial.quote .carousel-testimonial-slide-indicators button {
+  width: 6px;
+  height: 6px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: rgb(225 225 225);
+  cursor: pointer;
+}
+
+.carousel-testimonial.quote .carousel-testimonial-slide-indicators button:hover {
+  background: var(--carousel-testimonial-accent);
+}
+
+.carousel-testimonial.quote .carousel-testimonial-slide-indicators li[aria-selected='true'] button {
+  background: var(--carousel-testimonial-accent);
+}
+
+/* Above 500px there is room beside the text for the arrows, inset further in
+   (60px) once the card is wide enough (matches production's 100px/200px text
+   margin step below/above 960px). */
+@media (width > 500px) {
+  .carousel-testimonial.quote .carousel-testimonial-navigation-buttons {
+    display: flex;
+  }
+
+  .carousel-testimonial.quote .carousel-testimonial-navigation-buttons button.slide-prev { left: 60px; }
+  .carousel-testimonial.quote .carousel-testimonial-navigation-buttons button.slide-next { right: 60px; }
+
+  .carousel-testimonial.quote .carousel-testimonial-slide-content .carousel-testimonial-quote-text {
+    margin: 50px 100px;
+  }
+
+  .carousel-testimonial.quote .carousel-testimonial-slide-content .carousel-testimonial-quote-author {
+    margin: 0 100px 50px;
+  }
+}
+
+@media (width > 960px) {
+  .carousel-testimonial.quote .carousel-testimonial-slide-content .carousel-testimonial-quote-text {
+    margin: 50px 200px;
+    font-size: 28px;
+  }
+
+  .carousel-testimonial.quote .carousel-testimonial-slide-content .carousel-testimonial-quote-author {
+    margin: 0 200px 50px;
+  }
+}
