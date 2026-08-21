@@ -133,3 +133,32 @@ main > .section.cards-testimonial-container {
     grid-template-columns: repeat(3, 1fr);
   }
 }
+
+/* ============================================================
+   `plain` variant -- borderless, centered review blurbs (customers /
+   social-proof grids). No white card chrome or shadow; smaller type. Distinct
+   from the base white-card treatment used on product-feature pages. Authorable
+   as "cards-testimonial (plain)" -> .cards-testimonial.plain. Values from
+   source (fiixsoftware.com/customers .reviews > li).
+   ============================================================ */
+.cards-testimonial.plain .cards-testimonial-card {
+  background: none;
+  border-radius: 0;
+  box-shadow: none;
+  padding: 0 15px;
+}
+
+.cards-testimonial.plain .cards-testimonial-rating {
+  font-size: 16px;
+}
+
+.cards-testimonial.plain .cards-testimonial-quote {
+  margin: 12px 0 20px;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.cards-testimonial.plain .cards-testimonial-name,
+.cards-testimonial.plain .cards-testimonial-role {
+  font-size: 12px;
+}
