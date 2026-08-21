@@ -79,6 +79,79 @@
   background-color: transparent;
 }
 
+/* ============================================================
+   Free-CMMS FAQ ("FAQs about Fiix's free CMMS software"). Production renders
+   this differently from the pricing-page accordion above: closed rows are flat
+   grey panels (#f7f7f7) separated by a 2px #e1e1e1 rule with a grey chevron-down
+   toggle; the open row becomes an elevated WHITE card (soft shadow, larger
+   padding) with the chevron flipped up, and the answer text is 20px. Values
+   measured on production (fiixsoftware.com/free-cmms) at 1200px:
+     closed: bg rgb(247,247,247), border-bottom 2px solid rgb(225,225,225),
+             padding 10px 40px
+     open:   bg #fff, box-shadow 3px 3px 25px rgb(0 0 0 / 12%),
+             padding 20px 40px 40px, margin -2px 0 0
+     h3:     20px/700 rgb(33,32,33), padding 20px 0
+     body:   20px/300 rgb(33,32,33)
+     toggle: chevron (down closed / up open), rgb(65,64,66), ~16px
+   Authorable `card` variant (block name "accordion-faq (card)" → .accordion-faq.card)
+   so any page can opt into this style; the shared pricing-style accordion on
+   every other page keeps its dotted-rule + `+/-` look.
+   ============================================================ */
+.accordion-faq.card details {
+  border: 0;
+  border-bottom: 2px solid #e1e1e1;
+  padding: 10px 40px;
+  margin: 0;
+  background-color: #f7f7f7;
+}
+
+.accordion-faq.card details[open] {
+  border-bottom: 0;
+  padding: 20px 40px 40px;
+  margin: -2px 0 0;
+  background-color: #fff;
+  box-shadow: 3px 3px 25px rgb(0 0 0 / 12%);
+}
+
+.accordion-faq.card details summary {
+  padding: 0 30px 0 0;
+}
+
+.accordion-faq.card details summary h3 {
+  padding: 20px 0;
+  font-size: 20px;
+  line-height: 1.25;
+}
+
+/* grey chevron toggle (down when closed) drawn with a rotated border corner,
+   replacing the pricing accordion's cyan "+" (its vertical ::before bar). */
+.accordion-faq.card details summary::before {
+  display: none;
+}
+
+.accordion-faq.card details summary::after {
+  content: '';
+  right: 4px;
+  width: 11px;
+  height: 11px;
+  border: solid rgb(65 64 66);
+  border-width: 0 2px 2px 0;
+  background: none;
+  transform: translateY(-75%) rotate(45deg);
+  transition: transform 0.2s;
+}
+
+/* chevron flips up when the row is open */
+.accordion-faq.card details[open] summary::after {
+  transform: translateY(-25%) rotate(-135deg);
+}
+
+.accordion-faq.card details .accordion-faq-item-body {
+  padding: 0;
+  font-size: 20px;
+  line-height: 1.4;
+}
+
 /* Hide synced image panel below desktop; accordion-only on tablet/mobile. */
 main .section.enterprise-scale .accordion-faq-panel,
 main .section.pf-explore .accordion-faq-panel {
@@ -297,77 +370,4 @@ main .section.pf-explore .accordion-faq a.arrow-cta::after {
   background-color: currentcolor;
   vertical-align: middle;
   mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11h12.17l-5.59-5.59L12 4l8 8-8 8-1.41-1.41L16.17 13H4z"/></svg>') right center / 24px 22px no-repeat;
-}
-
-/* ============================================================
-   Free-CMMS FAQ ("FAQs about Fiix's free CMMS software"). Production renders
-   this differently from the pricing-page accordion above: closed rows are flat
-   grey panels (#f7f7f7) separated by a 2px #e1e1e1 rule with a grey chevron-down
-   toggle; the open row becomes an elevated WHITE card (soft shadow, larger
-   padding) with the chevron flipped up, and the answer text is 20px. Values
-   measured on production (fiixsoftware.com/free-cmms) at 1200px:
-     closed: bg rgb(247,247,247), border-bottom 2px solid rgb(225,225,225),
-             padding 10px 40px
-     open:   bg #fff, box-shadow 3px 3px 25px rgb(0 0 0 / 12%),
-             padding 20px 40px 40px, margin -2px 0 0
-     h3:     20px/700 rgb(33,32,33), padding 20px 0
-     body:   20px/300 rgb(33,32,33)
-     toggle: chevron (down closed / up open), rgb(65,64,66), ~16px
-   Authorable `card` variant (block name "accordion-faq (card)" → .accordion-faq.card)
-   so any page can opt into this style; the shared pricing-style accordion on
-   every other page keeps its dotted-rule + `+/-` look.
-   ============================================================ */
-.accordion-faq.card details {
-  border: 0;
-  border-bottom: 2px solid #e1e1e1;
-  padding: 10px 40px;
-  margin: 0;
-  background-color: #f7f7f7;
-}
-
-.accordion-faq.card details[open] {
-  border-bottom: 0;
-  padding: 20px 40px 40px;
-  margin: -2px 0 0;
-  background-color: #fff;
-  box-shadow: 3px 3px 25px rgb(0 0 0 / 12%);
-}
-
-.accordion-faq.card details summary {
-  padding: 0 30px 0 0;
-}
-
-.accordion-faq.card details summary h3 {
-  padding: 20px 0;
-  font-size: 20px;
-  line-height: 1.25;
-}
-
-/* grey chevron toggle (down when closed) drawn with a rotated border corner,
-   replacing the pricing accordion's cyan "+" (its vertical ::before bar). */
-.accordion-faq.card details summary::before {
-  display: none;
-}
-
-.accordion-faq.card details summary::after {
-  content: '';
-  right: 4px;
-  width: 11px;
-  height: 11px;
-  border: solid rgb(65 64 66);
-  border-width: 0 2px 2px 0;
-  background: none;
-  transform: translateY(-75%) rotate(45deg);
-  transition: transform 0.2s;
-}
-
-/* chevron flips up when the row is open */
-.accordion-faq.card details[open] summary::after {
-  transform: translateY(-25%) rotate(-135deg);
-}
-
-.accordion-faq.card details .accordion-faq-item-body {
-  padding: 0;
-  font-size: 20px;
-  line-height: 1.4;
 }

@@ -174,6 +174,10 @@ pre {
     white-space: pre;
 }
 
+strong, p strong {
+    font-weight: 700;
+}
+
 main > div {
     margin: 40px 16px;
 }
@@ -340,6 +344,7 @@ main > .section {
 }
 
 main > .section > div:not(.section-bg) {
+    box-sizing: border-box;
     max-width: 1200px;
     margin: auto;
     padding: 0 20px;
@@ -4167,6 +4172,10 @@ main > .section.ai-hero .columns-media p {
     color: var(--text-color);
 }
 
+main > .section.ai-hero .columns-media p:last-of-type {
+    margin-bottom: 0;
+}
+
 /* hero logo (Optix hero has a product logo above the H1) */
 main > .section.ai-hero .columns-media p:has(img) img {
     width: auto;
@@ -4200,26 +4209,51 @@ main > .section.ai-hero .columns-media > div > div {
 }
 
 main > .section.ai-hero .columns-media > div > .columns-media-img-col {
+    display: none;
     order: 1;
 }
 
-@media (width >= 960px) {
+@media (width >= 768px) {
     main > .section.ai-hero {
-        padding: 50px 0;
+        padding: 80px 0;
     }
 
     main > .section.ai-hero .columns-media h1 {
         font-size: 48px;
     }
 
+    /* the shared columns-media.css sets align-items:center at this width;
+       stretch instead so the empty (image taken out of flow, see below)
+       column still spans the text column's height — needed as the anchor
+       for the img's own top:50%/translateY(-50%) centering. */
     main > .section.ai-hero .columns-media > div {
+        align-items: stretch;
         justify-content: space-between;
         gap: 48px;
     }
 
     main > .section.ai-hero .columns-media > div > .columns-media-img-col {
+        position: relative;
+        display: block;
         flex: 0 0 40%;
         max-width: 40%;
+    }
+
+    /* the illustration overflows its column rather than being contained —
+       taken out of flow so the row's height still tracks the text column,
+       matching production. Centered here; desktop shifts it up further. */
+    main > .section.ai-hero .columns-media > div > .columns-media-img-col img {
+        position: absolute;
+        top: 50%;
+        left: 0;
+        transform: translateY(-50%);
+    }
+}
+
+@media (width >= 1200px) {
+    main > .section.ai-hero .columns-media > div > .columns-media-img-col img {
+        top: -60px;
+        transform: none;
     }
 }
 
@@ -4253,10 +4287,35 @@ main > .section.ai-timeline .default-content-wrapper h2 {
    replace the media-cell links. Production band 70px top / 160px
    bottom, H2 48/700 white. ---- */
 main > .section.ai-fiixmax {
+    position: relative;
     margin: 0;
     padding: 70px 0 90px;
     background-image: linear-gradient(269deg, #00afeb 0%, #003e7e 100%);
     color: #fff;
+}
+
+/* decorative dot-grid graphic, mirrored at the band's left/right edges
+   behind the intro video (negative z-index keeps it behind every child,
+   matching production's z-index:2 on the video without touching that
+   shared block's CSS). */
+main > .section.ai-fiixmax::before,
+main > .section.ai-fiixmax::after {
+    content: "";
+    position: absolute;
+    top: 180px;
+    width: 200px;
+    height: 135px;
+    background: url("https://fiixsoftware.com/wp-content/uploads/2026/06/Fiix-Max-graphic-element-dots.png") 0 0 / cover no-repeat;
+}
+
+main > .section.ai-fiixmax::before {
+    left: 0;
+}
+
+main > .section.ai-fiixmax::after {
+    top: 380px;
+    right: 0;
+    transform: rotate(180deg);
 }
 
 main > .section.ai-fiixmax .default-content-wrapper {
@@ -4328,9 +4387,11 @@ main > .section.ai-fiixmax .default-content-wrapper a:focus-visible {
 
 /* Fiix MAX section theming for columns-media cards (white cards on the
    gradient band). Block layout/vidyard/left/right live in columns-media.css
-   and work without this section style. */
+   and work without this section style. Values below (padding/gap/margin,
+   the "Available on Desktop and Mobile" ribbon tag) are matched against
+   production's #fiixAI .fiixMAX-info .question at each breakpoint. */
 main > .section.ai-fiixmax .columns-media-wrapper {
-    margin: 0 auto 24px;
+    margin: 0 auto 30px;
 }
 
 main > .section.ai-fiixmax .columns-media-wrapper:last-of-type {
@@ -4344,16 +4405,18 @@ main > .section.ai-fiixmax .columns-media {
 }
 
 main > .section.ai-fiixmax .columns-media > div {
+    position: relative;
+    align-items: center;
     margin: 0;
-    padding: 24px;
+    padding: 40px 30px;
     border-radius: 10px;
     background-color: #fff;
-    gap: 20px;
+    gap: 30px;
 }
 
 main > .section.ai-fiixmax .columns-media p {
     color: var(--text-color);
-    font-size: 16px;
+    font-size: 20px;
     font-weight: 300;
     line-height: 1.6;
 }
@@ -4363,10 +4426,103 @@ main > .section.ai-fiixmax .columns-media p strong {
     font-weight: 700;
 }
 
+/* the quoted question ("What are my highest priority...") renders as a
+   large headline, distinguished from body copy by being the sole content
+   of its paragraph. A tight line-height (rather than the inherited body
+   1.6) keeps this row's text column short enough to stay vertically
+   centered against the video column, so the "Available on Desktop and
+   Mobile" ribbon tag (positioned absolutely near the row's top) never
+   overlaps it. */
+main > .section.ai-fiixmax .columns-media p:has(> strong:only-child) {
+    margin: 0 0 20px;
+    line-height: 1.2;
+}
+
+/* "Available on Desktop and Mobile" ribbon tag: only the first row's text
+   column carries it, as a plain leading paragraph with no <strong> (the
+   quoted-question row starts with the strong-wrapped quote instead). */
+main > .section.ai-fiixmax .columns-media > div:not(:has(
+        > .columns-media-text-col > p:first-child > strong:only-child
+    )) {
+    padding-top: 80px;
+}
+
+main
+    > .section.ai-fiixmax
+    .columns-media-text-col
+    > p:first-child:not(:has(strong)) {
+    position: absolute;
+    top: 20px;
+    left: 0;
+    margin: 0;
+    padding: 10px 30px;
+    background-color: #e6e7e8;
+    clip-path: polygon(
+        0 0,
+        100% 0,
+        100% calc(100% - 12px),
+        calc(100% - 12px) 100%,
+        0 100%
+    );
+    color: var(--text-color);
+    font-size: 16px;
+    font-weight: 300;
+}
+
 @media (width >= 768px) {
+    main > .section.ai-fiixmax::before,
+    main > .section.ai-fiixmax::after {
+        top: 280px;
+        width: 250px;
+        height: 169px;
+    }
+
+    main > .section.ai-fiixmax .columns-media-wrapper {
+        margin: 0 auto 40px;
+    }
+
     main > .section.ai-fiixmax .columns-media > div {
-        padding: 32px;
-        gap: 24px;
+        padding: 35px 60px;
+        gap: 50px;
+    }
+
+    /* Side-by-side layout: the video column is always the taller flex item
+       (it sets the row's height), so it sits flush at the top regardless of
+       align-items. Force the tagged row's text column to flex-start too and
+       give it its own top padding, so the ribbon tag's absolute position
+       never depends on how many lines the quote wraps to (varies with our
+       font stack vs production's). */
+    main > .section.ai-fiixmax .columns-media > div:not(:has(
+            > .columns-media-text-col > p:first-child > strong:only-child
+        )) {
+        align-items: flex-start;
+        padding-top: 35px;
+    }
+
+    main > .section.ai-fiixmax .columns-media > div:not(:has(
+            > .columns-media-text-col > p:first-child > strong:only-child
+        )) > .columns-media-text-col:not(.columns-media-img-col) {
+        padding-top: 90px;
+    }
+
+    main > .section.ai-fiixmax .columns-media p:has(> strong:only-child) {
+        font-size: 40px;
+    }
+
+    main
+        > .section.ai-fiixmax
+        .columns-media-text-col
+        > p:first-child:not(:has(strong)) {
+        top: 45px;
+        padding: 15px 50px 15px 60px;
+        clip-path: polygon(
+            0 0,
+            100% 0,
+            100% calc(100% - 20px),
+            calc(100% - 20px) 100%,
+            0 100%
+        );
+        font-size: 20px;
     }
 }
 
@@ -4378,17 +4534,14 @@ main > .section.ai-fiixmax .columns-media p strong {
     main > .section.ai-fiixmax .default-content-wrapper h2 {
         font-size: 48px;
     }
-
-    main > .section.ai-fiixmax .columns-media > div {
-        align-items: center;
-        padding: 40px 50px;
-        gap: 50px;
-    }
 }
 
 @media (width >= 1200px) {
-    main > .section.ai-fiixmax .columns-media > div {
-        gap: 60px;
+    main > .section.ai-fiixmax::before,
+    main > .section.ai-fiixmax::after {
+        top: 230px;
+        width: 400px;
+        height: 270px;
     }
 }
 
@@ -4536,35 +4689,127 @@ main > .section.ai-augury .columns-media a:focus-visible {
 
 /* ---- ai-faq / optix-faq: both FAQ sections carry BOTH the ai-faq and
    optix-faq classes, so they share these rules. White band, centered
-   heading, an accordion-faq block (styled by the block), and a "Learn
-   more" link. Production H2 40/500-700 center. The duplicated section
+   heading, an accordion-faq block (styled below to match production's
+   shared #RA-faq FAQ component — grey dividers, medium-weight questions,
+   a chevron that rotates open, in place of the block's default cyan
+   +/- bars), and a gradient-pill "Learn more" CTA. The duplicated section
    metadata leaks a visible "style / optix-faq" block — hide it. ---- */
 main > .section.ai-faq {
+    display: flex;
+    flex-direction: column;
     margin: 0;
     padding: 60px 0;
 }
 
+/* Authored content puts the CTA paragraph right after the heading, both
+   inside default-content-wrapper, but production shows it after the
+   accordion instead. Flatten the wrapper so the heading and CTA become
+   independent flex items of the section, then reorder around the
+   accordion without touching authored content order. */
+main > .section.ai-faq .default-content-wrapper {
+    display: contents;
+}
+
+main > .section.ai-faq .accordion-faq-wrapper {
+    order: 1;
+
+    @media(width >= 960px) {
+        width:100%;
+    }
+}
+
+main > .section.ai-faq .default-content-wrapper > p {
+    order: 2;
+}
+
 main > .section.ai-faq .default-content-wrapper h2 {
     margin: 0 auto 20px;
-    font-size: 40px;
-    font-weight: 700;
+    font-size: 32px;
+    font-weight: 500;
     line-height: 1.1;
     text-align: center;
     color: var(--text-color);
 }
 
-/* "Learn more about CBM with Fiix" intro link → centered blue link */
+/* "Learn more about CBM with Fiix" → orange gradient pill CTA (same
+   treatment as the "Learn more about Fiix MAX" pill in ai-fiixmax). */
 main > .section.ai-faq .default-content-wrapper a:any-link {
-    display: block;
-    margin: 0 auto 24px;
-    text-align: center;
-    color: #14499a;
+    display: table;
+    margin: 24px auto 0;
+    padding: 8px 40px;
+    border-radius: 5px;
+    background-image: linear-gradient(90deg, #cd163f 0%, #f58025 100%);
+    color: #fff;
+    font-size: 16px;
     font-weight: 700;
+    text-align: center;
+}
+
+main > .section.ai-faq .default-content-wrapper a:hover,
+main > .section.ai-faq .default-content-wrapper a:focus-visible {
+    color: #fff;
+    text-decoration: none;
+    opacity: 0.92;
 }
 
 main > .section.ai-faq .accordion-faq {
-    max-width: 900px;
     margin: 0 auto;
+}
+
+main > .section.ai-faq .accordion-faq details {
+    padding: 20px 0;
+    border: 0;
+    border-bottom: 2px solid #ccc;
+}
+
+main > .section.ai-faq .accordion-faq details[open] {
+    padding: 20px;
+    border-bottom: 4px solid #00afeb;
+}
+
+main > .section.ai-faq .accordion-faq details summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 0 20px;
+}
+
+main > .section.ai-faq .accordion-faq details[open] summary {
+    margin-bottom: 20px;
+    padding: 0;
+}
+
+main > .section.ai-faq .accordion-faq details summary h3 {
+    font-size: 18px;
+    font-weight: 500;
+}
+
+main > .section.ai-faq .accordion-faq details .accordion-faq-item-body {
+    padding: 0;
+}
+
+main > .section.ai-faq .accordion-faq details .accordion-faq-item-body p {
+    font-size: 18px;
+}
+
+main > .section.ai-faq .accordion-faq details summary::before {
+    display: none;
+}
+
+main > .section.ai-faq .accordion-faq details summary::after {
+    position: static;
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+    background-color: #6d6e71;
+    mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 21 21"><path d="M1 7.5 10.5 16.5 20 7.5 18.5 6 10.5 13.5 2.5 6z"/></svg>') center / 100% 100% no-repeat;
+    transform: none;
+    transition: transform 0.2s;
+}
+
+main > .section.ai-faq .accordion-faq details[open] summary::after {
+    transform: rotate(180deg);
 }
 
 /* suppress the leaked duplicate section-metadata block */
@@ -4573,13 +4818,22 @@ main > .section.ai-faq .section-metadata {
     display: none;
 }
 
+@media (width >= 768px) {
+    main > .section.ai-faq .default-content-wrapper h2 {
+        font-size: 40px;
+    }
+
+    main > .section.ai-faq .accordion-faq details summary h3 {
+        font-size: 20px;
+    }
+}
+
 /* ---- ai-tabs: section chrome for tabs-feature instances.
    Shared band styles apply to both; #homepage (Foresight switcher)
    overrides are limited to sections that contain a non-toggle
    tabs-feature so the Asset Insights toggle instance is unchanged. ---- */
 main > .section.ai-tabs {
     margin: 0;
-    padding: 50px 0;
     background-color: #fff;
 }
 
@@ -4607,11 +4861,6 @@ main > .section.ai-tabs .default-content-wrapper p:has(img) img {
     max-height: 40px;
 }
 
-@media (width >= 960px) {
-    main > .section.ai-tabs .default-content-wrapper h2 {
-        font-size: 40px;
-    }
-}
 
 /* #fiixAI #homepage parity — only the default (non-toggle) switcher */
 main > .section.ai-tabs:has(.tabs-feature:not(.toggle)) {
@@ -4694,6 +4943,8 @@ main > .section.ai-dual-cta {
 main > .section.ai-dual-cta > .cards-cta-wrapper {
     padding-right: 0;
     padding-left: 0;
+    margin: 0 auto;
+    width: 90%;
 }
 
 /* Mobile/tablet: lighter top margin when overlapping upward (production

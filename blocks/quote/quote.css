@@ -95,7 +95,7 @@
   margin: 0 auto;
   padding: 0;
   border: 0;
-  font-size: 22px;
+  font-size: 16px;
   font-weight: 500;
   line-height: normal;
 }
@@ -183,6 +183,10 @@
     inset: auto -70px -80px auto;
   }
 
+  .quote.wrap .quote-text p {
+    font-size: 22px;
+  }
+
   .quote.wrap .quote-attribution {
     padding: 0;
     font-size: 20px;
@@ -190,12 +194,6 @@
 
   .quote.wrap .quote-attribution p + p {
     font-size: 20px;
-  }
-}
-
-@media (width >= 960px) {
-  .quote.wrap .quote-text p {
-    font-size: 22px;
   }
 }
 
@@ -244,5 +242,12 @@ main > .section:has(.quote.wrap) + .section {
 @media (width >= 960px) {
   main > .section:has(.quote.wrap) .quote-wrapper {
     width: 60%;
+  }
+
+  /* the 60%-width card wraps its quote onto more lines than production's
+     font stack does at this width, growing a few px taller — a bit of
+     extra clearance keeps it off the next section's heading. */
+  main > .section:has(.quote.wrap) + .section {
+    padding-top: 240px;
   }
 }
