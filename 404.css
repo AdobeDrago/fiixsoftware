@@ -1,0 +1,96 @@
+main.error {
+  box-sizing: border-box;
+  min-height: 705px;
+  display: flex;
+  justify-content: center;
+  padding: 0 20px 40px;
+}
+
+main.error .error-content {
+  box-sizing: border-box;
+  width: min(1160px, 100%);
+  padding-bottom: 40px;
+  font-size: 16px;
+  line-height: 1.7;
+  text-align: center;
+}
+
+main.error .error-content > .default-content-wrapper {
+  padding: 0;
+}
+
+main.error .error-oops {
+  box-sizing: content-box;
+  width: 300px;
+  height: 300px;
+  margin: 0 auto 60px;
+  border: 10px solid #999;
+  border-radius: 50%;
+  color: #999;
+  font-family: var(--heading-font-family);
+  font-size: 100px;
+  font-weight: 700;
+  line-height: 300px;
+  padding-left: 30px;
+  text-align: center;
+}
+
+main.error .error-truck {
+  margin: 0 0 20px;
+  line-height: 0;
+}
+
+main.error .error-truck img {
+  display: inline-block;
+  width: 128px;
+  height: 84px;
+  max-width: 100%;
+}
+
+main.error .error-message {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0 0 0 30px;
+  color: #999;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 52px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+main.error .error-copy {
+  box-sizing: border-box;
+  margin: 0 0 20px;
+  padding: 0 0 0 30px;
+  font-size: 20px;
+  line-height: normal;
+}
+
+main.error .error-copy a:any-link {
+  color: #14499a;
+}
+
+@media (width < 960px) {
+  main.error .error-content {
+    width: 90%;
+  }
+}
+
+@media (width >= 960px) and (width < 1200px) {
+  main.error .error-content {
+    width: min(920px, 100%);
+  }
+}
+
+@media (width < 768px) {
+  main.error {
+    min-height: 0;
+    padding: 38px 0;
+    overflow: hidden;
+  }
+
+  main.error .error-content {
+    width: 90%;
+    padding-bottom: 40px;
+  }
+}
