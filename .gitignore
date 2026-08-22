@@ -3,6 +3,8 @@ coverage/*
 logs/*
 node_modules/*
 .playwright-mcp/
+test-results/
+playwright-report/
 
 helix-importer-ui
 .DS_Store

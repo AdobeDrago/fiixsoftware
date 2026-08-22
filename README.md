@@ -25,6 +25,10 @@ npm i
 npm run lint
 ```
 
+## Migration validation
+
+Playwright-based WordPress-to-EDS migration checks are documented in [tests/migration/README.md](tests/migration/README.md).
+
 ## Local development
 
 1. Create a new repository based on the `aem-boilerplate` template
