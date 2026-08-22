@@ -589,6 +589,18 @@ main
     }
 }
 
+/* ============================================================
+   `feature` variant — image+text feature rows (cloud-page). Production renders
+   the feature H3 at 36px, larger than the default ~20px h3 in these rows.
+   Authorable ("columns-media (feature)" -> .columns-media.feature) so any page
+   can reuse it; the base columns-media keeps its default heading sizing.
+   ============================================================ */
+.columns-media.feature h3 {
+    font-size: 36px;
+    font-weight: 700;
+    line-height: 1.1;
+}
+
 /* Vidyard + info-flex are independent variations stacked after accent
    left/right. Their selectors intentionally do not compete with accent
    rules, so descending-specificity across variation boundaries is OK. */
@@ -769,15 +781,3 @@ div.columns-media.info-flex > div > .columns-media-img-col {
 }
 
 /* stylelint-enable no-descending-specificity */
-
-/* ============================================================
-   `feature` variant — image+text feature rows (cloud-page). Production renders
-   the feature H3 at 36px, larger than the default ~20px h3 in these rows.
-   Authorable ("columns-media (feature)" -> .columns-media.feature) so any page
-   can reuse it; the base columns-media keeps its default heading sizing.
-   ============================================================ */
-.columns-media.feature h3 {
-  font-size: 36px;
-  font-weight: 700;
-  line-height: 1.1;
-}
