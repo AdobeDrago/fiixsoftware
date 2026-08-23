@@ -6,7 +6,11 @@ const {
   caseStudyPages,
 } = require('../config/page-families.js');
 const pages = require('../config/pages.js');
-const { formatResult } = require('../utils/reporting.js');
+const {
+  assertNoMigrationErrors,
+  formatFailureSummary,
+  formatResult,
+} = require('../utils/reporting.js');
 
 const expectedPageTypes = new Set([
   'Product Page',
@@ -69,5 +73,46 @@ test.describe('migration page configuration', () => {
       findings: [],
     });
     expect(output).toContain(`Page type: ${pages[0].pageType}`);
+  });
+
+  test('groups failed findings into a concise bullet summary', () => {
+    const result = {
+      page: 'Example Page',
+      viewport: 'mobile',
+      findings: [
+        {
+          severity: 'ERROR',
+          category: 'CONTENT',
+          code: 'MISSING_CONTENT',
+          message: 'Missing paragraph in EDS',
+          live: 'Important source copy',
+          eds: null,
+          context: 'Results',
+        },
+        {
+          severity: 'ERROR',
+          category: 'CONTENT',
+          code: 'MISSING_CONTENT',
+          message: 'Missing heading in EDS',
+          live: 'Another source item',
+          eds: null,
+          context: 'Overview',
+        },
+        {
+          severity: 'WARNING',
+          category: 'VISUAL',
+          code: 'VISUAL_DIFFERENCE',
+          message: 'Visual difference is 5%',
+        },
+      ],
+    };
+    const summary = formatFailureSummary(result);
+    expect(summary).toContain('Migration error summary — Example Page [mobile]');
+    expect(summary).toContain('- [CONTENT/MISSING_CONTENT] (2 findings)');
+    expect(summary).toContain('Live: Important source copy');
+    expect(summary).toContain('1 warning(s)');
+    expect(() => assertNoMigrationErrors(result)).toThrow(summary);
+    expect(() => assertNoMigrationErrors({ ...result, findings: result.findings.slice(2) }))
+      .not.toThrow();
   });
 });

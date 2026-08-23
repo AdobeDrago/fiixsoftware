@@ -130,6 +130,10 @@ index page is still compared as shown to a visitor, while the static supplied de
 remain the authoritative migration scope and every configured detail page is tested independently.
 
 The suite accumulates all findings before asserting, so a failure includes a useful category summary instead of stopping at the first mismatch. If a page is unavailable, semantic comparison is skipped to prevent a cascade of misleading failures; responsive runs still attach live and EDS screenshots.
+Failed tests show a grouped bullet summary at the top of the Playwright error panel. Each bullet
+identifies the category and finding code, includes one representative value/context, and shows a
+count when the same issue type occurs repeatedly. The same text is attached as
+`migration-error-summary`; complete warning and informational details remain in `migration-summary`.
 
 ## Scaling the suite
 

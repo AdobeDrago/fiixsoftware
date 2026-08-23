@@ -1,4 +1,4 @@
-const { test, expect } = require('@playwright/test');
+const { test } = require('@playwright/test');
 const pages = require('./config/pages.js');
 const viewports = require('./config/viewports.js');
 const { compareAvailability, compareContentRoots } = require('./utils/availability.js');
@@ -10,7 +10,7 @@ const { comparePaginationScope } = require('./utils/compare-pagination.js');
 const { extractPage } = require('./utils/extract-page.js');
 const { checkLinkHealth } = require('./utils/link-health.js');
 const { openPair } = require('./utils/page-loader.js');
-const { attachResult, formatResultStatus } = require('./utils/reporting.js');
+const { assertNoMigrationErrors, attachResult } = require('./utils/reporting.js');
 
 test.describe('semantic migration validation', () => {
   pages.forEach((pageConfig) => {
@@ -52,8 +52,7 @@ test.describe('semantic migration validation', () => {
         await pair.close();
       }
       await attachResult(testInfo, result);
-      const errors = result.findings.filter((item) => item.severity === 'ERROR');
-      expect(errors, formatResultStatus(result)).toHaveLength(0);
+      assertNoMigrationErrors(result);
     });
   });
 });
