@@ -71,6 +71,9 @@ building that entry in `config/pages.js`.
 
 - Semantic content: headings, paragraphs, blockquotes/testimonial attributions, lists, labels,
   captions, buttons, cards, and order.
+- Screen-reader-only link announcements are removed from semantic text. Social-share labels and
+  lists are excluded from primary content, while secondary links in the same block are still
+  health-checked and can report broken destinations.
 - Links: visible content and global links, CTA destinations, redirects, and response health.
   Repeated labels are matched by destination first and then by nearest position, avoiding
   false destination changes when CTAs repeat within a page.

@@ -14,6 +14,7 @@ const { compareMetadata } = require('../utils/compare-metadata.js');
 const { comparePaginationScope } = require('../utils/compare-pagination.js');
 const { extractPage } = require('../utils/extract-page.js');
 const { countBySeverity, finding } = require('../utils/findings.js');
+const { checkLinkHealth } = require('../utils/link-health.js');
 const { normalizeText, similarity } = require('../utils/normalize.js');
 const { normalizeUrl, urlsEquivalent } = require('../utils/url.js');
 const { isBlockedHost } = require('../utils/page-loader.js');
@@ -86,6 +87,49 @@ test.describe('migration normalizers and comparators', () => {
     }));
     expect(compareContent(extracted.content, equivalentParagraphs)
       .filter((item) => item.severity === 'ERROR')).toHaveLength(0);
+  });
+
+  test('keeps linked paragraphs and removes screen-reader-only text', async ({ page }) => {
+    await page.setContent(`
+      <main>
+        <p>Visible lead-in <a href="/advisory">Security advisory</a><span class="blog-body-sr-only"> (opens in new tab)</span>. Visible follow-up.</p>
+        <section class="blog-share">
+          <div class="default-content-wrapper">
+            <p><strong>Share this article:</strong></p>
+            <ul><li><a href="https://example.com/share">Facebook (opens in a new tab)</a></li></ul>
+            <p>Read our <a href="/legal/blog-editorial-policy">editorial policy</a>.</p>
+          </div>
+        </section>
+      </main>
+    `);
+    const extracted = await extractPage(page, 'eds', {
+      contentRoots: { eds: 'main' },
+      globalRoots: { eds: 'header,footer' },
+      excludeSelectors: [
+        '.sr-only',
+        '.blog-body-sr-only',
+        '.blog-share > .default-content-wrapper > p:first-child',
+        '.blog-share > .default-content-wrapper > ul',
+      ],
+      secondaryContentSelectors: [
+        '.blog-share > .default-content-wrapper > p:nth-of-type(n+2)',
+      ],
+    });
+    expect(extracted.content.map(({ text }) => text)).toEqual([
+      'Visible lead-in Security advisory. Visible follow-up.',
+    ]);
+    expect(extracted.links).toEqual([
+      expect.objectContaining({
+        label: 'Security advisory',
+        scope: 'content',
+      }),
+      expect.objectContaining({
+        label: 'editorial policy',
+        scope: 'secondary',
+      }),
+    ]);
+    expect(extracted.content.some(({ text }) => text.includes('Share this article'))).toBe(false);
+    expect(extracted.content.some(({ text }) => text.includes('Facebook'))).toBe(false);
   });
 
   test('extracts and reports explicit index pagination', async ({ page }) => {
@@ -237,6 +281,25 @@ test.describe('migration normalizers and comparators', () => {
       severity: 'WARNING',
       code: 'EDS_PAGE_REDIRECTED',
       viewport: 'desktop',
+    }));
+  });
+
+  test('health-checks secondary links without treating them as primary content', async () => {
+    const findings = await checkLinkHealth({
+      head: async () => ({
+        status: () => 404,
+        url: () => 'https://develop--fiixsoftware--adobedrago.aem.page/legal/editorial-policy',
+      }),
+    }, [], [{
+      label: 'editorial policy',
+      href: 'https://develop--fiixsoftware--adobedrago.aem.page/legal/editorial-policy',
+      scope: 'secondary',
+      context: 'Blog share section',
+    }], config);
+    expect(findings).toContainEqual(expect.objectContaining({
+      severity: 'ERROR',
+      code: 'BROKEN_LINK',
+      eds: 'https://develop--fiixsoftware--adobedrago.aem.page/legal/editorial-policy',
     }));
   });
 

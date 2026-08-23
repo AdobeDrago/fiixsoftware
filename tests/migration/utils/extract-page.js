@@ -3,11 +3,19 @@ const { normalizeText } = require('./normalize.js');
 async function extractPage(page, side, config) {
   const rootSelector = config.contentRoots[side];
   const globalSelector = config.globalRoots[side];
+  const secondaryContentSelectors = config.secondaryContentSelectors || [];
   const raw = await page.evaluate(({
-    rootSelector: root, globalSelector: globalRoot, exclusions,
+    rootSelector: root,
+    globalSelector: globalRoot,
+    exclusions,
+    secondarySelectors,
   }) => {
     const contentRoot = document.querySelector(root);
+    const textExclusionSelector = exclusions.join(',');
     const excluded = (element) => exclusions.some((selector) => (
+      element.matches(selector) || element.closest(selector)
+    ));
+    const secondary = (element) => secondarySelectors.some((selector) => (
       element.matches(selector) || element.closest(selector)
     ));
     const visible = (element) => {
@@ -21,6 +29,24 @@ async function extractPage(page, side, config) {
         && rect.height > 0;
     };
     const clean = (value) => String(value || '').replace(/\s+/g, ' ').trim();
+    const textFor = (element, preserveLineBreaks = false) => {
+      if (!element) return '';
+      const clone = element.cloneNode(true);
+      if (textExclusionSelector) {
+        clone.querySelectorAll(textExclusionSelector).forEach((child) => child.remove());
+      }
+      if (preserveLineBreaks) {
+        clone.querySelectorAll('br').forEach((breakElement) => {
+          breakElement.replaceWith(document.createTextNode('\n'));
+        });
+        return String(clone.textContent || '')
+          .split(/\n+/)
+          .map(clean)
+          .filter(Boolean)
+          .join('\n');
+      }
+      return clean(clone.innerText || clone.textContent);
+    };
     const cleanLinkLabel = (value) => clean(value)
       .replace(/\s*\(opens? in (?:a )?new tab\)\s*$/i, '')
       .trim();
@@ -30,7 +56,7 @@ async function extractPage(page, side, config) {
     orderedElements.forEach((element) => {
       precedingHeading.set(element, latestHeading);
       if (element.matches('h1,h2,h3,h4,h5,h6')) {
-        latestHeading = clean(element.innerText);
+        latestHeading = textFor(element);
       }
     });
     const contextFor = (element) => {
@@ -38,7 +64,7 @@ async function extractPage(page, side, config) {
         'article, .resource, li[class*="card"], [data-card], section',
       );
       const heading = container?.querySelector('h1,h2,h3,h4,h5,h6');
-      if (heading && heading !== element) return clean(heading.innerText);
+      if (heading && heading !== element) return textFor(heading);
       return precedingHeading.get(element) || '';
     };
     const rectFor = (element) => {
@@ -54,6 +80,7 @@ async function extractPage(page, side, config) {
       'h1,h2,h3,h4,h5,h6,p,blockquote,cite,li,dt,dd,figcaption,label,button,[role="button"]',
     )]
       .filter(visible)
+      .filter((element) => !secondary(element))
       .filter((element) => {
         const quote = element.closest('blockquote');
         return !quote || quote === element;
@@ -67,15 +94,18 @@ async function extractPage(page, side, config) {
       .filter((element) => !(
         element.matches('p')
         && element.querySelector(':scope > a[href]')
+        && ![...element.childNodes].some((child) => (
+          child.nodeType === Node.TEXT_NODE && clean(child.textContent)
+        ))
         && [...element.children].every((child) => child.matches('a[href]') || excluded(child))
       ))
       .flatMap((element) => {
         const textSegments = element.matches('blockquote')
-          ? String(element.innerText || element.textContent || '')
+          ? textFor(element, true)
             .split(/\n+/)
             .map(clean)
             .filter(Boolean)
-          : [clean(element.innerText || element.textContent)];
+          : [textFor(element)];
         let kind = 'text';
         if (/^H[1-6]$/.test(element.tagName)) kind = 'heading';
         else if (element.matches('li,dt,dd')) kind = 'list-item';
@@ -96,19 +126,20 @@ async function extractPage(page, side, config) {
 
     const extractLinks = (scopeRoot, scope) => (scopeRoot ? [...scopeRoot.querySelectorAll('a[href]')]
       .filter(visible)
+      .filter((element) => !secondary(element) || scope === 'content')
       .map((element, order) => ({
         label: cleanLinkLabel(
-          element.querySelector('.resource-list-card-cta')?.innerText
-          || element.innerText
+          textFor(element.querySelector('.resource-list-card-cta'))
+          || textFor(element)
           || element.getAttribute('aria-label')
           || element.getAttribute('title')
-          || element.querySelector('img')?.alt,
+          || textFor(element.querySelector('img')),
         ),
         href: element.href,
         rawHref: element.getAttribute('href'),
         context: contextFor(element),
         order,
-        scope,
+        scope: scope === 'content' && secondary(element) ? 'secondary' : scope,
         target: element.target || null,
       }))
       .filter((item) => item.rawHref && !item.rawHref.startsWith('#')) : []);
@@ -119,6 +150,7 @@ async function extractPage(page, side, config) {
 
     const images = contentRoot ? [...contentRoot.querySelectorAll('img')]
       .filter(visible)
+      .filter((element) => !secondary(element))
       .map((element, order) => ({
         type: 'image',
         src: element.src || null,
@@ -139,29 +171,32 @@ async function extractPage(page, side, config) {
         order,
       })) : [];
     if (contentRoot) {
-      [...contentRoot.querySelectorAll('*')].filter(visible).forEach((element) => {
-        if (element.matches('img,picture,source')) return;
-        const background = getComputedStyle(element).backgroundImage;
-        const match = background.match(/url\(["']?(.+?)["']?\)/);
-        const rect = element.getBoundingClientRect();
-        if (!match || rect.width < 48 || rect.height < 48) return;
-        images.push({
-          type: 'background',
-          src: new URL(match[1], window.location.href).href,
-          currentSrc: null,
-          srcset: null,
-          pictureSources: [],
-          alt: '',
-          context: contextFor(element),
-          width: Math.round(rect.width),
-          height: Math.round(rect.height),
-          renderedWidth: Math.round(rect.width),
-          renderedHeight: Math.round(rect.height),
-          loaded: true,
-          decorative: true,
-          order: images.length,
+      [...contentRoot.querySelectorAll('*')]
+        .filter(visible)
+        .filter((element) => !secondary(element))
+        .forEach((element) => {
+          if (element.matches('img,picture,source')) return;
+          const background = getComputedStyle(element).backgroundImage;
+          const match = background.match(/url\(["']?(.+?)["']?\)/);
+          const rect = element.getBoundingClientRect();
+          if (!match || rect.width < 48 || rect.height < 48) return;
+          images.push({
+            type: 'background',
+            src: new URL(match[1], window.location.href).href,
+            currentSrc: null,
+            srcset: null,
+            pictureSources: [],
+            alt: '',
+            context: contextFor(element),
+            width: Math.round(rect.width),
+            height: Math.round(rect.height),
+            renderedWidth: Math.round(rect.width),
+            renderedHeight: Math.round(rect.height),
+            loaded: true,
+            decorative: true,
+            order: images.length,
+          });
         });
-      });
     }
 
     const metadata = {
@@ -187,7 +222,7 @@ async function extractPage(page, side, config) {
     )]
       .filter(visible)
       .map((element) => ({
-        label: clean(element.innerText || element.getAttribute('aria-label')),
+        label: clean(textFor(element) || element.getAttribute('aria-label')),
         href: element.href,
       }));
     return {
@@ -213,6 +248,7 @@ async function extractPage(page, side, config) {
     rootSelector,
     globalSelector,
     exclusions: config.excludeSelectors,
+    secondarySelectors: secondaryContentSelectors,
   });
 
   raw.content = raw.content.map((item) => ({

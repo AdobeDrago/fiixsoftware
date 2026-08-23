@@ -26,7 +26,10 @@ const DEFAULT_EXCLUSIONS = [
   'template',
   '[aria-hidden="true"]',
   '.sr-only',
+  '.blog-body-sr-only',
   '.screen-reader-text',
+  '.blog-share > .default-content-wrapper > p:first-child',
+  '.blog-share > .default-content-wrapper > ul',
 ];
 
 const common = {
@@ -36,6 +39,9 @@ const common = {
     eds: 'header, footer',
   },
   excludeSelectors: DEFAULT_EXCLUSIONS,
+  secondaryContentSelectors: [
+    '.blog-share > .default-content-wrapper > p:nth-of-type(n+2)',
+  ],
   maskSelectors: DEFAULT_MASKS,
   equivalentHosts: [
     'fiixsoftware.com',

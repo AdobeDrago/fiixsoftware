@@ -79,7 +79,8 @@ async function checkLinkHealth(request, liveLinks, edsLinks, config) {
   const candidates = [];
   const seen = new Set();
   [['Live', liveLinks], ['Eds', edsLinks]].forEach(([side, links]) => {
-    links.filter((link) => link.scope === 'content' && isCheckableUrl(link.href)).forEach((link) => {
+    links.filter((link) => ['content', 'secondary'].includes(link.scope)
+      && isCheckableUrl(link.href)).forEach((link) => {
       const key = `${side}:${link.href}`;
       if (!seen.has(key)) candidates.push({ side, link });
       seen.add(key);
