@@ -49,20 +49,31 @@ async function extractPage(page, side, config) {
       };
     };
     const content = contentRoot ? [...contentRoot.querySelectorAll(
-      'h1,h2,h3,h4,h5,h6,p,li,dt,dd,figcaption,label,button,[role="button"]',
+      'h1,h2,h3,h4,h5,h6,p,blockquote,cite,li,dt,dd,figcaption,label,button,[role="button"]',
     )]
       .filter(visible)
+      .filter((element) => {
+        const quote = element.closest('blockquote');
+        return !quote || quote === element;
+      })
       .filter((element) => !(
         element.matches('li')
-        && element.querySelector('h1,h2,h3,h4,h5,h6,p,li,dt,dd,figcaption,button')
+        && element.querySelector(
+          'h1,h2,h3,h4,h5,h6,p,blockquote,cite,li,dt,dd,figcaption,button',
+        )
       ))
       .filter((element) => !(
         element.matches('p')
         && element.querySelector(':scope > a[href]')
         && [...element.children].every((child) => child.matches('a[href]') || excluded(child))
       ))
-      .map((element, order) => {
-        const text = clean(element.innerText || element.textContent);
+      .flatMap((element) => {
+        const textSegments = element.matches('blockquote')
+          ? String(element.innerText || element.textContent || '')
+            .split(/\n+/)
+            .map(clean)
+            .filter(Boolean)
+          : [clean(element.innerText || element.textContent)];
         let kind = 'text';
         if (/^H[1-6]$/.test(element.tagName)) kind = 'heading';
         else if (element.matches('li,dt,dd')) kind = 'list-item';
@@ -70,15 +81,15 @@ async function extractPage(page, side, config) {
         else if (element.matches('label')) kind = 'label';
         else if (element.matches('figcaption')) kind = 'caption';
         else kind = 'paragraph';
-        return {
-          kind,
+        return textSegments.map((text) => ({
+          kind: element.matches('blockquote,cite') ? 'paragraph' : kind,
           tag: element.tagName,
           text,
           context: contextFor(element),
-          order,
           rect: rectFor(element),
-        };
+        }));
       })
+      .map((item, order) => ({ ...item, order }))
       .filter((item) => item.text) : [];
 
     const extractLinks = (scopeRoot, scope) => (scopeRoot ? [...scopeRoot.querySelectorAll('a[href]')]
@@ -120,6 +131,7 @@ async function extractPage(page, side, config) {
         height: element.naturalHeight,
         renderedWidth: Math.round(element.getBoundingClientRect().width),
         renderedHeight: Math.round(element.getBoundingClientRect().height),
+        complete: element.complete,
         loaded: element.complete && element.naturalWidth > 0,
         decorative: element.alt === '' || element.getAttribute('role') === 'presentation',
         order,

@@ -1,8 +1,9 @@
 const { test, expect } = require('@playwright/test');
 const pages = require('../config/pages.js');
 const { compareContent } = require('../utils/compare-content.js');
-const { imageScore } = require('../utils/compare-images.js');
+const { compareImages, imageScore } = require('../utils/compare-images.js');
 const { compareMetadata } = require('../utils/compare-metadata.js');
+const { extractPage } = require('../utils/extract-page.js');
 const { countBySeverity, finding } = require('../utils/findings.js');
 const { normalizeText } = require('../utils/normalize.js');
 const { normalizeUrl, urlsEquivalent } = require('../utils/url.js');
@@ -34,6 +35,34 @@ test.describe('migration normalizers and comparators', () => {
   test('normalizes whitespace, typography, and terminal punctuation', () => {
     expect(normalizeText('  Modern\u00a0maintenance\u2014today.  '))
       .toBe('Modern maintenance-today');
+  });
+
+  test('extracts blockquote text and attribution as semantic paragraphs', async ({ page }) => {
+    await page.setContent(`
+      <main>
+        <h2>Before Fiix</h2>
+        <blockquote>
+          A maintenance quote<br>
+          <span>– Maintenance manager</span>
+        </blockquote>
+      </main>
+    `);
+    const extracted = await extractPage(page, 'live', {
+      contentRoots: { live: 'main' },
+      globalRoots: { live: 'header,footer' },
+      excludeSelectors: [],
+    });
+    expect(extracted.content.map(({ kind, text }) => ({ kind, text }))).toEqual([
+      { kind: 'heading', text: 'Before Fiix' },
+      { kind: 'paragraph', text: 'A maintenance quote' },
+      { kind: 'paragraph', text: '– Maintenance manager' },
+    ]);
+    const equivalentParagraphs = extracted.content.map((item) => ({
+      ...item,
+      tag: item.kind === 'paragraph' ? 'P' : item.tag,
+    }));
+    expect(compareContent(extracted.content, equivalentParagraphs)
+      .filter((item) => item.severity === 'ERROR')).toHaveLength(0);
   });
 
   test('classifies missing, changed, and heading-level content', () => {
@@ -104,6 +133,31 @@ test.describe('migration normalizers and comparators', () => {
       },
     );
     expect(score).toBeGreaterThan(0.8);
+  });
+
+  test('distinguishes incomplete lazy images from broken images', () => {
+    const image = {
+      alt: 'Maintenance team',
+      context: 'Results',
+      src: '/maintenance-team.png',
+      decorative: false,
+    };
+    const incomplete = compareImages([], [{
+      ...image, complete: false, loaded: false,
+    }]);
+    expect(incomplete).toContainEqual(expect.objectContaining({
+      severity: 'WARNING',
+      code: 'EDS_IMAGE_LOAD_INCOMPLETE',
+    }));
+    expect(incomplete.some((item) => item.code === 'BROKEN_EDS_IMAGE')).toBe(false);
+
+    const broken = compareImages([], [{
+      ...image, complete: true, loaded: false,
+    }]);
+    expect(broken).toContainEqual(expect.objectContaining({
+      severity: 'ERROR',
+      code: 'BROKEN_EDS_IMAGE',
+    }));
   });
 
   test('treats metadata punctuation as warning and domain changes as info', () => {

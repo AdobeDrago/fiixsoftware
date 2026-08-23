@@ -38,16 +38,24 @@ async function stabilizePage(page, config) {
   `,
   });
   await page.evaluate(async () => {
+    const pageImages = [...document.images];
+    pageImages.forEach((image) => {
+      if (image.loading === 'lazy') image.loading = 'eager';
+    });
     const timeout = new Promise((resolve) => {
       setTimeout(resolve, 12000);
     });
     const fonts = document.fonts?.ready || Promise.resolve();
-    const images = Promise.all([...document.images]
-      .filter((image) => !image.complete)
-      .map((image) => new Promise((resolve) => {
+    const images = Promise.all(pageImages.map((image) => {
+      if (image.complete) return Promise.resolve();
+      return new Promise((resolve) => {
         image.addEventListener('load', resolve, { once: true });
         image.addEventListener('error', resolve, { once: true });
-      })));
+        image.decode?.().then(resolve).catch(() => {
+          if (image.complete) resolve();
+        });
+      });
+    }));
     await Promise.race([Promise.all([fonts, images]), timeout]);
   });
 

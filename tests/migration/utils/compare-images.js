@@ -26,18 +26,18 @@ function normalizeAlt(value) {
 function compareImages(liveImages, edsImages) {
   const findings = [];
   liveImages.filter((image) => !image.loaded).forEach((image) => findings.push(finding({
-    severity: image.decorative ? 'WARNING' : 'ERROR',
+    severity: image.complete === false || image.decorative ? 'WARNING' : 'ERROR',
     category: 'IMAGES',
-    code: 'BROKEN_LIVE_IMAGE',
-    message: `Benchmark image did not load${image.context ? ` near "${image.context}"` : ''}`,
+    code: image.complete === false ? 'LIVE_IMAGE_LOAD_INCOMPLETE' : 'BROKEN_LIVE_IMAGE',
+    message: `Benchmark image ${image.complete === false ? 'did not finish loading' : 'did not load'}${image.context ? ` near "${image.context}"` : ''}`,
     live: image.src,
     context: image.context,
   })));
   edsImages.filter((image) => !image.loaded).forEach((image) => findings.push(finding({
-    severity: image.decorative ? 'WARNING' : 'ERROR',
+    severity: image.complete === false || image.decorative ? 'WARNING' : 'ERROR',
     category: 'IMAGES',
-    code: 'BROKEN_EDS_IMAGE',
-    message: `EDS image did not load${image.context ? ` near "${image.context}"` : ''}`,
+    code: image.complete === false ? 'EDS_IMAGE_LOAD_INCOMPLETE' : 'BROKEN_EDS_IMAGE',
+    message: `EDS image ${image.complete === false ? 'did not finish loading' : 'did not load'}${image.context ? ` near "${image.context}"` : ''}`,
     eds: image.src,
     context: image.context,
   })));

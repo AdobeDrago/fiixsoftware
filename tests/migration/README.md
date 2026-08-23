@@ -63,9 +63,12 @@ building that entry in `config/pages.js`.
 
 ## What is compared
 
-- Semantic content: headings, paragraphs, lists, labels, captions, buttons, cards, and order.
+- Semantic content: headings, paragraphs, blockquotes/testimonial attributions, lists, labels,
+  captions, buttons, cards, and order.
 - Links: visible content and global links, CTA destinations, redirects, and response health.
-- Images: load state, source variants, alt text, context, dimensions, aspect ratio, and order.
+- Images: eager stabilization of authored lazy media, load state, source variants, alt text,
+  context, dimensions, aspect ratio, and order. An image that is still pending after
+  stabilization is a warning; a completed image with no natural dimensions is broken.
 - Metadata: title, description, canonical, Open Graph, and present Twitter fields.
 - Responsive behavior: mobile, tablet, and desktop visibility, overflow, navigation affordances, images, and major alignment drift.
 - Visual fidelity: stabilized full-page WordPress, EDS, and pixel-diff screenshots.
