@@ -3,6 +3,7 @@ const pages = require('./config/pages.js');
 const viewports = require('./config/viewports.js');
 const { compareAvailability, compareContentRoots } = require('./utils/availability.js');
 const { compareResponsive } = require('./utils/compare-responsive.js');
+const { comparePaginationScope } = require('./utils/compare-pagination.js');
 const { extractPage } = require('./utils/extract-page.js');
 const { openPair } = require('./utils/page-loader.js');
 const { attachResult, formatResultStatus } = require('./utils/reporting.js');
@@ -23,7 +24,12 @@ test.describe('responsive and visual migration validation', () => {
             liveUrl: pair.liveLoad.finalUrl,
             edsUrl: pair.edsLoad.finalUrl,
             viewport: viewportName,
-            findings: compareAvailability(pair.liveLoad, pair.edsLoad, viewportName),
+            findings: compareAvailability(
+              pair.liveLoad,
+              pair.edsLoad,
+              pageConfig,
+              viewportName,
+            ),
             artifacts: [],
           };
           try {
@@ -57,13 +63,19 @@ test.describe('responsive and visual migration validation', () => {
                   viewportName,
                   viewport,
                 ));
+                result.findings.push(...comparePaginationScope(
+                  live,
+                  eds,
+                  pageConfig,
+                  viewportName,
+                ));
               }
               const visual = compareScreenshots(
                 paths,
                 pageConfig.visualThresholds,
                 viewportName,
               );
-              result.findings.push(visual.finding);
+              result.findings.push(...visual.findings);
               result.artifacts.push(paths.diffPath);
               await testInfo.attach(`${viewportName}-diff`, {
                 path: paths.diffPath,

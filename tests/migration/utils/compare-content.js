@@ -1,6 +1,8 @@
 const { finding } = require('./findings.js');
 const { normalizeText, similarity } = require('./normalize.js');
 
+const CONTENT_FUZZY_THRESHOLD = 0.58;
+
 function contentKey(item) {
   return `${item.kind}:${normalizeText(item.text, { lowercase: true })}`;
 }
@@ -58,7 +60,7 @@ function fuzzyMatches(unmatchedLive, unmatchedEds) {
         best = { candidate: edsCandidate, score, distance };
       }
     });
-    if (best && best.score >= 0.58) {
+    if (best && best.score >= CONTENT_FUZZY_THRESHOLD) {
       remainingEds.delete(best.candidate.index);
       changes.push({ live: candidate, eds: best.candidate, score: best.score });
     } else {
@@ -137,4 +139,4 @@ function compareContent(liveItems, edsItems, viewport = null) {
   return findings;
 }
 
-module.exports = { compareContent };
+module.exports = { compareContent, CONTENT_FUZZY_THRESHOLD };

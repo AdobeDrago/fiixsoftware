@@ -24,20 +24,22 @@ async function extractPage(page, side, config) {
     const cleanLinkLabel = (value) => clean(value)
       .replace(/\s*\(opens? in (?:a )?new tab\)\s*$/i, '')
       .trim();
+    const orderedElements = contentRoot ? [...contentRoot.querySelectorAll('*')] : [];
+    const precedingHeading = new Map();
+    let latestHeading = '';
+    orderedElements.forEach((element) => {
+      precedingHeading.set(element, latestHeading);
+      if (element.matches('h1,h2,h3,h4,h5,h6')) {
+        latestHeading = clean(element.innerText);
+      }
+    });
     const contextFor = (element) => {
       const container = element.closest(
         'article, .resource, li[class*="card"], [data-card], section',
       );
       const heading = container?.querySelector('h1,h2,h3,h4,h5,h6');
       if (heading && heading !== element) return clean(heading.innerText);
-      if (!contentRoot) return '';
-      const headings = [...contentRoot.querySelectorAll('h1,h2,h3,h4,h5,h6')];
-      const orderedElements = [...contentRoot.querySelectorAll('*')];
-      const elementIndex = orderedElements.indexOf(element);
-      const preceding = headings.filter((candidate) => (
-        orderedElements.indexOf(candidate) < elementIndex
-      ));
-      return clean(preceding.at(-1)?.innerText);
+      return precedingHeading.get(element) || '';
     };
     const rectFor = (element) => {
       const rect = element.getBoundingClientRect();
@@ -180,12 +182,21 @@ async function extractPage(page, side, config) {
     )].filter(visible).length;
     const visibleNavigation = [...document.querySelectorAll('header nav, nav[aria-label], .siteHeader nav')]
       .filter(visible).length;
+    const pagination = [...document.querySelectorAll(
+      'a[rel="next"], nav.pagination a[href], .pagination a[href], .nav-links a[href], a.page-numbers[href]',
+    )]
+      .filter(visible)
+      .map((element) => ({
+        label: clean(element.innerText || element.getAttribute('aria-label')),
+        href: element.href,
+      }));
     return {
       rootExists: Boolean(contentRoot),
       content,
       links,
       images,
       metadata,
+      pagination,
       layout: {
         viewport: { width: window.innerWidth, height: window.innerHeight },
         documentWidth: document.documentElement.scrollWidth,

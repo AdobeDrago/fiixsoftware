@@ -49,7 +49,7 @@ function compareScreenshots(paths, thresholds, viewport) {
   const livePadded = padImage(live, width, height);
   const edsPadded = padImage(eds, width, height);
   const diff = whiteCanvas(width, height);
-  const differentPixels = pixelmatch(
+  pixelmatch(
     livePadded.data,
     edsPadded.data,
     diff.data,
@@ -58,22 +58,57 @@ function compareScreenshots(paths, thresholds, viewport) {
     { threshold: thresholds.pixel, includeAA: false },
   );
   fs.writeFileSync(paths.diffPath, PNG.sync.write(diff));
-  const ratio = differentPixels / (width * height);
+
+  const overlapWidth = Math.min(live.width, eds.width);
+  const overlapHeight = Math.min(live.height, eds.height);
+  const liveOverlap = new PNG({ width: overlapWidth, height: overlapHeight });
+  const edsOverlap = new PNG({ width: overlapWidth, height: overlapHeight });
+  PNG.bitblt(live, liveOverlap, 0, 0, overlapWidth, overlapHeight, 0, 0);
+  PNG.bitblt(eds, edsOverlap, 0, 0, overlapWidth, overlapHeight, 0, 0);
+  const differentPixels = pixelmatch(
+    liveOverlap.data,
+    edsOverlap.data,
+    null,
+    overlapWidth,
+    overlapHeight,
+    { threshold: thresholds.pixel, includeAA: false },
+  );
+  const ratio = differentPixels / (overlapWidth * overlapHeight);
   let severity = 'INFO';
   if (ratio > thresholds.error) severity = 'ERROR';
   else if (ratio > thresholds.warning) severity = 'WARNING';
-  return {
-    ratio,
-    finding: finding({
-      severity,
+  const artifacts = [paths.livePath, paths.edsPath, paths.diffPath];
+  const findings = [finding({
+    severity,
+    category: 'VISUAL',
+    code: severity === 'INFO' ? 'VISUAL_WITHIN_TOLERANCE' : 'VISUAL_DIFFERENCE',
+    message: `Visual difference in the shared page region is ${(ratio * 100).toFixed(2)}%`,
+    live: `${live.width}x${live.height}`,
+    eds: `${eds.width}x${eds.height}`,
+    viewport,
+    artifacts,
+  })];
+  const heightDifference = Math.abs(live.height - eds.height);
+  const heightRatio = heightDifference / Math.max(live.height, eds.height);
+  if (heightDifference > 2) {
+    let heightSeverity = 'INFO';
+    if (heightRatio > thresholds.error) heightSeverity = 'ERROR';
+    else if (heightRatio > thresholds.warning) heightSeverity = 'WARNING';
+    findings.push(finding({
+      severity: heightSeverity,
       category: 'VISUAL',
-      code: severity === 'INFO' ? 'VISUAL_WITHIN_TOLERANCE' : 'VISUAL_DIFFERENCE',
-      message: `Visual difference is ${(ratio * 100).toFixed(2)}%`,
+      code: 'PAGE_HEIGHT_DIFFERENCE',
+      message: `Page height differs by ${heightDifference}px (${(heightRatio * 100).toFixed(2)}%)`,
       live: `${live.width}x${live.height}`,
       eds: `${eds.width}x${eds.height}`,
       viewport,
-      artifacts: [paths.livePath, paths.edsPath, paths.diffPath],
-    }),
+      artifacts,
+    }));
+  }
+  return {
+    ratio,
+    heightRatio,
+    findings,
   };
 }
 

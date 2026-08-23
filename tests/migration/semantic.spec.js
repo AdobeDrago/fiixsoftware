@@ -6,6 +6,7 @@ const { compareContent } = require('./utils/compare-content.js');
 const { compareImages } = require('./utils/compare-images.js');
 const { compareLinks } = require('./utils/compare-links.js');
 const { compareMetadata } = require('./utils/compare-metadata.js');
+const { comparePaginationScope } = require('./utils/compare-pagination.js');
 const { extractPage } = require('./utils/extract-page.js');
 const { checkLinkHealth } = require('./utils/link-health.js');
 const { openPair } = require('./utils/page-loader.js');
@@ -22,7 +23,7 @@ test.describe('semantic migration validation', () => {
         liveUrl: pair.liveLoad.finalUrl,
         edsUrl: pair.edsLoad.finalUrl,
         viewport: null,
-        findings: compareAvailability(pair.liveLoad, pair.edsLoad),
+        findings: compareAvailability(pair.liveLoad, pair.edsLoad, pageConfig),
         artifacts: [],
       };
       try {
@@ -38,6 +39,7 @@ test.describe('semantic migration validation', () => {
             result.findings.push(...compareLinks(live.links, eds.links, pageConfig));
             result.findings.push(...compareImages(live.images, eds.images));
             result.findings.push(...compareMetadata(live.metadata, eds.metadata, pageConfig));
+            result.findings.push(...comparePaginationScope(live, eds, pageConfig));
             result.findings.push(...await checkLinkHealth(
               request,
               live.links,

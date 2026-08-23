@@ -1,6 +1,8 @@
 const { finding } = require('./findings.js');
 const { normalizeFilename, normalizeText, similarity } = require('./normalize.js');
 
+const IMAGE_MATCH_THRESHOLD = 0.45;
+
 function imageScore(live, eds) {
   let score = 0;
   const liveAlt = normalizeText(live.alt, { lowercase: true });
@@ -50,7 +52,7 @@ function compareImages(liveImages, edsImages) {
       const score = imageScore(liveImage, edsImage);
       if (!best || score > best.score) best = { index, image: edsImage, score };
     });
-    if (best && best.score >= 0.45) {
+    if (best && best.score >= IMAGE_MATCH_THRESHOLD) {
       available.delete(best.index);
       if (normalizeAlt(liveImage.alt) !== normalizeAlt(best.image.alt)) {
         findings.push(finding({
@@ -88,4 +90,4 @@ function compareImages(liveImages, edsImages) {
   return findings;
 }
 
-module.exports = { compareImages, imageScore };
+module.exports = { compareImages, imageScore, IMAGE_MATCH_THRESHOLD };

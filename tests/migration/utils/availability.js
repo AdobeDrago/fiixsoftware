@@ -1,6 +1,25 @@
 const { finding } = require('./findings.js');
+const { normalizeUrl } = require('./url.js');
 
-function compareAvailability(liveLoad, edsLoad, viewport = null) {
+function redirectFinding(load, side, config, viewport) {
+  if (!load.ok || !load.requestedUrl || !load.finalUrl) return null;
+  const requested = normalizeUrl(load.requestedUrl, load.requestedUrl, config);
+  const final = normalizeUrl(load.finalUrl, load.requestedUrl, config);
+  if (requested === final) return null;
+  const isLive = side === 'live';
+  return finding({
+    severity: 'WARNING',
+    category: 'AVAILABILITY',
+    code: isLive ? 'LIVE_PAGE_REDIRECTED' : 'EDS_PAGE_REDIRECTED',
+    message: `${isLive ? 'WordPress benchmark' : 'EDS page'} redirected away from the configured mapping`,
+    live: isLive ? load.finalUrl : null,
+    eds: isLive ? null : load.finalUrl,
+    context: `Requested: ${load.requestedUrl}`,
+    viewport,
+  });
+}
+
+function compareAvailability(liveLoad, edsLoad, config = {}, viewport = null) {
   const findings = [];
   if (!liveLoad.ok) {
     findings.push(finding({
@@ -22,6 +41,10 @@ function compareAvailability(liveLoad, edsLoad, viewport = null) {
       viewport,
     }));
   }
+  [
+    redirectFinding(liveLoad, 'live', config, viewport),
+    redirectFinding(edsLoad, 'eds', config, viewport),
+  ].filter(Boolean).forEach((item) => findings.push(item));
   return findings;
 }
 
@@ -50,4 +73,4 @@ function compareContentRoots(live, eds, config, viewport = null) {
   return findings;
 }
 
-module.exports = { compareAvailability, compareContentRoots };
+module.exports = { compareAvailability, compareContentRoots, redirectFinding };

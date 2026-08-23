@@ -6,12 +6,25 @@ const BLOCKED_HOST_PATTERNS = [
   /(^|\.)comparesoft\.com$/i,
   /(^|\.)doubleclick\.net$/i,
   /(^|\.)munchkin\.marketo\.net$/i,
+  /^analytics\.google\.com$/i,
+  /^bat\.bing\.com$/i,
+  /(^|\.)clarity\.ms$/i,
+  /(^|\.)cookielaw\.org$/i,
+  /(^|\.)onetrust\.com$/i,
+  /^px\.ads\.linkedin\.com$/i,
+  /^snap\.licdn\.com$/i,
+  /^(?:prompts|snippet)\.maze\.co$/i,
+  /^ipgeolocation\.abstractapi\.com$/i,
 ];
+
+function isBlockedHost(hostname) {
+  return BLOCKED_HOST_PATTERNS.some((pattern) => pattern.test(hostname));
+}
 
 async function installRoutes(context) {
   await context.route('**/*', async (route) => {
     const requestUrl = new URL(route.request().url());
-    if (BLOCKED_HOST_PATTERNS.some((pattern) => pattern.test(requestUrl.hostname))) {
+    if (isBlockedHost(requestUrl.hostname)) {
       await route.abort('blockedbyclient');
       return;
     }
@@ -37,6 +50,20 @@ async function stabilizePage(page, config) {
     }
   `,
   });
+  if (/Index Page$/.test(config.pageType || '')) {
+    await page.evaluate(async () => {
+      const wait = (duration) => new Promise((resolve) => {
+        setTimeout(resolve, duration);
+      });
+      await [0.25, 0.5, 0.75, 1].reduce((sequence, fraction) => (
+        sequence.then(async () => {
+          window.scrollTo(0, document.documentElement.scrollHeight * fraction);
+          await wait(120);
+        })
+      ), Promise.resolve());
+      window.scrollTo(0, 0);
+    });
+  }
   await page.evaluate(async () => {
     const pageImages = [...document.images];
     pageImages.forEach((image) => {
@@ -116,4 +143,6 @@ async function openPair(browser, config, viewport) {
   };
 }
 
-module.exports = { loadPage, openPair, stabilizePage };
+module.exports = {
+  isBlockedHost, loadPage, openPair, stabilizePage,
+};

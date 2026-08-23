@@ -19,6 +19,12 @@ Run all migration checks:
 npm run test:migration
 ```
 
+Run the fast, network-free normalizer, comparator, visual, and configuration tests:
+
+```sh
+npm run test:migration:unit
+```
+
 Open the most recent HTML report:
 
 ```sh
@@ -66,6 +72,8 @@ building that entry in `config/pages.js`.
 - Semantic content: headings, paragraphs, blockquotes/testimonial attributions, lists, labels,
   captions, buttons, cards, and order.
 - Links: visible content and global links, CTA destinations, redirects, and response health.
+  Repeated labels are matched by destination first and then by nearest position, avoiding
+  false destination changes when CTAs repeat within a page.
 - Images: eager stabilization of authored lazy media, load state, source variants, alt text,
   context, dimensions, aspect ratio, and order. An image that is still pending after
   stabilization is a warning; a completed image with no natural dimensions is broken.
@@ -94,7 +102,14 @@ test-results/migration/<page>/<viewport>/
   diff.png
 ```
 
-The suite waits for fonts, images, and stable page height; disables motion; blocks analytics/chat requests; and hides configured consent or third-party overlays. The default color-distance threshold is `0.15`. A changed-pixel ratio above 2% is a warning and above 20% is an error. Page entries can override thresholds and masks when there is a documented reason.
+The suite waits for fonts, images, and stable page height; disables motion; blocks audited analytics,
+chat, survey, and consent requests; and hides configured consent or third-party overlays. Index pages
+receive a controlled scroll sweep to trigger viewport-driven content before extraction. The default
+color-distance threshold is `0.15`. Pixel differences are scored only across the dimensions shared
+by both screenshots. A changed-pixel ratio above 2% is a warning and above 20% is an error. Extra or
+missing page height is reported separately with the same warning/error thresholds, while the padded
+`diff.png` still shows the entire missing region. Page entries can override thresholds and masks
+when there is a documented reason.
 
 The HTML report is written to `playwright-report/migration/`. Machine-readable and text summaries are written to `test-results/migration/summary.json` and `summary.txt`.
 Each structured result includes its page type. A complete 67-page run produces 67
@@ -105,6 +120,14 @@ semantic results, 201 viewport results, and 603 live/EDS/diff PNG artifacts.
 - `ERROR`: meaningful migration issue, such as unavailable EDS content, missing copy, changed CTA, broken link, missing metadata, major responsive loss, or a major visual difference. Errors make the command fail.
 - `WARNING`: requires review but may be an accepted implementation difference, such as heading-level drift, uncertain image equivalence, inaccessible third-party link, or a moderate visual difference.
 - `INFO`: expected or harmless difference, such as equivalent internal hosts, an extra global link, or a visual difference below the warning threshold.
+
+Successful redirects that change a configured page path or meaningful query parameters are
+reported as warnings. Equivalent WordPress/EDS hosts, trailing slashes, and ignored tracking
+parameters do not create redirect findings.
+
+If an index exposes explicit pagination, the report adds `SOURCE_PAGINATION_DETECTED`. The rendered
+index page is still compared as shown to a visitor, while the static supplied detail-page manifests
+remain the authoritative migration scope and every configured detail page is tested independently.
 
 The suite accumulates all findings before asserting, so a failure includes a useful category summary instead of stopping at the first mismatch. If a page is unavailable, semantic comparison is skipped to prevent a cascade of misleading failures; responsive runs still attach live and EDS screenshots.
 
