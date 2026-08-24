@@ -116,7 +116,10 @@ main
     color: var(--text-color);
 }
 
-.columns-media:is(.gold, .teal, .cyan, .orange, .purple):is(.left, .right)
+.columns-media:is(.gold, .teal, .cyan, .orange, .purple, .navy):is(
+        .left,
+        .right
+    )
     > div
     > .columns-media-text-col {
     padding: 0 20px;
@@ -356,7 +359,10 @@ main
         overflow-x: clip;
     }
 
-    .columns-media:is(.gold, .teal, .cyan, .orange, .purple):is(.left, .right)
+    .columns-media:is(.gold, .teal, .cyan, .orange, .purple, .navy):is(
+            .left,
+            .right
+        )
         > div
         > .columns-media-text-col {
         padding: 0;

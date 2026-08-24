@@ -3939,6 +3939,19 @@ main > .section.pf-explore .columns-logos-wrapper {
     padding: 60px 0;
 }
 
+/* Match production mobile inset on the Explore heading + badges band. */
+main > .section.pf-explore .columns-logos.with-heading {
+    padding-right: 20px;
+    padding-left: 20px;
+}
+
+@media (width >= 768px) {
+    main > .section.pf-explore .columns-logos.with-heading {
+        padding-right: 0;
+        padding-left: 0;
+    }
+}
+
 @media (width >= 960px) {
     main > .section.pf-explore .default-content-wrapper h2 {
         font-size: 48px;
