@@ -1168,8 +1168,13 @@
             "main > section.fiixMAX-info",
             "main > section.augury",
             "main > section.what-is-it",
-            "main > section.case-study",
             "main > section.together"
+          ]
+        },
+        {
+          "name": "case-study-highlight",
+          "instances": [
+            "main > section.case-study"
           ]
         },
         {
@@ -1358,9 +1363,9 @@
           "selector": [
             "main > section.case-study"
           ],
-          "style": "optix-casestudy",
+          "style": null,
           "blocks": [
-            "columns-media"
+            "case-study-highlight"
           ],
           "defaultContent": []
         },
