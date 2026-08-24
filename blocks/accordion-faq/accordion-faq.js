@@ -119,4 +119,11 @@ export default function decorate(block) {
   if (variant) {
     decorateFeaturePanel(block, block.closest(`.${variant}`), FEATURE_PANEL_VARIANTS[variant]);
   }
+
+  // Production FAQ (.workorder-faq / free-cmms card) opens the first row by
+  // default so the heading→accordion gap reads as ~88px with the elevated card.
+  if (block.classList.contains('card')) {
+    const items = [...block.querySelectorAll('.accordion-faq-item')];
+    if (items.length && !items.some((d) => d.open)) items[0].open = true;
+  }
 }

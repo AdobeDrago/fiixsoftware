@@ -4,6 +4,12 @@
    Specificity must match styles.css's `main > .section > div:not(.section-bg)`
    (0,2,2) to win the cascade tie via source order. */
 
+/* Block owns its own vertical padding + full-bleed grey band — drop the
+   default section margins so they don't leave a white strip above/below. */
+main > .section.iframe-card-container {
+    margin: 0;
+}
+
 main > .section > div.iframe-card-wrapper {
     max-width: none;
     margin: 0;
