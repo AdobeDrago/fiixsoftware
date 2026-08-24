@@ -1,6 +1,12 @@
 /* Fiix FAQ accordion: dotted-rule rows, bold question, cyan +/- toggle
    (built with CSS, no icon font). */
 
+@media (width >= 1200px) {
+  main > .section > div.accordion-faq-wrapper {
+    padding: 0;
+  }
+}
+
 .accordion-faq details {
   border: 0;
   border-bottom: 1px dotted #58595b;

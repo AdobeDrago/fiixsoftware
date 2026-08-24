@@ -159,5 +159,16 @@ export default async function decorate(block) {
     awardList.replaceWith(logos);
   }
 
-  block.append(footer);
+  // Copyright bar (live #copyright) — last section with trademark line.
+  const copyright = [...footer.children].find((section) => (
+    /trademark|all rights reserved/i.test(section.textContent)
+  ));
+  if (copyright) {
+    copyright.classList.add('footer-copyright');
+    copyright.id = 'copyright';
+    // Full-bleed outside the constrained footer content wrapper.
+    block.append(footer, copyright);
+  } else {
+    block.append(footer);
+  }
 }
