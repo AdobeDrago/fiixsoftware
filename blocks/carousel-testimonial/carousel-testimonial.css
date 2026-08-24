@@ -696,9 +696,10 @@
 /* Production's `.quote-rotate` sits 100px below the preceding section with no
    gap after (the FAQ section follows immediately); the shared wrapper rule
    above is tuned for the other variants, so override it here to match. */
-.carousel-testimonial-wrapper:has(> .carousel-testimonial.quote) {
+
+/* .carousel-testimonial-wrapper:has(> .carousel-testimonial.quote) {
   padding-top: 100px;
-}
+} */
 
 .carousel-testimonial.quote {
   --carousel-testimonial-accent: rgb(0 175 235);
@@ -706,13 +707,17 @@
   position: relative;
   max-width: 1200px;
   margin: 0 auto;
+  background-color: #fff;
+  box-shadow: 10px 10px 33px rgb(0 0 0 / 10%);
+  z-index: 2;
 }
 
 /* stylelint-disable-next-line no-descending-specificity */
-.carousel-testimonial.quote .carousel-testimonial-slides-container {
+
+/* .carousel-testimonial.quote .carousel-testimonial-slides-container {
   background-color: #fff;
   box-shadow: 10px 10px 33px rgb(0 0 0 / 10%);
-}
+} */
 
 .carousel-testimonial.quote .carousel-testimonial-slides {
   gap: 0;
@@ -742,7 +747,7 @@
   border: 0;
   font-size: 20px;
   font-weight: 700;
-  line-height: 1.15;
+  line-height: 32px;
   text-align: center;
   color: var(--carousel-testimonial-ink);
 }
@@ -758,7 +763,7 @@
    padding-top), which otherwise leaks in via `> p:nth-of-type(2)` since this
    is also the second paragraph in the column. */
 .carousel-testimonial.quote .carousel-testimonial-slide-content .carousel-testimonial-quote-author {
-  margin: 0 20px 50px;
+  margin: 0 0 50px;
   padding-top: 0;
   border-top: 0;
   font-size: 20px;
@@ -818,6 +823,7 @@
   justify-content: center;
   gap: 10px;
   margin: 24px 0 0;
+  padding-bottom: 45px;
 }
 
 .carousel-testimonial.quote .carousel-testimonial-slide-indicators li {
@@ -826,13 +832,14 @@
 
 /* stylelint-disable-next-line no-descending-specificity */
 .carousel-testimonial.quote .carousel-testimonial-slide-indicators button {
-  width: 6px;
-  height: 6px;
+  width: 12px;
+  height: 12px;
   padding: 0;
   border: 0;
   border-radius: 50%;
   background: rgb(225 225 225);
   cursor: pointer;
+  margin-right: 15px;
 }
 
 .carousel-testimonial.quote .carousel-testimonial-slide-indicators button:hover {

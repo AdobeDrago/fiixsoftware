@@ -102,6 +102,23 @@ function decorateFeaturePanel(block, section, panelPosition) {
   if (!details.some((d) => d.open)) { details[0].open = true; setActive(0); }
 }
 
+function enableExclusiveAccordion(block) {
+  const items = [...block.querySelectorAll('.accordion-faq-item')];
+  items.forEach((item) => {
+    // Open item cannot close on its own click; only switching to another closes it.
+    item.querySelector('summary').addEventListener('click', (e) => {
+      if (item.open) e.preventDefault();
+    });
+    item.addEventListener('toggle', () => {
+      if (!item.open) return;
+      items.forEach((other) => {
+        if (other !== item) other.open = false;
+      });
+    });
+  });
+  if (items[0]) items[0].open = true;
+}
+
 export default function decorate(block) {
   [...block.children].forEach((row) => {
     // row.children is live — read all columns before a move shifts indices
@@ -123,6 +140,8 @@ export default function decorate(block) {
   const variant = Object.keys(FEATURE_PANEL_VARIANTS).find((v) => block.closest(`.${v}`));
   if (variant) {
     decorateFeaturePanel(block, block.closest(`.${variant}`), FEATURE_PANEL_VARIANTS[variant]);
+  } else {
+    enableExclusiveAccordion(block);
   }
 
   //  FAQ (.workorder-faq / free-cmms card) opens the first row by
