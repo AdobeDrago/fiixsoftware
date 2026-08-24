@@ -1,0 +1,41 @@
+{
+  "variantName": "page-nav",
+  "baseBlock": "page-nav",
+  "version": "1.0.0",
+  "created": "2026-08-21T00:00:00.000Z",
+  "sourceContext": {
+    "originUrl": "https://fiixsoftware.com/customers/",
+    "originPage": "Customer stories (social-proof-lp) page",
+    "blockPosition": "top"
+  },
+  "visualCharacteristics": {
+    "colorScheme": "light",
+    "density": "compact",
+    "purpose": "in-page-navigation",
+    "imagePattern": "none"
+  },
+  "contentPattern": {
+    "structure": "list of in-page anchor links (label + #fragment)",
+    "buttonCount": 0,
+    "imageCount": 0
+  },
+  "reuseGuidance": {
+    "suitableFor": [
+      "sticky in-page anchor/jump navigation bars",
+      "long single-page layouts with multiple named sections",
+      "tab-style section switchers that scroll to page anchors"
+    ],
+    "notSuitableFor": [
+      "site-level / global navigation (use header)",
+      "switchable content panels shown in place (use tabs / tabs-feature)",
+      "external link menus"
+    ]
+  },
+  "usage": {
+    "pagesUsing": [
+      "/customers/index"
+    ],
+    "reuseCount": 1,
+    "lastUsed": "2026-08-21T00:00:00.000Z"
+  }
+}
