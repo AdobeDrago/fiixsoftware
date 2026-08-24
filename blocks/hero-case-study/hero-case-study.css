@@ -12,7 +12,7 @@
    to this wrapper only — the columns-media / hero-cta blocks that share
    this section keep their normal centered width. Specificity must beat
    `main > .section > div`. */
-main .section > .hero-case-study-wrapper {
+main > .section > div.hero-case-study-wrapper:not(.section-bg) {
   max-width: none;
   padding: 0;
 }

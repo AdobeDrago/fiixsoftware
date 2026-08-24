@@ -114,12 +114,23 @@ function decorateSectionCornerBackgrounds(main) {
 
 /**
  * Applies authored `background` / `background-image` section metadata as the
- * section's CSS background-image (gradients or image URLs).
+ * section's CSS background. A `background` value that is a plain CSS color
+ * (`#231d3d`, `rgb(...)`, a named color, etc.) is applied as background-color;
+ * anything else (image URLs, gradients) is applied as background-image.
+ * `background-image` is always treated as an image/gradient.
  * @param {Element} main
  */
 function decorateSectionBackgroundImages(main) {
   main.querySelectorAll(':scope > div.section').forEach((section) => {
-    const value = section.dataset.backgroundImage || section.dataset.background;
+    const { background, backgroundImage: backgroundImageValue } = section.dataset;
+    if (background) {
+      const trimmed = background.trim().replace(/;+\s*$/, '');
+      if (CSS.supports('color', trimmed)) {
+        section.style.backgroundColor = trimmed;
+        return;
+      }
+    }
+    const value = backgroundImageValue || background;
     if (!value) return;
     const backgroundImage = toSectionBackgroundImage(value);
     if (!backgroundImage) return;
@@ -331,6 +342,24 @@ function decorateButtons(main) {
   });
 }
 
+const CTA_LINK_PREFIX = 'cta-link:';
+
+/**
+ * Turns a link whose visible text begins with `cta-link:` into a styled CTA
+ * link, stripping the prefix from the text. Lets an author flag any single
+ * link in a block for CTA styling (e.g. to pick one of several links in the
+ * same cell) without relying on the block's own position-based heuristics.
+ * @param {Element} main The main container element
+ */
+function decorateCtaLinks(main) {
+  main.querySelectorAll('a[href]').forEach((a) => {
+    const text = a.textContent.trim();
+    if (!text.toLowerCase().startsWith(CTA_LINK_PREFIX)) return;
+    a.textContent = text.slice(CTA_LINK_PREFIX.length).trim();
+    a.classList.add('cta-link');
+  });
+}
+
 /**
  * Groups blog listing hero copy and media so the gray band can lay out as
  * two columns, matching the live Fiix Blog header. Also buttonizes the CTA
@@ -373,6 +402,7 @@ export function decorateMain(main) {
   decorateSectionCornerBackgrounds(main);
   decorateBlocks(main);
   decorateButtons(main);
+  decorateCtaLinks(main);
   decorateBlogHeader(main);
 }
 

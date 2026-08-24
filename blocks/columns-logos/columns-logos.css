@@ -23,6 +23,10 @@
     object-fit: contain;
 }
 
+.columns-logos.mobile-page img {
+    max-width: 130px;
+}
+
 .columns-logos.with-heading .columns-logos-row {
     flex-flow: nowrap;
     justify-content: center;
@@ -70,6 +74,12 @@
     font-size: 24px;
     font-weight: 700;
     line-height: 1.1;
+}
+
+.columns-logos.mobile-page
+    .columns-logos-text-row
+    :is(h1, h2, h3, h4, h5, h6, p) {
+    max-width: 800px;
 }
 
 /* the browser's default UA style is "strong { font-weight: bolder }", which
