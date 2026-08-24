@@ -174,7 +174,7 @@ main
     margin-top: 20px;
     background: var(--media-accent);
 
-    @media (width >768px) {
+    @media (width >= 768px) {
         margin-top: 30px;
     }
 }
@@ -553,7 +553,7 @@ main
     }
 }
 
-@media (width >= 992px) {
+@media (width >= 960px) {
     .columns-media.right.teal .columns-media-img-col .columns-media-img-2 img {
         width: 370px;
     }

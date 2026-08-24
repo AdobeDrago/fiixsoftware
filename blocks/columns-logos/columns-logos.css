@@ -273,7 +273,7 @@ main > .section:has(> .columns-logos-wrapper .columns-logos.mobile-page) {
         gap: 40px;
     }
 
-    /* Keep mobile-page trust logos tight until desktop (live switches ~850px). */
+    /* Keep mobile-page trust logos tight until ≥960. */
     .columns-logos.mobile-page .columns-logos-row {
         justify-content: center;
         gap: 15px;
