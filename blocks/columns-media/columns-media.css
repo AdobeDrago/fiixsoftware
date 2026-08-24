@@ -780,4 +780,88 @@ div.columns-media.info-flex > div > .columns-media-img-col {
     }
 }
 
+/* ============================================================
+   `banner` variant — a hero band: intro copy on one side, a natural-aspect
+   portrait/illustration on the other, vertically centred on a light band.
+   Composes with the `.left` / `.right` direction variants for image side.
+   Self-contained (no page scoping) so any page can author a hero this way.
+   Values from source (fiixsoftware.com/customers header.header-height:
+   1200px container, ~500px band, #f3f7fa, H1 64/700, H2 20/300, 370px image).
+   ============================================================ */
+.columns-media-wrapper:has(> .columns-media.banner) {
+    max-width: none;
+    padding: 0;
+}
+
+.columns-media.banner {
+    background-color: #f3f7fa;
+}
+
+.columns-media.banner > div {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 32px;
+}
+
+.columns-media.banner .columns-media-text-col h1 {
+    margin: 0 0 20px;
+    font-size: 40px;
+    font-weight: 700;
+    line-height: 1.05;
+    color: var(--text-color);
+}
+
+.columns-media.banner .columns-media-text-col h2,
+.columns-media.banner .columns-media-text-col p {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 300;
+    line-height: 1.3;
+    color: var(--text-color);
+}
+
+/* Portrait/illustration keeps its natural aspect rather than stretching to fill
+   the column (overrides the base `.columns-media img { width: 100% }`). */
+.columns-media.banner .columns-media-img-col {
+    text-align: center;
+}
+
+.columns-media.banner .columns-media-img-col img {
+    width: auto;
+    max-width: 100%;
+    height: auto;
+}
+
+@media (width >= 768px) {
+    .columns-media.banner > div {
+        align-items: center;
+        gap: 40px;
+        min-height: 420px;
+        padding: 48px 32px;
+    }
+
+    .columns-media.banner .columns-media-text-col,
+    .columns-media.banner .columns-media-img-col {
+        flex: 1 1 0;
+        max-width: none;
+    }
+
+    /* Equal-width columns give the image more room than its 370px column
+       used to; cap it here so it keeps its original rendered size instead of
+       scaling up and growing the row's height. The image is a block element
+       (see the shared `.columns-media-img-col img { display: block }` rule),
+       so margin-left: auto -- not the column's text-align -- is what pushes
+       it to the row's outer (right) edge instead of floating centred in the
+       column's now-larger extra space. */
+    .columns-media.banner .columns-media-img-col img {
+        max-width: 370px;
+        margin-left: auto;
+    }
+
+    .columns-media.banner .columns-media-text-col h1 {
+        font-size: 64px;
+        line-height: 1;
+    }
+}
+
 /* stylelint-enable no-descending-specificity */
