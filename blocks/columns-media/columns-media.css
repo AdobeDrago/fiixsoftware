@@ -116,6 +116,20 @@ main
     color: var(--text-color);
 }
 
+.columns-media:is(.left, .right):is(
+        .gold,
+        .teal,
+        .cyan,
+        .orange,
+        .purple,
+        .navy
+    )
+    p a {
+        color: #14499a;
+        font-weight: 500;
+        text-decoration: underline;
+    }
+
 .columns-media:is(.gold, .teal, .cyan, .orange, .purple):is(.left, .right)
     > div
     > .columns-media-text-col {
@@ -278,6 +292,50 @@ main
 
 .columns-media.teal.left .columns-media-img-col .columns-media-img-1 img {
     position: relative;
+}
+
+/* free-cmms overrides — after general color variants for specificity order */
+.columns-media.right.teal.free-cmms .columns-media-img-col .columns-media-img-2 img {
+    width: 350px;
+}
+
+.columns-media.right.teal.free-cmms > div > .columns-media-img-col {
+    justify-content: end;
+}
+
+@media (width >= 768px) {
+    .columns-media.right.teal.free-cmms .columns-media-text-col h2,
+    .columns-media.right.teal.free-cmms .columns-media-text-col p {
+        max-width: 250px;
+    }
+
+    .columns-media.right.teal.free-cmms .columns-media-img-col .columns-media-img-2 img {
+        margin-bottom: 0;
+    }
+
+    .columns-media.right.teal.free-cmms .columns-media-img-col .columns-media-img-1 img {
+        left: 0;
+    }
+}
+
+@media (width >= 960px) {
+    .columns-media.right.teal.free-cmms .columns-media-img-col .columns-media-img-2 img {
+        margin-bottom: 0;
+    }
+
+    .columns-media.right.teal.free-cmms .columns-media-img-col .columns-media-img-1 img {
+        left: 0;
+    }
+
+    .columns-media.right.teal.free-cmms > div > .columns-media-img-col {
+        padding-top: 80px;
+    }
+
+    .columns-media.right.teal.free-cmms .columns-media-text-col h2,
+    .columns-media.right.teal.free-cmms .columns-media-text-col p {
+        margin-left: 10px;
+        max-width: 420px;
+    }
 }
 
 @media (width >= 768px) {
@@ -586,6 +644,34 @@ main
         .columns-media-text-col
         p {
         max-width: 540px;
+    }
+
+    /* free-cmms: match standard right.teal at desktop */
+    .columns-media.right.teal.free-cmms .columns-media-img-col .columns-media-img-1 img {
+        right: 30px;
+        left: 10px;
+        top: 100px;
+        max-width: 175px;
+    }
+
+    .columns-media.right.teal.free-cmms .columns-media-img-col .columns-media-img-2 img {
+        width: 584px;
+        max-width: none;
+        margin-bottom: 0;
+        padding-left: 100px;
+        margin-right: -32px;
+    }
+
+    .columns-media.right.teal.free-cmms > div > .columns-media-img-col {
+        padding-top: 96px;
+        justify-content: end;
+    }
+
+    .columns-media.right.teal.free-cmms .columns-media-text-col h2,
+    .columns-media.right.teal.free-cmms .columns-media-text-col p {
+        margin-left: auto;
+        max-width: 540px;
+        padding-right: 30px;
     }
 }
 

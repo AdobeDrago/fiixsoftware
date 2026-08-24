@@ -7,18 +7,44 @@
   }
 }
 
-.accordion-faq details {
-  border: 0;
-  border-bottom: 1px dotted #58595b;
+main > .section.pf-resources.free-cmms-accordian{
+  margin-top: -145px;
+  position: relative;
+  z-index: 1;
 }
 
-/* stylelint-disable-next-line no-descending-specificity */
-.accordion-faq details + details {
-  margin-top: 0;
+@media (width >= 960px) {
+  main > .section.pf-resources.free-cmms-accordian{
+    padding: 0 30px;
+
+    /* angle band bleeds past left/right; clip x only so it can still
+       poke up into the quote section above (production `.angle.grey1`) */
+    overflow-x: clip;
+  }
+
+  /* Production draws a grey (#f7f7f7) band rotated 5deg across the seam
+     above the FAQ — same as `.angle.grey1` on free-cmms `.quote-rotate`. */
+  main > .section.pf-resources.free-cmms-accordian::before {
+    content: "";
+    position: absolute;
+    top: -30px;
+    left: -150px;
+    z-index: 0;
+    width: 200%;
+    height: 250px;
+    background-color: #f7f7f7;
+    transform: rotate(5deg);
+    pointer-events: none;
+  }
+
+  main > .section.pf-resources.free-cmms-accordian > * {
+    position: relative;
+    z-index: 1;
+  }
 }
 
-.accordion-faq details p {
-  margin-bottom: 0.8em;
+main > .section.free-cmms-accordian div.accordion-faq-wrapper {
+  padding: 0;
 }
 
 .accordion-faq details summary {
@@ -154,8 +180,30 @@
 
 .accordion-faq.card details .accordion-faq-item-body {
   padding: 0;
-  font-size: 20px;
+  font-size: 14px;
   line-height: 1.4;
+}
+
+@media (width >= 960px) {
+  .accordion-faq.card details .accordion-faq-item-body {
+    font-size: 20px;
+  }
+}
+
+.accordion-faq.card details .accordion-faq-item-body a{
+  text-decoration: underline;
+}
+
+main > .section.free-cmms-accordian .default-content-wrapper #faqs-about-fiixs-free-cmms-software{
+  padding: 150px 0 0;
+}
+
+main > .section.free-cmms-accordian .default-content-wrapper #get-best-practices-for-evaluating-buying-and-using-cmms-software{
+  padding: 40px 0 60px;
+}
+
+main > .section.free-cmms-accordian .default-content-wrapper{
+  padding: 40px 0 60px;
 }
 
 /* Hide synced image panel below desktop; accordion-only on tablet/mobile. */

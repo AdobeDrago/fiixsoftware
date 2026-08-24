@@ -250,11 +250,13 @@
 }
 
 .cards-features > ul > li.cards-features-cta a {
-    color: var(--link-color);
+    color: #14499a;
     font-size: 20px;
     font-weight: 700;
-    line-height: 1;
+    line-height: 24px;
     text-decoration: none;
+    max-width: 300px;
+    display: block;
 }
 
 .cards-features > ul > li.cards-features-cta a::after {
