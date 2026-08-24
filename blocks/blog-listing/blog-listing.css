@@ -11,6 +11,13 @@
   gap: 16px;
 }
 
+/* a page pinned to one category (see blog-listing.js `fixedCategory`) hides
+   the toolbar outright, matching the source's dedicated category archives,
+   which carry no search/category controls */
+.blog-listing .blog-listing-toolbar[hidden] {
+  display: none;
+}
+
 /* the source carries no visible label for either field (the search field's
    placeholder stands in for one) — kept in the DOM for screen readers only */
 .blog-listing .blog-listing-label {
