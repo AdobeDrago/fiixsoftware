@@ -3,6 +3,7 @@
 
 // PARSER IMPORTS
 import accordionFaqParser from './parsers/accordion-faq.js';
+import caseStudyHighlightParser from './parsers/case-study-highlight.js';
 import cardsCtaParser from './parsers/cards-cta.js';
 import cardsIconParser from './parsers/cards-icon.js';
 import cardsTimelineParser from './parsers/cards-timeline.js';
@@ -17,6 +18,7 @@ import sectionsTransformer from './transformers/fiix-sections.js';
 // PARSER REGISTRY
 const parsers = {
   'accordion-faq': accordionFaqParser,
+  'case-study-highlight': caseStudyHighlightParser,
   'cards-cta': cardsCtaParser,
   'cards-icon': cardsIconParser,
   'cards-timeline': cardsTimelineParser,
@@ -41,8 +43,13 @@ const PAGE_TEMPLATE = {
         "main > section.fiixMAX-info",
         "main > section.augury",
         "main > section.what-is-it",
-        "main > section.case-study",
         "main > section.together"
+      ]
+    },
+    {
+      "name": "case-study-highlight",
+      "instances": [
+        "main > section.case-study"
       ]
     },
     {
@@ -231,9 +238,9 @@ const PAGE_TEMPLATE = {
       "selector": [
         "main > section.case-study"
       ],
-      "style": "optix-casestudy",
+      "style": null,
       "blocks": [
-        "columns-media"
+        "case-study-highlight"
       ],
       "defaultContent": []
     },

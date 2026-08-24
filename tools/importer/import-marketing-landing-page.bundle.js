@@ -1,26 +1,9 @@
 /* eslint-disable */
 var CustomImportScript = (() => {
   var __defProp = Object.defineProperty;
-  var __defProps = Object.defineProperties;
   var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
-  var __getOwnPropDescs = Object.getOwnPropertyDescriptors;
   var __getOwnPropNames = Object.getOwnPropertyNames;
-  var __getOwnPropSymbols = Object.getOwnPropertySymbols;
   var __hasOwnProp = Object.prototype.hasOwnProperty;
-  var __propIsEnum = Object.prototype.propertyIsEnumerable;
-  var __defNormalProp = (obj, key, value) => key in obj ? __defProp(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
-  var __spreadValues = (a, b) => {
-    for (var prop in b || (b = {}))
-      if (__hasOwnProp.call(b, prop))
-        __defNormalProp(a, prop, b[prop]);
-    if (__getOwnPropSymbols)
-      for (var prop of __getOwnPropSymbols(b)) {
-        if (__propIsEnum.call(b, prop))
-          __defNormalProp(a, prop, b[prop]);
-      }
-    return a;
-  };
-  var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
   var __export = (target, all) => {
     for (var name in all)
       __defProp(target, name, { get: all[name], enumerable: true });
@@ -78,8 +61,43 @@ var CustomImportScript = (() => {
     element.replaceWith(block);
   }
 
-  // tools/importer/parsers/cards-cta.js
+  // tools/importer/parsers/case-study-highlight.js
   function parse2(element, { document }) {
+    const normalizeLazy = (root) => root.querySelectorAll("img").forEach((img) => {
+      if (!img.getAttribute("src")) {
+        const lazy = img.getAttribute("data-src") || img.getAttribute("data-lazy-src");
+        if (lazy) img.setAttribute("src", lazy);
+      }
+    });
+    normalizeLazy(element);
+    const quote = element.querySelector(".what-text blockquote, blockquote");
+    const author = element.querySelector(".what-text .author, .author");
+    const image = author?.querySelector("picture, img") || null;
+    const details = author?.querySelector("p") || null;
+    const stats = [...element.querySelectorAll(".stats li")];
+    if (!quote && stats.length === 0) {
+      element.replaceWith(...element.childNodes);
+      return;
+    }
+    const cells = [[quote || "", image || "", details || ""]];
+    stats.forEach((stat) => {
+      const metric = stat.querySelector("strong");
+      const label = document.createElement("p");
+      [...stat.childNodes].forEach((node) => {
+        if (node !== metric) label.append(node);
+      });
+      const direction = stat.classList.contains("minus") ? "minus" : "plus";
+      cells.push([direction, metric || "", label.textContent.trim() ? label : ""]);
+    });
+    const block = WebImporter.Blocks.createBlock(document, {
+      name: "case-study-highlight",
+      cells
+    });
+    element.replaceWith(block);
+  }
+
+  // tools/importer/parsers/cards-cta.js
+  function parse3(element, { document }) {
     const ctaBox = element.querySelector(".CTAbox-flex");
     const articles = ctaBox ? Array.from(ctaBox.querySelectorAll(":scope > article")) : [];
     if (element.matches("section.dualCTA-box") || articles.length) {
@@ -97,7 +115,7 @@ var CustomImportScript = (() => {
         element.replaceWith(...element.childNodes);
         return;
       }
-      const block2 = WebImporter.Blocks.createBlock(document, { name: "cards-cta", cells: cells2 });
+      const block2 = WebImporter.Blocks.createBlock(document, { name: "cards-cta (article)", cells: cells2 });
       element.replaceWith(block2);
       return;
     }
@@ -143,7 +161,7 @@ var CustomImportScript = (() => {
   }
 
   // tools/importer/parsers/cards-icon.js
-  function parse3(element, { document }) {
+  function parse4(element, { document }) {
     const normalizeLazy = (root) => root.querySelectorAll("img").forEach((img) => {
       if (!img.getAttribute("src")) {
         const lazy = img.getAttribute("data-src") || img.getAttribute("data-lazy-src");
@@ -217,7 +235,7 @@ var CustomImportScript = (() => {
   }
 
   // tools/importer/parsers/cards-timeline.js
-  function parse4(element, { document }) {
+  function parse5(element, { document }) {
     const list = element.querySelector("ul, ol");
     const items = list ? Array.from(list.querySelectorAll(":scope > li")) : Array.from(element.querySelectorAll(":scope > .container > ul > li, li"));
     const heading = element.querySelector(":scope > .container > h2, :scope > h2, h2");
@@ -255,7 +273,7 @@ var CustomImportScript = (() => {
   }
 
   // tools/importer/parsers/columns-media.js
-  function parse5(element, { document }) {
+  function parse6(element, { document }) {
     const normalizeLazy = (root) => root.querySelectorAll("img").forEach((img) => {
       if (!img.getAttribute("src")) {
         const lazy = img.getAttribute("data-src") || img.getAttribute("data-lazy-src");
@@ -269,6 +287,26 @@ var CustomImportScript = (() => {
       if (a) a.querySelectorAll(".sr-only").forEach((s) => s.remove());
       return a;
     };
+    if (element.matches(".ba-fiix")) {
+      const cols = Array.from(element.querySelectorAll(":scope > div"));
+      const row = cols.map((col) => {
+        col.querySelectorAll('i[class*="fa-"]').forEach((i) => i.remove());
+        col.querySelectorAll(".sr-only").forEach((s) => s.remove());
+        const cell = [];
+        const h = col.querySelector(":scope > h3, :scope > h2, :scope > h4");
+        if (h) cell.push(h);
+        col.querySelectorAll(":scope > .list-item > ul, :scope > .list-item > ol, :scope > ul, :scope > ol, :scope > p").forEach((n) => cell.push(n));
+        return cell.length ? cell : "";
+      }).filter((c) => c !== "");
+      if (row.length === 0) {
+        element.replaceWith(...element.childNodes);
+        return;
+      }
+      const cells2 = [row];
+      const block2 = WebImporter.Blocks.createBlock(document, { name: "columns-media", cells: cells2 });
+      element.replaceWith(block2);
+      return;
+    }
     const headerInfo = element.matches("header.container") || element.querySelector(":scope > .header-info") ? element.querySelector(":scope > .header-info") : null;
     if (headerInfo) {
       normalizeLazy(element);
@@ -399,7 +437,7 @@ var CustomImportScript = (() => {
   }
 
   // tools/importer/parsers/hero-cta.js
-  function parse6(element, { document }) {
+  function parse7(element, { document }) {
     const inner = element.querySelector(".container > div") || element;
     const image = inner.querySelector("figure img, img, picture");
     const heading = inner.querySelector("h1, h2, h3");
@@ -422,7 +460,7 @@ var CustomImportScript = (() => {
   }
 
   // tools/importer/parsers/tabs-feature.js
-  function parse7(element, { document }) {
+  function parse8(element, { document }) {
     const norm = (t) => (t || "").replace(/\s+/g, " ").trim();
     const preserveBefore = (node) => {
       if (node && node.parentNode) element.parentNode.insertBefore(node, element);
@@ -566,6 +604,40 @@ var CustomImportScript = (() => {
         "#contactmap",
         ".google_map"
       ]);
+      element.querySelectorAll("div.vidyardVid").forEach((vid) => {
+        const iframe = vid.querySelector('iframe[src*="play.vidyard.com"]');
+        if (!iframe) return;
+        const src = iframe.getAttribute("src");
+        const url = src.split("?")[0];
+        const p = element.ownerDocument.createElement("p");
+        const a = element.ownerDocument.createElement("a");
+        a.href = url;
+        a.textContent = url;
+        p.append(a);
+        vid.replaceWith(p);
+      });
+      element.querySelectorAll("div#gallery").forEach((gallery) => {
+        const imgs = [];
+        const seen = /* @__PURE__ */ new Set();
+        gallery.querySelectorAll("img").forEach((img) => {
+          const src = img.getAttribute("src") || img.getAttribute("data-src") || img.getAttribute("data-lazy-src");
+          if (!src || seen.has(src)) return;
+          seen.add(src);
+          if (!img.getAttribute("src")) img.setAttribute("src", src);
+          imgs.push(img);
+        });
+        if (imgs.length === 0) return;
+        const frag = element.ownerDocument.createDocumentFragment();
+        imgs.forEach((img) => {
+          const p = element.ownerDocument.createElement("p");
+          p.append(img);
+          frag.append(p);
+        });
+        gallery.replaceWith(frag);
+      });
+      element.querySelectorAll("q").forEach((q) => {
+        q.replaceWith(element.ownerDocument.createTextNode(q.textContent));
+      });
     }
     if (hookName === TransformHook.afterTransform) {
       WebImporter.DOMUtils.remove(element, [
@@ -626,12 +698,13 @@ var CustomImportScript = (() => {
   // tools/importer/import-marketing-landing-page.js
   var parsers = {
     "accordion-faq": parse,
-    "cards-cta": parse2,
-    "cards-icon": parse3,
-    "cards-timeline": parse4,
-    "columns-media": parse5,
-    "hero-cta": parse6,
-    "tabs-feature": parse7
+    "case-study-highlight": parse2,
+    "cards-cta": parse3,
+    "cards-icon": parse4,
+    "cards-timeline": parse5,
+    "columns-media": parse6,
+    "hero-cta": parse7,
+    "tabs-feature": parse8
   };
   var PAGE_TEMPLATE = {
     "name": "marketing-landing-page",
@@ -648,8 +721,13 @@ var CustomImportScript = (() => {
           "main > section.fiixMAX-info",
           "main > section.augury",
           "main > section.what-is-it",
-          "main > section.case-study",
           "main > section.together"
+        ]
+      },
+      {
+        "name": "case-study-highlight",
+        "instances": [
+          "main > section.case-study"
         ]
       },
       {
@@ -838,9 +916,9 @@ var CustomImportScript = (() => {
         "selector": [
           "main > section.case-study"
         ],
-        "style": "optix-casestudy",
+        "style": null,
         "blocks": [
-          "columns-media"
+          "case-study-highlight"
         ],
         "defaultContent": []
       },
@@ -887,7 +965,7 @@ var CustomImportScript = (() => {
     ...PAGE_TEMPLATE.sections && PAGE_TEMPLATE.sections.length > 1 ? [transform2] : []
   ];
   function executeTransformers(hookName, element, payload) {
-    const enhancedPayload = __spreadProps(__spreadValues({}, payload), { template: PAGE_TEMPLATE });
+    const enhancedPayload = { ...payload, template: PAGE_TEMPLATE };
     transformers.forEach((transformerFn) => {
       try {
         transformerFn.call(null, hookName, element, enhancedPayload);
