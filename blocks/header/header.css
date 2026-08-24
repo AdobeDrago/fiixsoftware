@@ -997,8 +997,11 @@ header nav .nav-sections .nav-drop-footer a {
         list-style: none;
     }
 
-    /* Promo text item. */
+    /* Promo text item. Same hover highlight as Product cards
+       (live .navigation__dropdown__card:hover:before). */
     header nav .nav-sections .nav-drop-promo .nav-promo-text > li {
+        position: relative;
+        z-index: 1;
         display: grid;
         grid-template-columns: 22px 1fr;
         gap: 12px;
@@ -1009,6 +1012,30 @@ header nav .nav-sections .nav-drop-footer a {
         margin-bottom: 30px !important;
         margin-left: 0;
         margin-right: 0;
+    }
+
+    header nav .nav-sections .nav-drop-promo .nav-promo-text > li::before {
+        content: "";
+        position: absolute;
+        border-radius: 3px;
+        background: #d6e3ee;
+        z-index: -1;
+        opacity: 0;
+        transform: scale(1.1);
+        transition: opacity 0.2s linear, transform 0.2s ease-out;
+    }
+
+    header nav .nav-sections .nav-drop-promo .nav-promo-text > li:hover::before {
+        opacity: 0.25;
+        transform: scale(1.1);
+        width: calc(100% + 10px);
+        height: calc(100% + 10px);
+        top: -5px;
+        left: -10px;
+    }
+
+    header nav .nav-sections .nav-drop-promo .nav-promo-text > li:hover a {
+        color: var(--fiix-blue);
     }
 
     /* First row in each column (grid-auto-flow: column). */
