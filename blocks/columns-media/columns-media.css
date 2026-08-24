@@ -155,7 +155,6 @@ main
         text-decoration: underline;
     }
 
-.columns-media:is(.gold, .teal, .cyan, .orange, .purple):is(.left, .right)
 .columns-media:is(.gold, .teal, .cyan, .orange, .purple, .navy):is(
         .left,
         .right
