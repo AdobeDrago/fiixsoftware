@@ -2498,7 +2498,11 @@ main > .section.fc-hero {
    eyebrow, H2 the large headline, intro 20px/300. ---- */
 main > .section.pf-hero {
     margin: 0;
-    background-color: #f7f9fc;
+
+    @media (width >= 960px) {
+       background-color: #f7f9fc;
+    }
+    
 
     /* The purple hero panel bleeds to the viewport edge with a 100vw pseudo
      element, which otherwise stretches the document ~100vw wide and gives the
@@ -3785,7 +3789,7 @@ main > .section.pf-video > .default-content-wrapper {
     padding: 0;
 }
 
-@media (width >= 768px) and (width < 960px) {
+@media (width >= 768px) {
     main > .section.pf-video > .default-content-wrapper {
         padding: 0 54px;
     }
@@ -4096,23 +4100,23 @@ main > .section.pf-resources.accordion-faq-container > div:not(.section-bg) {
     padding-right: 0;
 }
 
-/* production: .container { width: 768px } at 768–959, FAQ well = 90% */
-@media (width >= 768px) and (width < 960px) {
+/* production: .container { width: 768px }, FAQ well = 90% */
+@media (width >= 768px) {
     main > .section.pf-resources.accordion-faq-container > div:not(.section-bg) {
         width: 691px; /* 0.9 × 768 */
         max-width: 90%;
     }
 }
 
-/* production: .container { width: 960px; padding: 0 } at 960–1199 */
-@media (width >= 960px) and (width < 1200px) {
+/* production: .container { width: 960px; padding: 0 } */
+@media (width >= 960px) {
     main > .section.pf-resources.accordion-faq-container > div:not(.section-bg) {
         width: 864px; /* 0.9 × 960 */
         max-width: none;
     }
 }
 
-/* production: .container { width: 1200px } at ≥1200 */
+/* production: .container { width: 1200px } */
 @media (width >= 1200px) {
     main > .section.pf-resources.accordion-faq-container > div:not(.section-bg) {
         width: 1080px; /* 0.9 × 1200 */
