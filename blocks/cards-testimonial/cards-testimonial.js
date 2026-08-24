@@ -72,6 +72,56 @@ function decorateCard(card) {
   }
 }
 
+/** Number of cards visible before any reveal, and how many each click adds.
+ *  Matched to the source (fiixsoftware.com/customers: 6 initial, +12 per click). */
+const INITIAL_VISIBLE = 6;
+const REVEAL_STEP = 12;
+
+/**
+ * Clamp the grid to INITIAL_VISIBLE cards and wire a "Read more" button that
+ * reveals REVEAL_STEP more per click, hiding itself once all are shown. The
+ * button is the author's trailing "Read more" element (adopted into the block
+ * so it controls the grid), or a generated one as a fallback.
+ * @param {Element} block the block element
+ * @param {HTMLUListElement} list the card list
+ */
+function setupReadMore(block, list) {
+  const cards = [...list.children];
+  if (cards.length <= INITIAL_VISIBLE) return;
+
+  // Adopt a trailing "Read more" element authored after the block (a <p>/button
+  // in the same section wrapper), else build one so the block is self-contained.
+  const wrapper = block.closest('.cards-testimonial-wrapper') || block.parentElement;
+  let authored = null;
+  let sib = wrapper && wrapper.nextElementSibling;
+  while (sib && !authored) {
+    if (/^read more$/i.test(sib.textContent.trim())) authored = sib;
+    sib = sib.nextElementSibling;
+  }
+
+  const button = document.createElement('button');
+  button.type = 'button';
+  button.className = 'cards-testimonial-more';
+  button.textContent = authored ? authored.textContent.trim() : 'Read more';
+  if (authored) authored.remove();
+
+  let shown = INITIAL_VISIBLE;
+  const apply = () => {
+    cards.forEach((card, i) => {
+      card.classList.toggle('cards-testimonial-hidden', i >= shown);
+    });
+    if (shown >= cards.length) button.hidden = true;
+  };
+  apply();
+
+  button.addEventListener('click', () => {
+    shown += REVEAL_STEP;
+    apply();
+  });
+
+  block.append(button);
+}
+
 /**
  * loads and decorates the block
  * @param {Element} block The block element
@@ -92,4 +142,8 @@ export default function decorate(block) {
   });
 
   block.append(list);
+
+  // Progressive reveal ("Read more") for long review grids — only the `plain`
+  // variant clamps; the base 3-up trio always shows all cards.
+  if (block.classList.contains('plain')) setupReadMore(block, list);
 }

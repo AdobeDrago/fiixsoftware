@@ -192,3 +192,58 @@ main > .section.cards-testimonial-container {
     padding: 10px 0;
     margin-top: 30px;
 }
+
+/* ============================================================
+   `plain` variant -- borderless, centered review blurbs (customers /
+   social-proof grids). No white card chrome or shadow; smaller type. Distinct
+   from the base white-card treatment used on product-feature pages. Authorable
+   as "cards-testimonial (plain)" -> .cards-testimonial.plain. Values from
+   source (fiixsoftware.com/customers .reviews > li).
+   ============================================================ */
+.cards-testimonial.plain .cards-testimonial-card {
+  background: none;
+  border-radius: 0;
+  box-shadow: none;
+  padding: 0 15px;
+}
+
+.cards-testimonial.plain .cards-testimonial-rating {
+  font-size: 16px;
+}
+
+.cards-testimonial.plain .cards-testimonial-quote {
+  margin: 12px 0 20px;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.cards-testimonial.plain .cards-testimonial-name,
+.cards-testimonial.plain .cards-testimonial-role {
+  font-size: 12px;
+}
+
+/* Progressive reveal: cards past the initial clamp are hidden until "Read more"
+   (see cards-testimonial.js). */
+.cards-testimonial.plain .cards-testimonial-hidden {
+  display: none;
+}
+
+/* "Read more" button — navy pill, matching source (#14499a, 20px/700, r27). */
+.cards-testimonial.plain .cards-testimonial-more {
+  display: block;
+  margin: 40px auto 0;
+  padding: 12px 32px;
+  background-color: #14499a;
+  border: 2px solid #14499a;
+  border-radius: 27px;
+  color: #fff;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.2;
+  cursor: pointer;
+}
+
+.cards-testimonial.plain .cards-testimonial-more:hover {
+  background-color: #0f3675;
+  border-color: #0f3675;
+}
