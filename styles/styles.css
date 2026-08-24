@@ -2608,8 +2608,11 @@ main > .section.pf-hero:has(.hero-lead-media-layers) > .hero-lead-wrapper {
     padding: 0;
 }
 
+/* Layered app-promo (mobile-cmms): full-bleed grey crop + copy, matching
+   live `#mobile-product .header`. No bottom margin — live sits flush on
+   the following trust-logos band (`.fiix-users`). */
 .pf-hero .hero-lead-wrapper .hero-lead:has(.hero-lead-media-layers) {
-    margin-bottom: 30px;
+    margin-bottom: 0;
 }
 
 .pf-hero
