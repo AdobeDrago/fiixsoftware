@@ -36,6 +36,13 @@ export default async function decorate(widget) {
     const resp = await fetch(widgetUrl(widgetPath, widgetName, 'html'));
     widget.innerHTML = await resp.text();
 
+    // set before decoration so the widget's own `decorate` can read its
+    // config (e.g. `?category=`) off `dataset` at call time
+    widget.dataset.source = source.href;
+    searchParams.forEach((value, key) => {
+      widget.dataset[key] = value;
+    });
+
     const cssLoaded = loadCSS(widgetUrl(widgetPath, widgetName, 'css'));
     const decorationComplete = (async () => {
       const mod = await import(widgetUrl(widgetPath, widgetName, 'js'));
@@ -45,10 +52,6 @@ export default async function decorate(widget) {
 
     widget.classList.add(widgetName);
     widget.classList.remove('block');
-    widget.dataset.source = source.href;
-    searchParams.forEach((value, key) => {
-      widget.dataset[key] = value;
-    });
 
     const wrapper = widget.closest('.widget-wrapper');
     if (wrapper) {

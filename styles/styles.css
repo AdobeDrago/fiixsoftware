@@ -103,6 +103,12 @@ header {
     padding-bottom: 7px;
 }
 
+@media (width >= 960px) {
+    header {
+        padding-bottom: 0;
+    }
+}
+
 header .header,
 footer .footer {
     visibility: hidden;
@@ -5482,6 +5488,12 @@ main > .section.optix-getstarted .default-content-wrapper li {
     main > .section.optix-getstarted .hero-cta.no-image h2 {
         font-size: 40px;
     }
+}
+
+/* Category archive title ("Latest from …") */
+main:has(.blog-listing) > .section:first-of-type:not(.blog-header) h1 {
+    font-size: 24px;
+    text-align: center;
 }
 
 /* Blog listing header — gray featured band matching fiixsoftware.com/blog */
