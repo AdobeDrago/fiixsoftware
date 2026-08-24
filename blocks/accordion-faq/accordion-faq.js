@@ -81,7 +81,7 @@ function decorateFeaturePanel(block, section, panelPosition) {
   const figures = [...panel.children];
   const setActive = (idx) => {
     details.forEach((d, i) => {
-      if (i !== idx) d.open = false;
+      d.open = i === idx;
       syncItemState(d, i);
     });
     figures.forEach((f, i) => f.classList.toggle('active', i === idx));
@@ -89,9 +89,14 @@ function decorateFeaturePanel(block, section, panelPosition) {
   details.forEach((d, i) => {
     wrapBodyContent(d.querySelector('.accordion-faq-item-body'));
     syncItemState(d, i);
+    // Match live section6: open item cannot close on its own click;
+    // only switching to another heading closes the previous one.
+    d.querySelector('summary').addEventListener('click', (e) => {
+      if (d.open) e.preventDefault();
+    });
     d.addEventListener('toggle', () => {
-      syncItemState(d, i);
       if (d.open) setActive(i);
+      else syncItemState(d, i);
     });
   });
   if (!details.some((d) => d.open)) { details[0].open = true; setActive(0); }

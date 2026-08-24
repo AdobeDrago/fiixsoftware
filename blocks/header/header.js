@@ -284,16 +284,16 @@ export default async function decorate(block) {
 
               const desc = wrapDescription(li);
 
-              // Title + badge row.
+              // Title + badge row. Keep <a> as .nav-item-main so the
+              // description (and whole text block) is part of the hit target.
               const titleLine = document.createElement('span');
               titleLine.className = 'nav-item-title';
-              titleLine.append(a);
+              while (a.firstChild) titleLine.append(a.firstChild);
               if (badge) titleLine.append(badge);
 
-              const main = document.createElement('span');
-              main.className = 'nav-item-main';
-              main.append(titleLine);
-              if (desc) main.append(desc);
+              a.className = 'nav-item-main';
+              a.append(titleLine);
+              if (desc) a.append(desc);
 
               if (icon) {
                 const span = document.createElement('span');
@@ -301,7 +301,7 @@ export default async function decorate(block) {
                 span.innerHTML = icon;
                 li.append(span);
               }
-              li.append(main);
+              li.append(a);
 
               // Special link styles.
               const label = a.textContent.trim().toLowerCase();

@@ -103,6 +103,12 @@ header {
     padding-bottom: 7px;
 }
 
+@media (width >= 960px) {
+    header {
+        padding-bottom: 0;
+    }
+}
+
 header .header,
 footer .footer {
     visibility: hidden;
