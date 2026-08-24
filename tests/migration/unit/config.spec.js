@@ -5,6 +5,10 @@ const {
   blogPages,
   caseStudyPages,
 } = require('../config/page-families.js');
+const {
+  DEFAULT_EDS_ORIGIN,
+  resolveEdsOrigin,
+} = require('../config/environment.js');
 const pages = require('../config/pages.js');
 const {
   assertNoMigrationErrors,
@@ -36,10 +40,29 @@ test.describe('migration page configuration', () => {
   });
 
   test('assigns valid page types, tags, and matching URL paths', () => {
+    const configuredOrigin = resolveEdsOrigin();
+    expect(resolveEdsOrigin('')).toBe(DEFAULT_EDS_ORIGIN);
+    expect(resolveEdsOrigin('https://feature--fiixsoftware--adobedrago.aem.page/'))
+      .toBe('https://feature--fiixsoftware--adobedrago.aem.page');
+    expect(resolveEdsOrigin('http://localhost:3000/')).toBe('http://localhost:3000');
+    [
+      'feature--fiixsoftware--adobedrago.aem.page',
+      'ftp://example.com',
+      'https://example.com/path',
+      'https://example.com/.',
+      'https://example.com//',
+      'https://example.com?preview=true',
+      'https://example.com/#section',
+      'https://user@example.com',
+    ].forEach((origin) => {
+      expect(() => resolveEdsOrigin(origin)).toThrow(/absolute HTTP\(S\) origin/);
+    });
     pages.forEach((page) => {
       expect(expectedPageTypes.has(page.pageType)).toBeTruthy();
       expect(page.tags.length).toBeGreaterThan(0);
       page.tags.forEach((tag) => expect(tag).toMatch(/^@[a-z-]+$/));
+      expect(new URL(page.eds).origin).toBe(configuredOrigin);
+      expect(page.equivalentHosts).toContain(new URL(configuredOrigin).hostname);
       expect(new URL(page.live).pathname.replace(/\/$/, ''))
         .toBe(new URL(page.eds).pathname.replace(/\/$/, ''));
     });

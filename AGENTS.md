@@ -23,6 +23,10 @@ The repository provides the basic structure, blocks, and configuration needed to
   - The dev server runs at `http://localhost:3000` with auto-reload. Open it in playwright, puppeteer, or a browser. If none are available, ask the human to open it and give feedback.
 - Run linting before committing: `npm run lint`
 - Auto-Fix linting issues: `npm run lint:fix`
+- Install the Playwright browser once: `npx playwright install chromium`
+- Run the network-free migration framework tests: `npm run test:migration:unit`
+- Run the complete WordPress-to-EDS comparison: `npm run test:migration`
+- Target another EDS environment with its exact origin: `MIGRATION_EDS_ORIGIN=https://{branch}--fiixsoftware--adobedrago.aem.page npm run test:migration`
 
 ## Project Structure
 
@@ -41,6 +45,7 @@ The repository provides the basic structure, blocks, and configuration needed to
     └── delayed.js       # Delayed functionality such as martech loading
 ├── fonts/           # Web fonts
 ├── icons/           # SVG icons
+├── tests/migration/ # Playwright WordPress-to-EDS validation suite and canonical usage guide
 ├── head.html        # Global HTML head content
 └── 404.html         # Custom 404 page
 ```
@@ -118,6 +123,22 @@ Pages are progressively loaded in three phases to maximize performance. This pro
 * Delayed - load things that can be safely loaded later here and incur a performance penalty when loaded earlier
 
 ## Testing & Quality Assurance
+
+### Migration Validation
+
+- Read the [Playwright migration validation guide](tests/migration/README.md) before changing or
+  running the suite. It is the canonical test inventory, architecture, debugging, CI, environment,
+  acceptance, and troubleshooting guide.
+- The suite covers 67 configured pages with 67 semantic and 201 responsive/visual tests. Its 27 unit
+  tests validate configuration, extraction, comparison, visual scoring, and reporting behavior.
+- Push CI runs lint and `npm run test:migration:unit`. The complete external comparison is deliberately
+  manual and is available through the **Migration validation** GitHub Actions workflow.
+- `MIGRATION_EDS_ORIGIN` must be an exact HTTP(S) origin without a path, query, fragment, or
+  credentials. Do not infer or rewrite a branch name; use the deployed AEM preview origin.
+- Keep `MIGRATION_WORKERS` low because complete runs request both public sites. Start debugging with a
+  focused `--grep` run and one worker.
+- Treat findings as migration evidence. Do not hide meaningful content, accessibility, navigation, or
+  functionality differences with broad exclusions or global visual thresholds.
 
 ### Performance
 - Follow AEM Edge Delivery performance best practices https://www.aem.live/developer/keeping-it-100

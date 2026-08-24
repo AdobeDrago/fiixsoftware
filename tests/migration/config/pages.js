@@ -5,6 +5,10 @@ const {
   productPages,
   reviewPages,
 } = require('./page-families.js');
+const { resolveEdsOrigin } = require('./environment.js');
+
+const edsOrigin = resolveEdsOrigin();
+const edsHostname = new URL(edsOrigin).hostname;
 
 const DEFAULT_MASKS = [
   '#drift-widget',
@@ -43,14 +47,15 @@ const common = {
     '.blog-share > .default-content-wrapper > p:nth-of-type(n+2)',
   ],
   maskSelectors: DEFAULT_MASKS,
-  equivalentHosts: [
+  equivalentHosts: [...new Set([
     'fiixsoftware.com',
     'www.fiixsoftware.com',
     'develop--fiixsoftware--adobedrago.aem.page',
     'develop--fiixsoftware--adobedrago.aem.live',
     'main--fiixsoftware--adobedrago.aem.page',
     'main--fiixsoftware--adobedrago.aem.live',
-  ],
+    edsHostname,
+  ])],
   ignoredQueryParameters: [
     /^utm_/i,
     /^_gl$/i,
@@ -79,7 +84,7 @@ function pageConfig(name, path, pageType, tags, slug = pathSlug(path)) {
     pageType,
     tags,
     live: `https://fiixsoftware.com${path}/`,
-    eds: `https://develop--fiixsoftware--adobedrago.aem.page${path}`,
+    eds: `${edsOrigin}${path}`,
   };
 }
 

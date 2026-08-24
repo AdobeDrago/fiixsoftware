@@ -49,6 +49,32 @@ We enforce a coding styleguide using `eslint`. As part of your build, run `npm r
 
 You can fix some of the issues automatically by running `npx eslint . --fix`.
 
+## Testing
+
+Before opening a pull request, run the checks used by push CI:
+
+```sh
+npm run lint
+npx playwright install chromium
+npm run test:migration:unit
+```
+
+The migration unit suite is network-free but uses local Chromium for DOM extraction. Changes to
+migrated page content, comparison behavior, page mappings, or migration configuration should also be
+validated with a focused public-site comparison. Supply the exact deployed feature origin; do not
+infer or rewrite the branch name:
+
+```sh
+MIGRATION_EDS_ORIGIN=https://my-feature--fiixsoftware--adobedrago.aem.page \
+  npm run test:migration -- --grep "Affected Page"
+```
+
+The complete external comparison is available through the manually dispatched **Migration
+validation** GitHub Actions workflow. Review and attach relevant summaries, screenshots, diffs, or
+traces to the pull request. Follow the
+[Playwright migration validation guide](tests/migration/README.md) when interpreting findings or
+documenting a legitimate difference.
+
 ## Commit Message Format
 
 This project uses a structured commit changelog format that should be used for every commit. Use `npm run commit` instead of your usual `git commit` to generate commit messages using a wizard.
@@ -70,4 +96,3 @@ One of the maintainers will look at the pull request within one week. Feedback o
 
 The project's committers will release to the [Adobe organization on npmjs.org](https://www.npmjs.com/org/adobe).
 Please contact the [Adobe Open Source Advisory Board](https://git.corp.adobe.com/OpenSourceAdvisoryBoard/discuss/issues) to get access to the npmjs organization.
-

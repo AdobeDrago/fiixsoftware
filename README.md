@@ -25,9 +25,37 @@ npm i
 npm run lint
 ```
 
+## Testing
+
+Install Chromium once, then run the network-free Playwright migration framework tests:
+
+```sh
+npx playwright install chromium
+npm run test:migration:unit
+```
+
+Push CI runs linting and all 27 migration unit tests. The complete public-site comparison remains a
+manual workflow because it depends on mutable WordPress and EDS environments.
+
 ## Migration validation
 
-Playwright-based WordPress-to-EDS migration checks are documented in [tests/migration/README.md](tests/migration/README.md).
+The Playwright suite generates semantic, responsive, and visual comparisons for 67 WordPress-to-EDS
+page mappings. Run it against the default develop preview with:
+
+```sh
+npm run test:migration
+```
+
+Target another EDS environment by supplying its exact origin:
+
+```sh
+MIGRATION_EDS_ORIGIN=https://my-feature--fiixsoftware--adobedrago.aem.page \
+  npm run test:migration -- --grep "@product"
+```
+
+See the [Playwright migration validation guide](tests/migration/README.md) for the test inventory,
+architecture, debugging, reports, CI workflow, environment targeting, accepted-difference policy,
+troubleshooting, runtime estimates, and known limitations.
 
 ## Local development
 

@@ -1,0 +1,64 @@
+name: Migration validation
+
+on:
+  workflow_dispatch:
+    inputs:
+      eds_origin:
+        description: Exact EDS origin to validate; one trailing slash is allowed
+        required: true
+        default: https://develop--fiixsoftware--adobedrago.aem.page
+        type: string
+      test_filter:
+        description: Optional Playwright grep expression, such as @product or CMMS Software
+        required: false
+        default: ''
+        type: string
+      workers:
+        description: Parallel workers; keep this low to limit load on public sites
+        required: true
+        default: '2'
+        type: choice
+        options:
+          - '1'
+          - '2'
+          - '3'
+          - '4'
+
+permissions:
+  contents: read
+
+jobs:
+  migration:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    env:
+      MIGRATION_EDS_ORIGIN: ${{ inputs.eds_origin }}
+      MIGRATION_WORKERS: ${{ inputs.workers }}
+      MIGRATION_TEST_FILTER: ${{ inputs.test_filter }}
+    steps:
+      - uses: actions/checkout@v7
+      - name: Use Node.js 24
+        uses: actions/setup-node@v6
+        with:
+          node-version: 24
+      - name: Install dependencies
+        run: npm ci
+      - name: Install Playwright Chromium
+        run: npx playwright install --with-deps chromium
+      - name: Run complete migration validation
+        if: ${{ inputs.test_filter == '' }}
+        run: npm run test:migration
+      - name: Run filtered migration validation
+        if: ${{ inputs.test_filter != '' }}
+        run: npm run test:migration -- --grep "$MIGRATION_TEST_FILTER"
+      - name: Upload migration reports and artifacts
+        if: ${{ always() }}
+        uses: actions/upload-artifact@v7
+        with:
+          name: migration-validation-${{ github.run_id }}
+          path: |
+            playwright-report/migration/
+            test-results/migration/
+            test-results/playwright/
+          if-no-files-found: warn
+          retention-days: 14
