@@ -5350,6 +5350,12 @@ main > .section.optix-getstarted .default-content-wrapper li {
     }
 }
 
+/* Category archive title ("Latest from …") */
+main:has(.blog-listing) > .section:first-of-type:not(.blog-header) h1 {
+    font-size: 24px;
+    text-align: center;
+}
+
 /* Blog listing header — gray featured band matching fiixsoftware.com/blog */
 main > .section.blog-header {
     margin: 55px 0 40px;
