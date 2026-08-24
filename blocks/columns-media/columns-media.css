@@ -5,11 +5,6 @@
 
 .columns-media img {
     width: 100%;
-
-     @media (width < 768px) {
-       height: 300px;
-       object-fit: contain;
-    }
 }
 
 .columns-media > div > div {
@@ -22,6 +17,31 @@
 
 .columns-media > div > .columns-media-img-col img {
     display: block;
+}
+
+/* Fixed mobile height + contain is only for the colour-accent variants'
+   single hero screenshot (gold/teal/cyan/orange/purple/navy authored with
+   just one image in the media column, e.g. the teal "Access parts..." row) --
+   without it that screenshot renders at its full natural height on mobile.
+   `:only-child` keeps this off the decorative shape+screenshot pairs (img-1 +
+   img-2), which already have their own absolute-positioned/max-width sizing,
+   and off vidyard/banner/info-flex/plain images, which size themselves. */
+.columns-media:is(.gold, .teal, .cyan, .orange, .purple, .navy)
+    .columns-media-img-col
+    > .columns-media-img-1:only-child
+    img {
+    height: 300px;
+    object-fit: contain;
+}
+
+@media (width >= 768px) {
+    .columns-media:is(.gold, .teal, .cyan, .orange, .purple, .navy)
+        .columns-media-img-col
+        > .columns-media-img-1:only-child
+        img {
+        height: auto;
+        object-fit: fill;
+    }
 }
 
 @media (width >= 768px) {

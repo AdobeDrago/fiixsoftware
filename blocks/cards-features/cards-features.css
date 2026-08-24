@@ -38,11 +38,17 @@ main > .section.cards-features-container > .default-content-wrapper {
     margin-bottom: 40px;
 }
 
-@media (width < 768px) {
+main > .section.cards-features-container > .default-content-wrapper,
+main > .section.cards-features-container > .cards-features-wrapper {
+    padding-right: 20px;
+    padding-left: 20px;
+}
+
+@media (width >= 768px) {
     main > .section.cards-features-container > .default-content-wrapper,
     main > .section.cards-features-container > .cards-features-wrapper {
-        padding-right: 20px;
-        padding-left: 20px;
+        padding-right: 0;
+        padding-left: 0;
     }
 }
 
