@@ -5682,9 +5682,9 @@ main > .section.optix-together .columns-media .dotted-divider {
 }
 
 /* ---- optix-getstarted / hero-cta-container: production `#optixLP .get-started`
-   CTA band. Authored section `background-image` is moved onto `.hero-cta` by
-   decorateOptixGetStarted (--optix-getstarted-bg) so the banner stays on the
-   constrained card, matching live container-width treatment. ---- */
+   CTA band. Authored `background-image` + `background-image-mobile` are moved
+   onto `.hero-cta` by decorateOptixGetStarted so the banner stays on the
+   constrained card (live container-width treatment). ---- */
 main > .section.optix-getstarted.hero-cta-container,
 main > .section.optix-getstarted {
     margin: 0 0 80px;
@@ -5705,12 +5705,14 @@ main > .section.optix-getstarted .hero-cta.no-image {
     box-sizing: border-box;
     min-height: 0;
     margin: 0;
-    padding: 20px 30px 280px;
+    padding: 20px 30px 300px;
     border-radius: 0;
     background-color: transparent;
-    background-image: var(--optix-getstarted-bg);
+    /* Inline style from decorateOptixGetStarted wins; vars are fallback. */
+    background-image: var(--optix-getstarted-bg-mobile, var(--optix-getstarted-bg));
+    /* Live mobile uses width 100% so the tall composite isn't cropped. */
     background-position: center top;
-    background-size: cover;
+    background-size: 100% auto;
     background-repeat: no-repeat;
     color: #fff;
 }
@@ -5812,6 +5814,7 @@ main > .section.optix-getstarted .hero-cta.no-image a:focus-visible {
     main > .section.optix-getstarted .hero-cta,
     main > .section.optix-getstarted .hero-cta.no-image {
         padding: 40px 30px;
+        background-image: var(--optix-getstarted-bg, var(--optix-getstarted-bg-mobile));
         background-position: -180px center;
         background-size: cover;
     }

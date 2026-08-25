@@ -425,9 +425,11 @@ function decorateOptixTogether(main) {
 }
 
 /**
- * Optix Getting Started: move the authored section `background-image` onto
- * the constrained `.hero-cta` card (live paints the banner on the card, not
- * full-bleed). Clears the section so CSS can keep the section transparent.
+ * Optix Getting Started: move authored section backgrounds onto `.hero-cta`
+ * (live paints the banner on the card, not full-bleed).
+ * Uses `background-image` (desktop) and optional `background-image-mobile`.
+ * Sets the active image in JS (not only CSS vars) so mobile never keeps the
+ * desktop asset from a cascade/fallback miss.
  * @param {Element} main The main container element
  */
 function decorateOptixGetStarted(main) {
@@ -435,16 +437,36 @@ function decorateOptixGetStarted(main) {
     const hero = section.querySelector('.hero-cta');
     if (!hero) return;
 
-    let bg = section.style.backgroundImage;
-    if (!bg || bg === 'none') {
-      const raw = section.dataset.backgroundImage || section.dataset.background;
-      bg = raw ? toSectionBackgroundImage(raw) : '';
+    const desktopRaw = section.dataset.backgroundImage || section.dataset.background;
+    const mobileRaw = section.dataset.backgroundImageMobile;
+
+    let desktop = desktopRaw ? toSectionBackgroundImage(desktopRaw) : '';
+    let mobile = mobileRaw ? toSectionBackgroundImage(mobileRaw) : '';
+
+    if (!desktop && section.style.backgroundImage
+      && section.style.backgroundImage !== 'none') {
+      desktop = section.style.backgroundImage;
     }
-    if (!bg) return;
+
+    if (!desktop && !mobile) return;
+    if (!mobile) mobile = desktop;
+    if (!desktop) desktop = mobile;
 
     // Authoring often ships width=750; request a larger render for the banner.
-    const large = bg.replace(/([?&]width=)\d+/i, `$1${2000}`);
-    hero.style.setProperty('--optix-getstarted-bg', large);
+    const enlarge = (bg) => bg.replace(/([?&]width=)\d+/i, `$1${2000}`);
+    desktop = enlarge(desktop);
+    mobile = enlarge(mobile);
+
+    hero.style.setProperty('--optix-getstarted-bg-mobile', mobile);
+    hero.style.setProperty('--optix-getstarted-bg', desktop);
+
+    const applyBg = () => {
+      const useMobile = window.matchMedia('(width < 768px)').matches;
+      hero.style.backgroundImage = useMobile ? mobile : desktop;
+    };
+    applyBg();
+    window.matchMedia('(width < 768px)').addEventListener('change', applyBg);
+
     section.style.backgroundImage = '';
   });
 }
