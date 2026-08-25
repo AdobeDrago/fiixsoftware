@@ -14,8 +14,29 @@
  */
 
 /**
- * Smooth-scroll to the target section. When sticky, the bar overlaps content so
- * offset by its height; a static bar has scrolled away and needs no offset.
+ * How much of the viewport top is permanently covered once the bar is stuck:
+ * the bar's own height plus everything above it. The bar's sticky `top` is
+ * exactly that "everything above it" distance (it's what holds the bar clear of
+ * the fixed site header), so reading it back keeps this in step with the CSS
+ * instead of hard-coding the header's height here.
+ * @param {Element} block the block element (carries the `sticky` variant)
+ * @param {Element} nav the nav element
+ * @returns {number} pixels obscured at the top of the viewport
+ */
+function obstructedHeight(block, nav) {
+  // A static bar scrolls away with the page, so it obscures nothing.
+  if (!block.classList.contains('sticky')) return 0;
+  const section = block.closest('.page-nav-container');
+  if (!section) return nav.getBoundingClientRect().height;
+  const stickyTop = parseFloat(getComputedStyle(section).top);
+  // The section, not the bar, is what's pinned -- measuring it picks up its
+  // bottom border too, which the bar's own box stops short of.
+  return (Number.isNaN(stickyTop) ? 0 : stickyTop) + section.getBoundingClientRect().height;
+}
+
+/**
+ * Smooth-scroll to the target section, landing it just below the stuck bar
+ * rather than underneath it.
  * @param {Element} block the block element (carries the `sticky` variant)
  * @param {Element} nav the nav element
  * @param {string} hash the target fragment (e.g. "#reviews")
@@ -23,7 +44,7 @@
 function scrollToTarget(block, nav, hash) {
   const target = document.querySelector(hash);
   if (!target) return;
-  const offset = block.classList.contains('sticky') ? nav.getBoundingClientRect().height : 0;
+  const offset = obstructedHeight(block, nav);
   const top = target.getBoundingClientRect().top + window.scrollY - offset;
   window.scrollTo({ top, behavior: 'smooth' });
 }

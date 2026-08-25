@@ -737,3 +737,120 @@
     font-size: 26px;
   }
 }
+
+/* ============================================================
+   "By industry" section 
+   ============================================================ */
+main > #industry.section.tabs-feature-container {
+  position: relative;
+  margin: 0;
+  padding-top: 40px;
+  padding-bottom: 20px;
+}
+
+main > #industry.section.tabs-feature-container::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%);
+  width: calc(100% - 40px);
+  max-width: 1200px;
+  height: 1px;
+  background: #e1e1e1;
+}
+
+#industry > .default-content-wrapper:first-child h2 {
+  margin: 0 0 60px;
+  font-size: 32px;
+  text-align: center;
+}
+
+#industry .tabs-feature-list {
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0;
+  overflow-x: visible;
+  border-bottom-color: rgb(157 159 162);
+
+  /* Source's `ul` carries a 10px bottom padding, but its links are inline --
+     their padding+border spill past the line box and land flush on the rule.
+     These buttons are flex items, so they stop at the content edge and that
+     same padding would leave the active underline floating 10px above the
+     rule. Dropping it puts the underline back on the line, as source renders. */
+  padding: 0 5px;
+}
+
+#industry .tabs-feature-list button {
+  padding-bottom: 0;
+  color: #212021;
+  font-size: 12px;
+  font-weight: 500;
+
+  @media (width >= 768px) {
+    padding-bottom: 14px;
+  } 
+}
+
+#industry .tabs-feature-list button:hover {
+  color: #212021;
+}
+
+#industry .tabs-feature-list button[aria-selected='true'] {
+  color: #212021;
+  font-weight: 700;
+  border-bottom-color: #3cc0cb;
+  border-bottom-width: 5px;
+}
+
+@media (width >= 768px) {
+  main > #industry.section.tabs-feature-container {
+    padding-top: 80px;
+    padding-bottom: 60px;
+  }
+
+  #industry > .default-content-wrapper:first-child h2 {
+    max-width: 750px;
+    margin: 0 auto 60px;
+  }
+
+  #industry .tabs-feature-list {
+    justify-content: space-between;
+  }
+}
+
+@media (width >= 768px) {
+  #industry > .default-content-wrapper,
+  #industry > .tabs-feature-wrapper {
+    padding-right: 26px;
+    padding-left: 26px;
+  }
+
+  main > #industry.section.tabs-feature-container::after {
+    width: calc(100% - 52px);
+  }
+}
+
+@media (width >= 960px) {
+  #industry > .default-content-wrapper,
+  #industry > .tabs-feature-wrapper {
+    padding-right: 16px;
+    padding-left: 16px;
+  }
+
+  main > #industry.section.tabs-feature-container::after {
+    width: calc(100% - 32px);
+  }
+}
+
+@media (width >= 1200px) {
+  #industry > .default-content-wrapper,
+  #industry > .tabs-feature-wrapper {
+    padding-right: 0;
+    padding-left: 0;
+  }
+
+  main > #industry.section.tabs-feature-container::after {
+    width: 100%;
+  }
+}
