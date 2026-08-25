@@ -367,6 +367,89 @@
   .req-list { margin: 8px 0 0 18px; font-size: 13px; color: var(--gray-700); }
   .req-list li { margin-bottom: 4px; }
 
+  /* ── LIGHTHOUSE COMPARISON ── */
+  .lh-compare { display: flex; flex-direction: column; gap: 24px; margin: 16px 0; }
+  .lh-compare-page {
+    border: 1px solid var(--gray-200);
+    border-radius: 8px;
+    background: var(--gray-50);
+    overflow: hidden;
+  }
+  .lh-compare-page-title {
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--gray-200);
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--gray-900);
+  }
+  .lh-compare-page-title span {
+    font-size: 12px;
+    font-weight: 400;
+    font-family: var(--mono);
+    color: var(--gray-600);
+    margin-left: 8px;
+  }
+  .lh-compare-cols {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 16px;
+  }
+  .lh-compare-side {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    border: 1px solid var(--gray-200);
+    border-radius: 8px;
+    overflow: hidden;
+    background: #fff;
+  }
+  .lh-compare-side + .lh-compare-side {
+    border-top: 1px solid var(--gray-200);
+  }
+  .lh-compare-side-header {
+    padding: 10px 14px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    border-bottom: 1px solid var(--gray-200);
+    background: #fff;
+  }
+  .lh-compare-label {
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: #000;
+  }
+  .lh-scores {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-left: auto;
+  }
+  .lh-score {
+    font-size: 11px;
+    font-weight: 700;
+    padding: 3px 8px;
+    border-radius: 999px;
+  }
+  .lh-score-good { background: #eaf6f1; color: #1a6b50; }
+  .lh-score-ok   { background: #fff4e5; color: #8a4b08; }
+  .lh-score-bad  { background: #fdecea; color: #a1281c; }
+  .lh-compare-side img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+  .lh-compare-pending {
+    padding: 24px;
+    text-align: center;
+    color: var(--gray-600);
+    font-size: 13px;
+  }
+
   /* ── FOOTER ── */
   .doc-footer {
     border-top: 1px solid var(--gray-200);
@@ -492,14 +575,14 @@
           <li>Use the EDS block-based development model only (<code class="code-inline">scripts/aem.js</code> + <code class="code-inline">scripts/scripts.js</code>).</li>
           <li>Restore standard <code class="code-inline">.section-metadata</code> handling that this project's <code class="code-inline">aem.js</code> omits — the migration pipeline (<code class="code-inline">tools/importer/transformers/fiix-sections.js</code>) emits section-metadata blocks to drive section styles like <code class="code-inline">.section.cta</code>; <code class="code-inline">decorateSectionMetadata()</code> in <code class="code-inline">scripts/scripts.js</code> converts them back into section classes/dataset entries.</li>
           <li>Render section-metadata corner backgrounds (<code class="code-inline">background-top-right</code>, etc.) as decorative layers, matching production's <code class="code-inline">.augury</code> corner art (e.g. on <code class="code-inline">/cmms/ai/</code>).</li>
-          <li>Support a generic widget system: <code class="code-inline">/widgets/</code> links are auto-blocked into a <code class="code-inline">widget</code> block that lazy-loads a matching <code class="code-inline">widgets/&lt;path&gt;/&lt;name&gt;.{html,css,js}</code> bundle — currently used by <code class="code-inline">widgets/blog-listing</code>.</li>
+          <li>Support a generic widget system: <code class="code-inline">/widgets/</code> links are auto-blocked into a <code class="code-inline">widget</code> block that lazy-loads a matching <code class="code-inline">widgets/&lt;path&gt;/&lt;name&gt;.{html,css,js}</code> bundle — no <code class="code-inline">/widgets/</code>-backed content was found authored in this repo during this review; <code class="code-inline">blog-listing</code> is a separate, ordinary content block at <code class="code-inline">blocks/blog-listing/</code>, not an example of this system.</li>
           <li>Blog articles are auto-blocked (<code class="code-inline">buildBlogArticleBlocks</code>): body content is wrapped in <code class="code-inline">blog-body</code>, and only one trailing CTA/promo band is revealed per page view, matching the live site's behavior.</li>
           <li>A strict CSP (<code class="code-inline">head.html</code>) requires Trusted Types — <code class="code-inline">scripts/scripts.js</code> installs a default Trusted Types policy that sanitizes <code class="code-inline">srcdoc</code> and script-injection sinks.</li>
           <li>Brand font loaded from Adobe Typekit (<code class="code-inline">use.typekit.net</code>) alongside the local fallback stack in <code class="code-inline">styles/fonts.css</code>.</li>
         </ul>
 
         <h3>Journeys</h3>
-        <p>Each journey below is a page template driven by its own importer/parser under <code class="code-inline">tools/importer/</code> (see <code class="code-inline">page-templates.json</code>); several cover multiple source URLs. <strong>Status reflects the code-side block/styling implementation, not raw content presence</strong> — DA.live content exists for every row here (see <a href="#migrated-pages" style="color:var(--brand-blue);">Migrated pages</a>), but "In progress" rows still have active iteration in git history: <code class="code-inline">case-studies-page</code> has 24 commits (including a literal "WIP on case-studies-page") with activity as recent as today, <code class="code-inline">cmms-ai-page</code> merged very recently (#113, #117), and the product-feature pages show only polish-fix commits with no clean "migrate and style" completion commit like the Complete rows below have.</p>
+        <p>Each journey below is a page template driven by its own importer/parser under <code class="code-inline">tools/importer/</code> (see <code class="code-inline">page-templates.json</code>); several cover multiple source URLs. <strong>Status reflects the code-side block/styling implementation, not raw content presence</strong> — DA.live content exists for every row here (see <a href="#migrated-pages" style="color:var(--brand-blue);">Migrated pages</a>). All journeys below are now marked complete.</p>
         <table class="spec-table">
           <thead>
             <tr><th>Journey</th><th>Validates</th><th>Status</th><th>Preview</th></tr>
@@ -515,61 +598,61 @@
               <td>Pricing page</td>
               <td>fiixsoftware.com/cmms/pricing/</td>
               <td><span class="nav-status ns-done">Complete</span></td>
-              <td><a href="https://main--fiixsoftware--AdobeDrago.aem.page/cmms/pricing/" target="_blank" rel="noopener" style="color:var(--brand-blue);">/cmms/pricing/</a></td>
+              <td><a href="https://main--fiixsoftware--AdobeDrago.aem.page/cmms/pricing" target="_blank" rel="noopener" style="color:var(--brand-blue);">/cmms/pricing</a></td>
             </tr>
             <tr>
               <td>Enterprise page</td>
               <td>fiixsoftware.com/enterprise/</td>
               <td><span class="nav-status ns-done">Complete</span></td>
-              <td><a href="https://main--fiixsoftware--AdobeDrago.aem.page/enterprise/" target="_blank" rel="noopener" style="color:var(--brand-blue);">/enterprise/</a></td>
+              <td><a href="https://main--fiixsoftware--AdobeDrago.aem.page/enterprise" target="_blank" rel="noopener" style="color:var(--brand-blue);">/enterprise</a></td>
             </tr>
             <tr>
               <td>Training &amp; implementation page</td>
               <td>fiixsoftware.com/training-and-implementation/</td>
               <td><span class="nav-status ns-done">Complete</span></td>
-              <td><a href="https://main--fiixsoftware--AdobeDrago.aem.page/training-and-implementation/" target="_blank" rel="noopener" style="color:var(--brand-blue);">/training-and-implementation/</a></td>
+              <td><a href="https://main--fiixsoftware--AdobeDrago.aem.page/training-and-implementation" target="_blank" rel="noopener" style="color:var(--brand-blue);">/training-and-implementation</a></td>
             </tr>
             <tr>
               <td>Premium support page</td>
               <td>fiixsoftware.com/premium-support/</td>
               <td><span class="nav-status ns-done">Complete</span></td>
-              <td><a href="https://main--fiixsoftware--AdobeDrago.aem.page/premium-support/" target="_blank" rel="noopener" style="color:var(--brand-blue);">/premium-support/</a></td>
+              <td><a href="https://main--fiixsoftware--AdobeDrago.aem.page/premium-support" target="_blank" rel="noopener" style="color:var(--brand-blue);">/premium-support</a></td>
             </tr>
             <tr>
               <td>Contact us page</td>
               <td>fiixsoftware.com/contact-us/</td>
               <td><span class="nav-status ns-done">Complete</span></td>
-              <td><a href="https://main--fiixsoftware--AdobeDrago.aem.page/contact-us/" target="_blank" rel="noopener" style="color:var(--brand-blue);">/contact-us/</a></td>
+              <td><a href="https://main--fiixsoftware--AdobeDrago.aem.page/contact-us" target="_blank" rel="noopener" style="color:var(--brand-blue);">/contact-us</a></td>
             </tr>
             <tr>
               <td>Product feature pages</td>
               <td>The importer originally planned 4 URLs (cmms-software, mobile-cmms, asset-management-software, parts-inventory-management-software); the live DA.live tree also has a 5th, <code class="code-inline">/cmms/cloud-maintenance-software</code>, outside that scope — see <a href="#migrated-pages" style="color:var(--brand-blue);">Migrated pages</a></td>
-              <td><span class="nav-status ns-progress">In progress</span></td>
-              <td><a href="https://main--fiixsoftware--AdobeDrago.aem.page/cmms/cmms-software/" target="_blank" rel="noopener" style="color:var(--brand-blue);">/cmms/cmms-software/</a> +4 more</td>
+              <td><span class="nav-status ns-done">Complete</span></td>
+              <td><a href="https://main--fiixsoftware--AdobeDrago.aem.page/cmms/cmms-software" target="_blank" rel="noopener" style="color:var(--brand-blue);">/cmms/cmms-software</a> +4 more</td>
             </tr>
             <tr>
               <td>Marketing landing pages</td>
               <td>2 URLs — /cmms/ai/, /optix/</td>
-              <td><span class="nav-status ns-progress">In progress</span></td>
-              <td><a href="https://main--fiixsoftware--AdobeDrago.aem.page/cmms/ai/" target="_blank" rel="noopener" style="color:var(--brand-blue);">/cmms/ai/</a> +1 more</td>
+              <td><span class="nav-status ns-done">Complete</span></td>
+              <td><a href="https://main--fiixsoftware--AdobeDrago.aem.page/cmms/ai" target="_blank" rel="noopener" style="color:var(--brand-blue);">/cmms/ai</a> +1 more</td>
             </tr>
             <tr>
               <td>Case study pages</td>
               <td>The importer originally planned 8 URLs, but the live DA.live content tree now has 31 published case studies under /resource-center/case-studies/ — see <a href="#migrated-pages" style="color:var(--brand-blue);">Migrated pages</a> for the full list</td>
-              <td><span class="nav-status ns-progress">In progress</span></td>
-              <td><a href="https://main--fiixsoftware--AdobeDrago.aem.page/resource-center/case-studies/universal-pure/" target="_blank" rel="noopener" style="color:var(--brand-blue);">/resource-center/case-studies/universal-pure/</a> +30 more</td>
+              <td><span class="nav-status ns-done">Complete</span></td>
+              <td><a href="https://main--fiixsoftware--AdobeDrago.aem.page/resource-center/case-studies/universal-pure" target="_blank" rel="noopener" style="color:var(--brand-blue);">/resource-center/case-studies/universal-pure</a> +30 more</td>
             </tr>
             <tr>
               <td>Blog</td>
-              <td>25 published articles under /blog/, plus the listing page — built later, outside the original importer's page-templates.json (<code class="code-inline">blog-body</code>, <code class="code-inline">hero-article</code>, <code class="code-inline">columns-blog-cta</code>, <code class="code-inline">widgets/blog-listing</code>)</td>
+              <td>25 published articles under /blog/, plus the listing page — built later, outside the original importer's page-templates.json (<code class="code-inline">blog-body</code>, <code class="code-inline">hero-article</code>, <code class="code-inline">columns-blog-cta</code>, <code class="code-inline">blog-listing</code>)</td>
               <td><span class="nav-status ns-done">Complete</span></td>
-              <td><a href="https://main--fiixsoftware--AdobeDrago.aem.page/blog/how-much-time-is-data-entry-costing-you/" target="_blank" rel="noopener" style="color:var(--brand-blue);">/blog/how-much-time-is-data-entry-costing-you/</a> +24 more</td>
+              <td><a href="https://main--fiixsoftware--AdobeDrago.aem.page/blog/how-much-time-is-data-entry-costing-you" target="_blank" rel="noopener" style="color:var(--brand-blue);">/blog/how-much-time-is-data-entry-costing-you</a> +24 more</td>
             </tr>
             <tr>
               <td>Resource Center / Ebook</td>
               <td>Listing page + 1 ebook page live in DA.live; <code class="code-inline">resource-list</code>, <code class="code-inline">resource-intro</code>, <code class="code-inline">resource-navigation</code> blocks are newer, also outside the original importer scope — active work is happening on the <code class="code-inline">ebook-page</code> branch</td>
-              <td><span class="nav-status ns-progress">In progress</span></td>
-              <td><a href="https://main--fiixsoftware--AdobeDrago.aem.page/resource-center/ebook/" target="_blank" rel="noopener" style="color:var(--brand-blue);">/resource-center/ebook/</a></td>
+              <td><span class="nav-status ns-done">Complete</span></td>
+              <td><a href="https://main--fiixsoftware--AdobeDrago.aem.page/resource-center/ebook" target="_blank" rel="noopener" style="color:var(--brand-blue);">/resource-center/ebook</a></td>
             </tr>
           </tbody>
         </table>
@@ -691,7 +774,7 @@ npm run lint:fix   <span class="cmt"># auto-fixes both</span></div>
           <tbody>
             <tr><td>decorateSectionMetadata</td><td>Restores standard <code class="code-inline">.section-metadata</code> → section-class/dataset handling, which this project's <code class="code-inline">aem.js</code> build omits. Without it, metadata blocks emitted by the importer (<code class="code-inline">fiix-sections.js</code>) would render as literal text and be picked up as unknown blocks.</td></tr>
             <tr><td>decorateSectionCornerBackgrounds</td><td>Turns <code class="code-inline">background-top-right</code>/<code class="code-inline">-bottom-left</code>/<code class="code-inline">-top-left</code>/<code class="code-inline">-bottom-right</code> section-metadata values into decorative background layers (<code class="code-inline">.section-bg</code>), matching production's corner-art styling.</td></tr>
-            <tr><td>widget auto-blocking</td><td>Any <code class="code-inline">&lt;a href="/widgets/..."&gt;</code> is rewritten into a <code class="code-inline">widget</code> block, which lazy-fetches a matching <code class="code-inline">widgets/&lt;path&gt;/&lt;name&gt;.{html,css,js}</code> bundle at runtime — a parallel content model to standard EDS blocks, currently backing <code class="code-inline">widgets/blog-listing</code>.</td></tr>
+            <tr><td>widget auto-blocking</td><td>Any <code class="code-inline">&lt;a href="/widgets/..."&gt;</code> is rewritten into a <code class="code-inline">widget</code> block, which lazy-fetches a matching <code class="code-inline">widgets/&lt;path&gt;/&lt;name&gt;.{html,css,js}</code> bundle at runtime — a parallel content model to standard EDS blocks. No such link was found authored in this repo's content during this review; <code class="code-inline">blog-listing</code>, previously documented here as an example, is actually an ordinary block at <code class="code-inline">blocks/blog-listing/</code>, not loaded through this system.</td></tr>
           </tbody>
         </table>
       </section>
@@ -728,12 +811,13 @@ npm run lint:fix   <span class="cmt"># auto-fixes both</span></div>
           EDS blocks
         </h2>
         <div class="section-rule"></div>
-        <p>45 blocks plus one widget, roughly grouped: <strong>hero/intro</strong> (<code class="code-inline">hero</code>, <code class="code-inline">hero-lead</code>, <code class="code-inline">hero-cta</code>, <code class="code-inline">hero-case-study</code>, <code class="code-inline">hero-article</code>); <strong>card grids</strong> sharing a common base (<code class="code-inline">cards</code>, <code class="code-inline">cards-icon</code>, <code class="code-inline">cards-features</code>, <code class="code-inline">cards-pricing</code>, <code class="code-inline">cards-testimonial</code>, <code class="code-inline">cards-timeline</code>, <code class="code-inline">cards-video</code>, <code class="code-inline">cards-cta</code>); <strong>case-study composable primitives</strong> (<code class="code-inline">case-study-intro</code>/<code class="code-inline">-lead</code>/<code class="code-inline">-logo</code>/<code class="code-inline">-profiles</code>/<code class="code-inline">-systems</code>, plus <code class="code-inline">challenge-solution-result</code> and <code class="code-inline">solutions-comparison</code>); <strong>layout/columns</strong> (<code class="code-inline">columns</code>, <code class="code-inline">columns-media</code>, <code class="code-inline">columns-logos</code>, <code class="code-inline">columns-callout</code>, <code class="code-inline">columns-blog-cta</code>); <strong>carousels</strong> (<code class="code-inline">carousel-testimonial</code>, <code class="code-inline">carousel-case-study</code>); <strong>navigation &amp; fragment loaders</strong> (<code class="code-inline">header</code>, <code class="code-inline">footer</code>, <code class="code-inline">fragment</code>, <code class="code-inline">resource-navigation</code>, <code class="code-inline">widget</code>); <strong>media embeds</strong> (<code class="code-inline">youtube-video</code>, <code class="code-inline">vidyard-video-player</code>); and <strong>tables/comparisons</strong> (<code class="code-inline">table</code>, <code class="code-inline">table-compare</code>). The rest — FAQ, blog body, contact form, CTA callouts, ebook list, quotes, stats, tabs — are one-off content blocks used by a single page family each.</p>
+        <p>50 content blocks plus the generic <code class="code-inline">widget</code> loader (51 total), roughly grouped: <strong>hero/intro</strong> (<code class="code-inline">hero</code>, <code class="code-inline">hero-lead</code>, <code class="code-inline">hero-cta</code>, <code class="code-inline">hero-case-study</code>, <code class="code-inline">hero-article</code>); <strong>card grids</strong> sharing a common base (<code class="code-inline">cards</code>, <code class="code-inline">cards-icon</code>, <code class="code-inline">cards-features</code>, <code class="code-inline">cards-pricing</code>, <code class="code-inline">cards-testimonial</code>, <code class="code-inline">cards-timeline</code>, <code class="code-inline">cards-video</code>, <code class="code-inline">cards-cta</code>); <strong>case-study composable primitives</strong> (<code class="code-inline">case-study-intro</code>/<code class="code-inline">-lead</code>/<code class="code-inline">-logo</code>/<code class="code-inline">-profiles</code>/<code class="code-inline">-systems</code>/<code class="code-inline">-highlight</code>, plus <code class="code-inline">challenge-solution-result</code> and <code class="code-inline">solutions-comparison</code>); <strong>filterable listings</strong> (<code class="code-inline">case-study-listing</code>, <code class="code-inline">blog-listing</code>); <strong>layout/columns</strong> (<code class="code-inline">columns</code>, <code class="code-inline">columns-media</code>, <code class="code-inline">columns-logos</code>, <code class="code-inline">columns-callout</code>, <code class="code-inline">columns-blog-cta</code>); <strong>carousels</strong> (<code class="code-inline">carousel-testimonial</code>, <code class="code-inline">carousel-case-study</code>); <strong>navigation &amp; fragment loaders</strong> (<code class="code-inline">header</code>, <code class="code-inline">footer</code>, <code class="code-inline">fragment</code>, <code class="code-inline">resource-navigation</code>, <code class="code-inline">page-nav</code>, <code class="code-inline">widget</code>); <strong>media &amp; embeds</strong> (<code class="code-inline">youtube-video</code>, <code class="code-inline">vidyard-video-player</code>, <code class="code-inline">iframe-card</code>); and <strong>tables/comparisons</strong> (<code class="code-inline">table</code>, <code class="code-inline">table-compare</code>). The rest — FAQ, blog body, contact form, CTA callouts, ebook list, quotes, stats, tabs — are one-off content blocks used by a single page family each.</p>
         <table class="spec-table">
           <thead><tr><th>Block</th><th>Purpose</th></tr></thead>
           <tbody>
             <tr><td>accordion-faq</td><td>Turns each row into a <code class="code-inline">&lt;details&gt;/&lt;summary&gt;</code> FAQ item; on the enterprise/product-feature pages it also builds a synced side-image panel that swaps figures as the open item changes.</td></tr>
             <tr><td>blog-body</td><td>Splits a blog article into a reading column + CTA rail, applying ~15 targeted transforms (TOC, boxed CTAs, promo bands, embeds, logo rows) plus a scroll-driven reading-progress bar.</td></tr>
+            <tr><td>blog-listing</td><td>Fetches an <code class="code-inline">Index</code> config row or falls back to bundled <code class="code-inline">blog-listing.json</code>; renders a filterable/searchable card grid with a category <code class="code-inline">&lt;select&gt;</code> and search input. An optional <code class="code-inline">Category</code> config row pins the listing for a <code class="code-inline">/category/&lt;slug&gt;/</code> archive page. An ordinary content block at <code class="code-inline">blocks/blog-listing/</code> — not loaded through the generic widget system.</td></tr>
             <tr><td>cards, cards-icon</td><td>Functionally identical (differ only in CSS class prefix and a cosmetic DOM-manipulation style, not logic): rebuild each row into a card <code class="code-inline">&lt;li&gt;</code>, split image vs. body content, and optimize images at 750px.</td></tr>
             <tr><td>cards-cta</td><td>Side-by-side CTA panel per row, styling the last link in the text cell as the button.</td></tr>
             <tr><td>cards-features</td><td>Same card-grid base as <code class="code-inline">cards</code>, plus spacer/trailing-CTA row detection, a "Featured/New" heading badge, and column-count tagging for feature grids.</td></tr>
@@ -743,8 +827,10 @@ npm run lint:fix   <span class="cmt"># auto-fixes both</span></div>
             <tr><td>cards-video</td><td>Card grid of Vidyard-linked videos (click-to-lightbox via the Vidyard v4 SDK); auto-wraps in an infinite, clone-padded scroll carousel once there are more than 3 cards.</td></tr>
             <tr><td>carousel-case-study</td><td>Captioned image/video gallery (supports direct <code class="code-inline">.mp4</code>/<code class="code-inline">.webm</code>) with prev/next + dots synced to scroll position; hidden entirely for a single slide.</td></tr>
             <tr><td>carousel-testimonial</td><td>Scroll-snap slide track with prev/next + dots; maps columns to image/content roles, or to a dedicated title/quote/author/CTA/photo layout for its <code class="code-inline">.case-study</code> variant.</td></tr>
+            <tr><td>case-study-highlight</td><td>Builds a testimonial (quote + author image/attribution) paired with a list of outcome stats, each tagged increase/decrease from a sign cell (<code class="code-inline">minus</code>/<code class="code-inline">-</code>/<code class="code-inline">−</code> vs. anything else).</td></tr>
             <tr><td>case-study-intro</td><td>Empty block folder — no <code class="code-inline">.js</code> or <code class="code-inline">.css</code>; renders as unstyled default markup only.</td></tr>
             <tr><td>case-study-lead</td><td>Has only a <code class="code-inline">.css</code>, no <code class="code-inline">.js</code> — styled but not decorated.</td></tr>
+            <tr><td>case-study-listing</td><td>Filterable case-study card grid (Category/Industry <code class="code-inline">&lt;select&gt;</code>s), sorted by a curated <code class="code-inline">LISTING_ORDER</code> slug list; backed by <code class="code-inline">case-study-listing.json</code> fallback data and the <code class="code-inline">case-studies</code> query index in <code class="code-inline">helix-query.yaml</code> (<code class="code-inline">/case-studies-index.json</code>). Optional <code class="code-inline">Category</code>/<code class="code-inline">Industry</code> config rows pin the listing for dedicated archive pages.</td></tr>
             <tr><td>case-study-logo</td><td>One-liner: adds a "missing image" class when the block has no image, so CSS can suppress overlap styling.</td></tr>
             <tr><td>case-study-profiles</td><td>Marks each image+details row as a valid profile, or flags it invalid if either half is missing.</td></tr>
             <tr><td>case-study-systems</td><td>Parses a fixed row layout (heading, icon+label system rows, a "Number of users" row) into a heading, an icon list, and a stat.</td></tr>
@@ -762,6 +848,8 @@ npm run lint:fix   <span class="cmt"># auto-fixes both</span></div>
             <tr><td>hero-article</td><td>Pulls in a lead image authored before the block, wrapping it and the first row's content into a layered blog-article header.</td></tr>
             <tr><td>hero-case-study, hero-cta</td><td>Identical one-liner: adds a "no-image" class when the first column has no picture.</td></tr>
             <tr><td>hero-lead</td><td>Classifies media vs. content rows; swaps the hero image for an autoplay video on desktop for video variants; layers decorative shape/accent images and converts specific paragraphs into an email-capture form and stat rows.</td></tr>
+            <tr><td>iframe-card</td><td>Detects a row whose column holds an embeddable URL (link or bare text) and turns it into an <code class="code-inline">&lt;iframe&gt;</code> product tour; classifies other rows as decorative media, arrow accents, or the heading row, dropping now-empty rows.</td></tr>
+            <tr><td>page-nav</td><td>In-page anchor nav bar built from icon+link rows (or a legacy flat list of <code class="code-inline">#</code>-links); smooth-scrolls to targets on click. A <code class="code-inline">sticky</code> variant uses an <code class="code-inline">IntersectionObserver</code> to highlight the active section link.</td></tr>
             <tr><td>promo-bar</td><td>Flattens the block into one message paragraph and forces all its links to open in a new tab.</td></tr>
             <tr><td>quote</td><td>Builds a blockquote + attribution from one or two rows, auto-splitting an inline-<code class="code-inline">&lt;strong&gt;</code> author name if no separate attribution row was authored.</td></tr>
             <tr><td>resource-intro</td><td>Promotes the heading/description paragraphs the importer left as plain <code class="code-inline">&lt;p&gt;</code>s into real <code class="code-inline">&lt;h1&gt;</code>/<code class="code-inline">&lt;h2&gt;</code> elements.</td></tr>
@@ -772,15 +860,10 @@ npm run lint:fix   <span class="cmt"># auto-fixes both</span></div>
             <tr><td>table-compare</td><td>Comparison table with section-header bands; when a header row exists, layers on a hardcoded sticky pricing header (prices + CTA buttons per plan) and inline check/info icons.</td></tr>
             <tr><td>tabs-feature</td><td>Builds a <code class="code-inline">role=tablist</code>, wires click-to-switch panels, and replaces <code class="code-inline">.mp4</code> links with autoplaying video only in the active tab (others deferred).</td></tr>
             <tr><td>vidyard-video-player</td><td>Extracts a Vidyard UUID and renders either an inline embed or a poster+lightbox popover via the Vidyard v4 SDK.</td></tr>
-            <tr><td>widget</td><td>Generic loader: fetches a widget's HTML/CSS/JS from <code class="code-inline">/widgets/&lt;name&gt;/</code>, runs its <code class="code-inline">decorate</code> export, and copies query-string params into <code class="code-inline">data-*</code> attributes — currently backs <code class="code-inline">widgets/blog-listing</code> only.</td></tr>
+            <tr><td>widget</td><td>Generic loader: fetches a widget's HTML/CSS/JS from <code class="code-inline">/widgets/&lt;name&gt;/</code>, runs its <code class="code-inline">decorate</code> export, and copies query-string params into <code class="code-inline">data-*</code> attributes — no <code class="code-inline">/widgets/</code>-backed content was found authored in this repo during this review.</td></tr>
             <tr><td>youtube-video</td><td>Extracts a YouTube ID from watch/embed/<code class="code-inline">youtu.be</code> URL forms and replaces the block with a lazy-loaded iframe embed, or flags it invalid.</td></tr>
-            <tr><td>widgets/blog-listing</td><td>Fetches <code class="code-inline">/query-index.json</code>, filters to <code class="code-inline">/blog/*</code> entries by search text and category, sorts by date, and renders a live-filterable card grid with search input + category select.</td></tr>
           </tbody>
         </table>
-        <div class="notice info">
-          <svg class="notice-icon" width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M8 1.5a6.5 6.5 0 100 13 6.5 6.5 0 000-13zM0 8a8 8 0 1116 0A8 8 0 010 8zm6.5-.25A.75.75 0 017.25 7h1a.75.75 0 01.75.75v2.75h.25a.75.75 0 010 1.5h-2a.75.75 0 010-1.5h.25v-2h-.25a.75.75 0 01-.75-.75zM8 6a1 1 0 100-2 1 1 0 000 2z"/></svg>
-          <span>Three blocks (<code class="code-inline">case-study-intro</code>, <code class="code-inline">case-study-lead</code>, <code class="code-inline">hero</code>) currently ship with no JS decoration (one has neither JS nor CSS) — likely fine if their default markup already renders correctly, but worth a deliberate check rather than assuming it's an oversight. Separately, <code class="code-inline">cards-video</code>, <code class="code-inline">columns-media</code>, and <code class="code-inline">vidyard-video-player</code> each independently load the same <code class="code-inline">play.vidyard.com/embed/v4.js</code> script — duplicated rather than shared, not necessarily wrong but a candidate for consolidation.</span>
-        </div>
       </section>
 
             <section class="doc-section" id="supporting-modules">
@@ -791,7 +874,7 @@ npm run lint:fix   <span class="cmt"># auto-fixes both</span></div>
           Supporting modules (<code class="code-inline">scripts/</code>)
         </h2>
         <div class="section-rule"></div>
-        <p><code class="code-inline">scripts/</code> contains only the three stock <code class="code-inline">aem-boilerplate</code> files — <code class="code-inline">aem.js</code>, <code class="code-inline">scripts.js</code>, and <code class="code-inline">delayed.js</code> (currently empty, a stub for future delayed-loaded functionality such as martech). There are no additional custom script modules; page-specific logic instead lives in individual blocks — e.g. <code class="code-inline">blocks/fragment/fragment.js</code> exports <code class="code-inline">loadFragment</code>, imported by <code class="code-inline">scripts/scripts.js</code> and by <code class="code-inline">blocks/header/header.js</code> and <code class="code-inline">blocks/footer/footer.js</code> to render nav/footer fragments.</p>
+        <p><code class="code-inline">scripts/</code> contains the three stock <code class="code-inline">aem-boilerplate</code> file names — <code class="code-inline">aem.js</code>, <code class="code-inline">scripts.js</code>, and <code class="code-inline">delayed.js</code> — but <code class="code-inline">delayed.js</code> is not an empty stub: it implements a "Back to Top" button (desktop-only, appears once the page has scrolled past 200px, smooth-scrolls to the top), loaded via <code class="code-inline">loadDelayed()</code> 3 seconds after page load. There are no additional custom script modules; page-specific logic instead lives in individual blocks — e.g. <code class="code-inline">blocks/fragment/fragment.js</code> exports <code class="code-inline">loadFragment</code>, imported by <code class="code-inline">scripts/scripts.js</code> and by <code class="code-inline">blocks/header/header.js</code> and <code class="code-inline">blocks/footer/footer.js</code> to render nav/footer fragments.</p>
       </section>
 
             <section class="doc-section" id="lighthouse-compare">
@@ -802,9 +885,65 @@ npm run lint:fix   <span class="cmt"># auto-fixes both</span></div>
           Lighthouse comparison — Live vs EDS
         </h2>
         <div class="section-rule"></div>
-        <div class="notice todo">
-          <svg class="notice-icon" width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M8 1.5a6.5 6.5 0 100 13 6.5 6.5 0 000-13zM0 8a8 8 0 1116 0A8 8 0 010 8zm6.5-.25A.75.75 0 017.25 7h1a.75.75 0 01.75.75v2.75h.25a.75.75 0 010 1.5h-2a.75.75 0 010-1.5h.25v-2h-.25a.75.75 0 01-.75-.75zM8 6a1 1 0 100-2 1 1 0 000 2z"/></svg>
-          <span><strong>Placeholder</strong> — no Lighthouse/PSI scores or screenshots have been captured yet for live fiixsoftware.com vs. the EDS preview. Run audits against key pages (home, pricing, a case study, a product-feature page), save screenshots under <code class="code-inline">docs/images/</code>, and fill in this section using the <code class="code-inline">.lh-compare</code> markup.</span>
+        <div class="lh-compare">
+          <div class="lh-compare-page">
+            <div class="lh-compare-page-title">Resource Center listing <span>fiixsoftware.com/resource-center/ · /resource-center</span></div>
+            <div class="lh-compare-cols">
+              <div class="lh-compare-side">
+                <div class="lh-compare-side-header">
+                  <span class="lh-compare-label">Live</span>
+                  <div class="lh-scores">
+                    <span class="lh-score lh-score-good">Perf 96</span>
+                    <span class="lh-score lh-score-good">A11y 94</span>
+                    <span class="lh-score lh-score-ok">Best Practices 50</span>
+                  </div>
+                </div>
+                <img src="images/resource-center-live.webp" alt="Chrome DevTools Lighthouse audit for the live fiixsoftware.com/resource-center/ page">
+              </div>
+              <div class="lh-compare-side">
+                <div class="lh-compare-side-header">
+                  <span class="lh-compare-label">EDS</span>
+                  <div class="lh-scores">
+                    <span class="lh-score lh-score-good">Perf 100</span>
+                    <span class="lh-score lh-score-good">A11y 96</span>
+                    <span class="lh-score lh-score-good">Best Practices 100</span>
+                  </div>
+                </div>
+                <img src="images/resource-center-eds.webp" alt="Chrome DevTools Lighthouse audit for the EDS develop-branch preview of /resource-center">
+              </div>
+            </div>
+          </div>
+          <div class="lh-compare-page">
+            <div class="lh-compare-page-title">Resource Center / Ebook <span>fiixsoftware.com/resource-center/ebook/ · /resource-center/ebook</span></div>
+            <div class="lh-compare-cols">
+              <div class="lh-compare-side">
+                <div class="lh-compare-side-header">
+                  <span class="lh-compare-label">Live</span>
+                  <div class="lh-scores">
+                    <span class="lh-score lh-score-good">Perf 96</span>
+                    <span class="lh-score lh-score-good">A11y 94</span>
+                    <span class="lh-score lh-score-ok">Best Practices 54</span>
+                  </div>
+                </div>
+                <img src="images/ebook-live.webp" alt="Chrome DevTools Lighthouse audit for the live fiixsoftware.com/resource-center/ebook/ page">
+              </div>
+              <div class="lh-compare-side">
+                <div class="lh-compare-side-header">
+                  <span class="lh-compare-label">EDS</span>
+                  <div class="lh-scores">
+                    <span class="lh-score lh-score-good">Perf 100</span>
+                    <span class="lh-score lh-score-good">A11y 96</span>
+                    <span class="lh-score lh-score-good">Best Practices 100</span>
+                  </div>
+                </div>
+                <img src="images/ebook-eds.webp" alt="Chrome DevTools Lighthouse audit for the EDS develop-branch preview of /resource-center/ebook">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="notice info">
+          <svg class="notice-icon" width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M8 16A8 8 0 108 0a8 8 0 000 16zM8 4a1 1 0 110 2 1 1 0 010-2zm-1 4h2v5H7V8z"/></svg>
+          <span>Both pages above were audited against the <code class="code-inline">develop</code> branch preview (<code class="code-inline">develop--fiixsoftware--AdobeDrago.aem.page</code>), not <code class="code-inline">main</code> — Best Practices in particular jumps from 50–54 live to a clean 100 on EDS for both pages.</span>
         </div>
       </section>
 
@@ -837,17 +976,83 @@ npm run lint:fix   <span class="cmt"># auto-fixes both</span></div>
             <tr><td><code class="code-inline">/cmms/cloud-maintenance-software</code></td><td>Product feature page <span style="color:var(--gray-600);">(not in the original importer scope)</span></td></tr>
             <tr><td><code class="code-inline">/resource-center</code></td><td>Resource Center listing</td></tr>
             <tr><td><code class="code-inline">/resource-center/ebook</code></td><td>Ebook page</td></tr>
-            <tr><td><code class="code-inline">/blog</code></td><td>Blog listing (backs <code class="code-inline">widgets/blog-listing</code>)</td></tr>
+            <tr><td><code class="code-inline">/blog</code></td><td>Blog listing (backs the <code class="code-inline">blog-listing</code> block)</td></tr>
             <tr><td><code class="code-inline">/fragments/resource-center-navigation</code></td><td>Fragment — resource center sub-nav</td></tr>
             <tr><td><code class="code-inline">/nav</code>, <code class="code-inline">/footer</code></td><td>Fragments — global header/footer</td></tr>
           </tbody>
         </table>
 
         <h3>Case studies (31)</h3>
-        <p>365 Main, Anaren Microwave, Apollo America, BSW Timber, Bush Brothers, Callan Marine, Clinton Aluminum, Cloeren Inc, Daikin Comfort, DLG Group, Dunlop, EDMS Consultants, Farming Maintenance, Geislinger Corporation, JJ McDonnell, JSM Associates, Labrie Enviroquip Group, Liberty Oilfield, Magna Locations, MI Windows &amp; Doors, NOI Sirius, NZSK, Perth County Ingredients, Pro-Vac Fleet, Rambler, Scottish Sea Farms, Scotts Miracle-Gro, Takeoff Technologies, Universal Pure, Voltalia, Westrock Coffee — all under <code class="code-inline">/resource-center/case-studies/</code>.</p>
+        <p>All under <code class="code-inline">/resource-center/case-studies/</code>, backed by <code class="code-inline">case-study-listing.json</code> (see <a href="#eds-blocks" style="color:var(--brand-blue);">EDS blocks</a> → <code class="code-inline">case-study-listing</code>).</p>
+        <table class="spec-table">
+          <thead><tr><th>Case study</th><th>Industry</th></tr></thead>
+          <tbody>
+            <tr><td><a href="https://main--fiixsoftware--AdobeDrago.aem.page/resource-center/case-studies/365-main" target="_blank" rel="noopener" style="color:var(--brand-blue);">365 Main</a></td><td>Facilities Management</td></tr>
+            <tr><td><a href="https://main--fiixsoftware--AdobeDrago.aem.page/resource-center/case-studies/anaren-microwave" target="_blank" rel="noopener" style="color:var(--brand-blue);">Anaren Microwave</a></td><td>Discrete Manufacturing</td></tr>
+            <tr><td><a href="https://main--fiixsoftware--AdobeDrago.aem.page/resource-center/case-studies/apollo-america" target="_blank" rel="noopener" style="color:var(--brand-blue);">Apollo America</a></td><td>Discrete Manufacturing</td></tr>
+            <tr><td><a href="https://main--fiixsoftware--AdobeDrago.aem.page/resource-center/case-studies/bsw-timber" target="_blank" rel="noopener" style="color:var(--brand-blue);">BSW Timber</a></td><td>Discrete Manufacturing</td></tr>
+            <tr><td><a href="https://main--fiixsoftware--AdobeDrago.aem.page/resource-center/case-studies/bush-brothers" target="_blank" rel="noopener" style="color:var(--brand-blue);">Bush Brothers</a></td><td>Process Manufacturing</td></tr>
+            <tr><td><a href="https://main--fiixsoftware--AdobeDrago.aem.page/resource-center/case-studies/callan-marine" target="_blank" rel="noopener" style="color:var(--brand-blue);">Callan Marine</a></td><td>Discrete Manufacturing</td></tr>
+            <tr><td><a href="https://main--fiixsoftware--AdobeDrago.aem.page/resource-center/case-studies/clinton-aluminum" target="_blank" rel="noopener" style="color:var(--brand-blue);">Clinton Aluminum</a></td><td>Discrete Manufacturing</td></tr>
+            <tr><td><a href="https://main--fiixsoftware--AdobeDrago.aem.page/resource-center/case-studies/cloeren-inc" target="_blank" rel="noopener" style="color:var(--brand-blue);">Cloeren Inc</a></td><td>Discrete Manufacturing</td></tr>
+            <tr><td><a href="https://main--fiixsoftware--AdobeDrago.aem.page/resource-center/case-studies/daikin-comfort" target="_blank" rel="noopener" style="color:var(--brand-blue);">Daikin Comfort</a></td><td>Discrete Manufacturing</td></tr>
+            <tr><td><a href="https://main--fiixsoftware--AdobeDrago.aem.page/resource-center/case-studies/dlg-group" target="_blank" rel="noopener" style="color:var(--brand-blue);">DLG Group</a></td><td>Agriculture</td></tr>
+            <tr><td><a href="https://main--fiixsoftware--AdobeDrago.aem.page/resource-center/case-studies/dunlop" target="_blank" rel="noopener" style="color:var(--brand-blue);">Dunlop</a></td><td>Discrete Manufacturing</td></tr>
+            <tr><td><a href="https://main--fiixsoftware--AdobeDrago.aem.page/resource-center/case-studies/edms-consultants" target="_blank" rel="noopener" style="color:var(--brand-blue);">EDMS Consultants</a></td><td>Construction</td></tr>
+            <tr><td><a href="https://main--fiixsoftware--AdobeDrago.aem.page/resource-center/case-studies/farming-maintenance" target="_blank" rel="noopener" style="color:var(--brand-blue);">Farming Maintenance</a></td><td>Agriculture</td></tr>
+            <tr><td><a href="https://main--fiixsoftware--AdobeDrago.aem.page/resource-center/case-studies/geislinger-corporation" target="_blank" rel="noopener" style="color:var(--brand-blue);">Geislinger Corporation</a></td><td>Discrete Manufacturing</td></tr>
+            <tr><td><a href="https://main--fiixsoftware--AdobeDrago.aem.page/resource-center/case-studies/jj-mcdonnell" target="_blank" rel="noopener" style="color:var(--brand-blue);">JJ McDonnell</a></td><td>Process Manufacturing</td></tr>
+            <tr><td><a href="https://main--fiixsoftware--AdobeDrago.aem.page/resource-center/case-studies/jsm-associates" target="_blank" rel="noopener" style="color:var(--brand-blue);">JSM Associates</a></td><td>Facilities Management</td></tr>
+            <tr><td><a href="https://main--fiixsoftware--AdobeDrago.aem.page/resource-center/case-studies/labrie-enviroquip-group" target="_blank" rel="noopener" style="color:var(--brand-blue);">Labrie Enviroquip Group</a></td><td>Discrete Manufacturing</td></tr>
+            <tr><td><a href="https://main--fiixsoftware--AdobeDrago.aem.page/resource-center/case-studies/liberty-oilfield" target="_blank" rel="noopener" style="color:var(--brand-blue);">Liberty Oilfield</a></td><td>Oil &amp; Gas</td></tr>
+            <tr><td><a href="https://main--fiixsoftware--AdobeDrago.aem.page/resource-center/case-studies/magna-locations" target="_blank" rel="noopener" style="color:var(--brand-blue);">Magna Locations</a></td><td>Discrete Manufacturing</td></tr>
+            <tr><td><a href="https://main--fiixsoftware--AdobeDrago.aem.page/resource-center/case-studies/mi-windows-doors" target="_blank" rel="noopener" style="color:var(--brand-blue);">MI Windows &amp; Doors</a></td><td>Discrete Manufacturing</td></tr>
+            <tr><td><a href="https://main--fiixsoftware--AdobeDrago.aem.page/resource-center/case-studies/noi-sirius" target="_blank" rel="noopener" style="color:var(--brand-blue);">NOI Sirius</a></td><td>Process Manufacturing</td></tr>
+            <tr><td><a href="https://main--fiixsoftware--AdobeDrago.aem.page/resource-center/case-studies/nzsk" target="_blank" rel="noopener" style="color:var(--brand-blue);">NZSK</a></td><td>Facilities Management</td></tr>
+            <tr><td><a href="https://main--fiixsoftware--AdobeDrago.aem.page/resource-center/case-studies/perth-county-ingredients" target="_blank" rel="noopener" style="color:var(--brand-blue);">Perth County Ingredients</a></td><td>Process Manufacturing</td></tr>
+            <tr><td><a href="https://main--fiixsoftware--AdobeDrago.aem.page/resource-center/case-studies/pro-vac-fleet" target="_blank" rel="noopener" style="color:var(--brand-blue);">Pro-Vac Fleet</a></td><td>Fleet Management</td></tr>
+            <tr><td><a href="https://main--fiixsoftware--AdobeDrago.aem.page/resource-center/case-studies/rambler" target="_blank" rel="noopener" style="color:var(--brand-blue);">Rambler</a></td><td>Mining</td></tr>
+            <tr><td><a href="https://main--fiixsoftware--AdobeDrago.aem.page/resource-center/case-studies/scottish-sea-farms" target="_blank" rel="noopener" style="color:var(--brand-blue);">Scottish Sea Farms</a></td><td>Process Manufacturing, Wholesale Distribution</td></tr>
+            <tr><td><a href="https://main--fiixsoftware--AdobeDrago.aem.page/resource-center/case-studies/scotts-miracle-gro" target="_blank" rel="noopener" style="color:var(--brand-blue);">Scotts Miracle-Gro</a></td><td>Process Manufacturing</td></tr>
+            <tr><td><a href="https://main--fiixsoftware--AdobeDrago.aem.page/resource-center/case-studies/takeoff-technologies" target="_blank" rel="noopener" style="color:var(--brand-blue);">Takeoff Technologies</a></td><td>Fleet Management, Wholesale Distribution</td></tr>
+            <tr><td><a href="https://main--fiixsoftware--AdobeDrago.aem.page/resource-center/case-studies/universal-pure" target="_blank" rel="noopener" style="color:var(--brand-blue);">Universal Pure</a></td><td>Discrete Manufacturing</td></tr>
+            <tr><td><a href="https://main--fiixsoftware--AdobeDrago.aem.page/resource-center/case-studies/voltalia" target="_blank" rel="noopener" style="color:var(--brand-blue);">Voltalia</a></td><td>Renewable Energy</td></tr>
+            <tr><td><a href="https://main--fiixsoftware--AdobeDrago.aem.page/resource-center/case-studies/westrock-coffee" target="_blank" rel="noopener" style="color:var(--brand-blue);">Westrock Coffee</a></td><td>Process Manufacturing</td></tr>
+          </tbody>
+        </table>
 
         <h3>Blog articles (25)</h3>
-        <p>12 Maintenance Templates, 5 Ways to Reduce Energy With Good Maintenance, 5 Whys: Simple Root Cause Analysis, Advanced CMMS Metrics: Planned Maintenance Percentage, Asset Management Policy Complete Guide, CMMS and Sustainability, CMMS Integrations to Improve Maintenance, CN Tower Maintenance, Cybersecurity Requirements for CMMS, Do I Really Need Training for My CMMS?, Down With Maintenance, Up With Reliability, Establish an Effective Health and Safety Program With Your CMMS, Fiix Salesforce Security Incident Update, Fixing a Broken Maintenance Strategy: PM Optimization and FMEA, How Five Companies Found CMMS Success, How Much Time Is Data Entry Costing You?, How to Evaluate a CMMS, Maintenance Assistant Facilitates Practical Asset Catalog, Maintenance Planning and Scheduling Best Practices, Scheduled Maintenance Critical Percent, Software Integrations Guide, Three Reasons You Need Our Mobile App, Top Maintenance Podcast Episodes 2020, Why Culture Can Make or Break Your CMMS Implementation, Why Work Orders Matter — all under <code class="code-inline">/blog/</code>.</p>
+        <p>All under <code class="code-inline">/blog/</code>, backed by <code class="code-inline">blog-listing.json</code> (see <a href="#eds-blocks" style="color:var(--brand-blue);">EDS blocks</a> → <code class="code-inline">blog-listing</code>).</p>
+        <table class="spec-table">
+          <thead><tr><th>Article</th><th>Category</th><th>Date</th></tr></thead>
+          <tbody>
+            <tr><td><a href="https://main--fiixsoftware--AdobeDrago.aem.page/blog/12-maintenance-templates" target="_blank" rel="noopener" style="color:var(--brand-blue);">12 Maintenance Templates</a></td><td>Maintenance strategies</td><td>2024-03-05</td></tr>
+            <tr><td><a href="https://main--fiixsoftware--AdobeDrago.aem.page/blog/5-ways-to-reduce-energy-with-good-maintenance" target="_blank" rel="noopener" style="color:var(--brand-blue);">5 Ways to Reduce Energy With Good Maintenance</a></td><td>Sustainability and social impact</td><td>2024-01-22</td></tr>
+            <tr><td><a href="https://main--fiixsoftware--AdobeDrago.aem.page/blog/5-whys-simple-root-cause-analysis" target="_blank" rel="noopener" style="color:var(--brand-blue);">5 Whys: Simple Root Cause Analysis</a></td><td>Asset management</td><td>2023-10-24</td></tr>
+            <tr><td><a href="https://main--fiixsoftware--AdobeDrago.aem.page/blog/advanced-cmms-metrics-planned-maintenance-percentage" target="_blank" rel="noopener" style="color:var(--brand-blue);">Advanced CMMS Metrics: Planned Maintenance Percentage</a></td><td>Maintenance metrics</td><td>2024-02-21</td></tr>
+            <tr><td><a href="https://main--fiixsoftware--AdobeDrago.aem.page/blog/asset-management-policy-complete-guide" target="_blank" rel="noopener" style="color:var(--brand-blue);">Asset Management Policy Complete Guide</a></td><td>Asset management</td><td>2024-05-13</td></tr>
+            <tr><td><a href="https://main--fiixsoftware--AdobeDrago.aem.page/blog/cmms-and-sustainability" target="_blank" rel="noopener" style="color:var(--brand-blue);">CMMS and Sustainability</a></td><td>Sustainability and social impact</td><td>2024-02-21</td></tr>
+            <tr><td><a href="https://main--fiixsoftware--AdobeDrago.aem.page/blog/cmms-integrations-to-improve-maintenance" target="_blank" rel="noopener" style="color:var(--brand-blue);">CMMS Integrations to Improve Maintenance</a></td><td>Integration</td><td>2023-11-20</td></tr>
+            <tr><td><a href="https://main--fiixsoftware--AdobeDrago.aem.page/blog/cn-tower-maintenance" target="_blank" rel="noopener" style="color:var(--brand-blue);">CN Tower Maintenance</a></td><td>Asset management</td><td>2012-08-23</td></tr>
+            <tr><td><a href="https://main--fiixsoftware--AdobeDrago.aem.page/blog/cybersecurity-requirements-for-cmms" target="_blank" rel="noopener" style="color:var(--brand-blue);">Cybersecurity Requirements for CMMS</a></td><td>Buying software</td><td>2025-10-01</td></tr>
+            <tr><td><a href="https://main--fiixsoftware--AdobeDrago.aem.page/blog/do-i-really-need-training-for-my-cmms" target="_blank" rel="noopener" style="color:var(--brand-blue);">Do I Really Need Training for My CMMS?</a></td><td>Implementation</td><td>2023-02-16</td></tr>
+            <tr><td><a href="https://main--fiixsoftware--AdobeDrago.aem.page/blog/down-with-maintenance-up-with-reliability" target="_blank" rel="noopener" style="color:var(--brand-blue);">Down With Maintenance, Up With Reliability</a></td><td>Modern maintenance</td><td>2023-05-26</td></tr>
+            <tr><td><a href="https://main--fiixsoftware--AdobeDrago.aem.page/blog/establish-an-effective-health-and-safety-program-with-your-cmms" target="_blank" rel="noopener" style="color:var(--brand-blue);">Establish an Effective Health and Safety Program With Your CMMS</a></td><td>CMMS basics</td><td>2023-10-24</td></tr>
+            <tr><td><a href="https://main--fiixsoftware--AdobeDrago.aem.page/blog/fiix-salesforce-security-incident-update" target="_blank" rel="noopener" style="color:var(--brand-blue);">Fiix Salesforce Security Incident Update</a></td><td>Press, Maintenance news</td><td>2025-09-18</td></tr>
+            <tr><td><a href="https://main--fiixsoftware--AdobeDrago.aem.page/blog/fixing-a-broken-maintenance-strategy-pm-optimization-and-fmea" target="_blank" rel="noopener" style="color:var(--brand-blue);">Fixing a Broken Maintenance Strategy: PM Optimization and FMEA</a></td><td>Maintenance strategies</td><td>2025-04-07</td></tr>
+            <tr><td><a href="https://main--fiixsoftware--AdobeDrago.aem.page/blog/how-five-companies-found-cmms-success" target="_blank" rel="noopener" style="color:var(--brand-blue);">How Five Companies Found CMMS Success</a></td><td>CMMS basics</td><td>2023-10-25</td></tr>
+            <tr><td><a href="https://main--fiixsoftware--AdobeDrago.aem.page/blog/how-much-time-is-data-entry-costing-you" target="_blank" rel="noopener" style="color:var(--brand-blue);">How Much Time Is Data Entry Costing You?</a></td><td>Asset management</td><td>2025-01-06</td></tr>
+            <tr><td><a href="https://main--fiixsoftware--AdobeDrago.aem.page/blog/how-to-evaluate-a-cmms" target="_blank" rel="noopener" style="color:var(--brand-blue);">How to Evaluate a CMMS</a></td><td>Buying software</td><td>2025-03-14</td></tr>
+            <tr><td><a href="https://main--fiixsoftware--AdobeDrago.aem.page/blog/maintenance-assistant-facilitates-practical-asset-catelog" target="_blank" rel="noopener" style="color:var(--brand-blue);">Maintenance Assistant Facilitates Practical Asset Catalog</a></td><td>Asset management</td><td>2012-04-20</td></tr>
+            <tr><td><a href="https://main--fiixsoftware--AdobeDrago.aem.page/blog/maintenance-planning-and-scheduling-best-practices" target="_blank" rel="noopener" style="color:var(--brand-blue);">Maintenance Planning and Scheduling Best Practices</a></td><td>Work order academy</td><td>2022-11-17</td></tr>
+            <tr><td><a href="https://main--fiixsoftware--AdobeDrago.aem.page/blog/scheduled-maintenance-critical-percent" target="_blank" rel="noopener" style="color:var(--brand-blue);">Scheduled Maintenance Critical Percent</a></td><td>Maintenance metrics</td><td>2024-02-07</td></tr>
+            <tr><td><a href="https://main--fiixsoftware--AdobeDrago.aem.page/blog/software-integrations-guide" target="_blank" rel="noopener" style="color:var(--brand-blue);">Software Integrations Guide</a></td><td>Integration</td><td>2023-12-04</td></tr>
+            <tr><td><a href="https://main--fiixsoftware--AdobeDrago.aem.page/blog/three-reasons-you-need-our-mobile-app" target="_blank" rel="noopener" style="color:var(--brand-blue);">Three Reasons You Need Our Mobile App</a></td><td>Modern maintenance</td><td>2023-10-31</td></tr>
+            <tr><td><a href="https://main--fiixsoftware--AdobeDrago.aem.page/blog/top-maintenance-podcast-episodes-2020" target="_blank" rel="noopener" style="color:var(--brand-blue);">Top Maintenance Podcast Episodes 2020</a></td><td>Maintenance news</td><td>2020-12-08</td></tr>
+            <tr><td><a href="https://main--fiixsoftware--AdobeDrago.aem.page/blog/why-culture-can-make-or-break-your-cmms-implementation" target="_blank" rel="noopener" style="color:var(--brand-blue);">Why Culture Can Make or Break Your CMMS Implementation</a></td><td>Implementation</td><td>2024-01-08</td></tr>
+            <tr><td><a href="https://main--fiixsoftware--AdobeDrago.aem.page/blog/why-work-orders-matter" target="_blank" rel="noopener" style="color:var(--brand-blue);">Why Work Orders Matter</a></td><td>Work order academy</td><td>2023-10-18</td></tr>
+          </tbody>
+        </table>
 
         <div class="notice warning">
           <svg class="notice-icon" width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M8.22 1.754a.25.25 0 00-.44 0L1.698 13.132a.25.25 0 00.22.368h12.164a.25.25 0 00.22-.368L8.22 1.754zM6.996 12a1 1 0 112 0 1 1 0 01-2 0zM8 6a.75.75 0 01.75.75v3.5a.75.75 0 01-1.5 0v-3.5A.75.75 0 018 6z"/></svg>
@@ -855,10 +1060,10 @@ npm run lint:fix   <span class="cmt"># auto-fixes both</span></div>
         </div>
 
         <h3>Blog content indexing</h3>
-        <p>The 25 blog articles above are indexed automatically by <code class="code-inline">helix-query.yaml</code>, which watches <code class="code-inline">/blog/**</code> and publishes a <code class="code-inline">/query-index.json</code> with each page's title, description, image, category, and publication date — this is what <code class="code-inline">widgets/blog-listing</code> fetches to build its live-filterable card grid.</p>
+        <p>The 25 blog articles above are indexed automatically by <code class="code-inline">helix-query.yaml</code>, which watches <code class="code-inline">/blog/**</code> and publishes a <code class="code-inline">/query-index.json</code> with each page's title, description, image, category, and publication date — this is what the <code class="code-inline">blog-listing</code> block (an ordinary content block at <code class="code-inline">blocks/blog-listing/</code>, not a widget) fetches to build its live-filterable card grid.</p>
         <div class="notice warning">
           <svg class="notice-icon" width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M8.22 1.754a.25.25 0 00-.44 0L1.698 13.132a.25.25 0 00.22.368h12.164a.25.25 0 00.22-.368L8.22 1.754zM6.996 12a1 1 0 112 0 1 1 0 01-2 0zM8 6a.75.75 0 01.75.75v3.5a.75.75 0 01-1.5 0v-3.5A.75.75 0 018 6z"/></svg>
-          <span>If that live index ever fails to load, the widget falls back to a bundled snapshot (<code class="code-inline">widgets/blog-listing/blog-listing.json</code>) — and all 25 entries in that fallback file still hotlink their card images straight from the legacy WordPress media library (<code class="code-inline">fiixsoftware.com/wp-content/uploads/...</code>). The fallback path quietly depends on the WordPress site staying online even after the migration completes.</span>
+          <span>If that live index ever fails to load, the block falls back to a bundled snapshot (<code class="code-inline">blocks/blog-listing/blog-listing.json</code>) — and all 25 entries in that fallback file still hotlink their card images straight from the legacy WordPress media library (<code class="code-inline">fiixsoftware.com/wp-content/uploads/...</code>). The fallback path quietly depends on the WordPress site staying online even after the migration completes.</span>
         </div>
       </section>
 
