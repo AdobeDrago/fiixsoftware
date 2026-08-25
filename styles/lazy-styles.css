@@ -350,23 +350,56 @@ body.blog-article .section.blog-share p:last-of-type a:any-link::before {
 }
 
 /* Blog listing: academy + recent posts */
-main > .section.blog-academy,
-main > .section.blog-recent {
-  padding-top: 24px;
-  padding-bottom: 48px;
+main > .section.blog-academy {
+  padding: 0;
 }
 
-main > .section.blog-academy .default-content-wrapper h2,
-main > .section.blog-recent .default-content-wrapper h2 {
-  margin: 0 0 24px;
+main > .section.blog-recent {
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid #e1e1e1;
+}
+
+main > .section.blog-academy .default-content-wrapper h2 {
+  margin: 0 0 40px;
   text-align: center;
+}
+
+main > .section.blog-recent .default-content-wrapper h2 {
+  margin: 40px 0;
+  text-align: left;
+}
+
+@media (width >= 768px) {
+  main > .section.blog-academy .default-content-wrapper h2 {
+    margin-bottom: 60px;
+  }
+
+  main > .section.blog-recent .default-content-wrapper h2 {
+    margin: 100px 0 60px;
+  }
+}
+
+@media (width >= 768px) and (width < 960px) {
+  main > .section.blog-academy > .cards-wrapper {
+    margin-left: 26px;
+    margin-right: 26px;
+  }
 }
 
 /* the source shows the card art at its authored size rather than cropping it
    into a fixed ratio, and fills the card with a light grey card, not a border */
+main > .section.blog-academy .cards > ul {
+  gap: 0;
+  padding-bottom: 60px;
+}
+
 main > .section.blog-academy .cards > ul > li {
   border: none;
   background-color: #f7f7f7;
+  margin-right: 10px;
+  margin-bottom: 50px;
+  padding-bottom: 20px;
 }
 
 main > .section.blog-academy .cards > ul > li img {
@@ -381,7 +414,7 @@ main > .section.blog-academy .cards .cards-card-body {
 }
 
 main > .section.blog-academy .cards .cards-card-body p:first-child {
-  margin: 20px 0 0;
+  margin: 20px 0 30px;
   color: var(--text-color);
   font-size: 12px;
   font-weight: 700;
