@@ -474,7 +474,7 @@
 <body>
 
 <nav class="topnav">
-  <a class="topnav-logo" href="#site-intro">
+  <a class="topnav-logo" href="#overview">
     <span class="mark">FX</span>
     Fiix Software
   </a>
@@ -552,16 +552,10 @@
     <main class="main">
     <div class="main-inner">
 
-            <div class="page-hero" id="site-intro">
+      <div class="page-hero" id="overview">
         <div class="page-hero-eyebrow">Fiix Software · EDS</div>
-        <h1>EDS Migration Docs</h1>
-        <p class="page-hero-sub">Documentation for the Fiix Software (fiixsoftware.com) marketing site rebuild — migrating off WordPress onto Adobe Edge Delivery Services — architecture, blocks, and the page-by-page migration status.</p>
-      </div>
-
-            <div class="page-hero" id="overview">
-        <div class="page-hero-eyebrow">Fiix Software · Pilot</div>
         <h1>Fiix Software EDS Pilot</h1>
-        <p class="page-hero-sub">A page-template-driven migration of fiixsoftware.com's marketing site off WordPress onto Edge Delivery Services, built on the standard <code class="code-inline">aem-boilerplate</code> and authored through DA.live.</p>
+        <p class="page-hero-sub">A page-template-driven migration of fiixsoftware.com's marketing site off WordPress onto Edge Delivery Services, built on the standard <code class="code-inline">aem-boilerplate</code> and authored through DA.live — architecture, blocks, and the page-by-page migration status.</p>
       </div>
 
       <section class="doc-section">
@@ -672,7 +666,7 @@
         </table>
       </section>
 
-            <section class="doc-section" id="references">
+      <section class="doc-section" id="references">
         <h2>
           <span class="section-icon icon-blue">
             <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"/></svg>
@@ -710,7 +704,7 @@
         </div>
       </section>
 
-            <section class="doc-section" id="setup">
+      <section class="doc-section" id="setup">
         <h2>
           <span class="section-icon icon-blue">
             <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06l2.72 2.72 6.72-6.72a.75.75 0 011.06 0z"/></svg>
@@ -740,7 +734,7 @@ aem up --no-open --forward-browser-logs</div>
         </ol>
       </section>
 
-            <section class="doc-section" id="linting">
+      <section class="doc-section" id="linting">
         <h2>
           <span class="section-icon icon-navy">
             <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M0 3.75C0 2.784.784 2 1.75 2h12.5c.966 0 1.75.784 1.75 1.75v8.5A1.75 1.75 0 0114.25 14H1.75A1.75 1.75 0 010 12.25v-8.5zm1.75-.25a.25.25 0 00-.25.25v.5h13v-.5a.25.25 0 00-.25-.25H1.75zM1.5 5.5v6.75c0 .138.112.25.25.25h12.5a.25.25 0 00.25-.25V5.5h-13z"/></svg>
@@ -754,13 +748,9 @@ npm run lint:fix   <span class="cmt"># auto-fixes both</span></div>
           <svg class="notice-icon" width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M8 16A8 8 0 108 0a8 8 0 000 16zM8 4a1 1 0 110 2 1 1 0 010-2zm-1 4h2v5H7V8z"/></svg>
           <span><code class="code-inline">.github/workflows/main.yaml</code> runs <code class="code-inline">npm ci</code> and <code class="code-inline">npm run lint</code> on every push — lint only, no build, deploy, or automated test step. Deployment happens separately via AEM Code Sync (see <a href="#deploying" style="color:inherit;">Deploying</a>).</span>
         </div>
-        <div class="notice warning">
-          <svg class="notice-icon" width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M8.22 1.754a.25.25 0 00-.44 0L1.698 13.132a.25.25 0 00.22.368h12.164a.25.25 0 00.22-.368L8.22 1.754zM6.996 12a1 1 0 112 0 1 1 0 01-2 0zM8 6a.75.75 0 01.75.75v3.5a.75.75 0 01-1.5 0v-3.5A.75.75 0 018 6z"/></svg>
-          <span>The workflow step is labeled <code class="code-inline">Use Node.js 20</code> but its <code class="code-inline">actions/setup-node</code> config actually installs <code class="code-inline">node-version: 24</code> — a stale label, not a functional problem, but worth fixing so the next reader isn't misled.</span>
-        </div>
       </section>
 
-            <section class="doc-section" id="block-routing">
+      <section class="doc-section" id="block-routing">
         <h2>
           <span class="section-icon icon-navy">
             <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M1 3.5A1.5 1.5 0 012.5 2h2A1.5 1.5 0 016 3.5v2A1.5 1.5 0 014.5 7h-2A1.5 1.5 0 011 5.5v-2zm5.5 0A1.5 1.5 0 018 2h2a1.5 1.5 0 011.5 1.5v2A1.5 1.5 0 0110 7H8A1.5 1.5 0 016.5 5.5v-2zm-5.5 5A1.5 1.5 0 012.5 7h2A1.5 1.5 0 016 8.5v2A1.5 1.5 0 014.5 12h-2A1.5 1.5 0 011 10.5v-2zm5.5 0A1.5 1.5 0 018 7h2a1.5 1.5 0 011.5 1.5v2A1.5 1.5 0 0110 12H8A1.5 1.5 0 016.5 10.5v-2z"/></svg>
@@ -779,7 +769,7 @@ npm run lint:fix   <span class="cmt"># auto-fixes both</span></div>
         </table>
       </section>
 
-            <section class="doc-section" id="page-decoration">
+      <section class="doc-section" id="page-decoration">
         <h2>
           <span class="section-icon icon-purple">
             <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M8 .25a.75.75 0 01.673.418l1.882 3.815 4.21.612a.75.75 0 01.416 1.279l-3.046 2.97.719 4.192a.75.75 0 01-1.088.791L8 12.347l-3.766 1.98a.75.75 0 01-1.088-.79l.72-4.194L.818 6.374a.75.75 0 01.416-1.28l4.21-.611L7.327.668A.75.75 0 018 .25z"/></svg>
@@ -803,7 +793,7 @@ npm run lint:fix   <span class="cmt"># auto-fixes both</span></div>
         </table>
       </section>
 
-            <section class="doc-section" id="eds-blocks">
+      <section class="doc-section" id="eds-blocks">
         <h2>
           <span class="section-icon icon-green">
             <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M2.5 1A1.5 1.5 0 001 2.5v11A1.5 1.5 0 002.5 15h11a1.5 1.5 0 001.5-1.5v-11A1.5 1.5 0 0013.5 1h-11zm8.4 1.3l-.1 1.6a.2.2 0 00.32.17l.55-.42.47.36a.2.2 0 00.32-.17l-.13-2.03h.8v11.4H4.4V2.3h6.5z"/></svg>
@@ -866,7 +856,7 @@ npm run lint:fix   <span class="cmt"># auto-fixes both</span></div>
         </table>
       </section>
 
-            <section class="doc-section" id="supporting-modules">
+      <section class="doc-section" id="supporting-modules">
         <h2>
           <span class="section-icon icon-orange">
             <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M4.5 2A2.5 2.5 0 002 4.5v7A2.5 2.5 0 004.5 14h7a2.5 2.5 0 002.5-2.5v-7A2.5 2.5 0 0011.5 2h-7zM5 5.5A.5.5 0 015.5 5h5a.5.5 0 010 1h-5A.5.5 0 015 5.5zm0 2.5a.5.5 0 01.5-.5h5a.5.5 0 010 1h-5A.5.5 0 015 8zm.5 2a.5.5 0 000 1h3a.5.5 0 000-1h-3z"/></svg>
@@ -877,7 +867,7 @@ npm run lint:fix   <span class="cmt"># auto-fixes both</span></div>
         <p><code class="code-inline">scripts/</code> contains the three stock <code class="code-inline">aem-boilerplate</code> file names — <code class="code-inline">aem.js</code>, <code class="code-inline">scripts.js</code>, and <code class="code-inline">delayed.js</code> — but <code class="code-inline">delayed.js</code> is not an empty stub: it implements a "Back to Top" button (desktop-only, appears once the page has scrolled past 200px, smooth-scrolls to the top), loaded via <code class="code-inline">loadDelayed()</code> 3 seconds after page load. There are no additional custom script modules; page-specific logic instead lives in individual blocks — e.g. <code class="code-inline">blocks/fragment/fragment.js</code> exports <code class="code-inline">loadFragment</code>, imported by <code class="code-inline">scripts/scripts.js</code> and by <code class="code-inline">blocks/header/header.js</code> and <code class="code-inline">blocks/footer/footer.js</code> to render nav/footer fragments.</p>
       </section>
 
-            <section class="doc-section" id="lighthouse-compare">
+      <section class="doc-section" id="lighthouse-compare">
         <h2>
           <span class="section-icon icon-green">
             <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M8 1.5a6.5 6.5 0 100 13 6.5 6.5 0 000-13zM0 8a8 8 0 1116 0A8 8 0 010 8zm8-3.25a.75.75 0 01.75.75v2.69l1.78 1.78a.75.75 0 11-1.06 1.06l-2-2A.75.75 0 017.25 8.5v-3a.75.75 0 01.75-.75z"/></svg>
@@ -914,6 +904,60 @@ npm run lint:fix   <span class="cmt"># auto-fixes both</span></div>
             </div>
           </div>
           <div class="lh-compare-page">
+            <div class="lh-compare-page-title">Case studies listing <span>fiixsoftware.com/resource-center/case-studies/ · /resource-center/case-studies</span></div>
+            <div class="lh-compare-cols">
+              <div class="lh-compare-side">
+                <div class="lh-compare-side-header">
+                  <span class="lh-compare-label">Live</span>
+                  <div class="lh-scores">
+                    <span class="lh-score lh-score-good">Perf 92</span>
+                    <span class="lh-score lh-score-good">A11y 89</span>
+                    <span class="lh-score lh-score-ok">Best Practices 54</span>
+                  </div>
+                </div>
+                <img src="images/case-studies-live.webp" alt="Chrome DevTools Lighthouse audit for the live fiixsoftware.com/resource-center/case-studies/ page">
+              </div>
+              <div class="lh-compare-side">
+                <div class="lh-compare-side-header">
+                  <span class="lh-compare-label">EDS</span>
+                  <div class="lh-scores">
+                    <span class="lh-score lh-score-good">Perf 100</span>
+                    <span class="lh-score lh-score-good">A11y 96</span>
+                    <span class="lh-score lh-score-good">Best Practices 96</span>
+                  </div>
+                </div>
+                <img src="images/case-studies-eds.webp" alt="Chrome DevTools Lighthouse audit for the EDS develop-branch preview of /resource-center/case-studies">
+              </div>
+            </div>
+          </div>
+          <div class="lh-compare-page">
+            <div class="lh-compare-page-title">Case study detail — Universal Pure <span>fiixsoftware.com/resource-center/case-studies/universal-pure/ · /resource-center/case-studies/universal-pure</span></div>
+            <div class="lh-compare-cols">
+              <div class="lh-compare-side">
+                <div class="lh-compare-side-header">
+                  <span class="lh-compare-label">Live</span>
+                  <div class="lh-scores">
+                    <span class="lh-score lh-score-ok">Perf 80</span>
+                    <span class="lh-score lh-score-good">A11y 95</span>
+                    <span class="lh-score lh-score-ok">Best Practices 54</span>
+                  </div>
+                </div>
+                <img src="images/universal-pure-live.webp" alt="Chrome DevTools Lighthouse audit for the live fiixsoftware.com/resource-center/case-studies/universal-pure/ page">
+              </div>
+              <div class="lh-compare-side">
+                <div class="lh-compare-side-header">
+                  <span class="lh-compare-label">EDS</span>
+                  <div class="lh-scores">
+                    <span class="lh-score lh-score-good">Perf 100</span>
+                    <span class="lh-score lh-score-good">A11y 97</span>
+                    <span class="lh-score lh-score-good">Best Practices 96</span>
+                  </div>
+                </div>
+                <img src="images/universal-pure-eds.webp" alt="Chrome DevTools Lighthouse audit for the EDS develop-branch preview of /resource-center/case-studies/universal-pure">
+              </div>
+            </div>
+          </div>
+          <div class="lh-compare-page">
             <div class="lh-compare-page-title">Resource Center / Ebook <span>fiixsoftware.com/resource-center/ebook/ · /resource-center/ebook</span></div>
             <div class="lh-compare-cols">
               <div class="lh-compare-side">
@@ -943,11 +987,11 @@ npm run lint:fix   <span class="cmt"># auto-fixes both</span></div>
         </div>
         <div class="notice info">
           <svg class="notice-icon" width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M8 16A8 8 0 108 0a8 8 0 000 16zM8 4a1 1 0 110 2 1 1 0 010-2zm-1 4h2v5H7V8z"/></svg>
-          <span>Both pages above were audited against the <code class="code-inline">develop</code> branch preview (<code class="code-inline">develop--fiixsoftware--AdobeDrago.aem.page</code>), not <code class="code-inline">main</code> — Best Practices in particular jumps from 50–54 live to a clean 100 on EDS for both pages.</span>
+          <span>All pages above were audited against the <code class="code-inline">develop</code> branch preview (<code class="code-inline">develop--fiixsoftware--AdobeDrago.aem.page</code>), not <code class="code-inline">main</code> — Best Practices in particular jumps from 50–54 live to 96–100 on EDS across all four pages.</span>
         </div>
       </section>
 
-            <section class="doc-section" id="migrated-pages">
+      <section class="doc-section" id="migrated-pages">
         <h2>
           <span class="section-icon icon-seafoam">
             <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M4 1.75C4 .784 4.784 0 5.75 0h5.586c.464 0 .909.184 1.237.513l2.914 2.914c.329.328.513.773.513 1.237v9.586A1.75 1.75 0 0114.25 16h-8.5A1.75 1.75 0 014 14.25V1.75zM5.75 1.5a.25.25 0 00-.25.25v12.5c0 .138.112.25.25.25h8.5a.25.25 0 00.25-.25V6h-2.75A1.75 1.75 0 0110 4.25V1.5H5.75z"/></svg>
@@ -1067,7 +1111,7 @@ npm run lint:fix   <span class="cmt"># auto-fixes both</span></div>
         </div>
       </section>
 
-            <section class="doc-section" id="deploying">
+      <section class="doc-section" id="deploying">
         <h2>
           <span class="section-icon icon-navy">
             <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M6.5 15.4V13a.5.5 0 01.5-.5h2a.5.5 0 01.5.5v2.4a5.5 5.5 0 002-1.1V9.5A5.5 5.5 0 003 9.5v4.8a5.5 5.5 0 003.5 1.1z"/></svg>
