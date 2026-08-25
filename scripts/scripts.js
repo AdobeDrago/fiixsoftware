@@ -425,6 +425,53 @@ function decorateOptixTogether(main) {
 }
 
 /**
+ * Optix Getting Started: move authored section backgrounds onto `.hero-cta`
+ * (live paints the banner on the card, not full-bleed).
+ * Uses `background-image` (desktop) and optional `background-image-mobile`.
+ * Sets the active image in JS (not only CSS vars) so mobile never keeps the
+ * desktop asset from a cascade/fallback miss.
+ * @param {Element} main The main container element
+ */
+function decorateOptixGetStarted(main) {
+  main.querySelectorAll('.section.optix-getstarted').forEach((section) => {
+    const hero = section.querySelector('.hero-cta');
+    if (!hero) return;
+
+    const desktopRaw = section.dataset.backgroundImage || section.dataset.background;
+    const mobileRaw = section.dataset.backgroundImageMobile;
+
+    let desktop = desktopRaw ? toSectionBackgroundImage(desktopRaw) : '';
+    let mobile = mobileRaw ? toSectionBackgroundImage(mobileRaw) : '';
+
+    if (!desktop && section.style.backgroundImage
+      && section.style.backgroundImage !== 'none') {
+      desktop = section.style.backgroundImage;
+    }
+
+    if (!desktop && !mobile) return;
+    if (!mobile) mobile = desktop;
+    if (!desktop) desktop = mobile;
+
+    // Authoring often ships width=750; request a larger render for the banner.
+    const enlarge = (bg) => bg.replace(/([?&]width=)\d+/i, `$1${2000}`);
+    desktop = enlarge(desktop);
+    mobile = enlarge(mobile);
+
+    hero.style.setProperty('--optix-getstarted-bg-mobile', mobile);
+    hero.style.setProperty('--optix-getstarted-bg', desktop);
+
+    const applyBg = () => {
+      const useMobile = window.matchMedia('(width < 768px)').matches;
+      hero.style.backgroundImage = useMobile ? mobile : desktop;
+    };
+    applyBg();
+    window.matchMedia('(width < 768px)').addEventListener('change', applyBg);
+
+    section.style.backgroundImage = '';
+  });
+}
+
+/**
  * Decorates the main element.
  * @param {Element} main The main element
  */
@@ -441,6 +488,7 @@ export function decorateMain(main) {
   decorateCtaLinks(main);
   decorateBlogHeader(main);
   decorateOptixTogether(main);
+  decorateOptixGetStarted(main);
 }
 
 /**
