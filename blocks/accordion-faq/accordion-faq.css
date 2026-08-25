@@ -198,6 +198,12 @@ main > .section.free-cmms-accordian .default-content-wrapper #faqs-about-fiixs-f
   padding: 150px 0 0;
 }
 
+@media(width >= 960px) {
+  main > .section.free-cmms-accordian .default-content-wrapper #faqs-about-fiixs-free-cmms-software{
+    padding: 150px 0 35px;
+  }
+}
+
 main > .section.free-cmms-accordian .default-content-wrapper #get-best-practices-for-evaluating-buying-and-using-cmms-software{
   padding: 40px 0 60px;
 }

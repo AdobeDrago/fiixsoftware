@@ -389,6 +389,42 @@ function decorateBlogHeader(main) {
 }
 
 /**
+ * Optix "Better Together" section: split the H2 into lead + accent spans
+ * (live uses `.reg-fw` / `.RA-text-gradient`) and insert dashed dividers
+ * between the two text paragraphs in each columns-media card.
+ * @param {Element} main The main container element
+ */
+function decorateOptixTogether(main) {
+  main.querySelectorAll('.section.optix-together').forEach((section) => {
+    const h2 = section.querySelector('h2');
+    if (h2 && !h2.querySelector('.optix-together-lead')) {
+      const br = h2.querySelector('br');
+      if (br) {
+        const lead = document.createElement('span');
+        lead.className = 'optix-together-lead';
+        while (h2.firstChild !== br) lead.append(h2.firstChild);
+        h2.insertBefore(lead, br);
+
+        const accent = document.createElement('span');
+        accent.className = 'optix-together-accent';
+        while (br.nextSibling) accent.append(br.nextSibling);
+        br.after(accent);
+      }
+    }
+
+    section.querySelectorAll('.columns-media > div > div').forEach((col) => {
+      if (col.querySelector('.dotted-divider')) return;
+      const textPs = [...col.querySelectorAll(':scope > p')]
+        .filter((p) => !p.querySelector('picture, img'));
+      if (textPs.length < 2) return;
+      const divider = document.createElement('div');
+      divider.className = 'dotted-divider';
+      textPs[0].after(divider);
+    });
+  });
+}
+
+/**
  * Decorates the main element.
  * @param {Element} main The main element
  */
@@ -404,6 +440,7 @@ export function decorateMain(main) {
   decorateButtons(main);
   decorateCtaLinks(main);
   decorateBlogHeader(main);
+  decorateOptixTogether(main);
 }
 
 /**
