@@ -341,7 +341,13 @@ a.cta-link:any-link {
 }
 
 a.cta-link::after {
-    content: "\2192";
+    content: "";
+    display: inline-block;
+    width: 24px;
+    height: 19px;
+    background-color: currentcolor;
+    mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>')
+        no-repeat center / 24px 19px;
     transition: margin-left 0.2s;
 }
 
@@ -4182,8 +4188,20 @@ main
    authored as a bulleted list. Production H2 48/700 centered. ---- */
 main > .section.pf-final-cta {
     margin: 0;
-    padding: 80px 0;
+    padding: 100px 0 0;
     text-align: center;
+}
+
+/* Production empty row above the footer (padding 50 top / 70 bottom). */
+main > .pf-pre-footer-spacer {
+    margin-top: 40px;
+    margin-bottom: 0;
+    padding: 50px 0 70px;
+}
+
+/* Empty trailing section after the spacer (authored blank div). */
+main > .pf-pre-footer-spacer + .section:empty {
+    margin-top: 0;
 }
 
 /* Production also draws a grey (#f7f7f7) band rotated 5deg across the
@@ -4276,6 +4294,7 @@ main > .section.pf-final-cta .default-content-wrapper ul a:any-link {
     font-size: 20px;
     font-weight: 700;
     line-height: 53px;
+    margin-top: 20px;
     margin-bottom: 20px;
     height: 53px;
     width: 165px;
@@ -5701,12 +5720,165 @@ main .section.header h5,
 main .section.header h6 {
     margin-top: 0;
 }
+
+/* cloud-maintenance-software (and other .header heroes) */
+main .section.header h1 {
+    margin-bottom: 20px;
+    font-size: 50px;
+}
+
+main .section.header p {
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-size: 20px;
+}
+
+@media (width >= 960px) {
+    main .section.header h1 {
+        font-size: 54px;
+    }
+}
 /* stylelint-enable no-descending-specificity */
 
-/* stylelint-disable-next-line no-descending-specificity */
+/* stylelint-disable no-descending-specificity */
 main .section.centre .default-content-wrapper {
     text-align: center;
 }
+
+main .section.centre .default-content-wrapper h2 {
+    margin-top: 50px;
+    margin-bottom: 20px;
+    font-size: 36px;
+}
+
+main > .section.centre.pf-final-cta .default-content-wrapper h2 {
+    max-width: 520px;
+    margin-top: 0;
+    margin-right: auto;
+    margin-left: auto;
+    font-size: 38px;
+    line-height: 1.1;
+}
+
+main > .section.centre.pf-final-cta .default-content-wrapper h2 img {
+    width: 150px;
+    height: 150px;
+    margin-top: 0;
+    margin-bottom: 40px;
+}
+
+@media (width >= 960px) {
+    main > .section.centre.pf-final-cta .default-content-wrapper h2 {
+        font-size: 48px;
+    }
+}
+
+/* Connect-style intro headings in padding-xlarge centre sections */
+main > .section.centre.padding-xlarge:not(.grey) .default-content-wrapper > h2 {
+    margin-top: 0;
+    margin-bottom: 20px;
+}
+
+main > .section.centre.padding-xlarge:not(.grey)
+    .default-content-wrapper:has(> h2):has(> p) {
+    margin-top: 30px;
+    margin-bottom: 0;
+}
+
+main > .section.centre.padding-xlarge:not(.grey)
+    .default-content-wrapper:has(> h2):has(> p)
+    > p {
+    margin-bottom: 0;
+}
+
+@media (width >= 768px) {
+    main > .section.centre.padding-xlarge:not(.grey)
+        .default-content-wrapper:has(> h2):has(> p) {
+        margin-top: 80px;
+        margin-bottom: 60px;
+    }
+}
+
+main .section.centre .default-content-wrapper p {
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-size: 20px;
+}
+
+main .section.centre .default-content-wrapper p:has(> a.cta-link) {
+    margin-bottom: 0;
+}
+
+/* Match production mobile CTA: centered 75% block link */
+@media (width < 768px) {
+    main .section.centre .default-content-wrapper a.cta-link:any-link {
+        display: block;
+        width: 75%;
+        margin: 0 auto;
+    }
+}
+
+main > .section.grey.centre {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+main > .section.grey.centre .default-content-wrapper h2 {
+    margin: 0 8px 20px;
+    font-size: 44px;
+    line-height: 1.1;
+}
+
+/* Reliability-style intro (h2 + supporting p) */
+main > .section.grey.centre .default-content-wrapper:has(> h2):has(> p) {
+    margin-top: 30px;
+    margin-bottom: 0;
+}
+
+@media (width >= 768px) {
+    main > .section.grey.centre .default-content-wrapper:has(> h2):has(> p) {
+        margin-top: 80px;
+        margin-bottom: 60px;
+    }
+
+    main > .section.grey.centre .default-content-wrapper h2 {
+        margin-right: 16px;
+        margin-left: 16px;
+    }
+}
+
+@media (width >= 960px) {
+    main > .section.grey.centre .default-content-wrapper {
+        padding-right: 0;
+        padding-left: 0;
+    }
+
+    main > .section.centre.padding-xlarge:not(.grey) .default-content-wrapper {
+        padding-right: 0;
+        padding-left: 0;
+    }
+
+    main > .section.centre.pf-final-cta .default-content-wrapper {
+        padding-right: 0;
+        padding-left: 0;
+    }
+
+    main > .section.grey.centre .columns-media-wrapper {
+        padding-right: 0;
+        padding-left: 0;
+    }
+
+    main > .section.centre .cards-icon-wrapper {
+        padding-right: 0;
+        padding-left: 0;
+    }
+
+    main > .section.grey.centre .default-content-wrapper h2 {
+        margin-right: 200px;
+        margin-left: 200px;
+    }
+}
+/* stylelint-enable no-descending-specificity */
 
 main .section.padding-small,
 main .padding-small.block {
@@ -5725,6 +5897,15 @@ main .padding-large.block {
 
 main .section.padding-xlarge,
 main .padding-xlarge.block {
-    padding: 100px 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding: 50px 0;
+}
+
+@media (width >= 960px) {
+    main .section.padding-xlarge,
+    main .padding-xlarge.block {
+        padding: 100px 0;
+    }
 }
 

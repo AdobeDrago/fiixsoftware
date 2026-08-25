@@ -717,9 +717,91 @@ main
    can reuse it; the base columns-media keeps its default heading sizing.
    ============================================================ */
 .columns-media.feature h3 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    max-width: 96%;
     font-size: 36px;
     font-weight: 700;
     line-height: 1.1;
+}
+
+.columns-media.feature .columns-media-text-col p {
+    margin-top: 0;
+    margin-bottom: 0;
+    font-size: 20px;
+    line-height: normal !important;
+}
+
+/* Mobile: text above image (production .plan-track column-reverse). */
+@media (width < 768px) {
+    main .columns-media.feature.padding-medium {
+        margin-top: 30px;
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+
+    .columns-media.feature .columns-media-text-col {
+        margin-left: 20px;
+    }
+
+    .columns-media.feature .columns-media-img-col {
+        margin-top: 30px;
+        margin-bottom: 30px;
+    }
+
+    .columns-media.feature > div {
+        flex-direction: column-reverse;
+    }
+
+    .columns-media.feature > div > div,
+    .columns-media.feature > div > .columns-media-img-col {
+        order: unset;
+    }
+}
+
+@media (width >= 768px) {
+    main .columns-media.feature.padding-medium {
+        margin-top: 80px;
+        margin-bottom: 60px;
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+
+    .columns-media.feature > div {
+        align-items: flex-start;
+        gap: 0;
+    }
+}
+
+@media (width >= 768px) and (width < 960px) {
+    .columns-media.feature .columns-media-text-col {
+        margin-left: 20px;
+    }
+}
+
+@media (width >= 960px) {
+    main .columns-media.feature.padding-medium {
+        font-size: 16px;
+    }
+
+    /* Match production .plan-track: content-sized columns with even free space. */
+    .columns-media.feature > div {
+        justify-content: space-evenly;
+    }
+
+    .columns-media.feature > div > div {
+        box-sizing: border-box;
+        flex: 0 1 38%;
+        width: 38%;
+        max-width: 440px;
+        min-width: 0;
+    }
+
+    .columns-media.feature .columns-media-img-col img {
+        width: 100%;
+        max-width: 100%;
+        height: auto;
+    }
 }
 
 /* Vidyard + info-flex are independent variations stacked after accent

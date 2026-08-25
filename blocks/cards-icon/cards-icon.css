@@ -58,9 +58,11 @@
   text-align: center;
 }
 
+/* No margin/gap — match live FA icons: spacing comes from the icon line-box. */
 .cards-icon.points .cards-icon-card-image {
-  margin: 0 0 12px;
-  line-height: 1;
+  margin: 0;
+  font-size: 30px;
+  line-height: 1.4;
 }
 
 .cards-icon.points .cards-icon-card-image-photo {
@@ -69,9 +71,10 @@
 }
 
 .cards-icon.points .cards-icon-card-image-icon .icon {
-  display: inline-flex;
-  width: 30px;
-  height: 30px;
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  vertical-align: top;
 }
 
 /* Authorable tint. `.icon-masked` is added by the block JS ONLY when an author
@@ -92,7 +95,7 @@
 .cards-icon.points .cards-icon-card-image-photo.icon-masked {
   width: 85px;
   height: 85px;
-  margin: 0 auto 12px;
+  margin: 0 auto;
   background-color: var(--icon-color);
   mask: var(--icon-mask) no-repeat center / contain;
 }
@@ -128,8 +131,88 @@
   line-height: 1.4;
 }
 
-@media (width < 960px) {
+main .cards-icon.points.padding-medium {
+  margin-bottom: 80px;
+}
+
+@media (width >= 960px) {
+  main .cards-icon.points.padding-medium {
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+
+  .cards-icon.points .cards-icon-card-body p {
+    line-height: 28px !important;
+  }
+
+  /* Match production .plan-points (desktop) */
   .cards-icon.points > ul {
-    grid-template-columns: 1fr;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    gap: 0;
+  }
+
+  .cards-icon.points > ul > li {
+    flex: 0 1 auto;
+    width: auto;
+    max-width: 280px;
+  }
+
+  /* 4-up rows need narrower columns so space-between can distribute */
+  .cards-icon.points > ul:has(> li:nth-child(4)) > li {
+    max-width: 220px;
+  }
+}
+
+/* Match production .plan-points (tablet): wrap + space-evenly
+   (3 across, 4th centers on the next row) */
+@media (width >= 768px) and (width < 960px) {
+  main .cards-icon.points.padding-medium {
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+
+  .cards-icon.points .cards-icon-card-body p {
+    font-size: 20px;
+    line-height: 28px !important;
+  }
+
+  .cards-icon.points > ul {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-evenly;
+    gap: 40px 0;
+  }
+
+  .cards-icon.points > ul > li {
+    box-sizing: border-box;
+    flex: 0 1 auto;
+    width: auto;
+    max-width: 220px;
+    min-width: 0;
+  }
+}
+
+@media (width < 768px) {
+  main .cards-icon.points.padding-medium {
+    margin-bottom: 80px;
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+
+  .cards-icon.points > ul {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 0;
+  }
+
+  .cards-icon.points > ul > li {
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 280px;
+    margin-bottom: 30px;
   }
 }

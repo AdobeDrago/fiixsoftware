@@ -389,6 +389,36 @@ function decorateBlogHeader(main) {
 }
 
 /**
+ * Inserts a padded spacer after pf-final-cta (above the footer) to match
+ * production's empty VC row (padding 50px 0 70px) at all breakpoints.
+ * Drops authored empty trailing sections that only add dead margin.
+ * @param {Element} main The main container element
+ */
+function decoratePfFinalCta(main) {
+  const cta = main.querySelector(':scope > .section.pf-final-cta');
+  if (!cta) return;
+
+  let next = cta.nextElementSibling;
+  while (next) {
+    const el = next;
+    next = next.nextElementSibling;
+    if (!el.classList.contains('pf-pre-footer-spacer')) {
+      if (el.matches('.section') && !el.childElementCount && !el.textContent.trim()) {
+        el.remove();
+      } else {
+        break;
+      }
+    }
+  }
+
+  if (main.querySelector(':scope > .pf-pre-footer-spacer')) return;
+  const spacer = document.createElement('div');
+  spacer.className = 'pf-pre-footer-spacer';
+  spacer.setAttribute('aria-hidden', 'true');
+  cta.after(spacer);
+}
+
+/**
  * Decorates the main element.
  * @param {Element} main The main element
  */
@@ -404,6 +434,7 @@ export function decorateMain(main) {
   decorateButtons(main);
   decorateCtaLinks(main);
   decorateBlogHeader(main);
+  decoratePfFinalCta(main);
 }
 
 /**
