@@ -1067,4 +1067,187 @@ div.columns-media.info-flex > div > .columns-media-img-col {
     }
 }
 
+/* ============================================================
+   optix-hero — Optix landing hero (section also carries ai-hero).
+   Production #optixLP header: mobile shows the illustration + cross-hatch
+   tucked bottom-right (ai-hero hides media on mobile). Accent phrase is
+   authored as <em> in the H1 (italic in Document Authoring).
+   ============================================================ */
+main > .section.optix-hero {
+    /* stacking context so the absolute illustration can overlap the
+       following optix-intro band (production header-img img z-index:1) */
+    position: relative;
+    z-index: 1;
+    overflow: visible;
+    padding: 30px 0 180px;
+}
+
+/* product logo — production max-width 270px (not the 48px AI-hero cap) */
+main > .section.optix-hero .columns-media-text-col > p:has(img) {
+    margin: 0;
+}
+
+main > .section.optix-hero .columns-media-text-col > p:has(img) img {
+    width: auto;
+    max-width: 270px;
+    max-height: none;
+    height: auto;
+}
+
+main > .section.optix-hero .columns-media h1 {
+    margin: 0 0 30px;
+    font-size: 32px;
+    font-weight: 400;
+}
+
+/* authored italic on the key phrase → blue gradient text fill */
+main > .section.optix-hero .columns-media h1 em {
+    font-style: normal;
+    font-weight: 700;
+    background-image: linear-gradient(269deg, #003e7e 0%, #00aeef 100%);
+    /* stylelint-disable-next-line property-no-vendor-prefix -- Safari text fill */
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* external-link marker on the CTA (production .external-URL::after) */
+main > .section.optix-hero .columns-media a:any-link::after {
+    content: '';
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    margin-left: 6px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='2 2 20 20' fill='none' stroke='%23ffffff' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M14 3h7v7'/%3E%3Cpath d='M10 14 21 3'/%3E%3Cpath d='M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5'/%3E%3C/svg%3E");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    vertical-align: -1px;
+}
+
+/* show media on mobile; collapse the column (kids are absolute) and let
+   section padding reserve space for the overflowing illustration */
+main > .section.optix-hero .columns-media > div > .columns-media-img-col {
+    display: block;
+    position: relative;
+    width: 40%;
+    height: 0;
+    order: 1;
+    align-self: flex-end;
+}
+
+main > .section.optix-hero .columns-media > div > .columns-media-img-col .columns-media-img-1,
+main > .section.optix-hero .columns-media > div > .columns-media-img-col .columns-media-img-2 {
+    margin: 0;
+}
+
+/* main 3D illustration — production tucks this into the bottom-right.
+   Override ai-hero's logo max-height:48px which also matches media imgs. */
+main > .section.optix-hero .columns-media > div > .columns-media-img-col .columns-media-img-1 img {
+    position: absolute;
+    z-index: 1;
+    top: 20px;
+    right: 0;
+    left: auto;
+    width: 140px;
+    max-width: none;
+    max-height: none;
+    height: auto;
+    transform: none;
+}
+
+/* cross-hatch decorative graphic (authored as 2nd media image) */
+main > .section.optix-hero .columns-media > div > .columns-media-img-col .columns-media-img-2 {
+    position: absolute;
+    z-index: 0;
+    top: -10px;
+    right: 40px;
+    width: 110px;
+    height: 111px;
+}
+
+main > .section.optix-hero .columns-media > div > .columns-media-img-col .columns-media-img-2 img {
+    max-height: none;
+    right: -42px;
+    top: -38px;
+    position: absolute;
+}
+
+@media (width < 370px) {
+    main > .section.optix-hero .columns-media > div > .columns-media-img-col .columns-media-img-1 img {
+        top: 60px;
+        width: 220px;
+    }
+
+    main > .section.optix-hero .columns-media > div > .columns-media-img-col .columns-media-img-2 {
+        top: 0;
+    }
+}
+
+@media (width >= 768px) {
+    main > .section.optix-hero {
+        padding: 80px 0;
+    }
+
+    main > .section.optix-hero .columns-media h1 {
+        margin: 20px 0 35px;
+        font-size: 48px;
+    }
+
+    main > .section.optix-hero .columns-media > div > .columns-media-img-col {
+        width: auto;
+        height: auto;
+        align-self: center;
+    }
+
+    /* hand positioning back to shared ai-hero desktop rules */
+    main > .section.optix-hero .columns-media > div > .columns-media-img-col .columns-media-img-1 img {
+        top: unset;
+        right: unset;
+        left: unset;
+        width: 100%;
+        transform: none;
+        position: relative;
+    }
+
+    main > .section.optix-hero .columns-media > div {
+        gap: 0;
+    }
+
+    /* cross-hatch sits behind/above the illustration (production ::after) */
+    main > .section.optix-hero .columns-media > div > .columns-media-img-col .columns-media-img-2 {
+        top: 50px;
+        right: 0;
+        width: 150px;
+        height: 151px;
+    }
+
+    main > .section.optix-hero .columns-media > div > .columns-media-img-col .columns-media-img-2 img {
+        position: static;
+        width: 100%;
+        height: 100%;
+        transform: none;
+    }
+}
+
+@media (width >= 1200px) {
+    main > .section.optix-hero .columns-media > div > .columns-media-img-col .columns-media-img-1 img {
+        top: -60px;
+        transform: none;
+    }
+
+    main > .section.optix-hero .columns-media > div > .columns-media-img-col .columns-media-img-2 {
+        top: -20px;
+    }
+
+    main > .section.optix-hero {
+        padding: 80px 0 0;
+        max-height: 440px;
+    }
+
+    main > .section.optix-hero > div.columns-media-wrapper {
+        padding: 0 10px;
+    }
+}
+
 /* stylelint-enable no-descending-specificity */
