@@ -147,14 +147,12 @@ main > .section > div.iframe-card-wrapper {
     flex-direction: row;
     justify-content: flex-start;
     align-items: center;
+    gap: 135px;
   }
 
   .iframe-card-heading {
     position: relative;
-    flex: 0 0 45%;
-    width: 45%;
-    max-width: 540px;
-    margin: 0;
+    width: auto;
     text-align: left;
   }
 
@@ -173,7 +171,6 @@ main > .section > div.iframe-card-wrapper {
 
   .iframe-card-row {
     flex: none;
-    margin-left: auto;
   }
 
   .iframe-card-embed {
@@ -195,9 +192,9 @@ main > .section > div.iframe-card-wrapper {
   .iframe-card-arrow {
     display: block;
     position: absolute;
-    right: -100px;
-    bottom: -138px;
-    width: 421px;
+    right: -66px;
+    bottom: -123px;
+    width: 390px;
     margin: 0;
     transform: rotate(180deg) scaleX(-1);
   }
