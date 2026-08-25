@@ -341,7 +341,13 @@ a.cta-link:any-link {
 }
 
 a.cta-link::after {
-    content: "\2192";
+    content: "";
+    display: inline-block;
+    width: 24px;
+    height: 19px;
+    background-color: currentcolor;
+    mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>')
+        no-repeat center / 24px 19px;
     transition: margin-left 0.2s;
 }
 
@@ -476,6 +482,15 @@ main .section.header {
     justify-content: center;
     position: relative;
     overflow: hidden;
+}
+
+/* Mobile: fixed 230px + overflow clips the wrapped H1 under the nav.
+   Production (#cloud-cmms) switches to height:auto + padding 50px. */
+@media (width < 768px) {
+    main .section.header {
+        height: auto;
+        padding: 50px 0;
+    }
 }
 
 /* Case-study company-intro section. Individual logo, profiles, lead-copy, and
@@ -4182,8 +4197,20 @@ main
    authored as a bulleted list. Production H2 48/700 centered. ---- */
 main > .section.pf-final-cta {
     margin: 0;
-    padding: 80px 0;
+    padding: 100px 0 0;
     text-align: center;
+}
+
+/* Production empty row above the footer (padding 50 top / 70 bottom). */
+main > .pf-pre-footer-spacer {
+    margin-top: 40px;
+    margin-bottom: 0;
+    padding: 50px 0 70px;
+}
+
+/* Empty trailing section after the spacer (authored blank div). */
+main > .pf-pre-footer-spacer + .section:empty {
+    margin-top: 0;
 }
 
 /* Production also draws a grey (#f7f7f7) band rotated 5deg across the
@@ -4276,6 +4303,7 @@ main > .section.pf-final-cta .default-content-wrapper ul a:any-link {
     font-size: 20px;
     font-weight: 700;
     line-height: 53px;
+    margin-top: 20px;
     margin-bottom: 20px;
     height: 53px;
     width: 165px;
@@ -4326,8 +4354,9 @@ main
    ============================================================ */
 
 /* ---- ai-hero: white band, split hero (text left, illustration
-   right). Shared by the AI hero and the Optix hero. Production H1
-   48/700, intro 20/300, CTA = orange gradient pill. ---- */
+   right). Optix reuses this section class and adds `.optix-hero` overrides
+   in columns-media.css. Production H1 48/700, intro 20/300, CTA = orange
+   gradient pill. ---- */
 main > .section.ai-hero {
     margin: 0;
     padding: 40px 0;
@@ -5183,23 +5212,50 @@ main > .section.ai-dual-cta[data-overlap="bottom"] {
    Reuses columns-media, cards-icon, hero-cta, accordion-faq.
    ============================================================ */
 
-/* ---- optix-intro: dark gradient band, "What is FactoryTalk Optix?"
-   heading, then a 2-column layout: copy paragraphs (left) + a bulleted
-   benefit list (right). Production band 55px top / 70px bottom, white
-   text, H2 40/700 center, copy 20/300, list 22/300. ---- */
+/* ---- optix-intro: "What is FactoryTalk Optix?" band.
+   Production (#optixLP .what-is-it): gradient + hex corner art, centered
+   H2, then copy | ribbon benefit list. Mobile-first — stacked until 1200px
+   (production switches at max-width 1199px). Authored section-metadata
+   supplies background-image + background-top-left (hex); optional
+   background-top-right can hold the small 3D cube. ---- */
 main > .section.optix-intro {
+    position: relative;
     margin: 0;
-    padding: 55px 0 70px;
-    background-image: linear-gradient(269deg, #00afeb 0%, #003e7e 100%);
+    padding: 55px 0;
+    overflow: hidden;
+    background-image: linear-gradient(0deg, #003e7e 0%, #00aeef 100%);
     color: #fff;
+}
+
+/* Authored hex pattern — full-bleed on small screens (prod ≤1199). */
+main > .section.optix-intro .section-bg-top-left {
+    width: 100%;
+    height: 100%;
+    max-height: none;
+    opacity: 1;
+    background-position: top left;
+    background-size: cover;
+}
+
+/* Optional cube / corner art — override augury's rotated hex treatment. */
+main > .section.optix-intro .section-bg-top-right {
+    top: 16px;
+    right: 12px;
+    width: 72px;
+    height: 72px;
+    max-height: none;
+    opacity: 1;
+    background-position: center;
+    background-size: contain;
+    transform: none;
 }
 
 main > .section.optix-intro .default-content-wrapper h2 {
     margin: 0 0 24px;
-    font-size: 40px;
+    font-size: 32px;
     font-weight: 700;
     line-height: 1.1;
-    text-align: center;
+    text-align: left;
     color: #fff;
 }
 
@@ -5212,54 +5268,139 @@ main > .section.optix-intro .default-content-wrapper p {
 }
 
 main > .section.optix-intro .default-content-wrapper ul {
-    margin: 0;
-    padding-left: 24px;
+    margin: 24px 20px 0;
+    padding: 0;
+    list-style: none;
     color: #fff;
+    font-size: 20px;
+    font-weight: 300;
+    line-height: 1.5;
 }
 
 main > .section.optix-intro .default-content-wrapper li {
-    margin: 0 0 16px;
-    font-size: 22px;
-    font-weight: 300;
-    line-height: 1.5;
+    position: relative;
+    margin: 0 0 20px;
+    padding: 8px 0 8px 26px;
+    background: linear-gradient(
+        90deg,
+        rgb(0 174 239) 0%,
+        rgb(4 174 239 / 0%) 93%,
+        rgb(6 174 239 / 0%) 100%
+    );
     color: #fff;
 }
 
-@media (width >= 960px) {
+main > .section.optix-intro .default-content-wrapper li:last-child {
+    margin-bottom: 0;
+}
+
+/* Production uses Font Awesome  in a cyan circle — SVG arrow instead. */
+main > .section.optix-intro .default-content-wrapper li::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: -18px;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background-color: #00aeef;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12h14'/%3E%3Cpath d='m12 5 7 7-7 7'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 16px;
+    box-shadow: 1px 1px 10px rgb(0 0 0 / 20%);
+    transform: translateY(-50%);
+}
+
+main > .section.optix-intro .default-content-wrapper li strong {
+    font-weight: 700;
+}
+
+@media (width >= 768px) {
+    main > .section.optix-intro {
+        padding: 55px 0 70px;
+    }
+
+    main > .section.optix-intro .section-bg-top-right {
+        top: 24px;
+        right: 24px;
+        width: 96px;
+        height: 96px;
+    }
+
+    main > .section.optix-intro .default-content-wrapper h2 {
+        font-size: 40px;
+        text-align: center;
+    }
+
+    main > .section.optix-intro .default-content-wrapper ul {
+        margin: 35px 30px 0;
+        font-size: 22px;
+        line-height: unset;
+    }
+}
+
+/* Two-column copy | list — production desktop (>1199px). */
+@media (width >= 1200px) {
+    main > .section.optix-intro {
+        background-image: linear-gradient(269deg, #00aeef 0%, #003e7e 100%);
+    }
+
+    main > .section.optix-intro .section-bg-top-left {
+        width: 50%;
+    }
+
     main > .section.optix-intro .default-content-wrapper {
         display: grid;
         grid-template-columns: 1fr 1fr;
-        column-gap: 60px;
+        gap: 0 4%;
+        align-items: start;
+        padding: 0;
     }
 
     main > .section.optix-intro .default-content-wrapper h2 {
         grid-column: 1 / -1;
+        margin-bottom: 40px;
+    }
+
+    main > .section.optix-intro .default-content-wrapper li {
+        padding: 10px 0 10px 26px;
     }
 
     main > .section.optix-intro .default-content-wrapper p {
         grid-column: 1;
     }
 
+    main > .section.optix-intro .default-content-wrapper p:last-of-type {
+        margin-bottom: 0;
+    }
+
     main > .section.optix-intro .default-content-wrapper ul {
         grid-column: 2;
-        grid-row: 2;
+        grid-row: 2 / span 10;
         align-self: start;
+        margin: 0;
     }
 }
 
 /* ---- optix-connect: white band, "Connect your CMMS to the plant
-   floor" heading + a 4-icon row (cards-icon). Production H2 40/700
-   center, icons ~60px, captions 20/500 center. (The 2x2 benefit-card
-   grid below the icons did not survive import — noted as a delta.) ---- */
+   floor" heading + a 4-icon row (cards-icon) + the ".plus" callout
+   card ("Or talk to us about integrating…"). Production H2 40/700
+   center, icons ~60px, captions 20/500 center. ---- */
 main > .section.optix-connect {
     margin: 0;
-    padding: 75px 0 65px;
+    padding: 65px 0 0;
+    overflow: visible;
     text-align: center;
+}
+
+main > .section.optix-connect > .default-content-wrapper:has(> p) {
+    overflow: visible;
 }
 
 main > .section.optix-connect .default-content-wrapper h2 {
     margin: 0 auto 40px;
-    font-size: 40px;
+    font-size: 28px;
     font-weight: 700;
     line-height: 1.1;
     text-align: center;
@@ -5275,6 +5416,45 @@ main > .section.optix-connect .cards-icon > ul > li {
     border: 0;
     background: transparent;
     text-align: center;
+}
+
+/* Production #optixLP .connect .plus — white card with overlapping + badge */
+main > .section.optix-connect .default-content-wrapper > p {
+    position: relative;
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 920px;
+    margin: 48px auto 0;
+    padding: 28px 40px 20px;
+    background-color: #fff;
+    box-shadow: 0 0 25px rgb(0 0 0 / 10.2%);
+    font-size: 20px;
+    font-weight: 300;
+    line-height: 1.5;
+    color: var(--text-color);
+    text-align: center;
+}
+
+main > .section.optix-connect .default-content-wrapper > p::before {
+    content: '+';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    box-sizing: border-box;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: linear-gradient(180deg, #003e7e 0%, #00aeef 100%);
+    color: #fff;
+    font-size: 22px;
+    font-weight: 700;
+    line-height: 34px;
+    text-align: center;
+    transform: translate(-50%, -50%);
+}
+
+main > .section.optix-connect .default-content-wrapper > p strong {
+    font-weight: 700;
 }
 
 main > .section.optix-connect .cards-icon .cards-icon-card-image {
@@ -5301,7 +5481,24 @@ main > .section.optix-connect .cards-icon .cards-icon-card-body p {
     color: var(--text-color);
 }
 
-@media (width >= 960px) {
+@media (width >= 768px) {
+    main > .section.optix-connect {
+        padding: 75px 0 0;
+    }
+
+    main > .section.optix-connect .default-content-wrapper h2 {
+        font-size: 40px;
+    }
+
+    main > .section.optix-connect .default-content-wrapper > p {
+        margin-top: 56px;
+        padding: 40px 10px 35px;
+        font-size: 23px;
+        max-width: 1200px;
+    }
+}
+
+@media (width >= 768px) {
     main > .section.optix-connect .cards-icon > ul {
         grid-template-columns: repeat(4, 1fr);
     }
@@ -5337,36 +5534,85 @@ main > .section.optix-casestudy .columns-media img {
     border-radius: 50%;
 }
 
-/* ---- optix-together: white band, "Fiix and FactoryTalk Better
-   Together" heading + a 2-column logo/copy comparison (columns-media).
-   Production H2 40/700 center, body 20/300, logos ~60px tall. ---- */
+/* ---- optix-together: live `#optixLP .together` — stacked white cards on
+   mobile with a centered "+" badge and dashed dividers; side-by-side from
+   1200px (live switches at 1199). ---- */
 main > .section.optix-together {
     margin: 0;
-    padding: 80px 0 100px;
+    padding: 60px 0 75px;
 }
 
 main > .section.optix-together .default-content-wrapper h2 {
-    margin: 0 auto 40px;
+    margin: 0 0 20px;
     font-size: 40px;
     font-weight: 700;
-    line-height: 1.15;
+    line-height: 0.8;
     text-align: center;
     color: var(--text-color);
 }
 
+main > .section.optix-together .optix-together-lead {
+    font-size: 26px;
+    font-weight: 300;
+    color: var(--text-color);
+}
+
+main > .section.optix-together .optix-together-accent {
+    background: linear-gradient(269deg, #003e7e 0%, #00aeef 100%);
+    /* stylelint-disable-next-line property-no-vendor-prefix -- Safari text fill */
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+    font-weight: 700;
+}
+
 main > .section.optix-together .columns-media > div {
-    gap: 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 30px;
+    margin-top: 50px;
+    position: relative;
 }
 
 main > .section.optix-together .columns-media > div > div {
-    padding: 32px;
-    border: 1px solid var(--border-color);
-    border-radius: 8px;
+    position: relative;
+    box-sizing: border-box;
+    width: 100%;
+    padding: 30px 30px 50px;
+    border: none;
+    border-radius: 0;
+    background-color: #fff;
+    box-shadow: 1px 1px 10px rgb(0 0 0 / 20%);
     text-align: center;
 }
 
+/* "+" badge between stacked cards (mobile / tablet). */
+main > .section.optix-together .columns-media > div > div:first-child::after {
+    content: "+";
+    position: absolute;
+    bottom: -65px;
+    right: 50%;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: #e6e7e8;
+    box-shadow: 1px 1px 10px rgb(0 0 0 / 20%);
+    color: var(--text-color);
+    font-size: 30px;
+    font-weight: 700;
+    line-height: 1;
+    transform: translate(50%, -50%);
+}
+
 main > .section.optix-together .columns-media p {
-    margin: 0 0 16px;
+    margin: 0 0 20px;
+    padding: 0;
     font-size: 20px;
     font-weight: 300;
     line-height: 1.4;
@@ -5375,71 +5621,174 @@ main > .section.optix-together .columns-media p {
 }
 
 main > .section.optix-together .columns-media p:has(img) {
+    margin: 0;
     text-align: center;
 }
 
-main > .section.optix-together .columns-media p:has(img) img {
-    width: auto;
-    max-height: 60px;
+main > .section.optix-together .columns-media p:last-child {
+    margin-bottom: 0;
 }
 
-@media (width >= 960px) {
+main > .section.optix-together .columns-media p:has(img) img {
+    display: block;
+    width: 220px;
+    max-width: 100%;
+    height: auto;
+    max-height: 60px;
+    margin: 20px auto 30px;
+    object-fit: contain;
+}
+
+main > .section.optix-together .columns-media .dotted-divider {
+    margin: 20px 0;
+    border-bottom: 2px dashed rgb(0 0 0 / 27%);
+    opacity: 0.5;
+}
+
+@media (width >= 768px) {
+    main > .section.optix-together {
+        padding: 80px 0 120px;
+    }
+
+    main > .section.optix-together .optix-together-lead {
+        font-size: 28px;
+    }
+
+    /* Keep stacked until 1200 — override columns-media row at 768. */
     main > .section.optix-together .columns-media > div {
-        align-items: stretch;
-        gap: 40px;
+        flex-direction: column;
+        gap: 30px;
     }
 
     main > .section.optix-together .columns-media > div > div {
-        padding: 40px;
+        padding: 35px;
+    }
+
+    /* Live: centered copy above 768; left-aligned only on small screens. */
+    main > .section.optix-together .columns-media p {
+        padding: 0 5px;
+        text-align: center;
+    }
+
+    main > .section.optix-together .columns-media p:has(img) {
+        padding: 0;
+    }
+
+    main > .section.optix-together .columns-media p:has(img) img {
+        width: auto;
+        max-width: 300px;
+        min-height: 60px;
+        margin: 0 auto 35px;
     }
 }
 
-/* ---- optix-getstarted: a "Getting Started" CTA band (hero-cta) on a
-   blue banner, followed by a "Pricing and Requirements" list on white.
-   Production banner uses a photo background with white text; the photo
-   asset was not imported, so approximate with the brand blue gradient
-   (noted as a delta). Band padding 40px 60px 50px, H2 40/700 white,
-   copy 20/300 white, CTA = white pill with dark-blue text. ---- */
-main > .section.optix-getstarted {
-    margin: 0;
-    padding: 40px 0 60px;
+@media (width >= 1200px) {
+    main > .section.optix-together .columns-media > div {
+        flex-flow: row nowrap;
+        align-items: stretch;
+        gap: 20px;
+        overflow: visible;
+    }
+
+    main > .section.optix-together .columns-media > div > div {
+        flex: 1 1 0;
+        width: auto;
+        min-width: 0;
+        overflow: visible;
+    }
+
+    main > .section.optix-together .columns-media > div > div:first-child::after {
+        top: 51%;
+        right: -35px;
+        bottom: auto;
+        transform: translateY(-50%);
+    }
+
+    main > .section.optix-together .columns-media .dotted-divider {
+        margin: 40px 0;
+    }
 }
 
-main > .section.optix-getstarted .hero-cta-wrapper {
+/* ---- optix-getstarted / hero-cta-container: production `#optixLP .get-started`
+   CTA band. Authored `background-image` + `background-image-mobile` are moved
+   onto `.hero-cta` by decorateOptixGetStarted so the banner stays on the
+   constrained card (live container-width treatment). ---- */
+main > .section.optix-getstarted.hero-cta-container,
+main > .section.optix-getstarted {
+    margin: 0 0 80px;
+    padding: 0;
+    overflow: hidden;
+    background-image: none !important;
+    background-color: transparent;
+}
+
+main > .section.optix-getstarted > .hero-cta-wrapper {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 0 24px;
+    padding: 0 20px;
 }
 
+main > .section.optix-getstarted .hero-cta,
 main > .section.optix-getstarted .hero-cta.no-image {
+    box-sizing: border-box;
     min-height: 0;
-    padding: 40px 60px 50px;
-    border-radius: 6px;
-    background: linear-gradient(120deg, #14499a 0%, #003e7e 100%);
+    margin: 0;
+    padding: 20px 30px 300px;
+    border-radius: 0;
+    background-color: transparent;
+
+    /* Inline style from decorateOptixGetStarted wins; vars are fallback. */
+    background-image: var(--optix-getstarted-bg-mobile, var(--optix-getstarted-bg));
+
+    /* Live mobile uses width 100% so the tall composite isn't cropped. */
+    background-position: center top;
+    background-size: 100% auto;
+    background-repeat: no-repeat;
+    color: #fff;
 }
 
+/* beat block-level `.hero-cta.no-image * { color: var(--text-color) }` */
+main > .section.optix-getstarted .hero-cta.no-image * {
+    color: #fff;
+}
+
+main > .section.optix-getstarted .hero-cta h2,
 main > .section.optix-getstarted .hero-cta.no-image h2 {
     max-width: none;
+    width: 100%;
     margin: 0 0 16px;
-    font-size: 32px;
+    font-size: 28px;
     font-weight: 700;
     line-height: 1.1;
     text-align: left;
     color: #fff;
 }
 
+main > .section.optix-getstarted .hero-cta p,
 main > .section.optix-getstarted .hero-cta.no-image p {
-    max-width: 640px;
+    max-width: none;
+    width: 100%;
     margin: 0 0 20px;
     font-size: 20px;
     font-weight: 300;
-    line-height: 1.5;
+    line-height: normal;
     text-align: left;
     color: #fff;
 }
 
-main > .section.optix-getstarted .hero-cta.no-image a:any-link {
-    display: inline-block;
+main > .section.optix-getstarted .hero-cta p.button-wrapper,
+main > .section.optix-getstarted .hero-cta.no-image p.button-wrapper {
+    margin-bottom: 0;
+}
+
+main > .section.optix-getstarted .hero-cta a:any-link,
+main > .section.optix-getstarted .hero-cta.no-image a:any-link,
+main > .section.optix-getstarted .hero-cta a.button,
+main > .section.optix-getstarted .hero-cta.no-image a.button {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin: 0;
     padding: 8px 40px;
     border: 0;
     border-radius: 5px;
@@ -5447,46 +5796,237 @@ main > .section.optix-getstarted .hero-cta.no-image a:any-link {
     color: #003e7e;
     font-size: 16px;
     font-weight: 700;
+    line-height: normal;
+    text-decoration: none;
 }
 
+@media (width >= 1200px) {
+    main > .section.optix-getstarted .hero-cta a:any-link,
+    main > .section.optix-getstarted .hero-cta.no-image a:any-link {
+        padding: 12px 70px;
+    }
+}
+
+/* production `.external-URL` square-arrow icon (dark stroke on white pill) */
+main > .section.optix-getstarted .hero-cta a:any-link::after,
+main > .section.optix-getstarted .hero-cta.no-image a:any-link::after,
+main > .section.optix-getstarted .hero-cta a.button::after,
+main > .section.optix-getstarted .hero-cta.no-image a.button::after {
+    content: '';
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    margin-left: 0;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='2 2 20 20' fill='none' stroke='%23003e7e' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M14 3h7v7'/%3E%3Cpath d='M10 14 21 3'/%3E%3Cpath d='M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5'/%3E%3C/svg%3E");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    vertical-align: -1px;
+}
+
+main > .section.optix-getstarted .hero-cta a:hover,
+main > .section.optix-getstarted .hero-cta a:focus-visible,
 main > .section.optix-getstarted .hero-cta.no-image a:hover,
 main > .section.optix-getstarted .hero-cta.no-image a:focus-visible {
+    background: #fff;
     color: #003e7e;
     text-decoration: none;
     opacity: 0.9;
 }
 
-/* trailing "Pricing and Requirements" list on white */
-main > .section.optix-getstarted .default-content-wrapper {
-    margin-top: 40px;
-}
+/* tablet: desktop framing, shifted left (live @max-width 959) */
+@media (width >= 768px) {
+    main > .section.optix-getstarted.hero-cta-container,
+    main > .section.optix-getstarted {
+        margin-bottom: 120px;
+    }
 
-main > .section.optix-getstarted .default-content-wrapper h2 {
-    margin: 0 auto 24px;
-    font-size: 40px;
-    font-weight: 700;
-    line-height: 1.1;
-    text-align: center;
-    color: var(--text-color);
-}
+    main > .section.optix-getstarted .hero-cta,
+    main > .section.optix-getstarted .hero-cta.no-image {
+        padding: 40px 30px;
+        background-image: var(--optix-getstarted-bg, var(--optix-getstarted-bg-mobile));
+        background-position: -180px center;
+        background-size: cover;
+    }
 
-main > .section.optix-getstarted .default-content-wrapper ul {
-    max-width: 900px;
-    margin: 0 auto;
-    padding-left: 24px;
-}
-
-main > .section.optix-getstarted .default-content-wrapper li {
-    margin: 0 0 12px;
-    font-size: 18px;
-    font-weight: 300;
-    line-height: 1.5;
-    color: var(--text-color);
+    main > .section.optix-getstarted .hero-cta h2,
+    main > .section.optix-getstarted .hero-cta.no-image h2,
+    main > .section.optix-getstarted .hero-cta p,
+    main > .section.optix-getstarted .hero-cta.no-image p {
+        width: 50%;
+    }
 }
 
 @media (width >= 960px) {
+    main > .section.optix-getstarted > .hero-cta-wrapper {
+        padding: 0 32px;
+    }
+
+    main > .section.optix-getstarted .hero-cta,
+    main > .section.optix-getstarted .hero-cta.no-image {
+        padding: 40px 60px 50px;
+        background-position: center;
+    }
+
+    main > .section.optix-getstarted .hero-cta h2,
     main > .section.optix-getstarted .hero-cta.no-image h2 {
+        width: 40%;
         font-size: 40px;
+    }
+
+    main > .section.optix-getstarted .hero-cta p,
+    main > .section.optix-getstarted .hero-cta.no-image p {
+        width: 40%;
+    }
+}
+
+/* ---- pricing (production `#optixLP .pricing-req.container`): white
+   shadowed card with decorative 3D nut + red button images.
+   Mobile-first — production uses max-width:768 overrides; we invert that.
+   Decorations are ONLY the card ::before / ::after (no authored images /
+   section-bg layers). Section padding reserves room for the overhang;
+   overflow:hidden clips any stray décor that would otherwise float below. ---- */
+main > .section.pricing {
+    margin: 0 0 40px;
+    padding: 28px 20px 55px;
+    overflow: hidden;
+    background-color: transparent;
+}
+
+/* Hide any authored pictures / corner-bg layers in this section — live
+   pricing-req has no <img> décor, only CSS pseudos on the card. */
+main > .section.pricing img,
+main > .section.pricing picture,
+main > .section.pricing > .section-bg {
+    display: none;
+}
+
+/* Card shell — production `.pricing-req` padding / shadow (mobile sizes) */
+main > .section.pricing > .default-content-wrapper {
+    position: relative;
+    box-sizing: border-box;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 45px 30px;
+    background-color: #fff;
+    box-shadow: 1px 1px 10px rgb(0 0 0 / 20%);
+}
+
+/* Production ::before nut + ::after button — mobile sizes first. */
+main > .section.pricing > .default-content-wrapper::before {
+    position: absolute;
+    top: -20px;
+    right: 0;
+    z-index: 1;
+    width: 44px;
+    height: 42px;
+    content: '';
+    background: url('../images/optix-pricing-nut.webp') center / contain no-repeat;
+    pointer-events: none;
+}
+
+main > .section.pricing > .default-content-wrapper::after {
+    position: absolute;
+    right: 50px;
+    bottom: -45px;
+    z-index: 1;
+    width: 93px;
+    height: 90px;
+    content: '';
+    background: url('../images/optix-pricing-button.webp') center / contain no-repeat;
+    pointer-events: none;
+}
+
+main > .section.pricing > .default-content-wrapper h2 {
+    margin: 0 0 30px;
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 1.1;
+    text-align: left;
+    color: var(--text-color);
+}
+
+main > .section.pricing > .default-content-wrapper ul {
+    margin: 0;
+    padding-left: 1.25em;
+}
+
+main > .section.pricing > .default-content-wrapper li {
+    margin: 0 0 0.75em;
+    font-size: 20px;
+    line-height: 1.5;
+}
+
+main > .section.pricing > .default-content-wrapper li:last-child {
+    margin-bottom: 0;
+}
+
+/* production `.RA-body a` + `.external-URL::after` square-arrow icon */
+main > .section.pricing > .default-content-wrapper a:any-link {
+    color: #cd163f;
+    font-weight: 700;
+    text-decoration: underline;
+}
+
+main > .section.pricing > .default-content-wrapper a:any-link::after {
+    content: '';
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    margin-left: 5px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='2 2 20 20' fill='none' stroke='%23cd163f' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M14 3h7v7'/%3E%3Cpath d='M10 14 21 3'/%3E%3Cpath d='M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5'/%3E%3C/svg%3E");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    vertical-align: -1px;
+}
+
+main > .section.pricing > .default-content-wrapper a:hover,
+main > .section.pricing > .default-content-wrapper a:focus-visible {
+    color: #cd163f;
+    text-decoration: underline;
+    opacity: 0.85;
+}
+
+@media (width >= 768px) {
+    main > .section.pricing {
+        margin-bottom: 60px;
+        padding: 25px 20px 30px;
+
+        /* nut hangs past the right edge on desktop — allow that overhang */
+        overflow: visible;
+    }
+
+    main > .section.pricing > .default-content-wrapper {
+        padding: 60px 40px;
+    }
+
+    /* desktop image positions — nut overhangs right edge, button sits lower */
+    main > .section.pricing > .default-content-wrapper::before {
+        top: 40px;
+        right: -30px;
+        width: 65px;
+        height: 63px;
+    }
+
+    main > .section.pricing > .default-content-wrapper::after {
+        right: 150px;
+        bottom: -50px;
+        width: 117px;
+        height: 113px;
+    }
+
+    main > .section.pricing > .default-content-wrapper h2 {
+        margin-bottom: 40px;
+        font-size: 40px;
+        text-align: center;
+    }
+}
+
+@media (width >= 960px) {
+    main > .section.pricing {
+        padding-right: 32px;
+        padding-left: 32px;
     }
 }
 
@@ -5701,12 +6241,177 @@ main .section.header h5,
 main .section.header h6 {
     margin-top: 0;
 }
+
+/* cloud-maintenance-software (and other .header heroes) */
+main .section.header h1 {
+    margin-bottom: 20px;
+    font-size: 50px;
+    line-height: 1;
+}
+
+main .section.header p {
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-size: 20px;
+}
+
+@media (width >= 960px) {
+    main .section.header h1 {
+        font-size: 54px;
+    }
+}
 /* stylelint-enable no-descending-specificity */
 
-/* stylelint-disable-next-line no-descending-specificity */
+/* stylelint-disable no-descending-specificity */
 main .section.centre .default-content-wrapper {
     text-align: center;
 }
+
+main .section.centre .default-content-wrapper h2 {
+    margin-top: 50px;
+    margin-bottom: 20px;
+    font-size: 36px;
+}
+
+main > .section.centre.pf-final-cta .default-content-wrapper h2 {
+    max-width: 520px;
+    margin-top: 0;
+    margin-right: auto;
+    margin-left: auto;
+    font-size: 38px;
+    line-height: 1.1;
+}
+
+main > .section.centre.pf-final-cta .default-content-wrapper h2 img {
+    width: 150px;
+    height: 150px;
+    margin-top: 0;
+    margin-bottom: 40px;
+}
+
+@media (width >= 960px) {
+    main > .section.centre.pf-final-cta .default-content-wrapper h2 {
+        font-size: 48px;
+    }
+}
+
+/* Connect-style intro headings in padding-xlarge centre sections */
+main > .section.centre.padding-xlarge:not(.grey) .default-content-wrapper > h2 {
+    margin-top: 0;
+    margin-bottom: 20px;
+}
+
+main > .section.centre.padding-xlarge:not(.grey)
+    .default-content-wrapper:has(> h2):has(> p) {
+    margin-top: 30px;
+    margin-bottom: 0;
+}
+
+main > .section.centre.padding-xlarge:not(.grey)
+    .default-content-wrapper:has(> h2):has(> p)
+    > p {
+    margin-bottom: 0;
+}
+
+@media (width >= 768px) {
+    main > .section.centre.padding-xlarge:not(.grey)
+        .default-content-wrapper:has(> h2):has(> p) {
+        margin-top: 80px;
+        margin-bottom: 60px;
+    }
+}
+
+main .section.centre .default-content-wrapper p {
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-size: 20px;
+}
+
+main .section.centre .default-content-wrapper p:has(> a.cta-link) {
+    margin-bottom: 0;
+}
+
+/* Match production mobile CTA: centered 75% block link */
+@media (width < 768px) {
+    main .section.centre .default-content-wrapper a.cta-link:any-link {
+        display: block;
+        width: 75%;
+        margin: 0 auto;
+    }
+}
+
+main > .section.grey.centre {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+main > .section.grey.centre .default-content-wrapper h2 {
+    margin: 0 8px 20px;
+    font-size: 44px;
+    line-height: 1.1;
+}
+
+/* Reliability-style intro (h2 + supporting p) */
+main > .section.grey.centre .default-content-wrapper:has(> h2):has(> p) {
+    margin-top: 30px;
+    margin-bottom: 0;
+}
+
+@media (width >= 768px) {
+    main > .section.grey.centre .default-content-wrapper:has(> h2):has(> p) {
+        margin-top: 80px;
+        margin-bottom: 60px;
+    }
+
+    main > .section.grey.centre .default-content-wrapper h2 {
+        margin-right: 16px;
+        margin-left: 16px;
+    }
+}
+
+@media (width >= 960px) {
+    main > .section.header .default-content-wrapper {
+        padding-right: 0;
+        padding-left: 0;
+    }
+
+    main > .section.grey.centre .default-content-wrapper {
+        padding-right: 0;
+        padding-left: 0;
+    }
+
+    main > .section.centre.padding-xlarge:not(.grey) .default-content-wrapper {
+        padding-right: 0;
+        padding-left: 0;
+    }
+
+    /* Intro centre band (e.g. "Drive innovation…") — no padding-xlarge */
+    main > .section.centre:not(.grey, .padding-xlarge) .default-content-wrapper {
+        padding-right: 0;
+        padding-left: 0;
+    }
+
+    main > .section.centre.pf-final-cta .default-content-wrapper {
+        padding-right: 0;
+        padding-left: 0;
+    }
+
+    main > .section.grey.centre .columns-media-wrapper {
+        padding-right: 0;
+        padding-left: 0;
+    }
+
+    main > .section.centre .cards-icon-wrapper {
+        padding-right: 0;
+        padding-left: 0;
+    }
+
+    main > .section.grey.centre .default-content-wrapper h2 {
+        margin-right: 200px;
+        margin-left: 200px;
+    }
+}
+/* stylelint-enable no-descending-specificity */
 
 main .section.padding-small,
 main .padding-small.block {
@@ -5725,6 +6430,15 @@ main .padding-large.block {
 
 main .section.padding-xlarge,
 main .padding-xlarge.block {
-    padding: 100px 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding: 50px 0;
+}
+
+@media (width >= 960px) {
+    main .section.padding-xlarge,
+    main .padding-xlarge.block {
+        padding: 100px 0;
+    }
 }
 
