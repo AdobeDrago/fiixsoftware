@@ -5708,8 +5708,10 @@ main > .section.optix-getstarted .hero-cta.no-image {
     padding: 20px 30px 300px;
     border-radius: 0;
     background-color: transparent;
+
     /* Inline style from decorateOptixGetStarted wins; vars are fallback. */
     background-image: var(--optix-getstarted-bg-mobile, var(--optix-getstarted-bg));
+
     /* Live mobile uses width 100% so the tall composite isn't cropped. */
     background-position: center top;
     background-size: 100% auto;
