@@ -5874,7 +5874,7 @@ main > .section.grey.centre .default-content-wrapper:has(> h2):has(> p) {
     }
 
     /* Intro centre band (e.g. "Drive innovation…") — no padding-xlarge */
-    main > .section.centre:not(.grey):not(.padding-xlarge) .default-content-wrapper {
+    main > .section.centre:not(.grey, .padding-xlarge) .default-content-wrapper {
         padding-right: 0;
         padding-left: 0;
     }
