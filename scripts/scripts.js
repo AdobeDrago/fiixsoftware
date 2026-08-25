@@ -416,6 +416,9 @@ function decoratePfFinalCta(main) {
   spacer.className = 'pf-pre-footer-spacer';
   spacer.setAttribute('aria-hidden', 'true');
   cta.after(spacer);
+}
+
+/**
  * Optix "Better Together" section: split the H2 into lead + accent spans
  * (live uses `.reg-fw` / `.RA-text-gradient`) and insert dashed dividers
  * between the two text paragraphs in each columns-media card.
