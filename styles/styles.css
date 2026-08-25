@@ -5682,9 +5682,9 @@ main > .section.optix-together .columns-media .dotted-divider {
 }
 
 /* ---- optix-getstarted / hero-cta-container: production `#optixLP .get-started`
-   CTA band. Authored section `background-image` is neutralized so the banner
-   paints on the constrained `.hero-cta` (matches live container-width card),
-   with a mobile photo + tall bottom padding and a desktop cover photo. ---- */
+   CTA band. Authored section `background-image` is moved onto `.hero-cta` by
+   decorateOptixGetStarted (--optix-getstarted-bg) so the banner stays on the
+   constrained card, matching live container-width treatment. ---- */
 main > .section.optix-getstarted.hero-cta-container,
 main > .section.optix-getstarted {
     margin: 0 0 80px;
@@ -5707,8 +5707,11 @@ main > .section.optix-getstarted .hero-cta.no-image {
     margin: 0;
     padding: 20px 30px 280px;
     border-radius: 0;
-    background: url("../images/optix-getting-started-mobile.webp") center top /
-        cover no-repeat;
+    background-color: transparent;
+    background-image: var(--optix-getstarted-bg);
+    background-position: center top;
+    background-size: cover;
+    background-repeat: no-repeat;
     color: #fff;
 }
 
@@ -5799,7 +5802,7 @@ main > .section.optix-getstarted .hero-cta.no-image a:focus-visible {
     opacity: 0.9;
 }
 
-/* tablet: desktop banner, shifted left (live @max-width 959) */
+/* tablet: desktop framing, shifted left (live @max-width 959) */
 @media (width >= 768px) {
     main > .section.optix-getstarted.hero-cta-container,
     main > .section.optix-getstarted {
@@ -5809,8 +5812,8 @@ main > .section.optix-getstarted .hero-cta.no-image a:focus-visible {
     main > .section.optix-getstarted .hero-cta,
     main > .section.optix-getstarted .hero-cta.no-image {
         padding: 40px 30px;
-        background: url("../images/optix-getting-started-desktop.webp") -180px
-            center / cover no-repeat;
+        background-position: -180px center;
+        background-size: cover;
     }
 
     main > .section.optix-getstarted .hero-cta h2,

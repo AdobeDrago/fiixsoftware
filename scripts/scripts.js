@@ -425,6 +425,31 @@ function decorateOptixTogether(main) {
 }
 
 /**
+ * Optix Getting Started: move the authored section `background-image` onto
+ * the constrained `.hero-cta` card (live paints the banner on the card, not
+ * full-bleed). Clears the section so CSS can keep the section transparent.
+ * @param {Element} main The main container element
+ */
+function decorateOptixGetStarted(main) {
+  main.querySelectorAll('.section.optix-getstarted').forEach((section) => {
+    const hero = section.querySelector('.hero-cta');
+    if (!hero) return;
+
+    let bg = section.style.backgroundImage;
+    if (!bg || bg === 'none') {
+      const raw = section.dataset.backgroundImage || section.dataset.background;
+      bg = raw ? toSectionBackgroundImage(raw) : '';
+    }
+    if (!bg) return;
+
+    // Authoring often ships width=750; request a larger render for the banner.
+    const large = bg.replace(/([?&]width=)\d+/i, `$1${2000}`);
+    hero.style.setProperty('--optix-getstarted-bg', large);
+    section.style.backgroundImage = '';
+  });
+}
+
+/**
  * Decorates the main element.
  * @param {Element} main The main element
  */
@@ -441,6 +466,7 @@ export function decorateMain(main) {
   decorateCtaLinks(main);
   decorateBlogHeader(main);
   decorateOptixTogether(main);
+  decorateOptixGetStarted(main);
 }
 
 /**
