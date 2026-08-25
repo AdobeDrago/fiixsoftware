@@ -42,10 +42,9 @@ main > .section.resource-intro-container > .resource-intro-wrapper {
 
 @media (width >= 960px) {
   .resource-intro {
-    /* The local EDS header occupies the 100px space that the live site
-       overlays above this band. Keep the content at the same document y
-       positions while preserving the live band end at 486px. */
-    padding: 50px 0 140px;
+    /* Match the live page's generous desktop introduction band: the filters
+       float in the lower right while the cards begin below the copy. */
+    padding: 50px 0 220px;
   }
 
   .resource-intro .resource-intro-heading {
@@ -78,7 +77,7 @@ main > .section.resource-intro-container > .resource-intro-wrapper {
 @media (width <= 460px) {
   .resource-intro {
     margin-top: 0;
-    padding-top: 50px;
+    padding-top: 148px;
   }
 
   .resource-intro .resource-intro-heading {
