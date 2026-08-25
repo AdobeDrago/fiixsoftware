@@ -29,6 +29,27 @@ indices:
       - /resource-center/case-studies/**
     exclude:
       - /resource-center/case-studies
+      # category / industry archive pages (not articles)
+      - /resource-center/case-studies/analytics
+      - /resource-center/case-studies/asset-management
+      - /resource-center/case-studies/cmms-implementation
+      - /resource-center/case-studies/condition-based-maintenance
+      - /resource-center/case-studies/integrations
+      - /resource-center/case-studies/parts-management
+      - /resource-center/case-studies/predictive-maintenance
+      - /resource-center/case-studies/roi
+      - /resource-center/case-studies/sustainability
+      - /resource-center/case-studies/work-order-management
+      - /resource-center/case-studies/agriculture
+      - /resource-center/case-studies/construction
+      - /resource-center/case-studies/discrete-manufacturing
+      - /resource-center/case-studies/facilities-management
+      - /resource-center/case-studies/fleet-management
+      - /resource-center/case-studies/mining
+      - /resource-center/case-studies/oil-and-gas
+      - /resource-center/case-studies/process-manufacturing
+      - /resource-center/case-studies/renewable-energy
+      - /resource-center/case-studies/wholesale-distribution
     target: /case-studies-index.json
     properties:
       title:
