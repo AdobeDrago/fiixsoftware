@@ -131,11 +131,22 @@ main > .section.cards-testimonial-container {
     padding-bottom: 10px;
 }
 
+/* pf-testimonials already sets margin:0 + padding; don't re-add the
+   standalone cards-testimonial gutters (they create a white strip above). */
+main > .section.pf-testimonials.cards-testimonial-container {
+    margin: 0;
+    padding: 70px 0 40px;
+}
+
 /* ---- Tablet + desktop: section spacing + 3-up grid ---- */
 @media (width >= 768px) {
     main > .section.cards-testimonial-container {
         padding-top: 70px;
         padding-bottom: 40px;
+    }
+
+    main > .section.pf-testimonials.cards-testimonial-container {
+        padding: 70px 0 40px;
     }
 
     main

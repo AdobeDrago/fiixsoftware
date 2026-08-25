@@ -2504,7 +2504,11 @@ main > .section.fc-hero {
    eyebrow, H2 the large headline, intro 20px/300. ---- */
 main > .section.pf-hero {
     margin: 0;
-    background-color: #f7f9fc;
+
+    @media (width >= 960px) {
+       background-color: #f7f9fc;
+    }
+    
 
     /* The purple hero panel bleeds to the viewport edge with a 100vw pseudo
      element, which otherwise stretches the document ~100vw wide and gives the
@@ -2614,8 +2618,11 @@ main > .section.pf-hero:has(.hero-lead-media-layers) > .hero-lead-wrapper {
     padding: 0;
 }
 
+/* Layered app-promo (mobile-cmms): full-bleed grey crop + copy, matching
+   live `#mobile-product .header`. No bottom margin — live sits flush on
+   the following trust-logos band (`.fiix-users`). */
 .pf-hero .hero-lead-wrapper .hero-lead:has(.hero-lead-media-layers) {
-    margin-bottom: 30px;
+    margin-bottom: 0;
 }
 
 .pf-hero
@@ -3788,7 +3795,7 @@ main > .section.pf-video > .default-content-wrapper {
     padding: 0;
 }
 
-@media (width >= 768px) and (width < 960px) {
+@media (width >= 768px) {
     main > .section.pf-video > .default-content-wrapper {
         padding: 0 54px;
     }
@@ -3899,9 +3906,26 @@ main
    into a synced image panel beside the accordion (see accordion-faq.css)
    instead of rendering inline. ---- */
 main > .section.pf-explore {
+    position: relative;
     margin: 0;
     padding: 0 0 120px;
     background-color: #f7f7f7;
+    border-bottom: none;
+}
+
+/* Divider aligns to the 1200px content column (production .container),
+   not the full-bleed section. */
+@media (width >= 768px) {
+    main > .section.pf-explore::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        width: 100%;
+        max-width: 1200px;
+        transform: translateX(-50%);
+        border-bottom: solid 2px #e1e1e1;
+    }
 }
 
 main > .section.pf-explore .default-content-wrapper h2 {
@@ -3926,6 +3950,19 @@ main > .section.pf-explore .accordion-faq a:any-link {
 
 main > .section.pf-explore .columns-logos-wrapper {
     padding: 60px 0;
+}
+
+/* Match production mobile inset on the Explore heading + badges band. */
+main > .section.pf-explore .columns-logos.with-heading {
+    padding-right: 20px;
+    padding-left: 20px;
+}
+
+@media (width >= 768px) {
+    main > .section.pf-explore .columns-logos.with-heading {
+        padding-right: 0;
+        padding-left: 0;
+    }
 }
 
 @media (width >= 960px) {
@@ -4046,6 +4083,100 @@ main > .section.pf-resources .cards-cta a.cards-cta-button:focus-visible {
     }
 }
 
+/* ---- pf-resources + accordion-faq: FAQ band on product pages
+   (production .workorder-faq). Distinct from the cards-cta resource-trio
+   variant above — 5% inset column, H2 30→38→48, dotted closed rows. ---- */
+main > .section.pf-resources.accordion-faq-container {
+    margin: 0;
+    padding: 0 0 140px;
+    background-color: #f7f7f7;
+}
+
+/* FAQ column mirrors production `.container` + `.workorder-faq`:
+   container locks to 768 / 960 / 1200 at the site breakpoints, then the
+   FAQ well is 90% of that (margin: 0 5%). Combined into one width so we
+   don't nest a second wrapper. */
+main > .section.pf-resources.accordion-faq-container > div:not(.section-bg) {
+    position: relative;
+    box-sizing: border-box;
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 0;
+    padding-right: 0;
+}
+
+/* production: .container { width: 768px }, FAQ well = 90% */
+@media (width >= 768px) {
+    main > .section.pf-resources.accordion-faq-container > div:not(.section-bg) {
+        width: 691px; /* 0.9 × 768 */
+        max-width: 90%;
+    }
+}
+
+/* production: .container { width: 960px; padding: 0 } */
+@media (width >= 960px) {
+    main > .section.pf-resources.accordion-faq-container > div:not(.section-bg) {
+        width: 864px; /* 0.9 × 960 */
+        max-width: none;
+    }
+}
+
+/* production: .container { width: 1200px } */
+@media (width >= 1200px) {
+    main > .section.pf-resources.accordion-faq-container > div:not(.section-bg) {
+        width: 1080px; /* 0.9 × 1200 */
+        max-width: none;
+    }
+}
+
+main > .section.pf-resources.accordion-faq-container > .default-content-wrapper {
+    padding: 0;
+}
+
+main
+    > .section.pf-resources.accordion-faq-container
+    > .default-content-wrapper
+    h2 {
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 40px 0 50px;
+    font-size: 30px;
+    font-weight: 700;
+    line-height: 1;
+    text-align: center;
+    color: var(--text-color);
+}
+
+@media (width >= 768px) {
+    main
+        > .section.pf-resources.accordion-faq-container
+        > .default-content-wrapper
+        h2 {
+        font-size: 38px;
+    }
+}
+
+@media (width >= 960px) {
+    main
+        > .section.pf-resources.accordion-faq-container
+        > .default-content-wrapper
+        h2 {
+        max-width: 50%;
+        padding: 100px 0 50px;
+        font-size: 48px;
+    }
+}
+
+/* Tips cards + FAQ share one continuous grey band on production
+   (same section7). Keep the handoff flush so only the FAQ H2 margin
+   creates the gap (100px desktop / 40px + cards pb mobile). */
+main
+    > .section.pf-resources.cards-cta-container
+    + .section.pf-resources.accordion-faq-container {
+    margin-top: 0;
+}
+
 /* ---- pf-final-cta: centered "Ready to see more?" heading + paragraph
    + two buttons (Book a demo / Take a free tour). The two links are
    authored as a bulleted list. Production H2 48/700 centered. ---- */
@@ -4057,13 +4188,23 @@ main > .section.pf-final-cta {
 
 /* Production also draws a grey (#f7f7f7) band rotated 5deg across the
    seam between the grey pf-resources section and the section right after
-   it (.home-seemore .grey), so that boundary reads as a diagonal cut
+   it (.home-seemore .angle.grey), so that boundary reads as a diagonal cut
    instead of a flat line. Recreated here as a ::before since there's no
-   authored element for it. Scoped to only fire when pf-final-cta
-   directly follows the cards-cta-container variant of pf-resources —
-   this is specific to that section transition, not every pf-final-cta. */
-main > .section.pf-resources.cards-cta-container + .section.pf-final-cta {
+   authored element for it. Fires whenever pf-final-cta follows any
+   pf-resources band (cards-cta on cmms-software, accordion-faq FAQ on
+   mobile-cmms — both are grey #f7f7f7 on live).
+
+   Keep the preceding pf-resources above the angle: the ::before extends
+   upward into that section, and without a higher z-index the band paints
+   over FAQ / tips content (text disappears; only +/- icons peek through). */
+main > .section.pf-resources:has(+ .section.pf-final-cta) {
     position: relative;
+    z-index: 1;
+}
+
+main > .section.pf-resources + .section.pf-final-cta {
+    position: relative;
+    z-index: 0;
     padding-top: 100px;
     padding-bottom: 40px;
 
@@ -4074,9 +4215,7 @@ main > .section.pf-resources.cards-cta-container + .section.pf-final-cta {
     overflow-x: clip;
 }
 
-main
-    > .section.pf-resources.cards-cta-container
-    + .section.pf-final-cta::before {
+main > .section.pf-resources + .section.pf-final-cta::before {
     content: "";
     position: absolute;
     top: -300px;
@@ -4089,10 +4228,7 @@ main
     pointer-events: none;
 }
 
-main
-    > .section.pf-resources.cards-cta-container
-    + .section.pf-final-cta
-    .default-content-wrapper {
+main > .section.pf-resources + .section.pf-final-cta .default-content-wrapper {
     position: relative;
     z-index: 1;
 }
@@ -4160,14 +4296,12 @@ main
 }
 
 @media (width >= 960px) {
-    main > .section.pf-resources.cards-cta-container + .section.pf-final-cta {
+    main > .section.pf-resources + .section.pf-final-cta {
         padding-top: 300px;
         padding-bottom: 80px;
     }
 
-    main
-        > .section.pf-resources.cards-cta-container
-        + .section.pf-final-cta::before {
+    main > .section.pf-resources + .section.pf-final-cta::before {
         top: -100px;
         height: 300px;
     }

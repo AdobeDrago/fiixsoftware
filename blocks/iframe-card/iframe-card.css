@@ -1,199 +1,201 @@
-/* Full-bleed light-grey band (production: fiixsoftware.com/cmms/mobile-cmms),
-   matching the site-wide grey-background section pattern but self-contained
-   so the block looks right even when authored without that section style.
+/* Full-bleed light-grey band (production: #mobile-product .storylane).
    Specificity must match styles.css's `main > .section > div:not(.section-bg)`
    (0,2,2) to win the cascade tie via source order. */
 
+/* Block owns vertical padding — drop default section margins so they don't
+   leave a white strip above/below. */
+main > .section.iframe-card-container {
+  margin: 0;
+}
+
 main > .section > div.iframe-card-wrapper {
-    max-width: none;
-    margin: 0;
-    padding: 0;
+  max-width: none;
+  margin: 0;
+  padding: 0;
 }
 
+/* live: #mobile-product .storylane { padding: 50px 0 } at every breakpoint */
 .iframe-card {
-    box-sizing: border-box;
-    width: 100%;
-    padding: 48px 20px;
-    background-color: #f2f2f2;
-    overflow: hidden;
+  position: relative;
+  box-sizing: border-box;
+  width: 100%;
+  padding: 50px 0;
+  background-color: #f2f2f2;
+  overflow: hidden;
 }
 
-/* Centered content column, independent of the full-bleed background above —
-   both rows (heading, media+embed) live here so they share one max-width. */
 .iframe-card-inner {
-    position: relative;
-    box-sizing: border-box;
-    max-width: 1200px;
-    margin: 0 auto;
+  position: relative;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 90%;
+  margin: 0 auto;
+  z-index: 2;
 }
 
-/* ---- heading row ---- */
+/* ---- heading — live ≤1199: width 80%, centered, margin-bottom 50px ---- */
 .iframe-card-heading {
-    position: relative;
-    z-index: 1;
-    margin-bottom: 32px;
-    text-align: center;
+  position: relative;
+  z-index: 1;
+  width: 80%;
+  margin: 0 0 50px;
+  text-align: center;
 }
 
 .iframe-card-heading p,
 .iframe-card-heading h1,
 .iframe-card-heading h2,
 .iframe-card-heading h3 {
-    margin: 0;
-    font-size: 28px;
-    font-weight: 700;
-    line-height: 1.2;
-    color: var(--text-color);
+  margin: 0;
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--text-color);
 }
 
 .iframe-card-heading em,
 .iframe-card-heading i {
-    font-style: normal;
+  font-style: normal;
 }
 
-/* ---- media + embed row ---- */
+/* ---- embed — live .sl-container + Storylane padding-bottom aspect ---- */
 .iframe-card-embed {
-    position: relative;
-    z-index: 1;
-    width: 100%;
-    max-width: 320px;
-    margin: 0 auto;
+  position: relative;
+  box-sizing: border-box;
+  z-index: 1;
+  width: 300px;
+  max-width: 100%;
+  height: 0;
+  margin: 0 auto;
+  padding-bottom: calc(198.63% + 25px);
 }
 
 .iframe-card-embed iframe {
-    display: block;
-    width: 100%;
-    aspect-ratio: 9 / 19.5;
-    border: 0;
-    background-color: #fff;
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  background-color: #fff;
 }
 
-/* Decorative background artwork (authored shapes graphic). Absolutely
-   positioned relative to .iframe-card-inner so it can bleed past the centered
-   content's edge like production, and never pushes the embed around —
-   mobile-first placed under/behind the embed. */
+/* Decorative artwork on the full-bleed band (live: .accent-img under .storylane). */
 .iframe-card-media {
-    order: 1;
-    position: absolute;
-    z-index: 0;
-    bottom: -24px;
-    left: -20px;
-    width: 45%;
-    max-width: 220px;
-    pointer-events: none;
+  position: absolute;
+  z-index: 1;
+  bottom: 0;
+  left: 0;
+  width: 300px;
+  max-width: 100%;
+  pointer-events: none;
+  transform: rotate(180deg);
 }
 
 .iframe-card-media img {
-    display: block;
-    width: 100%;
-    height: auto;
+  display: block;
+  width: 100%;
+  height: auto;
 }
 
-/* Connecting arrow (authored as its own image, after the shapes graphic).
-   Kept in normal flow inside the heading — rather than absolutely
-   positioned — so it always sits directly under the heading text no matter
-   how tall the embed makes the row (align-items: center on .iframe-card-inner
-   moves the heading's own vertical position around). Production drops the
-   arrow entirely on mobile, where the layout stacks instead. */
+/* Connecting arrow — live only shows via em::after at ≥1199px */
 .iframe-card-arrow {
-    display: none;
+  display: none;
 }
 
 .iframe-card-arrow img {
-    display: block;
-    width: 100%;
-    height: auto;
+  display: block;
+  width: 100%;
+  height: auto;
 }
 
 @media (width >= 768px) {
-    .iframe-card {
-        padding: 64px 32px;
-    }
+  .iframe-card-inner {
+    width: 768px;
+  }
 
-    .iframe-card-inner {
-        display: flex;
-        justify-content: flex-start;
-        align-items: center;
-        gap: 180px;
-    }
+  .iframe-card-heading p,
+  .iframe-card-heading h1,
+  .iframe-card-heading h2,
+  .iframe-card-heading h3 {
+    font-size: 48px;
+  }
 
-    .iframe-card-heading {
-        flex: 0 1 560px;
-        margin-bottom: 0;
-        text-align: left;
-    }
+  .iframe-card-embed {
+    width: 320px;
+  }
 
-    .iframe-card-heading p,
-    .iframe-card-heading h1,
-    .iframe-card-heading h2,
-    .iframe-card-heading h3 {
-        font-size: 32px;
-    }
-
-    /* Underline flowing from the heading toward the embed, matching
-       production's blue underline (desktop only — production drops it on
-       mobile, where the layout stacks instead). The connecting arrow itself
-       is part of the authored decorative image, not drawn here, so it isn't
-       duplicated when that image already includes one. */
-    .iframe-card-heading em,
-    .iframe-card-heading i {
-        text-decoration: underline;
-        text-decoration-color: #00afeb;
-        text-decoration-thickness: 5px;
-        text-underline-offset: 8px;
-    }
-
-    .iframe-card-row {
-        flex: none;
-    }
-
-    .iframe-card-embed {
-        margin: 0;
-        max-width: 300px;
-    }
-
-    .iframe-card-media {
-        top: -70px;
-        bottom: auto;
-        left: -70px;
-        max-width: 300px;
-    }
-
-    .iframe-card-arrow {
-        display: block;
-        width: 220px;
-        margin-top: 16px;
-    }
+  .iframe-card-media {
+    left: 100px;
+    width: 400px;
+    max-width: none;
+  }
 }
 
 @media (width >= 960px) {
-    .iframe-card {
-        padding: 80px 32px;
-    }
+  .iframe-card-inner {
+    width: 960px;
+  }
+}
 
-    .iframe-card-heading p,
-    .iframe-card-heading h1,
-    .iframe-card-heading h2,
-    .iframe-card-heading h3 {
-        font-size: 48px;
-        max-width: 530px;
-    }
+/* live @media (min-width: 1199px): side-by-side + underline + curved arrow */
+@media (width >= 1200px) {
+  .iframe-card-inner {
+    width: 1200px;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 135px;
+  }
 
-    .iframe-card-embed {
-        max-width: 340px;
-    }
+  .iframe-card-heading {
+    position: relative;
+    width: auto;
+    text-align: left;
+  }
 
-    .iframe-card-media {
-        top: -80px;
-        left: -150px;
-        max-width: 400px;
-    }
+  .iframe-card-heading p,
+  .iframe-card-heading h1,
+  .iframe-card-heading h2,
+  .iframe-card-heading h3 {
+    max-width: 540px;
+  }
 
-    .iframe-card-arrow {
-        width: 421px;
-        margin-top: 0;
-        position: absolute;
-        right: -80px;
-        transform: rotate(180deg) scaleX(-1);
-    }
+  /* live: h2 em { border-bottom: 5px solid #00afeb } */
+  .iframe-card-heading em,
+  .iframe-card-heading i {
+    border-bottom: 5px solid #00afeb;
+  }
+
+  .iframe-card-row {
+    flex: none;
+  }
+
+  .iframe-card-embed {
+    margin: 0;
+    width: 320px;
+  }
+
+  /* live base: .accent-img { width: 400px; left: 100px; top: 0 } */
+  .iframe-card-media {
+    top: 0;
+    bottom: auto;
+    left: 100px;
+    width: 400px;
+    max-width: none;
+    transform: none;
+  }
+
+  /* live: em::after curved arrow 421×128, right -100px, bottom -138px */
+  .iframe-card-arrow {
+    display: block;
+    position: absolute;
+    right: -66px;
+    bottom: -123px;
+    width: 390px;
+    margin: 0;
+    transform: rotate(180deg) scaleX(-1);
+  }
 }

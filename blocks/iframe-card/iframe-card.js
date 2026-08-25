@@ -50,8 +50,11 @@ export default function decorate(block) {
       row.classList.add('iframe-card-row');
       const mediaCol = cols.find((col) => col !== embedCol);
       if (mediaCol) {
+        // Accent sits on the full-bleed band (live: .accent-img under .storylane),
+        // not inside the centered container — so left:100px matches the viewport.
         mediaCol.classList.add('iframe-card-media');
         optimizePictures(mediaCol);
+        block.append(mediaCol);
       }
 
       embedCol.classList.add('iframe-card-embed');
@@ -81,10 +84,9 @@ export default function decorate(block) {
       mediaRowCount += 1;
 
       if (mediaRowCount === 1 || !headingEl) {
-        // First decorative image (or none authored yet): the background
-        // shapes graphic, bled independently near the top of the card.
+        // Background shapes — sibling of the container on the full-bleed band.
         row.classList.add('iframe-card-media');
-        inner.append(row);
+        block.append(row);
       } else {
         // A second decorative image is the connecting arrow. Move it inside
         // the heading itself, in normal flow, so it always sits directly
@@ -106,4 +108,11 @@ export default function decorate(block) {
   });
 
   block.append(inner);
+
+  // Drop empty authored rows left behind after moving media out of the band.
+  [...block.children].forEach((child) => {
+    if (child !== inner && !child.classList.contains('iframe-card-media') && !child.textContent.trim() && !child.querySelector('iframe, img, picture')) {
+      child.remove();
+    }
+  });
 }
