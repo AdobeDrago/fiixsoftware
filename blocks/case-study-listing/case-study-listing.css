@@ -78,6 +78,7 @@ main > .section.resource-list-section-with-navigation > .case-study-listing-wrap
     padding-right: 0;
     padding-left: 0;
   }
+
 }
 
 @media (width = 768px) {
@@ -104,17 +105,21 @@ main > .section.resource-list-section-with-navigation > .case-study-listing-wrap
   position: relative;
 }
 
-.case-study-listing .case-study-listing-toolbar {
+.case-study-listing > .case-study-listing-toolbar {
   display: flex;
   flex-direction: column;
   align-items: flex-end;
   gap: 20px;
   position: absolute;
-  top: -144px;
+  top: -182px;
   right: 0;
 }
 
-.case-study-listing .case-study-listing-label {
+.case-study-listing-mobile-toolbar {
+  display: none;
+}
+
+:is(.case-study-listing, .case-study-listing-mobile-toolbar) .case-study-listing-label {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -125,13 +130,13 @@ main > .section.resource-list-section-with-navigation > .case-study-listing-wrap
   white-space: nowrap;
 }
 
-.case-study-listing .case-study-listing-category,
-.case-study-listing .case-study-listing-industry {
+:is(.case-study-listing, .case-study-listing-mobile-toolbar) .case-study-listing-category,
+:is(.case-study-listing, .case-study-listing-mobile-toolbar) .case-study-listing-industry {
   position: relative;
 }
 
-.case-study-listing .case-study-listing-category select,
-.case-study-listing .case-study-listing-industry select {
+:is(.case-study-listing, .case-study-listing-mobile-toolbar) .case-study-listing-category select,
+:is(.case-study-listing, .case-study-listing-mobile-toolbar) .case-study-listing-industry select {
   box-sizing: border-box;
   width: 300px;
   max-width: 100%;
@@ -272,5 +277,30 @@ main > .section.resource-list-section-with-navigation > .case-study-listing-wrap
 @media (width <= 450px) {
   .case-study-listing .case-study-listing-card {
     width: 100%;
+  }
+}
+
+@media (width <= 768px) {
+  main > .section.resource-list-section-with-navigation > .case-study-listing-mobile-toolbar {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    width: calc(100% - 36px);
+    margin-top: 15px;
+    margin-bottom: 40px;
+    padding: 0;
+  }
+
+  .case-study-listing-mobile-toolbar .case-study-listing-category,
+  .case-study-listing-mobile-toolbar .case-study-listing-industry {
+    display: block;
+  }
+
+  .case-study-listing-mobile-toolbar .case-study-listing-category select,
+  .case-study-listing-mobile-toolbar .case-study-listing-industry select {
+    display: block;
+    width: 100%;
+    max-width: none;
+    margin: 0;
   }
 }
