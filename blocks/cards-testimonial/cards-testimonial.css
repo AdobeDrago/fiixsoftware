@@ -32,7 +32,7 @@
 
 /* ---- Star rating ---- */
 .cards-testimonial .cards-testimonial-rating {
-    margin: 0;
+    margin: 0  0 20px;
     line-height: 1;
     font-size: 18px;
     letter-spacing: 2px;
@@ -57,14 +57,22 @@
 
 /* ---- Author ---- */
 .cards-testimonial .cards-testimonial-author {
-    margin-top: auto;
+    margin: 0;
+}
+
+.cards-testimonial .cards-testimonial-name {
+    font-weight : 300;
+    margin: 0 0 20px;
+}
+
+.cards-testimonial .cards-testimonial-role {
+    font-weight: 700;
+    margin: 0;
 }
 
 .cards-testimonial .cards-testimonial-name,
 .cards-testimonial .cards-testimonial-role {
-    margin: 0;
-    font-size: 14px;
-    font-weight: 600;
+    font-size: 12px;
     line-height: 1.3;
     color: var(--cards-testimonial-ink);
 }
@@ -73,8 +81,10 @@ main
     > .section.cards-testimonial-container
     > .default-content-wrapper:first-child
     h2 {
-    font-size: 24px;
-    margin-bottom: 50px;
+    font-size: 32px;
+    margin-top: 0;
+    margin-bottom: 60px;
+    text-align: center;
 }
 
 /* trailing "See how other maintenance teams…" link + arrow */
@@ -153,8 +163,8 @@ main > .section.pf-testimonials.cards-testimonial-container {
         > .section.cards-testimonial-container
         > .default-content-wrapper:first-child
         h2 {
-        max-width: 600px;
-        margin: 0 auto 50px;
+        max-width: 750px;
+        margin: 0 auto 60px;
     }
 
     main
@@ -211,6 +221,50 @@ main > .section.pf-testimonials.cards-testimonial-container {
    as "cards-testimonial (plain)" -> .cards-testimonial.plain. Values from
    source (fiixsoftware.com/customers .reviews > li).
    ============================================================ */
+
+/* Source has no outer section margin and a symmetric top/bottom gap (h2's
+   own margin-top + the container's own padding-bottom collapse to the same
+   total either side): 40px below 768px, 80px at 768px and up. The base
+   white-card variant's margin/padding above doesn't apply here. */
+main > .section.cards-testimonial-container:has(.cards-testimonial.plain) {
+  position: relative;
+  margin: 0;
+  padding-top: 40px;
+  padding-bottom: 20px;
+}
+
+/* Source's divider sits on the centered .container, well short of the
+   viewport edge (~90% wide on mobile, capped well under 1200px on desktop)
+   -- not full-bleed. A section-level pseudo keeps it decoupled from the
+   content wrapper's own box (which always renders edge-to-edge under its
+   padding), so it can be inset independently. */
+main > .section.cards-testimonial-container:has(.cards-testimonial.plain)::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%);
+  width: calc(100% - 40px);
+  max-width: 1136px;
+  height: 1px;
+  background: #e1e1e1;
+}
+
+@media (width >= 768px) {
+  main > .section.cards-testimonial-container:has(.cards-testimonial.plain) {
+    padding-top: 80px;
+    padding-bottom: 60px;
+  }
+
+  main > .section.cards-testimonial-container:has(.cards-testimonial.plain)::after {
+    width: calc(100% - 64px);
+  }
+}
+
+.cards-testimonial.plain .cards-testimonial-list {
+  row-gap: 60px;
+}
+
 .cards-testimonial.plain .cards-testimonial-card {
   background: none;
   border-radius: 0;
@@ -242,7 +296,7 @@ main > .section.pf-testimonials.cards-testimonial-container {
 /* "Read more" button — navy pill, matching source (#14499a, 20px/700, r27). */
 .cards-testimonial.plain .cards-testimonial-more {
   display: block;
-  margin: 40px auto 0;
+  margin: 60px auto 0;
   padding: 12px 32px;
   background-color: #14499a;
   border: 2px solid #14499a;

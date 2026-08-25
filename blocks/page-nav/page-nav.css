@@ -4,40 +4,62 @@
    (fiixsoftware.com .sp-navigation: centered row, 23px icon over a 16px/500
    label, ink #212021, space-around). The `sticky` variant pins the bar below
    the fixed site header while scrolling. */
-
-.page-nav .page-nav-bar {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 16px;
+main > .section.page-nav-container {
+  margin: 0;
 }
 
+main > .section.page-nav-container > .page-nav-wrapper {
+  max-width: none;
+  padding: 0;
+}
+
+/* Source's band is a fixed 100px at every breakpoint (not an auto height that
+   grows with the wrapped rows), with the list vertically centred inside it.
+   `min-height` rather than `height` so an unusually long label set can't be
+   clipped; for this page's labels it renders identically to source's 100px. */
+.page-nav .page-nav-bar {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  min-height: 100px;
+  background: var(--background-color, #fff);
+
+  /* Source casts a soft shadow on all four sides, but an upward one reads as a
+     grey band against the hero above (and as a hard line once the bar sticks
+     under the header), so this is offset straight down instead. Keeping the
+     offset at half the blur puts the shadow's top edge exactly at the bar's
+     own top edge -- the bar's opaque background then hides everything except
+     the part below it, so nothing bleeds upward. */
+  box-shadow: 0 6px 12px rgb(0 0 0 / 15%);
+}
+
+/* This list doubles as source's inner `.container`: 90% of the viewport,
+   centred, up to a 1200px cap (see the 1200px block at the end). Spacing
+   between items comes from the item margins below, matching source, rather
+   than a flex `gap`. */
 .page-nav .page-nav-list {
   display: flex;
-  flex-wrap: nowrap;
-  gap: 8px;
-  margin: 0;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: center;
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
   padding: 0;
   list-style: none;
-  overflow-x: auto;
-  scrollbar-width: none;
-}
-
-.page-nav .page-nav-list::-webkit-scrollbar {
-  display: none;
 }
 
 .page-nav .page-nav-item {
-  flex: 0 0 auto;
-  margin: 0;
+  position: relative;
+  margin: 0 20px 10px;
 }
 
-/* Icon stacked above the label, like the source. */
 .page-nav .page-nav-link {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 6px;
-  padding: 15px 12px 12px;
+  padding: 5px 0 0;
   color: var(--text-color, #212021);
   font-size: 16px;
   font-weight: 500;
@@ -45,8 +67,9 @@
   white-space: nowrap;
 }
 
+/* Icon stacked above the label -- desktop only, like the source. */
 .page-nav .page-nav-icon {
-  display: inline-flex;
+  display: none;
   align-items: center;
   justify-content: center;
   width: 24px;
@@ -60,19 +83,79 @@
   object-fit: contain;
 }
 
+/* Source's label line box is 27.2px (1.7 x 16px); it sets the item height on
+   mobile, so matching it keeps the wrapped rows the same height as source. */
 .page-nav .page-nav-label {
-  line-height: 1;
+  line-height: 1.7;
 }
 
-/* Colour-only hover, matching source (no underline indicator). */
-.page-nav .page-nav-link:hover {
-  color: var(--link-color, #14499a);
+/* Teal underline, hidden until hover/active. Sits on the item (not the
+   link) so it pins to the bottom of the bar rather than the label text. */
+.page-nav .page-nav-item::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 3px;
+  background: #3cc0cb;
+  transform: scaleX(0);
+  transition: transform 0.3s ease-in-out;
 }
 
-@media (width >= 900px) {
+.page-nav .page-nav-link:hover,
+.page-nav .page-nav-link.page-nav-active {
+  font-weight: 700;
+}
+
+.page-nav .page-nav-item:has(.page-nav-link:hover)::after,
+.page-nav .page-nav-item:has(.page-nav-link.page-nav-active)::after {
+  transform: scaleX(1);
+}
+
+@media (width >= 768px) {
+  /* Full-height list so each item spans the whole band -- that's what puts the
+     active underline on the band's bottom edge rather than floating above it. */
   .page-nav .page-nav-list {
-    justify-content: space-around;
-    gap: 24px;
+    flex-wrap: nowrap;
+    height: 100px;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .page-nav .page-nav-list::-webkit-scrollbar {
+    display: none;
+  }
+
+  .page-nav .page-nav-item {
+    flex: 0 0 auto;
+    width: 130px;
+    height: 100%;
+    margin: 0;
+  }
+
+  .page-nav .page-nav-link {
+    height: 100%;
+    justify-content: center;
+    padding: 0;
+  }
+
+  .page-nav .page-nav-icon {
+    display: inline-flex;
+  }
+}
+
+/* Source's container tracks 90% of the viewport only up to 960px; from there
+   it steps to fixed widths (960px, then 1200px) rather than staying fluid. */
+@media (width >= 960px) {
+  .page-nav .page-nav-list {
+    width: 960px;
+  }
+}
+
+@media (width >= 1200px) {
+  .page-nav .page-nav-list {
+    width: 1200px;
   }
 }
 
@@ -80,12 +163,41 @@
    scrolling. Sticky must be applied to the SECTION container (whose parent is
    the tall <main>), not the block itself: the block's own wrapper is only as
    tall as the bar, so a sticky block would have no travel range and scroll away
-   immediately. The section container spans the page, so it sticks throughout. */
+   immediately. The section container spans the page, so it sticks throughout.
+
+   Distance from the viewport top to where the stuck bar begins -- i.e. the
+   fixed site header's real height. Declared on <main> so the anchor targets
+   further down can reuse it; page-nav.js reads the resulting `top` back off the
+   sticky element, so all three stay in step from this one definition. */
+main:has(.page-nav.sticky) {
+  --page-nav-top: var(--nav-height, 55px);
+}
+
+/* `--nav-height` is the header's CONTENT height, but from 960px up the header
+   is content-box and adds 8px padding-bottom -- so it renders 108px, not 100px,
+   and pinning to the bare variable tucks this bar 8px under it. */
+@media (width >= 960px) {
+  main:has(.page-nav.sticky) {
+    --page-nav-top: calc(var(--nav-height, 55px) + 8px);
+  }
+}
+
 main > .section.page-nav-container:has(.page-nav.sticky) {
   position: sticky;
-  top: var(--nav-height, 55px);
-  z-index: 20;
+  top: var(--page-nav-top);
+
+  /* Below the header's z-index (20), not equal to it: <main> follows <header>
+     in the DOM, so on a tie this bar would paint over the header and clip the
+     logo/CTAs. Keeping it lower means the header always wins if they meet. */
+  z-index: 19;
   margin: 0;
   background: var(--background-color, #fff);
   border-bottom: 1px solid #e6e6e6;
+}
+
+/* A native anchor jump -- deep link, or reloading once the block has written
+   the hash into the URL -- never runs the block's scroll handler, so it needs
+   the same clearance declared in CSS or the heading lands under the bar. */
+main:has(.page-nav.sticky) > .section[id] {
+  scroll-margin-top: calc(var(--page-nav-top) + 100px);
 }

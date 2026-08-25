@@ -925,7 +925,7 @@ div.columns-media.info-flex > div > .columns-media-img-col {
 }
 
 .columns-media.banner .columns-media-text-col h1 {
-    margin: 0 0 20px;
+    margin: 0 0 30px;
     font-size: 40px;
     font-weight: 700;
     line-height: 1.05;
@@ -934,7 +934,7 @@ div.columns-media.info-flex > div > .columns-media-img-col {
 
 .columns-media.banner .columns-media-text-col h2,
 .columns-media.banner .columns-media-text-col p {
-    margin: 0;
+    margin: 0 0 20px;
     font-size: 20px;
     font-weight: 300;
     line-height: 1.3;
@@ -982,6 +982,35 @@ div.columns-media.info-flex > div > .columns-media-img-col {
     .columns-media.banner .columns-media-text-col h1 {
         font-size: 64px;
         line-height: 1;
+    }
+}
+
+/* ---- .page-customers band-height/spacing tuning ---- */
+.page-customers .columns-media.banner > div {
+    min-height: 400px;
+    padding: 0 32px;
+    justify-content: center;
+}
+
+.page-customers main > .section:has(> .columns-media-wrapper > .columns-media.banner) {
+    margin: 0;
+}
+
+/* Source hides the portrait entirely below 768px -- text-only hero -- which
+   is why its band fits in 400px; ours kept showing the image and grew well
+   past that. */
+.page-customers .columns-media.banner .columns-media-img-col {
+    display: none;
+}
+
+@media (width >= 768px) {
+    .page-customers .columns-media.banner > div {
+        min-height: 500px;
+        padding: 0 32px;
+    }
+
+    .page-customers .columns-media.banner .columns-media-img-col {
+        display: block;
     }
 }
 
