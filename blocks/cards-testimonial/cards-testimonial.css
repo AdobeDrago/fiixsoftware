@@ -32,7 +32,7 @@
 
 /* ---- Star rating ---- */
 .cards-testimonial .cards-testimonial-rating {
-    margin: 0  0 20px;
+    margin: 0;
     line-height: 1;
     font-size: 18px;
     letter-spacing: 2px;
@@ -55,24 +55,18 @@
     color: var(--cards-testimonial-ink);
 }
 
-/* ---- Author ---- */
+/* ---- Author ----
+   `margin-top: auto` pushes the author to the card's bottom edge so the author
+   blocks line up across a row of cards with different quote lengths. */
 .cards-testimonial .cards-testimonial-author {
-    margin: 0;
-}
-
-.cards-testimonial .cards-testimonial-name {
-    font-weight : 300;
-    margin: 0 0 20px;
-}
-
-.cards-testimonial .cards-testimonial-role {
-    font-weight: 700;
-    margin: 0;
+    margin-top: auto;
 }
 
 .cards-testimonial .cards-testimonial-name,
 .cards-testimonial .cards-testimonial-role {
-    font-size: 12px;
+    margin: 0;
+    font-size: 14px;
+    font-weight: 600;
     line-height: 1.3;
     color: var(--cards-testimonial-ink);
 }
@@ -81,10 +75,8 @@ main
     > .section.cards-testimonial-container
     > .default-content-wrapper:first-child
     h2 {
-    font-size: 32px;
-    margin-top: 0;
-    margin-bottom: 60px;
-    text-align: center;
+    font-size: 24px;
+    margin-bottom: 50px;
 }
 
 /* trailing "See how other maintenance teams…" link + arrow */
@@ -163,8 +155,8 @@ main > .section.pf-testimonials.cards-testimonial-container {
         > .section.cards-testimonial-container
         > .default-content-wrapper:first-child
         h2 {
-        max-width: 750px;
-        margin: 0 auto 60px;
+        max-width: 600px;
+        margin: 0 auto 50px;
     }
 
     main
@@ -233,6 +225,34 @@ main > .section.cards-testimonial-container:has(.cards-testimonial.plain) {
   padding-bottom: 20px;
 }
 
+/* Heading: larger and centred here, against the base variant's smaller
+   left-aligned one. The heading sits in a sibling wrapper rather than inside
+   the block, so the variant has to be matched on the section via :has(). */
+main
+  > .section.cards-testimonial-container:has(.cards-testimonial.plain)
+  > .default-content-wrapper:first-child
+  h2 {
+  font-size: 32px;
+  margin-top: 0;
+  margin-bottom: 60px;
+  text-align: center;
+}
+
+/* No white card to bottom-align against, so the author follows the quote
+   directly instead of being pushed to the card's foot. */
+.cards-testimonial.plain .cards-testimonial-author {
+  margin-top: 0;
+}
+
+.cards-testimonial.plain .cards-testimonial-name {
+  margin-bottom: 20px;
+  font-weight: 300;
+}
+
+.cards-testimonial.plain .cards-testimonial-role {
+  font-weight: 700;
+}
+
 /* Source's divider sits on the centered .container, well short of the
    viewport edge (~90% wide on mobile, capped well under 1200px on desktop)
    -- not full-bleed. A section-level pseudo keeps it decoupled from the
@@ -259,6 +279,14 @@ main > .section.cards-testimonial-container:has(.cards-testimonial.plain)::after
   main > .section.cards-testimonial-container:has(.cards-testimonial.plain)::after {
     width: calc(100% - 64px);
   }
+
+  main
+    > .section.cards-testimonial-container:has(.cards-testimonial.plain)
+    > .default-content-wrapper:first-child
+    h2 {
+    max-width: 750px;
+    margin: 0 auto 60px;
+  }
 }
 
 .cards-testimonial.plain .cards-testimonial-list {
@@ -273,6 +301,7 @@ main > .section.cards-testimonial-container:has(.cards-testimonial.plain)::after
 }
 
 .cards-testimonial.plain .cards-testimonial-rating {
+  margin-bottom: 20px;
   font-size: 16px;
 }
 

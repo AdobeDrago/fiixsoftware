@@ -990,6 +990,7 @@ div.columns-media.info-flex > div > .columns-media-img-col {
     min-height: 400px;
     padding: 0 32px;
     justify-content: center;
+    gap: 0;
 }
 
 .page-customers main > .section:has(> .columns-media-wrapper > .columns-media.banner) {
