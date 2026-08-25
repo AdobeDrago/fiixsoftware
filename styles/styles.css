@@ -5858,12 +5858,23 @@ main > .section.grey.centre .default-content-wrapper:has(> h2):has(> p) {
 }
 
 @media (width >= 960px) {
+    main > .section.header .default-content-wrapper {
+        padding-right: 0;
+        padding-left: 0;
+    }
+
     main > .section.grey.centre .default-content-wrapper {
         padding-right: 0;
         padding-left: 0;
     }
 
     main > .section.centre.padding-xlarge:not(.grey) .default-content-wrapper {
+        padding-right: 0;
+        padding-left: 0;
+    }
+
+    /* Intro centre band (e.g. "Drive innovation…") — no padding-xlarge */
+    main > .section.centre:not(.grey):not(.padding-xlarge) .default-content-wrapper {
         padding-right: 0;
         padding-left: 0;
     }
