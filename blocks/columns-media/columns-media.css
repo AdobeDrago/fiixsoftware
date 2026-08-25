@@ -1001,6 +1001,15 @@ div.columns-media.info-flex > div > .columns-media-img-col {
    variant's own defaults (30px under the h1, 20px under the subtitle). */
 .page-customers .columns-media.banner .columns-media-text-col h1 {
     margin-bottom: 30px;
+    font-size: 40px;
+
+    @media (width >= 768px) {
+        font-size: 50px;
+    }
+
+    @media (width >= 960px) {
+        font-size: 64px;
+    }
 }
 
 .page-customers .columns-media.banner .columns-media-text-col h2,

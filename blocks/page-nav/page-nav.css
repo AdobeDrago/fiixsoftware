@@ -89,8 +89,10 @@ main > .section.page-nav-container > .page-nav-wrapper {
   line-height: 1.7;
 }
 
-/* Teal underline, hidden until hover/active. Sits on the item (not the
-   link) so it pins to the bottom of the bar rather than the label text. */
+/* Teal underline. Sits on the item (not the link) so it pins to the bottom of
+   the bar rather than the label text. Hover-only -- the scroll-spy `.page-nav-
+   active` class (see page-nav.js) still bolds the current tab, but must not
+   trigger this underline. */
 .page-nav .page-nav-item::after {
   content: '';
   position: absolute;
@@ -103,13 +105,11 @@ main > .section.page-nav-container > .page-nav-wrapper {
   transition: transform 0.3s ease-in-out;
 }
 
-.page-nav .page-nav-link:hover,
-.page-nav .page-nav-link.page-nav-active {
+.page-nav .page-nav-link:hover {
   font-weight: 700;
 }
 
-.page-nav .page-nav-item:has(.page-nav-link:hover)::after,
-.page-nav .page-nav-item:has(.page-nav-link.page-nav-active)::after {
+.page-nav .page-nav-item:has(.page-nav-link:hover)::after {
   transform: scaleX(1);
 }
 

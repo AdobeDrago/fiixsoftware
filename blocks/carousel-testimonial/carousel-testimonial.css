@@ -273,6 +273,48 @@
     box-sizing: border-box;
 }
 
+main > #casestudies.section.carousel-testimonial-container {
+    padding-top: 50px;
+}
+
+#casestudies > .default-content-wrapper:first-child h2 {
+    max-width: 750px;
+    margin: 0 auto;
+    font-size: 32px;
+    text-align: left;
+}
+
+/* Heading-to-card gap follows the same steps (30 / 50 / 80px); the track
+   already contributes a flat 28px of shadow clearance (see the slides rule
+   below), so this wrapper only needs to make up the rest. */
+#casestudies .carousel-testimonial-wrapper:has(> .carousel-testimonial.case-study) {
+    padding-top: 2px;
+}
+
+@media (width >= 768px) {
+    main > #casestudies.section.carousel-testimonial-container {
+        padding-top: 150px;
+    }
+
+    #casestudies .carousel-testimonial-wrapper:has(> .carousel-testimonial.case-study) {
+        padding-top: 22px;
+    }
+
+    #casestudies > .default-content-wrapper:first-child h2 { 
+        text-align: center;
+    }
+}
+
+@media (width >= 960px) {
+    main > #casestudies.section.carousel-testimonial-container {
+        padding-top: 200px;
+    }
+
+    #casestudies .carousel-testimonial-wrapper:has(> .carousel-testimonial.case-study) {
+        padding-top: 52px;
+    }
+}
+
 .carousel-testimonial.case-study .carousel-testimonial-slides {
     /* No horizontal track padding: scroll-snap rests at paddingInlineStart, which
        would eat side padding and clip the card's left shadow, while clientWidth
@@ -303,7 +345,7 @@
      shadow has room on both sides without a peek of the next slide. */
     flex: 0 0 100%;
     box-sizing: border-box;
-    padding: 0 28px;
+    padding: 0 20px;
     background: none;
     border-radius: 0;
     box-shadow: none;

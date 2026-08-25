@@ -289,6 +289,26 @@ main > .section.cards-testimonial-container:has(.cards-testimonial.plain)::after
   }
 }
 
+/* Source's LAST "reviews" section before it hands off to a differently-styled
+   block (here, the case-studies carousel) drops the divider and gets its
+   bottom gap from a plain section margin instead of the padding+border the
+   others use -- #working-sp specifically, not every plain section. Scoped by
+   id, matching how page-nav's own anchor targets are id-based already. */
+#working-sp.cards-testimonial-container {
+  padding-bottom: 0;
+  margin-bottom: 40px;
+}
+
+#working-sp.cards-testimonial-container::after {
+  content: none;
+}
+
+@media (width >= 768px) {
+  #working-sp.cards-testimonial-container {
+    margin-bottom: 80px;
+  }
+}
+
 .cards-testimonial.plain .cards-testimonial-list {
   row-gap: 60px;
 }
@@ -325,7 +345,7 @@ main > .section.cards-testimonial-container:has(.cards-testimonial.plain)::after
 /* "Read more" button — navy pill, matching source (#14499a, 20px/700, r27). */
 .cards-testimonial.plain .cards-testimonial-more {
   display: block;
-  margin: 60px auto 0;
+  margin: 60px auto 20px;
   padding: 12px 32px;
   background-color: #14499a;
   border: 2px solid #14499a;
