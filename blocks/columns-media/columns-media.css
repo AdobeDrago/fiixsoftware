@@ -1114,6 +1114,9 @@ div.columns-media.info-flex > div > .columns-media-img-col {
 
     .page-customers .columns-media.banner .columns-media-img-col {
         display: block;
+    }
+}
+
 /* ============================================================
    optix-hero — Optix landing hero (section also carries ai-hero).
    Production #optixLP header: mobile shows the illustration + cross-hatch
