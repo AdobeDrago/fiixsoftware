@@ -1050,8 +1050,8 @@ main > .section.customer-success .default-content-wrapper h2 {
 /* ============================================================
    Home "Get data from any system…" insights section intro.
    Scoped to .insights-tabs.homepage (same pattern as dual-cta).
-   Match production .parts-forecaster: left-aligned intro through
-   768px; centered 48px headline + 100/150 padding from 769px up
+   Match production .parts-forecaster: left-aligned intro below
+   768px; centered 48px headline + 100/150 padding from 768px up
    (live stays at 100px top even at 1200 — no further bump).
    ============================================================ */
 main .section.insights-tabs.homepage {
@@ -1092,7 +1092,7 @@ main .section.insights-tabs.homepage .default-content-wrapper p {
 }
 
 /* Live: max-width 768 → stacked/left; above that → card layout + center */
-@media (width >= 769px) {
+@media (width >= 768px) {
     main .section.insights-tabs.homepage {
         padding: 100px 0 150px;
     }
@@ -6554,29 +6554,5 @@ main .section.logos.highlight.homepage .default-content-wrapper h2 {
     font-size: 20px;
     line-height: 22px;
     text-align: center;
-}
-
-/* Live: max-width 768 → stacked/left; above that → card layout + center */
-@media (width >= 769px) {
-    main .section.insights-tabs.homepage {
-        padding: 100px 0 150px;
-    }
-
-    main .section.insights-tabs.homepage .default-content-wrapper {
-        text-align: center;
-    }
-
-    main .section.insights-tabs.homepage .default-content-wrapper h2 {
-        margin: 0 auto 20px;
-        font-size: 48px;
-        line-height: 52.8px;
-        text-align: center;
-    }
-
-    main .section.insights-tabs.homepage .default-content-wrapper p {
-        margin: 0 auto;
-        line-height: 34px;
-        text-align: center;
-    }
 }
 

@@ -757,8 +757,7 @@
    Homepage insights tabs — match production .parts-forecaster.
    Scoped to .section.insights-tabs.homepage so other pages that
    reuse insights-tabs stay untouched. Mobile-first: stacked
-   through 768; white-card + absolute image from 769px. Live
-   max-width:768 / max-width:960 → min-width 769 / width > 960.
+   through 767px; white-card + absolute image from 768px up.
    ============================================================ */
 
 /* ---- Tab list ---- */
@@ -936,8 +935,8 @@
   height: auto;
 }
 
-/* ---- Panel: 769+ (floating white card + absolute image) ---- */
-@media (width >= 769px) {
+/* ---- Panel: 768+ (floating white card + absolute image) ---- */
+@media (width >= 768px) {
   .section.insights-tabs.homepage .tabs-feature .tabs-feature-panel {
     display: flex;
     flex-direction: row;
@@ -1118,7 +1117,7 @@ main > #industry.section.tabs-feature-container::after {
    Scoped to .section.feature-tabs.homepage (decorateFeatureTabs adds
    .homepage when content omits it). Live uses a flex row + absolute
    <figure>; we mirror that by lifting .tabs-feature-media to the panel
-   root. Breakpoints: stacked ≤768; overlapping card 769–959; absolute
+   root. Breakpoints: stacked <768; overlapping card 768–959; absolute
    media from 960 / 1200.
    ============================================================ */
 /* stylelint-disable no-descending-specificity -- homepage feature-tabs scope */
@@ -1273,8 +1272,9 @@ main > #industry.section.tabs-feature-container::after {
   display: none;
 }
 
-/* ---- 769–959: overlapping white text card over media (live ≤960) ---- */
-@media (width >= 769px) and (width < 960px) {
+/* ---- 768–959: overlapping white text card over media (live ≤960).
+   Fully redeclared by the 960+ block below, so no upper bound is needed. ---- */
+@media (width >= 768px) {
   .section.feature-tabs.homepage .tabs-feature .tabs-feature-panel {
     display: block;
     position: relative;
