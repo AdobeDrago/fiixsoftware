@@ -895,7 +895,7 @@ main > #casestudies.section.carousel-testimonial-container {
 /* Above 500px there is room beside the text for the arrows, inset further in
    (60px) once the card is wide enough (matches production's 100px/200px text
    margin step below/above 960px). */
-@media (width >= 500px) {
+@media (width > 500px) {
   .carousel-testimonial.quote .carousel-testimonial-navigation-buttons {
     display: flex;
   }
