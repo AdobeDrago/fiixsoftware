@@ -359,13 +359,16 @@ main > .blog-listing-wrap {
   margin-right: auto;
 }
 
+main > .blog-listing-wrap > .blog-listing-wrap-inner {
+  box-sizing: border-box;
+}
+
 @media (width >= 768px) and (width < 960px) {
   main > .blog-listing-wrap {
     width: calc(100% - 52px);
   }
 
-  main .section.blog-academy,
-  main .section.blog-recent {
+  main > .blog-listing-wrap > .blog-listing-wrap-inner {
     margin-left: 10px;
     margin-right: 10px;
   }
@@ -375,6 +378,11 @@ main > .blog-listing-wrap {
   main > .blog-listing-wrap {
     width: auto;
     max-width: 1200px;
+  }
+
+  main > .blog-listing-wrap > .blog-listing-wrap-inner {
+    margin-left: 20px;
+    margin-right: 20px;
   }
 }
 
@@ -410,10 +418,10 @@ main .section.blog-recent .default-content-wrapper h2 {
 
 /* Beat global `main > .section > div` 20px/32px gutters for blog listing
    content wrappers (academy cards + recent posts). */
-main > .blog-listing-wrap > .section.blog-academy > .default-content-wrapper,
-main > .blog-listing-wrap > .section.blog-academy > .cards-wrapper,
-main > .blog-listing-wrap > .section.blog-recent > .default-content-wrapper,
-main > .blog-listing-wrap > .section.blog-recent > .blog-listing-wrapper {
+main > .blog-listing-wrap .section.blog-academy > .default-content-wrapper,
+main > .blog-listing-wrap .section.blog-academy > .cards-wrapper,
+main > .blog-listing-wrap .section.blog-recent > .default-content-wrapper,
+main > .blog-listing-wrap .section.blog-recent > .blog-listing-wrapper {
   padding-left: 0;
   padding-right: 0;
 }
@@ -431,6 +439,11 @@ main .section.blog-academy .cards > ul > li {
   margin-right: 10px;
   margin-bottom: 50px;
   padding-bottom: 20px;
+  transition: box-shadow 0.3s;
+}
+
+main .section.blog-academy .cards > ul > li:hover {
+  box-shadow: 0 0 30px rgb(0 0 0 / 20%);
 }
 
 main .section.blog-academy .cards > ul > li img {

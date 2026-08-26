@@ -401,8 +401,11 @@ function decorateBlogListingWrap(main) {
 
   const wrap = document.createElement('div');
   wrap.className = 'blog-listing-wrap';
+  const inner = document.createElement('div');
+  inner.className = 'blog-listing-wrap-inner';
   academy.before(wrap);
-  wrap.append(academy, recent);
+  wrap.append(inner);
+  inner.append(academy, recent);
 }
 
 /**

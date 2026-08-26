@@ -6031,7 +6031,12 @@ main > .section.pricing > .default-content-wrapper a:focus-visible {
 }
 
 /* Category archive title ("Latest from …") */
+main:has(.blog-listing):not(:has(.blog-header)) > .section:first-of-type {
+    margin-top: 0;
+}
+
 main:has(.blog-listing) > .section:first-of-type:not(.blog-header) h1 {
+    margin: 100px 0 50px;
     font-size: 24px;
     text-align: center;
 }

@@ -120,6 +120,12 @@
   list-style: none;
 }
 
+/* category archives hide the search/category toolbar — drop the results
+   offset so spacing comes only from the "Latest from …" title margins */
+.blog-listing:has(.blog-listing-toolbar[hidden]) .blog-listing-results {
+  margin-top: 0;
+}
+
 @media (width < 768px) {
   .blog-listing .blog-listing-results {
     margin-top: 0;
@@ -133,6 +139,11 @@
   width: 100%;
   margin-bottom: 50px;
   background-color: #f7f7f7;
+  transition: box-shadow 0.3s;
+}
+
+.blog-listing .blog-listing-card:hover {
+  box-shadow: 0 0 30px rgb(0 0 0 / 20%);
 }
 
 .blog-listing .blog-listing-card a {
@@ -287,6 +298,14 @@
 
 @media (width >= 960px) {
   .blog-listing .blog-listing-card {
-    width: 31.5%;
+    /* production `.blog-medium #blog_container article` is 30%, leaving ~10%
+       for space-between column gaps (~60px at 1200px) */
+    width: 30%;
+  }
+
+  /* keeps a short last row left-aligned under space-between (prod ::after) */
+  .blog-listing .blog-listing-results::after {
+    content: '';
+    width: 30%;
   }
 }
