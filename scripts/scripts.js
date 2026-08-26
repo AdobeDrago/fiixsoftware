@@ -238,6 +238,12 @@ function buildBlogArticleBlocks(main) {
       // the policy administration rows are authored as an `effective-from` block,
       // but they are the same data table the `table` block renders
       block.classList.replace('effective-from', 'table');
+      // decorateBlock stamps `{name}-wrapper` on the parent; wrap each nested
+      // block first so that class lands on a dedicated wrapper, not the reading
+      // column (which would become e.g. `quote-wrapper blog-body-column`)
+      const wrap = document.createElement('div');
+      block.before(wrap);
+      wrap.append(block);
       decorateBlock(block);
     });
   }
