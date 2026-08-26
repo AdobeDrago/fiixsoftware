@@ -815,6 +815,7 @@ main .section.home-hero .hero-lead .hero-lead-support {
     text-align: center;
 }
 
+
 main .section.home-hero .hero-lead .hero-lead-content > p:not(.hero-lead-support):has(a) {
     text-align: center;
 }
@@ -878,6 +879,11 @@ main .section.home-hero .hero-lead .hero-lead-stats {
     main .section.home-hero .hero-lead .hero-lead-content h2,
     main .section.home-hero .hero-lead .hero-lead-support {
         text-align: left;
+    }
+
+    main .section.home-hero .hero-lead .hero-lead-content h1,
+    main .section.home-hero .hero-lead .hero-lead-content h2 {
+        margin: 0 0 20px;
     }
 
     main .section.home-hero .hero-lead .hero-lead-content > p:not(.hero-lead-support):has(a) {

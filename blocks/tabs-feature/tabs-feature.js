@@ -418,9 +418,9 @@ function decorateDefault(block) {
 
 /**
  * Replaces the homepage tablist with a mobile dropdown below 768 px.
- * Mirrors production's .menu-mobile pattern: the active tab shows as a
- * bordered row with a chevron; tapping toggles the full list open/closed;
- * picking an item fires the real tab button and collapses the list.
+ * One bordered list: closed shows only the active item + chevron; open
+ * stacks every option. Tapping the active row toggles open/closed;
+ * tapping another option activates that tab and collapses the list.
  * Applied to both .section.feature-tabs.homepage and
  * .section.insights-tabs.homepage.
  */
@@ -434,65 +434,48 @@ function decorateMobileDropdown(block) {
   dropdown.className = 'tabs-feature-mobile-dropdown';
   dropdown.setAttribute('aria-hidden', 'true');
 
-  const buildDropdown = () => {
-    dropdown.innerHTML = '';
-    const buttons = [...tablist.querySelectorAll('button')];
-    const active = buttons.find((b) => b.getAttribute('aria-selected') === 'true') || buttons[0];
+  const list = document.createElement('ul');
+  list.className = 'tabs-feature-mobile-list';
+  list.setAttribute('role', 'listbox');
+  list.setAttribute('aria-label', 'Select a topic');
 
-    const trigger = document.createElement('button');
-    trigger.type = 'button';
-    trigger.className = 'tabs-feature-mobile-trigger';
-    trigger.textContent = active ? active.textContent.trim() : '';
-    trigger.setAttribute('aria-expanded', 'false');
-    trigger.setAttribute('aria-haspopup', 'listbox');
-
-    const list = document.createElement('ul');
-    list.className = 'tabs-feature-mobile-list';
-    list.setAttribute('role', 'listbox');
-
-    buttons.forEach((btn) => {
-      const li = document.createElement('li');
-      li.setAttribute('role', 'option');
-      li.setAttribute('aria-selected', btn.getAttribute('aria-selected'));
-      li.textContent = btn.textContent.trim();
-      li.addEventListener('click', () => {
-        btn.click();
-        trigger.textContent = btn.textContent.trim();
-        trigger.setAttribute('aria-expanded', 'false');
-        list.classList.remove('open');
-        [...list.querySelectorAll('[aria-selected]')].forEach((item) => {
-          item.setAttribute('aria-selected', item === li ? 'true' : 'false');
-        });
-      });
-      list.append(li);
-    });
-
-    trigger.addEventListener('click', () => {
-      const isOpen = list.classList.toggle('open');
-      trigger.setAttribute('aria-expanded', String(isOpen));
-    });
-
-    // Close on outside click.
-    document.addEventListener('click', (e) => {
-      if (!dropdown.contains(e.target)) {
-        list.classList.remove('open');
-        trigger.setAttribute('aria-expanded', 'false');
+  const buttons = [...tablist.querySelectorAll('button')];
+  buttons.forEach((btn) => {
+    const li = document.createElement('li');
+    li.setAttribute('role', 'option');
+    li.setAttribute('aria-selected', btn.getAttribute('aria-selected'));
+    li.textContent = btn.textContent.trim();
+    li.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const isSelected = li.getAttribute('aria-selected') === 'true';
+      // Active row toggles the open state (live `.mobile-select2` behavior).
+      if (isSelected) {
+        list.classList.toggle('open');
+        return;
       }
-    }, { capture: true });
+      btn.click();
+      [...list.children].forEach((item) => {
+        item.setAttribute('aria-selected', item === li ? 'true' : 'false');
+      });
+      list.classList.remove('open');
+    });
+    list.append(li);
+  });
 
-    dropdown.append(trigger, list);
-  };
+  dropdown.append(list);
 
-  buildDropdown();
+  // Close on outside click.
+  document.addEventListener('click', (e) => {
+    if (!dropdown.contains(e.target)) list.classList.remove('open');
+  }, { capture: true });
 
-  // Keep trigger label in sync when tab changes via prev/next arrows.
+  // Keep selected option in sync when tab changes via prev/next arrows.
   tablist.addEventListener('click', (e) => {
     const btn = e.target.closest('button[aria-selected]');
     if (!btn) return;
-    const trigger = dropdown.querySelector('.tabs-feature-mobile-trigger');
-    if (trigger) trigger.textContent = btn.textContent.trim();
-    [...dropdown.querySelectorAll('.tabs-feature-mobile-list [aria-selected]')].forEach((item) => {
-      item.setAttribute('aria-selected', item.textContent.trim() === btn.textContent.trim() ? 'true' : 'false');
+    const label = btn.textContent.trim();
+    [...list.children].forEach((item) => {
+      item.setAttribute('aria-selected', item.textContent.trim() === label ? 'true' : 'false');
     });
   });
 
@@ -503,9 +486,7 @@ function decorateMobileDropdown(block) {
   const hide = () => {
     dropdown.setAttribute('aria-hidden', 'true');
     tablist.removeAttribute('aria-hidden');
-    dropdown.querySelector('.tabs-feature-mobile-list')?.classList.remove('open');
-    const trigger = dropdown.querySelector('.tabs-feature-mobile-trigger');
-    if (trigger) trigger.setAttribute('aria-expanded', 'false');
+    list.classList.remove('open');
   };
 
   if (mq.matches) show();
