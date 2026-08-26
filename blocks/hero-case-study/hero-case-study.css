@@ -49,6 +49,11 @@ body:has(.hero-case-study) main > .section.hero-case-study-container {
   background-size: 700px auto;
 }
 
+.hero-case-study.more-top-gap{
+  padding: 0 10px;
+  min-height: 850px;
+}
+
 /* row: vertically centers the content cell within the upper band, matching
    production (content centered in the top ~500px of the 700px banner). */
 .hero-case-study > div {
@@ -74,6 +79,10 @@ body:has(.hero-case-study) main > .section.hero-case-study-container {
   line-height: 1;
   color: var(--text-color);
   text-align: center;
+}
+
+.hero-case-study.more-top-gap h1 {
+  padding-top: 60px;
 }
 
 .hero-case-study h2 {
@@ -155,7 +164,7 @@ body:has(.hero-case-study) main > .section.hero-case-study-container {
 @media (width >= 900px) {
   main .section.hero-case-study-container > .default-content-wrapper,
   .hero-case-study > div > div {
-    max-width: 680px;
+    max-width: 960px;
   }
 
   .hero-case-study {
@@ -165,5 +174,9 @@ body:has(.hero-case-study) main > .section.hero-case-study-container {
   .hero-case-study h1 {
     font-size: 64px;
     line-height: 1;
+  }
+
+  .hero-case-study.more-top-gap h1 {
+    font-size: 53px;
   }
 }
