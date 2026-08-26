@@ -1067,6 +1067,56 @@ div.columns-media.info-flex > div > .columns-media-img-col {
     }
 }
 
+/* ---- .page-customers band-height/spacing tuning ---- */
+.page-customers .columns-media.banner > div {
+    min-height: 400px;
+    padding: 0 32px;
+    justify-content: center;
+    gap: 0;
+}
+
+.page-customers main > .section:has(> .columns-media-wrapper > .columns-media.banner) {
+    margin: 0;
+}
+
+/* Source's hero spaces its headline and subtitle further apart than the
+   variant's own defaults (30px under the h1, 20px under the subtitle). */
+.page-customers .columns-media.banner .columns-media-text-col h1 {
+    margin-bottom: 30px;
+    font-size: 40px;
+
+    @media (width >= 768px) {
+        font-size: 50px;
+    }
+
+    @media (width >= 960px) {
+        font-size: 64px;
+    }
+}
+
+.page-customers .columns-media.banner .columns-media-text-col h2,
+.page-customers .columns-media.banner .columns-media-text-col p {
+    margin-bottom: 20px;
+}
+
+/* Source hides the portrait entirely below 768px -- text-only hero -- which
+   is why its band fits in 400px; ours kept showing the image and grew well
+   past that. */
+.page-customers .columns-media.banner .columns-media-img-col {
+    display: none;
+}
+
+@media (width >= 768px) {
+    .page-customers .columns-media.banner > div {
+        min-height: 500px;
+        padding: 0 32px;
+    }
+
+    .page-customers .columns-media.banner .columns-media-img-col {
+        display: block;
+    }
+}
+
 /* ============================================================
    optix-hero — Optix landing hero (section also carries ai-hero).
    Production #optixLP header: mobile shows the illustration + cross-hatch
