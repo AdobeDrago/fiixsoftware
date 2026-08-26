@@ -455,6 +455,29 @@ function decorateOptixTogether(main) {
 }
 
 /**
+ * Optix Pricing: apply authored section-metadata `nut-image` / `bolt-image` as
+ * CSS custom properties on the card so ::before / ::after can paint the décor
+ * (same role as live `#optixLP .pricing-req` pseudos).
+ * @param {Element} main The main container element
+ */
+function decorateOptixPricing(main) {
+  main.querySelectorAll('.section.pricing').forEach((section) => {
+    const card = section.querySelector(':scope > .default-content-wrapper');
+    if (!card) return;
+
+    const { nutImage, boltImage } = section.dataset;
+    if (nutImage) {
+      const bg = toSectionBackgroundImage(nutImage);
+      if (bg) card.style.setProperty('--pricing-nut-image', bg);
+    }
+    if (boltImage) {
+      const bg = toSectionBackgroundImage(boltImage);
+      if (bg) card.style.setProperty('--pricing-bolt-image', bg);
+    }
+  });
+}
+
+/**
  * Optix Getting Started: move authored section backgrounds onto `.hero-cta`
  * (live paints the banner on the card, not full-bleed).
  * Uses `background-image` (desktop) and optional `background-image-mobile`.
@@ -552,6 +575,7 @@ export function decorateMain(main) {
   decoratePfFinalCta(main);
   decorateOptixTogether(main);
   decorateOptixGetStarted(main);
+  decorateOptixPricing(main);
   decorateSecuritySection(main);
 }
 

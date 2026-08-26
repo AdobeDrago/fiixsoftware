@@ -5984,9 +5984,10 @@ main > .section.optix-getstarted .hero-cta.no-image a:focus-visible {
 /* ---- pricing (production `#optixLP .pricing-req.container`): white
    shadowed card with decorative 3D nut + red button images.
    Mobile-first — production uses max-width:768 overrides; we invert that.
-   Decorations are ONLY the card ::before / ::after (no authored images /
-   section-bg layers). Section padding reserves room for the overhang;
-   overflow:hidden clips any stray décor that would otherwise float below. ---- */
+   Décor comes from section-metadata `nut-image` / `bolt-image`;
+   `decorateOptixPricing` sets --pricing-nut-image / --pricing-bolt-image on
+   the card for ::before / ::after (matching live `.pricing-req` pseudos).
+   Section padding reserves room for the overhang. ---- */
 main > .section.pricing {
     margin: 0 0 40px;
     padding: 28px 20px 55px;
@@ -5994,10 +5995,7 @@ main > .section.pricing {
     background-color: transparent;
 }
 
-/* Hide any authored pictures / corner-bg layers in this section — live
-   pricing-req has no <img> décor, only CSS pseudos on the card. */
-main > .section.pricing img,
-main > .section.pricing picture,
+/* Corner section-bg layers are not used on this card. */
 main > .section.pricing > .section-bg {
     display: none;
 }
@@ -6013,7 +6011,7 @@ main > .section.pricing > .default-content-wrapper {
     box-shadow: 1px 1px 10px rgb(0 0 0 / 20%);
 }
 
-/* Production ::before nut + ::after button — mobile sizes first. */
+/* Production ::before nut + ::after bolt — from authored metadata CSS vars. */
 main > .section.pricing > .default-content-wrapper::before {
     position: absolute;
     top: -20px;
@@ -6022,7 +6020,10 @@ main > .section.pricing > .default-content-wrapper::before {
     width: 44px;
     height: 42px;
     content: '';
-    background: url('../images/optix-pricing-nut.webp') center / contain no-repeat;
+    background-image: var(--pricing-nut-image, none);
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
     pointer-events: none;
 }
 
@@ -6034,7 +6035,10 @@ main > .section.pricing > .default-content-wrapper::after {
     width: 93px;
     height: 90px;
     content: '';
-    background: url('../images/optix-pricing-button.webp') center / contain no-repeat;
+    background-image: var(--pricing-bolt-image, none);
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
     pointer-events: none;
 }
 
@@ -6102,7 +6106,7 @@ main > .section.pricing > .default-content-wrapper a:focus-visible {
         padding: 60px 40px;
     }
 
-    /* desktop image positions — nut overhangs right edge, button sits lower */
+    /* desktop image positions — nut overhangs right edge, bolt sits lower */
     main > .section.pricing > .default-content-wrapper::before {
         top: 40px;
         right: -30px;
@@ -6135,6 +6139,8 @@ main > .section.pricing > .default-content-wrapper a:focus-visible {
 main:has(.blog-listing) > .section:first-of-type:not(.blog-header) h1 {
     font-size: 24px;
     text-align: center;
+    margin-top: 100px;
+    margin-bottom: 50px;
 }
 
 /* Blog listing header — gray featured band matching fiixsoftware.com/blog */
@@ -6432,15 +6438,6 @@ main .section.centre .default-content-wrapper p:has(> a.cta-link) {
     margin-bottom: 0;
 }
 
-/* Match production mobile CTA: centered 75% block link */
-@media (width < 768px) {
-    main .section.centre .default-content-wrapper a.cta-link:any-link {
-        display: block;
-        width: 75%;
-        margin: 0 auto;
-    }
-}
-
 main > .section.grey.centre {
     margin-top: 0;
     margin-bottom: 0;
@@ -6502,11 +6499,6 @@ main > .section.grey.centre .default-content-wrapper:has(> h2):has(> p) {
         padding-left: 0;
     }
 
-    main > .section.centre .cards-icon-wrapper {
-        padding-right: 0;
-        padding-left: 0;
-    }
-
     main > .section.grey.centre .default-content-wrapper h2 {
         margin-right: 200px;
         margin-left: 200px;
@@ -6556,3 +6548,22 @@ main .section.logos.highlight.homepage .default-content-wrapper h2 {
     text-align: center;
 }
 
+main > .section.pf-final-cta.cloud-page .default-content-wrapper ul li a:any-link{
+    background: #14499a;
+    border-color: #14499a;
+    color: #fff;
+    text-decoration: none;
+}
+
+/* Homepage customer-logos band ("logos highlight"): production's small
+   centered 20px label, on one line at every width (no 600px clamp). Scoped
+   to `.logos.highlight.homepage` so the pricing page's plain `.logos` band
+   (24px, left-aligned on mobile) is unaffected. */
+/* stylelint-disable-next-line no-descending-specificity */
+main .section.logos.highlight.homepage .default-content-wrapper h2 {
+    max-width: none;
+    margin: 0 auto 35px;
+    font-size: 20px;
+    line-height: 22px;
+    text-align: center;
+}
