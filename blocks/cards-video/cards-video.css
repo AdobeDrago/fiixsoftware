@@ -2,193 +2,343 @@
    Values extracted from source (fiixsoftware.com "See how" section). */
 
 .cards-video > ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 40px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
 }
 
 .cards-video > ul > li {
-  background-color: var(--background-color);
-  width: 100%;
-  max-width: 380px;
-  cursor: pointer;
-  overflow: hidden;
-  box-shadow: 0 10px 30px rgb(0 0 0 / 12%);
-  display: flex;
-  flex-direction: column;
+    width: 100%;
+    max-width: 380px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+}
+
+.cards-video .cards-video-card {
+    background-color: var(--background-color);
+    box-shadow: 0 10px 30px rgb(0 0 0 / 12%);
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+    width: 100%;
+    min-height: 0;
 }
 
 /* image / thumbnail (play overlay is baked into the source PNG) */
 .cards-video .cards-video-card-image {
-  line-height: 0;
+    line-height: 0;
+}
+
+/* Vidyard's SDK renders its own thumbnail/play button into the
+   vidyard-player-embed div once initialized, ignoring the `hidden` attribute
+   set on it in JS -- collapsing this wrapper via CSS keeps it out of the
+   layout regardless of what the SDK injects into its child. */
+.cards-video-embed-hide {
+    display: none;
 }
 
 .cards-video .cards-video-card-image picture {
-  display: block;
+    display: block;
 }
 
 .cards-video > ul > li img {
-  display: block;
-  width: 100%;
-  aspect-ratio: 16 / 9;
-  object-fit: cover;
+    display: block;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
 }
 
 /* caption + watch link */
 .cards-video .cards-video-card-body {
-  text-align: center;
-  padding: 24px 32px 40px;
-  flex: 1 1 auto;
-  display: flex;
-  flex-direction: column;
+    text-align: center;
+    padding: 30px;
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
 }
 
 .cards-video .cards-video-card-body p {
-  margin: 0;
+    margin: 0;
 }
 
 /* caption paragraph */
 .cards-video .cards-video-card-body p:first-child {
-  font-size: 20px;
-  font-weight: 300;
-  line-height: 34px;
-  color: #212021;
-  margin: 0 0 24px;
+    font-size: 20px;
+    font-weight: 300;
+    line-height: 1.2;
+    color: #212021;
+    margin: 0;
 }
 
-/* "Watch now" link (last paragraph in the card body), pinned to the card
-   bottom so links align across cards of differing caption length */
+/* "Watch now" link (last paragraph in the card body) */
 .cards-video .cards-video-card-body p:last-child {
-  margin-top: auto;
-  font-size: 20px;
-  font-weight: 700;
-  line-height: 1.2;
-  color: #14499a;
+    position: relative;
+    margin-top: 30px;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 1.2;
+    color: #14499a;
 }
 
+.cards-video .cards-video-card-body a:any-link,
+.cards-video .cards-video-card-body a:hover {
+    text-decoration: none;
+}
+
+/* Line arrow (shaft + open chevron), sized to match production. */
 .cards-video .cards-video-card-body p:last-child::after {
-  content: "";
-  display: inline-block;
-  width: 0.9em;
-  height: 0.7em;
-  margin-left: 0.4em;
-  background-color: currentcolor;
-  vertical-align: middle;
-  mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11h12.17l-5.59-5.59L12 4l8 8-8 8-1.41-1.41L16.17 13H4z"/></svg>') no-repeat center / contain;
+    content: "";
+    position: absolute;
+    top: 4px;
+    margin-left: 10px;
+    width: 24px;
+    height: 19px;
+    background-color: currentcolor;
+    mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>')
+        center / 24px 19px no-repeat;
+}
+
+/* "Watch more demos" link tile — centered in the stretched card */
+.cards-video > ul > li.cards-video-more .cards-video-card {
+    box-shadow: none;
+    justify-content: center;
+    align-items: center;
+}
+
+.cards-video > ul > li.cards-video-more {
+    position: relative;
+    justify-content: center;
+    align-items: center;
+}
+
+.cards-video > ul > li.cards-video-more .cards-video-card-body {
+    flex: 1 1 auto;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    text-align: center;
+}
+
+.cards-video > ul > li.cards-video-more .cards-video-card-body:not(:has(a)),
+.cards-video > ul > li.cards-video-more .cards-video-card-body:empty {
+    display: none;
+}
+
+.cards-video > ul > li.cards-video-more .cards-video-card-body > a {
+    position: relative;
+    display: inline-block;
+
+    /* room for absolute arrow so text+arrow center as one unit */
+    padding-right: 34px;
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 1.2;
+    color: #14499a;
+    text-decoration: none;
+}
+
+.cards-video > ul > li.cards-video-more .cards-video-card-body > p:only-child {
+    font-weight: 500;
+}
+
+.cards-video > ul > li.cards-video-more .cards-video-card-body > a::after {
+    content: "";
+    position: absolute;
+    top: 4px;
+    margin-left: 10px;
+    width: 24px;
+    height: 19px;
+    background-color: currentcolor;
+    mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>')
+        center / 24px 19px no-repeat;
+}
+
+/* tablet inherits mobile body padding / margins; keep more-tile padding reset */
+@media (width >= 768px) {
+    .cards-video > ul > li.cards-video-more .cards-video-card-body {
+        padding: 0;
+    }
 }
 
 /* desktop: two cards side by side */
-@media (width >= 900px) {
-  .cards-video > ul {
-    flex-direction: row;
-    align-items: stretch;
-    gap: 60px;
-  }
+@media (width >= 960px) {
+    .cards-video > ul {
+        flex-direction: row;
+        align-items: stretch;
+        gap: 60px;
+    }
+
+    .cards-video .cards-video-card-body p:first-child {
+        margin-bottom: 30px;
+    }
+
+    .cards-video .cards-video-card-body p:last-child {
+        margin-top: 0;
+    }
 }
 
-/* ---- Carousel variant (production "See how…" demos): a horizontal scroll-snap
-   track showing three cards at a time, with a prev/dots/next pagination bar
-   below. Applied by the block JS when there are more than three cards. ---- */
+/* Carousel variant (production "See how…" demos): a horizontal scroll-snap
+   track with a card peeking at the trailing edge, plus a prev/dots/next
+   pagination bar. Applied by the block JS when there are more than three
+   cards. */
 .cards-video > ul.cards-video-track {
-  flex-direction: row;
-  flex-wrap: nowrap;
-  align-items: flex-start;
-  justify-content: flex-start;
-  gap: 30px;
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  scrollbar-width: none;
-  padding-bottom: 4px;
+    flex-flow: row nowrap;
+
+    /* stretch (not flex-start) so every card matches the tallest one instead of
+     sizing to its own caption length -- the card body's margin-top: auto on
+     the "Watch now" link then keeps it pinned to a shared bottom edge. */
+    align-items: stretch;
+    justify-content: flex-start;
+    gap: 30px;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
 }
 
 .cards-video > ul.cards-video-track::-webkit-scrollbar {
-  display: none;
+    display: none;
 }
 
 .cards-video > ul.cards-video-track > li {
-  flex: 0 0 100%;
-  max-width: none;
-  scroll-snap-align: start;
+    flex: 0 0 100%;
+    max-width: none;
+    scroll-snap-align: start;
 }
 
-@media (width >= 900px) {
-  /* three visible cards with the 30px gaps between them */
-  .cards-video > ul.cards-video-track > li {
-    flex: 0 0 calc((100% - 60px) / 3);
-  }
+/* Mobile: one full-width slide; card is 310×350 centered (production margin: 0 auto) */
+@media (width < 768px) {
+    .cards-video > ul.cards-video-track {
+        gap: 0;
+    }
+
+    .cards-video > ul.cards-video-track > li {
+        flex: 0 0 100%;
+        width: 100%;
+        max-width: none;
+        height: 350px;
+        align-items: center;
+        justify-content: center;
+        box-sizing: border-box;
+        scroll-snap-align: center;
+    }
+
+    .cards-video > ul.cards-video-track > li .cards-video-card {
+        width: 310px;
+        max-width: 310px;
+        height: 350px;
+        margin: 0 auto;
+        overflow: hidden;
+        box-sizing: border-box;
+    }
+}
+
+@media (width >= 768px) {
+    /* ~2.3 cards visible: two in full, a third peeking at the edge */
+    .cards-video > ul.cards-video-track > li {
+        flex: 0 0 calc((100% - 60px) / 2.3);
+    }
+}
+
+@media (width >= 960px) {
+    /* ~3.3 cards visible: three in full, a fourth peeking at the edge */
+    .cards-video > ul.cards-video-track > li {
+        flex: 0 0 calc((100% - 90px) / 3.3);
+    }
+
+    .cards-video > ul.cards-video-track > li:hover {
+        transform: translateY(-10px);
+    }
+}
+
+@media (width >= 1200px) {
+    /* ~4.2 cards visible: four in full, a fifth peeking at the edge */
+    .cards-video > ul.cards-video-track > li {
+        flex: 0 0 calc((100% - 120px) / 4.2);
+    }
 }
 
 /* pagination bar: prev arrow + dots + next arrow, centered below the track */
 .cards-video-nav {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 14px;
-  margin-top: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+    margin-top: 30px;
 }
 
 .cards-video-prev,
 .cards-video-next {
-  position: relative;
-  flex: 0 0 auto;
-  width: 40px;
-  height: 40px;
-  padding: 0;
-  border: 0;
-  border-radius: 50%;
-  background-color: #14499a;
-  cursor: pointer;
-  transition: background-color 0.2s;
+    position: relative;
+    flex: 0 0 auto;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background-color: #14499a;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+/* Mobile: dots only — hide prev/next arrows (matches production) */
+@media (width < 768px) {
+    .cards-video-prev,
+    .cards-video-next {
+        display: none;
+    }
 }
 
 .cards-video-prev:hover,
 .cards-video-next:hover {
-  background-color: #0f3675;
+    background-color: #0f3675;
 }
 
+/* same arrow glyph as the "Watch now" link below */
 .cards-video-prev::after,
 .cards-video-next::after {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 8px;
-  height: 8px;
-  border: 2px solid #fff;
-  border-bottom: 0;
-  border-left: 0;
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11h12.17l-5.59-5.59L12 4l8 8-8 8-1.41-1.41L16.17 13H4z"/></svg>')
+        no-repeat center / contain;
 }
 
 .cards-video-prev::after {
-  transform: translate(-40%, -50%) rotate(-135deg);
-}
-
-.cards-video-next::after {
-  transform: translate(-60%, -50%) rotate(45deg);
+    transform: translate(-50%, -50%) scaleX(-1);
 }
 
 .cards-video-dots {
-  display: flex;
-  align-items: center;
-  gap: 8px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
 }
 
 .cards-video-dot {
-  width: 10px;
-  height: 10px;
-  padding: 0;
-  border: 0;
-  border-radius: 50%;
-  background-color: #c9d3e0;
-  cursor: pointer;
-  transition: background-color 0.2s;
+    width: 10px;
+    height: 10px;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background-color: #c9d3e0;
+    cursor: pointer;
+    transition: background-color 0.2s;
 }
 
 .cards-video-dot.active {
-  background-color: #14499a;
+    background-color: #14499a;
 }

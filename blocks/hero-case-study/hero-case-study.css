@@ -1,0 +1,169 @@
+/* ============================================================
+   hero-case-study — case-study page header.
+   Full-bleed banner with a decorative angled purple graphic that
+   bleeds from a corner, over a centered page title (h1), subtitle
+   headline (h2) and a "Back to case studies" link.
+   Values extracted from production computed styles
+   (div.case-studies-temp.cloeren > header) at 1440px / 390px.
+   ============================================================ */
+
+/* Full-bleed: break the block's wrapper out of the section's centered
+   1200px container so the banner spans the whole viewport width. Scoped
+   to this wrapper only — the columns-media / hero-cta blocks that share
+   this section keep their normal centered width. Specificity must beat
+   `main > .section > div`. */
+main > .section > div.hero-case-study-wrapper:not(.section-bg) {
+  max-width: none;
+  padding: 0;
+}
+
+/* Keep authored/default hero content on the production reading measure while
+   leaving the block wrapper full-bleed for the decorative background. */
+main .section.hero-case-study-container > .default-content-wrapper {
+  box-sizing: border-box;
+  width: calc(100% - 38px);
+  max-width: 680px;
+  margin-right: auto;
+  margin-left: auto;
+  padding: 0;
+}
+
+body:has(.hero-case-study) main > .section.hero-case-study-container {
+  margin-bottom: 0;
+}
+
+.hero-case-study {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  min-height: 700px;
+  padding: 0 19px;
+  overflow: hidden;
+  color: var(--text-color);
+
+  /* decorative angled purple banner, anchored bottom-left on mobile */
+  background-image: url('../../images/case-study-hero-banner.webp');
+  background-repeat: no-repeat;
+  background-position: left bottom;
+  background-size: 700px auto;
+}
+
+/* row: vertically centers the content cell within the upper band, matching
+   production (content centered in the top ~500px of the 700px banner). */
+.hero-case-study > div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 500px;
+}
+
+/* content cell */
+.hero-case-study > div > div {
+  width: 100%;
+  max-width: 680px;
+  text-align: center;
+}
+
+.hero-case-study h1 {
+  margin: 0 0 40px;
+  font-family: var(--heading-font-family);
+  font-size: 50px;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--text-color);
+  text-align: center;
+}
+
+.hero-case-study h2 {
+  margin: 0 0 40px;
+  font-family: var(--heading-font-family);
+  font-size: 20px;
+  font-weight: 300;
+  line-height: 30px;
+  color: var(--text-color);
+  text-align: center;
+}
+
+.hero-case-study p {
+  margin: 0;
+  font-family: var(--body-font-family);
+  font-size: 20px;
+  color: var(--text-color);
+  text-align: center;
+}
+
+/* back link — dark Fiix blue, medium weight, no underline, preceded by a
+   circle-arrow-left icon (production uses a Font Awesome glyph). */
+.hero-case-study a:any-link {
+  position: relative;
+  display: inline;
+  color: #14499a;
+  font-size: 20px;
+  font-weight: 500;
+  text-decoration: none;
+  vertical-align: top;
+}
+
+.hero-case-study a:any-link:hover,
+.hero-case-study a:any-link:focus-visible {
+  text-decoration: none;
+}
+
+.hero-case-study a:any-link::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: -30px;
+  box-sizing: border-box;
+  width: 24px;
+  height: 24px;
+  border: 2px solid #14499a;
+  border-radius: 50%;
+  background-color: transparent;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='%2314499a' d='M7.1 2.8 1.9 8l5.2 5.2 1.5-1.5L6 9.1h8.1V6.9H6l2.6-2.6z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 14px 14px;
+  transform: translateY(-50%);
+}
+
+.hero-case-study a:any-link:hover::before,
+.hero-case-study a:any-link:focus-visible::before {
+  background-color: #14499a;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='%23fff' d='M7.1 2.8 1.9 8l5.2 5.2 1.5-1.5L6 9.1h8.1V6.9H6l2.6-2.6z'/%3E%3C/svg%3E");
+}
+
+@media (width >= 768px) {
+  .hero-case-study {
+    /* tablet/desktop: purple banner covers the right side, full height,
+       anchored to the bottom-right corner. */
+    min-height: 500px;
+    padding-right: 24px;
+    padding-left: 24px;
+    background-position: right bottom;
+    background-size: 40% 100%;
+  }
+
+  /* Logo-led case studies use the taller production hero variant. */
+  body:has(.case-study-logo-container) .hero-case-study {
+    min-height: 700px;
+  }
+}
+
+@media (width >= 900px) {
+  main .section.hero-case-study-container > .default-content-wrapper,
+  .hero-case-study > div > div {
+    max-width: 680px;
+  }
+
+  .hero-case-study {
+    background-size: 35% 100%;
+  }
+
+  .hero-case-study h1 {
+    font-size: 64px;
+    line-height: 1;
+  }
+}

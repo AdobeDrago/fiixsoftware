@@ -1,0 +1,363 @@
+/* Block: cards-testimonial -- static 3-up grid of short review cards.
+   Visual values extracted from source (fiixsoftware.com .social-proof-ratings
+   .flex > div card, 1440px). */
+
+.cards-testimonial {
+    --cards-testimonial-ink: rgb(65 64 66);
+    --cards-testimonial-star: #ffd600;
+    --cards-testimonial-gap: clamp(1.5rem, 4vw, 2.5rem);
+}
+
+.cards-testimonial .cards-testimonial-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--cards-testimonial-gap);
+}
+
+/* ---- Card ---- */
+.cards-testimonial .cards-testimonial-card {
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    background-color: #fff;
+    border-radius: 20px;
+    box-shadow: 10px 10px 33px rgb(0 0 0 / 10%);
+    padding: 40px 20px;
+    text-align: center;
+    color: var(--cards-testimonial-ink);
+}
+
+/* ---- Star rating ---- */
+.cards-testimonial .cards-testimonial-rating {
+    margin: 0;
+    line-height: 1;
+    font-size: 18px;
+    letter-spacing: 2px;
+}
+
+.cards-testimonial .cards-testimonial-star {
+    color: var(--cards-testimonial-star);
+}
+
+.cards-testimonial .cards-testimonial-star-empty {
+    color: rgb(0 0 0 / 15%);
+}
+
+/* ---- Quote ---- */
+.cards-testimonial .cards-testimonial-quote {
+    margin: 15px 0 20px;
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 1.6;
+    color: var(--cards-testimonial-ink);
+}
+
+/* ---- Author ----
+   `margin-top: auto` pushes the author to the card's bottom edge so the author
+   blocks line up across a row of cards with different quote lengths. */
+.cards-testimonial .cards-testimonial-author {
+    margin-top: auto;
+}
+
+.cards-testimonial .cards-testimonial-name,
+.cards-testimonial .cards-testimonial-role {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.3;
+    color: var(--cards-testimonial-ink);
+}
+
+main
+    > .section.cards-testimonial-container
+    > .default-content-wrapper:first-child
+    h2 {
+    font-size: 24px;
+    margin-bottom: 50px;
+}
+
+/* trailing "See how other maintenance teams…" link + arrow */
+main
+    > .section.cards-testimonial-container
+    .default-content-wrapper:last-child
+    h2 {
+    font-size: 20px;
+    text-align: center;
+}
+
+main
+    > .section.cards-testimonial-container
+    .default-content-wrapper:last-child
+    a:any-link {
+    font-size: 20px;
+    font-weight: 700;
+    color: #14499a;
+    text-decoration: none;
+}
+
+main
+    > .section.cards-testimonial-container
+    .default-content-wrapper:last-child
+    a:any-link:hover,
+main
+    > .section.cards-testimonial-container
+    .default-content-wrapper:last-child
+    a:any-link:focus-visible {
+    color: #0f3675;
+    text-decoration: none;
+}
+
+main
+    > .section.cards-testimonial-container
+    .default-content-wrapper:last-child
+    a:any-link::after {
+    content: "";
+    display: inline-block;
+    width: 24px;
+    height: 22px;
+    margin: 0;
+    padding-left: 10px;
+    box-sizing: content-box;
+    background-color: currentcolor;
+    vertical-align: middle;
+    mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11h12.17l-5.59-5.59L12 4l8 8-8 8-1.41-1.41L16.17 13H4z"/></svg>')
+        right center / 24px 22px no-repeat;
+}
+
+main > .section.cards-testimonial-container {
+    margin: 40px 0 70px;
+    padding-top: 40px;
+    padding-bottom: 10px;
+}
+
+/* pf-testimonials already sets margin:0 + padding; don't re-add the
+   standalone cards-testimonial gutters (they create a white strip above). */
+main > .section.pf-testimonials.cards-testimonial-container {
+    margin: 0;
+    padding: 70px 0 40px;
+}
+
+/* ---- Tablet + desktop: section spacing + 3-up grid ---- */
+@media (width >= 768px) {
+    main > .section.cards-testimonial-container {
+        padding-top: 70px;
+        padding-bottom: 40px;
+    }
+
+    main > .section.pf-testimonials.cards-testimonial-container {
+        padding: 70px 0 40px;
+    }
+
+    main
+        > .section.cards-testimonial-container
+        > .default-content-wrapper:first-child
+        h2 {
+        max-width: 600px;
+        margin: 0 auto 50px;
+    }
+
+    main
+        > .section.cards-testimonial-container
+        .default-content-wrapper:last-child
+        h2 {
+        max-width: none;
+        margin: 50px auto 30px;
+    }
+
+    .cards-testimonial .cards-testimonial-list {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .mobile-page .cards-testimonial .cards-testimonial-list {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 48px;
+    }
+}
+
+.mobile-page .cards-testimonial .cards-testimonial-name,
+.mobile-page .cards-testimonial .cards-testimonial-role {
+    text-align: left;
+    font-size: 20px;
+    font-weight: 300;
+    line-height: normal;
+}
+
+.mobile-page .cards-testimonial .cards-testimonial-name strong,
+.mobile-page .cards-testimonial .cards-testimonial-role strong {
+    font-weight: 700;
+}
+
+.mobile-page .cards-testimonial .cards-testimonial-quote img {
+    height: 50px;
+}
+
+.mobile-page .cards-testimonial .cards-testimonial-card {
+    align-items: flex-start;
+    padding: 50px 35px;
+}
+
+.mobile-page .cards-testimonial .cards-testimonial-role {
+    font-size: 14px;
+    border-top: 1px solid #e1e1e1;
+    padding: 10px 0;
+    margin-top: 30px;
+}
+
+/* ============================================================
+   `plain` variant -- borderless, centered review blurbs (customers /
+   social-proof grids). No white card chrome or shadow; smaller type. Distinct
+   from the base white-card treatment used on product-feature pages. Authorable
+   as "cards-testimonial (plain)" -> .cards-testimonial.plain. Values from
+   source (fiixsoftware.com/customers .reviews > li).
+   ============================================================ */
+
+/* Source has no outer section margin and a symmetric top/bottom gap (h2's
+   own margin-top + the container's own padding-bottom collapse to the same
+   total either side): 40px below 768px, 80px at 768px and up. The base
+   white-card variant's margin/padding above doesn't apply here. */
+main > .section.cards-testimonial-container:has(.cards-testimonial.plain) {
+  position: relative;
+  margin: 0;
+  padding-top: 40px;
+  padding-bottom: 20px;
+}
+
+/* Heading: larger and centred here, against the base variant's smaller
+   left-aligned one. The heading sits in a sibling wrapper rather than inside
+   the block, so the variant has to be matched on the section via :has(). */
+main
+  > .section.cards-testimonial-container:has(.cards-testimonial.plain)
+  > .default-content-wrapper:first-child
+  h2 {
+  font-size: 32px;
+  margin-top: 0;
+  margin-bottom: 60px;
+  text-align: center;
+}
+
+/* No white card to bottom-align against, so the author follows the quote
+   directly instead of being pushed to the card's foot. */
+.cards-testimonial.plain .cards-testimonial-author {
+  margin-top: 0;
+}
+
+.cards-testimonial.plain .cards-testimonial-name {
+  margin-bottom: 20px;
+  font-weight: 300;
+}
+
+.cards-testimonial.plain .cards-testimonial-role {
+  font-weight: 700;
+}
+
+/* Source's divider sits on the centered .container, well short of the
+   viewport edge (~90% wide on mobile, capped well under 1200px on desktop)
+   -- not full-bleed. A section-level pseudo keeps it decoupled from the
+   content wrapper's own box (which always renders edge-to-edge under its
+   padding), so it can be inset independently. */
+main > .section.cards-testimonial-container:has(.cards-testimonial.plain)::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%);
+  width: calc(100% - 40px);
+  max-width: 1136px;
+  height: 1px;
+  background: #e1e1e1;
+}
+
+@media (width >= 768px) {
+  main > .section.cards-testimonial-container:has(.cards-testimonial.plain) {
+    padding-top: 80px;
+    padding-bottom: 60px;
+  }
+
+  main > .section.cards-testimonial-container:has(.cards-testimonial.plain)::after {
+    width: calc(100% - 64px);
+  }
+
+  main
+    > .section.cards-testimonial-container:has(.cards-testimonial.plain)
+    > .default-content-wrapper:first-child
+    h2 {
+    max-width: 750px;
+    margin: 0 auto 60px;
+  }
+}
+
+/* Source's LAST "reviews" section before it hands off to a differently-styled
+   block (here, the case-studies carousel) drops the divider and gets its
+   bottom gap from a plain section margin instead of the padding+border the
+   others use -- #working-sp specifically, not every plain section. Scoped by
+   id, matching how page-nav's own anchor targets are id-based already. */
+#working-sp.cards-testimonial-container {
+  padding-bottom: 0;
+  margin-bottom: 40px;
+}
+
+#working-sp.cards-testimonial-container::after {
+  content: none;
+}
+
+@media (width >= 768px) {
+  #working-sp.cards-testimonial-container {
+    margin-bottom: 80px;
+  }
+}
+
+.cards-testimonial.plain .cards-testimonial-list {
+  row-gap: 60px;
+}
+
+.cards-testimonial.plain .cards-testimonial-card {
+  background: none;
+  border-radius: 0;
+  box-shadow: none;
+  padding: 0 15px;
+}
+
+.cards-testimonial.plain .cards-testimonial-rating {
+  margin-bottom: 20px;
+  font-size: 16px;
+}
+
+.cards-testimonial.plain .cards-testimonial-quote {
+  margin: 12px 0 20px;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.cards-testimonial.plain .cards-testimonial-name,
+.cards-testimonial.plain .cards-testimonial-role {
+  font-size: 12px;
+}
+
+/* Progressive reveal: cards past the initial clamp are hidden until "Read more"
+   (see cards-testimonial.js). */
+.cards-testimonial.plain .cards-testimonial-hidden {
+  display: none;
+}
+
+/* "Read more" button — navy pill, matching source (#14499a, 20px/700, r27). */
+.cards-testimonial.plain .cards-testimonial-more {
+  display: block;
+  margin: 60px auto 20px;
+  padding: 12px 32px;
+  background-color: #14499a;
+  border: 2px solid #14499a;
+  border-radius: 27px;
+  color: #fff;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.2;
+  cursor: pointer;
+}
+
+.cards-testimonial.plain .cards-testimonial-more:hover {
+  background-color: #0f3675;
+  border-color: #0f3675;
+}

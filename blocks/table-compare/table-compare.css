@@ -1,5 +1,6 @@
 .table-compare.block {
   width: 100%;
+
   /* overflow-x: auto would create a scroll context that breaks the sticky
      thead; clip still contains horizontal overflow on narrow viewports while
      letting the header stick against the viewport. */
@@ -13,13 +14,13 @@
   font-size: var(--body-font-size-xs);
 }
 
-@media (width >= 600px) {
+@media (width >= 768px) {
   .table-compare.block table {
     font-size: var(--body-font-size-s);
   }
 }
 
-@media (width >= 900px) {
+@media (width >= 960px) {
   .table-compare.block table {
     font-size: 16px;
   }
@@ -36,7 +37,7 @@
   top: 100px;
   z-index: 10;
   background-color: #fff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 2px 4px rgb(0 0 0 / 8%);
 }
 
 .table-compare.block table thead tr {
@@ -52,6 +53,12 @@
   font-weight: 700;
 }
 
+.table-compare.block table th,
+.table-compare.block table td {
+  padding: 0.5em;
+  text-align: left;
+}
+
 .table-compare.block table thead th {
   padding: 16px 8px;
   font-size: 16px;
@@ -59,15 +66,22 @@
   vertical-align: bottom;
 }
 
+/* bordered variant */
+.table-compare.block.bordered table th,
+.table-compare.block.bordered table td {
+  border: 1px solid;
+}
+
+/* Availability cells: center the check / short text in the four plan columns. */
+.table-compare.block table td:not(:first-child) {
+  text-align: center;
+  vertical-align: middle;
+  font-size: 13px;
+}
+
 .table-compare.block table thead th:first-child {
   text-align: left;
   font-size: 20px;
-}
-
-.table-compare.block table th,
-.table-compare.block table td {
-  padding: 0.5em;
-  text-align: left;
 }
 
 /* Feature name cells — light weight, muted color (production) */
@@ -95,21 +109,9 @@
   background-color: var(--overlay-background-color);
 }
 
-/* bordered variant */
-.table-compare.block.bordered table th,
-.table-compare.block.bordered table td {
-  border: 1px solid;
-}
-
-/* Availability cells: center the check / short text in the four plan columns. */
-.table-compare.block table td:not(:first-child) {
-  text-align: center;
-  vertical-align: middle;
-  font-size: 13px;
-}
-
 /* Check mark — inline SVG using currentColor so each plan column takes its
    exact production glyph color. */
+
 /* Each check sits in a 30px light-grey circle, matching production
    (background #f7f7f7, full-circle radius); the check glyph is centered and
    keeps its per-column color (set below via currentColor). */

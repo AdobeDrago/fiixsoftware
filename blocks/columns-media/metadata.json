@@ -15,9 +15,15 @@
     "imagePattern": "large"
   },
   "contentPattern": {
-    "structure": "image + (heading + description + CTA)",
+    "structure": "image|vidyard-url + (heading + description + CTA)",
     "buttonCount": 1,
-    "imageCount": 1
+    "imageCount": 1,
+    "variants": [
+      "vidyard — media cell is a play.vidyard.com URL; loads inline Vidyard player",
+      "left — media column on the left (desktop)",
+      "right — media column on the right (desktop)",
+      "info-flex — white text card (60%) + graphic (40%); production .info-flex layout"
+    ]
   },
   "reuseGuidance": {
     "suitableFor": [
@@ -34,9 +40,10 @@
     "pagesUsing": [
       "/cmms/pricing/index",
       "/cmms/cmms-software/index",
-      "/cmms/ai/index"
+      "/cmms/ai/index",
+      "/resource-center/case-studies/universal-pure/index"
     ],
-    "reuseCount": 3,
-    "lastUsed": "2026-08-11T00:00:00.000Z"
+    "reuseCount": 4,
+    "lastUsed": "2026-08-17T11:19:46.172Z"
   }
 }

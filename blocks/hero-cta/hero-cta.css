@@ -40,7 +40,7 @@
   height: 100%;
 }
 
-@media (width >= 900px) {
+@media (width >= 960px) {
   .hero-cta {
     padding: 40px 32px;
   }
@@ -101,12 +101,94 @@
   margin: 0 auto 16px;
 }
 
-@media (width >= 900px) {
+@media (width >= 960px) {
   .section.cta {
     padding: 115px 0 80px;
   }
 
   .section.cta .hero-cta h2 {
     font-size: 48px;
+  }
+}
+
+/* The case-study closing CTA uses a taller, deliberately narrow content stack
+   than the pricing CTA. Keep these overrides limited to pages with the
+   case-study hero so other hero-cta variants retain their existing contract. */
+body:has(.hero-case-study) .section.cta {
+  margin: 0;
+  padding: 100px 0;
+  background: linear-gradient(to right bottom, rgb(0 175 235 / 20%) 0%, #fff 30%);
+}
+
+body:has(.hero-case-study) .section.cta .hero-cta > div {
+  max-width: none;
+}
+
+body:has(.hero-case-study) .section.cta .hero-cta {
+  box-sizing: border-box;
+  padding-right: 30px;
+  padding-left: 30px;
+}
+
+body:has(.hero-case-study) .section.cta .hero-cta img {
+  width: 150px;
+  height: 150px;
+  margin: 0 auto 40px;
+  object-fit: contain;
+}
+
+body:has(.hero-case-study) .section.cta .hero-cta picture {
+  line-height: 0;
+}
+
+body:has(.hero-case-study) .section.cta .hero-cta h2 {
+  max-width: 520px;
+  margin: 0 auto 20px;
+  font-size: 38px;
+  font-weight: 700;
+  line-height: 38px;
+}
+
+body:has(.hero-case-study) .section.cta .hero-cta p {
+  max-width: 520px;
+  margin: 0 auto 20px;
+  font-size: 20px;
+  font-weight: 300;
+  line-height: normal;
+}
+
+body:has(.hero-case-study) .section.cta .hero-cta p:last-child {
+  margin-bottom: 0;
+  line-height: 0;
+}
+
+body:has(.hero-case-study) .section.cta .hero-cta a:any-link {
+  display: inline-block;
+  margin: 20px 0;
+  border: 2px solid #00afeb;
+  border-radius: 27px;
+  box-sizing: border-box;
+  min-width: 209px;
+  padding: 0 20px;
+  background-color: #00afeb;
+  color: #fff;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 53px;
+  text-decoration: none;
+}
+
+body:has(.hero-case-study) .section.cta .hero-cta a:hover,
+body:has(.hero-case-study) .section.cta .hero-cta a:focus-visible {
+  border-color: #0095c8;
+  background-color: #0095c8;
+  color: #fff;
+  text-decoration: none;
+}
+
+@media (width >= 960px) {
+  body:has(.hero-case-study) .section.cta .hero-cta h2 {
+    font-size: 48px;
+    line-height: 52.8px;
   }
 }

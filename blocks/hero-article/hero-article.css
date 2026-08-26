@@ -1,0 +1,206 @@
+/* Block: hero-article — blog / article header.
+   Values extracted from the source computed styles at
+   https://fiixsoftware.com/blog/how-much-time-is-data-entry-costing-you/
+   (.entry-header-image, .entry-box, .meta-details). The source renders a
+   full-bleed 650px grey band with the lead image anchored to its right edge and
+   a white, soft-shadowed card of article meta layered over the band's lower
+   left. On desktop the card overhangs the band by 190px; on mobile it fills the
+   band's lower half and the image sits above it. */
+
+/* the band bleeds to the page edges, so opt out of the section's centred, padded
+   wrapper rather than reaching past it with viewport units, which overshoot by
+   the width of the scrollbar */
+main > .section.hero-article-container > .hero-article-wrapper {
+  max-width: none;
+  margin: 0;
+  padding: 0;
+}
+
+.hero-article {
+  position: relative;
+  height: 650px;
+  padding: 0;
+  background-color: #e1e1e1;
+}
+
+/* clips the lead image to the band so the card can still overhang it */
+.hero-article-image {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.hero-article-image picture {
+  display: block;
+}
+
+.hero-article-image img {
+  position: absolute;
+  right: 0;
+  bottom: 340px;
+  width: 700px;
+  max-width: none;
+  height: auto;
+}
+
+.hero-article-card {
+  position: absolute;
+  top: 250px;
+  left: 0;
+  right: 0;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  min-height: 400px;
+  padding: 0 0 0 16px;
+  background-color: #fff;
+  box-shadow: 3px 3px 25px rgb(0 0 0 / 12%);
+}
+
+.hero-article-meta {
+  width: 100%;
+  padding: 20px 20px 10px 0;
+}
+
+/* publish date + read time share a row ("January 6, 2025  | 1 min read") */
+.hero-article-meta > p:nth-child(1),
+.hero-article-meta > p:nth-child(2) {
+  display: inline-block;
+  margin: 0;
+  font-size: 20px;
+  font-weight: 300;
+  line-height: normal;
+  color: var(--text-color);
+}
+
+.hero-article-meta > p:nth-child(2) {
+  margin-left: 6px;
+}
+
+.hero-article-meta h1 {
+  margin: 20px 0 30px;
+  font-family: var(--heading-font-family);
+  font-size: 42px;
+  font-weight: 700;
+  line-height: 44px;
+  color: var(--text-color);
+}
+
+/* author / reviewer byline */
+.hero-article-meta ul {
+  margin: 0 0 20px;
+  padding: 0;
+  list-style: none;
+  font-size: 20px;
+  font-weight: 300;
+  line-height: 34px;
+  color: var(--text-color);
+}
+
+.hero-article-meta ul li {
+  margin: 0;
+}
+
+.hero-article-meta ul a:any-link {
+  color: #14499a;
+  font-weight: 500;
+  text-decoration: underline;
+}
+
+.hero-article-meta ul a:hover {
+  color: var(--link-hover-color);
+}
+
+/* "Back to blog" — bold dark-blue link with the arrow hanging to its left */
+.hero-article-meta > p:last-child {
+  margin: 0;
+  padding-left: 30px;
+  font-size: 20px;
+}
+
+.hero-article-meta > p:last-child a:any-link {
+  position: relative;
+  color: #14499a;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.hero-article-meta > p:last-child a:any-link::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: -30px;
+  width: 20px;
+  height: 20px;
+  transform: translateY(-50%);
+  background-color: #14499a;
+  mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg>') no-repeat center / contain;
+}
+
+.hero-article-meta > p:last-child a:hover {
+  color: var(--link-hover-color);
+  text-decoration: none;
+}
+
+/* text-only header (no lead image authored) */
+.hero-article.no-image {
+  height: auto;
+  background-color: transparent;
+}
+
+/* the wrapper's padding is off, so the text-only header carries its own gutter */
+.hero-article.no-image .hero-article-card {
+  position: static;
+  min-height: 0;
+  padding: 0 24px;
+  box-shadow: none;
+}
+
+/* the source keeps the card full-width through 768px itself and only narrows
+   it to the fixed overhanging card starting at 769px, so this is one pixel
+   past the project's 768px tablet tier rather than at it */
+@media (width > 768px) {
+  /* the source slides the band 190px up behind the fixed nav, then lets the
+     card overhang the band's bottom edge; the bottom margin reserves that
+     overhang so the article clears the card by the same 10px as the source */
+  .hero-article {
+    margin-top: -190px;
+    margin-bottom: 200px;
+  }
+
+  .hero-article-image img {
+    bottom: 0;
+    width: 1150px;
+  }
+
+  .hero-article-card {
+    top: 340px;
+    right: auto;
+    width: 650px;
+    min-height: 500px;
+    padding: 50px;
+  }
+
+  .hero-article-meta {
+    padding: 15px 50px 0 60px;
+  }
+
+  .hero-article-meta h1 {
+    line-height: 42px;
+  }
+
+  .hero-article.no-image {
+    margin-bottom: 0;
+  }
+}
+
+@media (width >= 1200px) {
+  /* the source stops pinning the card to the band's left edge past 1440px and
+     floats it in from 10% of the viewport instead, overhanging the band by
+     125px (rather than 190px); pulled forward to the project's 1200px desktop
+     breakpoint to keep the block on the shared 768/960/1200 scale */
+  .hero-article-card {
+    top: 275px;
+    left: 10%;
+  }
+}

@@ -15,9 +15,12 @@
     "imagePattern": "large"
   },
   "contentPattern": {
-    "structure": "tab labels + per-tab panel (title + headline + description + CTA + note + screenshot image)",
+    "structure": "toggle variation: 3 columns per row \u2014 Label | ordered list + screenshot | hotspot coords (top%, left% list). Default variation unchanged: Label | panel content",
     "buttonCount": 1,
-    "imageCount": 1
+    "imageCount": 1,
+    "variations": [
+      "toggle"
+    ]
   },
   "reuseGuidance": {
     "suitableFor": [
@@ -33,9 +36,10 @@
   "usage": {
     "pagesUsing": [
       "/index",
-      "/cmms/ai/index"
+      "/cmms/ai/index",
+      "/customers/index"
     ],
-    "reuseCount": 3,
-    "lastUsed": "2026-08-11T00:00:00.000Z"
+    "reuseCount": 4,
+    "lastUsed": "2026-08-21T09:57:17.282808+00:00"
   }
 }

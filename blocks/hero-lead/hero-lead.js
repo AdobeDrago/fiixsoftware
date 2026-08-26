@@ -1,3 +1,137 @@
+/** Matches the project's desktop breakpoint (also where the nav switches off the hamburger). */
+const DESKTOP_MEDIA_QUERY = '(min-width: 960px)';
+
+/**
+ * Builds the autoplay <video> (muted + looping), using the screenshot as its
+ * poster and graceful fallback content.
+ * @param {Element} picture the screenshot to use as poster/fallback
+ * @param {string} href the hero .mp4 URL
+ * @returns {HTMLVideoElement}
+ */
+function buildHeroVideo(picture, href) {
+  const posterImg = picture.querySelector('img');
+  const video = document.createElement('video');
+  video.className = 'hero-lead-video';
+  video.muted = true;
+  video.autoplay = true;
+  video.loop = true;
+  video.playsInline = true;
+  video.setAttribute('muted', '');
+  video.setAttribute('playsinline', '');
+  if (posterImg && posterImg.src) video.setAttribute('poster', posterImg.src);
+
+  const source = document.createElement('source');
+  source.setAttribute('src', href);
+  source.setAttribute('type', 'video/mp4');
+  video.append(source);
+
+  // Keep the screenshot as graceful fallback inside the <video>.
+  video.append(picture.cloneNode(true));
+  return video;
+}
+
+/**
+ * Swaps the media cell's screenshot for an autoplay video, desktop only
+ * (mobile/tablet keep the static screenshot to save bandwidth). Re-evaluated
+ * on resize. Shared by the `video-without-form` and `video-with-form` variants.
+ * @param {Element} mediaCell the block's media cell
+ */
+function decorateVideoVariant(mediaCell) {
+  if (!mediaCell) return;
+  const picture = mediaCell.querySelector('picture');
+  const videoLink = mediaCell.querySelector('a[href*=".mp4"]');
+  if (!picture || !videoLink) return;
+
+  const href = videoLink.getAttribute('href');
+
+  // aem.js's wrapTextNodes() wraps this column's picture + link pair in a <p>
+  // (it always runs here, since the column has 2+ children). Replace that
+  // wrapper outright so the picture/video lands as a direct flex child of the
+  // media cell -- left nested in the <p>, it's a flex item with
+  // flex-basis: auto, so it shrinks to fit its own content instead of
+  // filling the panel.
+  const wrapper = picture.parentElement !== mediaCell ? picture.parentElement : picture;
+  wrapper.replaceWith(picture);
+  videoLink.remove();
+
+  const desktopQuery = window.matchMedia(DESKTOP_MEDIA_QUERY);
+  let current = picture;
+
+  const syncMedia = () => {
+    if (desktopQuery.matches && current === picture) {
+      const video = buildHeroVideo(picture, href);
+      current.replaceWith(video);
+      current = video;
+      // Some browsers ignore the autoplay attribute until play() is called.
+      const tryPlay = video.play();
+      if (tryPlay && typeof tryPlay.catch === 'function') tryPlay.catch(() => {});
+    } else if (!desktopQuery.matches && current !== picture) {
+      current.replaceWith(picture);
+      current = picture;
+    }
+  };
+
+  syncMedia();
+  desktopQuery.addEventListener('change', syncMedia);
+}
+
+/**
+ * Layers a media cell that has more than one picture (hero screenshot +
+ * decorative shape/accent graphics, e.g. the mobile-cmms app promo) and tags
+ * the app-store badge row, if present, for its own layout. No-ops when the
+ * media cell only has the usual single screenshot.
+ * @param {Element} mediaCell the block's media cell
+ */
+function decorateMediaLayers(mediaCell) {
+  if (!mediaCell) return;
+  const pictures = [...mediaCell.querySelectorAll('picture')];
+  if (pictures.length < 2) return;
+
+  const badgePictures = pictures.filter((p) => {
+    const link = p.closest('a');
+    return link && /apps\.apple\.com|play\.google\.com/.test(link.href);
+  });
+  const badgesPara = badgePictures[0]?.closest('p');
+  if (badgesPara) badgesPara.classList.add('hero-lead-app-badges');
+
+  const layered = pictures.filter((p) => !badgePictures.includes(p));
+  if (layered.length < 2) return;
+
+  const [hero, ...decorations] = layered;
+  hero.classList.add('hero-lead-media-hero');
+  // biggest of the rest is the background shape; anything smaller is a small accent
+  decorations.sort((a, b) => (Number(b.querySelector('img')?.getAttribute('width')) || 0)
+    - (Number(a.querySelector('img')?.getAttribute('width')) || 0));
+  const [shape, ...accents] = decorations;
+  shape.classList.add('hero-lead-media-shape');
+  accents.forEach((p) => p.classList.add('hero-lead-media-accent'));
+
+  const heroPara = hero.closest('p');
+  if (!heroPara) return;
+  heroPara.classList.add('hero-lead-media-layers');
+
+  const mediaContent = document.createElement('div');
+  mediaContent.className = 'hero-lead-media-content';
+
+  // Move the trailing caption text (e.g. "Available on iOS and Android") out
+  // to its own element after the layered picture group -- left inside, its
+  // height would count towards the positioning box the shape/accent
+  // percentages are relative to, throwing off their placement.
+  [...heroPara.childNodes]
+    .filter((n) => n.nodeType === Node.TEXT_NODE && n.textContent.trim())
+    .forEach((n) => {
+      const span = document.createElement('span');
+      span.className = 'hero-lead-app-caption';
+      span.textContent = n.textContent.trim();
+      n.remove();
+      mediaContent.append(span);
+    });
+
+  if (badgesPara) mediaContent.append(badgesPara);
+
+  if (mediaContent.childNodes.length) heroPara.after(mediaContent);
+}
+
 export default function decorate(block) {
   const rows = [...block.children];
 
@@ -5,7 +139,25 @@ export default function decorate(block) {
   const imageCell = rows[0]?.firstElementChild;
   const contentCell = rows[1]?.firstElementChild;
 
-  if (imageCell) imageCell.classList.add('hero-lead-media');
+  if (imageCell) {
+    imageCell.classList.add('hero-lead-media');
+    decorateMediaLayers(imageCell);
+  }
+
+  // video only, no form/stats content
+  if (block.classList.contains('video-without-form')) {
+    decorateVideoVariant(imageCell);
+    const cta = contentCell?.querySelector('a');
+    if (cta?.parentElement?.tagName === 'P') {
+      cta.parentElement.classList.add('button-container');
+    }
+    return;
+  }
+
+  // video + the standard form/stats content decorated below
+  if (block.classList.contains('video-with-form')) {
+    decorateVideoVariant(imageCell);
+  }
 
   if (!contentCell) {
     if (!block.querySelector(':scope > div:first-child picture')) {
@@ -89,4 +241,7 @@ export default function decorate(block) {
 
     contentCell.append(stats);
   }
+
+  const mediaContent = block.querySelector('.hero-lead-media-content');
+  if (mediaContent) contentCell.append(mediaContent);
 }

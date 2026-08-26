@@ -1,33 +1,1303 @@
 .columns-media > div {
-  display: flex;
-  flex-direction: column;
+    display: flex;
+    flex-direction: column;
 }
 
 .columns-media img {
-  width: 100%;
+    width: 100%;
 }
 
 .columns-media > div > div {
-  order: 1;
+    order: 1;
 }
 
 .columns-media > div > .columns-media-img-col {
-  order: 0;
+    order: 0;
 }
 
 .columns-media > div > .columns-media-img-col img {
-  display: block;
+    display: block;
 }
 
-@media (width >= 900px) {
-  .columns-media > div {
-    align-items: center;
-    flex-direction: unset;
-    gap: 24px;
-  }
+/* Fixed mobile height + contain is only for the colour-accent variants'
+   single hero screenshot (gold/teal/cyan/orange/purple/navy authored with
+   just one image in the media column, e.g. the teal "Access parts..." row) --
+   without it that screenshot renders at its full natural height on mobile.
+   `:only-child` keeps this off the decorative shape+screenshot pairs (img-1 +
+   img-2), which already have their own absolute-positioned/max-width sizing,
+   and off vidyard/banner/info-flex/plain images, which size themselves. */
+.columns-media:is(.gold, .teal, .cyan, .orange, .purple, .navy)
+    .columns-media-img-col
+    > .columns-media-img-1:only-child
+    img {
+    height: 300px;
+    object-fit: contain;
+}
 
-  .columns-media > div > div {
-    flex: 1;
+@media (width >= 768px) {
+    .columns-media:is(.gold, .teal, .cyan, .orange, .purple, .navy)
+        .columns-media-img-col
+        > .columns-media-img-1:only-child
+        img {
+        height: auto;
+        object-fit: fill;
+    }
+}
+
+@media (width >= 768px) {
+    .columns-media > div {
+        align-items: center;
+        flex-direction: unset;
+        gap: 24px;
+    }
+
+    .columns-media > div > div {
+        flex: 1;
+        order: unset;
+    }
+
+    .columns-media.columns-media-3-cols > div {
+        align-items: flex-start;
+    }
+
+    /* Direction for left/right without accent full-bleed (vidyard, info-flex). */
+    .columns-media.right > div {
+        flex-direction: row-reverse;
+    }
+
+    .columns-media.left > div {
+        flex-direction: row;
+    }
+}
+
+@media (width >= 1200px) {
+    .columns-media > div {
+        gap: 32px;
+    }
+}
+
+/* ---- accent left / right: image + text feature rows (gold/teal/cyan/…).
+   Full-bleed colour panels are ONLY for accent variants. Plain .left/.right
+   (vidyard, info-flex, etc.) keep the default 1200px section wrapper. ---- */
+.columns-media-wrapper:has(
+    > .columns-media:is(.left, .right):is(
+            .gold,
+            .teal,
+            .cyan,
+            .orange,
+            .purple,
+            .navy
+        )
+) {
+    max-width: none;
+    margin-bottom: 0;
+    padding: 0;
+}
+
+main
+    > .section:has(
+        > .columns-media-wrapper
+            > .columns-media:is(.left, .right):is(
+                .gold,
+                .teal,
+                .cyan,
+                .orange,
+                .purple,
+                .navy
+            )
+    ) {
+    padding-bottom: 0;
+}
+
+.columns-media:is(.left, .right):is(
+        .gold,
+        .teal,
+        .cyan,
+        .orange,
+        .purple,
+        .navy
+    )
+    h2 {
+    margin: 0 0 20px;
+    font-size: 30px;
+    font-weight: 700;
+    line-height: 1;
+    color: var(--text-color);
+}
+
+.columns-media:is(.left, .right):is(
+        .gold,
+        .teal,
+        .cyan,
+        .orange,
+        .purple,
+        .navy
+    )
+    p {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 300;
+    line-height: 1.2;
+    color: var(--text-color);
+}
+
+.columns-media:is(.left, .right):is(
+        .gold,
+        .teal,
+        .cyan,
+        .orange,
+        .purple,
+        .navy
+    )
+    p a {
+        color: #14499a;
+        font-weight: 500;
+        text-decoration: underline;
+    }
+
+.columns-media:is(.gold, .teal, .cyan, .orange, .purple, .navy):is(
+        .left,
+        .right
+    )
+    > div
+    > .columns-media-text-col {
+    padding: 0 20px;
+}
+
+/* accent colour: production overlays each media row's image on a full-bleed
+   colour panel (bleeding to the outer viewport edge) and underlines the heading
+   with a 540x5 bar in the same colour. The colour is arbitrary per row, so it
+   can't be derived from the left/right class -- it is authored as an extra
+   colour block variant below. The panel/underline only render when such a
+   class is present, so every other columns-media usage (ai/optix/enterprise)
+   is untouched. */
+.columns-media.gold {
+    --media-accent: #ffd600;
+}
+
+.columns-media.teal {
+    --media-accent: #3cc0cb;
+}
+
+.columns-media.cyan {
+    --media-accent: #00afeb;
+}
+
+.columns-media.purple {
+    --media-accent: #4d3e8d;
+}
+
+.columns-media.orange {
+    --media-accent: #ffa40e;
+}
+
+.columns-media.navy {
+    --media-accent: #003e7e;
+}
+
+.columns-media:is(.gold, .teal, .cyan, .purple, .orange, .navy):is(
+        .left,
+        .right
+    )
+    h2::after {
+    content: "";
+    display: inline-block;
+    width: 540px;
+    max-width: 100%;
+    height: 5px;
+    margin-top: 20px;
+    background: var(--media-accent);
+
+    @media (width >= 768px) {
+        margin-top: 30px;
+    }
+}
+
+/* mobile per-colour band + shape/screenshot treatment (base/default).
+   Offsets below are approximated from mobile screenshots of production, not
+   measured in devtools -- compare against the live mobile view and nudge
+   them if any row looks off. */
+.columns-media.gold .columns-media-img-col {
+    justify-content: end;
+}
+
+.columns-media.teal .columns-media-img-col {
+    justify-content: space-evenly;
+}
+
+.columns-media.cyan .columns-media-img-col {
+    justify-content: end;
+}
+
+.columns-media.orange .columns-media-img-col {
+    justify-content: space-evenly;
+}
+
+/* purple/navy's accent graphic is a single logo-grid image, not a
+   shape + screenshot pair -- no overflow trick, just contain it with
+   padding, same as the other colours get from the shared rule below. */
+.columns-media.right:is(.purple, .navy) .columns-media-img-col {
+    background: var(--media-accent);
+        margin-bottom: 50px;
+    padding-top: 24px;
+}
+
+.columns-media:is(.gold, .teal, .cyan, .orange):is(.left, .right)
+    > div
+    > .columns-media-img-col {
+    position: relative;
+    overflow: visible;
+    background: var(--media-accent);
+    display: flex;
+    align-items: end;
+     margin-bottom: 50px;
+    padding-top: 24px;
+}
+
+.columns-media:is(.gold, .teal, .cyan, .orange):is(.left, .right)
+    .columns-media-img-col
+    .columns-media-img-1
+    img {
+    position: absolute;
+}
+
+.columns-media:is(.gold, .teal, .cyan, .orange):is(.left, .right)
+    .columns-media-img-col
+    .columns-media-img-2
+    img {
+    position: relative;
+    z-index: 2;
+    display: block;
+    width: 100%;
+}
+
+.columns-media.right:is(.purple, .navy)
+    .columns-media-img-col
+    .columns-media-img-1
+    img {
+    width: 100%;
+}
+
+.columns-media.left.gold .columns-media-img-col .columns-media-img-1 img {
+    top: -52px;
+    left: -50px;
+    max-width: 150px;
+    transform: rotate(130deg);
+}
+
+.columns-media.left.gold .columns-media-img-col .columns-media-img-2 img {
+    max-width: 370px;
+}
+
+.columns-media.right.teal .columns-media-img-col .columns-media-img-1 img {
+    top: 126px;
+    left: 0;
+    max-width: 120px;
+    transform: rotate(0deg);
+}
+
+.columns-media.right.teal .columns-media-img-col .columns-media-img-2 img {
+    max-width: 260px;
+}
+
+.columns-media.left.cyan .columns-media-img-col .columns-media-img-1 img {
+    top: -48px;
+    left: -38px;
+    max-width: 100px;
+    transform: rotate(130deg);
+}
+
+.columns-media.left.cyan .columns-media-img-col .columns-media-img-2 img {
+    max-width: 370px;
+}
+
+.columns-media.left.orange .columns-media-img-col .columns-media-img-1 img {
+    top: 120px;
+    right: 59px;
+    max-width: 120px;
+    transform: rotate(130deg);
+}
+
+.columns-media.left.orange .columns-media-img-col .columns-media-img-2 img {
+    max-width: 260px;
+}
+
+.columns-media.teal.left .columns-media-img-col .columns-media-img-1 img {
+    position: relative;
+}
+
+/* free-cmms overrides — after general color variants for specificity order */
+.columns-media.right.teal.free-cmms .columns-media-img-col .columns-media-img-2 img {
+    width: 350px;
+}
+
+.columns-media.right.teal.free-cmms > div > .columns-media-img-col {
+    justify-content: end;
+}
+
+@media (width >= 768px) {
+    .columns-media.right.teal.free-cmms .columns-media-text-col h2,
+    .columns-media.right.teal.free-cmms .columns-media-text-col p {
+        max-width: 250px;
+    }
+
+    .columns-media.right.teal.free-cmms .columns-media-img-col .columns-media-img-2 img {
+        margin-bottom: 0;
+    }
+
+    .columns-media.right.teal.free-cmms .columns-media-img-col .columns-media-img-1 img {
+        left: 0;
+    }
+}
+
+@media (width >= 960px) {
+    .columns-media.right.teal.free-cmms .columns-media-img-col .columns-media-img-2 img {
+        margin-bottom: 0;
+    }
+
+    .columns-media.right.teal.free-cmms .columns-media-img-col .columns-media-img-1 img {
+        left: 0;
+    }
+
+    .columns-media.right.teal.free-cmms > div > .columns-media-img-col {
+        padding-top: 80px;
+    }
+
+    .columns-media.right.teal.free-cmms .columns-media-text-col h2,
+    .columns-media.right.teal.free-cmms .columns-media-text-col p {
+        margin-left: 10px;
+        max-width: 420px;
+    }
+}
+
+@media (width >= 768px) {
+    .columns-media:is(.left, .right):is(
+            .gold,
+            .teal,
+            .cyan,
+            .orange,
+            .purple,
+            .navy
+        )
+        > div {
+        align-items: end;
+        gap: 60px;
+    }
+
+    .columns-media:is(.left, .right):is(
+            .gold,
+            .teal,
+            .cyan,
+            .orange,
+            .purple,
+            .navy
+        )
+        h2 {
+        font-size: 38px;
+    }
+
+    .columns-media:is(.left, .right):is(
+            .gold,
+            .teal,
+            .cyan,
+            .orange,
+            .purple,
+            .navy
+        )
+        p {
+        font-size: 20px;
+    }
+
+    /* restore the desktop wrapper/section spacing that the mobile base above
+       zeroes out to let the colour band bleed full viewport width. */
+    .columns-media-wrapper:has(
+        > .columns-media:is(.left, .right):is(
+                .gold,
+                .teal,
+                .cyan,
+                .orange,
+                .purple,
+                .navy
+            )
+    ) {
+        margin-bottom: 50px;
+        padding: 0 32px;
+    }
+
+    main
+        > .section:has(
+            > .columns-media-wrapper
+                > .columns-media:is(.left, .right):is(
+                    .gold,
+                    .teal,
+                    .cyan,
+                    .orange,
+                    .purple,
+                    .navy
+                )
+        ) {
+        max-width: 1920px;
+        margin: 0 auto;
+        padding: 40px 0;
+
+        /* The media accent panel bleeds past the centered container with a
+       100vw pseudo element; clip it here so the right-hand bleed doesn't
+       stretch the document and scroll the whole page sideways. */
+        overflow-x: clip;
+    }
+
+    .columns-media:is(.gold, .teal, .cyan, .orange, .purple, .navy):is(
+            .left,
+            .right
+        )
+        > div
+        > .columns-media-text-col {
+        padding: 0;
+    }
+
+    /* direction-driven layout, identical for every colour: image column
+       justifies toward the image's outer edge; the (narrower, max-width)
+       heading/copy in the text column pushes flush to the image's inner
+       edge via margin-left: auto (below). Only the shape/screenshot
+       placement further down varies per row. */
+    .columns-media.left:is(.gold, .teal, .cyan, .purple, .orange, .navy)
+        .columns-media-img-col {
+        justify-content: end;
+    }
+
+    .columns-media.right:is(.gold, .teal, .cyan, .purple, .orange, .navy)
+        .columns-media-img-col {
+        justify-content: flex-start;
+    }
+
+    .columns-media.right:is(.purple, .navy) .columns-media-img-col {
+        justify-content: end;
+    }
+
+    .columns-media.right.navy .columns-media-img-col {
+        justify-content: flex-start;
+    }
+
+    .columns-media:is(.gold, .teal, .cyan, .purple, .orange, .navy):is(
+            .left,
+            .right
+        )
+        > div
+        > .columns-media-img-col {
+        position: relative;
+        display: flex;
+        padding: 0;
+        padding-top: 100px;
+        margin-bottom: 0;
+        background: var(--media-accent);
+    }
+
+    .columns-media.left:is(.gold, .teal, .cyan, .purple, .orange, .navy)
+        .columns-media-img-col::before {
+        right: 100%;
+    }
+
+    .columns-media.right:is(.gold, .teal, .cyan, .purple, .orange, .navy)
+        .columns-media-img-col::before {
+        left: 100%;
+    }
+
+    /* bleed the colour panel out to the viewport edge on the image's outer side */
+    .columns-media:is(.gold, .teal, .cyan, .purple, .orange, .navy):is(
+            .left,
+            .right
+        )
+        > div
+        > .columns-media-img-col::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 100vw;
+        background: var(--media-accent);
+        z-index: 0;
+    }
+
+    .columns-media:is(.gold, .teal, .cyan, .purple, .orange, .navy):is(
+            .left,
+            .right
+        )
+        .columns-media-text-col
+        h2 {
+        max-width: 350px;
+    }
+
+    .columns-media.left:is(.gold, .teal, .cyan, .purple, .orange, .navy)
+        .columns-media-text-col
+        p {
+        max-width: 500px;
+    }
+
+    .columns-media.right:is(.gold, .teal, .cyan, .purple, .orange, .navy)
+        .columns-media-text-col
+        p {
+        max-width: 350px;
+    }
+
+    .columns-media.right:is(.gold, .teal, .cyan, .purple, .orange, .navy)
+        .columns-media-text-col
+        h2,
+    .columns-media.right:is(.gold, .teal, .cyan, .purple, .orange, .navy)
+        .columns-media-text-col
+        p {
+        margin-left: auto;
+    }
+
+    /* per-row decorative shape (img-1) + screenshot (img-2) placement, tuned
+       to match each production photo's own crop and composition. left:auto/
+       right:auto below cancel the mobile-only offset on the opposite side. */
+    .columns-media.left.gold .columns-media-img-col .columns-media-img-1 img {
+        position: absolute;
+        z-index: 1;
+        right: 50px;
+        left: auto;
+        top: -48px;
+        max-width: 160px;
+        transform: rotate(130deg);
+    }
+
+    .columns-media.left.gold .columns-media-img-col .columns-media-img-2 img {
+        position: relative;
+        z-index: 2;
+        max-width: 550px;
+        margin-bottom: -7px;
+    }
+
+    .columns-media.right.teal .columns-media-img-col .columns-media-img-1 img {
+        position: absolute;
+        z-index: 1;
+        right: 30px;
+        left: auto;
+        top: 100px;
+        max-width: 140px;
+    }
+
+    .columns-media.right.teal .columns-media-img-col .columns-media-img-2 img {
+        position: relative;
+        z-index: 2;
+        width: 250px;
+        max-width: none;
+        margin-bottom: -7px;
+        padding-left: 100px;
+    }
+
+    .columns-media.right.navy .columns-media-img-col .columns-media-img-1 img {
+        padding-left: 100px;
+    }
+
+    .columns-media.left.cyan .columns-media-img-col .columns-media-img-1 img {
+        position: absolute;
+        z-index: 1;
+        right: 60px;
+        left: auto;
+        top: -48px;
+        max-width: 120px;
+        transform: rotate(130deg);
+    }
+
+    .columns-media.left.cyan .columns-media-img-col .columns-media-img-2 img {
+        position: relative;
+        z-index: 2;
+        max-width: 550px;
+        margin-bottom: -7px;
+    }
+
+    .columns-media.left.orange .columns-media-img-col .columns-media-img-1 img {
+        position: absolute;
+        z-index: 1;
+        left: 80px;
+        right: auto;
+        top: 100px;
+        max-width: 200px;
+        transform: rotate(130deg);
+    }
+
+    .columns-media.left.orange .columns-media-img-col .columns-media-img-2 img {
+        position: relative;
+        z-index: 2;
+        max-width: 370px;
+        margin-bottom: -7px;
+        margin-right: 40px;
+    }
+
+    .columns-media.left.teal > div > .columns-media-img-col,
+    .columns-media.right.navy > div > .columns-media-img-col {
+        padding-top: 50px;
+    }
+}
+
+@media (width >= 960px) {
+    .columns-media.right.teal .columns-media-img-col .columns-media-img-2 img {
+        width: 370px;
+    }
+
+    .columns-media:is(.left, .right):is(
+            .gold,
+            .teal,
+            .cyan,
+            .orange,
+            .purple,
+            .navy
+        )
+        h2 {
+        font-size: 48px;
+    }
+
+    .columns-media:is(.left, .right):is(
+            .gold,
+            .teal,
+            .cyan,
+            .orange,
+            .purple,
+            .navy
+        )
+        p {
+        font-size: 28px;
+    }
+}
+
+@media (width >= 1200px) {
+    .columns-media:is(.gold, .teal, .cyan, .purple, .orange, .navy):is(
+            .left,
+            .right
+        )
+        .columns-media-text-col
+        h2 {
+        max-width: 540px;
+    }
+
+    .columns-media.navy.right .columns-media-text-col h2 {
+        max-width: 535px;
+    }
+
+    .columns-media.right:is(.gold, .teal, .cyan, .purple, .orange, .navy)
+        .columns-media-text-col
+        p {
+        max-width: 540px;
+    }
+
+    /* free-cmms: match standard right.teal at desktop */
+    .columns-media.right.teal.free-cmms .columns-media-img-col .columns-media-img-1 img {
+        right: 30px;
+        left: 10px;
+        top: 100px;
+        max-width: 175px;
+    }
+
+    .columns-media.right.teal.free-cmms .columns-media-img-col .columns-media-img-2 img {
+        width: 584px;
+        max-width: none;
+        margin-bottom: 0;
+        padding-left: 100px;
+        margin-right: -32px;
+    }
+
+    .columns-media.right.teal.free-cmms > div > .columns-media-img-col {
+        padding-top: 96px;
+        justify-content: end;
+    }
+
+    .columns-media.right.teal.free-cmms .columns-media-text-col h2,
+    .columns-media.right.teal.free-cmms .columns-media-text-col p {
+        margin-left: auto;
+        max-width: 540px;
+        padding-right: 30px;
+    }
+}
+
+/* ============================================================
+   `feature` variant — image+text feature rows (cloud-page). Production renders
+   the feature H3 at 36px, larger than the default ~20px h3 in these rows.
+   Authorable ("columns-media (feature)" -> .columns-media.feature) so any page
+   can reuse it; the base columns-media keeps its default heading sizing.
+   ============================================================ */
+.columns-media.feature h3 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    max-width: 96%;
+    font-size: 36px;
+    font-weight: 700;
+    line-height: 1.1;
+}
+
+.columns-media.feature .columns-media-text-col p {
+    margin-top: 0;
+    margin-bottom: 0;
+    font-size: 20px;
+    line-height: normal !important;
+}
+
+/* Mobile: text above image (production .plan-track column-reverse). */
+@media (width < 768px) {
+    main .columns-media.feature.padding-medium {
+        margin-top: 30px;
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+
+    .columns-media.feature .columns-media-text-col {
+        margin-left: 20px;
+    }
+
+    .columns-media.feature .columns-media-img-col {
+        margin-top: 30px;
+        margin-bottom: 30px;
+    }
+
+    .columns-media.feature > div {
+        flex-direction: column-reverse;
+    }
+
+    .columns-media.feature > div > div,
+    .columns-media.feature > div > .columns-media-img-col {
+        order: unset;
+    }
+}
+
+@media (width >= 768px) {
+    main .columns-media.feature.padding-medium {
+        margin-top: 80px;
+        margin-bottom: 60px;
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+
+    .columns-media.feature > div {
+        align-items: flex-start;
+        gap: 0;
+    }
+}
+
+@media (width >= 768px) and (width < 960px) {
+    .columns-media.feature .columns-media-text-col {
+        margin-left: 20px;
+    }
+}
+
+@media (width >= 960px) {
+    main .columns-media.feature.padding-medium {
+        font-size: 16px;
+    }
+
+    /* Match production .plan-track: content-sized columns with even free space. */
+    .columns-media.feature > div {
+        justify-content: space-evenly;
+    }
+
+    .columns-media.feature > div > div {
+        box-sizing: border-box;
+        flex: 0 1 38%;
+        width: 38%;
+        max-width: 440px;
+        min-width: 0;
+    }
+
+    .columns-media.feature .columns-media-img-col img {
+        width: 100%;
+        max-width: 100%;
+        height: auto;
+    }
+}
+
+/* Vidyard + info-flex are independent variations stacked after accent
+   left/right. Their selectors intentionally do not compete with accent
+   rules, so descending-specificity across variation boundaries is OK. */
+/* stylelint-disable no-descending-specificity */
+
+/* Vidyard: text above video on mobile/tablet; gated on .vidyard only. */
+.columns-media.vidyard > div > div {
+    order: 0;
+}
+
+.columns-media.vidyard > div > .columns-media-img-col {
+    order: 1;
+}
+
+.columns-media.vidyard .columns-media-img-col > .vidyard-player-embed {
+    display: block;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+}
+
+.columns-media.vidyard .columns-media-img-col .vidyard-player-container {
+    width: 100%;
+    max-width: 100%;
+}
+
+@media (width >= 768px) {
+    .columns-media.vidyard > div > div,
+    .columns-media.vidyard > div > .columns-media-img-col {
+        order: unset;
+    }
+
+    .columns-media.vidyard:not(.left, .right) > div:nth-child(odd) {
+        flex-direction: row-reverse;
+    }
+}
+
+/* ---- info-flex: production .info-flex (text card 60% + graphic 40%).
+   Gated on .info-flex only — does not affect other columns-media. ---- */
+.columns-media.info-flex {
+    position: relative;
+    z-index: 1;
+    margin-top: 50px;
+}
+
+div.columns-media.info-flex > div {
+    gap: 0;
+}
+
+/* Cancel default mobile image-first order; column-reverse matches production. */
+div.columns-media.info-flex > div > div,
+div.columns-media.info-flex > div > .columns-media-img-col {
     order: unset;
-  }
 }
+
+.columns-media.info-flex .columns-media-info-text {
+    box-sizing: border-box;
+    background: #fff;
+    padding: 40px 30px;
+    box-shadow: rgb(0 0 0 / 16%) 0 0 10px;
+    z-index: 1;
+}
+
+.columns-media.info-flex .columns-media-info-text h3 {
+    margin: 0 0 20px;
+    font-size: 26px;
+    font-weight: 700;
+    line-height: 1.1;
+    color: var(--text-color);
+}
+
+.columns-media.info-flex .columns-media-info-text p {
+    margin: 0 0 20px;
+    font-size: 20px;
+    font-weight: 300;
+    line-height: 1.4;
+    color: var(--text-color);
+}
+
+.columns-media.info-flex .columns-media-info-text > p:has(picture),
+.columns-media.info-flex .columns-media-info-text > p:has(img) {
+    margin: 0 0 30px;
+    max-width: 295px;
+}
+
+.columns-media.info-flex .columns-media-info-text > p:has(picture) img,
+.columns-media.info-flex .columns-media-info-text > p:has(img) img {
+    display: block;
+    width: auto;
+    max-width: 100%;
+    height: auto;
+}
+
+.columns-media.info-flex .columns-media-info-text p.button-container {
+    margin: 0;
+}
+
+.columns-media.info-flex .columns-media-info-text a.button:any-link,
+.columns-media.info-flex
+    .columns-media-info-text
+    p.button-container
+    a:any-link {
+    display: inline-block;
+    margin: 0;
+    padding: 8px 40px;
+    border: 0;
+    border-radius: 5px;
+    background-image: linear-gradient(90deg, #cd163f 0%, #f58025 100%);
+    color: #fff;
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.columns-media.info-flex .columns-media-info-text a.button:hover,
+.columns-media.info-flex .columns-media-info-text a.button:focus-visible,
+.columns-media.info-flex .columns-media-info-text p.button-container a:hover,
+.columns-media.info-flex
+    .columns-media-info-text
+    p.button-container
+    a:focus-visible {
+    color: #fff;
+    text-decoration: none;
+    opacity: 0.92;
+}
+
+/* Mobile / tablet: graphic above white card (production column-reverse) */
+@media (width < 768px) {
+    div.columns-media.info-flex > div {
+        flex-direction: column-reverse;
+    }
+
+    .columns-media.info-flex .columns-media-info-text,
+    .columns-media.info-flex .columns-media-img-col,
+    .columns-media.info-flex .columns-media-img-col img {
+        width: 100%;
+    }
+}
+
+@media (width >= 768px) {
+    .columns-media.info-flex .columns-media-info-text {
+        padding: 40px 50px;
+    }
+}
+
+@media (width >= 768px) {
+    /* Beat equal-flex defaults and section gap overrides for this variation only */
+    main div.columns-media.info-flex > div {
+        align-items: center;
+        gap: 0;
+    }
+
+    .columns-media.info-flex .columns-media-info-text {
+        flex: 0 0 60%;
+        width: 60%;
+        max-width: 60%;
+    }
+
+    .columns-media.info-flex .columns-media-img-col {
+        flex: 0 0 40%;
+        width: 40%;
+        max-width: 40%;
+    }
+
+    .columns-media.left.teal .columns-media-img-col .columns-media-img-1 img,
+    .columns-media.right:is(.purple, .navy)
+        .columns-media-img-col
+        .columns-media-img-1
+        img {
+        position: relative;
+        width: 450px;
+        padding-right: 100px;
+    }
+
+    .columns-media.left.teal > div,
+    .columns-media.right:is(.purple, .navy) > div {
+        align-items: center;
+    }
+}
+
+/* ============================================================
+   `banner` variant — a hero band: intro copy on one side, a natural-aspect
+   portrait/illustration on the other, vertically centred on a light band.
+   Composes with the `.left` / `.right` direction variants for image side.
+   Self-contained (no page scoping) so any page can author a hero this way.
+   Values from source (fiixsoftware.com/customers header.header-height:
+   1200px container, ~500px band, #f3f7fa, H1 64/700, H2 20/300, 370px image).
+   ============================================================ */
+.columns-media-wrapper:has(> .columns-media.banner) {
+    max-width: none;
+    padding: 0;
+}
+
+.columns-media.banner {
+    background-color: #f3f7fa;
+}
+
+.columns-media.banner > div {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 32px;
+}
+
+.columns-media.banner .columns-media-text-col h1 {
+    margin: 0 0 20px;
+    font-size: 40px;
+    font-weight: 700;
+    line-height: 1.05;
+    color: var(--text-color);
+}
+
+.columns-media.banner .columns-media-text-col h2,
+.columns-media.banner .columns-media-text-col p {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 300;
+    line-height: 1.3;
+    color: var(--text-color);
+}
+
+/* Portrait/illustration keeps its natural aspect rather than stretching to fill
+   the column (overrides the base `.columns-media img { width: 100% }`). */
+.columns-media.banner .columns-media-img-col {
+    text-align: center;
+}
+
+.columns-media.banner .columns-media-img-col img {
+    width: auto;
+    max-width: 100%;
+    height: auto;
+}
+
+@media (width >= 768px) {
+    .columns-media.banner > div {
+        align-items: center;
+        gap: 40px;
+        min-height: 420px;
+        padding: 48px 32px;
+    }
+
+    .columns-media.banner .columns-media-text-col,
+    .columns-media.banner .columns-media-img-col {
+        flex: 1 1 0;
+        max-width: none;
+    }
+
+    /* Equal-width columns give the image more room than its 370px column
+       used to; cap it here so it keeps its original rendered size instead of
+       scaling up and growing the row's height. The image is a block element
+       (see the shared `.columns-media-img-col img { display: block }` rule),
+       so margin-left: auto -- not the column's text-align -- is what pushes
+       it to the row's outer (right) edge instead of floating centred in the
+       column's now-larger extra space. */
+    .columns-media.banner .columns-media-img-col img {
+        max-width: 370px;
+        margin-left: auto;
+    }
+
+    .columns-media.banner .columns-media-text-col h1 {
+        font-size: 64px;
+        line-height: 1;
+    }
+}
+
+/* ---- .page-customers band-height/spacing tuning ---- */
+.page-customers .columns-media.banner > div {
+    min-height: 400px;
+    padding: 0 32px;
+    justify-content: center;
+    gap: 0;
+}
+
+.page-customers main > .section:has(> .columns-media-wrapper > .columns-media.banner) {
+    margin: 0;
+}
+
+/* Source's hero spaces its headline and subtitle further apart than the
+   variant's own defaults (30px under the h1, 20px under the subtitle). */
+.page-customers .columns-media.banner .columns-media-text-col h1 {
+    margin-bottom: 30px;
+    font-size: 40px;
+
+    @media (width >= 768px) {
+        font-size: 50px;
+    }
+
+    @media (width >= 960px) {
+        font-size: 64px;
+    }
+}
+
+.page-customers .columns-media.banner .columns-media-text-col h2,
+.page-customers .columns-media.banner .columns-media-text-col p {
+    margin-bottom: 20px;
+}
+
+/* Source hides the portrait entirely below 768px -- text-only hero -- which
+   is why its band fits in 400px; ours kept showing the image and grew well
+   past that. */
+.page-customers .columns-media.banner .columns-media-img-col {
+    display: none;
+}
+
+@media (width >= 768px) {
+    .page-customers .columns-media.banner > div {
+        min-height: 500px;
+        padding: 0 32px;
+    }
+
+    .page-customers .columns-media.banner .columns-media-img-col {
+        display: block;
+    }
+}
+
+/* ============================================================
+   optix-hero — Optix landing hero (section also carries ai-hero).
+   Production #optixLP header: mobile shows the illustration + cross-hatch
+   tucked bottom-right (ai-hero hides media on mobile). Accent phrase is
+   authored as <em> in the H1 (italic in Document Authoring).
+   ============================================================ */
+main > .section.optix-hero {
+    /* stacking context so the absolute illustration can overlap the
+       following optix-intro band (production header-img img z-index:1) */
+    position: relative;
+    z-index: 1;
+    overflow: visible;
+    padding: 30px 0 180px;
+}
+
+/* product logo — production max-width 270px (not the 48px AI-hero cap) */
+main > .section.optix-hero .columns-media-text-col > p:has(img) {
+    margin: 0;
+}
+
+main > .section.optix-hero .columns-media-text-col > p:has(img) img {
+    width: auto;
+    max-width: 270px;
+    max-height: none;
+    height: auto;
+}
+
+main > .section.optix-hero .columns-media h1 {
+    margin: 0 0 30px;
+    font-size: 32px;
+    font-weight: 400;
+}
+
+/* authored italic on the key phrase → blue gradient text fill */
+main > .section.optix-hero .columns-media h1 em {
+    font-style: normal;
+    font-weight: 700;
+    background-image: linear-gradient(269deg, #003e7e 0%, #00aeef 100%);
+    /* stylelint-disable-next-line property-no-vendor-prefix -- Safari text fill */
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* external-link marker on the CTA (production .external-URL::after) */
+main > .section.optix-hero .columns-media a:any-link::after {
+    content: '';
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    margin-left: 6px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='2 2 20 20' fill='none' stroke='%23ffffff' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M14 3h7v7'/%3E%3Cpath d='M10 14 21 3'/%3E%3Cpath d='M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5'/%3E%3C/svg%3E");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    vertical-align: -1px;
+}
+
+/* show media on mobile; collapse the column (kids are absolute) and let
+   section padding reserve space for the overflowing illustration */
+main > .section.optix-hero .columns-media > div > .columns-media-img-col {
+    display: block;
+    position: relative;
+    width: 40%;
+    height: 0;
+    order: 1;
+    align-self: flex-end;
+}
+
+main > .section.optix-hero .columns-media > div > .columns-media-img-col .columns-media-img-1,
+main > .section.optix-hero .columns-media > div > .columns-media-img-col .columns-media-img-2 {
+    margin: 0;
+}
+
+/* main 3D illustration — production tucks this into the bottom-right.
+   Override ai-hero's logo max-height:48px which also matches media imgs. */
+main > .section.optix-hero .columns-media > div > .columns-media-img-col .columns-media-img-1 img {
+    position: absolute;
+    z-index: 1;
+    top: 20px;
+    right: 0;
+    left: auto;
+    width: 140px;
+    max-width: none;
+    max-height: none;
+    height: auto;
+    transform: none;
+}
+
+/* cross-hatch decorative graphic (authored as 2nd media image) */
+main > .section.optix-hero .columns-media > div > .columns-media-img-col .columns-media-img-2 {
+    position: absolute;
+    z-index: 0;
+    top: -10px;
+    right: 40px;
+    width: 110px;
+    height: 111px;
+}
+
+main > .section.optix-hero .columns-media > div > .columns-media-img-col .columns-media-img-2 img {
+    max-height: none;
+    right: -42px;
+    top: -38px;
+    position: absolute;
+}
+
+@media (width < 370px) {
+    main > .section.optix-hero .columns-media > div > .columns-media-img-col .columns-media-img-1 img {
+        top: 60px;
+        width: 220px;
+    }
+
+    main > .section.optix-hero .columns-media > div > .columns-media-img-col .columns-media-img-2 {
+        top: 0;
+    }
+}
+
+@media (width >= 768px) {
+    main > .section.optix-hero {
+        padding: 80px 0;
+    }
+
+    main > .section.optix-hero .columns-media h1 {
+        margin: 20px 0 35px;
+        font-size: 48px;
+    }
+
+    main > .section.optix-hero .columns-media > div > .columns-media-img-col {
+        width: auto;
+        height: auto;
+        align-self: center;
+    }
+
+    /* hand positioning back to shared ai-hero desktop rules */
+    main > .section.optix-hero .columns-media > div > .columns-media-img-col .columns-media-img-1 img {
+        top: unset;
+        right: unset;
+        left: unset;
+        width: 100%;
+        transform: none;
+        position: relative;
+    }
+
+    main > .section.optix-hero .columns-media > div {
+        gap: 0;
+    }
+
+    /* cross-hatch sits behind/above the illustration (production ::after) */
+    main > .section.optix-hero .columns-media > div > .columns-media-img-col .columns-media-img-2 {
+        top: 50px;
+        right: 0;
+        width: 150px;
+        height: 151px;
+    }
+
+    main > .section.optix-hero .columns-media > div > .columns-media-img-col .columns-media-img-2 img {
+        position: static;
+        width: 100%;
+        height: 100%;
+        transform: none;
+    }
+}
+
+@media (width >= 1200px) {
+    main > .section.optix-hero .columns-media > div > .columns-media-img-col .columns-media-img-1 img {
+        top: -60px;
+        transform: none;
+    }
+
+    main > .section.optix-hero .columns-media > div > .columns-media-img-col .columns-media-img-2 {
+        top: -20px;
+    }
+
+    main > .section.optix-hero {
+        padding: 80px 0 0;
+        max-height: 440px;
+    }
+
+    main > .section.optix-hero > div.columns-media-wrapper {
+        padding: 0 10px;
+    }
+}
+
+/* stylelint-enable no-descending-specificity */

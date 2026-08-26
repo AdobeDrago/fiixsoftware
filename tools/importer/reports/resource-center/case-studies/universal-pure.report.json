@@ -1,0 +1,13 @@
+{
+  "status": "success",
+  "url": "https://fiixsoftware.com/resource-center/case-studies/universal-pure/",
+  "path": "resource-center/case-studies/universal-pure",
+  "timestamp": "2026-08-17T11:49:15.388Z",
+  "title": "Universal Pure Modernizes Their Maintenance Operations | Fiix",
+  "template": "case-study-page",
+  "blocks": [
+    "hero-case-study",
+    "columns-media",
+    "hero-cta"
+  ]
+}

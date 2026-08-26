@@ -1,766 +1,1449 @@
-/* Fiix header — matches https://fiixsoftware.com desktop nav */
+/* Fiix header */
 
 :root {
-  --fiix-nav-height: 100px;
+    --fiix-nav-height: 55px;
 
-  /* The nav is position:fixed, so the boilerplate `header { height: var(--nav-height) }`
-     spacer must reserve the real nav height or the main content slides underneath
-     and the hero heading gets clipped. Mobile nav is 100px tall. */
-  --nav-height: 100px;
-  --fiix-text: rgb(33 32 33);
-  --fiix-blue: rgb(20 73 154);
-  --fiix-green: rgb(32 165 30);
-  --fiix-panel-bg: #fff;
-  --fiix-hover: rgb(20 73 154);
-  --fiix-cyan: #0e9c94;
-  --fiix-cyan-cta: rgb(0 175 235);
-  --fiix-badge-bg: #ffe01b;
-  --fiix-badge-text: #151b26;
-  --fiix-link-blue: #1650e6;
-  --fiix-panel-gray: #f2f2f2;
+    /* Fixed-nav spacer (mobile). */
+    --nav-height: 55px;
+    --fiix-text: rgb(33 32 33);
+    --fiix-blue: rgb(20 73 154);
+    --fiix-green: rgb(32 165 30);
+    --fiix-panel-bg: #fff;
+    --fiix-hover: rgb(20 73 154);
+    --fiix-cyan: #0e9c94;
+    --fiix-cyan-cta: rgb(0 175 235);
+    --fiix-badge-bg: #ffe01b;
+    --fiix-badge-text: #151b26;
+    --fiix-link-blue: #1650e6;
+    --fiix-panel-gray: #f2f2f2;
 }
 
-/* header and nav layout */
+/* Layout */
 header .nav-wrapper {
-  background-color: #fff;
-  width: 100%;
-  z-index: 20;
-  position: fixed;
-  box-shadow: none;
-  font-family: sofia-pro, sans-serif;
+    background-color: #fff;
+    width: 100%;
+    z-index: 20;
+    position: fixed;
+    box-shadow: 0 0 2px 1px rgb(0 0 0 / 16%);
+    font-family: sofia-pro, sans-serif;
 }
 
+/* Mobile: logo | hamburger. */
 header nav {
-  box-sizing: border-box;
-  display: grid;
-  grid-template:
-    'hamburger brand tools' var(--fiix-nav-height)
-    'sections sections sections' 1fr / auto 1fr auto;
-  align-items: center;
-  gap: 0 16px;
-  margin: auto;
-  max-width: 1264px;
-  height: var(--fiix-nav-height);
-  padding: 0 24px;
-  font-family: sofia-pro, sans-serif;
-}
-
-header nav[aria-expanded='true'] {
-  grid-template:
-    'hamburger brand' var(--fiix-nav-height)
-    'sections sections' 1fr
-    'tools tools' auto / auto 1fr;
-  overflow-y: auto;
-  min-height: 100dvh;
-}
-
-@media (width >= 900px) {
-  header .nav-wrapper { position: fixed; }
-
-  /* Two-tier desktop header (utility row + main row) is packed into 100px to
-     match production; the spacer reserves that height so main content clears
-     the fixed nav. The mega-menu panel and promo bar both anchor to it. */
-  :root {
-    --nav-height: 100px;
-  }
-
-  /* Two-tier desktop header: utility row (search + login) sits ABOVE the main
-     row (logo, nav links, CTA buttons). Both share the same centered 1200px
-     content box so their left/right edges align with the Fiix target. */
-  header nav {
+    box-sizing: border-box;
     display: grid;
     grid-template:
-      'utility utility utility' auto
-      'brand sections tools' auto / auto 1fr auto;
+        "brand hamburger" var(--fiix-nav-height)
+        "sections sections" auto
+        "tools tools" auto
+        "utility utility" auto / 1fr auto;
     align-items: center;
-    gap: 18px 28px;
-    max-width: 1200px;
+    align-content: start;
+    gap: 0;
+    margin: auto;
+    max-width: 1264px;
+    height: var(--fiix-nav-height);
+    padding: 0 20px;
+    font-family: sofia-pro, sans-serif;
+}
+
+/* Open drawer may scroll. */
+header nav[aria-expanded="true"] {
     height: auto;
-    padding: 8px 0 10px;
-  }
+    max-height: 100dvh;
+    overflow-y: auto;
+    padding-bottom: 24px;
+}
 
-  header nav[aria-expanded='true'] {
-    grid-template:
-      'utility utility utility' auto
-      'brand sections tools' auto / auto 1fr auto;
-    min-height: 0;
-    overflow: visible;
-  }
+/* Divider under logo / hamburger. */
+header .nav-wrapper:has(nav[aria-expanded="true"])::after {
+    content: "";
+    position: absolute;
+    top: var(--fiix-nav-height);
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background-color: #e1e1e1;
+    pointer-events: none;
+    z-index: 21;
+}
 
-  /* utility row: search + login, right-aligned above the main row */
-  header nav .nav-utility {
-    grid-area: utility;
-    display: flex;
-    justify-content: flex-end;
-  }
+@media (width >= 960px) {
+    header .nav-wrapper {
+        position: fixed;
+        height: var(--nav-height);
+        box-shadow: 0 0 2px 1px rgb(0 0 0 / 16%);
+        padding-bottom: 8px;
+    }
 
-  header nav .nav-utility ul {
-    list-style: none;
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    margin: 0;
-    padding: 0;
-  }
+    /* Fixed-nav spacer (desktop). */
+    :root {
+        --nav-height: 100px;
+    }
 
-  header nav .nav-utility ul li {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
+    /* Utility above logo / nav / CTAs. */
+    header nav {
+        display: grid;
+        grid-template:
+            "utility utility utility" auto
+            "brand sections tools" 1fr / auto 1fr auto;
+        align-items: center;
+        gap: 18px 28px;
+        max-width: 1200px;
+        height: 100%;
+        box-sizing: border-box;
+        padding: 8px 0 0;
+    }
 
+    header nav[aria-expanded="true"] {
+        grid-template:
+            "utility utility utility" auto
+            "brand sections tools" 1fr / auto 1fr auto;
+        height: 100%;
+        min-height: 0;
+        max-height: none;
+        padding-bottom: 0;
+        overflow: visible;
+    }
 
-  /* Login link: 16px / 500 / dark slate, 13px side padding (matches source) */
-  header nav .nav-utility a.nav-login {
-    padding: 0 13px;
-    font-size: 16px;
-    font-weight: 500;
-    line-height: 23.8px;
-    color: var(--fiix-text);
-  }
+    /* Stretch main row for underline; include aria-expanded. */
+    header nav .nav-brand,
+    header nav .nav-tools,
+    header nav[aria-expanded="true"] .nav-tools {
+        align-self: stretch;
+        display: flex;
+        align-items: center;
+    }
 
-  /* Search icon link: 13px side padding to match the source hit area */
-  header nav .nav-utility a.nav-search {
-    padding: 0 13px;
-  }
+    header nav .nav-sections,
+    header nav[aria-expanded="true"] .nav-sections {
+        align-self: stretch;
+        display: flex;
+        align-items: stretch;
+        min-height: 0;
+        margin-top: 0;
+    }
 
-  /* main row alignment: logo left, nav after, CTAs right */
-  header nav .nav-brand { align-self: center; }
-  header nav .nav-sections { align-self: center; }
-
-  header nav .nav-tools {
-    grid-area: tools;
-    align-self: center;
-  }
+    header nav .nav-sections .default-content-wrapper {
+        display: flex;
+        align-items: stretch;
+        height: 100%;
+    }
 }
 
 header nav p {
-  margin: 0;
-  line-height: 1;
+    margin: 0;
+    line-height: 1;
 }
 
 header nav a:any-link {
-  color: var(--fiix-text);
-  text-decoration: none;
+    color: var(--fiix-text);
+    text-decoration: none;
 }
 
-/* hamburger (mobile only) */
+/* Hamburger. */
 header nav .nav-hamburger {
-  grid-area: hamburger;
-  height: 22px;
-  display: flex;
-  align-items: center;
+    grid-area: hamburger;
+    height: var(--fiix-nav-height);
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
 }
 
 header nav .nav-hamburger button {
-  height: 22px;
-  margin: 0;
-  border: 0;
-  border-radius: 0;
-  padding: 0;
-  background-color: transparent;
-  color: inherit;
-  cursor: pointer;
+    display: flex;
+    align-items: center;
+    height: 100%;
+    margin: 0;
+    border: 0;
+    border-radius: 0;
+    padding: 0 24px;
+    background-color: transparent;
+    color: var(--fiix-text);
+    cursor: pointer;
 }
 
 header nav .nav-hamburger-icon,
 header nav .nav-hamburger-icon::before,
 header nav .nav-hamburger-icon::after {
-  box-sizing: border-box;
-  display: block;
-  position: relative;
-  width: 20px;
+    box-sizing: border-box;
+    display: block;
+    position: relative;
+    width: 18px;
+    height: 2px;
+    border-radius: 2px;
+    background: currentcolor;
 }
 
 header nav .nav-hamburger-icon::before,
 header nav .nav-hamburger-icon::after {
-  content: '';
-  position: absolute;
-  background: currentcolor;
+    content: "";
+    position: absolute;
 }
 
-header nav[aria-expanded='false'] .nav-hamburger-icon,
-header nav[aria-expanded='false'] .nav-hamburger-icon::before,
-header nav[aria-expanded='false'] .nav-hamburger-icon::after {
-  height: 2px;
-  border-radius: 2px;
-  background: currentcolor;
+/* Three-line hamburger (open + closed). */
+header nav .nav-hamburger-icon::before {
+    top: -6px;
 }
 
-header nav[aria-expanded='false'] .nav-hamburger-icon::before { top: -6px; }
-header nav[aria-expanded='false'] .nav-hamburger-icon::after { top: 6px; }
-
-header nav[aria-expanded='true'] .nav-hamburger-icon { height: 22px; }
-
-header nav[aria-expanded='true'] .nav-hamburger-icon::before,
-header nav[aria-expanded='true'] .nav-hamburger-icon::after {
-  top: 3px;
-  left: 1px;
-  transform: rotate(45deg);
-  transform-origin: 2px 1px;
-  width: 24px;
-  height: 2px;
-  border-radius: 2px;
+header nav .nav-hamburger-icon::after {
+    top: 6px;
 }
 
-header nav[aria-expanded='true'] .nav-hamburger-icon::after {
-  top: unset;
-  bottom: 3px;
-  transform: rotate(-45deg);
-}
-
-@media (width >= 900px) {
-  header nav .nav-hamburger {
-    display: none;
-    visibility: hidden;
-  }
+@media (width >= 960px) {
+    header nav .nav-hamburger {
+        display: none;
+        visibility: hidden;
+    }
 }
 
 header nav .nav-tools a {
-  font-size: 14px;
-  font-weight: 500;
-  color: var(--fiix-text);
-  white-space: nowrap;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--fiix-text);
+    white-space: nowrap;
 }
 
-/* brand / logo */
-header .nav-brand { grid-area: brand; }
+/* Brand */
+header .nav-brand {
+    grid-area: brand;
+}
 
+header nav .nav-brand p {
+    line-height: 0;
+}
+
+/* Mobile logo width. */
 header nav .nav-brand img {
-  width: auto;
-  height: 37px;
+    display: block;
+    width: 200px;
+    height: auto;
 }
 
-/* sections (main nav) */
+/* Sections */
 header nav .nav-sections {
-  grid-area: sections;
-  flex: 1 1 auto;
-  display: none;
-  visibility: hidden;
+    grid-area: sections;
+    flex: 1 1 auto;
+    display: none;
+    visibility: hidden;
 }
 
-header nav[aria-expanded='true'] .nav-sections {
-  display: block;
-  visibility: visible;
-  align-self: start;
+header nav[aria-expanded="true"] .nav-sections {
+    display: block;
+    visibility: visible;
+    align-self: start;
+    margin-top: 20px;
 }
 
 header nav .nav-sections ul {
-  list-style: none;
-  padding-left: 0;
-  margin: 0;
-  font-size: var(--body-font-size-s, 16px);
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
+    font-size: var(--body-font-size-s, 16px);
 }
 
 header nav .nav-sections > ul > li,
 header nav .nav-sections .default-content-wrapper > ul > li {
-  font-weight: 500;
-  color: var(--fiix-text);
+    font-weight: 500;
+    color: var(--fiix-text);
 }
 
-header nav .nav-sections a:hover { color: var(--fiix-hover); }
+header nav .nav-sections a:hover {
+    color: var(--fiix-hover);
+}
 
-@media (width >= 900px) {
-  header nav .nav-sections {
+/* Mobile drawer. */
+header nav .nav-sections .default-content-wrapper > ul > li {
     display: block;
-    visibility: visible;
-    white-space: nowrap;
-  }
+    padding: 0;
+}
 
-  header nav[aria-expanded='true'] .nav-sections { align-self: unset; }
-
-  /* top-level horizontal row */
-  header nav .nav-sections > ul,
-  header nav .nav-sections .default-content-wrapper > ul {
+/* Drawer top-level row. */
+header nav .nav-sections .default-content-wrapper > ul > li > p,
+header nav .nav-sections .default-content-wrapper > ul > li > a {
     display: flex;
     align-items: center;
-    gap: 28px;
+    gap: 8px;
     margin: 0;
-  }
-
-  /* Document Authoring wraps each top-level nav label in a block-level <p>
-     (e.g. <li><p>Product</p><ul>…). Because each top-level <li> is a flex item
-     whose children (the label <p>/<a> and the +/- ::after glyph) are block-level,
-     the glyph would stack BELOW the label and inflate the row. Laying out each
-     <li> as an inline flex row keeps the label and its glyph on one line,
-     vertically centered — matching the source. */
-  header nav .nav-sections > ul > li,
-  header nav .nav-sections .default-content-wrapper > ul > li {
-    position: static;
-    display: inline-flex;
-    align-items: center;
+    min-height: 48px;
     font-size: 16px;
-    font-weight: 500;
-    padding: 6px 0;
-    line-height: 27.2px;
-  }
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--fiix-text);
+}
 
-  header nav .nav-sections > ul > li > p,
-  header nav .nav-sections .default-content-wrapper > ul > li > p {
-    display: inline;
-    margin: 0;
-    line-height: 27.2px;
-  }
+/* Tablet drawer labels. */
+@media (width >= 768px) and (width < 960px) {
+    header nav {
+        padding-left: 26px;
+        padding-right: 26px;
+    }
 
-  /* blue "+" indicator on mega-menu triggers (matches Fiix source) */
-  header nav .nav-sections .nav-drop {
-    position: static;
-    padding-right: 18px;
+    header nav .nav-sections .default-content-wrapper > ul > li > p,
+    header nav .nav-sections .default-content-wrapper > ul > li > a {
+        font-size: 16px !important;
+        font-weight: 700 !important;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        min-height: 0;
+    }
+
+    header nav .nav-utility a.nav-login {
+        font-size: 16px;
+        padding-bottom: 30px;
+    }
+
+    header nav .nav-tools a.nav-cta {
+        font-size: 16px;
+    }
+
+    header nav .nav-tools .nav-contact {
+        font-size: 16px;
+    }
+}
+
+header nav .nav-sections .nav-drop {
     cursor: pointer;
-  }
+}
 
-  /* cyan "+" glyph inline-right of trigger, vertically centered (A3) */
-  header nav .nav-sections .nav-drop::after {
-    content: '+';
-    display: inline-block;
-    position: relative;
-    top: 0;
-    margin-left: 6px;
-    font-size: 18px;
+header nav .nav-sections .nav-drop > p::after {
+    content: "+";
+    font-size: 20px;
     font-weight: 400;
     line-height: 1;
-    color: #00afeb;
-  }
+    color: var(--fiix-cyan-cta);
+}
 
-  /* open state: cyan "−" glyph + cyan underline on the label (A2) */
-  header nav .nav-sections .nav-drop[aria-expanded='true']::after {
-    content: '−';
-  }
+header nav .nav-sections .nav-drop[aria-expanded="true"] > p::after {
+    content: "−";
+}
 
-  header nav .nav-sections .nav-drop[aria-expanded='true'] {
-    box-shadow: inset 0 -3px 0 0 #00afeb;
-  }
-
-  /* mega-menu panel: full-width dropdown below the header */
-  header nav .nav-sections .default-content-wrapper > ul > li > ul {
+/* Nested panels; stylelint: semantic classes, not DOM position. */
+/* stylelint-disable no-descending-specificity */
+header nav .nav-sections .nav-drop > ul {
     display: none;
-  }
+}
 
-  header nav .nav-sections .default-content-wrapper > ul > li[aria-expanded='true'] > ul {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 8px 40px;
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: var(--nav-height);
-    width: 100%;
-    box-sizing: border-box;
-    padding: 32px max(32px, calc((100% - 1336px) / 2));
-    background-color: var(--fiix-panel-bg);
-    box-shadow: 0 12px 24px rgb(0 0 0 / 10%);
-    border-top: 1px solid rgb(0 0 0 / 6%);
-    white-space: normal;
-  }
-
-  /* individual mega-menu entries — description text (source: 13px/300) */
-  header nav .nav-sections .default-content-wrapper > ul > li > ul > li {
-    margin-bottom: 30px;
-    padding: 0;
-    font-family: sofia-pro, sans-serif;
-    font-weight: 300;
-    font-size: 13px;
-    color: var(--fiix-text);
-    line-height: 1.4;
-  }
-
-  /* link title (source: 16px/500, no underline, line-height 27.2px) */
-  header nav .nav-sections .default-content-wrapper > ul > li > ul > li a {
+header nav .nav-sections .nav-drop[aria-expanded="true"] > ul {
     display: block;
-    font-family: sofia-pro, sans-serif;
-    font-weight: 500;
-    font-size: 16px;
-    line-height: 1.7;
+    padding: 0 0 12px 12px;
+}
+
+/* Drawer column headings. */
+header nav .nav-sections .nav-col > p {
+    margin: 12px 0 4px;
+    font-size: 16px !important;
+    font-weight: 700;
+    letter-spacing: normal;
+    text-transform: none;
     color: var(--fiix-text);
-  }
+}
 
-  header nav .nav-sections .default-content-wrapper > ul > li > ul > li a:hover {
-    color: var(--fiix-hover);
-  }
+/* Industry: desktop only. */
+header nav .nav-sections .nav-col-industry {
+    display: none;
+}
 
-  header nav .nav-sections .default-content-wrapper > ul > li > ul > li a img {
-    width: 56px;
-    height: auto;
-    flex: 0 0 auto;
-  }
+/* Drawer download label (see-all hidden). */
+header nav .nav-sections .nav-download-see-all {
+    display: none;
+}
 
-  /* ---- Grouped mega-menu (e.g. Product: Overview / Features / Industry) ---- */
-  header nav .nav-sections .default-content-wrapper > ul > li.nav-drop-grouped[aria-expanded='true'] > ul {
-    /* Center the mega-menu content on the same axis as the nav (logo at
-       50vw - 600px, matching the 1200px content column), so at wide viewports
-       the columns line up under the nav instead of stretching edge-to-edge.
-       The 3rd (grey) column bleeds back out to the right edge below. */
-    --mega-inset: max(32px, calc(50vw - 600px));
-
-    grid-template-columns: 1fr 1.4fr 1fr;
-    gap: 0;
-    padding: 0 var(--mega-inset);
-    align-items: stretch;
-  }
-
-  /* each top-level item in a grouped panel is a column: heading + links.
-     Column heading matches source: sofia-pro 14px/600, 20px gap, 8px pad,
-     2px #e1e1e1 underline. No inter-item margin at column level. */
-  header nav .nav-sections .default-content-wrapper > ul > li.nav-drop-grouped > ul > li.nav-col {
-    margin-bottom: 0;
-    padding: 32px 40px;
-    font-family: sofia-pro, sans-serif;
-    font-weight: 600;
-    font-size: 14px;
-    color: var(--fiix-text);
-    line-height: normal;
-  }
-
-  /* neutral grey background on the Industry-solutions column (3rd) — G2.
-     Bleed it back out to the right viewport edge (its content stays put via the
-     matching padding-right), matching production's full-bleed grey panel. */
-  header nav .nav-sections .default-content-wrapper > ul > li.nav-drop-grouped > ul > li.nav-col:nth-child(3) {
-    margin-right: calc(-1 * var(--mega-inset));
-    padding-right: calc(40px + var(--mega-inset));
-    background-color: var(--fiix-panel-gray);
-  }
-
-  /* First column sits flush at the centered inset (which now aligns with the
-     nav logo), so no extra left padding is needed. */
-  header nav .nav-sections .default-content-wrapper > ul > li.nav-drop-grouped > ul > li.nav-col:first-child {
-    padding-left: 0;
-  }
-
-  /* the nested list of links: 2px underline under the column heading */
-  header nav .nav-sections .default-content-wrapper > ul > li.nav-drop-grouped > ul > li.nav-col > ul {
+header nav .nav-sections .nav-download-mobile-label {
     display: block;
-    margin-top: 20px;
-    border-top: 2px solid #e1e1e1;
-    padding-top: 20px;
-  }
-
-  /* footer row (Contact us | Request a demo) spans the full panel width */
-  header nav .nav-sections .default-content-wrapper > ul > li.nav-drop-grouped > ul > li.nav-drop-footer {
-    grid-column: 1 / -1;
-    margin: 0;
-    padding: 16px 40px 16px 52px;
-    border-top: 1px solid rgb(0 0 0 / 8%);
-    display: flex;
-    gap: 24px;
-  }
-
-  header nav .nav-sections .default-content-wrapper > ul > li.nav-drop-grouped > ul > li.nav-drop-footer a {
-    display: inline;
-    font-weight: 600;
-    font-size: 14px;
-    color: var(--fiix-blue);
-    text-decoration: underline;
-  }
-
-  /* grouped column items: description text (source 13px/300, 30px gap).
-     Two-column grid places the cyan icon (C1) left of title + description. */
-  header nav .nav-sections .default-content-wrapper > ul > li.nav-drop-grouped > ul > li.nav-col > ul > li {
-    display: grid;
-    grid-template-columns: 24px 1fr;
-    column-gap: 12px;
-    align-items: start;
-    margin-bottom: 30px;
-    padding: 0;
-    font-family: sofia-pro, sans-serif;
-    font-weight: 300;
-    font-size: 13px;
-    color: var(--fiix-text);
-    line-height: 1.4;
-  }
-
-  /* grouped column items: link title (source 16px/500) */
-  header nav .nav-sections .default-content-wrapper > ul > li.nav-drop-grouped > ul > li.nav-col > ul > li a {
-    display: inline;
-    font-family: sofia-pro, sans-serif;
-    font-weight: 500;
-    font-size: 16px;
-    line-height: 1.7;
-    color: var(--fiix-text);
-  }
-
-  /* stylelint-disable no-descending-specificity */
-
-  /* C1: per-item cyan line icon, aligned to the title's line */
-  header nav .nav-sections .default-content-wrapper > ul > li.nav-drop-grouped .nav-col > ul > li > .nav-item-icon {
-    grid-column: 1;
-    display: flex;
-    align-items: flex-start;
-    justify-content: center;
-    padding-top: 2px;
-    color: var(--fiix-cyan);
-  }
-
-  header nav .nav-sections .default-content-wrapper > ul > li.nav-drop-grouped .nav-col > ul > li > .nav-item-main {
     grid-column: 2;
-    display: block;
-  }
+}
 
-  /* Title line: link + badge share one row (D1/D2 — badge never wraps below) */
-  header nav .nav-sections .default-content-wrapper > ul > li.nav-drop-grouped .nav-item-title {
-    display: flex;
-    align-items: baseline;
-    gap: 6px;
+/* Panel links; hide desc/promo on mobile. */
+header nav .nav-sections .nav-drop > ul a {
+    display: block;
+    padding: 10px 0;
+    font-size: 16px;
+    font-weight: 300 !important;
     line-height: 1.3;
-  }
+    color: var(--fiix-text);
+}
 
-  header nav .nav-sections .default-content-wrapper > ul > li.nav-drop-grouped .nav-item-desc {
+header nav .nav-sections .nav-item-desc,
+header nav .nav-sections .nav-promo-panel,
+header nav .nav-sections .nav-drop > ul img {
+    display: none;
+}
+
+/* Icon + label grid on a.nav-item-main (beats display:block). */
+header nav .nav-sections .nav-col > ul > li,
+header nav .nav-sections .nav-col > .nav-col-wrapper > ul > li,
+header nav .nav-sections .nav-promo-text > li {
     display: block;
-    margin-top: 2px;
-  }
+    margin: 0;
+}
 
-  /* D1/D2: FEATURED / NEW badge pill (source #ffe01b / #151b26 / 10px 500) */
-  header nav .nav-sections .default-content-wrapper > ul > li.nav-drop-grouped .nav-badge {
-    display: inline-block;
-    flex: 0 0 auto;
-    align-self: center;
+header nav .nav-sections .nav-drop > ul li:not(.nav-link-more) > a.nav-item-main {
+    display: grid;
+    grid-template-columns: 22px 1fr;
+    column-gap: 10px;
+    align-items: center;
+}
+
+header nav .nav-sections .nav-item-icon,
+header nav .nav-sections .nav-promo-icon {
+    grid-column: 1;
+    grid-row: 1 / -1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--fiix-cyan);
+}
+
+header nav .nav-sections .nav-item-icon svg,
+header nav .nav-sections .nav-promo-icon svg {
+    width: 20px;
+    height: 20px;
+}
+
+header nav .nav-sections .nav-item-title,
+header nav .nav-sections .nav-item-desc {
+    grid-column: 2;
+}
+
+/* Title + badge. */
+header nav .nav-sections .nav-item-title {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+header nav .nav-sections .nav-badge {
     padding: 2px 5px;
-    font-family: sofia-pro, sans-serif;
     font-size: 10px;
     font-weight: 500;
-    line-height: 1.4;
     color: var(--fiix-badge-text);
     background-color: var(--fiix-badge-bg);
     border-radius: 2px;
-  }
+}
 
-  /* E1: Features column renders its list as two sub-columns */
-  header nav .nav-sections .default-content-wrapper > ul > li.nav-drop-grouped > ul > li.nav-col-split > ul {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    column-gap: 40px;
-  }
-
-  /* F1/G1: Download + More-industry links — blue, no icon, arrow after */
-  header nav .nav-sections .default-content-wrapper > ul > li.nav-drop-grouped .nav-col > ul > li.nav-link-download,
-  header nav .nav-sections .default-content-wrapper > ul > li.nav-drop-grouped .nav-col > ul > li.nav-link-more {
-    grid-template-columns: 1fr;
-  }
-
-  header nav .nav-sections .default-content-wrapper > ul > li.nav-drop-grouped .nav-col > ul > li.nav-link-download > .nav-item-main,
-  header nav .nav-sections .default-content-wrapper > ul > li.nav-drop-grouped .nav-col > ul > li.nav-link-more > .nav-item-main {
-    grid-column: 1 / -1;
-  }
-
-  header nav .nav-sections .default-content-wrapper > ul > li.nav-drop-grouped .nav-col > ul > li.nav-link-download > .nav-item-icon,
-  header nav .nav-sections .default-content-wrapper > ul > li.nav-drop-grouped .nav-col > ul > li.nav-link-more > .nav-item-icon {
+/* Mega-menu footer (desktop). */
+header nav .nav-sections .nav-drop-footer {
     display: none;
-  }
-
-  header nav .nav-sections .default-content-wrapper > ul > li.nav-drop-grouped .nav-col > ul > li.nav-link-download a,
-  header nav .nav-sections .default-content-wrapper > ul > li.nav-drop-grouped .nav-col > ul > li.nav-link-more a {
-    font-size: 15px;
-    font-weight: 600;
-    color: var(--fiix-link-blue);
-  }
-
-  header nav .nav-sections .default-content-wrapper > ul > li.nav-drop-grouped .nav-col > ul > li.nav-link-download a::after {
-    content: '↓';
-    margin-left: 6px;
-  }
-
-  header nav .nav-sections .default-content-wrapper > ul > li.nav-drop-grouped .nav-col > ul > li.nav-link-more a::after {
-    content: '→';
-    margin-left: 6px;
-  }
-
-  /* ---- Promo mega-menu (e.g. Support): text columns + grey card panel ---- */
-  header nav .nav-sections .default-content-wrapper > ul > li.nav-drop-promo[aria-expanded='true'] > ul {
-    --mega-inset: max(52px, calc(50vw - 600px));
-
-    grid-template-columns: 1fr auto;
-    gap: 0;
-    padding: 0;
-    align-items: stretch;
-  }
-
-  /* text links: two columns (column-major), inset to align with the nav */
-  header nav .nav-sections .default-content-wrapper > ul > li.nav-drop-promo > ul > li.nav-promo-text {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: auto auto;
-    grid-auto-flow: column;
-    gap: 30px 40px;
-    margin: 0;
-    padding: 36px 40px 36px var(--mega-inset);
-  }
-
-  /* each text link becomes icon (col 1) + text block (col 2) */
-  header nav .nav-sections .default-content-wrapper > ul > li.nav-drop-promo > ul > li.nav-promo-text > li {
-    display: grid;
-    grid-template-columns: 22px 1fr;
-    gap: 12px;
-    align-items: start;
-    margin: 0;
-  }
-
-  header nav .nav-sections .default-content-wrapper > ul > li.nav-drop-promo .nav-promo-icon {
-    grid-column: 1;
-    display: flex;
-    align-items: flex-start;
-    justify-content: center;
-    padding-top: 3px;
-    color: var(--fiix-cyan);
-  }
-
-  header nav .nav-sections .default-content-wrapper > ul > li.nav-drop-promo .nav-promo-icon svg {
-    width: 20px;
-    height: 20px;
-  }
-
-  header nav .nav-sections .default-content-wrapper > ul > li.nav-drop-promo .nav-promo-text > li > p {
-    grid-column: 2;
-    margin: 0;
-  }
-
-  /* grey promo panel on the right, bleeding to the viewport edge */
-  header nav .nav-sections .default-content-wrapper > ul > li.nav-drop-promo > ul > li.nav-promo-panel {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: 16px;
-    margin: 0;
-    padding: 32px 24px;
-    padding-right: var(--mega-inset);
-    background-color: var(--fiix-panel-gray);
-  }
-
-  /* horizontal white promo card: image + title / description / read-more */
-  header nav .nav-sections .default-content-wrapper > ul > li.nav-drop-promo .nav-promo-card {
-    display: grid;
-    grid-template-columns: 96px 1fr;
-    gap: 16px;
-    width: 420px;
-    margin: 0;
-    padding: 16px;
-    background-color: #fff;
-    align-items: center;
-  }
-
-  header nav .nav-sections .default-content-wrapper > ul > li.nav-drop-promo .nav-promo-card > p:first-child {
-    margin: 0;
-    line-height: 0;
-  }
-
-  header nav .nav-sections .default-content-wrapper > ul > li.nav-drop-promo .nav-promo-card img {
-    display: block;
-    width: 96px;
-    height: auto;
-    border-radius: 4px;
-  }
-
-  header nav .nav-sections .default-content-wrapper > ul > li.nav-drop-promo .nav-promo-body {
-    display: flex;
-    flex-direction: column;
-  }
-
-  header nav .nav-sections .default-content-wrapper > ul > li.nav-drop-promo .nav-promo-body p {
-    margin: 0 0 6px;
-    font-family: sofia-pro, sans-serif;
-    font-size: 15px;
-    font-weight: 700;
-    line-height: 1.25;
-    color: var(--fiix-text);
-  }
-
-  header nav .nav-sections .default-content-wrapper > ul > li.nav-drop-promo .nav-promo-more {
-    font-size: 14px;
-    font-weight: 600;
-    color: var(--fiix-link-blue);
-  }
-
-  /* footer (Contact us | Request a demo) spans full width below */
-  header nav .nav-sections .default-content-wrapper > ul > li.nav-drop-promo > ul > li.nav-drop-footer {
-    grid-column: 1 / -1;
-  }
-
-  /* stylelint-enable no-descending-specificity */
+    gap: 20px;
+    padding-top: 4px;
 }
 
-/* tools (utility links + CTA buttons) */
+header nav .nav-sections .nav-drop-footer a {
+    font-weight: 600;
+    color: var(--fiix-blue);
+}
+/* stylelint-enable no-descending-specificity */
+
+@media (width >= 960px) {
+    header nav .nav-sections,
+    header nav[aria-expanded="true"] .nav-sections {
+        display: flex;
+        visibility: visible;
+        white-space: nowrap;
+        border-top: 0;
+        margin-top: 0;
+        align-self: stretch;
+    }
+
+    /* No drawer divider. */
+    header .nav-wrapper:has(nav[aria-expanded="true"])::after {
+        content: none;
+    }
+
+    /* Nav row. */
+    header nav .nav-sections > ul,
+    header nav .nav-sections .default-content-wrapper > ul {
+        display: flex;
+        align-items: stretch;
+        gap: 28px;
+        margin: 0;
+        height: 100%;
+    }
+
+    /* Label + glyph. */
+    header nav .nav-sections > ul > li,
+    header nav .nav-sections .default-content-wrapper > ul > li {
+        position: static;
+        display: inline-flex;
+        align-items: center;
+        font-size: 16px;
+        font-weight: 500;
+        padding: 0;
+        line-height: 27.2px;
+    }
+
+    /* Hover underline on p/a (li stays static for full-bleed panels). */
+    /* stylelint-disable no-descending-specificity */
+    header nav .nav-sections a:hover {
+        color: var(--fiix-text);
+    }
+
+    header nav .nav-sections > ul > li > p,
+    header nav .nav-sections .default-content-wrapper > ul > li > p,
+    header nav .nav-sections .default-content-wrapper > ul > li > a {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        align-self: stretch;
+        height: 100%;
+        margin: 0;
+        padding-top: 0;
+        padding-bottom: 0;
+        min-height: 0;
+        font-size: 16px;
+        font-weight: 500;
+        line-height: 27.2px;
+    }
+
+    header nav .nav-sections .nav-drop > p {
+        gap: 6px;
+    }
+
+    header nav .nav-sections .default-content-wrapper > ul > li > p::before,
+    header nav .nav-sections .default-content-wrapper > ul > li > a::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: -8px;
+        width: 100%;
+        height: 3px;
+        background-color: rgb(0 175 235);
+        transform: scaleX(0);
+        transition: transform 0.3s ease-in-out;
+    }
+
+    header nav .nav-sections .nav-drop[aria-expanded="true"] > p::before {
+        transform: scaleX(1);
+    }
+
+    header nav .nav-sections .default-content-wrapper > ul > li:hover > p::before,
+    header nav .nav-sections .default-content-wrapper > ul > li:hover > a::before {
+        transform: scaleX(1);
+    }
+
+    header nav .nav-sections .default-content-wrapper > ul > li:hover > p,
+    header nav .nav-sections .default-content-wrapper > ul > li:hover > a {
+        font-weight: 700;
+    }
+    /* stylelint-enable no-descending-specificity */
+
+    /* Mega-menu trigger; +/− on <p> for underline. */
+    header nav .nav-sections .nav-drop {
+        position: static;
+        cursor: pointer;
+    }
+
+    header nav .nav-sections .nav-drop > p::after {
+        content: "+";
+        display: inline-block;
+        font-size: 18px;
+        font-weight: 400;
+        line-height: 1;
+        color: #00afeb;
+        margin-left: 10px;
+    }
+
+    header nav .nav-sections .nav-drop[aria-expanded="true"] > p::after {
+        content: "−";
+    }
+
+    /* Mega-menu panel. */
+    /* stylelint-disable no-descending-specificity */
+    header nav .nav-sections .nav-drop > ul {
+        display: none;
+    }
+
+    header nav .nav-sections .nav-drop[aria-expanded="true"] > ul {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 8px 40px;
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 100%;
+        width: 100%;
+        box-sizing: border-box;
+        padding: 32px max(32px, calc((100% - 1336px) / 2));
+        background-color: var(--fiix-panel-bg);
+        box-shadow: 0 12px 24px rgb(0 0 0 / 10%);
+        border-top: 1px solid rgb(0 0 0 / 6%);
+        white-space: normal;
+    }
+
+    /* Mega-menu entry. */
+    header nav .nav-sections .nav-drop > ul > li {
+        margin-bottom: 30px;
+        padding: 0;
+        font-family: sofia-pro, sans-serif;
+        font-weight: 300;
+        font-size: 13px;
+        color: var(--fiix-text);
+        line-height: 1.4;
+    }
+
+    /* Link title. */
+    header nav .nav-sections .nav-drop > ul > li a {
+        display: block;
+        padding: 0;
+        font-family: sofia-pro, sans-serif;
+        font-weight: 500 !important;
+        font-size: 16px;
+        line-height: 1.7;
+        color: var(--fiix-text);
+    }
+
+    /* Panel images. */
+    header nav .nav-sections .nav-drop > ul img {
+        display: block;
+    }
+
+    header nav .nav-sections .nav-drop > ul > li a:hover {
+        color: var(--fiix-hover);
+    }
+
+    header nav .nav-sections .nav-drop > ul > li a img {
+        width: 56px;
+        height: auto;
+        flex: 0 0 auto;
+    }
+
+    /* Grouped mega-menu. */
+    header nav .nav-sections .nav-drop-grouped[aria-expanded="true"] > ul {
+        /* Align to 1200px nav column. */
+        --mega-inset: max(64px, calc(50vw - 600px));
+
+        /* Overview/Features content-sized; Industry fills. */
+        grid-template-columns: max-content max-content minmax(0, 1fr);
+        gap: 0;
+        padding: 0 var(--mega-inset);
+        align-items: stretch;
+        overflow: visible;
+    }
+
+    /* Grouped column. */
+    header nav .nav-sections .nav-drop-grouped .nav-col {
+        margin: 50px 75px 0 0;
+        padding: 0 0 20px;
+        font-family: sofia-pro, sans-serif;
+        font-weight: 600;
+        font-size: 14px;
+        color: var(--fiix-text);
+        line-height: normal;
+    }
+
+    /* Overview column width. */
+    header nav .nav-sections .nav-drop-grouped .nav-col:first-child > ul > li {
+        width: 240px;
+        box-sizing: border-box;
+    }
+
+    /* Reset drawer heading styles. */
+    header nav .nav-sections .nav-col > p {
+        margin: 0;
+        font-size: 14px;
+        font-weight: 600;
+        letter-spacing: normal;
+        text-transform: none;
+        color: var(--fiix-text);
+    }
+
+    /* Show Industry column. */
+    header nav .nav-sections .nav-col-industry {
+        display: list-item;
+    }
+
+    /* Hide drawer PDF label. */
+    header nav .nav-sections .nav-download-mobile-label {
+        display: none;
+    }
+
+    /* Industry full-bleed grey. */
+    header nav .nav-sections .nav-drop-grouped .nav-col:nth-child(3) {
+        position: relative;
+        z-index: 0;
+        margin: 0;
+        margin-right: calc(-1 * var(--mega-inset));
+        padding: 50px calc(20px + var(--mega-inset)) 20px 40px;
+        background-color: transparent;
+    }
+
+    header nav .nav-sections .nav-drop-grouped .nav-col:nth-child(3)::before {
+        content: "";
+        position: absolute;
+        z-index: -1;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        width: 100vw;
+        background-color: #f2f2f2;
+    }
+
+    /* Column links. */
+    header nav .nav-sections .nav-drop-grouped .nav-col > ul,
+    header nav .nav-sections .nav-drop-grouped .nav-col > .nav-col-wrapper > ul {
+        display: block;
+        margin-top: 8px;
+        border-top: 2px solid #e1e1e1;
+        padding-top: 20px;
+    }
+
+    /* Panel footer. */
+    header nav .nav-sections .nav-drop-grouped .nav-drop-footer {
+        grid-column: 1 / -1;
+        position: relative;
+        z-index: 1;
+        margin: 0 calc(-1 * var(--mega-inset));
+        padding: 16px var(--mega-inset);
+        border-top: none;
+        background-color: transparent;
+        display: flex;
+        align-items: center;
+        gap: 0;
+        overflow: visible;
+    }
+
+    header nav .nav-sections .nav-drop-grouped .nav-drop-footer::before {
+        content: "";
+        position: absolute;
+        z-index: -1;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        width: 100vw;
+        background-color: #f7f7f7;
+        box-shadow: inset 0 2px 0 0 #e1e1e1;
+    }
+
+    header nav .nav-sections .nav-drop-grouped .nav-drop-footer a {
+        display: inline-flex;
+        align-items: center;
+        font-weight: 600;
+        font-size: 14px;
+        line-height: 1;
+        color: var(--fiix-blue);
+        text-decoration: underline;
+    }
+
+    header nav .nav-sections .nav-drop-grouped .nav-drop-footer a + a::before {
+        content: "";
+        display: inline-block;
+        width: 2px;
+        height: 14px;
+        margin: 0 16px;
+        background-color: #e1e1e1;
+        flex: 0 0 auto;
+    }
+
+    /* Grouped item + hover highlight. */
+    header nav .nav-sections .nav-drop-grouped .nav-col > ul > li,
+    header nav .nav-sections .nav-drop-grouped .nav-col > .nav-col-wrapper > ul > li {
+        position: relative;
+        z-index: 1;
+        display: block;
+        margin-bottom: 30px;
+        padding: 0;
+        font-family: sofia-pro, sans-serif;
+        font-weight: 300;
+        font-size: 13px;
+        color: var(--fiix-text);
+        line-height: 1.4;
+    }
+
+    header nav .nav-sections .nav-drop-grouped .nav-col > ul > li:not(.nav-link-download, .nav-link-more)::before,
+    header nav .nav-sections .nav-drop-grouped .nav-col > .nav-col-wrapper > ul > li:not(.nav-link-download, .nav-link-more)::before {
+        content: "";
+        position: absolute;
+        border-radius: 3px;
+        background: #d6e3ee;
+        z-index: -1;
+        opacity: 0;
+        transform: scale(1.1);
+        transition: opacity 0.2s linear, transform 0.2s ease-out;
+    }
+
+    header nav .nav-sections .nav-drop-grouped .nav-col > ul > li:not(.nav-link-download, .nav-link-more):hover::before,
+    header nav .nav-sections .nav-drop-grouped .nav-col > .nav-col-wrapper > ul > li:not(.nav-link-download, .nav-link-more):hover::before {
+        opacity: 0.25;
+        transform: scale(1.1);
+        width: calc(100% + 10px);
+        height: calc(100% + 10px);
+        top: -5px;
+        left: -10px;
+    }
+
+    header nav .nav-sections .nav-drop-grouped .nav-col > ul > li:not(.nav-link-download, .nav-link-more):hover .nav-item-title,
+    header nav .nav-sections .nav-drop-grouped .nav-col > .nav-col-wrapper > ul > li:not(.nav-link-download, .nav-link-more):hover .nav-item-title {
+        color: var(--fiix-blue);
+    }
+
+    /* Grouped item link. */
+    header nav .nav-sections .nav-drop-grouped .nav-col > ul > li a.nav-item-main,
+    header nav .nav-sections .nav-drop-grouped .nav-col > .nav-col-wrapper > ul > li a.nav-item-main {
+        display: grid;
+        grid-template-columns: 24px 1fr;
+        column-gap: 12px;
+        align-items: start;
+        font-family: sofia-pro, sans-serif;
+        font-weight: 300;
+        font-size: 13px;
+        line-height: 1.4;
+        color: var(--fiix-text);
+    }
+
+    /* Grouped item title. */
+    header nav .nav-sections .nav-drop-grouped .nav-item-title {
+        display: flex;
+        align-items: baseline;
+        gap: 6px;
+        font-family: sofia-pro, sans-serif;
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 1.3;
+        color: var(--fiix-text);
+    }
+
+    /* Item icon. */
+    header nav .nav-sections .nav-drop-grouped .nav-item-icon {
+        grid-column: 1;
+        grid-row: 1 / -1;
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+        padding-top: 2px;
+        color: var(--fiix-cyan);
+    }
+
+    header nav .nav-sections .nav-drop-grouped .nav-item-title,
+    header nav .nav-sections .nav-drop-grouped .nav-item-desc {
+        grid-column: 2;
+    }
+
+    header nav .nav-sections .nav-drop-grouped .nav-item-desc {
+        display: block;
+        margin-top: 8px;
+        font-weight: 300;
+    }
+
+    /* Badge. */
+    header nav .nav-sections .nav-drop-grouped .nav-badge {
+        display: inline-block;
+        flex: 0 0 auto;
+        align-self: center;
+        padding: 2px 5px;
+        font-family: sofia-pro, sans-serif;
+        font-size: 10px;
+        font-weight: 500;
+        line-height: 1.4;
+        color: var(--fiix-badge-text);
+        background-color: var(--fiix-badge-bg);
+        border-radius: 2px;
+    }
+
+    /* Features: two sub-columns. */
+    header nav .nav-sections .nav-drop-grouped .nav-col-split > .nav-col-wrapper {
+        display: flex;
+        gap: 30px;
+        margin-top: 8px;
+        border-top: 2px solid #e1e1e1;
+        padding-top: 20px;
+    }
+
+    header nav .nav-sections .nav-drop-grouped .nav-col-split > .nav-col-wrapper > ul {
+        flex: 0 0 240px;
+        width: 240px;
+        margin-top: 0;
+        border-top: 0;
+        padding-top: 0;
+    }
+
+    header nav .nav-sections .nav-drop-grouped .nav-col-split > .nav-col-wrapper > ul > li {
+        width: 240px;
+        box-sizing: border-box;
+    }
+
+    /* Download / more. */
+    header nav .nav-sections .nav-drop-grouped .nav-link-download .nav-item-main,
+    header nav .nav-sections .nav-drop-grouped .nav-link-more .nav-item-main {
+        grid-template-columns: 1fr;
+    }
+
+    header nav .nav-sections .nav-drop-grouped .nav-link-download .nav-item-icon,
+    header nav .nav-sections .nav-drop-grouped .nav-link-more .nav-item-icon {
+        display: none;
+    }
+
+    header nav .nav-sections .nav-drop-grouped .nav-col .nav-link-download a,
+    header nav .nav-sections .nav-drop-grouped .nav-col .nav-link-more a,
+    header nav .nav-sections .nav-drop-grouped .nav-col > .nav-col-wrapper > ul > li.nav-link-download a,
+    header nav .nav-sections .nav-drop-grouped .nav-col > ul > li.nav-link-more a {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 14px;
+        font-weight: 500;
+        color: #14499a;
+    }
+
+    /* See-all spacing. */
+    header nav .nav-sections .nav-drop-grouped .nav-download-see-all {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        margin: 0 0 8px;
+        white-space: nowrap;
+        color: #14499a;
+    }
+
+    header nav .nav-sections .nav-drop-grouped .nav-download-label {
+        margin: 0;
+        padding: 0;
+        font-size: 14px;
+        font-weight: 500;
+        line-height: 1.3;
+        color: inherit;
+        white-space: nowrap;
+    }
+
+    header nav .nav-sections .nav-drop-grouped .nav-download-icon {
+        display: inline-flex;
+        flex: 0 0 auto;
+        align-items: center;
+        justify-content: center;
+        width: 12px;
+        height: 14px;
+        color: inherit;
+        line-height: 0;
+    }
+
+    header nav .nav-sections .nav-drop-grouped .nav-download-icon svg {
+        display: block;
+        width: 12px;
+        height: 12px;
+        stroke-width: 2.75;
+    }
+
+    header nav .nav-sections .nav-drop-grouped .nav-sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        margin: -1px;
+        padding: 0;
+        border: 0;
+        overflow: hidden;
+        clip-path: inset(50%);
+        white-space: nowrap;
+    }
+
+    header nav .nav-sections .nav-drop-grouped .nav-col > .nav-col-wrapper > ul > li.nav-link-download a {
+        margin: 0;
+        padding-left: 0;
+        gap: 0;
+    }
+
+    header nav .nav-sections .nav-drop-grouped .nav-col > ul > li.nav-link-more a {
+        margin-left: 32px;
+    }
+
+    header nav .nav-sections .nav-drop-grouped .nav-link-more a::after {
+        content: "";
+        display: inline-block;
+        width: 16px;
+        height: 27px;
+        flex: 0 0 auto;
+        background-color: currentcolor;
+        mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12h14M13 6l6 6-6 6'/%3E%3C/svg%3E");
+        mask-size: contain;
+        mask-repeat: no-repeat;
+        mask-position: center;
+    }
+
+    /* Promo mega-menu. */
+    header nav .nav-sections .nav-drop-promo[aria-expanded="true"] > ul {
+        --mega-inset: max(64px, calc(50vw - 600px));
+
+        grid-template-columns: max-content minmax(0, 1fr);
+        gap: 0;
+        padding: 0;
+        align-items: stretch;
+        overflow: visible;
+    }
+
+    /* Promo text: 2 cols; rows from --promo-rows. */
+    header nav .nav-sections .nav-drop-promo .nav-promo-text {
+        grid-column: 1;
+        grid-row: 1;
+        display: grid;
+        grid-template-columns: repeat(2, 240px);
+        grid-template-rows: repeat(var(--promo-rows, 3), auto);
+        grid-auto-flow: column;
+        gap: 0 75px;
+        width: max-content;
+        margin: 50px 75px 0 var(--mega-inset);
+        padding: 0 0 20px;
+        align-content: start;
+        background-color: #fff;
+        list-style: none;
+    }
+
+    /* Promo text item + hover highlight. */
+    header nav .nav-sections .nav-drop-promo .nav-promo-text > li {
+        position: relative;
+        z-index: 1;
+        display: block;
+        width: 240px;
+        box-sizing: border-box;
+        margin-top: 10px !important;
+        margin-bottom: 30px !important;
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    header nav .nav-sections .nav-drop-promo .nav-promo-text > li::before {
+        content: "";
+        position: absolute;
+        border-radius: 3px;
+        background: #d6e3ee;
+        z-index: -1;
+        opacity: 0;
+        transform: scale(1.1);
+        transition: opacity 0.2s linear, transform 0.2s ease-out;
+    }
+
+    header nav .nav-sections .nav-drop-promo .nav-promo-text > li:hover::before {
+        opacity: 0.25;
+        transform: scale(1.1);
+        width: calc(100% + 10px);
+        height: calc(100% + 10px);
+        top: -5px;
+        left: -10px;
+    }
+
+    header nav .nav-sections .nav-drop-promo .nav-promo-text > li:hover .nav-item-title {
+        color: var(--fiix-blue);
+    }
+
+    /* First row per column. */
+    header nav .nav-sections .nav-drop-promo .nav-promo-text > li:nth-child(1),
+    header nav .nav-sections .nav-drop-promo .nav-promo-text[data-promo-rows="2"] > li:nth-child(3),
+    header nav .nav-sections .nav-drop-promo .nav-promo-text[data-promo-rows="3"] > li:nth-child(4) {
+        margin-top: 33px !important;
+    }
+
+    header nav .nav-sections .nav-drop-promo .nav-promo-text > li > a.nav-item-main {
+        display: grid;
+        grid-template-columns: 22px 1fr;
+        column-gap: 12px;
+        align-items: start;
+        font-size: 14px;
+        font-weight: 500;
+        line-height: 1.3;
+        color: var(--fiix-text);
+    }
+
+    header nav .nav-sections .nav-drop-promo .nav-promo-icon {
+        grid-column: 1;
+        grid-row: 1 / -1;
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+        padding-top: 3px;
+        color: var(--fiix-cyan);
+    }
+
+    header nav .nav-sections .nav-drop-promo .nav-promo-icon svg {
+        width: 20px;
+        height: 20px;
+    }
+
+    header nav .nav-sections .nav-drop-promo .nav-item-title,
+    header nav .nav-sections .nav-drop-promo .nav-item-desc {
+        grid-column: 2;
+    }
+
+    header nav .nav-sections .nav-drop-promo .nav-item-title {
+        font-size: 14px;
+        font-weight: 500;
+        line-height: 1.3;
+        color: var(--fiix-text);
+    }
+
+    /* Promo descriptions. */
+    header nav .nav-sections .nav-drop-promo .nav-item-desc {
+        display: block;
+        margin-top: 8px;
+        font-size: 13px;
+        font-weight: 300;
+        line-height: 1.4;
+        color: var(--fiix-text);
+    }
+
+    /* Promo cards full-bleed grey. */
+    header nav .nav-sections .nav-drop-promo .nav-promo-panel {
+        grid-column: 2;
+        grid-row: 1;
+        position: relative;
+        z-index: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 16px;
+        margin: 0;
+        padding: 32px 24px;
+        padding-right: var(--mega-inset);
+        background-color: transparent;
+    }
+
+    header nav .nav-sections .nav-drop-promo .nav-promo-panel::before {
+        content: "";
+        position: absolute;
+        z-index: -1;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        width: 100vw;
+        background-color: #f2f2f2;
+    }
+
+    /* Promo card. */
+    header nav .nav-sections .nav-drop-promo .nav-promo-card {
+        display: grid;
+        grid-template-columns: 96px 1fr;
+        gap: 16px;
+        width: 420px;
+        margin: 0;
+        padding: 16px;
+        background-color: #fff;
+        align-items: center;
+    }
+
+    header nav .nav-sections .nav-drop-promo .nav-promo-card > p:first-child {
+        margin: 0;
+        line-height: 0;
+    }
+
+    header nav .nav-sections .nav-drop-promo .nav-promo-card img {
+        display: block;
+        width: 96px;
+        height: auto;
+        border-radius: 4px;
+    }
+
+    header nav .nav-sections .nav-drop-promo .nav-promo-body {
+        display: flex;
+        flex-direction: column;
+    }
+
+    header nav .nav-sections .nav-drop-promo .nav-promo-body p {
+        margin: 0 0 6px;
+        font-family: sofia-pro, sans-serif;
+        font-size: 15px;
+        font-weight: 700;
+        line-height: 1.25;
+        color: var(--fiix-text);
+    }
+
+    header nav .nav-sections .nav-drop-promo .nav-promo-more {
+        font-size: 14px;
+        font-weight: 600;
+        color: var(--fiix-link-blue);
+    }
+
+    /* Promo footer bar. */
+    header nav .nav-sections .nav-drop-promo .nav-drop-footer {
+        grid-column: 1 / -1;
+        grid-row: 2;
+        position: relative;
+        z-index: 1;
+        margin: 0;
+        padding: 16px var(--mega-inset);
+        border-top: none;
+        background-color: transparent;
+        display: flex;
+        align-items: center;
+        gap: 0;
+        list-style: none;
+        overflow: visible;
+    }
+
+    /* Full-bleed footer bg. */
+    header nav .nav-sections .nav-drop-promo .nav-drop-footer::before {
+        content: "";
+        position: absolute;
+        z-index: -1;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        width: 100vw;
+        background-color: #f7f7f7;
+        box-shadow: inset 0 2px 0 0 #e1e1e1;
+    }
+
+    header nav .nav-sections .nav-drop-promo .nav-drop-footer a {
+        display: inline-flex;
+        align-items: center;
+        font-weight: 600;
+        font-size: 14px;
+        line-height: 1;
+        color: var(--fiix-blue);
+        text-decoration: underline;
+    }
+
+    header nav .nav-sections .nav-drop-promo .nav-drop-footer a + a::before {
+        content: "";
+        display: inline-block;
+        width: 2px;
+        height: 14px;
+        margin: 0 16px;
+        background-color: #e1e1e1;
+        flex: 0 0 auto;
+    }
+
+    header nav .nav-sections .nav-drop-promo .nav-promo-more::after {
+        content: "";
+        display: inline-block;
+        width: 12px;
+        height: 12px;
+        margin-left: 6px;
+        vertical-align: -1px;
+        background-color: currentcolor;
+        mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12h14M13 6l6 6-6 6'/%3E%3C/svg%3E");
+        mask-size: contain;
+        mask-repeat: no-repeat;
+        mask-position: center;
+    }
+    /* stylelint-enable no-descending-specificity */
+}
+
+/* Tools + utility. */
+/* stylelint-disable no-descending-specificity */
 header nav .nav-tools {
-  grid-area: tools;
+    grid-area: tools;
 }
 
-header nav .nav-tools ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  align-items: center;
-  gap: 16px;
+header nav .nav-utility {
+    grid-area: utility;
 }
 
-/* Search rendered as a magnifying-glass icon (matches Fiix source). The link
-   lives in the utility row on desktop and in nav-tools on mobile, so match it
-   wherever it appears in the header. */
+header nav .nav-tools ul,
+header nav .nav-utility ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+/* Search glyph. */
 header nav a.nav-search {
-  font-size: 0;
-  width: 20px;
-  height: 20px;
-  display: inline-block;
-  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="%23212021" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>');
-  background-repeat: no-repeat;
-  background-position: center;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="%23212021" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>');
+    background-repeat: no-repeat;
+    background-size: 20px 20px;
 }
 
-/* CTA buttons — pill shape, brand colors.
-   Mobile/tablet default: "Book a demo" is a cyan pill (matches Fiix source);
-   the desktop media query below switches it to the blue pill + adds "Free tour". */
-header nav .nav-tools a.nav-cta {
-  display: inline-block;
-  border-radius: 40px;
-  padding: 9px 20px;
-  font-family: sofia-pro, sans-serif;
-  font-weight: 600;
-  font-size: 15px;
-  color: #fff;
-  text-align: center;
+/* Hide tools until drawer opens. */
+header nav .nav-tools,
+header nav .nav-utility {
+    display: none;
 }
 
-header nav .nav-tools a.nav-cta:hover {
-  color: #fff;
-  opacity: 0.92;
+header nav[aria-expanded="true"] .nav-tools,
+header nav[aria-expanded="true"] .nav-utility {
+    display: block;
 }
 
-/* Book a demo = blue (first CTA), Free tour = green (second CTA) */
-header nav .nav-tools li:nth-last-child(2) a.nav-cta {
-  background-color: var(--fiix-blue);
+/* Drawer: Login above Search. */
+header nav .nav-utility ul {
+    display: flex;
+    flex-direction: column-reverse;
 }
 
-header nav .nav-tools li:last-child a.nav-cta {
-  background-color: var(--fiix-green);
-}
-
-/* Mobile/tablet: "Book a demo" (first CTA) is a cyan pill — 20px/700, 2px cyan
-   border, 27px radius, centered, with vertical margins (matches Fiix source). */
-@media (width < 900px) {
-  header nav .nav-tools li:nth-last-child(2) a.nav-cta {
-    margin: 10px 0 20px;
-    border: 2px solid var(--fiix-cyan-cta);
-    border-radius: 27px;
-    padding: 8px 19px;
-    background-color: var(--fiix-cyan-cta);
-    font-size: 20px;
-    font-weight: 700;
-    line-height: 34px;
-  }
-}
-
-/* Desktop/wide: both CTAs are 16px/27.2px pills nudged up 6px; Free tour sits
-   10px right of Book a demo (matches Fiix source). */
-@media (width >= 900px) {
-  header nav .nav-tools a.nav-cta {
-    padding: 7px 19px;
+header nav .nav-utility a {
+    display: flex;
+    align-items: center;
+    min-height: 48px;
     font-size: 16px;
-    line-height: 27.2px;
-  }
+    font-weight: 700;
+    color: var(--fiix-text);
+}
+/* stylelint-enable no-descending-specificity */
 
-  header nav .nav-tools li:nth-last-child(2) a.nav-cta {
-    margin-top: -6px;
-  }
+/* Drawer search. */
+header nav .nav-utility a.nav-search {
+    margin-top: 8px;
+    border-bottom: 1px solid rgb(0 0 0 / 20%);
+    background-position: right center;
+    color: rgb(33 32 33 / 55%);
+}
 
-  header nav .nav-tools li:last-child a.nav-cta {
-    margin-top: -6px;
-    margin-left: 10px;
-  }
+/* Drawer CTAs. */
+header nav .nav-tools a.nav-cta {
+    display: flex;
+    align-items: center;
+    min-height: 48px;
+    border: 0;
+    border-radius: 0;
+    padding: 0;
+    background-color: transparent;
+    font-family: sofia-pro, sans-serif;
+    font-weight: 700;
+    font-size: 16px;
+    color: var(--fiix-text);
+}
+
+/* Desktop utility + CTAs. */
+@media (width >= 960px) {
+    header nav .nav-tools,
+    header nav[aria-expanded="true"] .nav-tools {
+        display: flex;
+        align-self: stretch;
+        align-items: center;
+        border-top: 0;
+    }
+
+    header nav .nav-tools ul {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+    }
+
+    /* Utility row. */
+    header nav .nav-utility,
+    header nav[aria-expanded="true"] .nav-utility {
+        display: flex;
+        justify-content: flex-end;
+        border-top: 0;
+    }
+
+    header nav .nav-utility ul {
+        flex-direction: row;
+        align-items: center;
+        gap: 4px;
+    }
+
+    header nav .nav-utility ul li {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    /* Login. */
+    header nav .nav-utility a.nav-login {
+        min-height: 0;
+        padding: 0 13px;
+        font-size: 16px;
+        font-weight: 500;
+        line-height: 23.8px;
+        color: var(--fiix-text);
+    }
+
+    /* Search icon. */
+    header nav .nav-utility a.nav-search {
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+        min-height: 0;
+        margin-top: 0;
+        border-bottom: 0;
+        padding: 0 13px;
+        font-size: 0;
+        background-position: center;
+    }
+
+    header nav .nav-tools a.nav-cta {
+        display: inline-block;
+        align-items: normal;
+        min-height: 0;
+        border-radius: 40px;
+        padding: 7px 19px;
+        font-size: 16px;
+        font-weight: 600;
+        line-height: 27.2px;
+        color: #fff;
+        text-align: center;
+    }
+
+    header nav .nav-tools a.nav-cta:hover {
+        color: #fff;
+        opacity: 0.92;
+    }
+
+    header nav .nav-tools a.nav-cta-primary {
+        margin: -6px 0 0;
+        border: 0;
+        border-radius: 40px;
+        background-color: var(--fiix-blue);
+        font-size: 16px;
+        font-weight: 600;
+        line-height: 27.2px;
+    }
+
+    header nav .nav-tools a.nav-cta-secondary {
+        margin-top: -6px;
+        margin-left: 10px;
+        background-color: var(--fiix-green);
+    }
+
+    /* Contact us: drawer only. */
+    header nav .nav-tools .nav-contact-drawer {
+        display: none;
+    }
+}
+
+/* Compact desktop (960–1199). */
+@media (width >= 960px) {
+    header nav {
+        gap: 18px 14px;
+        padding: 8px 16px 0;
+    }
+
+    header nav .nav-brand img {
+        width: auto;
+        height: 32px;
+    }
+
+    header nav .nav-tools ul {
+        gap: 10px;
+    }
+
+    header nav .nav-sections > ul,
+    header nav .nav-sections .default-content-wrapper > ul {
+        gap: 14px;
+    }
+
+    header nav .nav-tools a.nav-cta {
+        padding: 6px 14px;
+        font-size: 15px;
+    }
+
+    header nav .nav-tools a.nav-cta-secondary {
+        margin-left: 0;
+    }
+}
+
+@media (width >= 1200px) {
+    header nav {
+        gap: 18px 28px;
+        padding: 8px 0 0;
+    }
+
+    header nav .nav-brand img {
+        height: 37px;
+    }
+
+    header nav .nav-tools ul {
+        gap: 16px;
+    }
+
+    header nav .nav-sections > ul,
+    header nav .nav-sections .default-content-wrapper > ul {
+        gap: 28px;
+    }
+
+    header nav .nav-tools a.nav-cta {
+        padding: 7px 19px;
+        font-size: 16px;
+    }
+
+    header nav .nav-tools a.nav-cta-secondary {
+        margin-left: 10px;
+    }
 }

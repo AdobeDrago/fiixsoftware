@@ -33,9 +33,10 @@
   "usage": {
     "pagesUsing": [
       "/cmms/pricing/index",
-      "/cmms/cmms-software/index"
+      "/cmms/cmms-software/index",
+      "/free-cmms/index"
     ],
-    "reuseCount": 2,
-    "lastUsed": "2026-08-11T21:45:59.890Z"
+    "reuseCount": 3,
+    "lastUsed": "2026-08-17T00:00:00.000Z"
   }
 }

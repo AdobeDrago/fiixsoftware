@@ -1,0 +1,60 @@
+/*
+ * Table block — data/cost table for blog articles.
+ * Values extracted from the source (.blog-table table on fiixsoftware.com):
+ *   16px sofia-pro, 27.2px (1.7) line-height, 10px cell padding,
+ *   1px solid #e1e1e1 cell borders, header row #f7f7f7 (700 weight),
+ *   body cells 300 weight, #212021 text, no zebra striping.
+ * Scoped to `.table` so it does not collide with the `.table-compare` block.
+ */
+
+.table {
+  /* narrow viewports scroll the table horizontally, matching the source
+     wrapper (.blog-table-lrg { overflow-x: auto }) */
+  overflow-x: auto;
+}
+
+.table table {
+  width: 100%;
+  max-width: 100%;
+  margin: 0 0 10px;
+  border-collapse: collapse;
+  font-family: var(--body-font-family);
+  font-size: 16px;
+  line-height: 27.2px;
+  background-color: transparent;
+}
+
+/* keep columns legible while scrolling on small screens */
+@media (width < 600px) {
+  .table table {
+    min-width: 600px;
+  }
+}
+
+.table th,
+.table td {
+  padding: 10px;
+  border: 1px solid #e1e1e1;
+  color: var(--text-color);
+  text-align: left;
+  vertical-align: top;
+}
+
+.table th {
+  font-weight: 700;
+}
+
+.table thead tr {
+  background-color: #f7f7f7;
+}
+
+.table td {
+  font-weight: 300;
+}
+
+/* EDS wraps each cell's content in a <p>; strip its default block margins so
+   cell text sits flush like the source (which had bare text nodes). */
+.table th p,
+.table td p {
+  margin: 0;
+}

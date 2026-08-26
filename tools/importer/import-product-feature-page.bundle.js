@@ -189,8 +189,42 @@ var CustomImportScript = (() => {
     element.replaceWith(block);
   }
 
-  // tools/importer/parsers/cards-video.js
+  // tools/importer/parsers/cards-testimonial.js
   function parse4(element, { document }) {
+    const ratingGrid = element.querySelector(":scope > .container > .flex, .flex");
+    const ratingCards = ratingGrid ? Array.from(ratingGrid.querySelectorAll(":scope > div")).filter((div) => div.querySelector("p")) : [];
+    if (ratingCards.length === 0) {
+      element.replaceWith(...element.childNodes);
+      return;
+    }
+    const cells = [];
+    const seen = /* @__PURE__ */ new Set();
+    ratingCards.forEach((card) => {
+      const paras = Array.from(card.querySelectorAll(":scope > p"));
+      if (paras.length === 0) return;
+      const key = paras[0].textContent.trim();
+      if (!key || seen.has(key)) return;
+      seen.add(key);
+      const contentCell = [];
+      const ratingText = card.querySelector(".sr-only");
+      if (ratingText && ratingText.textContent.trim()) {
+        const rp = document.createElement("p");
+        rp.textContent = ratingText.textContent.trim();
+        contentCell.push(rp);
+      }
+      paras.forEach((p) => contentCell.push(p));
+      cells.push([contentCell]);
+    });
+    if (cells.length === 0) {
+      element.replaceWith(...element.childNodes);
+      return;
+    }
+    const block = WebImporter.Blocks.createBlock(document, { name: "cards-testimonial", cells });
+    ratingGrid.replaceWith(block);
+  }
+
+  // tools/importer/parsers/cards-video.js
+  function parse5(element, { document }) {
     const owlItems = Array.from(element.querySelectorAll(".owl-item:not(.cloned) > .item"));
     const items = owlItems.length ? owlItems : Array.from(element.querySelectorAll(".item-cont > .item, .item"));
     if (items.length === 0) {
@@ -216,7 +250,7 @@ var CustomImportScript = (() => {
   }
 
   // tools/importer/parsers/carousel-testimonial.js
-  function parse5(element, { document }) {
+  function parse6(element, { document }) {
     const ratingGrid = element.querySelector(":scope > .container > .flex, .flex");
     const ratingCards = ratingGrid ? Array.from(ratingGrid.querySelectorAll(":scope > div")).filter((div) => div.querySelector("p")) : [];
     if (element.matches(".social-proof-ratings") && ratingCards.length) {
@@ -303,7 +337,7 @@ var CustomImportScript = (() => {
   }
 
   // tools/importer/parsers/columns-callout.js
-  function parse6(element, { document }) {
+  function parse7(element, { document }) {
     const cta = element.querySelector("a.demo, a.track, .lite-license > a, a[href]");
     let info = element.querySelector(".lite-info");
     if (!info) {
@@ -325,7 +359,7 @@ var CustomImportScript = (() => {
   }
 
   // tools/importer/parsers/columns-logos.js
-  function parse7(element, { document }) {
+  function parse8(element, { document }) {
     const images = Array.from(element.querySelectorAll("img"));
     if (images.length === 0) {
       element.replaceWith(...element.childNodes);
@@ -338,7 +372,7 @@ var CustomImportScript = (() => {
   }
 
   // tools/importer/parsers/columns-media.js
-  function parse8(element, { document }) {
+  function parse9(element, { document }) {
     const normalizeLazy = (root) => root.querySelectorAll("img").forEach((img) => {
       if (!img.getAttribute("src")) {
         const lazy = img.getAttribute("data-src") || img.getAttribute("data-lazy-src");
@@ -482,7 +516,7 @@ var CustomImportScript = (() => {
   }
 
   // tools/importer/parsers/hero-lead.js
-  function parse9(element, { document }) {
+  function parse10(element, { document }) {
     const copyRoot = element.querySelector(".header-flex, #homepage") || element;
     const h1 = copyRoot.querySelector("h1") || element.querySelector("h1");
     const h2 = copyRoot.querySelector("h2") || element.querySelector("h2");
@@ -599,12 +633,13 @@ var CustomImportScript = (() => {
     "accordion-faq": parse,
     "cards-cta": parse2,
     "cards-features": parse3,
-    "cards-video": parse4,
-    "carousel-testimonial": parse5,
-    "columns-callout": parse6,
-    "columns-logos": parse7,
-    "columns-media": parse8,
-    "hero-lead": parse9
+    "cards-testimonial": parse4,
+    "cards-video": parse5,
+    "carousel-testimonial": parse6,
+    "columns-callout": parse7,
+    "columns-logos": parse8,
+    "columns-media": parse9,
+    "hero-lead": parse10
   };
   var PAGE_TEMPLATE = {
     "name": "product-feature-page",
@@ -657,9 +692,14 @@ var CustomImportScript = (() => {
         ]
       },
       {
+        "name": "cards-testimonial",
+        "instances": [
+          ".social-proof-ratings"
+        ]
+      },
+      {
         "name": "carousel-testimonial",
         "instances": [
-          ".social-proof-ratings",
           ".section6 #features-ent"
         ]
       },
@@ -771,7 +811,7 @@ var CustomImportScript = (() => {
         ],
         "style": "pf-testimonials",
         "blocks": [
-          "carousel-testimonial"
+          "cards-testimonial"
         ],
         "defaultContent": [
           ".social-proof-ratings h2"

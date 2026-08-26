@@ -58,6 +58,36 @@
  *   intentionally NOT removed — only the hidden form.mktoForm popups are stripped.
  *   (No Drift/CybotCookiebot/#performance_form/.white-popup/#ZN_.../#contactmap on
  *   this page, so those prior-page selectors are harmless idempotent no-ops here.)
+ *
+ * case-study-page (https://fiixsoftware.com/resource-center/case-studies/universal-pure/)
+ * verified against that page's migration-work/cleaned.html. All authorable content
+ * lives under div.case-studies-temp.cloeren inside #page-wrap; the chrome to strip is
+ * already covered by the selectors above — no new removal selectors were required:
+ *   - header.siteHeader            site header / navigation     (cleaned.html:5)
+ *   - #mobile-header               collapsed mobile header      (cleaned.html:480)
+ *   - #mobile-navigation           collapsed mobile menu nav    (cleaned.html:503)
+ *   - #footer                      site footer                  (cleaned.html:774)
+ *   - #copyright                   footer copyright bar         (cleaned.html:1133)
+ *   - #back-to-top                 site-shell scroll widget     (cleaned.html:1144)
+ *   - form.mktoForm                hidden Marketo footer form    (cleaned.html:783)
+ *   - iframe / link                Vidyard + Marketo XD iframe   (cleaned.html:716, 1150, 1157)
+ *   The case-studies-temp.cloeren > header, div.company-intro (with .ba-fiix
+ *   challenge/solution/result columns), the .container.content Company Overview
+ *   narrative, and div.kick-the-tires free-tour CTA are all authorable page content
+ *   and are left intact for the hero-case-study / columns-media / hero-cta parsers.
+ *
+ *   Vidyard video handling (beforeTransform, below): the Company Overview narrative
+ *   embeds a Vidyard player at div.vidyardVid (cleaned.html:713-721) containing an
+ *   <iframe class="vidyard-iframe-..." src="https://play.vidyard.com/6Tkjrp6faThCumu8isjgKx?...">.
+ *   This div.vidyardVid is NOT inside any block parser's target (it sits in the
+ *   .container.content default-content region, a sibling of .ba-fiix), so no parser
+ *   preserves it, and the generic afterTransform `iframe`/`link` removal would delete
+ *   the embed entirely — losing the video. It is therefore rewritten in
+ *   beforeTransform (before the iframe/link removal) into a standalone paragraph link
+ *   pointing at the cleaned player URL (query string stripped) so EDS client-side
+ *   auto-blocking can rebuild the video embed. Keyed on the site-generic .vidyardVid
+ *   class and guarded by an iframe[src*="play.vidyard.com"] lookup, so it is a no-op
+ *   on pages/templates without a Vidyard embed.
  */
 
 const TransformHook = { beforeTransform: 'beforeTransform', afterTransform: 'afterTransform' };
@@ -84,6 +114,63 @@ export default function transform(hookName, element, payload) {
       '#contactmap',
       '.google_map',
     ]);
+
+    // Vidyard embed → standalone link so EDS client-side auto-blocking can rebuild
+    // the video. Runs before the afterTransform iframe/link removal that would
+    // otherwise delete the embed. div.vidyardVid lives in the Company Overview
+    // default-content region (cleaned.html:713), outside any block parser target,
+    // so converting it here does not disturb block matching. No-op when absent.
+    element.querySelectorAll('div.vidyardVid').forEach((vid) => {
+      const iframe = vid.querySelector('iframe[src*="play.vidyard.com"]');
+      if (!iframe) return;
+      // Strip the query string so the link is a clean canonical player URL.
+      const src = iframe.getAttribute('src');
+      const url = src.split('?')[0];
+      const p = element.ownerDocument.createElement('p');
+      const a = element.ownerDocument.createElement('a');
+      a.href = url;
+      a.textContent = url;
+      p.append(a);
+      vid.replaceWith(p);
+    });
+
+    // Owl-carousel image gallery (div#gallery on older case-study pages, e.g.
+    // farming-maintenance). The owl plugin runs at import time and clones slides
+    // for infinite looping (6 cloned of 12 items) plus injects prev/next nav
+    // (‹ ›) and dot controls. Left as-is this leaks duplicated images, empty
+    // .mp4 video-slide links, and a stray "‹›" text node into the import.
+    // Collapse #gallery to its unique slide images (document order, deduped by
+    // src) so it imports as a clean image list — EDS stacks them without the JS
+    // carousel. Keyed on div#gallery and guarded by an image lookup, so it is a
+    // no-op on pages/templates without this gallery.
+    element.querySelectorAll('div#gallery').forEach((gallery) => {
+      const imgs = [];
+      const seen = new Set();
+      gallery.querySelectorAll('img').forEach((img) => {
+        const src = img.getAttribute('src') || img.getAttribute('data-src') || img.getAttribute('data-lazy-src');
+        if (!src || seen.has(src)) return;
+        seen.add(src);
+        if (!img.getAttribute('src')) img.setAttribute('src', src);
+        imgs.push(img);
+      });
+      if (imgs.length === 0) return;
+      const frag = element.ownerDocument.createDocumentFragment();
+      imgs.forEach((img) => {
+        const p = element.ownerDocument.createElement('p');
+        p.append(img);
+        frag.append(p);
+      });
+      gallery.replaceWith(frag);
+    });
+
+    // Inline <q> quotations already contain typographic quotation marks in the
+    // source (e.g. <q>“…”</q>). The HTML→markdown conversion also wraps <q>
+    // content in straight quotes, producing doubled quotes (""…""). Unwrap <q>
+    // elements to their inner text so exactly one set of (curly) quotes remains.
+    // Generic and safe: a no-op on pages without <q> elements.
+    element.querySelectorAll('q').forEach((q) => {
+      q.replaceWith(element.ownerDocument.createTextNode(q.textContent));
+    });
   }
 
   if (hookName === TransformHook.afterTransform) {

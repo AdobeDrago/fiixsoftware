@@ -13,7 +13,7 @@
 }
 
 /* Tablet: two-up. */
-@media (width >= 600px) {
+@media (width >= 768px) {
   .cards-pricing > ul {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -22,7 +22,7 @@
 /* Desktop: production's four-across row (fixed 200px tracks, right-aligned).
    Production spaces the cards on a 210px step (200px card + ~10px gap); a
    10px column gap reproduces that even spacing (observation A). */
-@media (width >= 900px) {
+@media (width >= 960px) {
   .cards-pricing > ul {
     grid-template-columns: repeat(4, 200px);
     gap: 10px;
@@ -124,6 +124,13 @@
   line-height: 1.1;
 }
 
+.cards-pricing .cards-pricing-price-row p {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 1.4;
+}
+
 /* price caption (e.g. "Per user, per month.") */
 .cards-pricing .cards-pricing-card-body h3 + p {
   margin: 0 0 16px;
@@ -209,11 +216,4 @@
 .cards-pricing .cards-pricing-price-row h3 {
   margin: 0;
   flex-shrink: 0;
-}
-
-.cards-pricing .cards-pricing-price-row p {
-  margin: 0;
-  font-size: 14px;
-  font-weight: 300;
-  line-height: 1.4;
 }

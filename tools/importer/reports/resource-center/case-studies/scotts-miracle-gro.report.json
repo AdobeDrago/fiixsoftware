@@ -1,0 +1,14 @@
+{
+  "status": "success",
+  "url": "https://fiixsoftware.com/resource-center/case-studies/scotts-miracle-gro/",
+  "path": "resource-center/case-studies/scotts-miracle-gro",
+  "timestamp": "2026-08-19T10:11:05.372Z",
+  "title": "How Fiix CMMS Improved Maintenance Ops at Scotts Miracle-Gro | Fiix",
+  "template": "case-study-page",
+  "blocks": [
+    "hero-case-study",
+    "case-study-intro-components",
+    "columns-media",
+    "hero-cta"
+  ]
+}

@@ -5,264 +5,575 @@
 /* stylelint-disable no-descending-specificity */
 
 footer {
-  background-color: #fff;
-  font-family: sofia-pro, sans-serif;
-  font-size: 16px;
-  color: #58585b;
+    background-color: #fff;
+    font-family: sofia-pro, sans-serif;
+    font-size: 16px;
+    color: #58585b;
 }
 
 footer .footer > div {
-  margin: auto;
-  max-width: 1200px;
-  padding: 40px 24px 24px;
+    margin: auto;
+    width: 90%;
+    max-width: 1200px;
+    padding: 0;
 }
 
 footer .footer p {
-  margin: 0;
+    margin: 0;
 }
 
-/* --- newsletter (first section) ------------------------------------ */
-/* Production centers the entire newsletter block (heading, subtext, form). */
-footer .footer > div > div:first-child {
-  padding-bottom: 24px;
-  border-bottom: 1px solid var(--border-color, #e2e6ea);
-  text-align: center;
+/* --- newsletter (first section inside the content wrapper) --------- */
+
+/* Production centers the entire newsletter block (heading, subtext, form).
+   Scope to the content wrapper's first section so the copyright bar
+   (also a direct .footer child) does not match these rules. */
+footer .footer > div:first-child > div:first-child {
+    margin: 0 0 40px;
+    padding: 75px 0;
+    border-top: 1px solid #e1e1e1;
+    border-bottom: 1px solid #e1e1e1;
+    text-align: center;
 }
 
-footer .footer > div > div:first-child h3 {
-  margin: 0 0 12px;
-  font-family: sofia-pro, sans-serif;
-  font-size: 24px;
-  font-weight: 700;
-  line-height: 1.2;
-  color: #212021;
+footer .footer > div:first-child > div:first-child h3 {
+    margin: 0 0 10px;
+    font-family: sofia-pro, sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 1.7;
+    color: #212021;
 }
 
-footer .footer > div > div:first-child p {
-  margin: 0 0 20px;
-  font-size: 20px;
-  font-weight: 300;
-  line-height: 1.5;
-  color: #212021;
+footer .footer > div:first-child > div:first-child p {
+    margin: 0 0 20px;
+    font-family: sofia-pro, sans-serif;
+    font-size: 20px;
+    font-weight: 300;
+    line-height: 1.7;
+    color: #212021;
 }
 
 footer .footer a:any-link {
-  color: #58585b;
-  text-decoration: none;
+    color: #58585b;
+    text-decoration: none;
 }
 
 footer .footer a:hover {
-  text-decoration: underline;
+    text-decoration: underline;
 }
 
 /* Subscribe call-to-action rendered as a blue pill */
-footer .footer > div > div:first-child p strong a {
-  display: inline-block;
-  padding: 10px 24px;
-  border-radius: 40px;
-  background-color: var(--fiix-blue, #14499a);
-  color: #fff;
-  font-weight: 600;
+footer .footer > div:first-child > div:first-child p strong a {
+    display: inline-block;
+    padding: 10px 24px;
+    border-radius: 40px;
+    background-color: var(--fiix-blue, #14499a);
+    color: #fff;
+    font-weight: 600;
 }
 
-footer .footer > div > div:first-child p strong a:hover {
-  color: #fff;
-  text-decoration: none;
-  opacity: 0.92;
+footer .footer > div:first-child > div:first-child p strong a:hover {
+    color: #fff;
+    text-decoration: none;
+    opacity: 0.92;
 }
 
 /* Newsletter email-capture form (built by footer.js; matches production:
-   300px email field + blue "Join" pill). */
+   300px email field + blue "Join" pill). Mobile: stacked; tablet+: inline row. */
 footer .footer-newsletter-form {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
-  gap: 20px;
-  margin: 16px 0 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 10px 0 0;
 }
 
 footer .footer-newsletter-input {
-  box-sizing: border-box;
-  width: 300px;
-  max-width: 100%;
-  height: 38px;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  background-color: #fff;
-  color: #212021;
-  font-family: sofia-pro, sans-serif;
-  font-size: 16px;
-  line-height: 1.2;
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 100%;
+    height: 38px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #fff;
+    color: #212021;
+    font-family: sofia-pro, sans-serif;
+    font-size: 16px;
+    line-height: 1.2;
 }
 
 footer .footer-newsletter-submit {
-  min-width: 100px;
-  height: 45px;
-  padding: 10px;
-  border: 0;
-  border-radius: 40px;
-  background-color: var(--fiix-blue, #14499a);
-  color: #fff;
-  font-family: sofia-pro, sans-serif;
-  font-size: 16px;
-  font-weight: 600;
-  line-height: 25px;
-  cursor: pointer;
+    min-width: 100px;
+    margin: 20px auto 0;
+    padding: 10px;
+    border: 0;
+    border-radius: 40px;
+    background-color: var(--fiix-blue, #14499a);
+    color: #fff;
+    font-family: sofia-pro, sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.2;
+    cursor: pointer;
 }
 
 footer .footer-newsletter-submit:hover {
-  opacity: 0.92;
+    background-color: #0f3773;
+}
+
+/* Tablet+ (min-width: 768px): inline newsletter row. */
+@media (width >= 768px) {
+    footer .footer > div:first-child > div:first-child {
+        margin: 0 10px;
+    }
+
+    footer .footer-newsletter-form {
+        flex-flow: row nowrap;
+    }
+
+    footer .footer-newsletter-input {
+        width: 100%;
+        min-width: 300px;
+        max-width: 300px;
+    }
+
+    footer .footer-newsletter-submit {
+        margin: 0 0 0 20px;
+    }
 }
 
 /* --- link columns (second section) --------------------------------- */
-footer .footer .columns > div {
-  display: flex;
-  flex-direction: column;
-  gap: 40px;
-}
 
-footer .footer .columns h4 {
-  margin: 0 0 20px;
-  font-family: sofia-pro, sans-serif;
-  font-size: 16px;
-  font-weight: 700;
-  line-height: 1.5;
-  color: #212021;
+/* Mobile default: two-column link grid (min-width: 768px switches to 4 cols). */
+footer .footer .columns {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin: 0;
 }
 
 footer .footer .columns ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
+    list-style: none;
+    margin: 0;
+    padding: 0;
 }
 
 footer .footer .columns li {
-  margin: 0 0 8px;
-  font-weight: 300;
-  line-height: 1.5;
+    margin: 0;
+    padding: 10px 0;
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 1.5;
 }
 
-/* "New" tag rendered as production's yellow pill badge (color sampled from
-   production: #ffe01b). Authored text is "New"; uppercased via CSS. */
+footer .footer .columns ul li a {
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 1.5;
+    text-align: left;
+}
+
+footer .footer .columns h4 {
+    margin: 20px 0;
+    font-family: sofia-pro, sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1.5;
+    color: #212021;
+    text-align: left;
+}
+
+footer .footer .columns > div {
+    display: contents;
+}
+
+footer .footer .columns > div > div {
+    box-sizing: content-box;
+    width: 45%;
+    margin: 75px 0 40px;
+    padding: 0 10px 0 0;
+}
+
+footer .footer .columns > div > div:has(#footer-logos),
+footer .footer .columns > div > div:has(#legal) {
+    margin: 50px 0 0;
+    padding: 0;
+}
+
+footer .footer .columns > div > div:has(#footer-logos) h4,
+footer .footer .columns > div > div:has(#legal) h4 {
+    margin: 0 0 20px;
+}
+
+footer .footer .columns > div > div:has(#follow) {
+    margin: 30px 0 0;
+    padding: 0;
+}
+
+footer .footer .columns > div > div:has(#follow) h4 {
+    margin: 0 0 20px;
+}
+
+/* Tablet + desktop (min-width: 768px): four-column row layout. */
+@media (width >= 768px) {
+    footer .footer .section.columns-container {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    footer .footer .columns {
+        display: block;
+        margin: 0;
+    }
+
+    footer .footer .columns > div {
+        margin: 0 10px;
+        display: flex;
+        flex-flow: row wrap;
+        align-items: flex-start;
+        justify-content: flex-start;
+        gap: 0;
+    }
+
+    /* First row: controlled column gap (live uses 23% + space-between). */
+    footer .footer .columns > div:first-child {
+        justify-content: flex-start;
+        column-gap: 8px;
+    }
+
+    footer .footer .columns > div > div {
+        box-sizing: border-box;
+        flex: 0 0 25%;
+        width: 25%;
+        max-width: 25%;
+        margin: 0;
+        padding: 0 10px 0 0;
+    }
+
+    footer .footer .columns > div:first-child > div {
+        flex: 0 0 calc((100% - 24px) / 4);
+        width: calc((100% - 24px) / 4);
+        max-width: calc((100% - 24px) / 4);
+        margin-top: 75px;
+    }
+
+    footer .footer .columns h4 {
+        margin: 20px 0;
+    }
+
+    /* Second row: Awards 40% + Legal 30% + Follow 30% (live at tablet). */
+    footer .footer .columns > div > div:has(#footer-logos) {
+        flex: 0 0 40%;
+        width: 40%;
+        max-width: 40%;
+        margin: 50px 0 120px;
+        padding: 0;
+    }
+
+    footer .footer .columns > div > div:has(#legal) {
+        flex: 0 0 30%;
+        width: 30%;
+        max-width: 30%;
+        margin: 50px 0 0;
+        padding: 0;
+    }
+
+    footer .footer .columns > div > div:has(#follow) {
+        flex: 0 0 30%;
+        width: 30%;
+        max-width: 30%;
+        margin: 30px 0 0;
+        padding: 0;
+    }
+
+    footer .footer .columns > div > div:has(#footer-logos) h4,
+    footer .footer .columns > div > div:has(#legal) h4,
+    footer .footer .columns > div > div:has(#follow) h4 {
+        margin: 0 0 20px;
+    }
+}
+
+/* "New" tag: yellow pill badge (authored as sibling <em> after the link). */
 footer .footer .columns li em {
-  display: inline-block;
-  margin-left: 6px;
-  padding: 1px 6px;
-  border-radius: 4px;
-  background-color: #ffe01b;
-  color: #212021;
-  font-size: 11px;
-  font-style: normal;
-  font-weight: 700;
-  line-height: 1.4;
-  letter-spacing: 0.02em;
-  text-transform: uppercase;
-  vertical-align: middle;
+    display: inline;
+    margin-left: 6px;
+    padding: 2px 5px;
+    border-radius: 4px;
+    background-color: #ffe01b;
+    color: #212021;
+    font-size: 10px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 2;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    white-space: nowrap;
 }
 
-/* Awards & Recognition: review-site logos (text links swapped for images by
-   footer.js) laid out as a wrapping grid, matching production. */
-footer .footer .columns ul.footer-awards {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 16px 20px;
+footer .footer .columns li:has(> em) {
+    white-space: nowrap;
 }
 
-footer .footer .columns ul.footer-awards li {
-  margin: 0;
+/* Awards & Recognition: production #footer-logos (figure + logo images). */
+footer .footer #footer-logos {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    max-width: 450px;
 }
 
-footer .footer .columns ul.footer-awards a {
-  display: inline-flex;
-  align-items: center;
+footer .footer #footer-logos figure {
+    margin: 0;
+    padding: 0;
+    flex: 0 0 auto;
 }
 
-footer .footer .columns ul.footer-awards a:hover {
-  opacity: 0.85;
+footer .footer #footer-logos a {
+    display: inline-flex;
+    align-items: center;
 }
 
-footer .footer .columns ul.footer-awards img {
-  display: block;
-  width: auto;
-  height: 36px;
-  max-width: 160px;
-  object-fit: contain;
+footer .footer #footer-logos a:hover {
+    opacity: 0.85;
 }
 
-footer .footer .columns ul.footer-awards li:nth-child(5) img {
-  height: 50px;
+footer .footer #footer-logos img {
+    display: block;
+    box-sizing: border-box;
+    width: 120px;
+    height: auto;
+    padding: 0 20px 20px 0;
+    object-fit: contain;
 }
 
-/* --- follow / copyright (last section) ----------------------------- */
-footer .footer > div > div:last-child {
-  margin-top: 32px;
-  font-size: 14px;
+footer .footer #footer-logos figure:nth-child(1) img {
+    width: 140px;
 }
 
-footer .footer > div > div:last-child p {
-  margin: 0 0 8px;
+footer .footer #footer-logos figure:nth-child(2) img {
+    width: 90px;
 }
 
-footer .footer > div > div:last-child p:first-child {
-  font-weight: 700;
-  color: #212021;
+footer .footer #footer-logos figure:nth-child(5) img {
+    width: 30px;
 }
 
-footer .footer > div > div:last-child p a {
-  margin-right: 12px;
+/* --- columns section wrapper --------------------------------------- */
+footer .footer .section.columns-container {
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-bottom: 50px;
+    font-size: 14px;
+}
+
+/* --- copyright bar (live #copyright) ------------------------------- */
+footer .footer .footer-copyright {
+    width: 100%;
+    margin: 0;
+    padding: 15px 0 13px;
+    background-color: #f7f7f7;
+    color: #58595b;
+    font-size: 16px;
+    max-width: none;
+}
+
+footer .footer .footer-copyright .default-content-wrapper,
+footer .footer .footer-copyright > div {
+    margin: 0 auto;
+    border: none;
+    max-width: 1200px;
+    padding: 0 20px;
+}
+
+@media (width >= 768px) {
+    footer .footer .footer-copyright .default-content-wrapper,
+    footer .footer .footer-copyright > div {
+        padding: 0 45px;
+    }
+}
+
+@media (width >= 1200px) {
+    footer .footer .footer-copyright .default-content-wrapper,
+    footer .footer .footer-copyright > div {
+        padding: 0;
+    }
+}
+
+footer .footer .footer-copyright p {
+    margin: 0;
+    padding: 10px 0;
+    font-family: sofia-pro, sans-serif;
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 1.5;
+    color: #58595b;
+    text-align: left;
+    letter-spacing: 0.5px;
+}
+
+footer .footer .footer-copyright sup {
+    font-size: 0.6em;
+    line-height: 0;
 }
 
 /* Social row rendered as icon glyphs (built by footer.js). */
 footer .footer .footer-social {
-  display: flex;
-  align-items: center;
-  gap: 20px;
+    display: flex;
+    align-items: center;
+    margin: 0;
 }
 
 footer .footer .footer-social a {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  margin-right: 0;
-  color: #58585b;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    padding: 10px 15px 10px 0;
+    color: #58585b;
+}
+
+footer .footer .footer-social a:last-child {
+    padding-right: 0;
 }
 
 footer .footer .footer-social a:hover {
-  color: #212021;
+    color: #00afeb;
 }
 
 footer .footer .footer-social svg {
-  display: block;
+    display: block;
+    width: 25px;
+    height: 25px;
 }
 
-/* --- desktop: columns in a horizontal row -------------------------- */
-@media (width >= 900px) {
-  footer .footer > div {
-    padding: 40px 32px 24px;
-  }
+/* --- desktop (>= 960): refinements --------------------------------- */
+@media (width >= 960px) {
+    footer .footer > div:first-child > div:first-child {
+        margin-left: 0;
+        margin-right: 0;
+    }
 
-  footer .footer .columns > div {
-    flex-flow: row wrap;
-    align-items: flex-start;
-    gap: 40px 32px;
-  }
+    footer .footer .columns > div {
+        margin-left: 0;
+        margin-right: 0;
+        gap: 0;
+        justify-content: flex-start;
+    }
 
-  /* Four columns per row so Awards/Legal wrap to a lower band (matches
-     production's footer layout). */
-  footer .footer .columns > div > div {
-    flex: 0 1 calc(25% - 24px);
-    min-width: 160px;
-  }
+    footer .footer .columns > div:first-child {
+        justify-content: flex-start;
+        column-gap: 0;
+    }
 
-  /* Awards column spans two column-widths so its review-site logos lay out in
-     a wrapping horizontal row (~3 across), matching production — instead of
-     stacking one-per-row inside a single 25% column. Widening this cell also
-     shifts the following "Legal" column rightward toward production's position.
-     DOM-safe: pure layout, no node movement. */
-  footer .footer .columns > div > div:has(.footer-awards) {
-    flex: 0 1 calc(50% - 16px);
-  }
+    /* Override global .columns > div > div { flex: 1 } from columns.css. */
+    footer .footer .columns > div > div {
+        flex: 0 0 25%;
+        width: 25%;
+        max-width: 25%;
+        padding: 0;
+    }
+
+    /* First row: 20% · 30% · 30% · 20% (no inter-column gap on desktop). */
+    footer .footer .columns > div:first-child > div:nth-child(1),
+    footer .footer .columns > div:first-child > div:nth-child(4) {
+        flex: 0 0 20%;
+        width: 20%;
+        max-width: 20%;
+    }
+
+    footer .footer .columns > div:first-child > div:nth-child(2),
+    footer .footer .columns > div:first-child > div:nth-child(3) {
+        flex: 0 0 30%;
+        width: 30%;
+        max-width: 30%;
+    }
+
+    footer .footer .section.columns-container {
+        margin: 0;
+    }
+
+    footer .footer .columns > div:first-child > div {
+        margin-top: 75px;
+    }
+
+    footer .footer .columns h4 {
+        margin: 0 0 20px;
+    }
+
+    /* Second row: Awards 50% + Legal 30% + Follow 20% (live at desktop). */
+    footer .footer .columns > div > div:has(#footer-logos) {
+        flex: 0 0 50%;
+        width: 50%;
+        max-width: 50%;
+        margin: 50px 0 0;
+    }
+
+    footer .footer .columns > div > div:has(#legal) {
+        flex: 0 0 30%;
+        width: 30%;
+        max-width: 30%;
+    }
+
+    footer .footer .columns > div > div:has(#follow) {
+        flex: 0 0 20%;
+        width: 20%;
+        max-width: 20%;
+    }
+}
+
+/* --- back to top (desktop only; live #back-to-top) ----------------- */
+#back-to-top {
+    display: none;
+}
+
+@media (width >= 960px) {
+    #back-to-top {
+        display: block;
+        position: fixed;
+        z-index: 1000;
+        right: 24px;
+        bottom: 0;
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transition: opacity 0.2s ease, visibility 0.2s ease;
+    }
+
+    #back-to-top.is-visible {
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+    }
+
+    #back-to-top a {
+        box-sizing: border-box;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 42px;
+        height: 36px;
+        border-radius: 3px 3px 0 0;
+        background-color: #000;
+        color: #fff;
+        font-size: 14px;
+        line-height: 36px;
+        text-align: center;
+        text-decoration: none;
+        opacity: 0.8;
+    }
+
+    #back-to-top a:hover,
+    #back-to-top a:focus-visible {
+        background-color: #00afeb;
+        color: #fff;
+        opacity: 1;
+        text-decoration: none;
+    }
+
+    #back-to-top a svg {
+        display: block;
+        width: 20px;
+        height: 20px;
+    }
 }

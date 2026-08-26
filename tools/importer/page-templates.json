@@ -870,9 +870,14 @@
           ]
         },
         {
+          "name": "cards-testimonial",
+          "instances": [
+            ".social-proof-ratings"
+          ]
+        },
+        {
           "name": "carousel-testimonial",
           "instances": [
-            ".social-proof-ratings",
             ".section6 #features-ent"
           ]
         },
@@ -984,7 +989,7 @@
           ],
           "style": "pf-testimonials",
           "blocks": [
-            "carousel-testimonial"
+            "cards-testimonial"
           ],
           "defaultContent": [
             ".social-proof-ratings h2"
@@ -1163,8 +1168,13 @@
             "main > section.fiixMAX-info",
             "main > section.augury",
             "main > section.what-is-it",
-            "main > section.case-study",
             "main > section.together"
+          ]
+        },
+        {
+          "name": "case-study-highlight",
+          "instances": [
+            "main > section.case-study"
           ]
         },
         {
@@ -1353,9 +1363,9 @@
           "selector": [
             "main > section.case-study"
           ],
-          "style": "optix-casestudy",
+          "style": null,
           "blocks": [
-            "columns-media"
+            "case-study-highlight"
           ],
           "defaultContent": []
         },
@@ -1392,6 +1402,102 @@
           "style": "optix-faq",
           "blocks": [
             "accordion-faq"
+          ],
+          "defaultContent": []
+        }
+      ]
+    },
+    {
+      "name": "case-study-page",
+      "urls": [
+        "https://fiixsoftware.com/resource-center/case-studies/universal-pure/",
+        "https://fiixsoftware.com/resource-center/case-studies/dlg-group/",
+        "https://fiixsoftware.com/resource-center/case-studies/pro-vac-fleet/",
+        "https://fiixsoftware.com/resource-center/case-studies/perth-county-ingredients/",
+        "https://fiixsoftware.com/resource-center/case-studies/farming-maintenance/",
+        "https://fiixsoftware.com/resource-center/case-studies/edms-consultants/",
+        "https://fiixsoftware.com/resource-center/case-studies/scotts-miracle-gro/",
+        "https://fiixsoftware.com/resource-center/case-studies/liberty-oilfield/"
+      ],
+      "coverageGaps": [],
+      "description": "Customer case study page: hero, composable company-intro blocks, challenge-solution-result columns, company overview, and a closing free-tour CTA band.",
+      "blocks": [
+        {
+          "name": "hero-case-study",
+          "instances": [
+            "div.case-studies-temp > header"
+          ]
+        },
+        {
+          "name": "case-study-intro-components",
+          "instances": [
+            "div.case-studies-temp > .company-intro"
+          ]
+        },
+        {
+          "name": "columns-media",
+          "instances": [
+            "div.company-intro div.ba-fiix",
+            ".ba-fiix"
+          ]
+        },
+        {
+          "name": "hero-cta",
+          "instances": [
+            "div.kick-the-tires"
+          ]
+        }
+      ],
+      "sections": [
+        {
+          "id": "case-study-hero",
+          "name": "Case study hero",
+          "selector": [
+            "div.case-studies-temp > header"
+          ],
+          "style": null,
+          "blocks": [
+            "hero-case-study"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "case-study-intro",
+          "name": "Case study intro",
+          "selector": [
+            "div.case-studies-temp > .company-intro"
+          ],
+          "style": "case-study-intro",
+          "blocks": [
+            "case-study-logo",
+            "case-study-profiles",
+            "case-study-lead",
+            "solutions-comparison",
+            "youtube-video",
+            "columns-media"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "case-study-overview",
+          "name": "Case study overview",
+          "selector": [
+            "div.case-studies-temp > .container.content"
+          ],
+          "style": "case-study-overview",
+          "blocks": [],
+          "defaultContent": []
+        },
+        {
+          "id": "case-study-cta",
+          "name": "Free tour CTA",
+          "selector": [
+            "div.kick-the-tires",
+            ".kick-the-tires"
+          ],
+          "style": "cta",
+          "blocks": [
+            "hero-cta"
           ],
           "defaultContent": []
         }

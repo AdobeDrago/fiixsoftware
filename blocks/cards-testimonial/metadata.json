@@ -1,0 +1,41 @@
+{
+  "variantName": "cards-testimonial",
+  "baseBlock": "cards",
+  "version": "1.0.0",
+  "created": "2026-08-17T00:00:00.000Z",
+  "sourceContext": {
+    "originUrl": "https://fiixsoftware.com/cmms/cmms-software/",
+    "originPage": "CMMS software page",
+    "blockPosition": "mid"
+  },
+  "visualCharacteristics": {
+    "colorScheme": "light",
+    "density": "spacious",
+    "purpose": "testimonial",
+    "imagePattern": "none"
+  },
+  "contentPattern": {
+    "structure": "per-card: star rating + short quote + author name + role",
+    "buttonCount": 0,
+    "imageCount": 0
+  },
+  "reuseGuidance": {
+    "suitableFor": [
+      "static review/rating card grids (always visible)",
+      "short customer quote trios with star ratings",
+      "social-proof rating bands without navigation"
+    ],
+    "notSuitableFor": [
+      "rotating testimonial sliders (use carousel-testimonial)",
+      "case-study highlights with company logos (use carousel-testimonial)"
+    ]
+  },
+  "usage": {
+    "pagesUsing": [
+      "/cmms/cmms-software/index",
+      "/customers/index"
+    ],
+    "reuseCount": 2,
+    "lastUsed": "2026-08-21T09:57:17.282808+00:00"
+  }
+}

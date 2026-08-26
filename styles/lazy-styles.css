@@ -35,8 +35,7 @@
   display: grid;
   grid-template-columns: 360px 1fr;
   grid-template-rows: auto auto;
-  column-gap: 40px;
-  row-gap: 0;
+  gap: 0 40px;
   max-width: 1200px;
   margin: 0 auto;
   padding: 48px 32px;
@@ -115,7 +114,7 @@
   top: 100px;
   z-index: 10;
   background-color: #fff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 2px 4px rgb(0 0 0 / 8%);
 }
 
 .table-compare.block table thead th {
@@ -147,19 +146,19 @@
   border-top: none;
 }
 
-/* ------------------------------------------------------------------
-   FIX #6: "Free tour" nav button — green
-   ------------------------------------------------------------------ */
-header nav a.nav-cta[href*="testdrive"],
-header nav a.nav-cta[href*="free-tour"] {
-  background-color: #20a51e;
-  border-color: #20a51e;
-}
+/* Free tour CTA — green (desktop only). */
+@media (width >= 960px) {
+  header nav a.nav-cta[href*="testdrive"],
+  header nav a.nav-cta[href*="free-tour"] {
+    background-color: #20a51e;
+    border-color: #20a51e;
+  }
 
-header nav a.nav-cta[href*="testdrive"]:hover,
-header nav a.nav-cta[href*="free-tour"]:hover {
-  background-color: #1b8a19;
-  border-color: #1b8a19;
+  header nav a.nav-cta[href*="testdrive"]:hover,
+  header nav a.nav-cta[href*="free-tour"]:hover {
+    background-color: #1b8a19;
+    border-color: #1b8a19;
+  }
 }
 
 /* ------------------------------------------------------------------
@@ -201,4 +200,209 @@ header nav a.nav-cta[href*="free-tour"]:hover {
 .features .cards-features > ul > li {
   border: none;
   background: transparent;
+}
+
+/* ================================================================
+   Blog articles — share row and CTA band selection
+   Matches https://fiixsoftware.com/blog/<article>/ (.blog-share and the
+   .blog-ctas bands). Section-level because both are authored as section
+   content rather than blocks.
+   ================================================================ */
+
+/* Production keeps every blog CTA band hidden in CSS and reveals a single one
+   per page view; scripts.js picks the winner during decoration. */
+body.blog-article main > .section.blog-cta,
+body.blog-article main > .section.blog-promo {
+  display: none;
+}
+
+body.blog-article main > .section.cta-selected {
+  display: block;
+  margin: 0;
+
+  /* columns-blog-cta bleeds full-bleed with a 100vw band; clip it here so
+     that bleed doesn't stretch the document ~100vw wide and give the whole
+     page a horizontal scrollbar (same pattern used for the other 100vw
+     bleeds in styles.css). */
+  overflow-x: clip;
+}
+
+body.blog-article .section.blog-share .default-content-wrapper {
+  padding-bottom: 100px;
+  color: #58595b;
+}
+
+body.blog-article .section.blog-share p,
+body.blog-article .section.blog-share ul {
+  max-width: 664px;
+}
+
+body.blog-article .section.blog-share p {
+  margin: 0 0 10px;
+  font-size: 20px;
+  font-weight: 300;
+  line-height: normal;
+}
+
+/* share links render as icons only; the label stays for screen readers */
+body.blog-article .section.blog-share ul {
+  margin: 0 0 20px;
+  padding: 0;
+  list-style: none;
+}
+
+body.blog-article .section.blog-share li {
+  display: inline-block;
+  margin: 0 12px 0 0;
+}
+
+body.blog-article .section.blog-share li a:any-link {
+  display: block;
+  padding: 5px 5px 5px 0;
+  font-size: 0;
+}
+
+body.blog-article .section.blog-share li a:any-link::before {
+  content: '';
+  display: block;
+  width: 25px;
+  height: 25px;
+  background-color: #58595b;
+  mask-repeat: no-repeat;
+  mask-position: center;
+  mask-size: contain;
+}
+
+body.blog-article .section.blog-share li a:hover::before {
+  background-color: var(--text-color);
+}
+
+body.blog-article .section.blog-share li a[href*="facebook"]::before {
+  mask-image: url('../icons/share-facebook.svg');
+}
+
+body.blog-article .section.blog-share li a[href*="twitter"]::before {
+  mask-image: url('../icons/share-x.svg');
+}
+
+body.blog-article .section.blog-share li a[href*="linkedin"]::before {
+  mask-image: url('../icons/share-linkedin.svg');
+}
+
+body.blog-article .section.blog-share li a[href^="mailto"]::before {
+  mask-image: url('../icons/share-email.svg');
+}
+
+/* editorial policy line */
+body.blog-article .section.blog-share p:nth-of-type(2) {
+  margin: 30px 0 20px;
+  font-size: 16px;
+}
+
+body.blog-article .section.blog-share p a:any-link {
+  color: #14499a;
+  font-weight: 500;
+  font-size: inherit;
+  text-decoration: underline;
+}
+
+/* "Back to blog" — bold, arrow hanging to the left of the label */
+body.blog-article .section.blog-share p:last-of-type {
+  margin: 0;
+  padding-left: 30px;
+  font-size: 20px;
+}
+
+body.blog-article .section.blog-share p:last-of-type a:any-link {
+  position: relative;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+body.blog-article .section.blog-share p:last-of-type a:any-link::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: -30px;
+  width: 20px;
+  height: 20px;
+  transform: translateY(-50%);
+  background-color: #14499a;
+  mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg>') no-repeat center / contain;
+}
+
+@media (width >= 960px) {
+  /* Production centres the share row in the page rather than lining it up under
+     the reading column: `.blog-share` is a shrink-to-fit block, capped at the
+     664px column width, carrying a 300px right gutter, and the pair is centred
+     as a whole. A grid (rather than `blog-body`'s flex row) keeps every authored
+     element stacked in the first column without needing an extra wrapper div,
+     since any div `decorateSections` sees becomes a block of its own. */
+  body.blog-article .section.blog-share .default-content-wrapper {
+    display: grid;
+    grid-template-columns: fit-content(664px) 300px;
+    justify-content: center;
+  }
+
+  body.blog-article .section.blog-share .default-content-wrapper > * {
+    grid-column: 1;
+  }
+}
+
+/* Blog listing: academy + recent posts */
+main > .section.blog-academy,
+main > .section.blog-recent {
+  padding-top: 24px;
+  padding-bottom: 48px;
+}
+
+main > .section.blog-academy .default-content-wrapper h2,
+main > .section.blog-recent .default-content-wrapper h2 {
+  margin: 0 0 24px;
+  text-align: center;
+}
+
+/* the source shows the card art at its authored size rather than cropping it
+   into a fixed ratio, and fills the card with a light grey card, not a border */
+main > .section.blog-academy .cards > ul > li {
+  border: none;
+  background-color: #f7f7f7;
+}
+
+main > .section.blog-academy .cards > ul > li img {
+  aspect-ratio: auto;
+  object-fit: fill;
+}
+
+main > .section.blog-academy .cards .cards-card-body {
+  margin: 0;
+  padding: 0 0 20px;
+  text-align: center;
+}
+
+main > .section.blog-academy .cards .cards-card-body p:first-child {
+  margin: 20px 0 0;
+  color: var(--text-color);
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: normal;
+}
+
+/* the title reads as plain dark copy on the source — the whole card is the
+   link, so the title itself isn't styled like one */
+main > .section.blog-academy .cards .cards-card-body p:last-child {
+  margin: 0;
+  font-size: var(--body-font-size-xs);
+  font-weight: 300;
+}
+
+main > .section.blog-academy .cards .cards-card-body p:last-child a:any-link {
+  color: var(--text-color);
+  font-weight: inherit;
+  text-decoration: none;
+}
+
+main > .section.blog-academy .cards .cards-card-body p:last-child a:hover {
+  text-decoration: underline;
 }
