@@ -238,6 +238,12 @@ function buildBlogArticleBlocks(main) {
       // the policy administration rows are authored as an `effective-from` block,
       // but they are the same data table the `table` block renders
       block.classList.replace('effective-from', 'table');
+      // decorateBlock stamps `{name}-wrapper` on the parent; wrap each nested
+      // block first so that class lands on a dedicated wrapper, not the reading
+      // column (which would become e.g. `quote-wrapper blog-body-column`)
+      const wrap = document.createElement('div');
+      block.before(wrap);
+      wrap.append(block);
       decorateBlock(block);
     });
   }
@@ -268,7 +274,10 @@ function buildBlogArticleBlocks(main) {
 
   const bands = [...main.querySelectorAll(':scope > div.blog-cta, :scope > div.blog-promo')];
   if (bands.length) {
-    bands[Math.floor(Math.random() * bands.length)].classList.add('cta-selected');
+    // production keeps freeTour* hidden by default and shows `.modern_cta`
+    // (guide) when authored; prefer the guide promo band when present
+    const preferred = bands.find((band) => band.classList.contains('blog-promo')) || bands[0];
+    preferred.classList.add('cta-selected');
   }
 }
 
