@@ -93,10 +93,25 @@
   color: #14499a;
   font-weight: 700;
   text-decoration: none;
+  white-space: normal;
 }
 
 .tabs-feature .tabs-feature-panel .tabs-feature-cta a:hover {
   text-decoration: underline;
+}
+
+/* Homepage-specific CTA link — same base look, scoped so it doesn't affect
+   other pages' tabs-feature instances. */
+.homepage .tabs-feature .tabs-feature-panel .tabs-feature-cta a {
+  display: inline;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: #14499a;
+  font-weight: 700;
+  text-decoration: none;
+  white-space: normal;
 }
 
 /* stat / quote note — smaller, lighter, separated by a divider */
@@ -739,6 +754,249 @@
 }
 
 /* ============================================================
+   Homepage insights tabs — match production .parts-forecaster.
+   Scoped to .section.insights-tabs.homepage so other pages that
+   reuse insights-tabs stay untouched. Mobile-first: stacked
+   through 768; white-card + absolute image from 769px. Live
+   max-width:768 / max-width:960 → min-width 769 / width > 960.
+   ============================================================ */
+
+/* ---- Tab list ---- */
+
+/* Below 768px the real tablist is replaced by the mobile dropdown (JS sets
+   aria-hidden="true" on the tablist). At 768px+ it shows normally. */
+.section.insights-tabs.homepage .tabs-feature .tabs-feature-list {
+  justify-content: left;
+  flex-wrap: wrap;
+  gap: 10px 16px;
+  overflow-x: visible;
+  margin: 30px 0;
+  border-bottom: 0;
+}
+
+@media (width >= 768px) {
+  .section.insights-tabs.homepage .tabs-feature .tabs-feature-list {
+    justify-content: center;
+    gap: 15px 40px;
+    margin: 30px auto;
+    max-width: 650px;
+  }
+}
+
+/* Live: margin 70px only above 960 (max-width:960 keeps 30px at 960) */
+@media (width > 960px) {
+  .section.insights-tabs.homepage .tabs-feature .tabs-feature-list {
+    margin: 70px auto;
+    max-width: none;
+  }
+}
+
+.section.insights-tabs.homepage .tabs-feature .tabs-feature-list button {
+  border-bottom: 5px solid transparent;
+  padding: 0 0 5px;
+  color: #414042;
+  font-size: 16px;
+  font-weight: 300;
+  white-space: nowrap;
+}
+
+.section.insights-tabs.homepage .tabs-feature .tabs-feature-list button:hover {
+  color: #414042;
+  border-bottom-color: #635ce8;
+}
+
+.section.insights-tabs.homepage .tabs-feature .tabs-feature-list button[aria-selected='true'] {
+  color: #414042;
+  border-bottom-color: #635ce8;
+  font-weight: 700;
+}
+
+/* ---- Panel: mobile / tablet through 768 (stacked) ---- */
+.section.insights-tabs.homepage .tabs-feature .tabs-feature-panel {
+  display: flex;
+  flex-direction: column;
+  margin-top: 50px;
+  overflow: visible;
+  border: 0;
+}
+
+.section.insights-tabs.homepage .tabs-feature .tabs-feature-panel[aria-hidden='true'] {
+  display: none;
+}
+
+/* Reset grid from default desktop rule */
+.section.insights-tabs.homepage .tabs-feature .tabs-feature-panel > div {
+  display: block;
+  margin-bottom: 50px;
+}
+
+/* h3 category label — live mobile: 10px / #9d9fa2 / uppercase */
+.section.insights-tabs.homepage .tabs-feature .tabs-feature-panel .tabs-feature-category {
+  margin: 0 0 20px;
+  font-family: var(--body-font-family);
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 1.2;
+  color: #9d9fa2;
+  text-transform: uppercase;
+}
+
+/* Reset decorateButtons pill on the category link (live h3 > a) */
+.section.insights-tabs.homepage .tabs-feature .tabs-feature-panel .tabs-feature-category a {
+  display: inline;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  letter-spacing: normal;
+  text-transform: uppercase;
+  text-decoration: none;
+  white-space: normal;
+}
+
+/* CTA — live uses FA long-arrow; SVG mask keeps us dependency-free.
+   Declared before category:hover so stylelint descending-specificity is happy. */
+/* stylelint-disable-next-line no-descending-specificity */
+.section.insights-tabs.homepage .tabs-feature .tabs-feature-panel .tabs-feature-cta a {
+  position: relative;
+  display: inline;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: #14499a;
+  font-size: 20px;
+  font-weight: 700;
+  text-decoration: none;
+  white-space: normal;
+}
+
+.section.insights-tabs.homepage .tabs-feature .tabs-feature-panel .tabs-feature-cta a::after {
+  content: '';
+  display: inline-block;
+  vertical-align: middle;
+  width: 20px;
+  height: 16px;
+  margin-left: 10px;
+  background-color: currentcolor;
+  /* stylelint-disable-next-line function-url-quotes */
+  mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>') no-repeat center / 20px 16px;
+}
+
+.section.insights-tabs.homepage .tabs-feature .tabs-feature-panel .tabs-feature-cta a:hover {
+  text-decoration: none;
+}
+
+.section.insights-tabs.homepage .tabs-feature .tabs-feature-panel .tabs-feature-cta a:hover::after {
+  animation: tabs-feature-cta-pulse 0.4s ease infinite alternate;
+}
+
+@keyframes tabs-feature-cta-pulse {
+  from { transform: translateX(0); }
+  to { transform: translateX(4px); }
+}
+
+.section.insights-tabs.homepage .tabs-feature .tabs-feature-panel .tabs-feature-category a:hover {
+  color: #212021;
+  text-decoration: none;
+}
+
+/* h4 main headline */
+.section.insights-tabs.homepage .tabs-feature .tabs-feature-panel h4 {
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 1.1;
+  margin: 0 0 20px;
+}
+
+/* Body copy — live item p is 20px / 300 / 34px lh */
+/* stylelint-disable-next-line no-descending-specificity */
+.section.insights-tabs.homepage .tabs-feature .tabs-feature-panel > div > p {
+  margin: 0 0 20px;
+  color: #212021;
+  font-size: 20px;
+  font-weight: 300;
+  line-height: 34px;
+}
+
+/* Media: full-width, below content on mobile */
+.section.insights-tabs.homepage .tabs-feature .tabs-feature-panel > .tabs-feature-media {
+  margin: 0;
+  width: 100%;
+}
+
+.section.insights-tabs.homepage .tabs-feature .tabs-feature-panel > .tabs-feature-media picture,
+.section.insights-tabs.homepage .tabs-feature .tabs-feature-panel > .tabs-feature-media img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* ---- Panel: 769+ (floating white card + absolute image) ---- */
+@media (width >= 769px) {
+  .section.insights-tabs.homepage .tabs-feature .tabs-feature-panel {
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    height: 500px;
+    min-height: 500px;
+    margin-top: 0;
+  }
+
+  /* White card (text content) — live #forecaster-desc */
+  .section.insights-tabs.homepage .tabs-feature .tabs-feature-panel > div {
+    flex: 0 0 600px;
+    box-sizing: border-box;
+    width: 600px;
+    padding: 70px;
+    background: #fff;
+    position: relative;
+    z-index: 1000;
+    top: 25px;
+    height: 500px;
+    min-height: 500px;
+    box-shadow: 3px 3px 25px rgb(0 0 0 / 12%);
+    margin-bottom: 0;
+  }
+
+  /* h3 category: 16px dark uppercase (live computed #212021) */
+  .section.insights-tabs.homepage .tabs-feature .tabs-feature-panel .tabs-feature-category {
+    font-size: 16px;
+    font-weight: 700;
+    color: #212021;
+    margin: 0 0 20px;
+  }
+
+  /* h4 main headline */
+  .section.insights-tabs.homepage .tabs-feature .tabs-feature-panel h4 {
+    font-size: 44px;
+    margin: 0 0 20px;
+  }
+
+  /* Image: absolutely positioned to the right, behind the white card */
+  .section.insights-tabs.homepage .tabs-feature .tabs-feature-panel > .tabs-feature-media {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 650px;
+    margin: 0;
+    z-index: 0;
+  }
+
+  .section.insights-tabs.homepage .tabs-feature .tabs-feature-panel > .tabs-feature-media picture,
+  .section.insights-tabs.homepage .tabs-feature .tabs-feature-panel > .tabs-feature-media img {
+    display: block;
+    width: 650px;
+    max-width: none;
+    height: auto;
+  }
+}
+
+/* ============================================================
    "By industry" section 
    ============================================================ */
 main > #industry.section.tabs-feature-container {
@@ -853,4 +1111,406 @@ main > #industry.section.tabs-feature-container::after {
   main > #industry.section.tabs-feature-container::after {
     width: 100%;
   }
+}
+
+/* ============================================================
+   Homepage feature-tabs — match production #feature-container.
+   Scoped to .section.feature-tabs.homepage (decorateFeatureTabs adds
+   .homepage when content omits it). Live uses a flex row + absolute
+   <figure>; we mirror that by lifting .tabs-feature-media to the panel
+   root. Breakpoints: stacked ≤768; overlapping card 769–959; absolute
+   media from 960 / 1200.
+   ============================================================ */
+/* stylelint-disable no-descending-specificity -- homepage feature-tabs scope */
+
+/* ---- Tab list ---- */
+.section.feature-tabs.homepage .tabs-feature .tabs-feature-list {
+  justify-content: space-between;
+  flex-wrap: nowrap;
+  gap: 16px;
+  margin: 0 0 35px;
+  padding: 0;
+  border-bottom: 1px solid rgb(157 159 162);
+  overflow-x: visible;
+}
+
+.section.feature-tabs.homepage .tabs-feature .tabs-feature-list button {
+  padding-bottom: 17px;
+  color: #414042;
+  font-size: 16px;
+  font-weight: 300;
+}
+
+.section.feature-tabs.homepage .tabs-feature .tabs-feature-list button:hover {
+  color: #414042;
+  border-bottom-color: #635ce8;
+}
+
+.section.feature-tabs.homepage .tabs-feature .tabs-feature-list button[aria-selected='true'] {
+  color: #414042;
+  font-weight: 700;
+  border-bottom-color: #635ce8;
+}
+
+/* Mobile / tablet wrap (live @media max-width:1000px → our <960) */
+@media (width < 960px) {
+  .section.feature-tabs.homepage .tabs-feature .tabs-feature-list {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px 40px;
+  }
+
+  .section.feature-tabs.homepage .tabs-feature .tabs-feature-list button {
+    padding-bottom: 5px;
+  }
+}
+
+@media (width < 768px) {
+  .section.feature-tabs.homepage .tabs-feature .tabs-feature-list[aria-hidden='true'],
+  .section.insights-tabs.homepage .tabs-feature .tabs-feature-list[aria-hidden='true'] {
+    display: none;
+  }
+}
+
+/* ---- Panel: mobile stacked ---- */
+.section.feature-tabs.homepage .tabs-feature .tabs-feature-panel {
+  position: relative;
+  display: block;
+  overflow: visible;
+}
+
+.section.feature-tabs.homepage .tabs-feature .tabs-feature-panel[aria-hidden='true'] {
+  display: none;
+}
+
+/* Reset default 960 grid — media is a panel-level sibling */
+.section.feature-tabs.homepage .tabs-feature .tabs-feature-panel > div {
+  display: block;
+  max-width: none;
+}
+
+/* Category — live mobile 10px gray; desktop 16px (below) */
+.section.feature-tabs.homepage .tabs-feature .tabs-feature-panel .tabs-feature-category {
+  margin: 0 0 10px;
+}
+
+.section.feature-tabs.homepage .tabs-feature .tabs-feature-panel .tabs-feature-category a {
+  display: inline;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: #9d9fa2;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: normal;
+  text-transform: uppercase;
+  text-decoration: none;
+  white-space: normal;
+}
+
+.section.feature-tabs.homepage .tabs-feature .tabs-feature-panel h4 {
+  margin: 0 0 20px;
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+/* Description — production 16px */
+.section.feature-tabs.homepage .tabs-feature .tabs-feature-panel > div > p {
+  margin: 0 0 20px;
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 1.7;
+}
+
+/* Note / socialproof — dotted navy.
+   Use > div > p.tabs-feature-note to beat the higher specificity of
+   > div > p (0,5,2) which would otherwise override font-size. */
+.section.feature-tabs.homepage .tabs-feature .tabs-feature-panel > div > p.tabs-feature-note {
+  padding-top: 20px;
+  border-top: 1px dotted rgb(5 18 39);
+  font-size: 14px;
+}
+
+/* CTA link */
+.section.feature-tabs.homepage .tabs-feature .tabs-feature-cta a {
+  font-size: 20px;
+}
+
+/* CTA arrow — scale up to match 20px font; nudge down to align with text cap */
+.section.feature-tabs.homepage .tabs-feature .tabs-feature-cta a::after {
+  content: '';
+  display: inline-block;
+  vertical-align: -5px;
+  width: 24px;
+  height: 20px;
+  margin-left: 10px;
+  background-color: currentcolor;
+  /* stylelint-disable-next-line function-url-quotes */
+  mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>') no-repeat center / 24px 20px;
+  transition: margin-left 0.2s;
+}
+
+.section.feature-tabs.homepage .tabs-feature .tabs-feature-cta a:hover::after {
+  margin-left: 16px;
+}
+
+.section.feature-tabs.homepage .tabs-feature .tabs-feature-panel > .tabs-feature-media {
+  margin: 30px 0 0;
+  width: 100%;
+}
+
+.section.feature-tabs.homepage .tabs-feature .tabs-feature-panel > .tabs-feature-media picture,
+.section.feature-tabs.homepage .tabs-feature .tabs-feature-panel > .tabs-feature-media img,
+.section.feature-tabs.homepage .tabs-feature .tabs-feature-panel > .tabs-feature-media video {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.section.feature-tabs.homepage .tabs-feature-nav {
+  display: none;
+}
+
+/* ---- 769–959: overlapping white text card over media (live ≤960) ---- */
+@media (width >= 769px) and (width < 960px) {
+  .section.feature-tabs.homepage .tabs-feature .tabs-feature-panel {
+    display: block;
+    position: relative;
+    min-height: 520px;
+  }
+
+  .section.feature-tabs.homepage .tabs-feature .tabs-feature-panel > div {
+    position: relative;
+    z-index: 100;
+    box-sizing: border-box;
+    width: min(100%, 450px);
+    min-height: 388px;
+    padding: 30px;
+    background: #fff;
+    box-shadow: 3px 3px 25px rgb(0 0 0 / 12%);
+  }
+
+  .section.feature-tabs.homepage .tabs-feature .tabs-feature-panel .tabs-feature-category a {
+    font-size: 16px;
+    color: #212021;
+  }
+
+  .section.feature-tabs.homepage .tabs-feature .tabs-feature-panel h4 {
+    font-size: 44px;
+  }
+
+  .section.feature-tabs.homepage .tabs-feature .tabs-feature-panel > .tabs-feature-media {
+    position: absolute;
+    top: 80px;
+    right: 0;
+    z-index: 0;
+    width: min(500px, 55%);
+    margin: 0;
+  }
+
+  .section.feature-tabs.homepage .tabs-feature .tabs-feature-panel > .tabs-feature-media picture,
+  .section.feature-tabs.homepage .tabs-feature .tabs-feature-panel > .tabs-feature-media img,
+  .section.feature-tabs.homepage .tabs-feature .tabs-feature-panel > .tabs-feature-media video {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+/* ---- 960+: absolute media beside text (live desktop) ---- */
+@media (width >= 960px) {
+  .section.feature-tabs.homepage .tabs-feature .tabs-feature-list {
+    margin-bottom: 80px;
+  }
+
+  .section.feature-tabs.homepage .tabs-feature .tabs-feature-panel {
+    display: block;
+    position: relative;
+    min-height: 500px;
+  }
+
+  .section.feature-tabs.homepage .tabs-feature .tabs-feature-panel > div {
+    position: relative;
+    z-index: 1;
+    box-sizing: border-box;
+    width: 450px;
+    max-width: 45%;
+    min-height: 388px;
+    padding: 0;
+    background: transparent;
+    box-shadow: none;
+  }
+
+  .section.feature-tabs.homepage .tabs-feature .tabs-feature-panel .tabs-feature-category a {
+    font-size: 16px;
+    color: #212021;
+  }
+
+  .section.feature-tabs.homepage .tabs-feature .tabs-feature-panel h4 {
+    font-size: 44px;
+  }
+
+  .section.feature-tabs.homepage .tabs-feature .tabs-feature-panel > .tabs-feature-media {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 0;
+    width: 550px;
+    max-width: 50%;
+    margin: 0;
+  }
+
+  .section.feature-tabs.homepage .tabs-feature .tabs-feature-panel > .tabs-feature-media picture,
+  .section.feature-tabs.homepage .tabs-feature .tabs-feature-panel > .tabs-feature-media img,
+  .section.feature-tabs.homepage .tabs-feature .tabs-feature-panel > .tabs-feature-media video {
+    width: 100%;
+    max-width: none;
+  }
+
+  /* Prev / next — live #arrow-selector: 30×30 #414042 circles.
+     Center horizontally to match production; width:fit-content keeps the
+     container from spanning the full 1200px which would leave buttons at
+     the far-left edge. */
+  .section.feature-tabs.homepage .tabs-feature-nav {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 40px;
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .section.feature-tabs.homepage .tabs-feature-nav button {
+    position: relative;
+    width: 30px;
+    height: 30px;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: #414042;
+    cursor: pointer;
+    transition: opacity 0.2s;
+  }
+
+  .section.feature-tabs.homepage .tabs-feature-nav button:hover {
+    opacity: 0.8;
+  }
+
+  .section.feature-tabs.homepage .tabs-feature-nav button::after {
+    display: block;
+    content: '';
+    border: 2px solid #fff;
+    border-bottom: 0;
+    border-left: 0;
+    height: 6px;
+    width: 6px;
+    position: absolute;
+    top: 50%;
+    left: calc(50% + 1px);
+    transform: translate(-50%, -50%) rotate(-135deg);
+  }
+
+  .section.feature-tabs.homepage .tabs-feature-nav button.slide-next::after {
+    transform: translate(-50%, -50%) rotate(45deg);
+    left: calc(50% - 1px);
+  }
+}
+
+@media (width >= 1200px) {
+  .section.feature-tabs.homepage .tabs-feature .tabs-feature-panel > div {
+    width: 550px;
+    max-width: none;
+  }
+
+  .section.feature-tabs.homepage .tabs-feature .tabs-feature-panel > .tabs-feature-media {
+    width: 600px;
+    max-width: none;
+  }
+
+  .section.feature-tabs.homepage .tabs-feature .tabs-feature-panel {
+    /* Media is 600px × 600px at this breakpoint; min-height must exceed that
+       so the nav (margin-top: 40px below the text column) clears the media. */
+    min-height: 620px;
+  }
+}
+
+/* stylelint-enable no-descending-specificity */
+
+/* ============================================================
+   Mobile dropdown — homepage feature-tabs + insights-tabs.
+   Mirrors production's .menu-mobile pattern: active tab shows as
+   a bordered row with a down-pointing chevron; tapping opens a
+   stacked list of all options. Hidden above 551 px (controlled by
+   JS aria-hidden toggling display).
+   ============================================================ */
+.tabs-feature-mobile-dropdown {
+  display: none;
+  margin: 24px 0;
+}
+
+.tabs-feature-mobile-dropdown[aria-hidden='false'] {
+  display: block;
+}
+
+.tabs-feature-mobile-trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 14px 16px;
+  border: 1px solid #d0d0d0;
+  border-radius: 4px;
+  background: #fff;
+  color: #414042;
+  font-size: 16px;
+  font-weight: 700;
+  text-align: left;
+  cursor: pointer;
+}
+
+.tabs-feature-mobile-trigger::after {
+  content: '∨';
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1;
+  transition: transform 0.2s ease;
+}
+
+.tabs-feature-mobile-trigger[aria-expanded='true']::after {
+  transform: rotate(180deg);
+}
+
+.tabs-feature-mobile-list {
+  display: none;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border: 1px solid #d0d0d0;
+  border-top: 0;
+  border-radius: 0 0 4px 4px;
+  background: #fff;
+}
+
+.tabs-feature-mobile-list.open {
+  display: block;
+}
+
+/* stylelint-disable-next-line no-descending-specificity */
+.tabs-feature-mobile-list li {
+  padding: 12px 16px;
+  border-top: 1px solid #ebebeb;
+  color: #414042;
+  font-size: 16px;
+  font-weight: 300;
+  cursor: pointer;
+}
+
+/* stylelint-disable-next-line no-descending-specificity */
+.tabs-feature-mobile-list li:hover,
+.tabs-feature-mobile-list li[aria-selected='true'] {
+  background: #f7f7f7;
+  font-weight: 700;
 }

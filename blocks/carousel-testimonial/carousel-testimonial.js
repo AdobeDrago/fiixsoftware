@@ -8,7 +8,11 @@ function getSlideStep(block) {
   const slide = slides.querySelector('.carousel-testimonial-slide');
   if (!slide) return 0;
   const gap = parseFloat(getComputedStyle(slides).columnGap) || 0;
-  return slide.getBoundingClientRect().width + gap;
+  // Homepage testimonials section spaces slides with margin-right instead of
+  // flex gap — include it so prev/next land on card boundaries.
+  const isHomepage = !!block.closest('.section.testimonials.homepage');
+  const margin = isHomepage ? (parseFloat(getComputedStyle(slide).marginRight) || 0) : 0;
+  return slide.getBoundingClientRect().width + gap + margin;
 }
 
 /**

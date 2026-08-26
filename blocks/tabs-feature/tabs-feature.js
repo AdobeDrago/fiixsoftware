@@ -417,6 +417,160 @@ function decorateDefault(block) {
 }
 
 /**
+ * Replaces the homepage tablist with a mobile dropdown below 768 px.
+ * Mirrors production's .menu-mobile pattern: the active tab shows as a
+ * bordered row with a chevron; tapping toggles the full list open/closed;
+ * picking an item fires the real tab button and collapses the list.
+ * Applied to both .section.feature-tabs.homepage and
+ * .section.insights-tabs.homepage.
+ */
+function decorateMobileDropdown(block) {
+  const tablist = block.querySelector('[role="tablist"]');
+  if (!tablist) return;
+
+  const mq = window.matchMedia('(width < 768px)');
+
+  const dropdown = document.createElement('div');
+  dropdown.className = 'tabs-feature-mobile-dropdown';
+  dropdown.setAttribute('aria-hidden', 'true');
+
+  const buildDropdown = () => {
+    dropdown.innerHTML = '';
+    const buttons = [...tablist.querySelectorAll('button')];
+    const active = buttons.find((b) => b.getAttribute('aria-selected') === 'true') || buttons[0];
+
+    const trigger = document.createElement('button');
+    trigger.type = 'button';
+    trigger.className = 'tabs-feature-mobile-trigger';
+    trigger.textContent = active ? active.textContent.trim() : '';
+    trigger.setAttribute('aria-expanded', 'false');
+    trigger.setAttribute('aria-haspopup', 'listbox');
+
+    const list = document.createElement('ul');
+    list.className = 'tabs-feature-mobile-list';
+    list.setAttribute('role', 'listbox');
+
+    buttons.forEach((btn) => {
+      const li = document.createElement('li');
+      li.setAttribute('role', 'option');
+      li.setAttribute('aria-selected', btn.getAttribute('aria-selected'));
+      li.textContent = btn.textContent.trim();
+      li.addEventListener('click', () => {
+        btn.click();
+        trigger.textContent = btn.textContent.trim();
+        trigger.setAttribute('aria-expanded', 'false');
+        list.classList.remove('open');
+        [...list.querySelectorAll('[aria-selected]')].forEach((item) => {
+          item.setAttribute('aria-selected', item === li ? 'true' : 'false');
+        });
+      });
+      list.append(li);
+    });
+
+    trigger.addEventListener('click', () => {
+      const isOpen = list.classList.toggle('open');
+      trigger.setAttribute('aria-expanded', String(isOpen));
+    });
+
+    // Close on outside click.
+    document.addEventListener('click', (e) => {
+      if (!dropdown.contains(e.target)) {
+        list.classList.remove('open');
+        trigger.setAttribute('aria-expanded', 'false');
+      }
+    }, { capture: true });
+
+    dropdown.append(trigger, list);
+  };
+
+  buildDropdown();
+
+  // Keep trigger label in sync when tab changes via prev/next arrows.
+  tablist.addEventListener('click', (e) => {
+    const btn = e.target.closest('button[aria-selected]');
+    if (!btn) return;
+    const trigger = dropdown.querySelector('.tabs-feature-mobile-trigger');
+    if (trigger) trigger.textContent = btn.textContent.trim();
+    [...dropdown.querySelectorAll('.tabs-feature-mobile-list [aria-selected]')].forEach((item) => {
+      item.setAttribute('aria-selected', item.textContent.trim() === btn.textContent.trim() ? 'true' : 'false');
+    });
+  });
+
+  const show = () => {
+    dropdown.setAttribute('aria-hidden', 'false');
+    tablist.setAttribute('aria-hidden', 'true');
+  };
+  const hide = () => {
+    dropdown.setAttribute('aria-hidden', 'true');
+    tablist.removeAttribute('aria-hidden');
+    dropdown.querySelector('.tabs-feature-mobile-list')?.classList.remove('open');
+    const trigger = dropdown.querySelector('.tabs-feature-mobile-trigger');
+    if (trigger) trigger.setAttribute('aria-expanded', 'false');
+  };
+
+  if (mq.matches) show();
+  mq.addEventListener('change', (e) => (e.matches ? show() : hide()));
+
+  tablist.after(dropdown);
+}
+
+/**
+ * Homepage feature-tabs — match production #feature-container.
+ * Ensures the section carries `.homepage` (content may omit it) and moves
+ * each panel's media to the panel root so CSS can absolutely position it
+ * beside the text column like live's `<figure>`.
+ *
+ * Also reclassifies panel text that decorateDefault's generic cta/note
+ * predicate gets wrong here: replaceLinkWithVideo strips the <a> from a video
+ * paragraph, so decorateDefault's isMediaPara/isAssetLinkPara check no longer
+ * recognizes it as media and can mis-tag it as the note. It also promotes a
+ * link wrapped in <strong> (or an unwrapped .button.primary from
+ * decorateButtons) into a category label, matching production's
+ * h3-link-then-CTA panel shape — decorateDefault has no concept of a category.
+ */
+function decorateFeatureTabs(block) {
+  const section = block.closest('.section.feature-tabs');
+  if (!section) return;
+  section.classList.add('homepage');
+
+  block.querySelectorAll('.tabs-feature-panel').forEach((panel) => {
+    const content = panel.firstElementChild;
+    if (!content) return;
+
+    const paras = [...content.querySelectorAll(':scope > p')];
+    paras.forEach((p) => {
+      if (!p.classList.contains('tabs-feature-media')) {
+        p.classList.remove('tabs-feature-cta', 'tabs-feature-note');
+      }
+    });
+
+    const textParas = paras.filter((p) => !p.classList.contains('tabs-feature-media'));
+    const categoryPara = textParas.find((p) => {
+      if (p.querySelector('strong > a, strong a')) return true;
+      const link = p.querySelector(':scope > a.button.primary');
+      return !!(link && p.classList.contains('button-wrapper') && !link.classList.contains('accent'));
+    });
+    if (categoryPara) {
+      const link = categoryPara.querySelector('a');
+      if (link) link.classList.remove('button', 'primary');
+      categoryPara.classList.remove('button-wrapper');
+      categoryPara.classList.add('tabs-feature-category');
+    }
+
+    const cta = textParas.find((p) => !p.classList.contains('tabs-feature-category') && p.querySelector('a'));
+    if (cta) cta.classList.add('tabs-feature-cta');
+    const ctaIndex = cta ? textParas.indexOf(cta) : -1;
+    const note = ctaIndex >= 0
+      ? textParas.slice(ctaIndex + 1).filter((p) => !p.querySelector('a')).pop()
+      : null;
+    if (note) note.classList.add('tabs-feature-note');
+
+    const mediaPara = content.querySelector('.tabs-feature-media');
+    if (mediaPara) panel.append(mediaPara);
+  });
+}
+
+/**
  * Scope: .ai-tabs non-toggle only. Tags the panel eyebrow as a mobile
  * accordion control that activates the matching tab (desktop tablist stays).
  */
@@ -445,6 +599,79 @@ function enhanceAiTabs(block) {
   });
 }
 
+/**
+ * Insights-tabs variation — match production .parts-forecaster layout.
+ * Live panels are: h3 (category link) → h4 → description → CTA → image.
+ * Authors often store the h3 as a plain <p><a> before the h4; decorateDefault
+ * may mis-tag that as the CTA. Reclassify here, promote to <h3>, and move
+ * media to the panel root so CSS can absolutely position it.
+ */
+function decorateInsightsTabs(block) {
+  block.querySelectorAll('.tabs-feature-panel').forEach((panel) => {
+    const content = panel.firstElementChild;
+    if (!content) return;
+
+    const h4 = content.querySelector(':scope > h4');
+    const paras = [...content.querySelectorAll(':scope > p')];
+
+    // First link before the h4 is the category (live .item > h3 > a), not the CTA.
+    const children = [...content.children];
+    const h4Index = h4 ? children.indexOf(h4) : -1;
+    const categoryPara = paras.find((p) => {
+      if (!p.querySelector('a')) return false;
+      if (h4Index < 0) return true;
+      return children.indexOf(p) < h4Index;
+    });
+
+    // Drop any prior mis-tags so we can re-apply cleanly.
+    paras.forEach((p) => {
+      p.classList.remove('tabs-feature-category', 'tabs-feature-cta', 'tabs-feature-note');
+    });
+
+    let category = content.querySelector(':scope > h3.tabs-feature-category');
+    if (categoryPara) {
+      const link = categoryPara.querySelector('a');
+      if (link) {
+        link.classList.remove('button', 'primary');
+        categoryPara.classList.remove('button-wrapper');
+      }
+      if (category) {
+        // Prefer authored link; replace the plain injected label.
+        category.replaceWith(categoryPara);
+      }
+      categoryPara.classList.add('tabs-feature-category');
+      // Promote <p> to <h3> to match live semantics + CSS.
+      const h3 = document.createElement('h3');
+      h3.className = 'tabs-feature-category';
+      h3.append(...categoryPara.childNodes);
+      categoryPara.replaceWith(h3);
+      category = h3;
+    } else if (!category) {
+      const button = block.querySelector(`[aria-controls="${panel.id}"]`);
+      if (button) {
+        const h3 = document.createElement('h3');
+        h3.className = 'tabs-feature-category';
+        h3.textContent = button.textContent.trim();
+        content.prepend(h3);
+        category = h3;
+      }
+    }
+
+    // Real CTA = remaining link paragraph (e.g. "Start your journey").
+    const cta = paras.find((p) => (
+      p.isConnected
+      && !p.classList.contains('tabs-feature-media')
+      && p.querySelector('a')
+      && p !== categoryPara
+    ));
+    if (cta) cta.classList.add('tabs-feature-cta');
+
+    // Move media to panel level for the overlapping card layout.
+    const mediaPara = content.querySelector('.tabs-feature-media');
+    if (mediaPara) panel.append(mediaPara);
+  });
+}
+
 export default async function decorate(block) {
   if (block.classList.contains('toggle')) {
     decorateToggle(block);
@@ -453,4 +680,33 @@ export default async function decorate(block) {
   decorateDefault(block);
   // AI page Foresight switcher only — mobile accordion labels; no-op elsewhere.
   if (block.closest('.ai-tabs')) enhanceAiTabs(block);
+  // Homepage feature switcher — match production #feature-container.
+  // decorateFeatureTabs adds .homepage to the section; nav arrows are appended
+  // after so they can be gated on .section.feature-tabs.homepage.
+  if (block.closest('.section.feature-tabs')) decorateFeatureTabs(block);
+  if (block.closest('.section.feature-tabs.homepage')) {
+    decorateMobileDropdown(block);
+    const tablist = block.querySelector('[role="tablist"]');
+    const nav = document.createElement('div');
+    nav.className = 'tabs-feature-nav';
+    const makeArrow = (label, direction) => {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = direction === -1 ? 'slide-prev' : 'slide-next';
+      btn.setAttribute('aria-label', label);
+      btn.addEventListener('click', () => {
+        const btns = [...tablist.querySelectorAll('button')];
+        const active = btns.findIndex((b) => b.getAttribute('aria-selected') === 'true');
+        btns[(active + direction + btns.length) % btns.length].click();
+      });
+      return btn;
+    };
+    nav.append(makeArrow('Previous', -1), makeArrow('Next', 1));
+    block.append(nav);
+  }
+  // Homepage insights-tabs only — match production .parts-forecaster layout.
+  if (block.closest('.section.insights-tabs.homepage')) {
+    decorateInsightsTabs(block);
+    decorateMobileDropdown(block);
+  }
 }
