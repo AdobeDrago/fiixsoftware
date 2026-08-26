@@ -4267,10 +4267,11 @@ main > .section.pf-final-cta .default-content-wrapper ul li {
     margin: 0;
 }
 
-/* Shared pill chrome for CTA links (production .home-seemore). */
+/* Shared pill chrome for CTA links (production .home-seemore).
+   width/height match production content-box sizing — do not use border-box
+   here or padding+border shrink the text area and truncate labels. */
 main > .section.pf-final-cta .default-content-wrapper ul a:any-link {
     display: inline-block;
-    box-sizing: border-box;
     padding: 0 22px;
     border: 2px solid #00afeb;
     border-radius: 27px;
@@ -4284,6 +4285,7 @@ main > .section.pf-final-cta .default-content-wrapper ul a:any-link {
     width: 165px;
     text-align: center;
     text-decoration: none;
+    white-space: nowrap;
     transition: background-color 0.2s, color 0.2s, border-color 0.2s;
 }
 
