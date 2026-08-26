@@ -1,3 +1,5 @@
+import { readBlockConfig } from '../../scripts/aem.js';
+
 const CATEGORIES = [
   'Asset management',
   'Buying software',
@@ -14,6 +16,21 @@ const CATEGORIES = [
 ];
 
 const LISTING_PATHS = new Set(['/blog', '/blog/', '/blog.html']);
+
+function slugifyCategory(name) {
+  return String(name)
+    .trim()
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '');
+}
+
+function categoryPath(name) {
+  // no trailing slash: unlike the source's WP archives, a page here is
+  // addressed by its file name, and a trailing slash would look for an
+  // `index` page inside that folder instead
+  return `/category/${slugifyCategory(name)}`;
+}
 
 function normalizePath(path) {
   if (!path) return '';
@@ -37,7 +54,7 @@ function parseCategories(value) {
     return value.map((item) => String(item).trim()).filter(Boolean);
   }
   if (!value) return [];
-  return String(value).split(',').map((item) => item.trim()).filter(Boolean);
+  return String(value).split(',').map((item) => String(item).trim()).filter(Boolean);
 }
 
 function matchesQuery(entry, query) {
@@ -101,13 +118,43 @@ function createCard(entry) {
   return item;
 }
 
-function populateCategories(select) {
+function createToolbar() {
+  const form = document.createElement('div');
+  form.className = 'blog-listing-toolbar';
+
+  const searchLabel = document.createElement('label');
+  searchLabel.className = 'blog-listing-search';
+  const searchText = document.createElement('span');
+  searchText.className = 'blog-listing-label';
+  searchText.textContent = 'Search';
+  const search = document.createElement('input');
+  search.type = 'search';
+  search.name = 'q';
+  search.placeholder = 'Search blogs';
+  search.autocomplete = 'off';
+  searchLabel.append(searchText, search);
+
+  const categoryLabel = document.createElement('label');
+  categoryLabel.className = 'blog-listing-category';
+  const categoryText = document.createElement('span');
+  categoryText.className = 'blog-listing-label';
+  categoryText.textContent = 'Category';
+  const select = document.createElement('select');
+  select.name = 'category';
+  const allOption = document.createElement('option');
+  allOption.value = '';
+  allOption.textContent = 'All categories';
+  select.append(allOption);
   CATEGORIES.forEach((name) => {
     const option = document.createElement('option');
     option.value = name;
     option.textContent = name;
     select.append(option);
   });
+  categoryLabel.append(categoryText, select);
+
+  form.append(searchLabel, categoryLabel);
+  return { form, search, select };
 }
 
 async function fetchIndex(url) {
@@ -117,8 +164,7 @@ async function fetchIndex(url) {
   return Array.isArray(json.data) ? json.data : [];
 }
 
-async function loadIndex(indexUrl) {
-  const fallbackUrl = `${window.hlx?.codeBasePath || ''}/widgets/blog-listing/blog-listing.json`;
+async function loadIndex(indexUrl, fallbackUrl) {
   try {
     return await fetchIndex(indexUrl);
   } catch (error) {
@@ -127,35 +173,54 @@ async function loadIndex(indexUrl) {
   }
 }
 
-export default async function decorate(widget) {
-  const form = widget.querySelector('.blog-listing-toolbar');
-  const search = widget.querySelector('input[name="q"]');
-  const select = widget.querySelector('select[name="category"]');
-  const results = widget.querySelector('.blog-listing-results');
-  const empty = widget.querySelector('.blog-listing-empty');
-  if (!form || !search || !select || !results || !empty) return;
+/**
+ * loads and decorates the block
+ * @param {Element} block The block element
+ */
+export default async function decorate(block) {
+  const config = readBlockConfig(block);
+  // optional authored rows: Category (pins the listing), Index (override JSON)
+  const fixedCategory = config.category || '';
+  const fallbackIndex = `${window.hlx?.codeBasePath || ''}/blocks/blog-listing/blog-listing.json`;
+  const indexUrl = config.index || fallbackIndex;
 
-  populateCategories(select);
+  block.textContent = '';
+
+  const { form, search, select } = createToolbar();
+  const results = document.createElement('ul');
+  results.className = 'blog-listing-results';
+  const empty = document.createElement('p');
+  empty.className = 'blog-listing-empty';
+  empty.textContent = 'No posts match your filters.';
+  empty.hidden = true;
+  block.append(form, results, empty);
+
+  // a page can pin the block to a single category to reproduce the source's
+  // dedicated `/category/<slug>/` archives instead of the toolbar filtering
+  // the shared `/blog/` listing in place
+  if (fixedCategory) {
+    form.hidden = true;
+    select.value = fixedCategory;
+  } else {
+    select.addEventListener('change', () => {
+      window.location.href = select.value ? categoryPath(select.value) : '/blog/';
+    });
+  }
 
   let entries = [];
-  // this project has no real `/query-index.json` -- default straight to the
-  // widget's own index rather than probing a path that's guaranteed to 404
-  const fallbackIndex = `${window.hlx?.codeBasePath || ''}/widgets/blog-listing/blog-listing.json`;
-  const indexUrl = widget.dataset.index || fallbackIndex;
   try {
-    entries = await loadIndex(indexUrl);
+    entries = await loadIndex(indexUrl, fallbackIndex);
   } catch (error) {
     // eslint-disable-next-line no-console
     console.error('failed to load blog index', error);
   }
 
   const render = () => {
-    const filtered = filterEntries(entries, search.value.trim().toLowerCase(), select.value);
+    const filtered = filterEntries(entries, search.value.trim().toLowerCase(), fixedCategory);
     results.replaceChildren(...filtered.map(createCard));
     empty.hidden = filtered.length > 0;
   };
 
   search.addEventListener('input', render);
-  select.addEventListener('change', render);
   render();
 }

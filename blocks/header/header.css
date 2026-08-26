@@ -3,7 +3,7 @@
 :root {
     --fiix-nav-height: 55px;
 
-    /* Spacer height for the fixed nav (mobile). */
+    /* Fixed-nav spacer (mobile). */
     --nav-height: 55px;
     --fiix-text: rgb(33 32 33);
     --fiix-blue: rgb(20 73 154);
@@ -28,7 +28,7 @@ header .nav-wrapper {
     font-family: sofia-pro, sans-serif;
 }
 
-/* Mobile: logo left, hamburger right. */
+/* Mobile: logo | hamburger. */
 header nav {
     box-sizing: border-box;
     display: grid;
@@ -47,7 +47,7 @@ header nav {
     font-family: sofia-pro, sans-serif;
 }
 
-/* Open drawer scrolls if needed. */
+/* Open drawer may scroll. */
 header nav[aria-expanded="true"] {
     height: auto;
     max-height: 100dvh;
@@ -55,7 +55,7 @@ header nav[aria-expanded="true"] {
     padding-bottom: 24px;
 }
 
-/* Full-bleed divider only below logo / hamburger. */
+/* Divider under logo / hamburger. */
 header .nav-wrapper:has(nav[aria-expanded="true"])::after {
     content: "";
     position: absolute;
@@ -71,16 +71,17 @@ header .nav-wrapper:has(nav[aria-expanded="true"])::after {
 @media (width >= 960px) {
     header .nav-wrapper {
         position: fixed;
-        box-shadow: none;
         height: var(--nav-height);
+        box-shadow: 0 0 2px 1px rgb(0 0 0 / 16%);
+        padding-bottom: 8px;
     }
 
-    /* Desktop spacer height. */
+    /* Fixed-nav spacer (desktop). */
     :root {
         --nav-height: 100px;
     }
 
-    /* Desktop: utility row above logo / nav / CTAs. */
+    /* Utility above logo / nav / CTAs. */
     header nav {
         display: grid;
         grid-template:
@@ -98,15 +99,17 @@ header .nav-wrapper:has(nav[aria-expanded="true"])::after {
         grid-template:
             "utility utility utility" auto
             "brand sections tools" 1fr / auto 1fr auto;
+        height: 100%;
         min-height: 0;
         max-height: none;
         padding-bottom: 0;
         overflow: visible;
     }
 
-    /* Stretch main row so the open-trigger underline sits on the header edge. */
+    /* Stretch main row for underline; include aria-expanded. */
     header nav .nav-brand,
-    header nav .nav-tools {
+    header nav .nav-tools,
+    header nav[aria-expanded="true"] .nav-tools {
         align-self: stretch;
         display: flex;
         align-items: center;
@@ -138,7 +141,7 @@ header nav a:any-link {
     text-decoration: none;
 }
 
-/* Hamburger (mobile). */
+/* Hamburger. */
 header nav .nav-hamburger {
     grid-area: hamburger;
     height: var(--fiix-nav-height);
@@ -178,7 +181,7 @@ header nav .nav-hamburger-icon::after {
     position: absolute;
 }
 
-/* Keep three-line hamburger open and closed (prod). */
+/* Three-line hamburger (open + closed). */
 header nav .nav-hamburger-icon::before {
     top: -6px;
 }
@@ -210,7 +213,7 @@ header nav .nav-brand p {
     line-height: 0;
 }
 
-/* Mobile logo width; desktop overrides height. */
+/* Mobile logo width. */
 header nav .nav-brand img {
     display: block;
     width: 200px;
@@ -249,13 +252,13 @@ header nav .nav-sections a:hover {
     color: var(--fiix-hover);
 }
 
-/* Mobile drawer (desktop resets these below). */
+/* Mobile drawer. */
 header nav .nav-sections .default-content-wrapper > ul > li {
     display: block;
     padding: 0;
 }
 
-/* Top-level drawer row. */
+/* Drawer top-level row. */
 header nav .nav-sections .default-content-wrapper > ul > li > p,
 header nav .nav-sections .default-content-wrapper > ul > li > a {
     display: flex;
@@ -315,11 +318,7 @@ header nav .nav-sections .nav-drop[aria-expanded="true"] > p::after {
     content: "−";
 }
 
-/* Nested panels closed until expanded. */
-
-/* Selectors below key off decorate()'s semantic classes, not DOM position,
-   so they don't actually collide with the top-level-item rules above despite
-   the lower specificity stylelint flags. */
+/* Nested panels; stylelint: semantic classes, not DOM position. */
 /* stylelint-disable no-descending-specificity */
 header nav .nav-sections .nav-drop > ul {
     display: none;
@@ -330,7 +329,7 @@ header nav .nav-sections .nav-drop[aria-expanded="true"] > ul {
     padding: 0 0 12px 12px;
 }
 
-/* Grouped column headings (drawer). Match prod li.heading. */
+/* Drawer column headings. */
 header nav .nav-sections .nav-col > p {
     margin: 12px 0 4px;
     font-size: 16px !important;
@@ -340,21 +339,22 @@ header nav .nav-sections .nav-col > p {
     color: var(--fiix-text);
 }
 
-/* Industry solutions — desktop mega-menu only. */
+/* Industry: desktop only. */
 header nav .nav-sections .nav-col-industry {
     display: none;
 }
 
-/* Drawer download: left icon + full “(PDF)” label. */
+/* Drawer download label (see-all hidden). */
 header nav .nav-sections .nav-download-see-all {
     display: none;
 }
 
 header nav .nav-sections .nav-download-mobile-label {
-    display: inline;
+    display: block;
+    grid-column: 2;
 }
 
-/* Panel links: title + icon; hide desc/promo on mobile. */
+/* Panel links; hide desc/promo on mobile. */
 header nav .nav-sections .nav-drop > ul a {
     display: block;
     padding: 10px 0;
@@ -370,20 +370,25 @@ header nav .nav-sections .nav-drop > ul img {
     display: none;
 }
 
-/* Icon + label grid. */
+/* Icon + label grid on a.nav-item-main (beats display:block). */
 header nav .nav-sections .nav-col > ul > li,
 header nav .nav-sections .nav-col > .nav-col-wrapper > ul > li,
 header nav .nav-sections .nav-promo-text > li {
+    display: block;
+    margin: 0;
+}
+
+header nav .nav-sections .nav-drop > ul li:not(.nav-link-more) > a.nav-item-main {
     display: grid;
     grid-template-columns: 22px 1fr;
     column-gap: 10px;
     align-items: center;
-    margin: 0;
 }
 
 header nav .nav-sections .nav-item-icon,
 header nav .nav-sections .nav-promo-icon {
     grid-column: 1;
+    grid-row: 1 / -1;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -396,17 +401,12 @@ header nav .nav-sections .nav-promo-icon svg {
     height: 20px;
 }
 
-header nav .nav-sections .nav-item-main {
+header nav .nav-sections .nav-item-title,
+header nav .nav-sections .nav-item-desc {
     grid-column: 2;
-    display: block;
 }
 
-header nav .nav-sections .nav-promo-text > li > p {
-    grid-column: 2;
-    margin: 0;
-}
-
-/* Badge stays on the title line. */
+/* Title + badge. */
 header nav .nav-sections .nav-item-title {
     display: flex;
     align-items: center;
@@ -422,7 +422,7 @@ header nav .nav-sections .nav-badge {
     border-radius: 2px;
 }
 
-/* Mega-menu footer — desktop only (hidden in drawer / tablet). */
+/* Mega-menu footer (desktop). */
 header nav .nav-sections .nav-drop-footer {
     display: none;
     gap: 20px;
@@ -436,19 +436,22 @@ header nav .nav-sections .nav-drop-footer a {
 /* stylelint-enable no-descending-specificity */
 
 @media (width >= 960px) {
-    header nav .nav-sections {
+    header nav .nav-sections,
+    header nav[aria-expanded="true"] .nav-sections {
         display: flex;
         visibility: visible;
         white-space: nowrap;
         border-top: 0;
+        margin-top: 0;
+        align-self: stretch;
     }
 
-    /* No drawer divider on desktop. */
+    /* No drawer divider. */
     header .nav-wrapper:has(nav[aria-expanded="true"])::after {
         content: none;
     }
 
-    /* Desktop nav row. */
+    /* Nav row. */
     header nav .nav-sections > ul,
     header nav .nav-sections .default-content-wrapper > ul {
         display: flex;
@@ -458,7 +461,7 @@ header nav .nav-sections .nav-drop-footer a {
         height: 100%;
     }
 
-    /* Keep label + glyph on one line. */
+    /* Label + glyph. */
     header nav .nav-sections > ul > li,
     header nav .nav-sections .default-content-wrapper > ul > li {
         position: static;
@@ -470,55 +473,79 @@ header nav .nav-sections .nav-drop-footer a {
         line-height: 27.2px;
     }
 
-    /* Reset drawer label styles. */
+    /* Hover underline on p/a (li stays static for full-bleed panels). */
+    /* stylelint-disable no-descending-specificity */
+    header nav .nav-sections a:hover {
+        color: var(--fiix-text);
+    }
+
     header nav .nav-sections > ul > li > p,
     header nav .nav-sections .default-content-wrapper > ul > li > p,
     header nav .nav-sections .default-content-wrapper > ul > li > a {
-        display: inline;
-        gap: normal;
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        align-self: stretch;
+        height: 100%;
         margin: 0;
+        padding-top: 0;
+        padding-bottom: 0;
         min-height: 0;
         font-size: 16px;
         font-weight: 500;
         line-height: 27.2px;
     }
 
-    /* Mega-menu trigger. */
+    header nav .nav-sections .nav-drop > p {
+        gap: 6px;
+    }
+
+    header nav .nav-sections .default-content-wrapper > ul > li > p::before,
+    header nav .nav-sections .default-content-wrapper > ul > li > a::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: -8px;
+        width: 100%;
+        height: 3px;
+        background-color: rgb(0 175 235);
+        transform: scaleX(0);
+        transition: transform 0.3s ease-in-out;
+    }
+
+    header nav .nav-sections .nav-drop[aria-expanded="true"] > p::before {
+        transform: scaleX(1);
+    }
+
+    header nav .nav-sections .default-content-wrapper > ul > li:hover > p::before,
+    header nav .nav-sections .default-content-wrapper > ul > li:hover > a::before {
+        transform: scaleX(1);
+    }
+
+    header nav .nav-sections .default-content-wrapper > ul > li:hover > p,
+    header nav .nav-sections .default-content-wrapper > ul > li:hover > a {
+        font-weight: 700;
+    }
+    /* stylelint-enable no-descending-specificity */
+
+    /* Mega-menu trigger; +/− on <p> for underline. */
     header nav .nav-sections .nav-drop {
         position: static;
-        padding-right: 18px;
         cursor: pointer;
     }
 
-    /* Glyph lives on <li>, not <p>. */
     header nav .nav-sections .nav-drop > p::after {
-        content: none;
-    }
-
-    header nav .nav-sections .nav-drop[aria-expanded="true"] > p::after {
-        content: none;
-    }
-
-    /* Cyan + glyph. */
-    header nav .nav-sections .nav-drop::after {
         content: "+";
         display: inline-block;
-        position: relative;
-        top: 0;
-        margin-left: 6px;
         font-size: 18px;
         font-weight: 400;
         line-height: 1;
         color: #00afeb;
+        margin-left: 10px;
     }
 
-    /* Open trigger state. */
-    header nav .nav-sections .nav-drop[aria-expanded="true"]::after {
+    header nav .nav-sections .nav-drop[aria-expanded="true"] > p::after {
         content: "−";
-    }
-
-    header nav .nav-sections .nav-drop[aria-expanded="true"] {
-        box-shadow: inset 0 -3px 0 0 #00afeb;
     }
 
     /* Mega-menu panel. */
@@ -566,7 +593,7 @@ header nav .nav-sections .nav-drop-footer a {
         color: var(--fiix-text);
     }
 
-    /* Show panel images on desktop. */
+    /* Panel images. */
     header nav .nav-sections .nav-drop > ul img {
         display: block;
     }
@@ -583,10 +610,10 @@ header nav .nav-sections .nav-drop-footer a {
 
     /* Grouped mega-menu. */
     header nav .nav-sections .nav-drop-grouped[aria-expanded="true"] > ul {
-        /* Align panel to 1200px nav column (prod padding: 0 64px). */
+        /* Align to 1200px nav column. */
         --mega-inset: max(64px, calc(50vw - 600px));
 
-        /* Overview + Features size to content; Industry fills remaining. */
+        /* Overview/Features content-sized; Industry fills. */
         grid-template-columns: max-content max-content minmax(0, 1fr);
         gap: 0;
         padding: 0 var(--mega-inset);
@@ -605,13 +632,13 @@ header nav .nav-sections .nav-drop-footer a {
         line-height: normal;
     }
 
-    /* Overview column matches production card width. */
+    /* Overview column width. */
     header nav .nav-sections .nav-drop-grouped .nav-col:first-child > ul > li {
         width: 240px;
         box-sizing: border-box;
     }
 
-    /* Reset drawer column-heading styles. */
+    /* Reset drawer heading styles. */
     header nav .nav-sections .nav-col > p {
         margin: 0;
         font-size: 14px;
@@ -621,17 +648,17 @@ header nav .nav-sections .nav-drop-footer a {
         color: var(--fiix-text);
     }
 
-    /* Industry column visible on desktop. */
+    /* Show Industry column. */
     header nav .nav-sections .nav-col-industry {
         display: list-item;
     }
 
-    /* Desktop download: hide drawer “(PDF)” label. */
+    /* Hide drawer PDF label. */
     header nav .nav-sections .nav-download-mobile-label {
         display: none;
     }
 
-    /* Industry: full-bleed grey like prod .featured-background. */
+    /* Industry full-bleed grey. */
     header nav .nav-sections .nav-drop-grouped .nav-col:nth-child(3) {
         position: relative;
         z-index: 0;
@@ -652,7 +679,7 @@ header nav .nav-sections .nav-drop-footer a {
         background-color: #f2f2f2;
     }
 
-    /* Column link list. */
+    /* Column links. */
     header nav .nav-sections .nav-drop-grouped .nav-col > ul,
     header nav .nav-sections .nav-drop-grouped .nav-col > .nav-col-wrapper > ul {
         display: block;
@@ -708,13 +735,12 @@ header nav .nav-sections .nav-drop-footer a {
         flex: 0 0 auto;
     }
 
-    /* Grouped item: icon + text. */
+    /* Grouped item + hover highlight. */
     header nav .nav-sections .nav-drop-grouped .nav-col > ul > li,
     header nav .nav-sections .nav-drop-grouped .nav-col > .nav-col-wrapper > ul > li {
-        display: grid;
-        grid-template-columns: 24px 1fr;
-        column-gap: 12px;
-        align-items: start;
+        position: relative;
+        z-index: 1;
+        display: block;
         margin-bottom: 30px;
         padding: 0;
         font-family: sofia-pro, sans-serif;
@@ -724,12 +750,54 @@ header nav .nav-sections .nav-drop-footer a {
         line-height: 1.4;
     }
 
-    /* Grouped item title. */
-    header nav .nav-sections .nav-drop-grouped .nav-col > ul > li a,
-    header nav .nav-sections .nav-drop-grouped .nav-col > .nav-col-wrapper > ul > li a {
-        display: inline;
+    header nav .nav-sections .nav-drop-grouped .nav-col > ul > li:not(.nav-link-download, .nav-link-more)::before,
+    header nav .nav-sections .nav-drop-grouped .nav-col > .nav-col-wrapper > ul > li:not(.nav-link-download, .nav-link-more)::before {
+        content: "";
+        position: absolute;
+        border-radius: 3px;
+        background: #d6e3ee;
+        z-index: -1;
+        opacity: 0;
+        transform: scale(1.1);
+        transition: opacity 0.2s linear, transform 0.2s ease-out;
+    }
+
+    header nav .nav-sections .nav-drop-grouped .nav-col > ul > li:not(.nav-link-download, .nav-link-more):hover::before,
+    header nav .nav-sections .nav-drop-grouped .nav-col > .nav-col-wrapper > ul > li:not(.nav-link-download, .nav-link-more):hover::before {
+        opacity: 0.25;
+        transform: scale(1.1);
+        width: calc(100% + 10px);
+        height: calc(100% + 10px);
+        top: -5px;
+        left: -10px;
+    }
+
+    header nav .nav-sections .nav-drop-grouped .nav-col > ul > li:not(.nav-link-download, .nav-link-more):hover .nav-item-title,
+    header nav .nav-sections .nav-drop-grouped .nav-col > .nav-col-wrapper > ul > li:not(.nav-link-download, .nav-link-more):hover .nav-item-title {
+        color: var(--fiix-blue);
+    }
+
+    /* Grouped item link. */
+    header nav .nav-sections .nav-drop-grouped .nav-col > ul > li a.nav-item-main,
+    header nav .nav-sections .nav-drop-grouped .nav-col > .nav-col-wrapper > ul > li a.nav-item-main {
+        display: grid;
+        grid-template-columns: 24px 1fr;
+        column-gap: 12px;
+        align-items: start;
         font-family: sofia-pro, sans-serif;
-        font-weight: 500 !important;
+        font-weight: 300;
+        font-size: 13px;
+        line-height: 1.4;
+        color: var(--fiix-text);
+    }
+
+    /* Grouped item title. */
+    header nav .nav-sections .nav-drop-grouped .nav-item-title {
+        display: flex;
+        align-items: baseline;
+        gap: 6px;
+        font-family: sofia-pro, sans-serif;
+        font-weight: 500;
         font-size: 14px;
         line-height: 1.3;
         color: var(--fiix-text);
@@ -738,6 +806,7 @@ header nav .nav-sections .nav-drop-footer a {
     /* Item icon. */
     header nav .nav-sections .nav-drop-grouped .nav-item-icon {
         grid-column: 1;
+        grid-row: 1 / -1;
         display: flex;
         align-items: flex-start;
         justify-content: center;
@@ -745,25 +814,18 @@ header nav .nav-sections .nav-drop-footer a {
         color: var(--fiix-cyan);
     }
 
-    header nav .nav-sections .nav-drop-grouped .nav-item-main {
+    header nav .nav-sections .nav-drop-grouped .nav-item-title,
+    header nav .nav-sections .nav-drop-grouped .nav-item-desc {
         grid-column: 2;
-        display: block;
-    }
-
-    /* Title + badge row. */
-    header nav .nav-sections .nav-drop-grouped .nav-item-title {
-        display: flex;
-        align-items: baseline;
-        gap: 6px;
-        line-height: 1.3;
     }
 
     header nav .nav-sections .nav-drop-grouped .nav-item-desc {
         display: block;
         margin-top: 8px;
+        font-weight: 300;
     }
 
-    /* Badge pill. */
+    /* Badge. */
     header nav .nav-sections .nav-drop-grouped .nav-badge {
         display: inline-block;
         flex: 0 0 auto;
@@ -778,7 +840,7 @@ header nav .nav-sections .nav-drop-footer a {
         border-radius: 2px;
     }
 
-    /* Features: two sub-columns (production column-wrapper). */
+    /* Features: two sub-columns. */
     header nav .nav-sections .nav-drop-grouped .nav-col-split > .nav-col-wrapper {
         display: flex;
         gap: 30px;
@@ -800,15 +862,10 @@ header nav .nav-sections .nav-drop-footer a {
         box-sizing: border-box;
     }
 
-    /* Download / more links. */
-    header nav .nav-sections .nav-drop-grouped .nav-col .nav-link-download,
-    header nav .nav-sections .nav-drop-grouped .nav-col .nav-link-more {
-        grid-template-columns: 1fr;
-    }
-
+    /* Download / more. */
     header nav .nav-sections .nav-drop-grouped .nav-link-download .nav-item-main,
     header nav .nav-sections .nav-drop-grouped .nav-link-more .nav-item-main {
-        grid-column: 1 / -1;
+        grid-template-columns: 1fr;
     }
 
     header nav .nav-sections .nav-drop-grouped .nav-link-download .nav-item-icon,
@@ -828,7 +885,7 @@ header nav .nav-sections .nav-drop-footer a {
         color: #14499a;
     }
 
-    /* Production .see-all / .see-all-text spacing. */
+    /* See-all spacing. */
     header nav .nav-sections .nav-drop-grouped .nav-download-see-all {
         display: inline-flex;
         align-items: center;
@@ -912,7 +969,7 @@ header nav .nav-sections .nav-drop-footer a {
         overflow: visible;
     }
 
-    /* Promo text: 2 columns; row count set by JS (--promo-rows). */
+    /* Promo text: 2 cols; rows from --promo-rows. */
     header nav .nav-sections .nav-drop-promo .nav-promo-text {
         grid-column: 1;
         grid-row: 1;
@@ -929,12 +986,11 @@ header nav .nav-sections .nav-drop-footer a {
         list-style: none;
     }
 
-    /* Promo text item. */
+    /* Promo text item + hover highlight. */
     header nav .nav-sections .nav-drop-promo .nav-promo-text > li {
-        display: grid;
-        grid-template-columns: 22px 1fr;
-        gap: 12px;
-        align-items: start;
+        position: relative;
+        z-index: 1;
+        display: block;
         width: 240px;
         box-sizing: border-box;
         margin-top: 10px !important;
@@ -943,15 +999,51 @@ header nav .nav-sections .nav-drop-footer a {
         margin-right: 0;
     }
 
-    /* First row in each column (grid-auto-flow: column). */
+    header nav .nav-sections .nav-drop-promo .nav-promo-text > li::before {
+        content: "";
+        position: absolute;
+        border-radius: 3px;
+        background: #d6e3ee;
+        z-index: -1;
+        opacity: 0;
+        transform: scale(1.1);
+        transition: opacity 0.2s linear, transform 0.2s ease-out;
+    }
+
+    header nav .nav-sections .nav-drop-promo .nav-promo-text > li:hover::before {
+        opacity: 0.25;
+        transform: scale(1.1);
+        width: calc(100% + 10px);
+        height: calc(100% + 10px);
+        top: -5px;
+        left: -10px;
+    }
+
+    header nav .nav-sections .nav-drop-promo .nav-promo-text > li:hover .nav-item-title {
+        color: var(--fiix-blue);
+    }
+
+    /* First row per column. */
     header nav .nav-sections .nav-drop-promo .nav-promo-text > li:nth-child(1),
     header nav .nav-sections .nav-drop-promo .nav-promo-text[data-promo-rows="2"] > li:nth-child(3),
     header nav .nav-sections .nav-drop-promo .nav-promo-text[data-promo-rows="3"] > li:nth-child(4) {
         margin-top: 33px !important;
     }
 
+    header nav .nav-sections .nav-drop-promo .nav-promo-text > li > a.nav-item-main {
+        display: grid;
+        grid-template-columns: 22px 1fr;
+        column-gap: 12px;
+        align-items: start;
+        font-size: 14px;
+        font-weight: 500;
+        line-height: 1.3;
+        color: var(--fiix-text);
+    }
+
     header nav .nav-sections .nav-drop-promo .nav-promo-icon {
         grid-column: 1;
+        grid-row: 1 / -1;
         display: flex;
         align-items: flex-start;
         justify-content: center;
@@ -964,19 +1056,19 @@ header nav .nav-sections .nav-drop-footer a {
         height: 20px;
     }
 
-    header nav .nav-sections .nav-drop-promo .nav-promo-text > li > p {
+    header nav .nav-sections .nav-drop-promo .nav-item-title,
+    header nav .nav-sections .nav-drop-promo .nav-item-desc {
         grid-column: 2;
-        margin: 0;
     }
 
-    header nav .nav-sections .nav-drop-promo .nav-promo-text > li a {
+    header nav .nav-sections .nav-drop-promo .nav-item-title {
         font-size: 14px;
-        font-weight: 500 !important;
+        font-weight: 500;
         line-height: 1.3;
         color: var(--fiix-text);
     }
 
-    /* Show promo descriptions on desktop. */
+    /* Promo descriptions. */
     header nav .nav-sections .nav-drop-promo .nav-item-desc {
         display: block;
         margin-top: 8px;
@@ -986,7 +1078,7 @@ header nav .nav-sections .nav-drop-footer a {
         color: var(--fiix-text);
     }
 
-    /* Promo cards panel — full-bleed grey like Industry. */
+    /* Promo cards full-bleed grey. */
     header nav .nav-sections .nav-drop-promo .nav-promo-panel {
         grid-column: 2;
         grid-row: 1;
@@ -1057,7 +1149,7 @@ header nav .nav-sections .nav-drop-footer a {
         color: var(--fiix-link-blue);
     }
 
-    /* Promo footer — full width bar under text + cards (Support/Resources). */
+    /* Promo footer bar. */
     header nav .nav-sections .nav-drop-promo .nav-drop-footer {
         grid-column: 1 / -1;
         grid-row: 2;
@@ -1074,7 +1166,7 @@ header nav .nav-sections .nav-drop-footer a {
         overflow: visible;
     }
 
-    /* Full-bleed footer bg + top rule (same pattern as Industry grey). */
+    /* Full-bleed footer bg. */
     header nav .nav-sections .nav-drop-promo .nav-drop-footer::before {
         content: "";
         position: absolute;
@@ -1147,7 +1239,7 @@ header nav a.nav-search {
     background-size: 20px 20px;
 }
 
-/* Hide tools/utility until drawer opens. */
+/* Hide tools until drawer opens. */
 header nav .nav-tools,
 header nav .nav-utility {
     display: none;
@@ -1158,7 +1250,7 @@ header nav[aria-expanded="true"] .nav-utility {
     display: block;
 }
 
-/* Login above Search in the drawer. */
+/* Drawer: Login above Search. */
 header nav .nav-utility ul {
     display: flex;
     flex-direction: column-reverse;
@@ -1174,7 +1266,7 @@ header nav .nav-utility a {
 }
 /* stylelint-enable no-descending-specificity */
 
-/* Drawer search row. */
+/* Drawer search. */
 header nav .nav-utility a.nav-search {
     margin-top: 8px;
     border-bottom: 1px solid rgb(0 0 0 / 20%);
@@ -1182,7 +1274,7 @@ header nav .nav-utility a.nav-search {
     color: rgb(33 32 33 / 55%);
 }
 
-/* Drawer CTAs as plain links. */
+/* Drawer CTAs. */
 header nav .nav-tools a.nav-cta {
     display: flex;
     align-items: center;
@@ -1197,9 +1289,10 @@ header nav .nav-tools a.nav-cta {
     color: var(--fiix-text);
 }
 
-/* Desktop utility + CTA pills. */
+/* Desktop utility + CTAs. */
 @media (width >= 960px) {
-    header nav .nav-tools {
+    header nav .nav-tools,
+    header nav[aria-expanded="true"] .nav-tools {
         display: flex;
         align-self: stretch;
         align-items: center;
@@ -1213,7 +1306,8 @@ header nav .nav-tools a.nav-cta {
     }
 
     /* Utility row. */
-    header nav .nav-utility {
+    header nav .nav-utility,
+    header nav[aria-expanded="true"] .nav-utility {
         display: flex;
         justify-content: flex-end;
         border-top: 0;
@@ -1288,13 +1382,13 @@ header nav .nav-tools a.nav-cta {
         background-color: var(--fiix-green);
     }
 
-    /* Contact us is drawer-only. */
+    /* Contact us: drawer only. */
     header nav .nav-tools .nav-contact-drawer {
         display: none;
     }
 }
 
-/* Compact desktop spacing (960–1199). */
+/* Compact desktop (960–1199). */
 @media (width >= 960px) {
     header nav {
         gap: 18px 14px;

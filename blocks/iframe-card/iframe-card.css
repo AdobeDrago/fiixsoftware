@@ -1,0 +1,201 @@
+/* Full-bleed light-grey band (production: #mobile-product .storylane).
+   Specificity must match styles.css's `main > .section > div:not(.section-bg)`
+   (0,2,2) to win the cascade tie via source order. */
+
+/* Block owns vertical padding — drop default section margins so they don't
+   leave a white strip above/below. */
+main > .section.iframe-card-container {
+  margin: 0;
+}
+
+main > .section > div.iframe-card-wrapper {
+  max-width: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* live: #mobile-product .storylane { padding: 50px 0 } at every breakpoint */
+.iframe-card {
+  position: relative;
+  box-sizing: border-box;
+  width: 100%;
+  padding: 50px 0;
+  background-color: #f2f2f2;
+  overflow: hidden;
+}
+
+.iframe-card-inner {
+  position: relative;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 90%;
+  margin: 0 auto;
+  z-index: 2;
+}
+
+/* ---- heading — live ≤1199: width 80%, centered, margin-bottom 50px ---- */
+.iframe-card-heading {
+  position: relative;
+  z-index: 1;
+  width: 80%;
+  margin: 0 0 50px;
+  text-align: center;
+}
+
+.iframe-card-heading p,
+.iframe-card-heading h1,
+.iframe-card-heading h2,
+.iframe-card-heading h3 {
+  margin: 0;
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--text-color);
+}
+
+.iframe-card-heading em,
+.iframe-card-heading i {
+  font-style: normal;
+}
+
+/* ---- embed — live .sl-container + Storylane padding-bottom aspect ---- */
+.iframe-card-embed {
+  position: relative;
+  box-sizing: border-box;
+  z-index: 1;
+  width: 300px;
+  max-width: 100%;
+  height: 0;
+  margin: 0 auto;
+  padding-bottom: calc(198.63% + 25px);
+}
+
+.iframe-card-embed iframe {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  background-color: #fff;
+}
+
+/* Decorative artwork on the full-bleed band (live: .accent-img under .storylane). */
+.iframe-card-media {
+  position: absolute;
+  z-index: 1;
+  bottom: 0;
+  left: 0;
+  width: 300px;
+  max-width: 100%;
+  pointer-events: none;
+  transform: rotate(180deg);
+}
+
+.iframe-card-media img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* Connecting arrow — live only shows via em::after at ≥1199px */
+.iframe-card-arrow {
+  display: none;
+}
+
+.iframe-card-arrow img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+@media (width >= 768px) {
+  .iframe-card-inner {
+    width: 768px;
+  }
+
+  .iframe-card-heading p,
+  .iframe-card-heading h1,
+  .iframe-card-heading h2,
+  .iframe-card-heading h3 {
+    font-size: 48px;
+  }
+
+  .iframe-card-embed {
+    width: 320px;
+  }
+
+  .iframe-card-media {
+    left: 100px;
+    width: 400px;
+    max-width: none;
+  }
+}
+
+@media (width >= 960px) {
+  .iframe-card-inner {
+    width: 960px;
+  }
+}
+
+/* live @media (min-width: 1199px): side-by-side + underline + curved arrow */
+@media (width >= 1200px) {
+  .iframe-card-inner {
+    width: 1200px;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 135px;
+  }
+
+  .iframe-card-heading {
+    position: relative;
+    width: auto;
+    text-align: left;
+  }
+
+  .iframe-card-heading p,
+  .iframe-card-heading h1,
+  .iframe-card-heading h2,
+  .iframe-card-heading h3 {
+    max-width: 540px;
+  }
+
+  /* live: h2 em { border-bottom: 5px solid #00afeb } */
+  .iframe-card-heading em,
+  .iframe-card-heading i {
+    border-bottom: 5px solid #00afeb;
+  }
+
+  .iframe-card-row {
+    flex: none;
+  }
+
+  .iframe-card-embed {
+    margin: 0;
+    width: 320px;
+  }
+
+  /* live base: .accent-img { width: 400px; left: 100px; top: 0 } */
+  .iframe-card-media {
+    top: 0;
+    bottom: auto;
+    left: 100px;
+    width: 400px;
+    max-width: none;
+    transform: none;
+  }
+
+  /* live: em::after curved arrow 421×128, right -100px, bottom -138px */
+  .iframe-card-arrow {
+    display: block;
+    position: absolute;
+    right: -66px;
+    bottom: -123px;
+    width: 390px;
+    margin: 0;
+    transform: rotate(180deg) scaleX(-1);
+  }
+}

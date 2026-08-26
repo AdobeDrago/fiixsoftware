@@ -3,58 +3,111 @@
    the columns-media copy — not the default body size. Scoped to the cards-features
    section so only intros in this block type are affected. */
 .section.cards-features-container .default-content-wrapper {
-  margin-bottom: 40px;
+    margin-bottom: 40px;
 }
 
 .section.cards-features-container .default-content-wrapper h2 {
-  margin: 0 0 24px;
-  font-size: 32px;
-  font-weight: 700;
-  line-height: 1.05;
+    margin: 0 0 24px;
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 1.05;
 }
 
 /* Purple accent divider below the heading (prod: h2::after, 5px tall,
    #6d68ea — the same purple as the hero panel). */
 .section.cards-features-container .default-content-wrapper h2::after {
-  content: '';
-  display: block;
-  width: 100%;
-  max-width: 540px;
-  height: 5px;
-  margin-top: 24px;
-  background-color: #6d68ea;
+    content: "";
+    display: block;
+    width: 100%;
+    max-width: 540px;
+    height: 5px;
+    margin-top: 24px;
+    background-color: #6d68ea;
+}
+
+.section.cards-features-container.teal .default-content-wrapper h2::after {
+    background-color: #00bcd4;
+    max-width: none;
+}
+
+main > .section.cards-features-container {
+    margin: 35px 0 50px;
+}
+
+main > .section.cards-features-container.optix-page {
+    padding: 0;
+}
+
+main > .section.cards-features-container > .default-content-wrapper {
+    margin-bottom: 40px;
+}
+
+main > .section.cards-features-container > .default-content-wrapper,
+main > .section.cards-features-container > .cards-features-wrapper {
+    padding-right: 20px;
+    padding-left: 20px;
+}
+
+main > .section.cards-features-container.optix-page > .cards-features-wrapper {
+    padding: 0 35px;
+}
+
+@media (width >= 1200px) {
+    main > .section.cards-features-container > .default-content-wrapper,
+    main > .section.cards-features-container > .cards-features-wrapper {
+        padding-right: 0;
+        padding-left: 0;
+    }
 }
 
 .section.cards-features-container .default-content-wrapper p {
-  margin: 0;
-  font-size: 22px;
-  font-weight: 300;
-  line-height: 1.3;
+    margin: 0;
+    font-size: 22px;
+    font-weight: 300;
+    line-height: 1.3;
 }
 
 /* Constrain the heading/lead themselves (not the wrapper) to a 45% column,
    matching production — the wrapper stays a full-width, left-aligned block
    so it isn't pulled to the centre of the row. */
 @media (width >= 768px) {
-  .section.cards-features-container .default-content-wrapper h2,
-  .section.cards-features-container .default-content-wrapper p {
-    max-width: 45%;
-  }
+    .section.cards-features-container .default-content-wrapper h2,
+    .section.cards-features-container .default-content-wrapper p {
+        max-width: 45%;
+    }
+
+    /* section margin supplies the top gap — no extra h2 pad */
+    .section.cards-features-container .default-content-wrapper h2 {
+        padding-top: 0;
+    }
+
+    .section.cards-features-container.teal .default-content-wrapper h2,
+    .section.cards-features-container.teal .default-content-wrapper p {
+        max-width: 50%;
+    }
+}
+
+@media (width >= 768px) {
+    main > .section.cards-features-container {
+        margin: 60px 0 0;
+    }
 }
 
 @media (width >= 960px) {
-  .section.cards-features-container .default-content-wrapper {
-    margin-bottom: 60px;
-  }
+    /* live .new-product .intro-block { margin-bottom: 100px } */
+    .section.cards-features-container .default-content-wrapper,
+    main > .section.cards-features-container > .default-content-wrapper {
+        margin-bottom: 100px;
+    }
 
-  .section.cards-features-container .default-content-wrapper h2 {
-    font-size: 48px;
-    line-height: 1;
-  }
+    .section.cards-features-container .default-content-wrapper h2 {
+        font-size: 48px;
+        line-height: 1;
+    }
 
-  .section.cards-features-container .default-content-wrapper p {
-    font-size: 28px;
-  }
+    .section.cards-features-container .default-content-wrapper p {
+        font-size: 28px;
+    }
 }
 
 /* Each row is a two-column card: a small feature icon in the first column,
@@ -65,92 +118,185 @@
    growing to the 30px/20px-gutter/60px-column-gap measured on prod at 1440px
    as the viewport does. */
 .cards-features > ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: grid;
-  gap: 0;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 0;
 }
 
 .cards-features > ul > li {
-  display: grid;
-  grid-template-columns: 24px 1fr;
-  align-items: start;
-  gap: 16px;
-  padding: 24px 0;
+    display: grid;
+    grid-template-columns: 24px 1fr;
+    align-items: start;
+    gap: 16px;
+    padding: 0;
+
+    /* live .product-flex .flex-group div: margin-bottom 40px mobile / 70px desktop */
+    margin-bottom: 40px;
 }
 
 .cards-features > ul > li + li {
-  border-top: 1px solid #dadada;
+    border-top: 0;
+}
+
+.optix-page .cards-features > ul > li {
+    gap: 35px;
 }
 
 .cards-features .cards-features-card-image {
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
 }
 
 .cards-features .cards-features-card-image img {
-  width: 100%;
-  max-width: 24px;
-  height: auto;
-  object-fit: contain;
+    width: 100%;
+    max-width: 24px;
+    height: auto;
+    object-fit: contain;
+}
+
+.optix-page .cards-features .cards-features-card-image img {
+    width: auto;
+    max-width: 45px;
+}
+
+@media (width >= 1200px) {
+    .optix-page .cards-features .cards-features-card-image img {
+        max-width: 60px;
+    }
+
+    main > .section.cards-features-container.optix-page > .cards-features-wrapper {
+        padding: 0 50px;
+    }
 }
 
 .cards-features .cards-features-card-body {
-  margin: 0;
+    margin: 0;
 }
 
 .cards-features .cards-features-card-body h3 {
-  margin: 0 0 16px;
-  font-size: 24px;
-  font-weight: 700;
-  line-height: 1.1;
+    margin: 0 0 16px;
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 1.1;
+}
+
+/* No display/grid-template-columns override here: the icon+text layout's
+   empty first (icon) cell must stay in the row's normal 30px/1fr grid so the
+   link lands in the same column as every other row's heading/copy, instead of
+   flush against the row's left edge. */
+.cards-features > ul > li.cards-features-cta {
+    border: 0;
+    background: none;
+}
+
+.cards-features > ul > li.cards-features-cta a {
+    color: #14499a;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 24px;
+    text-decoration: none;
+    max-width: 300px;
+    display: block;
+}
+
+.cards-features > ul > li.cards-features-cta a::after {
+    content: " →";
+    white-space: nowrap;
+}
+
+/* "Get Started" under the feature grid — same external-link ::after as
+   main > .section.optix-hero .columns-media a:any-link::after.
+   Targets the plain authored <a> (bold optional for .button styling). */
+main > .section.optix-page .default-content-wrapper p:has(> a[href]) {
+    margin: 8px 0 24px;
+    text-align: center;
+    max-width: none;
+}
+
+@media (width >= 768px) {
+    main > .section.optix-page .default-content-wrapper p:has(> a[href]) {
+        margin: 8px 0 60px;
+    }
+}
+
+main > .section.optix-page .default-content-wrapper a:any-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 40px;
+    border: 0;
+    border-radius: 5px;
+    background-color: transparent;
+    background-image: linear-gradient(90deg, #cd163f 0%, #f58025 100%);
+    color: #fff;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1.7;
+    text-decoration: none;
+}
+
+main > .section.optix-page .default-content-wrapper a:any-link:hover,
+main > .section.optix-page .default-content-wrapper a:any-link:focus-visible {
+    color: #fff;
+    opacity: 0.92;
+}
+
+main > .section.optix-page .default-content-wrapper a:any-link::after {
+    content: '';
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    margin-left: 0;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='2 2 20 20' fill='none' stroke='%23ffffff' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M14 3h7v7'/%3E%3Cpath d='M10 14 21 3'/%3E%3Cpath d='M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5'/%3E%3C/svg%3E");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    vertical-align: -1px;
 }
 
 /* stylelint-disable-next-line no-descending-specificity */
 .cards-features .cards-features-card-body p {
-  margin: 0;
-  font-size: 20px;
-  font-weight: 300;
-  line-height: 1.4;
+    margin: 0;
+    font-size: 20px;
+    font-weight: 300;
+    line-height: 1.4;
 }
 
 /* From tablet up: icon grows from a compact 24px (mobile default) to the
    30px measured on production, and cards pair two-per-row (matches
    production's paired layout). */
 @media (width >= 768px) {
-  .cards-features > ul {
-    grid-template-columns: repeat(2, 1fr);
-    column-gap: 60px;
-  }
+    .cards-features > ul {
+        grid-template-columns: repeat(2, 1fr);
+        column-gap: 60px;
+    }
 
-  .cards-features > ul > li {
-    grid-template-columns: 30px 1fr;
-    gap: 20px;
-  }
+    .cards-features > ul > li {
+        grid-template-columns: 30px 1fr;
+        gap: 20px;
+        margin-bottom: 70px;
+    }
 
-  .cards-features > ul > li + li {
-    border-top: 0;
-  }
-
-  .cards-features .cards-features-card-image img {
-    max-width: 30px;
-  }
+    .cards-features .cards-features-card-image img {
+        max-width: 30px;
+    }
 }
 
 /* Trailing "Featured" / "New" heading label as production's yellow badge
    (measured on prod: #ffe01b bg, #151b26 text, 10px/500, 2px 5px, uppercase). */
 .cards-features .cards-features-label {
-  display: inline-block;
-  margin-left: 8px;
-  padding: 2px 5px;
-  background-color: #ffe01b;
-  color: #151b26;
-  font-size: 10px;
-  font-weight: 500;
-  text-transform: uppercase;
-  vertical-align: middle;
+    display: inline-block;
+    margin-left: 8px;
+    padding: 2px 5px;
+    background-color: #ffe01b;
+    color: #151b26;
+    font-size: 10px;
+    font-weight: 500;
+    text-transform: uppercase;
+    vertical-align: middle;
 }
 
 /* Text-only feature grids (e.g. free-cmms): production renders these as
@@ -159,52 +305,60 @@
    by having no image in any card, so image-bearing card grids keep their border
    treatment. */
 .cards-features:not(:has(.cards-features-card-image)) > ul {
-  grid-template-columns: repeat(2, 1fr);
-  gap: 30px 60px;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px 60px;
 }
 
 .cards-features:not(:has(.cards-features-card-image)) > ul > li {
-  display: block;
-  border: 0;
-  background-color: transparent;
+    display: block;
+    margin-bottom: 0;
+    border: 0;
+    background-color: transparent;
 }
 
-.cards-features:not(:has(.cards-features-card-image)) .cards-features-card-body {
-  margin: 0;
+.cards-features:not(:has(.cards-features-card-image))
+    .cards-features-card-body {
+    margin: 0;
 }
 
 .cards-features:not(:has(.cards-features-card-image)) h3 {
-  margin: 0 0 20px;
-  font-size: 24px;
-  font-weight: 700;
-  line-height: 1;
+    margin: 0 0 20px;
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 1;
+}
+
+.optix-page .cards-features .cards-features-card-body h3 {
+    margin: 0;
+    font-size: 20px;
 }
 
 /* stylelint-disable-next-line no-descending-specificity */
-.cards-features:not(:has(.cards-features-card-image)) .cards-features-card-body p {
-  margin: 0;
-  font-size: 20px;
-  font-weight: 300;
-  line-height: 1.4;
+.cards-features:not(:has(.cards-features-card-image))
+    .cards-features-card-body
+    p {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 300;
+    line-height: 1.4;
 }
 
 /* Column-major flow: fill the left column top-to-bottom, then the right,
    matching production (which stacks two cards per column). */
 @media (width >= 960px) {
-  .cards-features:not(:has(.cards-features-card-image)) > ul.cards-features-rows-2 {
-    grid-template-rows: repeat(2, auto);
-    grid-auto-flow: column;
-  }
+    .cards-features:not(:has(.cards-features-card-image))
+        > ul.cards-features-rows-2 {
+        grid-template-rows: repeat(2, auto);
+        grid-auto-flow: column;
+    }
 }
 
 /* ============================================================
    Row-level content types, shared by every cards-features layout (the
    icon+text rows and the bare text grid): an authored row may hold no
-   content at all (a spacer needed to keep column-paired grids aligned) or a
-   single link (a footer call-to-action) standing in for a card. Both still
-   need to occupy their grid slot, so they are tagged by the block JS rather
-   than dropped. Declared after the layout variants above so these overrides
-   win regardless of variant.
+   content at all (a spacer needed to keep column-paired grids aligned).
+   Spacers are tagged by the block JS rather than dropped. CTA link styles
+   are declared earlier (before optix-page default-content link rules).
    ============================================================ */
 
 /* Mobile-first: a spacer row has nothing to align with in the single-column
@@ -212,35 +366,12 @@
    into two grid columns, switch to visibility:hidden so it still reserves its
    slot and keeps the pairing aligned. */
 .cards-features > ul > li.cards-features-empty {
-  display: none;
+    display: none;
 }
 
 @media (width >= 768px) {
-  .cards-features > ul > li.cards-features-empty {
-    display: grid;
-    visibility: hidden;
-  }
+    .cards-features > ul > li.cards-features-empty {
+        display: grid;
+        visibility: hidden;
+    }
 }
-
-/* No display/grid-template-columns override here: the icon+text layout's
-   empty first (icon) cell must stay in the row's normal 30px/1fr grid so the
-   link lands in the same column as every other row's heading/copy, instead of
-   flush against the row's left edge. */
-.cards-features > ul > li.cards-features-cta {
-  border: 0;
-  background: none;
-}
-
-.cards-features > ul > li.cards-features-cta a {
-  color: var(--link-color);
-  font-size: 20px;
-  font-weight: 700;
-  line-height: 1;
-  text-decoration: none;
-}
-
-.cards-features > ul > li.cards-features-cta a::after {
-  content: ' →';
-  white-space: nowrap;
-}
-

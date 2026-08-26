@@ -23,6 +23,75 @@
     object-fit: contain;
 }
 
+/* Trust logos band on mobile-cmms (production #mobile-product .fiix-users).
+   Mobile: grey band, centered 20px heading, logos wrap centered at 80px.
+   Desktop: transparent, 24px heading, 130px logos spread across ~900px. */
+main > .section:has(> .columns-logos-wrapper .columns-logos.mobile-page) {
+    margin: 0;
+    padding: 30px 0;
+    background-color: #f6f8fb;
+}
+
+.columns-logos.mobile-page {
+    padding: 0;
+    gap: 20px;
+}
+
+.columns-logos.mobile-page
+    .columns-logos-text-row
+    :is(h1, h2, h3, h4, h5, h6, p) {
+    max-width: 800px;
+    margin: 0 auto;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 1.1;
+    text-align: center;
+}
+
+.columns-logos.mobile-page .columns-logos-row {
+    flex-flow: row wrap;
+    justify-content: center;
+    gap: 15px;
+    max-width: 320px;
+    margin: 0 auto;
+}
+
+.columns-logos.mobile-page img {
+    max-width: 80px;
+    max-height: none;
+}
+
+@media (width >= 960px) {
+    main > .section:has(> .columns-logos-wrapper .columns-logos.mobile-page) {
+        padding: 60px 0 20px;
+        background-color: transparent;
+    }
+
+    .columns-logos.mobile-page {
+        gap: 40px;
+    }
+
+    .columns-logos.mobile-page
+        .columns-logos-text-row
+        :is(h1, h2, h3, h4, h5, h6, p) {
+        font-size: 24px;
+        line-height: 26px;
+        margin-bottom: 0;
+    }
+
+    .columns-logos.mobile-page .columns-logos-row {
+        flex-wrap: nowrap;
+        justify-content: space-between;
+        gap: 0;
+        max-width: 900px;
+        width: 100%;
+    }
+
+    .columns-logos.mobile-page img {
+        max-width: 130px;
+    }
+}
+
 .columns-logos.with-heading .columns-logos-row {
     flex-flow: nowrap;
     justify-content: center;
@@ -34,13 +103,13 @@
     max-width: 100px;
 }
 
-@media (width>=768px) {
+@media (width >= 768px) {
     .columns-logos.with-heading img {
         max-height: 77px;
     }
 }
 
-@media (width>=1200px) {
+@media (width >= 1200px) {
     .columns-logos.with-heading .columns-logos-row {
         gap: 55px;
     }
@@ -202,5 +271,26 @@
 
     .columns-logos {
         gap: 40px;
+    }
+
+    /* Keep mobile-page trust logos tight until ≥960. */
+    .columns-logos.mobile-page .columns-logos-row {
+        justify-content: center;
+        gap: 15px;
+        max-width: 320px;
+    }
+}
+
+@media (width >= 960px) {
+    .columns-logos.mobile-page .columns-logos-row {
+        flex-wrap: nowrap;
+        justify-content: space-between;
+        gap: 0;
+        max-width: 900px;
+        width: 100%;
+    }
+
+    .columns-logos.mobile-page .columns-logos-row > div {
+        flex: 0 0 auto;
     }
 }

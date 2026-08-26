@@ -81,7 +81,7 @@ function decorateFeaturePanel(block, section, panelPosition) {
   const figures = [...panel.children];
   const setActive = (idx) => {
     details.forEach((d, i) => {
-      if (i !== idx) d.open = false;
+      d.open = i === idx;
       syncItemState(d, i);
     });
     figures.forEach((f, i) => f.classList.toggle('active', i === idx));
@@ -89,12 +89,34 @@ function decorateFeaturePanel(block, section, panelPosition) {
   details.forEach((d, i) => {
     wrapBodyContent(d.querySelector('.accordion-faq-item-body'));
     syncItemState(d, i);
+    // Match live section6: open item cannot close on its own click;
+    // only switching to another heading closes the previous one.
+    d.querySelector('summary').addEventListener('click', (e) => {
+      if (d.open) e.preventDefault();
+    });
     d.addEventListener('toggle', () => {
-      syncItemState(d, i);
       if (d.open) setActive(i);
+      else syncItemState(d, i);
     });
   });
   if (!details.some((d) => d.open)) { details[0].open = true; setActive(0); }
+}
+
+function enableExclusiveAccordion(block) {
+  const items = [...block.querySelectorAll('.accordion-faq-item')];
+  items.forEach((item) => {
+    // Open item cannot close on its own click; only switching to another closes it.
+    item.querySelector('summary').addEventListener('click', (e) => {
+      if (item.open) e.preventDefault();
+    });
+    item.addEventListener('toggle', () => {
+      if (!item.open) return;
+      items.forEach((other) => {
+        if (other !== item) other.open = false;
+      });
+    });
+  });
+  if (items[0]) items[0].open = true;
 }
 
 export default function decorate(block) {
@@ -118,5 +140,14 @@ export default function decorate(block) {
   const variant = Object.keys(FEATURE_PANEL_VARIANTS).find((v) => block.closest(`.${v}`));
   if (variant) {
     decorateFeaturePanel(block, block.closest(`.${variant}`), FEATURE_PANEL_VARIANTS[variant]);
+  } else {
+    enableExclusiveAccordion(block);
+  }
+
+  //  FAQ (.workorder-faq / free-cmms card) opens the first row by
+  // default so the heading→accordion gap reads as ~88px with the elevated card.
+  if (block.classList.contains('card')) {
+    const items = [...block.querySelectorAll('.accordion-faq-item')];
+    if (items.length && !items.some((d) => d.open)) items[0].open = true;
   }
 }

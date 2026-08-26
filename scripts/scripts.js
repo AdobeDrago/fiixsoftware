@@ -114,12 +114,23 @@ function decorateSectionCornerBackgrounds(main) {
 
 /**
  * Applies authored `background` / `background-image` section metadata as the
- * section's CSS background-image (gradients or image URLs).
+ * section's CSS background. A `background` value that is a plain CSS color
+ * (`#231d3d`, `rgb(...)`, a named color, etc.) is applied as background-color;
+ * anything else (image URLs, gradients) is applied as background-image.
+ * `background-image` is always treated as an image/gradient.
  * @param {Element} main
  */
 function decorateSectionBackgroundImages(main) {
   main.querySelectorAll(':scope > div.section').forEach((section) => {
-    const value = section.dataset.backgroundImage || section.dataset.background;
+    const { background, backgroundImage: backgroundImageValue } = section.dataset;
+    if (background) {
+      const trimmed = background.trim().replace(/;+\s*$/, '');
+      if (CSS.supports('color', trimmed)) {
+        section.style.backgroundColor = trimmed;
+        return;
+      }
+    }
+    const value = backgroundImageValue || background;
     if (!value) return;
     const backgroundImage = toSectionBackgroundImage(value);
     if (!backgroundImage) return;
@@ -331,6 +342,24 @@ function decorateButtons(main) {
   });
 }
 
+const CTA_LINK_PREFIX = 'cta-link:';
+
+/**
+ * Turns a link whose visible text begins with `cta-link:` into a styled CTA
+ * link, stripping the prefix from the text. Lets an author flag any single
+ * link in a block for CTA styling (e.g. to pick one of several links in the
+ * same cell) without relying on the block's own position-based heuristics.
+ * @param {Element} main The main container element
+ */
+function decorateCtaLinks(main) {
+  main.querySelectorAll('a[href]').forEach((a) => {
+    const text = a.textContent.trim();
+    if (!text.toLowerCase().startsWith(CTA_LINK_PREFIX)) return;
+    a.textContent = text.slice(CTA_LINK_PREFIX.length).trim();
+    a.classList.add('cta-link');
+  });
+}
+
 /**
  * Groups blog listing hero copy and media so the gray band can lay out as
  * two columns, matching the live Fiix Blog header. Also buttonizes the CTA
@@ -360,6 +389,119 @@ function decorateBlogHeader(main) {
 }
 
 /**
+ * Inserts a padded spacer after pf-final-cta (above the footer) to match
+ * production's empty VC row (padding 50px 0 70px) at all breakpoints.
+ * Drops authored empty trailing sections that only add dead margin.
+ * @param {Element} main The main container element
+ */
+function decoratePfFinalCta(main) {
+  const cta = main.querySelector(':scope > .section.pf-final-cta');
+  if (!cta) return;
+
+  let next = cta.nextElementSibling;
+  while (next) {
+    const el = next;
+    next = next.nextElementSibling;
+    if (!el.classList.contains('pf-pre-footer-spacer')) {
+      if (el.matches('.section') && !el.childElementCount && !el.textContent.trim()) {
+        el.remove();
+      } else {
+        break;
+      }
+    }
+  }
+
+  if (main.querySelector(':scope > .pf-pre-footer-spacer')) return;
+  const spacer = document.createElement('div');
+  spacer.className = 'pf-pre-footer-spacer';
+  spacer.setAttribute('aria-hidden', 'true');
+  cta.after(spacer);
+}
+
+/**
+ * Optix "Better Together" section: split the H2 into lead + accent spans
+ * (live uses `.reg-fw` / `.RA-text-gradient`) and insert dashed dividers
+ * between the two text paragraphs in each columns-media card.
+ * @param {Element} main The main container element
+ */
+function decorateOptixTogether(main) {
+  main.querySelectorAll('.section.optix-together').forEach((section) => {
+    const h2 = section.querySelector('h2');
+    if (h2 && !h2.querySelector('.optix-together-lead')) {
+      const br = h2.querySelector('br');
+      if (br) {
+        const lead = document.createElement('span');
+        lead.className = 'optix-together-lead';
+        while (h2.firstChild !== br) lead.append(h2.firstChild);
+        h2.insertBefore(lead, br);
+
+        const accent = document.createElement('span');
+        accent.className = 'optix-together-accent';
+        while (br.nextSibling) accent.append(br.nextSibling);
+        br.after(accent);
+      }
+    }
+
+    section.querySelectorAll('.columns-media > div > div').forEach((col) => {
+      if (col.querySelector('.dotted-divider')) return;
+      const textPs = [...col.querySelectorAll(':scope > p')]
+        .filter((p) => !p.querySelector('picture, img'));
+      if (textPs.length < 2) return;
+      const divider = document.createElement('div');
+      divider.className = 'dotted-divider';
+      textPs[0].after(divider);
+    });
+  });
+}
+
+/**
+ * Optix Getting Started: move authored section backgrounds onto `.hero-cta`
+ * (live paints the banner on the card, not full-bleed).
+ * Uses `background-image` (desktop) and optional `background-image-mobile`.
+ * Sets the active image in JS (not only CSS vars) so mobile never keeps the
+ * desktop asset from a cascade/fallback miss.
+ * @param {Element} main The main container element
+ */
+function decorateOptixGetStarted(main) {
+  main.querySelectorAll('.section.optix-getstarted').forEach((section) => {
+    const hero = section.querySelector('.hero-cta');
+    if (!hero) return;
+
+    const desktopRaw = section.dataset.backgroundImage || section.dataset.background;
+    const mobileRaw = section.dataset.backgroundImageMobile;
+
+    let desktop = desktopRaw ? toSectionBackgroundImage(desktopRaw) : '';
+    let mobile = mobileRaw ? toSectionBackgroundImage(mobileRaw) : '';
+
+    if (!desktop && section.style.backgroundImage
+      && section.style.backgroundImage !== 'none') {
+      desktop = section.style.backgroundImage;
+    }
+
+    if (!desktop && !mobile) return;
+    if (!mobile) mobile = desktop;
+    if (!desktop) desktop = mobile;
+
+    // Authoring often ships width=750; request a larger render for the banner.
+    const enlarge = (bg) => bg.replace(/([?&]width=)\d+/i, `$1${2000}`);
+    desktop = enlarge(desktop);
+    mobile = enlarge(mobile);
+
+    hero.style.setProperty('--optix-getstarted-bg-mobile', mobile);
+    hero.style.setProperty('--optix-getstarted-bg', desktop);
+
+    const applyBg = () => {
+      const useMobile = window.matchMedia('(width < 768px)').matches;
+      hero.style.backgroundImage = useMobile ? mobile : desktop;
+    };
+    applyBg();
+    window.matchMedia('(width < 768px)').addEventListener('change', applyBg);
+
+    section.style.backgroundImage = '';
+  });
+}
+
+/**
  * Decorates the main element.
  * @param {Element} main The main element
  */
@@ -373,7 +515,11 @@ export function decorateMain(main) {
   decorateSectionCornerBackgrounds(main);
   decorateBlocks(main);
   decorateButtons(main);
+  decorateCtaLinks(main);
   decorateBlogHeader(main);
+  decoratePfFinalCta(main);
+  decorateOptixTogether(main);
+  decorateOptixGetStarted(main);
 }
 
 /**
