@@ -11,6 +11,17 @@
   gap: 16px;
 }
 
+@media (width < 768px) {
+  .blog-listing .blog-listing-toolbar {
+    gap: 30px;
+    margin-bottom: 60px;
+  }
+
+  .blog-listing .blog-listing-category {
+    margin-bottom: 20px;
+  }
+}
+
 /* a page pinned to one category (see blog-listing.js `fixedCategory`) hides
    the toolbar outright, matching the source's dedicated category archives,
    which carry no search/category controls */
@@ -107,6 +118,12 @@
   margin: 60px 0 0;
   padding: 0;
   list-style: none;
+}
+
+@media (width < 768px) {
+  .blog-listing .blog-listing-results {
+    margin-top: 0;
+  }
 }
 
 /* the source's card is a plain grey tile — no border, the art shown at its
@@ -262,7 +279,9 @@
 
 @media (width >= 768px) {
   .blog-listing .blog-listing-card {
-    width: 48%;
+    /* production `.blog-medium #blog_container article` is 45% under 960px,
+       leaving ~10% for space-between column gap */
+    width: 45%;
   }
 }
 

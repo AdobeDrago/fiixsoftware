@@ -349,52 +349,83 @@ body.blog-article .section.blog-share p:last-of-type a:any-link::before {
   }
 }
 
-/* Blog listing: academy + recent posts */
-main > .section.blog-academy {
+/* Blog listing: academy + recent posts — wrapped together in
+   `.blog-listing-wrap` (see decorateBlogListingWrap) so they share one
+   centered page container like production `#page-wrap.container`. */
+main > .blog-listing-wrap {
+  box-sizing: border-box;
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@media (width >= 768px) and (width < 960px) {
+  main > .blog-listing-wrap {
+    width: calc(100% - 52px);
+  }
+
+  main .section.blog-academy,
+  main .section.blog-recent {
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+}
+
+@media (width >= 960px) {
+  main > .blog-listing-wrap {
+    width: auto;
+    max-width: 1200px;
+  }
+}
+
+main .section.blog-academy {
   padding: 0;
 }
 
-main > .section.blog-recent {
+main .section.blog-recent {
   margin: 0;
   padding: 0;
   border-top: 1px solid #e1e1e1;
 }
 
-main > .section.blog-academy .default-content-wrapper h2 {
+main .section.blog-academy .default-content-wrapper h2 {
   margin: 0 0 40px;
   text-align: center;
 }
 
-main > .section.blog-recent .default-content-wrapper h2 {
+main .section.blog-recent .default-content-wrapper h2 {
   margin: 40px 0;
   text-align: left;
 }
 
 @media (width >= 768px) {
-  main > .section.blog-academy .default-content-wrapper h2 {
+  main .section.blog-academy .default-content-wrapper h2 {
     margin-bottom: 60px;
   }
 
-  main > .section.blog-recent .default-content-wrapper h2 {
+  main .section.blog-recent .default-content-wrapper h2 {
     margin: 100px 0 60px;
   }
 }
 
-@media (width >= 768px) and (width < 960px) {
-  main > .section.blog-academy > .cards-wrapper {
-    margin-left: 26px;
-    margin-right: 26px;
-  }
+/* Beat global `main > .section > div` 20px/32px gutters for blog listing
+   content wrappers (academy cards + recent posts). */
+main > .blog-listing-wrap > .section.blog-academy > .default-content-wrapper,
+main > .blog-listing-wrap > .section.blog-academy > .cards-wrapper,
+main > .blog-listing-wrap > .section.blog-recent > .default-content-wrapper,
+main > .blog-listing-wrap > .section.blog-recent > .blog-listing-wrapper {
+  padding-left: 0;
+  padding-right: 0;
 }
 
 /* the source shows the card art at its authored size rather than cropping it
    into a fixed ratio, and fills the card with a light grey card, not a border */
-main > .section.blog-academy .cards > ul {
+main .section.blog-academy .cards > ul {
   gap: 0;
   padding-bottom: 60px;
 }
 
-main > .section.blog-academy .cards > ul > li {
+main .section.blog-academy .cards > ul > li {
   border: none;
   background-color: #f7f7f7;
   margin-right: 10px;
@@ -402,18 +433,18 @@ main > .section.blog-academy .cards > ul > li {
   padding-bottom: 20px;
 }
 
-main > .section.blog-academy .cards > ul > li img {
+main .section.blog-academy .cards > ul > li img {
   aspect-ratio: auto;
   object-fit: fill;
 }
 
-main > .section.blog-academy .cards .cards-card-body {
+main .section.blog-academy .cards .cards-card-body {
   margin: 0;
   padding: 0 0 20px;
   text-align: center;
 }
 
-main > .section.blog-academy .cards .cards-card-body p:first-child {
+main .section.blog-academy .cards .cards-card-body p:first-child {
   margin: 20px 0 30px;
   color: var(--text-color);
   font-size: 12px;
@@ -424,18 +455,18 @@ main > .section.blog-academy .cards .cards-card-body p:first-child {
 
 /* the title reads as plain dark copy on the source — the whole card is the
    link, so the title itself isn't styled like one */
-main > .section.blog-academy .cards .cards-card-body p:last-child {
+main .section.blog-academy .cards .cards-card-body p:last-child {
   margin: 0;
   font-size: var(--body-font-size-xs);
   font-weight: 300;
 }
 
-main > .section.blog-academy .cards .cards-card-body p:last-child a:any-link {
+main .section.blog-academy .cards .cards-card-body p:last-child a:any-link {
   color: var(--text-color);
   font-weight: inherit;
   text-decoration: none;
 }
 
-main > .section.blog-academy .cards .cards-card-body p:last-child a:hover {
+main .section.blog-academy .cards .cards-card-body p:last-child a:hover {
   text-decoration: underline;
 }
