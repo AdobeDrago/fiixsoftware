@@ -467,7 +467,7 @@ main .section.light,
 main .section.highlight {
     background-color: var(--light-color);
     margin: 0;
-    padding: 80px 0;
+    padding: 40px 0;
 }
 
 /* Homepage customer-logos band trims its bottom padding below desktop -- the
@@ -1049,46 +1049,48 @@ main > .section.customer-success .default-content-wrapper h2 {
 
 /* ============================================================
    Home "Get data from any system…" insights section intro.
-   Scoped to .insights-tabs.homepage (same pattern as dual-cta).
-   Match production .parts-forecaster: left-aligned intro below
-   768px; centered 48px headline + 100/150 padding from 768px up
-   (live stays at 100px top even at 1200 — no further bump).
+   Production centers the heading + intro above the tabs, with a
+   48px bold headline and a 20px light lead constrained to ~750px.
    ============================================================ */
-main .section.insights-tabs.homepage {
-    padding: 50px 0;
-    margin: 0 auto;
+main .section.insights-tabs .default-content-wrapper {
+    max-width: 750px;
+    margin: 0 auto 40px;
+    text-align: center;
 }
 
 main .section.insights-tabs.homepage .default-content-wrapper {
-    max-width: 750px;
     margin: 0 auto;
     text-align: left;
 }
 
-main .section.insights-tabs.homepage .default-content-wrapper h2 {
-    margin: 0 0 20px;
+main .section.insights-tabs .default-content-wrapper h2 {
+    margin: 0 auto 20px;
     font-family: sofia-pro, sans-serif;
     font-size: 32px;
     font-weight: 700;
     line-height: 1.1;
-    text-align: left;
+    text-align: center;
     color: var(--text-color);
 }
 
-main .section.insights-tabs.homepage .default-content-wrapper p {
-    margin: 0;
+main .section.insights-tabs.homepage .default-content-wrapper h2 {
+    margin: 0 0 20px;
+    text-align: left;
+}
+
+main .section.insights-tabs .default-content-wrapper p {
+    margin: 0 auto;
     font-family: sofia-pro, sans-serif;
     font-size: 20px;
     font-weight: 300;
     line-height: 1.7;
-    text-align: left;
+    text-align: center;
     color: var(--text-color);
 }
 
-@media (width >= 651px) {
-    main .section.insights-tabs.homepage .default-content-wrapper h2 {
-        font-size: 38px;
-    }
+main .section.insights-tabs.homepage .default-content-wrapper p {
+     margin: 0;
+     text-align: left;
 }
 
 /* Live: max-width 768 → stacked/left; above that → card layout + center */
@@ -1115,26 +1117,60 @@ main .section.insights-tabs.homepage .default-content-wrapper p {
     }
 }
 
+@media (width >= 960px) {
+    main .section.insights-tabs .default-content-wrapper h2 {
+        font-size: 48px;
+        line-height: 52.8px;
+    }
+
+    main .section.insights-tabs .default-content-wrapper p {
+        line-height: 34px;
+    }
+}
+
+
+
 /* ============================================================
    Home "Everything you need to manage 1000s of work orders…"
-   feature-tabs section. Scoped to `.feature-tabs.homepage` to match
-   production #feature-container (decorateFeatureTabs adds .homepage).
+   feature-tabs section heading. Production left-aligns a 48px bold
+   headline above the tabs (32px on mobile).
    ============================================================ */
+
+/* Production frames this section with generous vertical whitespace
+   (100px each side). Use padding, not margin, so it doesn't collapse
+   against the adjacent sections' margins. */
+main .section.feature-tabs {
+    margin: 0;
+    padding: 60px 0;
+}
+
 main .section.feature-tabs.homepage {
     margin: 0;
     padding: 40px 0;
     background-color: #fff;
+    text-align: left;
 }
 
-main .section.feature-tabs.homepage .default-content-wrapper h2 {
+/* stylelint-disable-next-line no-descending-specificity */
+main .section.feature-tabs .default-content-wrapper h2 {
     margin: 0 0 20px;
     max-width: 96%;
     font-family: sofia-pro, sans-serif;
     font-size: 32px;
     font-weight: 700;
     line-height: 1.1;
-    text-align: left;
     color: var(--text-color);
+}
+
+@media (width >= 960px) {
+    main .section.feature-tabs {
+        padding: 100px 0;
+    }
+
+    main .section.feature-tabs .default-content-wrapper h2 {
+        font-size: 48px;
+        line-height: 52.8px;
+    }
 }
 
 @media (width >= 768px) {
@@ -1221,7 +1257,7 @@ main .section.testimonials.homepage {
 /* stylelint-disable no-descending-specificity */
 main .section.logos .default-content-wrapper h2,
 main .section.video-cards .default-content-wrapper h2,
-main .section.testimonials.homepage .default-content-wrapper h2 {
+main .section.testimonials .default-content-wrapper h2 {
     font-family: sofia-pro, sans-serif;
     font-weight: 700;
     text-align: center;
@@ -1244,11 +1280,16 @@ main .section.logos .default-content-wrapper h2 {
 }
 
 main .section.video-cards .default-content-wrapper h2,
+main .section.testimonials .default-content-wrapper h2 {
+    margin: 0 auto 40px;
+    max-width: 900px;
+    font-size: 32px;
+    line-height: 1.1;
+}
+
 main .section.testimonials.homepage .default-content-wrapper h2 {
     margin: 0 auto 60px;
     max-width: 1000px;
-    font-size: 32px;
-    line-height: 1.1;
 }
 
 @media (width < 768px) {
@@ -1259,9 +1300,13 @@ main .section.testimonials.homepage .default-content-wrapper h2 {
 
 @media (width >= 960px) {
     main .section.video-cards .default-content-wrapper h2,
-    main .section.testimonials.homepage .default-content-wrapper h2 {
+    main .section.testimonials .default-content-wrapper h2 {
         font-size: 44px;
         line-height: 48.4px;
+    }
+
+    main .section.video-cards .default-content-wrapper h2 {
+        margin-bottom: 60px;
     }
 }
 /* stylelint-enable no-descending-specificity */
@@ -6553,17 +6598,4 @@ main > .section.pf-final-cta.cloud-page .default-content-wrapper ul li a:any-lin
     border-color: #14499a;
     color: #fff;
     text-decoration: none;
-}
-
-/* Homepage customer-logos band ("logos highlight"): production's small
-   centered 20px label, on one line at every width (no 600px clamp). Scoped
-   to `.logos.highlight.homepage` so the pricing page's plain `.logos` band
-   (24px, left-aligned on mobile) is unaffected. */
-/* stylelint-disable-next-line no-descending-specificity */
-main .section.logos.highlight.homepage .default-content-wrapper h2 {
-    max-width: none;
-    margin: 0 auto 35px;
-    font-size: 20px;
-    line-height: 22px;
-    text-align: center;
 }
