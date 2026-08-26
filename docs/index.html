@@ -364,6 +364,17 @@
   .ns-progress { background: #fff4e5; color: #8a4b08; }
   .ns-done     { background: #eaf6f1; color: #1a6b50; }
 
+  .status-badge {
+    margin-left: auto;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    padding: 3px 10px;
+    border-radius: 12px;
+    text-transform: uppercase;
+  }
+  .sb-done { background: #eaf6f1; color: #1a6b50; }
+
   .req-list { margin: 8px 0 0 18px; font-size: 13px; color: var(--gray-700); }
   .req-list li { margin-bottom: 4px; }
 
@@ -532,6 +543,25 @@
     </div>
 
     <div class="sidebar-section">
+      <div class="sidebar-label">Journeys</div>
+      <a class="sidebar-link" href="#journey-1-ebook">
+        <svg class="icon" viewBox="0 0 16 16" fill="currentColor"><path d="M0 1.75A.75.75 0 01.75 1h4.253c1.227 0 2.317.59 3 1.501A3.743 3.743 0 0111.006 1h4.245a.75.75 0 01.75.75v10.5a.75.75 0 01-.75.75h-4.507a2.25 2.25 0 00-1.591.659l-.622.621a.75.75 0 01-1.06 0l-.622-.621A2.25 2.25 0 005.258 13H.75a.75.75 0 01-.75-.75V1.75zm8.755 3a2.25 2.25 0 012.25-2.25H14.5v9h-3.757c-.71 0-1.4.2-1.992.572l.004-7.322zm-1.504 7.324l.004-5.073-.002-2.253A2.25 2.25 0 005.003 2.5H1.5v9h3.757a3.75 3.75 0 011.994.574z"/></svg>
+        Journey 1 · Ebooks
+        <span class="nav-status ns-done">Complete</span>
+      </a>
+      <a class="sidebar-link" href="#journey-2-case-study">
+        <svg class="icon" viewBox="0 0 16 16" fill="currentColor"><path d="M0 1.75C0 .784.784 0 1.75 0h12.5C15.216 0 16 .784 16 1.75v12.5A1.75 1.75 0 0114.25 16H1.75A1.75 1.75 0 010 14.25V1.75zm1.75-.25a.25.25 0 00-.25.25v12.5c0 .138.112.25.25.25h12.5a.25.25 0 00.25-.25V1.75a.25.25 0 00-.25-.25H1.75zM3.5 3.75c0-.192.168-.35.375-.35h8.25c.207 0 .375.158.375.35v1.5a.35.35 0 01-.375.35H3.875a.35.35 0 01-.375-.35v-1.5zm0 4c0-.192.168-.35.375-.35h8.25c.207 0 .375.158.375.35v1.5a.35.35 0 01-.375.35H3.875A.35.35 0 013.5 9.25v-1.5zm0 4c0-.192.168-.35.375-.35H8c.207 0 .375.158.375.35v1.5A.35.35 0 018 12.85H3.875a.35.35 0 01-.375-.35v-1.5z"/></svg>
+        Journey 2 · Case studies
+        <span class="nav-status ns-done">Complete</span>
+      </a>
+      <a class="sidebar-link" href="#journey-3-blog">
+        <svg class="icon" viewBox="0 0 16 16" fill="currentColor"><path d="M0 3.75C0 2.784.784 2 1.75 2h12.5c.966 0 1.75.784 1.75 1.75v8.5A1.75 1.75 0 0114.25 14H1.75A1.75 1.75 0 010 12.25v-8.5zm1.75-.25a.25.25 0 00-.25.25v.5h13v-.5a.25.25 0 00-.25-.25H1.75zM1.5 5.5v6.75c0 .138.112.25.25.25h12.5a.25.25 0 00.25-.25V5.5h-13z"/></svg>
+        Journey 3 · Blog
+        <span class="nav-status ns-done">Complete</span>
+      </a>
+    </div>
+
+    <div class="sidebar-section">
       <div class="sidebar-label">Content</div>
       <a class="sidebar-link" href="#migrated-pages">
         <svg class="icon" viewBox="0 0 16 16" fill="currentColor"><path d="M4 1.75C4 .784 4.784 0 5.75 0h5.586c.464 0 .909.184 1.237.513l2.914 2.914c.329.328.513.773.513 1.237v9.586A1.75 1.75 0 0114.25 16h-8.5A1.75 1.75 0 014 14.25V1.75zM5.75 1.5a.25.25 0 00-.25.25v12.5c0 .138.112.25.25.25h8.5a.25.25 0 00.25-.25V6h-2.75A1.75 1.75 0 0110 4.25V1.5H5.75z"/></svg>
@@ -555,7 +585,7 @@
       <div class="page-hero" id="overview">
         <div class="page-hero-eyebrow">Fiix Software · EDS</div>
         <h1>Fiix Software EDS Pilot</h1>
-        <p class="page-hero-sub">A page-template-driven migration of fiixsoftware.com's marketing site off WordPress onto Edge Delivery Services, built on the standard <code class="code-inline">aem-boilerplate</code> and authored through DA.live — architecture, blocks, and the page-by-page migration status.</p>
+        <p class="page-hero-sub">A page-template-driven migration of fiixsoftware.com's marketing site off WordPress onto Edge Delivery Services, built on the standard <code class="code-inline">aem-boilerplate</code> and authored through DA.live — architecture, Resources pilot journeys (Ebooks, Case studies, Blog), blocks, and the page-by-page migration status.</p>
       </div>
 
       <section class="doc-section">
@@ -575,11 +605,39 @@
           <li>Brand font loaded from Adobe Typekit (<code class="code-inline">use.typekit.net</code>) alongside the local fallback stack in <code class="code-inline">styles/fonts.css</code>.</li>
         </ul>
 
-        <h3>Journeys</h3>
-        <p>Each journey below is a page template driven by its own importer/parser under <code class="code-inline">tools/importer/</code> (see <code class="code-inline">page-templates.json</code>); several cover multiple source URLs. <strong>Status reflects the code-side block/styling implementation, not raw content presence</strong> — DA.live content exists for every row here (see <a href="#migrated-pages" style="color:var(--brand-blue);">Migrated pages</a>). All journeys below are now marked complete.</p>
+        <h3>Pilot journeys</h3>
+        <p>Three Resources click-paths — the same shape as DRiV’s DrivParts journeys — validate header chrome, Resource center / Blog listing UX, filters, and detail pages end to end. Expand each in the <a href="#journey-1-ebook" style="color:var(--brand-blue);">Journeys</a> sidebar section.</p>
         <table class="spec-table">
           <thead>
             <tr><th>Journey</th><th>Validates</th><th>Status</th><th>Preview</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><a href="#journey-1-ebook" style="color:var(--brand-blue);">1 · Ebooks</a></td>
+              <td>Header → Resources → Resource center → Ebooks → open any Ebook</td>
+              <td><span class="nav-status ns-done">Complete</span></td>
+              <td><a href="https://main--fiixsoftware--AdobeDrago.aem.page/resource-center/ebook" target="_blank" rel="noopener" style="color:var(--brand-blue);">/resource-center/ebook</a></td>
+            </tr>
+            <tr>
+              <td><a href="#journey-2-case-study" style="color:var(--brand-blue);">2 · Case studies</a></td>
+              <td>Header → Resources → Resource center → Category or Industry → open any case study</td>
+              <td><span class="nav-status ns-done">Complete</span></td>
+              <td><a href="https://main--fiixsoftware--AdobeDrago.aem.page/resource-center/case-studies/universal-pure" target="_blank" rel="noopener" style="color:var(--brand-blue);">/resource-center/case-studies/universal-pure</a></td>
+            </tr>
+            <tr>
+              <td><a href="#journey-3-blog" style="color:var(--brand-blue);">3 · Blog</a></td>
+              <td>Header → Resources → Blog → Recent posts → Category → open any article</td>
+              <td><span class="nav-status ns-done">Complete</span></td>
+              <td><a href="https://main--fiixsoftware--AdobeDrago.aem.page/blog/how-much-time-is-data-entry-costing-you" target="_blank" rel="noopener" style="color:var(--brand-blue);">/blog/how-much-time-is-data-entry-costing-you</a></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3>Page templates</h3>
+        <p>Each row below is a page template driven by its own importer/parser under <code class="code-inline">tools/importer/</code> (see <code class="code-inline">page-templates.json</code>); several cover multiple source URLs. <strong>Status reflects the code-side block/styling implementation, not raw content presence</strong> — DA.live content exists for every row here (see <a href="#migrated-pages" style="color:var(--brand-blue);">Migrated pages</a>). All templates below are now marked complete.</p>
+        <table class="spec-table">
+          <thead>
+            <tr><th>Template</th><th>Validates</th><th>Status</th><th>Preview</th></tr>
           </thead>
           <tbody>
             <tr>
@@ -643,8 +701,8 @@
               <td><a href="https://main--fiixsoftware--AdobeDrago.aem.page/blog/how-much-time-is-data-entry-costing-you" target="_blank" rel="noopener" style="color:var(--brand-blue);">/blog/how-much-time-is-data-entry-costing-you</a> +24 more</td>
             </tr>
             <tr>
-              <td>Resource Center / Ebook</td>
-              <td>Listing page + 1 ebook page live in DA.live; <code class="code-inline">resource-list</code>, <code class="code-inline">resource-intro</code>, <code class="code-inline">resource-navigation</code> blocks are newer, also outside the original importer scope — active work is happening on the <code class="code-inline">ebook-page</code> branch</td>
+              <td>Resource center / Ebooks</td>
+              <td>Listing page + Ebooks listing live in DA.live; <code class="code-inline">resource-list</code>, <code class="code-inline">resource-intro</code>, <code class="code-inline">resource-navigation</code> blocks are newer, also outside the original importer scope</td>
               <td><span class="nav-status ns-done">Complete</span></td>
               <td><a href="https://main--fiixsoftware--AdobeDrago.aem.page/resource-center/ebook" target="_blank" rel="noopener" style="color:var(--brand-blue);">/resource-center/ebook</a></td>
             </tr>
@@ -989,6 +1047,234 @@ npm run lint:fix   <span class="cmt"># auto-fixes both</span></div>
           <svg class="notice-icon" width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M8 16A8 8 0 108 0a8 8 0 000 16zM8 4a1 1 0 110 2 1 1 0 010-2zm-1 4h2v5H7V8z"/></svg>
           <span>All pages above were audited against the <code class="code-inline">develop</code> branch preview (<code class="code-inline">develop--fiixsoftware--AdobeDrago.aem.page</code>), not <code class="code-inline">main</code> — Best Practices in particular jumps from 50–54 live to 96–100 on EDS across all four pages.</span>
         </div>
+      </section>
+
+      <section class="doc-section" id="journey-1-ebook">
+        <h2>
+          <span class="section-icon icon-blue">
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M0 1.75A.75.75 0 01.75 1h4.253c1.227 0 2.317.59 3 1.501A3.743 3.743 0 0111.006 1h4.245a.75.75 0 01.75.75v10.5a.75.75 0 01-.75.75h-4.507a2.25 2.25 0 00-1.591.659l-.622.621a.75.75 0 01-1.06 0l-.622-.621A2.25 2.25 0 005.258 13H.75a.75.75 0 01-.75-.75V1.75zm8.755 3a2.25 2.25 0 012.25-2.25H14.5v9h-3.757c-.71 0-1.4.2-1.992.572l.004-7.322zm-1.504 7.324l.004-5.073-.002-2.253A2.25 2.25 0 005.003 2.5H1.5v9h3.757a3.75 3.75 0 011.994.574z"/></svg>
+          </span>
+          Journey 1 — Ebooks
+          <span class="status-badge sb-done">Complete</span>
+        </h2>
+        <div class="section-rule"></div>
+        <p>Journey 1 validates the Resources → Resource center → Ebooks click-path: header mega-nav chrome, the Resource center listing shell, the Ebooks listing (content type <code class="code-inline">Ebook</code>), and opening any ebook destination (PDF or landing page).</p>
+        <p><strong>Live (production):</strong> <a href="https://fiixsoftware.com/resource-center/" target="_blank" rel="noopener" style="color:var(--brand-blue);">https://fiixsoftware.com/resource-center/</a> · <a href="https://fiixsoftware.com/resource-center/ebook/" target="_blank" rel="noopener" style="color:var(--brand-blue);">https://fiixsoftware.com/resource-center/ebook/</a><br>
+        <strong>Building (EDS):</strong> <a href="https://main--fiixsoftware--AdobeDrago.aem.page/resource-center" target="_blank" rel="noopener" style="color:var(--brand-blue);">https://main--fiixsoftware--AdobeDrago.aem.page/resource-center</a> → <a href="https://main--fiixsoftware--AdobeDrago.aem.page/resource-center/ebook" target="_blank" rel="noopener" style="color:var(--brand-blue);">https://main--fiixsoftware--AdobeDrago.aem.page/resource-center/ebook</a> → any Ebook card<br>
+        <strong>DA:</strong> <code class="code-inline">resource-center</code>, <code class="code-inline">resource-center/ebook</code>, fragment <code class="code-inline">fragments/resource-center-navigation</code></p>
+
+        <h3>Click path</h3>
+        <ol class="steps">
+          <li class="step">
+            <span class="step-num" aria-hidden="true"></span>
+            <div class="step-body">
+              <div class="step-title">Header → Resources</div>
+              <p>Open the global header <strong>Resources</strong> mega-menu (<code class="code-inline">blocks/header</code> + <code class="code-inline">/nav</code> fragment). Nav labels match production: <strong>Resource center</strong>, <strong>Ebooks</strong>, <strong>Case studies</strong>, <strong>Blog</strong>.</p>
+            </div>
+          </li>
+          <li class="step">
+            <span class="step-num" aria-hidden="true"></span>
+            <div class="step-body">
+              <div class="step-title">Resource center</div>
+              <p>Land on <code class="code-inline">/resource-center</code> — intro heading <strong>Resource center</strong>, with <code class="code-inline">resource-intro</code>, <code class="code-inline">resource-navigation</code> (loads <code class="code-inline">/fragments/resource-center-navigation</code>), and <code class="code-inline">resource-list</code> cards.</p>
+            </div>
+          </li>
+          <li class="step">
+            <span class="step-num" aria-hidden="true"></span>
+            <div class="step-body">
+              <div class="step-title">Choose Ebooks</div>
+              <p>In the Resource center side nav (or the Resources mega-menu), click <strong>Ebooks</strong> → <code class="code-inline">/resource-center/ebook</code> (“Maintenance ebooks”).</p>
+            </div>
+          </li>
+          <li class="step">
+            <span class="step-num" aria-hidden="true"></span>
+            <div class="step-body">
+              <div class="step-title">Open any Ebook</div>
+              <p>Select any card with content type <strong>Ebook</strong> (e.g. <em>10 skills of successful maintenance managers</em>). Destinations are authored URLs — typically a PDF on fiixsoftware.com or an LP on lp.fiixsoftware.com — not another EDS detail page.</p>
+            </div>
+          </li>
+        </ol>
+
+        <h3>Flow</h3>
+        <table class="spec-table">
+          <thead>
+            <tr><th>Step</th><th>Path / block</th><th>What happens</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1 · Nav</td>
+              <td><code class="code-inline">header</code> · Resources</td>
+              <td>Mega-menu links: Resource center, Ebooks, Case studies, Blog.</td>
+            </tr>
+            <tr>
+              <td>2 · Listing hub</td>
+              <td><code class="code-inline">resource-navigation</code> + <code class="code-inline">resource-list</code> @ <code class="code-inline">/resource-center</code></td>
+              <td>Fragment-backed filters/nav; authored resource cards.</td>
+            </tr>
+            <tr>
+              <td>3 · Ebooks listing</td>
+              <td><code class="code-inline">resource-list</code> @ <code class="code-inline">/resource-center/ebook</code></td>
+              <td>Maintenance ebooks grid; each card typed <strong>Ebook</strong>.</td>
+            </tr>
+            <tr>
+              <td>4 · Ebook destination</td>
+              <td>Card destination URL</td>
+              <td>External PDF or marketing LP (authored in DA).</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3>Blocks delivered</h3>
+        <ul class="req-list">
+          <li><code class="code-inline">resource-navigation</code> — loads <code class="code-inline">/fragments/resource-center-navigation</code>; desktop lists + mobile <code class="code-inline">&lt;select&gt;</code>s (includes <strong>Ebooks</strong>).</li>
+          <li><code class="code-inline">resource-list</code> — image / title / subtitle / destination / content type / featured card grid (ebook-list compatibility retained).</li>
+          <li><code class="code-inline">resource-intro</code> — Resource center / Maintenance ebooks intro band above the listing.</li>
+          <li><code class="code-inline">header</code> — Resources mega-menu icons for Resource center and Ebooks.</li>
+        </ul>
+      </section>
+
+      <section class="doc-section" id="journey-2-case-study">
+        <h2>
+          <span class="section-icon icon-navy">
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M0 1.75C0 .784.784 0 1.75 0h12.5C15.216 0 16 .784 16 1.75v12.5A1.75 1.75 0 0114.25 16H1.75A1.75 1.75 0 010 14.25V1.75zm1.75-.25a.25.25 0 00-.25.25v12.5c0 .138.112.25.25.25h12.5a.25.25 0 00.25-.25V1.75a.25.25 0 00-.25-.25H1.75zM3.5 3.75c0-.192.168-.35.375-.35h8.25c.207 0 .375.158.375.35v1.5a.35.35 0 01-.375.35H3.875a.35.35 0 01-.375-.35v-1.5zm0 4c0-.192.168-.35.375-.35h8.25c.207 0 .375.158.375.35v1.5a.35.35 0 01-.375.35H3.875A.35.35 0 013.5 9.25v-1.5zm0 4c0-.192.168-.35.375-.35H8c.207 0 .375.158.375.35v1.5A.35.35 0 018 12.85H3.875a.35.35 0 01-.375-.35v-1.5z"/></svg>
+          </span>
+          Journey 2 — Case studies
+          <span class="status-badge sb-done">Complete</span>
+        </h2>
+        <div class="section-rule"></div>
+        <p>Journey 2 validates finding a case study from Resource center: <strong>Category</strong> or <strong>Industry</strong> filters on the Case studies listing, then opening any case-study detail page (31 published under <code class="code-inline">/resource-center/case-studies/</code>).</p>
+        <p><strong>Live (production):</strong> <a href="https://fiixsoftware.com/resource-center/case-studies/" target="_blank" rel="noopener" style="color:var(--brand-blue);">https://fiixsoftware.com/resource-center/case-studies/</a> · e.g. <a href="https://fiixsoftware.com/resource-center/case-studies/universal-pure/" target="_blank" rel="noopener" style="color:var(--brand-blue);">https://fiixsoftware.com/resource-center/case-studies/universal-pure/</a><br>
+        <strong>Building (EDS):</strong> <a href="https://main--fiixsoftware--AdobeDrago.aem.page/resource-center/case-studies" target="_blank" rel="noopener" style="color:var(--brand-blue);">https://main--fiixsoftware--AdobeDrago.aem.page/resource-center/case-studies</a> → filter archive (e.g. <a href="https://main--fiixsoftware--AdobeDrago.aem.page/resource-center/case-studies/discrete-manufacturing" target="_blank" rel="noopener" style="color:var(--brand-blue);">https://main--fiixsoftware--AdobeDrago.aem.page/resource-center/case-studies/discrete-manufacturing</a>) → <a href="https://main--fiixsoftware--AdobeDrago.aem.page/resource-center/case-studies/universal-pure" target="_blank" rel="noopener" style="color:var(--brand-blue);">https://main--fiixsoftware--AdobeDrago.aem.page/resource-center/case-studies/universal-pure</a><br>
+        <strong>DA:</strong> <code class="code-inline">resource-center/case-studies</code> + 31 detail documents; index via <code class="code-inline">case-studies-index.json</code> / <code class="code-inline">case-study-listing.json</code></p>
+
+        <h3>Click path</h3>
+        <ol class="steps">
+          <li class="step">
+            <span class="step-num" aria-hidden="true"></span>
+            <div class="step-body">
+              <div class="step-title">Header → Resources → Resource center / Case studies</div>
+              <p>From the Resources mega-menu choose <strong>Resource center</strong> then <strong>Case studies</strong> in the side nav, or go directly via the mega-menu <strong>Case studies</strong> link → <code class="code-inline">/resource-center/case-studies</code>.</p>
+            </div>
+          </li>
+          <li class="step">
+            <span class="step-num" aria-hidden="true"></span>
+            <div class="step-body">
+              <div class="step-title">Choose a Category <em>or</em> Industry</div>
+              <p>On the listing toolbar, use the <strong>Category</strong> or <strong>Industry</strong> <code class="code-inline">&lt;select&gt;</code> (placeholders “Sort by category” / “Sort by industry”). A selection navigates to a pinned archive (e.g. Industry → Discrete Manufacturing → <code class="code-inline">/resource-center/case-studies/discrete-manufacturing</code>).</p>
+            </div>
+          </li>
+          <li class="step">
+            <span class="step-num" aria-hidden="true"></span>
+            <div class="step-body">
+              <div class="step-title">Open any case study</div>
+              <p>Select a card typed <strong>Case study</strong> (e.g. Universal Pure) and confirm the detail template — <code class="code-inline">hero-case-study</code>, composable case-study blocks, highlights, carousels.</p>
+            </div>
+          </li>
+        </ol>
+
+        <h3>Flow</h3>
+        <table class="spec-table">
+          <thead>
+            <tr><th>Step</th><th>Path / block</th><th>What happens</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1 · Entry</td>
+              <td>Resources → Case studies</td>
+              <td>Header or <code class="code-inline">resource-navigation</code> deep-links to the listing.</td>
+            </tr>
+            <tr>
+              <td>2 · Filter</td>
+              <td><code class="code-inline">case-study-listing</code> @ <code class="code-inline">/resource-center/case-studies</code></td>
+              <td>Category / Industry selects; changing a value opens a filter archive page under the same tree.</td>
+            </tr>
+            <tr>
+              <td>3 · Detail</td>
+              <td><code class="code-inline">/resource-center/case-studies/{slug}</code></td>
+              <td>Case-study page template (hero, intro/lead/logo/profiles/systems, highlight, carousels, CTAs).</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3>Blocks delivered</h3>
+        <ul class="req-list">
+          <li><code class="code-inline">case-study-listing</code> — filterable card grid; optional pinned Category/Industry config rows for archive pages.</li>
+          <li><code class="code-inline">resource-navigation</code> — shared Resource center chrome beside the listing.</li>
+          <li><code class="code-inline">hero-case-study</code>, <code class="code-inline">case-study-highlight</code>, <code class="code-inline">case-study-intro</code>/<code class="code-inline">-lead</code>/<code class="code-inline">-logo</code>/<code class="code-inline">-profiles</code>/<code class="code-inline">-systems</code>, <code class="code-inline">carousel-case-study</code> — detail composition.</li>
+        </ul>
+      </section>
+
+      <section class="doc-section" id="journey-3-blog">
+        <h2>
+          <span class="section-icon icon-purple">
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M0 3.75C0 2.784.784 2 1.75 2h12.5c.966 0 1.75.784 1.75 1.75v8.5A1.75 1.75 0 0114.25 14H1.75A1.75 1.75 0 010 12.25v-8.5zm1.75-.25a.25.25 0 00-.25.25v.5h13v-.5a.25.25 0 00-.25-.25H1.75zM1.5 5.5v6.75c0 .138.112.25.25.25h12.5a.25.25 0 00.25-.25V5.5h-13z"/></svg>
+          </span>
+          Journey 3 — Blog
+          <span class="status-badge sb-done">Complete</span>
+        </h2>
+        <div class="section-rule"></div>
+        <p>Journey 3 validates the Resources → Blog path: the <strong>Recent posts</strong> listing, <strong>Category</strong> filter (or category archive), and opening any blog article with auto-blocked <code class="code-inline">blog-body</code> reading layout.</p>
+        <p><strong>Live (production):</strong> <a href="https://fiixsoftware.com/blog/" target="_blank" rel="noopener" style="color:var(--brand-blue);">https://fiixsoftware.com/blog/</a><br>
+        <strong>Building (EDS):</strong> <a href="https://main--fiixsoftware--AdobeDrago.aem.page/blog" target="_blank" rel="noopener" style="color:var(--brand-blue);">https://main--fiixsoftware--AdobeDrago.aem.page/blog</a> → Category archive (e.g. <a href="https://main--fiixsoftware--AdobeDrago.aem.page/category/asset-management" target="_blank" rel="noopener" style="color:var(--brand-blue);">https://main--fiixsoftware--AdobeDrago.aem.page/category/asset-management</a>) → <a href="https://main--fiixsoftware--AdobeDrago.aem.page/blog/how-much-time-is-data-entry-costing-you" target="_blank" rel="noopener" style="color:var(--brand-blue);">https://main--fiixsoftware--AdobeDrago.aem.page/blog/how-much-time-is-data-entry-costing-you</a><br>
+        <strong>DA:</strong> <code class="code-inline">blog</code> listing + 25 articles; backed by <code class="code-inline">blog-listing.json</code> / query index</p>
+
+        <h3>Click path</h3>
+        <ol class="steps">
+          <li class="step">
+            <span class="step-num" aria-hidden="true"></span>
+            <div class="step-body">
+              <div class="step-title">Header → Resources → Blog</div>
+              <p>Open <strong>Resources</strong> in the header and choose <strong>Blog</strong> → <code class="code-inline">/blog</code>.</p>
+            </div>
+          </li>
+          <li class="step">
+            <span class="step-num" aria-hidden="true"></span>
+            <div class="step-body">
+              <div class="step-title">Recent posts → choose a Category</div>
+              <p>Under the <strong>Recent posts</strong> heading, use the <code class="code-inline">blog-listing</code> <strong>Category</strong> <code class="code-inline">&lt;select&gt;</code> (default “All categories”; options include Asset management, Buying software, CMMS basics, …). A selection navigates to <code class="code-inline">/category/{slug}</code> (e.g. <code class="code-inline">/category/asset-management</code>).</p>
+            </div>
+          </li>
+          <li class="step">
+            <span class="step-num" aria-hidden="true"></span>
+            <div class="step-body">
+              <div class="step-title">Open any blog article</div>
+              <p>Select a filtered post. <code class="code-inline">buildBlogArticleBlocks</code> wraps the body in <code class="code-inline">blog-body</code>; <code class="code-inline">hero-article</code> and a single trailing CTA/promo band match live behavior.</p>
+            </div>
+          </li>
+        </ol>
+
+        <h3>Flow</h3>
+        <table class="spec-table">
+          <thead>
+            <tr><th>Step</th><th>Path / block</th><th>What happens</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1 · Nav</td>
+              <td>Resources → Blog</td>
+              <td>Header mega-menu lands on <code class="code-inline">/blog</code>.</td>
+            </tr>
+            <tr>
+              <td>2 · Filter</td>
+              <td><code class="code-inline">blog-listing</code> @ <code class="code-inline">/blog</code></td>
+              <td>Recent posts grid with Search + Category; Category change opens <code class="code-inline">/category/{slug}</code>.</td>
+            </tr>
+            <tr>
+              <td>3 · Article</td>
+              <td><code class="code-inline">/blog/{slug}</code></td>
+              <td><code class="code-inline">hero-article</code> + auto-blocked <code class="code-inline">blog-body</code> (TOC, CTAs, reading progress) + one revealed promo band.</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3>Blocks delivered</h3>
+        <ul class="req-list">
+          <li><code class="code-inline">blog-listing</code> — filterable/searchable Recent posts grid; JSON / index-backed.</li>
+          <li><code class="code-inline">hero-article</code> — blog article header with lead image.</li>
+          <li><code class="code-inline">blog-body</code> — reading column + CTA rail transforms + scroll progress.</li>
+          <li><code class="code-inline">columns-blog-cta</code> / blog CTA bands — trailing promo (one revealed per view via <code class="code-inline">buildBlogArticleBlocks</code>).</li>
+          <li><code class="code-inline">decorateBlogHeader</code> in <code class="code-inline">scripts/scripts.js</code> — listing header layout.</li>
+        </ul>
       </section>
 
       <section class="doc-section" id="migrated-pages">
