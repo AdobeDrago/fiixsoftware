@@ -240,6 +240,38 @@ main > .section:has(> .columns-logos-wrapper .columns-logos.mobile-page) {
     }
 }
 
+/* Homepage customer-logos band (`logos highlight homepage`). Production's
+   band carries no block-level padding of its own -- the heading's
+   margin-bottom (styles.css) sets the gap above the row and the row's
+   margin-bottom the gap below it. Below desktop it forces an even wrap by
+   sizing each item to a share of the row (30% -> 3-up, 48% under 450px ->
+   2-up); left at their natural 100px all six would sit on one row at tablet.
+   Scoped to `.logos.highlight.homepage` so other `logos` bands and the
+   block's own variants (with-heading, mobile-page, wide-logos,
+   enterprise-hero) keep their existing layout. */
+.section.logos.highlight.homepage .columns-logos {
+    padding: 0;
+}
+
+.section.logos.highlight.homepage .columns-logos-row {
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 0;
+    max-width: none;
+    margin-bottom: 20px;
+}
+
+.section.logos.highlight.homepage .columns-logos-row > div {
+    flex: 0 0 30%;
+    margin-bottom: 20px;
+}
+
+@media (width <= 450px) {
+    .section.logos.highlight.homepage .columns-logos-row > div {
+        flex-basis: 48%;
+    }
+}
+
 /* Enterprise hero review-logos row ("Over 900 five-star reviews"): production
    packs the logos edge-to-edge with NO gap between them (measured: each logo's
    right edge exactly meets the next one's left edge) as one tightly-clustered
@@ -278,6 +310,20 @@ main > .section:has(> .columns-logos-wrapper .columns-logos.mobile-page) {
         justify-content: center;
         gap: 15px;
         max-width: 320px;
+    }
+}
+
+@media (width >= 960px) {
+    main .section.logos.highlight.homepage .columns-logos-row {
+        flex-wrap: nowrap;
+        justify-content: space-between;
+        gap: 0;
+        width: 100%;
+    }
+
+    main .section.logos.highlight.homepage .columns-logos-row > div {
+        flex: 0 0 auto;
+        margin-bottom: 0;
     }
 }
 
