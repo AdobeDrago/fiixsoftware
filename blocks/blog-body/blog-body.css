@@ -11,9 +11,33 @@
   flex-direction: column;
 }
 
-/* the rail is hidden on small phones; source hides `.cta-right` below 500px */
+/* source ≤900px: `.cta-right` is a row under the copy. Source hides it below
+   500px; we keep it visible on phones with the same side-by-side layout. */
 .blog-body-rail {
-  display: none;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: flex-start;
+  align-self: center;
+  width: 100%;
+  max-width: 664px;
+  margin: 0 auto;
+}
+
+/* source ≤700px: each promo takes ~half the row; first gets a 20px gutter */
+.blog-body-rail p {
+  flex: 0 0 45%;
+  margin: 0 0 20px;
+}
+
+.blog-body-rail p:first-child {
+  margin-right: 20px;
+}
+
+.blog-body-rail img {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin: 0 0 20px;
 }
 
 /* --- reading progress bar --- */
@@ -155,29 +179,6 @@
   .blog-body-column h2:has(+ .blog-body-shutdown) {
     margin-bottom: 30px;
     text-align: center;
-  }
-
-  /* source ≤900px: `.cta-right` becomes a row under the copy */
-  .blog-body-rail {
-    display: flex;
-    flex-flow: row nowrap;
-    justify-content: flex-start;
-    align-self: center;
-    gap: 20px;
-    width: 100%;
-    max-width: 664px;
-    margin: 0 auto;
-  }
-
-  .blog-body-rail p {
-    flex: 0 0 45%;
-    margin: 0 0 20px;
-  }
-
-  .blog-body-rail img {
-    display: block;
-    width: 100%;
-    height: auto;
   }
 }
 
@@ -759,7 +760,6 @@
     flex-flow: unset;
     justify-content: unset;
     align-self: auto;
-    gap: 0;
     width: auto;
     max-width: none;
     margin: 0;
@@ -770,10 +770,15 @@
     margin: 0 0 20px;
   }
 
+  .blog-body-rail p:first-child {
+    margin-right: 0;
+  }
+
   .blog-body-rail img {
     display: block;
     width: 100%;
     height: auto;
+    margin: 0 0 20px;
   }
 
   /* the source indents copy 20px from the headings and ordered lists */
