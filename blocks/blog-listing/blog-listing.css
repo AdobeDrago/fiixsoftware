@@ -8,18 +8,12 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 16px;
+  gap: 30px;
+  margin-bottom: 60px;
 }
 
-@media (width < 768px) {
-  .blog-listing .blog-listing-toolbar {
-    gap: 30px;
-    margin-bottom: 60px;
-  }
-
-  .blog-listing .blog-listing-category {
-    margin-bottom: 20px;
-  }
+.blog-listing .blog-listing-category {
+  margin-bottom: 20px;
 }
 
 /* a page pinned to one category (see blog-listing.js `fixedCategory`) hides
@@ -115,21 +109,9 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  margin: 60px 0 0;
+  margin: 0;
   padding: 0;
   list-style: none;
-}
-
-/* category archives hide the search/category toolbar — drop the results
-   offset so spacing comes only from the "Latest from …" title margins */
-.blog-listing:has(.blog-listing-toolbar[hidden]) .blog-listing-results {
-  margin-top: 0;
-}
-
-@media (width < 768px) {
-  .blog-listing .blog-listing-results {
-    margin-top: 0;
-  }
 }
 
 /* the source's card is a plain grey tile — no border, the art shown at its
@@ -277,6 +259,33 @@
   color: #888;
 }
 
+@media (width >= 768px) {
+  .blog-listing .blog-listing-toolbar {
+    gap: 16px;
+    margin-bottom: 0;
+  }
+
+  .blog-listing .blog-listing-category {
+    margin-bottom: 0;
+  }
+
+  .blog-listing .blog-listing-results {
+    margin-top: 60px;
+  }
+
+  /* category archives hide the search/category toolbar — drop the results
+     offset so spacing comes only from the "Latest from …" title margins */
+  .blog-listing:has(.blog-listing-toolbar[hidden]) .blog-listing-results {
+    margin-top: 0;
+  }
+
+  .blog-listing .blog-listing-card {
+    /* production `.blog-medium #blog_container article` is 45% under 960px,
+       leaving ~10% for space-between column gap */
+    width: 45%;
+  }
+}
+
 /* the source keeps the search field and category list stacked through the
    whole tablet width — it only switches to a row much closer to desktop —
    so this only fires at this project's desktop breakpoint, not 768px. */
@@ -286,17 +295,7 @@
     justify-content: space-between;
     align-items: flex-end;
   }
-}
 
-@media (width >= 768px) {
-  .blog-listing .blog-listing-card {
-    /* production `.blog-medium #blog_container article` is 45% under 960px,
-       leaving ~10% for space-between column gap */
-    width: 45%;
-  }
-}
-
-@media (width >= 960px) {
   .blog-listing .blog-listing-card {
     /* production `.blog-medium #blog_container article` is 30%, leaving ~10%
        for space-between column gaps (~60px at 1200px) */

@@ -363,7 +363,7 @@ main > .blog-listing-wrap > .blog-listing-wrap-inner {
   box-sizing: border-box;
 }
 
-@media (width >= 768px) and (width < 960px) {
+@media (width >= 768px) {
   main > .blog-listing-wrap {
     width: calc(100% - 52px);
   }

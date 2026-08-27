@@ -6204,7 +6204,7 @@ main > .section.blog-header > .default-content-wrapper {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    width: 90% !important;
+    width: 90%;
     padding-left: 0;
     padding-right: 0;
 }
@@ -6265,7 +6265,7 @@ main > .section.blog-header .blog-header-media {
     }
 
     main > .section.blog-header > .default-content-wrapper {
-        width: 90% !important;
+        width: 90%;
         height: 100%;
         padding-left: 0;
         padding-right: 0;
@@ -6307,7 +6307,7 @@ main > .section.blog-header .blog-header-media {
     }
 
     main > .section.blog-header > .default-content-wrapper {
-        width: auto !important;
+        width: auto;
         height: 100%;
         padding-left: 0;
         padding-right: 0;
