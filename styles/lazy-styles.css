@@ -352,23 +352,29 @@ body.blog-article .section.blog-share p:last-of-type a:any-link::before {
 /* Blog listing: academy + recent posts — wrapped together in
    `.blog-listing-wrap` (see decorateBlogListingWrap) so they share one
    centered page container like production `#page-wrap.container`.
-   Mobile/tablet stay at 90% (same as `.blog-header`) so left/right gutters
-   match; desktop locks to the 1200px content column with 20px inner inset. */
+   Side gutters match `header .nav-wrapper` (20px) and `.blog-header`
+   so the whole page reads as one aligned column on mobile/tablet. */
 main > .blog-listing-wrap {
   box-sizing: border-box;
-  width: 90%;
+  width: 100%;
+  max-width: 1200px;
   margin-left: auto;
   margin-right: auto;
+  padding-left: 20px;
+  padding-right: 20px;
+  overflow-x: clip;
 }
 
 main > .blog-listing-wrap > .blog-listing-wrap-inner {
   box-sizing: border-box;
+  min-width: 0;
+  max-width: 100%;
 }
 
 @media (width >= 960px) {
   main > .blog-listing-wrap {
-    width: auto;
-    max-width: 1200px;
+    padding-left: 0;
+    padding-right: 0;
   }
 
   main > .blog-listing-wrap > .blog-listing-wrap-inner {

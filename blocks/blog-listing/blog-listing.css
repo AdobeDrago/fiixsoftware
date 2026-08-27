@@ -36,8 +36,13 @@
   white-space: nowrap;
 }
 
-.blog-listing .blog-listing-search {
+.blog-listing .blog-listing-search,
+.blog-listing .blog-listing-category {
   position: relative;
+  /* toolbar uses align-items: flex-start — cap the flex item so a 350px
+     field cannot overflow the 90% wrap on narrow viewports */
+  max-width: 100%;
+  min-width: 0;
 }
 
 .blog-listing .blog-listing-search input,
@@ -45,6 +50,7 @@
   box-sizing: border-box;
   width: 350px;
   max-width: 100%;
+  min-width: 0;
   height: 50px;
   padding: 0 25px;
   border: none;
@@ -54,7 +60,10 @@
   font-family: var(--body-font-family);
   font-size: 20px;
   font-weight: 300;
-  box-shadow: 6px 6px 20px rgb(0 0 0 / 20%);
+
+  /* no horizontal offset on small screens — a 6px x-offset + blur spills
+     past the 90% wrap into the viewport edge and causes x-scroll */
+  box-shadow: 0 6px 20px rgb(0 0 0 / 20%);
 
   /* unprefixed `appearance` alone isn't enough on iOS Safari for
      `type="search"` — it keeps its native rounded corners/decoration
@@ -267,6 +276,11 @@
 
   .blog-listing .blog-listing-category {
     margin-bottom: 0;
+  }
+
+  .blog-listing .blog-listing-search input,
+  .blog-listing .blog-listing-category select {
+    box-shadow: 6px 6px 20px rgb(0 0 0 / 20%);
   }
 
   .blog-listing .blog-listing-results {
