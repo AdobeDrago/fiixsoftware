@@ -6180,6 +6180,19 @@ main > .section.pricing > .default-content-wrapper a:focus-visible {
     }
 }
 
+/* Block library docs (/docs/library/blocks/*): thin grey rule between sections
+   for visual separation of spec / live samples / variations. Scoped via the
+   page-slug body class from decoratePageClass() so it affects ONLY these docs.
+   Match on `docs-library-blocks-` (not `page-docs-library-blocks-`) so it works
+   both on the preview/live host (`page-docs-library-blocks-<name>`) and on the
+   local dev server, which serves under /content/ (`page-content-docs-library-blocks-<name>`).
+   It still never matches the library index (`docs-library-index`), the template
+   pages (`docs-library-templates-index`), or any authored site page. */
+body[class*="docs-library-blocks-"] main > .section + .section {
+  border-top: 1px solid #e1e1e1;
+  padding-top: 40px;
+}
+
 /* Category archive title ("Latest from …") */
 main:has(.blog-listing):not(:has(.blog-header)) > .section:first-of-type {
     margin-top: 0;
@@ -6200,13 +6213,25 @@ main > .section.blog-header {
     background-color: #e1e1e1;
 }
 
+/* Use the same 20px side gutters as `header .nav-wrapper` so the featured
+   band lines up with the logo/hamburger — not a separate 90% width that
+   sits 1–2px wider than the nav and reads as uneven padding. */
 main > .section.blog-header > .default-content-wrapper {
+    box-sizing: border-box;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    width: 90%;
-    padding-left: 0;
-    padding-right: 0;
+    width: 100%;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+main > .section.blog-header .blog-header-copy {
+    min-width: 0;
+    max-width: 100%;
 }
 
 main > .section.blog-header .blog-header-copy h1 {
@@ -6231,7 +6256,9 @@ main > .section.blog-header .blog-header-copy .button-wrapper {
 }
 
 main > .section.blog-header .blog-header-copy a.button.primary {
+    box-sizing: border-box;
     display: inline-block;
+    max-width: 100%;
     min-height: 53px;
     padding: 0 20px;
     border: 2px solid #14499a;
@@ -6265,10 +6292,7 @@ main > .section.blog-header .blog-header-media {
     }
 
     main > .section.blog-header > .default-content-wrapper {
-        width: 90%;
         height: 100%;
-        padding-left: 0;
-        padding-right: 0;
         justify-content: space-between;
         gap: 0;
     }
@@ -6307,10 +6331,9 @@ main > .section.blog-header .blog-header-media {
     }
 
     main > .section.blog-header > .default-content-wrapper {
-        width: auto;
+        padding-left: 32px;
+        padding-right: 32px;
         height: 100%;
-        padding-left: 0;
-        padding-right: 0;
     }
 
     main > .section.blog-header .blog-header-copy {
