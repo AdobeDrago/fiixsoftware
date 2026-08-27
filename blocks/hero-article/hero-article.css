@@ -173,42 +173,7 @@ main > .section.hero-article-container > div.hero-article-wrapper {
   box-shadow: none;
 }
 
-/* source ≤425px: hide read time so only the date shows above the title */
-@media (width <= 425px) {
-  .hero-article-meta > p:nth-child(2) {
-    display: none;
-  }
-}
-
-/* source ≤460px: `.entry-header-image { top: -5px }` */
-@media (width <= 460px) {
-  .hero-article-image {
-    top: -5px;
-  }
-}
-
-/* source ≤500px: background-position right -5% bottom 340px */
-@media (width >= 421px) and (width <= 500px) {
-  .hero-article-image img {
-    right: -5%;
-    bottom: 340px;
-    width: 700px;
-  }
-}
-
-/* source ≤768px: background-size 900px, bottom 250px */
-@media (width >= 501px) and (width <= 768px) {
-  .hero-article-image img {
-    right: -25%;
-    bottom: 250px;
-    width: 900px;
-  }
-}
-
-/* the source keeps the card full-width through 768px itself and only narrows
-   it to the fixed overhanging card starting at 769px, so this is one pixel
-   past the project's 768px tablet tier rather than at it */
-@media (width > 768px) {
+@media (width >= 768px) {
   /* the source slides the band 190px up behind the fixed nav, then pins the
      card with bottom (not top) so the band always meets the card just above
      "Back to blog" — same as production .entry-box { bottom: -190px }. The

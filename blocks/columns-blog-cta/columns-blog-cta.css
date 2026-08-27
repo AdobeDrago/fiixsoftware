@@ -83,18 +83,6 @@
   transform: none;
 }
 
-/* source ≤768px (above small phones): figure width 550px */
-@media (width >= 501px) and (width < 768px) {
-  .columns-blog-cta:not(.promo) > div > .columns-blog-cta-img-col picture,
-  .columns-blog-cta:not(.promo) > div > .columns-blog-cta-img-col img {
-    width: 550px;
-  }
-
-  .columns-blog-cta:not(.promo) > div > .columns-blog-cta-img-col picture {
-    transform: translateX(20px);
-  }
-}
-
 /* heading */
 .columns-blog-cta h3 {
   margin: 0;
