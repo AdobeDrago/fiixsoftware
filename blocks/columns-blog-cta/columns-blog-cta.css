@@ -5,15 +5,16 @@
    supporting copy, cyan "Free tour" pill). Values from source computed styles
    at 1440px. Below 768px stacks the image above a white content card. */
 
-/* full-bleed light-gray band — keep overflow visible on mobile so the card
-   box-shadow isn't clipped at the top edge */
+/* full-bleed light-gray band — clip horizontal bleed from the 100vw breakout;
+   vertical overflow stays visible so the card box-shadow can show. */
 .columns-blog-cta {
   position: relative;
   width: 100vw;
   margin-left: calc(50% - 50vw);
   padding: 0;
   background-color: #e1e1e1;
-  overflow: visible;
+  overflow-x: clip;
+  overflow-y: visible;
 }
 
 /* the guide promo band (production .modern_cta) is navy rather than light grey */
@@ -50,7 +51,7 @@
   order: 1;
   display: block;
   width: 100%;
-  overflow: visible;
+  overflow: hidden;
   text-align: center;
 }
 

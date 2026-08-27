@@ -219,15 +219,9 @@ body.blog-article main > .section.blog-promo {
 body.blog-article main > .section.cta-selected {
   display: block;
   margin: 0;
-}
-
-/* columns-blog-cta bleeds full-bleed with a 100vw band; clip it from tablet
-   up so that bleed doesn't stretch the document. Keep overflow visible on
-   mobile so the card's box-shadow can show. */
-@media (width >= 768px) {
-  body.blog-article main > .section.cta-selected {
-    overflow-x: clip;
-  }
+  /* columns-blog-cta bleeds with a 100vw band; clip horizontal overflow so
+     mobile doesn't get a sideways scrollbar (card shadow stays visible). */
+  overflow-x: clip;
 }
 
 body.blog-article main > .section.blog-share > div.default-content-wrapper {
@@ -348,15 +342,17 @@ body.blog-article .section.blog-share p:last-of-type a:any-link::before {
      664px column width, carrying a 300px right gutter, and the pair is centred
      as a whole. A grid (rather than `blog-body`'s flex row) keeps every authored
      element stacked in the first column without needing an extra wrapper div,
-     since any div `decorateSections` sees becomes a block of its own. */
-  body.blog-article .section.blog-share .default-content-wrapper {
+     since any div `decorateSections` sees becomes a block of its own.
+     Scoped to desktop only — mobile/tablet keep their own margins above. */
+  body.blog-article main > .section.blog-share > div.default-content-wrapper {
     display: grid;
     grid-template-columns: fit-content(664px) 300px;
     justify-content: center;
-    margin: 0;
+    margin-right: auto;
+    margin-left: auto;
   }
 
-  body.blog-article .section.blog-share .default-content-wrapper > * {
+  body.blog-article main > .section.blog-share > div.default-content-wrapper > * {
     grid-column: 1;
   }
 

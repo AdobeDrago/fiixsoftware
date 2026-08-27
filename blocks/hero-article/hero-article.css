@@ -49,10 +49,11 @@ main > .section.hero-article-container > div.hero-article-wrapper {
 }
 
 /* source ≤768px: `.entry-box { top: unset; bottom: 0 }` — card sits on the
-   band bottom; date/title stay on white below the graphic */
+   band bottom; date/title stay on white below the graphic. Pin the card top on
+   narrow viewports so a tall meta block cannot shrink the visible image area
+   below what production leaves (110px on small phones, ~188px mid-range). */
 .hero-article-card {
   position: absolute;
-  top: unset;
   bottom: 0;
   left: 0;
   right: 0;
@@ -66,6 +67,18 @@ main > .section.hero-article-container > div.hero-article-wrapper {
   box-shadow: 3px 3px 25px rgb(0 0 0 / 12%);
 }
 
+@media (width <= 425px) {
+  .hero-article-card {
+    top: 110px;
+  }
+}
+
+@media (width >= 426px) and (width <= 500px) {
+  .hero-article-card {
+    top: 188px;
+  }
+}
+
 /* full-width shell around meta so content can keep its own gutters */
 .hero-article-card-inner {
   width: 100%;
@@ -74,6 +87,7 @@ main > .section.hero-article-container > div.hero-article-wrapper {
 }
 
 .hero-article-meta {
+  box-sizing: border-box;
   width: 100%;
   padding: 20px 20px 10px 8px;
 }
