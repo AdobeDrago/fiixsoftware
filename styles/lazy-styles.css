@@ -219,6 +219,7 @@ body.blog-article main > .section.blog-promo {
 body.blog-article main > .section.cta-selected {
   display: block;
   margin: 0;
+
   /* columns-blog-cta bleeds with a 100vw band; clip horizontal overflow so
      mobile doesn't get a sideways scrollbar (card shadow stays visible). */
   overflow-x: clip;

@@ -13,8 +13,7 @@
   margin-left: calc(50% - 50vw);
   padding: 0;
   background-color: #e1e1e1;
-  overflow-x: clip;
-  overflow-y: visible;
+  overflow: clip visible;
 }
 
 /* the guide promo band (production .modern_cta) is navy rather than light grey */

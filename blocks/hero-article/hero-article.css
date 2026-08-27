@@ -43,7 +43,6 @@ main > .section.hero-article-container > div.hero-article-wrapper {
   position: absolute;
   right: 0;
   bottom: 340px;
-  width: 700px;
   max-width: none;
   height: auto;
 }
@@ -213,7 +212,6 @@ main > .section.hero-article-container > div.hero-article-wrapper {
 /* source ≤768px: background-size 900px, bottom 250px */
 @media (width >= 501px) and (width <= 768px) {
   .hero-article-image img {
-    right: -25%;
     bottom: 250px;
     width: 900px;
   }
