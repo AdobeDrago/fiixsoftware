@@ -44,8 +44,8 @@
   box-shadow: 3px 3px 25px rgb(0 0 0 / 12%);
 }
 
-/* source ≤500px: `.freeTour2_cta figure { width: 460px; margin: 0 auto }` —
-   slightly wider than the phone; nudged right so the crop matches production */
+/* mobile: `.freeTour2_cta figure` — slightly wider than the phone; nudged
+   right so the crop matches production */
 .columns-blog-cta > div > .columns-blog-cta-img-col {
   order: 1;
   display: block;
@@ -67,18 +67,6 @@
   width: 460px;
   max-width: none;
   height: auto;
-}
-
-/* source ≤768px (above small phones): figure width 550px */
-@media (width >= 501px) and (width < 768px) {
-  .columns-blog-cta > div > .columns-blog-cta-img-col picture,
-  .columns-blog-cta > div > .columns-blog-cta-img-col img {
-    width: 550px;
-  }
-
-  .columns-blog-cta > div > .columns-blog-cta-img-col picture {
-    transform: translateX(20px);
-  }
 }
 
 /* heading */
