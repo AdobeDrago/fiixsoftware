@@ -231,7 +231,7 @@ body.blog-article main > .section.blog-share > div.default-content-wrapper {
   color: #58595b;
 }
 
-@media (width >= 768px) and (width < 960px) {
+@media (width >= 768px) {
   body.blog-article main > .section.blog-share > div.default-content-wrapper {
     margin: 0;
     padding: 0 0 100px 60px;
@@ -351,6 +351,7 @@ body.blog-article .section.blog-share p:last-of-type a:any-link::before {
     justify-content: center;
     margin-right: auto;
     margin-left: auto;
+    padding: 0 0 100px;
   }
 
   body.blog-article main > .section.blog-share > div.default-content-wrapper > * {
