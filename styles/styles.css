@@ -6622,6 +6622,7 @@ main > .section.pf-final-cta.cloud-page .default-content-wrapper ul li a:any-lin
     color: #fff;
     text-decoration: none;
 }
+
 /* Block library docs (/docs/library/blocks/*): thin grey rule between sections
    for visual separation of spec / live samples / variations. Scoped via the
    page-slug body class from decoratePageClass() so it affects ONLY these docs.
@@ -6630,6 +6631,7 @@ main > .section.pf-final-cta.cloud-page .default-content-wrapper ul li a:any-lin
    local dev server, which serves under /content/ (`page-content-docs-library-blocks-<name>`).
    It still never matches the library index (`docs-library-index`), the template
    pages (`docs-library-templates-index`), or any authored site page. */
+   
 body[class*="docs-library-blocks-"] main > .section + .section {
   border-top: 1px solid #e1e1e1;
   padding-top: 40px;
