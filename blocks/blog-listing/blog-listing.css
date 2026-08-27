@@ -39,8 +39,6 @@
 .blog-listing .blog-listing-search,
 .blog-listing .blog-listing-category {
   position: relative;
-  /* toolbar uses align-items: flex-start — cap the flex item so a 350px
-     field cannot overflow the 90% wrap on narrow viewports */
   max-width: 100%;
   min-width: 0;
 }
