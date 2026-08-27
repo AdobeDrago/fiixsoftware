@@ -245,9 +245,7 @@ body.blog-article main > .section.blog-share > div.default-content-wrapper {
   body.blog-article main > .section.blog-share {
     margin: 40px 0;
   }
-}
 
-@media (width >= 768px) and (width < 960px) {
   body.blog-article main > .section.blog-share > div.default-content-wrapper {
     margin: 0;
     padding: 0 0 100px 60px;
@@ -365,6 +363,7 @@ body.blog-article .section.blog-share p:last-of-type a:any-link::before {
     grid-template-columns: fit-content(664px) 300px;
     justify-content: center;
     margin: 0;
+    padding: 0 0 100px;
   }
 
   body.blog-article .section.blog-share .default-content-wrapper > * {
@@ -377,39 +376,116 @@ body.blog-article .section.blog-share p:last-of-type a:any-link::before {
   }
 }
 
-/* Blog listing: academy + recent posts */
-main > .section.blog-academy,
-main > .section.blog-recent {
-  padding-top: 24px;
-  padding-bottom: 48px;
+/* Blog listing: academy + recent posts — wrapped together in
+   `.blog-listing-wrap` (see decorateBlogListingWrap) so they share one
+   centered page container like production `#page-wrap.container`. */
+main > .blog-listing-wrap {
+  box-sizing: border-box;
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-main > .section.blog-academy .default-content-wrapper h2,
-main > .section.blog-recent .default-content-wrapper h2 {
-  margin: 0 0 24px;
+main > .blog-listing-wrap > .blog-listing-wrap-inner {
+  box-sizing: border-box;
+}
+
+@media (width >= 768px) {
+  main > .blog-listing-wrap {
+    width: calc(100% - 52px);
+  }
+
+  main > .blog-listing-wrap > .blog-listing-wrap-inner {
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+}
+
+@media (width >= 960px) {
+  main > .blog-listing-wrap {
+    width: auto;
+    max-width: 1200px;
+  }
+
+  main > .blog-listing-wrap > .blog-listing-wrap-inner {
+    margin-left: 20px;
+    margin-right: 20px;
+  }
+}
+
+main .section.blog-academy {
+  padding: 0;
+}
+
+main .section.blog-recent {
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid #e1e1e1;
+}
+
+main .section.blog-academy .default-content-wrapper h2 {
+  margin: 0 0 40px;
   text-align: center;
+}
+
+main .section.blog-recent .default-content-wrapper h2 {
+  margin: 40px 0;
+  text-align: left;
+}
+
+@media (width >= 768px) {
+  main .section.blog-academy .default-content-wrapper h2 {
+    margin-bottom: 60px;
+  }
+
+  main .section.blog-recent .default-content-wrapper h2 {
+    margin: 100px 0 60px;
+  }
+}
+
+/* Beat global `main > .section > div` 20px/32px gutters for blog listing
+   content wrappers (academy cards + recent posts). */
+main > .blog-listing-wrap .section.blog-academy > .default-content-wrapper,
+main > .blog-listing-wrap .section.blog-academy > .cards-wrapper,
+main > .blog-listing-wrap .section.blog-recent > .default-content-wrapper,
+main > .blog-listing-wrap .section.blog-recent > .blog-listing-wrapper {
+  padding-left: 0;
+  padding-right: 0;
 }
 
 /* the source shows the card art at its authored size rather than cropping it
    into a fixed ratio, and fills the card with a light grey card, not a border */
-main > .section.blog-academy .cards > ul > li {
-  border: none;
-  background-color: #f7f7f7;
+main .section.blog-academy .cards > ul {
+  gap: 0;
+  padding-bottom: 60px;
 }
 
-main > .section.blog-academy .cards > ul > li img {
+main .section.blog-academy .cards > ul > li {
+  border: none;
+  background-color: #f7f7f7;
+  margin-right: 10px;
+  margin-bottom: 50px;
+  padding-bottom: 20px;
+  transition: box-shadow 0.3s;
+}
+
+main .section.blog-academy .cards > ul > li:hover {
+  box-shadow: 0 0 30px rgb(0 0 0 / 20%);
+}
+
+main .section.blog-academy .cards > ul > li img {
   aspect-ratio: auto;
   object-fit: fill;
 }
 
-main > .section.blog-academy .cards .cards-card-body {
+main .section.blog-academy .cards .cards-card-body {
   margin: 0;
   padding: 0 0 20px;
   text-align: center;
 }
 
-main > .section.blog-academy .cards .cards-card-body p:first-child {
-  margin: 20px 0 0;
+main .section.blog-academy .cards .cards-card-body p:first-child {
+  margin: 20px 0 30px;
   color: var(--text-color);
   font-size: 12px;
   font-weight: 700;
@@ -419,18 +495,18 @@ main > .section.blog-academy .cards .cards-card-body p:first-child {
 
 /* the title reads as plain dark copy on the source — the whole card is the
    link, so the title itself isn't styled like one */
-main > .section.blog-academy .cards .cards-card-body p:last-child {
+main .section.blog-academy .cards .cards-card-body p:last-child {
   margin: 0;
   font-size: var(--body-font-size-xs);
   font-weight: 300;
 }
 
-main > .section.blog-academy .cards .cards-card-body p:last-child a:any-link {
+main .section.blog-academy .cards .cards-card-body p:last-child a:any-link {
   color: var(--text-color);
   font-weight: inherit;
   text-decoration: none;
 }
 
-main > .section.blog-academy .cards .cards-card-body p:last-child a:hover {
+main .section.blog-academy .cards .cards-card-body p:last-child a:hover {
   text-decoration: underline;
 }
