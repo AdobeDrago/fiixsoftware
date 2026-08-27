@@ -772,3 +772,191 @@ main .pf-hero.section.hero-lead-container .hero-lead-wrapper {
         line-height: 64px;
     }
 }
+
+/* ============================================================
+   Homepage `.home-hero` — match production `.home_header` at
+   768 / 960 / 1200. Does not affect pf-hero / fc-hero variants.
+   ============================================================ */
+main .section.home-hero .hero-lead {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: none;
+    width: 100%;
+    padding: 0;
+    gap: 0;
+}
+
+main .section.home-hero .hero-lead:not(.video-without-form) > div:has(.hero-lead-content),
+main .section.home-hero .hero-lead:not(.video-without-form) > div:has(.hero-lead-media) {
+    width: 100%;
+    max-width: 100%;
+}
+
+/* The document authors the image row first, but live stacks the copy above
+   the screenshot. Order the rows so the image trails on mobile and tablet
+   (the desktop row below relies on the same order). */
+main .section.home-hero .hero-lead:not(.video-without-form) > div:has(.hero-lead-content) {
+    order: 1;
+}
+
+main .section.home-hero .hero-lead:not(.video-without-form) > div:has(.hero-lead-media) {
+    order: 2;
+}
+
+main .section.home-hero .hero-lead .hero-lead-content {
+    width: 100%;
+    max-width: 100%;
+}
+
+main .section.home-hero .hero-lead .hero-lead-content h1,
+main .section.home-hero .hero-lead .hero-lead-content h2,
+main .section.home-hero .hero-lead .hero-lead-support {
+    text-align: center;
+}
+
+
+main .section.home-hero .hero-lead .hero-lead-content > p:not(.hero-lead-support):has(a) {
+    text-align: center;
+}
+
+/* Live stacks below 1000px; we stack below 960. Image gains top gap. */
+main .section.home-hero .hero-lead .hero-lead-media {
+    display: flex;
+    justify-content: center;
+    padding-top: 40px;
+}
+
+main .section.home-hero .hero-lead .hero-lead-media img {
+    width: 320px;
+    max-width: 100%;
+    height: auto;
+    margin: 0;
+}
+
+/* Live hides `.twoStep-form` below 768 for a centered mobile CTA; local
+   content only has the email form, so keep it and center the flex row. */
+main .section.home-hero .hero-lead .hero-lead-form {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    margin: 40px 0;
+    gap: 20px;
+    width: 100%;
+}
+
+main .section.home-hero .hero-lead .hero-lead-cta {
+    height: 38px;
+    padding: 5px 17px;
+}
+
+/* Live `.using-fiix div.cont`: width 50% when stacked, 30% in the row
+   (`width: 30% !important` + `margin-right: 20px`). Content-box + 10/15
+   padding matches production chip size. */
+main .section.home-hero .hero-lead .hero-lead-stat {
+    box-sizing: content-box;
+    flex: 0 0 auto;
+    width: 50%;
+    max-width: none;
+    margin: 0;
+    border-radius: 6px;
+}
+
+main .section.home-hero .hero-lead .hero-lead-stats {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+
+@media (width >= 768px) {
+    main .section.home-hero .hero-lead {
+        align-items: flex-start;
+    }
+
+    main .section.home-hero .hero-lead .hero-lead-content h1,
+    main .section.home-hero .hero-lead .hero-lead-content h2,
+    main .section.home-hero .hero-lead .hero-lead-support {
+        text-align: left;
+    }
+
+    main .section.home-hero .hero-lead .hero-lead-content h1,
+    main .section.home-hero .hero-lead .hero-lead-content h2 {
+        margin: 0 0 20px;
+    }
+
+    main .section.home-hero .hero-lead .hero-lead-content > p:not(.hero-lead-support):has(a) {
+        text-align: left;
+    }
+
+    /* Live shows the email form from 768 up; left-align to match `.twoStep-form`. */
+    main .section.home-hero .hero-lead .hero-lead-form {
+        justify-content: flex-start;
+    }
+
+    main .section.home-hero .hero-lead .hero-lead-stats {
+        flex-direction: row;
+        align-items: stretch;
+        justify-content: flex-start;
+    }
+
+    main .section.home-hero .hero-lead .hero-lead-stat {
+        width: 30%;
+    }
+
+    main .section.home-hero .hero-lead .hero-lead-media {
+        justify-content: flex-start;
+    }
+
+    main .section.home-hero .hero-lead .hero-lead-media img {
+        width: 420px;
+        height: auto;
+    }
+}
+
+/* Desktop: text column 50%, image sits at the trailing edge (live
+   `.header-flex` space-between → ~180px gap at 1200px). */
+@media (width >= 960px) {
+    main .section.home-hero .hero-lead {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0;
+    }
+
+    main .section.home-hero .hero-lead:not(.video-without-form) > div:has(.hero-lead-content) {
+        flex: 0 0 50%;
+        width: auto;
+        max-width: 50%;
+    }
+
+    main .section.home-hero .hero-lead:not(.video-without-form) > div:has(.hero-lead-media) {
+        display: flex;
+        flex: 0 0 auto;
+        width: auto;
+        max-width: none;
+        justify-content: flex-end;
+    }
+
+    main .section.home-hero .hero-lead .hero-lead-content {
+        width: auto;
+        max-width: none;
+    }
+
+    main .section.home-hero .hero-lead .hero-lead-media {
+        padding-top: 0;
+    }
+
+    main .section.home-hero .hero-lead .hero-lead-media img {
+        width: 420px;
+        height: 457px;
+        max-width: 100%;
+        object-fit: contain;
+    }
+
+    main .section.home-hero .hero-lead .hero-lead-stats {
+        flex-wrap: nowrap;
+        gap: 20px;
+    }
+}

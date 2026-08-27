@@ -30,6 +30,12 @@
   pointer-events: none;
 }
 
+@media (width >= 960px) {
+  .blog-body-progress {
+    top: calc(var(--nav-height, 100px) + 8px);
+  }
+}
+
 .blog-body-progress > div {
   width: 0;
   height: 100%;
