@@ -378,33 +378,30 @@ body.blog-article .section.blog-share p:last-of-type a:any-link::before {
 
 /* Blog listing: academy + recent posts — wrapped together in
    `.blog-listing-wrap` (see decorateBlogListingWrap) so they share one
-   centered page container like production `#page-wrap.container`. */
+   centered page container like production `#page-wrap.container`.
+   Side gutters match `header .nav-wrapper` (20px) and `.blog-header`
+   so the whole page reads as one aligned column on mobile/tablet. */
 main > .blog-listing-wrap {
   box-sizing: border-box;
-  width: 90%;
+  width: 100%;
+  max-width: 1200px;
   margin-left: auto;
   margin-right: auto;
+  padding-left: 20px;
+  padding-right: 20px;
+  overflow-x: clip;
 }
 
 main > .blog-listing-wrap > .blog-listing-wrap-inner {
   box-sizing: border-box;
-}
-
-@media (width >= 768px) {
-  main > .blog-listing-wrap {
-    width: calc(100% - 52px);
-  }
-
-  main > .blog-listing-wrap > .blog-listing-wrap-inner {
-    margin-left: 10px;
-    margin-right: 10px;
-  }
+  min-width: 0;
+  max-width: 100%;
 }
 
 @media (width >= 960px) {
   main > .blog-listing-wrap {
-    width: auto;
-    max-width: 1200px;
+    padding-left: 0;
+    padding-right: 0;
   }
 
   main > .blog-listing-wrap > .blog-listing-wrap-inner {
@@ -456,14 +453,15 @@ main > .blog-listing-wrap .section.blog-recent > .blog-listing-wrapper {
 /* the source shows the card art at its authored size rather than cropping it
    into a fixed ratio, and fills the card with a light grey card, not a border */
 main .section.blog-academy .cards > ul {
-  gap: 0;
+  /* use column-gap instead of per-card margin-right so the last card in a
+     row isn't inset and left/right edges of the wrap stay even */
+  gap: 0 10px;
   padding-bottom: 60px;
 }
 
 main .section.blog-academy .cards > ul > li {
   border: none;
   background-color: #f7f7f7;
-  margin-right: 10px;
   margin-bottom: 50px;
   padding-bottom: 20px;
   transition: box-shadow 0.3s;

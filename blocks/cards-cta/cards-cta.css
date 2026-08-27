@@ -288,3 +288,172 @@
         padding: 50px 80px;
     }
 }
+
+/* ============================================================
+   Homepage closing band — production `.coming-to-fiix.bottom-cta-double`
+   (fiixsoftware.com homepage bottom). Centered grey panels with a solid
+   purple pill CTA and no icon/arrow -- a third look distinct from both the
+   default icon-card variant and `.article`'s orange-gradient pill.
+   Scoped to `.section.dual-cta.homepage` (unique to the homepage closing
+   band) so the shared default and `.article` variants are unaffected.
+   Production always hides the decorative figure via `display: none`; the
+   homepage authors this row without an image, which decorate() then reads
+   as a stray empty `.cards-cta-body` -- hidden here too since it carries no
+   content either way.
+   ============================================================ */
+main .section.dual-cta.homepage {
+    padding: 50px 0 0;
+    background-color: #fff;
+}
+
+/* Production centres this band in a `min(90%, 1200px)` container with no side
+   padding of its own; the boilerplate wrapper's 32px gutters would otherwise
+   make the panels narrower than live at every width. */
+main .section.dual-cta.homepage > .cards-cta-wrapper {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0;
+}
+
+main .section.dual-cta.homepage .cards-cta {
+    flex-direction: column;
+    gap: 40px;
+}
+
+/* The homepage authors this block with the `article` class, so the square
+   corners and margin-driven spacing below have to undo that variant's
+   rounded, gapped panels. */
+main .section.dual-cta.homepage .cards-cta-panel {
+    align-items: center;
+    width: 100%;
+    padding: 20px;
+    border-radius: 0;
+    background-color: #f7f7f7;
+    box-shadow: none;
+    text-align: center;
+}
+
+main .section.dual-cta.homepage .cards-cta-figure,
+main .section.dual-cta.homepage .cards-cta-body:empty {
+    display: none;
+}
+
+/* stylelint-disable-next-line no-descending-specificity */
+main .section.dual-cta.homepage .cards-cta-body {
+    align-items: center;
+    gap: 0;
+    text-align: center;
+}
+
+/* Beat the default `.cards-cta-text` min-height (960/1200 baselines), which
+   pads the panel taller than production's fixed-padding sizing here. The
+   explicit width stops the centred flex column shrink-wrapping it, so the
+   percentage widths below resolve against the panel instead. */
+main .section.dual-cta.homepage .cards-cta-text {
+    width: 100%;
+    min-height: 0;
+}
+
+main .section.dual-cta.homepage .cards-cta-body h3 {
+    margin: 0 auto 30px;
+    font-size: 30px;
+    text-align: center;
+}
+
+main .section.dual-cta.homepage .cards-cta-body p {
+    margin: 0 auto 20px;
+    font-size: 20px;
+    line-height: 1.7;
+    text-align: center;
+}
+
+/* decorate() wraps the CTA in its own paragraph; production has the anchor as
+   a direct child, so the wrapper must not add a second bottom margin on top of
+   the anchor's own. */
+main .section.dual-cta.homepage .cards-cta-body > p:last-child {
+    margin-bottom: 0;
+}
+
+main .section.dual-cta.homepage a.cards-cta-button:any-link {
+    display: inline-block;
+    align-items: unset;
+    gap: unset;
+    margin: 10px 0 20px;
+    padding: 8px 20px;
+    border: solid 2px #635ce8;
+    border-radius: 27px;
+    background-image: none;
+    background-color: #635ce8;
+    color: #fff;
+    font-size: 20px;
+    text-align: center;
+}
+
+main .section.dual-cta.homepage a.cards-cta-button::after {
+    content: none;
+}
+
+main .section.dual-cta.homepage a.cards-cta-button:hover,
+main .section.dual-cta.homepage a.cards-cta-button:focus-visible {
+    border-color: #4d3e8d;
+    background-color: #4d3e8d;
+    color: #fff;
+}
+
+main .section.dual-cta.homepage .cards-cta-panel:nth-child(2) a.cards-cta-button:any-link {
+    border-color: #00afeb;
+    background-color: #00afeb;
+}
+
+main .section.dual-cta.homepage .cards-cta-panel:nth-child(2) a.cards-cta-button:hover,
+main .section.dual-cta.homepage .cards-cta-panel:nth-child(2) a.cards-cta-button:focus-visible {
+    border-color: #14499a;
+    background-color: #14499a;
+}
+
+@media (width >= 768px) {
+    main .section.dual-cta.homepage {
+        padding: 50px 0 100px;
+    }
+
+    /* Two 48% panels with `space-between` leave live's 4% gutter between
+       them, which widens with the container instead of staying fixed. */
+    main .section.dual-cta.homepage .cards-cta {
+        flex-direction: row;
+        justify-content: space-between;
+        gap: 0;
+    }
+
+    main .section.dual-cta.homepage .cards-cta-panel {
+        flex: 0 0 48%;
+        width: 48%;
+        padding: 25px;
+    }
+
+    main .section.dual-cta.homepage .cards-cta-body h3 {
+        font-size: 38px;
+    }
+}
+
+@media (width >= 960px) {
+    main .section.dual-cta.homepage .cards-cta-panel {
+        padding: 60px;
+    }
+
+    main .section.dual-cta.homepage .cards-cta-body h3 {
+        font-size: 48px;
+    }
+}
+
+/* Live narrows the first panel's heading and copy so they wrap inside the
+   wider desktop panel instead of running its full width. */
+@media (width >= 1200px) {
+    main .section.dual-cta.homepage .cards-cta-panel:nth-child(1) .cards-cta-body h3 {
+        width: 60%;
+    }
+
+    main .section.dual-cta.homepage .cards-cta-panel:nth-child(1) .cards-cta-body p {
+        width: 55%;
+    }
+}

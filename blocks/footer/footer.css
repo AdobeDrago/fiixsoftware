@@ -189,7 +189,7 @@ footer .footer .columns > div {
 }
 
 footer .footer .columns > div > div {
-    box-sizing: content-box;
+    box-sizing: border-box;
     width: 45%;
     margin: 75px 0 40px;
     padding: 0 10px 0 0;

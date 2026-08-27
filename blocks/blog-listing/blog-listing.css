@@ -36,8 +36,11 @@
   white-space: nowrap;
 }
 
-.blog-listing .blog-listing-search {
+.blog-listing .blog-listing-search,
+.blog-listing .blog-listing-category {
   position: relative;
+  max-width: 100%;
+  min-width: 0;
 }
 
 .blog-listing .blog-listing-search input,
@@ -45,6 +48,7 @@
   box-sizing: border-box;
   width: 350px;
   max-width: 100%;
+  min-width: 0;
   height: 50px;
   padding: 0 25px;
   border: none;
@@ -54,7 +58,10 @@
   font-family: var(--body-font-family);
   font-size: 20px;
   font-weight: 300;
-  box-shadow: 6px 6px 20px rgb(0 0 0 / 20%);
+
+  /* no horizontal offset on small screens — a 6px x-offset + blur spills
+     past the 90% wrap into the viewport edge and causes x-scroll */
+  box-shadow: 0 6px 20px rgb(0 0 0 / 20%);
 
   /* unprefixed `appearance` alone isn't enough on iOS Safari for
      `type="search"` — it keeps its native rounded corners/decoration
@@ -265,17 +272,6 @@
   color: #888;
 }
 
-/* the source keeps the search field and category list stacked through the
-   whole tablet width — it only switches to a row much closer to desktop —
-   so this only fires at this project's desktop breakpoint, not 768px. */
-@media (width >= 960px) {
-  .blog-listing .blog-listing-toolbar {
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: flex-end;
-  }
-}
-
 @media (width >= 768px) {
   .blog-listing .blog-listing-toolbar {
     gap: 16px;
@@ -286,8 +282,19 @@
     margin-bottom: 0;
   }
 
+  .blog-listing .blog-listing-search input,
+  .blog-listing .blog-listing-category select {
+    box-shadow: 6px 6px 20px rgb(0 0 0 / 20%);
+  }
+
   .blog-listing .blog-listing-results {
-    margin: 60px 0 0;
+    margin-top: 60px;
+  }
+
+  /* category archives hide the search/category toolbar — drop the results
+     offset so spacing comes only from the "Latest from …" title margins */
+  .blog-listing:has(.blog-listing-toolbar[hidden]) .blog-listing-results {
+    margin-top: 0;
   }
 
   .blog-listing .blog-listing-card {
@@ -297,7 +304,16 @@
   }
 }
 
+/* the source keeps the search field and category list stacked through the
+   whole tablet width — it only switches to a row much closer to desktop —
+   so this only fires at this project's desktop breakpoint, not 768px. */
 @media (width >= 960px) {
+  .blog-listing .blog-listing-toolbar {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+
   .blog-listing .blog-listing-card {
     /* production `.blog-medium #blog_container article` is 30%, leaving ~10%
        for space-between column gaps (~60px at 1200px) */
