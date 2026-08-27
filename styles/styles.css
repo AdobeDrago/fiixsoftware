@@ -4821,6 +4821,28 @@ main
     font-weight: 300;
 }
 
+/* Mobile: stack copy then inline video inside each white card (live
+   .fiixMAX-info .question { flex-direction: column; gap: 30px; padding:
+   40px 30px }). Stretch both columns to the card width — align-items:
+   center collapses embeds; do not add aspect-ratio on .vidyard-player-
+   container (Vidyard sizes itself via padding-bottom on .vidyard-div-*). */
+@media (width < 768px) {
+    main > .section.ai-fiixmax .columns-media.vidyard > div {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 30px;
+        padding: 40px 30px;
+    }
+
+    main > .section.ai-fiixmax .columns-media.vidyard .columns-media-text-col:not(.columns-media-img-col),
+    main > .section.ai-fiixmax .columns-media.vidyard .columns-media-img-col {
+        box-sizing: border-box;
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+    }
+}
+
 @media (width >= 768px) {
     main > .section.ai-fiixmax::before,
     main > .section.ai-fiixmax::after {
