@@ -6180,6 +6180,19 @@ main > .section.pricing > .default-content-wrapper a:focus-visible {
     }
 }
 
+/* Block library docs (/docs/library/blocks/*): thin grey rule between sections
+   for visual separation of spec / live samples / variations. Scoped via the
+   page-slug body class from decoratePageClass() so it affects ONLY these docs.
+   Match on `docs-library-blocks-` (not `page-docs-library-blocks-`) so it works
+   both on the preview/live host (`page-docs-library-blocks-<name>`) and on the
+   local dev server, which serves under /content/ (`page-content-docs-library-blocks-<name>`).
+   It still never matches the library index (`docs-library-index`), the template
+   pages (`docs-library-templates-index`), or any authored site page. */
+body[class*="docs-library-blocks-"] main > .section + .section {
+  border-top: 1px solid #e1e1e1;
+  padding-top: 40px;
+}
+
 /* Category archive title ("Latest from …") */
 main:has(.blog-listing):not(:has(.blog-header)) > .section:first-of-type {
     margin-top: 0;
@@ -6631,16 +6644,4 @@ main > .section.pf-final-cta.cloud-page .default-content-wrapper ul li a:any-lin
     border-color: #14499a;
     color: #fff;
     text-decoration: none;
-}
-/* Block library docs (/docs/library/blocks/*): thin grey rule between sections
-   for visual separation of spec / live samples / variations. Scoped via the
-   page-slug body class from decoratePageClass() so it affects ONLY these docs.
-   Match on `docs-library-blocks-` (not `page-docs-library-blocks-`) so it works
-   both on the preview/live host (`page-docs-library-blocks-<name>`) and on the
-   local dev server, which serves under /content/ (`page-content-docs-library-blocks-<name>`).
-   It still never matches the library index (`docs-library-index`), the template
-   pages (`docs-library-templates-index`), or any authored site page. */
-body[class*="docs-library-blocks-"] main > .section + .section {
-  border-top: 1px solid #e1e1e1;
-  padding-top: 40px;
 }
