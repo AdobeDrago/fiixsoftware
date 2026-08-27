@@ -389,6 +389,26 @@ function decorateBlogHeader(main) {
 }
 
 /**
+ * Wraps the academy + recent-posts sections in one container so they share
+ * the live site's centered page-wrap margins on tablet/desktop.
+ * @param {Element} main The main container element
+ */
+function decorateBlogListingWrap(main) {
+  if (main.querySelector(':scope > .blog-listing-wrap')) return;
+  const academy = main.querySelector(':scope > .section.blog-academy');
+  const recent = main.querySelector(':scope > .section.blog-recent');
+  if (!academy || !recent) return;
+
+  const wrap = document.createElement('div');
+  wrap.className = 'blog-listing-wrap';
+  const inner = document.createElement('div');
+  inner.className = 'blog-listing-wrap-inner';
+  academy.before(wrap);
+  wrap.append(inner);
+  inner.append(academy, recent);
+}
+
+/**
  * Inserts a padded spacer after pf-final-cta (above the footer) to match
  * production's empty VC row (padding 50px 0 70px) at all breakpoints.
  * Drops authored empty trailing sections that only add dead margin.
@@ -572,6 +592,7 @@ export function decorateMain(main) {
   decorateButtons(main);
   decorateCtaLinks(main);
   decorateBlogHeader(main);
+  decorateBlogListingWrap(main);
   decoratePfFinalCta(main);
   decorateOptixTogether(main);
   decorateOptixGetStarted(main);

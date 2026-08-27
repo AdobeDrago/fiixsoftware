@@ -1,14 +1,19 @@
 .blog-listing {
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 0;
 }
 
 .blog-listing .blog-listing-toolbar {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 16px;
+  gap: 30px;
+  margin-bottom: 60px;
+}
+
+.blog-listing .blog-listing-category {
+  margin-bottom: 20px;
 }
 
 /* a page pinned to one category (see blog-listing.js `fixedCategory`) hides
@@ -101,9 +106,9 @@
 }
 
 .blog-listing .blog-listing-results {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 24px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
   margin: 0;
   padding: 0;
   list-style: none;
@@ -112,7 +117,15 @@
 /* the source's card is a plain grey tile — no border, the art shown at its
    authored ratio (not cropped), and dark copy under it rather than a link */
 .blog-listing .blog-listing-card {
+  box-sizing: border-box;
+  width: 100%;
+  margin-bottom: 50px;
   background-color: #f7f7f7;
+  transition: box-shadow 0.3s;
+}
+
+.blog-listing .blog-listing-card:hover {
+  box-shadow: 0 0 30px rgb(0 0 0 / 20%);
 }
 
 .blog-listing .blog-listing-card a {
@@ -124,7 +137,7 @@
 }
 
 .blog-listing .blog-listing-card-image {
-  margin: 0;
+  margin: 0 0 30px;
   line-height: 0;
   border-radius: 2px;
   overflow: hidden;
@@ -140,7 +153,7 @@
 .blog-listing .blog-listing-card-body {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 0;
   padding: 0 0 20px;
   text-align: center;
 }
@@ -155,7 +168,8 @@
 }
 
 .blog-listing .blog-listing-card-title {
-  margin: 0;
+  margin: 20px 0;
+  padding: 0 30px;
   color: var(--text-color);
   font-size: var(--body-font-size-xs);
   font-weight: 300;
@@ -171,6 +185,107 @@
   color: var(--dark-color);
 }
 
+/* circular page controls matching fiixsoftware.com/blog #pagination —
+   same treatment at every breakpoint */
+.blog-listing .blog-listing-pagination {
+  margin: 20px 0;
+}
+
+.blog-listing .blog-listing-pagination ul {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.blog-listing .blog-listing-pagination li button,
+.blog-listing .blog-listing-pagination-ellipsis span {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 35px;
+  height: 35px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background-color: #f0f0f0;
+  color: #888;
+  font-family: var(--body-font-family);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1;
+}
+
+.blog-listing .blog-listing-pagination li button {
+  cursor: pointer;
+}
+
+.blog-listing .blog-listing-pagination li.blog-listing-pagination-current button {
+  background-color: #14499a;
+  color: #fff;
+  cursor: default;
+}
+
+.blog-listing .blog-listing-pagination li.blog-listing-pagination-prev button,
+.blog-listing .blog-listing-pagination li.blog-listing-pagination-next button {
+  color: transparent;
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="%23888888" d="M285.5 273L91.1 467.3c-9.4 9.4-24.6 9.4-33.9 0l-22.7-22.7c-9.4-9.4-9.4-24.6 0-33.9L202.7 256 34.5 101.3c-9.4-9.4-9.4-24.6 0-33.9L57.2 44.7c9.4-9.4 24.6-9.4 33.9 0L285.5 239c9.4 9.4 9.4 24.6 0 34z"/></svg>');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 10px 14px;
+}
+
+.blog-listing .blog-listing-pagination li.blog-listing-pagination-prev button {
+  transform: scaleX(-1);
+}
+
+.blog-listing .blog-listing-pagination li button:hover {
+  color: #888;
+  text-decoration: none;
+}
+
+.blog-listing .blog-listing-pagination li.blog-listing-pagination-current button:hover {
+  color: #fff;
+}
+
+.blog-listing .blog-listing-pagination-ellipsis span {
+  background-color: transparent;
+  color: #888;
+}
+
+@media (width >= 768px) {
+  .blog-listing .blog-listing-toolbar {
+    gap: 16px;
+    margin-bottom: 0;
+  }
+
+  .blog-listing .blog-listing-category {
+    margin-bottom: 0;
+  }
+
+  .blog-listing .blog-listing-results {
+    margin-top: 60px;
+  }
+
+  /* category archives hide the search/category toolbar — drop the results
+     offset so spacing comes only from the "Latest from …" title margins */
+  .blog-listing:has(.blog-listing-toolbar[hidden]) .blog-listing-results {
+    margin-top: 0;
+  }
+
+  .blog-listing .blog-listing-card {
+    /* production `.blog-medium #blog_container article` is 45% under 960px,
+       leaving ~10% for space-between column gap */
+    width: 45%;
+  }
+}
+
 /* the source keeps the search field and category list stacked through the
    whole tablet width — it only switches to a row much closer to desktop —
    so this only fires at this project's desktop breakpoint, not 768px. */
@@ -180,16 +295,16 @@
     justify-content: space-between;
     align-items: flex-end;
   }
-}
 
-@media (width >= 768px) {
-  .blog-listing .blog-listing-results {
-    grid-template-columns: repeat(2, 1fr);
+  .blog-listing .blog-listing-card {
+    /* production `.blog-medium #blog_container article` is 30%, leaving ~10%
+       for space-between column gaps (~60px at 1200px) */
+    width: 30%;
   }
-}
 
-@media (width >= 960px) {
-  .blog-listing .blog-listing-results {
-    grid-template-columns: repeat(3, 1fr);
+  /* keeps a short last row left-aligned under space-between (prod ::after) */
+  .blog-listing .blog-listing-results::after {
+    content: '';
+    width: 30%;
   }
 }

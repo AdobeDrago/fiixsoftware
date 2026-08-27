@@ -6181,7 +6181,12 @@ main > .section.pricing > .default-content-wrapper a:focus-visible {
 }
 
 /* Category archive title ("Latest from …") */
+main:has(.blog-listing):not(:has(.blog-header)) > .section:first-of-type {
+    margin-top: 0;
+}
+
 main:has(.blog-listing) > .section:first-of-type:not(.blog-header) h1 {
+    margin: 100px 0 50px;
     font-size: 24px;
     text-align: center;
     margin-top: 100px;
@@ -6190,19 +6195,18 @@ main:has(.blog-listing) > .section:first-of-type:not(.blog-header) h1 {
 
 /* Blog listing header — gray featured band matching fiixsoftware.com/blog */
 main > .section.blog-header {
-    margin: 55px 0 40px;
+    margin: 0 0 40px;
     padding: 40px 0;
     background-color: #e1e1e1;
-}
-
-main > .section.blog-header:first-of-type {
-    margin-top: 55px;
 }
 
 main > .section.blog-header > .default-content-wrapper {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    width: 90%;
+    padding-left: 0;
+    padding-right: 0;
 }
 
 main > .section.blog-header .blog-header-copy h1 {
@@ -6242,8 +6246,8 @@ main > .section.blog-header .blog-header-copy a.button.primary {
 
 main > .section.blog-header .blog-header-copy a.button.primary:hover,
 main > .section.blog-header .blog-header-copy a.button.primary:focus-visible {
-    border-color: #0f3c7a;
-    background-color: #0f3c7a;
+    border-color: #00afeb;
+    background-color: #00afeb;
     color: #fff;
 }
 
@@ -6254,22 +6258,42 @@ main > .section.blog-header .blog-header-media {
 /* the source shows the featured image starting at tablet, well before the
    960px desktop nav breakpoint -- just scaled down to a smaller column */
 @media (width >= 768px) {
+    main > .section.blog-header {
+        height: 500px;
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+
+    main > .section.blog-header > .default-content-wrapper {
+        width: 90%;
+        height: 100%;
+        padding-left: 0;
+        padding-right: 0;
+        justify-content: space-between;
+        gap: 0;
+    }
+
     main > .section.blog-header .blog-header-copy {
-        flex: 1 1 auto;
+        flex: 0 1 60%;
+        width: 60%;
         min-width: 0;
-        padding-right: 20px;
+        padding-right: 0;
+    }
+
+    main > .section.blog-header .blog-header-copy h2 {
+        font-size: 45px;
     }
 
     main > .section.blog-header .blog-header-media {
         display: block;
-        flex: 0 0 250px;
-        width: 250px;
+        flex: 0 0 35%;
+        width: 35%;
         margin: 0;
     }
 
     main > .section.blog-header .blog-header-media img {
         display: block;
-        width: 250px;
+        width: 100%;
         max-width: 100%;
         height: auto;
     }
@@ -6278,16 +6302,15 @@ main > .section.blog-header .blog-header-media {
 @media (width >= 960px) {
     main > .section.blog-header {
         height: 400px;
-        margin: 80px 0 40px;
+        margin: 0 0 40px;
         padding: 0;
     }
 
-    main > .section.blog-header:first-of-type {
-        margin-top: 80px;
-    }
-
     main > .section.blog-header > .default-content-wrapper {
+        width: auto;
         height: 100%;
+        padding-left: 0;
+        padding-right: 0;
     }
 
     main > .section.blog-header .blog-header-copy {
