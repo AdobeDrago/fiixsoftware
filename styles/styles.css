@@ -470,6 +470,21 @@ main .section.highlight {
     padding: 40px 0;
 }
 
+/* Homepage customer-logos band trims its bottom padding below desktop -- the
+   logo row's margin-bottom already provides the visual gap there (matches
+   production's .customer-logos). Scoped to `.logos.highlight.homepage` so
+   other `logos` bands (e.g. the pricing page's) keep their own padding. */
+main .section.logos.highlight.homepage {
+    padding-bottom: 20px;
+    padding-top: 40px;
+}
+
+@media (width >= 960px) {
+    main .section.logos.highlight.homepage {
+        padding-bottom: 40px;
+    }
+}
+
 main .section.dark {
     color: #fff;
 }
@@ -806,20 +821,22 @@ main
 
 /* ============================================================
    Home "Fiix keeps your maintenance data safe" security section.
-   Production renders a full-bleed navy band with white, centered
-   typography and a 5-across icon row on wide screens. The authored
-   content is a flat sequence (h2, intro, then alternating icon <p>
-   and label <h3>, then the link), so the icons/labels are placed
-   into an explicit grid on desktop/wide; mobile/tablet stack.
+   Matches production (#homepage .security-features / .feat-cont):
+   - <768: 2-col (48%), padding 50px, h2 32 / intro 16
+   - ≥768: still 2-col, padding 100px, h2 44 / intro 20
+   - ≥960: 5-col (20% each), h3 max-width 170px
+   - ≥1200: background-size 80%
    ============================================================ */
 main .section.security {
     margin: 0;
-    padding: 100px 0;
+    padding: 50px 0;
     background: radial-gradient(
         circle,
         rgb(24 53 90) 27%,
         rgb(24 53 90 / 98%) 100%
     );
+    background-repeat: repeat;
+    background-size: 200%;
 }
 
 /* stylelint-disable-next-line no-descending-specificity */
@@ -845,19 +862,21 @@ main .section.security {
 }
 
 .security h3 {
-    margin: 0;
+    margin: 0 auto;
+    max-width: 100%;
     font-size: 16px;
     font-weight: 700;
     line-height: 17.6px;
 }
 
 /* icon paragraphs: hide the accessibility label word, keep the circle */
-.security .default-content-wrapper > p:has(picture) {
+.security .security-feature > p:has(picture) {
     margin: 0;
+    padding-bottom: 10px;
     font-size: 0;
 }
 
-.security .default-content-wrapper > p:has(picture) img {
+.security .security-feature > p:has(picture) img {
     width: 40px;
     height: 40px;
 }
@@ -873,6 +892,16 @@ main .section.security {
 .security .default-content-wrapper > p:has(a) a:any-link {
     color: #fff;
     font-weight: 700;
+    text-decoration: underline;
+    text-decoration-color: #00afeb;
+}
+
+.security .default-content-wrapper > p:has(a) a:any-link::after {
+    content: '→';
+    display: inline-block;
+    margin-left: 6px;
+    color: #00afeb;
+    text-decoration: none;
 }
 
 /* intro line (first paragraph, no icon/link) */
@@ -884,95 +913,69 @@ main .section.security {
     line-height: 27.2px;
 }
 
+/* production .feat-cont: 2-col wrap below ~850px */
+.security .security-features {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 50px 0;
+    text-align: center;
+}
+
+/* production .feat-cont .cont at ≤850px: width 48% */
+.security .security-feature {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-sizing: border-box;
+    width: 48%;
+    margin: 0 0 20px;
+    text-align: center;
+}
+
 @media (width >= 768px) {
+    main .section.security {
+        padding: 100px 0;
+        background-size: 120%;
+    }
+
     .security h2 {
         max-width: 96%;
         font-size: 44px;
-        line-height: 48.4px;
-    }
-
-    .security h3 {
-        max-width: 100%;
+        line-height: 1.1;
     }
 
     .security .default-content-wrapper > p:first-of-type {
-        margin: 0 45.6px;
-        max-width: 600px;
         font-size: 20px;
         line-height: 34px;
     }
 }
 
-@media (width >= 1200px) {
-    .security .default-content-wrapper {
-        display: grid;
-        grid-template-columns: repeat(5, 1fr);
-        place-items: start center;
-        row-gap: 16px;
+/* production switches to 5-across above 850px → use 960 */
+@media (width >= 960px) {
+    .security .security-features {
+        max-width: none;
+        width: 100%;
     }
 
-    .security h2 {
-        grid-column: 1 / -1;
-        grid-row: 1;
-        margin: 0 auto 20px;
-        line-height: 48.4px;
+    .security .security-feature {
+        width: 20%;
     }
 
     .security h3 {
-        margin: 0 35px;
         max-width: 170px;
     }
+}
 
-    .security h3:nth-of-type(1) {
-        grid-area: 4 / 1;
+@media (width >= 1200px) {
+    main .section.security {
+        background-size: 80%;
     }
 
-    .security h3:nth-of-type(2) {
-        grid-area: 4 / 2;
-    }
-
-    .security h3:nth-of-type(3) {
-        grid-area: 4 / 3;
-    }
-
-    .security h3:nth-of-type(4) {
-        grid-area: 4 / 4;
-    }
-
-    .security h3:nth-of-type(5) {
-        grid-area: 4 / 5;
-    }
-
-    .security .default-content-wrapper > p:has(a) {
-        grid-column: 1 / -1;
-        grid-row: 5;
-        margin: 40px 0 0;
-    }
-
-    .security .default-content-wrapper > p:first-of-type {
-        grid-column: 1 / -1;
-        grid-row: 2;
-        margin: 0 300px;
-    }
-
-    .security .default-content-wrapper > p:nth-of-type(2) {
-        grid-area: 3 / 1;
-    }
-
-    .security .default-content-wrapper > p:nth-of-type(3) {
-        grid-area: 3 / 2;
-    }
-
-    .security .default-content-wrapper > p:nth-of-type(4) {
-        grid-area: 3 / 3;
-    }
-
-    .security .default-content-wrapper > p:nth-of-type(5) {
-        grid-area: 3 / 4;
-    }
-
-    .security .default-content-wrapper > p:nth-of-type(6) {
-        grid-area: 3 / 5;
+    .security h2 {
+        line-height: 48.4px;
     }
 }
 
@@ -1055,6 +1058,11 @@ main .section.insights-tabs .default-content-wrapper {
     text-align: center;
 }
 
+main .section.insights-tabs.homepage .default-content-wrapper {
+    margin: 0 auto;
+    text-align: left;
+}
+
 main .section.insights-tabs .default-content-wrapper h2 {
     margin: 0 auto 20px;
     font-family: sofia-pro, sans-serif;
@@ -1063,6 +1071,11 @@ main .section.insights-tabs .default-content-wrapper h2 {
     line-height: 1.1;
     text-align: center;
     color: var(--text-color);
+}
+
+main .section.insights-tabs.homepage .default-content-wrapper h2 {
+    margin: 0 0 20px;
+    text-align: left;
 }
 
 main .section.insights-tabs .default-content-wrapper p {
@@ -1075,6 +1088,35 @@ main .section.insights-tabs .default-content-wrapper p {
     color: var(--text-color);
 }
 
+main .section.insights-tabs.homepage .default-content-wrapper p {
+     margin: 0;
+     text-align: left;
+}
+
+/* Live: max-width 768 → stacked/left; above that → card layout + center */
+@media (width >= 768px) {
+    main .section.insights-tabs.homepage {
+        padding: 100px 0 150px;
+    }
+
+    main .section.insights-tabs.homepage .default-content-wrapper {
+        text-align: center;
+    }
+
+    main .section.insights-tabs.homepage .default-content-wrapper h2 {
+        margin: 0 auto 20px;
+        font-size: 48px;
+        line-height: 52.8px;
+        text-align: center;
+    }
+
+    main .section.insights-tabs.homepage .default-content-wrapper p {
+        margin: 0 auto;
+        line-height: 34px;
+        text-align: center;
+    }
+}
+
 @media (width >= 960px) {
     main .section.insights-tabs .default-content-wrapper h2 {
         font-size: 48px;
@@ -1085,6 +1127,8 @@ main .section.insights-tabs .default-content-wrapper p {
         line-height: 34px;
     }
 }
+
+
 
 /* ============================================================
    Home "Everything you need to manage 1000s of work orders…"
@@ -1100,6 +1144,14 @@ main .section.feature-tabs {
     padding: 60px 0;
 }
 
+main .section.feature-tabs.homepage {
+    margin: 0;
+    padding: 40px 0;
+    background-color: #fff;
+    text-align: left;
+}
+
+/* stylelint-disable-next-line no-descending-specificity */
 main .section.feature-tabs .default-content-wrapper h2 {
     margin: 0 0 20px;
     max-width: 96%;
@@ -1121,11 +1173,88 @@ main .section.feature-tabs .default-content-wrapper h2 {
     }
 }
 
+@media (width >= 768px) {
+    main .section.feature-tabs.homepage {
+        padding: 100px 0;
+    }
+
+    main .section.feature-tabs.homepage .default-content-wrapper h2 {
+        font-size: 38px;
+    }
+}
+
+@media (width >= 960px) {
+    main .section.feature-tabs.homepage .default-content-wrapper h2 {
+        max-width: 925px;
+        font-size: 24px;
+        line-height: 26.4px;
+    }
+
+    /* Production: `#features { margin-top: 70px }` — h2 already has 20px
+       margin-bottom, so 50px on the wrapper yields 70px total. */
+    main .section.feature-tabs.homepage .default-content-wrapper {
+        margin-bottom: 50px;
+    }
+}
+
+/* Live #feature-container .container is a clean 1200px box — drop the
+   global 32px side gutter so 550px text + 600px media fit without overlap. */
+@media (width >= 1200px) {
+    main .section.feature-tabs.homepage > .default-content-wrapper,
+    main .section.feature-tabs.homepage > .tabs-feature-wrapper {
+        padding-right: 0;
+        padding-left: 0;
+    }
+}
+
 /* ============================================================
    Section intro headings that sit above their block (logos band,
    video cards, testimonials carousel). Production centers each; the
    logos band uses a small 20px label, the others a 44px headline.
    ============================================================ */
+
+/* Homepage hero — match production `#homepage .home_header` (white band).
+   Scoped to `.home-hero` only. Production's announcement banner is a fixed
+   overlay, so its hero carries the whole nav offset in its own padding. Ours
+   sits below an in-flow banner and nav spacer, so the padding only has to
+   cover the ~40px of whitespace production leaves above the headline. */
+main .section.home-hero {
+    margin: 0;
+    padding: 40px 0;
+    background-color: #fff;
+}
+
+@media (width >= 768px) {
+    main .section.home-hero {
+        padding: 45px 0 40px;
+    }
+}
+
+main .section.home-hero > .hero-lead-wrapper {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+@media (width >= 1200px) {
+    main .section.home-hero > .hero-lead-wrapper {
+        padding: 0;
+    }
+}
+
+/* Homepage testimonials section chrome (card/layout lives in
+   carousel-testimonial.css, scoped to `.section.testimonials.homepage`). */
+main .section.testimonials.homepage {
+    padding: 80px 0 120px;
+}
+
+@media (width < 768px) {
+    main .section.testimonials.homepage {
+        padding: 50px 0;
+    }
+}
+
+/* stylelint-disable no-descending-specificity */
 main .section.logos .default-content-wrapper h2,
 main .section.video-cards .default-content-wrapper h2,
 main .section.testimonials .default-content-wrapper h2 {
@@ -1158,6 +1287,17 @@ main .section.testimonials .default-content-wrapper h2 {
     line-height: 1.1;
 }
 
+main .section.testimonials.homepage .default-content-wrapper h2 {
+    margin: 0 auto 60px;
+    max-width: 1000px;
+}
+
+@media (width < 768px) {
+    main .section.testimonials.homepage .default-content-wrapper h2 {
+        margin-bottom: 40px;
+    }
+}
+
 @media (width >= 960px) {
     main .section.video-cards .default-content-wrapper h2,
     main .section.testimonials .default-content-wrapper h2 {
@@ -1169,6 +1309,7 @@ main .section.testimonials .default-content-wrapper h2 {
         margin-bottom: 60px;
     }
 }
+/* stylelint-enable no-descending-specificity */
 
 /* FAQ closing line + CTA — centered under the accordion, with a cyan pill CTA
    (production #00afeb). Placed at file end so the .default-content-wrapper p
@@ -1198,11 +1339,14 @@ main .section.faq a.button.primary:focus-visible {
    heading line-height of 1.25 makes multi-line headings too tall),
    and the feature blurbs use a 24px H3 rather than the global 20px.
    ============================================================ */
+/* stylelint-disable-next-line no-descending-specificity */
 main .section.faq .default-content-wrapper h2,
+/* stylelint-disable-next-line no-descending-specificity */
 main > .section.cta .hero-cta h2 {
     line-height: 1;
 }
 
+/* stylelint-disable-next-line no-descending-specificity */
 main > .section.connect-users .columns-media h2 {
     line-height: 1.1;
 }
@@ -1243,6 +1387,7 @@ main > .section.connect-users .columns-media-card {
     box-shadow: 3px 3px 25px rgb(0 0 0 / 12%);
 }
 
+/* stylelint-disable-next-line no-descending-specificity */
 main > .section.connect-users .columns-media-card h2 {
     margin: 0 0 20px;
     font-size: 32px;
@@ -1335,6 +1480,7 @@ main .section.enterprise-hero {
     text-align: center;
 }
 
+/* stylelint-disable-next-line no-descending-specificity */
 main .section.enterprise-hero .default-content-wrapper {
     max-width: 900px;
     margin: 0 auto;
@@ -6432,6 +6578,19 @@ main .padding-xlarge.block {
     main .padding-xlarge.block {
         padding: 100px 0;
     }
+}
+
+/* Homepage customer-logos band ("logos highlight"): production's small
+   centered 20px label, on one line at every width (no 600px clamp). Scoped
+   to `.logos.highlight.homepage` so the pricing page's plain `.logos` band
+   (24px, left-aligned on mobile) is unaffected. */
+/* stylelint-disable-next-line no-descending-specificity */
+main .section.logos.highlight.homepage .default-content-wrapper h2 {
+    max-width: none;
+    margin: 0 auto 35px;
+    font-size: 20px;
+    line-height: 22px;
+    text-align: center;
 }
 
 main > .section.pf-final-cta.cloud-page .default-content-wrapper ul li a:any-link{

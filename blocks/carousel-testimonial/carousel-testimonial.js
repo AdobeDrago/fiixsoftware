@@ -1,4 +1,13 @@
 /**
+ * Homepage testimonials use Owl-style infinite looping (cloned slides).
+ * @param {Element} block the carousel block
+ * @returns {boolean}
+ */
+function isHomepageTestimonials(block) {
+  return !!block.closest('.section.testimonials.homepage');
+}
+
+/**
  * Distance to scroll for a single item step: one card width + the flex gap.
  * @param {Element} block the carousel block
  * @returns {number} pixels to scroll to advance/retreat by exactly one card
@@ -8,7 +17,74 @@ function getSlideStep(block) {
   const slide = slides.querySelector('.carousel-testimonial-slide');
   if (!slide) return 0;
   const gap = parseFloat(getComputedStyle(slides).columnGap) || 0;
-  return slide.getBoundingClientRect().width + gap;
+  // Homepage testimonials section spaces slides with margin-right instead of
+  // flex gap — include it so prev/next land on card boundaries.
+  const margin = isHomepageTestimonials(block)
+    ? (parseFloat(getComputedStyle(slide).marginRight) || 0)
+    : 0;
+  return slide.getBoundingClientRect().width + gap + margin;
+}
+
+/**
+ * @param {Element} block the carousel block
+ * @returns {number} authored (non-clone) slide count
+ */
+function getRealSlideCount(block) {
+  const slides = block.querySelector('.carousel-testimonial-slides');
+  const reals = slides.querySelectorAll('.carousel-testimonial-slide:not([data-clone])');
+  return reals.length || slides.children.length;
+}
+
+/**
+ * Clone every slide before and after the real set so the track can scroll
+ * seamlessly in either direction (Owl Carousel `loop: true` behavior).
+ * @param {Element} block the carousel block
+ */
+function cloneSlidesForInfiniteLoop(block) {
+  const slides = block.querySelector('.carousel-testimonial-slides');
+  const originals = [...slides.querySelectorAll(':scope > .carousel-testimonial-slide')];
+  if (originals.length < 2) return;
+
+  const makeClone = (slide) => {
+    const clone = slide.cloneNode(true);
+    clone.dataset.clone = 'true';
+    clone.removeAttribute('id');
+    clone.setAttribute('aria-hidden', 'true');
+    clone.querySelectorAll('[id]').forEach((el) => el.removeAttribute('id'));
+    clone.querySelectorAll('[aria-labelledby]').forEach((el) => {
+      el.removeAttribute('aria-labelledby');
+    });
+    return clone;
+  };
+
+  originals.slice().reverse().forEach((slide) => slides.prepend(makeClone(slide)));
+  originals.forEach((slide) => slides.append(makeClone(slide)));
+}
+
+/**
+ * When scroll settles in a cloned region, jump by one full set so the user
+ * stays over the matching real slides without a visible seam.
+ * @param {Element} block the carousel block
+ */
+function jumpToRealSlidesIfNeeded(block) {
+  const slides = block.querySelector('.carousel-testimonial-slides');
+  const count = getRealSlideCount(block);
+  const step = getSlideStep(block);
+  if (!step || count < 2) return;
+
+  // Track layout: [clones][reals][clones] — each region is `count` slides wide.
+  const realStart = count * step;
+  const realEnd = count * 2 * step;
+  const { scrollLeft } = slides;
+  let nextLeft = scrollLeft;
+  if (scrollLeft < realStart) nextLeft = scrollLeft + count * step;
+  else if (scrollLeft >= realEnd) nextLeft = scrollLeft - count * step;
+  if (nextLeft === scrollLeft) return;
+
+  const prevBehavior = slides.style.scrollBehavior;
+  slides.style.scrollBehavior = 'auto';
+  slides.scrollLeft = nextLeft;
+  slides.style.scrollBehavior = prevBehavior;
 }
 
 /**
@@ -21,10 +97,11 @@ function updateNavState(block) {
   const prev = block.querySelector('.slide-prev');
   const next = block.querySelector('.slide-next');
   if (!prev || !next) return;
-  // The case-study and quote controls wrap around at both ends (matching the
-  // source, where they are always live), so there is no disabled state to
-  // track for them.
-  const loops = block.classList.contains('case-study') || block.classList.contains('quote');
+  // Case-study, quote, and homepage (infinite) controls wrap forever, so there
+  // is no disabled state to track for them.
+  const loops = block.classList.contains('case-study')
+    || block.classList.contains('quote')
+    || isHomepageTestimonials(block);
   if (!loops) {
     // Before the track has been laid out (the block is decorated while the
     // page is still hidden) scrollWidth and clientWidth are both zero, which
@@ -36,12 +113,19 @@ function updateNavState(block) {
     const maxScroll = slides.scrollWidth - slides.clientWidth;
     prev.disabled = slides.scrollLeft <= tolerance;
     next.disabled = slides.scrollLeft >= maxScroll - tolerance;
+  } else {
+    prev.disabled = false;
+    next.disabled = false;
   }
-  // Sync dot indicators (visible in the `quote` variant) with the current slide.
+  // Sync dot indicators with the current (real) slide.
   const indicators = [...block.querySelectorAll('.carousel-testimonial-slide-indicator')];
   if (indicators.length) {
     const step = getSlideStep(block) || slides.clientWidth || 1;
-    const current = Math.round(slides.scrollLeft / step);
+    const raw = Math.round(slides.scrollLeft / step);
+    const count = getRealSlideCount(block);
+    const current = isHomepageTestimonials(block)
+      ? (((raw - count) % count) + count) % count
+      : raw;
     indicators.forEach((li, i) => li.setAttribute('aria-selected', i === current ? 'true' : 'false'));
   }
 }
@@ -76,15 +160,17 @@ function syncActiveSlideHeight(block) {
 /**
  * Scroll the track by one card in the given direction. Case-study and quote
  * carousels wrap around instead of stopping, so their controls are never
- * dead ends.
+ * dead ends. Homepage testimonials use cloned slides for seamless infinite
+ * scroll, so they just advance into the clone region (then snap back).
  * @param {Element} block the carousel block
  * @param {number} direction -1 for previous, 1 for next
  */
 export function showSlide(block, direction = 1) {
   const slides = block.querySelector('.carousel-testimonial-slides');
   const step = getSlideStep(block);
+  const isHomepage = isHomepageTestimonials(block);
   const loops = block.classList.contains('case-study') || block.classList.contains('quote');
-  if (!loops) {
+  if (isHomepage || !loops) {
     slides.scrollBy({ top: 0, left: step * direction, behavior: 'smooth' });
     return;
   }
@@ -98,7 +184,9 @@ export function showSlide(block, direction = 1) {
 
 function bindEvents(block, isCaseStudy) {
   const slides = block.querySelector('.carousel-testimonial-slides');
+  const isHomepage = isHomepageTestimonials(block);
   const onTrackChange = () => {
+    if (isHomepage) jumpToRealSlidesIfNeeded(block);
     updateNavState(block);
     if (isCaseStudy) syncActiveSlideHeight(block);
   };
@@ -106,18 +194,36 @@ function bindEvents(block, isCaseStudy) {
   block.querySelector('.slide-prev').addEventListener('click', () => showSlide(block, -1));
   block.querySelector('.slide-next').addEventListener('click', () => showSlide(block, 1));
 
-  // Dot indicators (quote variant): clicking one scrolls to that slide.
+  // Dot indicators: clicking one scrolls to that (real) slide.
   block.querySelectorAll('.carousel-testimonial-slide-indicator button').forEach((btn, idx) => {
     btn.addEventListener('click', () => {
-      slides.scrollTo({ left: getSlideStep(block) * idx, behavior: 'smooth' });
+      const offset = isHomepage ? getRealSlideCount(block) : 0;
+      slides.scrollTo({ left: getSlideStep(block) * (offset + idx), behavior: 'smooth' });
     });
   });
 
   let scrollRaf;
+  let scrollEndTimer;
+  const settleInfinite = () => {
+    if (!isHomepage) return;
+    jumpToRealSlidesIfNeeded(block);
+    updateNavState(block);
+  };
   slides.addEventListener('scroll', () => {
     if (scrollRaf) cancelAnimationFrame(scrollRaf);
-    scrollRaf = requestAnimationFrame(onTrackChange);
+    scrollRaf = requestAnimationFrame(() => {
+      // Keep dots in sync while scrolling; defer the clone jump until motion
+      // settles so a smooth next/prev isn't interrupted mid-flight.
+      updateNavState(block);
+      if (isCaseStudy) syncActiveSlideHeight(block);
+    });
+    if (isHomepage) {
+      clearTimeout(scrollEndTimer);
+      // Fallback when `scrollend` isn't available; long enough for smooth scroll.
+      scrollEndTimer = setTimeout(settleInfinite, 200);
+    }
   }, { passive: true });
+  slides.addEventListener('scrollend', settleInfinite);
 
   // Recompute on any track resize -- this also covers the case where the block
   // is decorated before it has a measurable width (e.g. still below the fold),
@@ -415,6 +521,12 @@ export default async function decorate(block) {
 
   container.append(slidesWrapper);
   block.prepend(container);
+
+  // Homepage matches production Owl `loop: true` by cloning the slide set on
+  // both sides, then silently re-centering over the real slides after scroll.
+  if (!isSingleSlide && isHomepageTestimonials(block)) {
+    cloneSlidesForInfiniteLoop(block);
+  }
 
   if (!isSingleSlide) {
     bindEvents(block, isCaseStudy);
