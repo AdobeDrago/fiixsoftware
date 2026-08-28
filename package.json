@@ -5,7 +5,7 @@
   "description": "Starter project for Adobe Helix",
   "scripts": {
     "lint:js": "eslint .",
-    "lint:css": "stylelint \"404.css\" \"blocks/**/*.css\" \"styles/*.css\" \"widgets/**/*.css\"",
+    "lint:css": "stylelint \"404.css\" \"blocks/**/*.css\" \"styles/*.css\"",
     "lint": "npm run lint:js && npm run lint:css",
     "lint:fix": "npm run lint:js -- --fix && npm run lint:css -- --fix",
     "test:migration": "playwright test --config=playwright.migration.config.js",

@@ -2,7 +2,7 @@
   box-sizing: border-box;
   width: 90%;
   max-width: 664px;
-  margin: 0 auto 20px;
+  margin: 0 auto 75px;
 }
 
 .case-study-lead > div {
@@ -18,12 +18,12 @@
 
 .case-study-lead p {
   margin: 0;
+  font-weight: 300;
+  line-height: normal;
 }
 
-/* Authors can add multiple paragraphs either as separate table rows or in one
-   table cell. Preserve the intended reading break in both authoring forms. */
-.case-study-lead p + p {
-  margin-top: 20px;
+.case-study-lead.bold p {
+  font-weight: 600;
 }
 
 @media (width >= 768px) {

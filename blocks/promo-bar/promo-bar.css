@@ -11,6 +11,20 @@ main > .section.promo-bar-container {
   background-color: #99dff7;
 }
 
+/* Mobile/tablet: remove extra gap caused by the header spacer's padding-bottom */
+@media (width < 960px) {
+  main > .section.promo-bar-container {
+    margin-top: -7px;
+  }
+}
+
+/* Desktop: nav-wrapper has padding-bottom: 8px so spacer undershoots by 8px */
+@media (width >= 960px) {
+  main > .section.promo-bar-container {
+    margin-top: 8px;
+  }
+}
+
 /* neutralize the default centered 1200px wrapper so the band is edge-to-edge */
 main > .section.promo-bar-container > div {
   max-width: none;

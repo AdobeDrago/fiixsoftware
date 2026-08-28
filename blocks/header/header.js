@@ -1,7 +1,7 @@
 import { getMetadata } from '../../scripts/aem.js';
 import { loadFragment } from '../fragment/fragment.js';
 
-// Keep in sync with header.css 960px breakpoint.
+// Sync with header.css 960px breakpoint.
 const isDesktop = window.matchMedia('(min-width: 960px)');
 
 function closeAllPanels(navSections, { focusOut = false } = {}) {
@@ -26,14 +26,14 @@ function closeOnEscape(e) {
   }
 }
 
-// Toggle mobile drawer.
+// Mobile drawer.
 function toggleMenu(nav, navSections, forceExpanded = null) {
   const expanded = forceExpanded !== null ? !forceExpanded : nav.getAttribute('aria-expanded') === 'true';
   const button = nav.querySelector('.nav-hamburger button');
   document.body.style.overflowY = (expanded || isDesktop.matches) ? '' : 'hidden';
   nav.setAttribute('aria-expanded', expanded ? 'false' : 'true');
   if (button) button.setAttribute('aria-label', expanded ? 'Open navigation' : 'Close navigation');
-  // Close open panels when drawer toggles.
+  // Close panels when drawer toggles.
   closeAllPanels(navSections);
   if (!expanded || isDesktop.matches) {
     window.addEventListener('keydown', closeOnEscape);
@@ -42,7 +42,7 @@ function toggleMenu(nav, navSections, forceExpanded = null) {
   }
 }
 
-// Click/keyboard toggle for mega-menu items (no hover).
+// Mega-menu click/keyboard toggle (no hover).
 function decorateDropItem(navItem, navSections) {
   navItem.classList.add('nav-drop');
   navItem.setAttribute('aria-haspopup', 'true');
@@ -50,7 +50,7 @@ function decorateDropItem(navItem, navSections) {
   navItem.setAttribute('tabindex', '0');
 
   navItem.addEventListener('click', (e) => {
-    // Ignore clicks on panel links.
+    // Ignore panel link clicks.
     if (e.target.closest('.nav-drop > ul a')) return;
     const expanded = navItem.getAttribute('aria-expanded') === 'true';
     closeAllPanels(navSections);
@@ -68,8 +68,7 @@ function decorateDropItem(navItem, navSections) {
   });
 }
 
-// Per-item cyan icons, keyed by the authored href. Renaming/moving a nav link's
-// URL silently drops its icon (iconForHref returns null) — update the key here too.
+// Cyan icons keyed by authored href (update key if URL changes).
 const ICON_STROKE = 'stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"';
 const svg = (paths) => `<svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" ${ICON_STROKE}>${paths}</svg>`;
 const NAV_ICONS = {
@@ -104,7 +103,7 @@ const NAV_ICONS = {
   '/customers/': svg('<path d="M21 15a2 2 0 0 1-2 2H8l-5 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2Z"/><path d="M8 10h.01M12 10h.01M16 10h.01"/>'),
 };
 
-// Resolve icon for href (trailing-slash tolerant).
+// Icon lookup (trailing-slash tolerant).
 function iconForHref(href) {
   if (!href) return null;
   const bare = href.replace(/\/+$/, '');
@@ -114,10 +113,7 @@ function iconForHref(href) {
   return null;
 }
 
-// Split Features into two lists: primary features + download | secondary links.
-// Matches production `.navigation__dropdown__column-wrapper` with two `<ul>`s.
-// Drawer: download sits after Fiix app exchange (end of secondary list).
-// Desktop: download sits under the primary feature column.
+// Split Features into two columns; reposition download by viewport.
 function splitFeaturesColumn(col) {
   const list = col.querySelector(':scope > ul');
   if (!list) return;
@@ -125,7 +121,7 @@ function splitFeaturesColumn(col) {
   const items = [...list.children];
   const download = items.find((li) => li.classList.contains('nav-link-download'));
   const rest = items.filter((li) => li !== download);
-  // First four stay in the primary column; the rest move to a second column.
+  // First 4 stay primary; rest go secondary.
   const secondary = rest.slice(4);
   if (!secondary.length && !download) return;
 
@@ -146,7 +142,7 @@ function splitFeaturesColumn(col) {
   isDesktop.addEventListener('change', placeDownload);
 }
 
-/** Shared Contact us / Request a demo footer for every mega-menu. */
+/** Shared Contact us / Request a demo mega-menu footer. */
 function buildMegaMenuFooter(source) {
   const footerLi = document.createElement('li');
   footerLi.className = 'nav-drop-footer';
@@ -170,7 +166,7 @@ function ensureMegaMenuFooters(navSections) {
   drops.forEach((drop) => {
     const panel = drop.querySelector(':scope > ul');
     if (!panel) return;
-    // Keep footer as a direct panel child so it can span the full mega-menu grid.
+    // Footer must be a direct panel child for full-width grid span.
     [...panel.querySelectorAll('.nav-drop-footer')].forEach((footer) => {
       if (footer.parentElement !== panel) panel.append(footer);
     });
@@ -179,7 +175,7 @@ function ensureMegaMenuFooters(navSections) {
   });
 }
 
-// Wrap loose description text in .nav-item-desc for mobile hide.
+// Wrap description text for mobile hide.
 function wrapDescription(container) {
   const nodes = [...container.childNodes]
     .filter((n) => n.nodeType === Node.TEXT_NODE && n.textContent.trim());
@@ -191,7 +187,7 @@ function wrapDescription(container) {
   return desc;
 }
 
-// FEATURED / NEW → badge pill.
+// FEATURED / NEW badge.
 function extractBadge(link) {
   const m = link.textContent.match(/\s+(FEATURED|NEW)\s*$/);
   if (!m) return;
@@ -205,12 +201,9 @@ function extractBadge(link) {
 
 /** @param {Element} block */
 export default async function decorate(block) {
-  // Load nav fragment (localhost /content, else root).
+  // Load nav fragment.
   const navMeta = getMetadata('nav');
   const navPath = navMeta ? new URL(navMeta, window.location).pathname : '/nav';
-  // The local dev server serves the same root nav fragment as preview/live.
-  // Avoid probing the legacy /content/nav path, which is not present locally
-  // and creates a noisy 404 in the browser console on every page load.
   const fragment = await loadFragment(navPath);
   if (!fragment) {
     // eslint-disable-next-line no-console
@@ -218,7 +211,6 @@ export default async function decorate(block) {
     return;
   }
 
-  // Build nav DOM.
   block.textContent = '';
   const nav = document.createElement('nav');
   nav.id = 'nav';
@@ -230,7 +222,7 @@ export default async function decorate(block) {
     if (section) section.classList.add(`nav-${c}`);
   });
 
-  // Rebase relative nav image paths to root-absolute.
+  // Root-absolute nav image paths.
   nav.querySelectorAll('img[src]').forEach((img) => {
     const src = img.getAttribute('src');
     if (src && !/^(https?:)?\/\//.test(src) && !src.startsWith('/')) {
@@ -238,7 +230,7 @@ export default async function decorate(block) {
     }
   });
 
-  // Strip button styles from logo.
+  // Logo: strip button styles.
   const navBrand = nav.querySelector('.nav-brand');
   if (navBrand) {
     const brandLink = navBrand.querySelector('a');
@@ -249,31 +241,29 @@ export default async function decorate(block) {
     }
   }
 
-  // Mega-menu drops from nested lists.
+  // Mega-menu drops.
   const navSections = nav.querySelector('.nav-sections');
   if (navSections) {
     navSections.querySelectorAll(':scope .default-content-wrapper > ul > li').forEach((navItem) => {
       const panel = navItem.querySelector(':scope > ul');
       if (panel) {
         decorateDropItem(navItem, navSections);
-        // Grouped columns (e.g. Product).
+        // Grouped columns (Product).
         const groups = [...panel.children].filter((li) => li.querySelector(':scope > ul'));
         if (groups.length) {
           navItem.classList.add('nav-drop-grouped');
           groups.forEach((g) => {
             g.classList.add('nav-col');
-            // Column heading = non-<ul> children.
+            // Column heading from non-ul children.
             const heading = [...g.childNodes]
               .filter((n) => n.nodeName !== 'UL')
               .map((n) => n.textContent)
               .join(' ')
               .trim();
-            // Features → two sub-columns matching production
-            // (main features + download | parts + app exchange).
+            // Features → two sub-columns.
             if (/^Features$/i.test(heading)) g.classList.add('nav-col-split');
-            // Industry is desktop mega-menu only.
+            // Industry: desktop only.
             if (/^Industry/i.test(heading)) g.classList.add('nav-col-industry');
-            // Icon + title/badge + description.
             g.querySelectorAll(':scope > ul > li > a').forEach((a) => {
               const li = a.closest('li');
               extractBadge(a);
@@ -284,26 +274,24 @@ export default async function decorate(block) {
 
               const desc = wrapDescription(li);
 
-              // Title + badge row.
+              // Icon + title + desc inside <a> (full hit target).
               const titleLine = document.createElement('span');
               titleLine.className = 'nav-item-title';
-              titleLine.append(a);
+              while (a.firstChild) titleLine.append(a.firstChild);
               if (badge) titleLine.append(badge);
 
-              const main = document.createElement('span');
-              main.className = 'nav-item-main';
-              main.append(titleLine);
-              if (desc) main.append(desc);
-
+              a.className = 'nav-item-main';
               if (icon) {
                 const span = document.createElement('span');
                 span.className = 'nav-item-icon';
+                span.setAttribute('aria-hidden', 'true');
                 span.innerHTML = icon;
-                li.append(span);
+                a.append(span);
               }
-              li.append(main);
+              a.append(titleLine);
+              if (desc) a.append(desc);
+              li.append(a);
 
-              // Special link styles.
               const label = a.textContent.trim().toLowerCase();
               if (label.startsWith('download full features')) {
                 li.classList.add('nav-link-download');
@@ -311,7 +299,7 @@ export default async function decorate(block) {
                 const clean = fullLabel.replace(/\s*\(PDF\).*$/i, '').trim();
                 const mobileText = /\(PDF\)/i.test(fullLabel) ? fullLabel : `${clean} (PDF)`;
                 a.textContent = '';
-                // Drawer: plain label + left icon. Desktop: see-all + trailing icon.
+                // Drawer: left icon + PDF label; desktop: see-all + trailing glyph.
                 const mobileLabel = document.createElement('span');
                 mobileLabel.className = 'nav-download-mobile-label';
                 mobileLabel.textContent = mobileText;
@@ -329,16 +317,22 @@ export default async function decorate(block) {
                 iconEl.setAttribute('aria-hidden', 'true');
                 iconEl.innerHTML = '<svg viewBox="0 0 24 24" width="12" height="12" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11"/><path d="m8 11 4 4 4-4"/><path d="M5 20h14"/></svg>';
                 seeAll.append(labelEl, iconEl);
+                if (icon) {
+                  const leftIcon = document.createElement('span');
+                  leftIcon.className = 'nav-item-icon';
+                  leftIcon.setAttribute('aria-hidden', 'true');
+                  leftIcon.innerHTML = icon;
+                  a.append(leftIcon);
+                }
                 a.append(mobileLabel, seeAll);
               }
               if (label.startsWith('more industry')) li.classList.add('nav-link-more');
             });
 
-            // Split Features into two lists like production column-wrapper.
             if (g.classList.contains('nav-col-split')) splitFeaturesColumn(g);
           });
         } else if (panel.querySelector('li img')) {
-          // Promo panel (text links + cards).
+          // Promo panel (Support / Resources).
           navItem.classList.add('nav-drop-promo');
           const items = [...panel.children].filter((li) => li.tagName === 'LI');
           const textGroup = document.createElement('li');
@@ -363,27 +357,43 @@ export default async function decorate(block) {
               li.append(body);
               promoGroup.append(li);
             } else {
-              // Icon + wrap description for mobile hide.
+              // Icon + title + desc inside <a>.
               const link = li.querySelector('a[href]');
-              const label = link && link.closest('p');
+              if (!link) {
+                textGroup.append(li);
+                return;
+              }
+              const label = link.closest('p');
               if (label) wrapDescription(label);
-              const icon = link && iconForHref(link.getAttribute('href'));
+              else wrapDescription(li);
+              const desc = li.querySelector('.nav-item-desc');
+              const icon = iconForHref(link.getAttribute('href'));
+
+              const titleLine = document.createElement('span');
+              titleLine.className = 'nav-item-title';
+              while (link.firstChild) titleLine.append(link.firstChild);
+
+              link.className = 'nav-item-main';
               if (icon) {
                 const span = document.createElement('span');
                 span.className = 'nav-promo-icon';
+                span.setAttribute('aria-hidden', 'true');
                 span.innerHTML = icon;
-                li.prepend(span);
+                link.append(span);
               }
+              link.append(titleLine);
+              if (desc) link.append(desc);
+              li.replaceChildren(link);
               textGroup.append(li);
             }
           });
-          // 2 columns; rows = ceil(n/2) so Support is 2×2 and Resources is 2×3.
+          // Promo grid rows = ceil(n / 2).
           const promoRows = Math.max(1, Math.ceil(textGroup.children.length / 2));
           textGroup.style.setProperty('--promo-rows', String(promoRows));
           textGroup.dataset.promoRows = String(promoRows);
           panel.append(textGroup, promoGroup);
         }
-        // Footer is the <p> after the panel <ul>, not the label <p>.
+        // Footer <p> after panel ul.
         const kids = [...navItem.children];
         const panelIndex = kids.indexOf(panel);
         const footer = kids.find((el, i) => el.tagName === 'P' && i > panelIndex);
@@ -397,7 +407,7 @@ export default async function decorate(block) {
       }
     });
 
-    // Reuse Product footer links on Support / Resources when not authored.
+    // Fallback footer links for Support / Resources.
     ensureMegaMenuFooters(navSections);
   }
 
@@ -406,7 +416,7 @@ export default async function decorate(block) {
     if (navSections && !e.target.closest('.nav-drop')) closeAllPanels(navSections);
   });
 
-  // Mark CTAs; split Search/Login into utility row.
+  // CTAs + Search/Login utility row.
   const navTools = nav.querySelector('.nav-tools');
   if (navTools) {
     const toolsList = navTools.querySelector('ul');
@@ -425,7 +435,7 @@ export default async function decorate(block) {
       if (label === 'login') a.classList.add('nav-login');
     });
 
-    // Drawer-only Contact us (production mobile order).
+    // Drawer-only Contact us.
     if (toolsList && !toolsList.querySelector('.nav-contact-drawer')) {
       const contactLi = document.createElement('li');
       contactLi.className = 'nav-contact-drawer';
@@ -448,11 +458,11 @@ export default async function decorate(block) {
       const requestDemo = toolsList.querySelector('a.nav-cta-primary')?.closest('li');
       const contact = toolsList.querySelector('.nav-contact-drawer');
       if (isDesktop.matches) {
-        // Desktop pills: Book a demo, Free tour.
+        // Desktop CTA order.
         if (requestDemo) toolsList.append(requestDemo);
         if (freeTour) toolsList.append(freeTour);
       } else {
-        // Drawer: Free tour, Request a demo, Contact us.
+        // Drawer CTA order.
         if (freeTour) toolsList.append(freeTour);
         if (requestDemo) toolsList.append(requestDemo);
         if (contact) toolsList.append(contact);
@@ -473,7 +483,6 @@ export default async function decorate(block) {
     }
   }
 
-  // Hamburger.
   const hamburger = document.createElement('div');
   hamburger.classList.add('nav-hamburger');
   hamburger.innerHTML = `<button type="button" aria-controls="nav" aria-label="Open navigation">
@@ -483,7 +492,7 @@ export default async function decorate(block) {
   nav.prepend(hamburger);
   nav.setAttribute('aria-expanded', 'false');
 
-  // Reset on breakpoint change.
+  // Reset drawer on breakpoint change.
   isDesktop.addEventListener('change', () => {
     toggleMenu(nav, navSections, isDesktop.matches);
     closeAllPanels(navSections);

@@ -19,6 +19,31 @@
     display: block;
 }
 
+/* Fixed mobile height + contain is only for the colour-accent variants'
+   single hero screenshot (gold/teal/cyan/orange/purple/navy authored with
+   just one image in the media column, e.g. the teal "Access parts..." row) --
+   without it that screenshot renders at its full natural height on mobile.
+   `:only-child` keeps this off the decorative shape+screenshot pairs (img-1 +
+   img-2), which already have their own absolute-positioned/max-width sizing,
+   and off vidyard/banner/info-flex/plain images, which size themselves. */
+.columns-media:is(.gold, .teal, .cyan, .orange, .purple, .navy)
+    .columns-media-img-col
+    > .columns-media-img-1:only-child
+    img {
+    height: 300px;
+    object-fit: contain;
+}
+
+@media (width >= 768px) {
+    .columns-media:is(.gold, .teal, .cyan, .orange, .purple, .navy)
+        .columns-media-img-col
+        > .columns-media-img-1:only-child
+        img {
+        height: auto;
+        object-fit: fill;
+    }
+}
+
 @media (width >= 768px) {
     .columns-media > div {
         align-items: center;
@@ -116,7 +141,24 @@ main
     color: var(--text-color);
 }
 
-.columns-media:is(.gold, .teal, .cyan, .orange, .purple):is(.left, .right)
+.columns-media:is(.left, .right):is(
+        .gold,
+        .teal,
+        .cyan,
+        .orange,
+        .purple,
+        .navy
+    )
+    p a {
+        color: #14499a;
+        font-weight: 500;
+        text-decoration: underline;
+    }
+
+.columns-media:is(.gold, .teal, .cyan, .orange, .purple, .navy):is(
+        .left,
+        .right
+    )
     > div
     > .columns-media-text-col {
     padding: 0 20px;
@@ -163,8 +205,12 @@ main
     width: 540px;
     max-width: 100%;
     height: 5px;
-    margin-top: 24px;
+    margin-top: 20px;
     background: var(--media-accent);
+
+    @media (width >= 768px) {
+        margin-top: 30px;
+    }
 }
 
 /* mobile per-colour band + shape/screenshot treatment (base/default).
@@ -191,9 +237,9 @@ main
    shape + screenshot pair -- no overflow trick, just contain it with
    padding, same as the other colours get from the shared rule below. */
 .columns-media.right:is(.purple, .navy) .columns-media-img-col {
-    padding: 24px;
     background: var(--media-accent);
-    margin-bottom: 30px;
+        margin-bottom: 50px;
+    padding-top: 24px;
 }
 
 .columns-media:is(.gold, .teal, .cyan, .orange):is(.left, .right)
@@ -204,8 +250,8 @@ main
     background: var(--media-accent);
     display: flex;
     align-items: end;
-    padding-top: 50px;
-    margin-bottom: 40px;
+     margin-bottom: 50px;
+    padding-top: 24px;
 }
 
 .columns-media:is(.gold, .teal, .cyan, .orange):is(.left, .right)
@@ -278,6 +324,50 @@ main
 
 .columns-media.teal.left .columns-media-img-col .columns-media-img-1 img {
     position: relative;
+}
+
+/* free-cmms overrides — after general color variants for specificity order */
+.columns-media.right.teal.free-cmms .columns-media-img-col .columns-media-img-2 img {
+    width: 350px;
+}
+
+.columns-media.right.teal.free-cmms > div > .columns-media-img-col {
+    justify-content: end;
+}
+
+@media (width >= 768px) {
+    .columns-media.right.teal.free-cmms .columns-media-text-col h2,
+    .columns-media.right.teal.free-cmms .columns-media-text-col p {
+        max-width: 250px;
+    }
+
+    .columns-media.right.teal.free-cmms .columns-media-img-col .columns-media-img-2 img {
+        margin-bottom: 0;
+    }
+
+    .columns-media.right.teal.free-cmms .columns-media-img-col .columns-media-img-1 img {
+        left: 0;
+    }
+}
+
+@media (width >= 960px) {
+    .columns-media.right.teal.free-cmms .columns-media-img-col .columns-media-img-2 img {
+        margin-bottom: 0;
+    }
+
+    .columns-media.right.teal.free-cmms .columns-media-img-col .columns-media-img-1 img {
+        left: 0;
+    }
+
+    .columns-media.right.teal.free-cmms > div > .columns-media-img-col {
+        padding-top: 80px;
+    }
+
+    .columns-media.right.teal.free-cmms .columns-media-text-col h2,
+    .columns-media.right.teal.free-cmms .columns-media-text-col p {
+        margin-left: 10px;
+        max-width: 420px;
+    }
 }
 
 @media (width >= 768px) {
@@ -356,7 +446,10 @@ main
         overflow-x: clip;
     }
 
-    .columns-media:is(.gold, .teal, .cyan, .orange, .purple):is(.left, .right)
+    .columns-media:is(.gold, .teal, .cyan, .orange, .purple, .navy):is(
+            .left,
+            .right
+        )
         > div
         > .columns-media-text-col {
         padding: 0;
@@ -538,7 +631,7 @@ main
     }
 }
 
-@media (width >= 992px) {
+@media (width >= 960px) {
     .columns-media.right.teal .columns-media-img-col .columns-media-img-2 img {
         width: 370px;
     }
@@ -587,6 +680,34 @@ main
         p {
         max-width: 540px;
     }
+
+    /* free-cmms: match standard right.teal at desktop */
+    .columns-media.right.teal.free-cmms .columns-media-img-col .columns-media-img-1 img {
+        right: 30px;
+        left: 10px;
+        top: 100px;
+        max-width: 175px;
+    }
+
+    .columns-media.right.teal.free-cmms .columns-media-img-col .columns-media-img-2 img {
+        width: 584px;
+        max-width: none;
+        margin-bottom: 0;
+        padding-left: 100px;
+        margin-right: -32px;
+    }
+
+    .columns-media.right.teal.free-cmms > div > .columns-media-img-col {
+        padding-top: 96px;
+        justify-content: end;
+    }
+
+    .columns-media.right.teal.free-cmms .columns-media-text-col h2,
+    .columns-media.right.teal.free-cmms .columns-media-text-col p {
+        margin-left: auto;
+        max-width: 540px;
+        padding-right: 30px;
+    }
 }
 
 /* ============================================================
@@ -596,9 +717,91 @@ main
    can reuse it; the base columns-media keeps its default heading sizing.
    ============================================================ */
 .columns-media.feature h3 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    max-width: 96%;
     font-size: 36px;
     font-weight: 700;
     line-height: 1.1;
+}
+
+.columns-media.feature .columns-media-text-col p {
+    margin-top: 0;
+    margin-bottom: 0;
+    font-size: 20px;
+    line-height: normal !important;
+}
+
+/* Mobile: text above image (production .plan-track column-reverse). */
+@media (width < 768px) {
+    main .columns-media.feature.padding-medium {
+        margin-top: 30px;
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+
+    .columns-media.feature .columns-media-text-col {
+        margin-left: 20px;
+    }
+
+    .columns-media.feature .columns-media-img-col {
+        margin-top: 30px;
+        margin-bottom: 30px;
+    }
+
+    .columns-media.feature > div {
+        flex-direction: column-reverse;
+    }
+
+    .columns-media.feature > div > div,
+    .columns-media.feature > div > .columns-media-img-col {
+        order: unset;
+    }
+}
+
+@media (width >= 768px) {
+    main .columns-media.feature.padding-medium {
+        margin-top: 80px;
+        margin-bottom: 60px;
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+
+    .columns-media.feature > div {
+        align-items: flex-start;
+        gap: 0;
+    }
+}
+
+@media (width >= 768px) and (width < 960px) {
+    .columns-media.feature .columns-media-text-col {
+        margin-left: 20px;
+    }
+}
+
+@media (width >= 960px) {
+    main .columns-media.feature.padding-medium {
+        font-size: 16px;
+    }
+
+    /* Match production .plan-track: content-sized columns with even free space. */
+    .columns-media.feature > div {
+        justify-content: space-between;
+    }
+
+    .columns-media.feature > div > div {
+        box-sizing: border-box;
+        flex: 0 1 38%;
+        width: 38%;
+        max-width: 440px;
+        min-width: 0;
+    }
+
+    .columns-media.feature .columns-media-img-col img {
+        width: 100%;
+        max-width: 100%;
+        height: auto;
+    }
 }
 
 /* Vidyard + info-flex are independent variations stacked after accent
@@ -861,6 +1064,239 @@ div.columns-media.info-flex > div > .columns-media-img-col {
     .columns-media.banner .columns-media-text-col h1 {
         font-size: 64px;
         line-height: 1;
+    }
+}
+
+/* ---- .page-customers band-height/spacing tuning ---- */
+.page-customers .columns-media.banner > div {
+    min-height: 400px;
+    padding: 0 32px;
+    justify-content: center;
+    gap: 0;
+}
+
+.page-customers main > .section:has(> .columns-media-wrapper > .columns-media.banner) {
+    margin: 0;
+}
+
+/* Source's hero spaces its headline and subtitle further apart than the
+   variant's own defaults (30px under the h1, 20px under the subtitle). */
+.page-customers .columns-media.banner .columns-media-text-col h1 {
+    margin-bottom: 30px;
+    font-size: 40px;
+
+    @media (width >= 768px) {
+        font-size: 50px;
+    }
+
+    @media (width >= 960px) {
+        font-size: 64px;
+    }
+}
+
+.page-customers .columns-media.banner .columns-media-text-col h2,
+.page-customers .columns-media.banner .columns-media-text-col p {
+    margin-bottom: 20px;
+}
+
+/* Source hides the portrait entirely below 768px -- text-only hero -- which
+   is why its band fits in 400px; ours kept showing the image and grew well
+   past that. */
+.page-customers .columns-media.banner .columns-media-img-col {
+    display: none;
+}
+
+@media (width >= 768px) {
+    .page-customers .columns-media.banner > div {
+        min-height: 500px;
+        padding: 0 32px;
+    }
+
+    .page-customers .columns-media.banner .columns-media-img-col {
+        display: block;
+    }
+}
+
+/* ============================================================
+   optix-hero — Optix landing hero (section also carries ai-hero).
+   Production #optixLP header: mobile shows the illustration + cross-hatch
+   tucked bottom-right (ai-hero hides media on mobile). Accent phrase is
+   authored as <em> in the H1 (italic in Document Authoring).
+   ============================================================ */
+main > .section.optix-hero {
+    /* stacking context so the absolute illustration can overlap the
+       following optix-intro band (production header-img img z-index:1) */
+    position: relative;
+    z-index: 1;
+    overflow: visible;
+    padding: 30px 0 180px;
+}
+
+/* product logo — production max-width 270px (not the 48px AI-hero cap) */
+main > .section.optix-hero .columns-media-text-col > p:has(img) {
+    margin: 0;
+}
+
+main > .section.optix-hero .columns-media-text-col > p:has(img) img {
+    width: auto;
+    max-width: 270px;
+    max-height: none;
+    height: auto;
+}
+
+main > .section.optix-hero .columns-media h1 {
+    margin: 0 0 30px;
+    font-size: 32px;
+    font-weight: 400;
+}
+
+/* authored italic on the key phrase → blue gradient text fill */
+main > .section.optix-hero .columns-media h1 em {
+    font-style: normal;
+    font-weight: 700;
+    background-image: linear-gradient(269deg, #003e7e 0%, #00aeef 100%);
+    /* stylelint-disable-next-line property-no-vendor-prefix -- Safari text fill */
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* external-link marker on the CTA (production .external-URL::after) */
+main > .section.optix-hero .columns-media a:any-link::after {
+    content: '';
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    margin-left: 6px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='2 2 20 20' fill='none' stroke='%23ffffff' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M14 3h7v7'/%3E%3Cpath d='M10 14 21 3'/%3E%3Cpath d='M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5'/%3E%3C/svg%3E");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    vertical-align: -1px;
+}
+
+/* show media on mobile; collapse the column (kids are absolute) and let
+   section padding reserve space for the overflowing illustration */
+main > .section.optix-hero .columns-media > div > .columns-media-img-col {
+    display: block;
+    position: relative;
+    width: 40%;
+    height: 0;
+    order: 1;
+    align-self: flex-end;
+}
+
+main > .section.optix-hero .columns-media > div > .columns-media-img-col .columns-media-img-1,
+main > .section.optix-hero .columns-media > div > .columns-media-img-col .columns-media-img-2 {
+    margin: 0;
+}
+
+/* main 3D illustration — production tucks this into the bottom-right.
+   Override ai-hero's logo max-height:48px which also matches media imgs. */
+main > .section.optix-hero .columns-media > div > .columns-media-img-col .columns-media-img-1 img {
+    position: absolute;
+    z-index: 1;
+    top: 20px;
+    right: 0;
+    left: auto;
+    width: 140px;
+    max-width: none;
+    max-height: none;
+    height: auto;
+    transform: none;
+}
+
+/* cross-hatch decorative graphic (authored as 2nd media image) */
+main > .section.optix-hero .columns-media > div > .columns-media-img-col .columns-media-img-2 {
+    position: absolute;
+    z-index: 0;
+    top: -10px;
+    right: 40px;
+    width: 110px;
+    height: 111px;
+}
+
+main > .section.optix-hero .columns-media > div > .columns-media-img-col .columns-media-img-2 img {
+    max-height: none;
+    right: -42px;
+    top: -38px;
+    position: absolute;
+}
+
+@media (width < 370px) {
+    main > .section.optix-hero .columns-media > div > .columns-media-img-col .columns-media-img-1 img {
+        top: 60px;
+        width: 220px;
+    }
+
+    main > .section.optix-hero .columns-media > div > .columns-media-img-col .columns-media-img-2 {
+        top: 0;
+    }
+}
+
+@media (width >= 768px) {
+    main > .section.optix-hero {
+        padding: 80px 0;
+    }
+
+    main > .section.optix-hero .columns-media h1 {
+        margin: 20px 0 35px;
+        font-size: 48px;
+    }
+
+    main > .section.optix-hero .columns-media > div > .columns-media-img-col {
+        width: auto;
+        height: auto;
+        align-self: center;
+    }
+
+    /* hand positioning back to shared ai-hero desktop rules */
+    main > .section.optix-hero .columns-media > div > .columns-media-img-col .columns-media-img-1 img {
+        top: unset;
+        right: unset;
+        left: unset;
+        width: 100%;
+        transform: none;
+        position: relative;
+    }
+
+    main > .section.optix-hero .columns-media > div {
+        gap: 0;
+    }
+
+    /* cross-hatch sits behind/above the illustration (production ::after) */
+    main > .section.optix-hero .columns-media > div > .columns-media-img-col .columns-media-img-2 {
+        top: 50px;
+        right: 0;
+        width: 150px;
+        height: 151px;
+    }
+
+    main > .section.optix-hero .columns-media > div > .columns-media-img-col .columns-media-img-2 img {
+        position: static;
+        width: 100%;
+        height: 100%;
+        transform: none;
+    }
+}
+
+@media (width >= 1200px) {
+    main > .section.optix-hero .columns-media > div > .columns-media-img-col .columns-media-img-1 img {
+        top: -60px;
+        transform: none;
+    }
+
+    main > .section.optix-hero .columns-media > div > .columns-media-img-col .columns-media-img-2 {
+        top: -20px;
+    }
+
+    main > .section.optix-hero {
+        padding: 80px 0 0;
+        max-height: 440px;
+    }
+
+    main > .section.optix-hero > div.columns-media-wrapper {
+        padding: 0 10px;
     }
 }
 

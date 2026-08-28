@@ -1,18 +1,50 @@
 /* Fiix FAQ accordion: dotted-rule rows, bold question, cyan +/- toggle
    (built with CSS, no icon font). */
 
-.accordion-faq details {
-  border: 0;
-  border-bottom: 1px dotted #58595b;
+@media (width >= 1200px) {
+  main > .section > div.accordion-faq-wrapper {
+    padding: 0;
+  }
 }
 
-/* stylelint-disable-next-line no-descending-specificity */
-.accordion-faq details + details {
-  margin-top: 0;
+main > .section.pf-resources.free-cmms-accordian{
+  margin-top: -145px;
+  position: relative;
+  z-index: 1;
 }
 
-.accordion-faq details p {
-  margin-bottom: 0.8em;
+@media (width >= 960px) {
+  main > .section.pf-resources.free-cmms-accordian{
+    padding: 0 30px;
+
+    /* angle band bleeds past left/right; clip x only so it can still
+       poke up into the quote section above (production `.angle.grey1`) */
+    overflow-x: clip;
+  }
+
+  /* Production draws a grey (#f7f7f7) band rotated 5deg across the seam
+     above the FAQ — same as `.angle.grey1` on free-cmms `.quote-rotate`. */
+  main > .section.pf-resources.free-cmms-accordian::before {
+    content: "";
+    position: absolute;
+    top: -30px;
+    left: -150px;
+    z-index: 0;
+    width: 200%;
+    height: 250px;
+    background-color: #f7f7f7;
+    transform: rotate(5deg);
+    pointer-events: none;
+  }
+
+  main > .section.pf-resources.free-cmms-accordian > * {
+    position: relative;
+    z-index: 1;
+  }
+}
+
+main > .section.free-cmms-accordian div.accordion-faq-wrapper {
+  padding: 0;
 }
 
 .accordion-faq details summary {
@@ -148,8 +180,36 @@
 
 .accordion-faq.card details .accordion-faq-item-body {
   padding: 0;
-  font-size: 20px;
+  font-size: 14px;
   line-height: 1.4;
+}
+
+@media (width >= 960px) {
+  .accordion-faq.card details .accordion-faq-item-body {
+    font-size: 20px;
+  }
+}
+
+.accordion-faq.card details .accordion-faq-item-body a{
+  text-decoration: underline;
+}
+
+main > .section.free-cmms-accordian .default-content-wrapper #faqs-about-fiixs-free-cmms-software{
+  padding: 150px 0 0;
+}
+
+@media(width >= 960px) {
+  main > .section.free-cmms-accordian .default-content-wrapper #faqs-about-fiixs-free-cmms-software{
+    padding: 150px 0 35px;
+  }
+}
+
+main > .section.free-cmms-accordian .default-content-wrapper #get-best-practices-for-evaluating-buying-and-using-cmms-software{
+  padding: 40px 0 60px;
+}
+
+main > .section.free-cmms-accordian .default-content-wrapper{
+  padding: 40px 0 60px;
 }
 
 /* Hide synced image panel below desktop; accordion-only on tablet/mobile. */
@@ -370,4 +430,195 @@ main .section.pf-explore .accordion-faq a.arrow-cta::after {
   background-color: currentcolor;
   vertical-align: middle;
   mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11h12.17l-5.59-5.59L12 4l8 8-8 8-1.41-1.41L16.17 13H4z"/></svg>') right center / 24px 22px no-repeat;
+}
+
+main > .section.pf-resources.accordion-faq-container .accordion-faq.card details {
+  border: 0;
+  border-bottom: 1px dotted #58595b;
+  padding: 20px 0;
+  margin: 0;
+  background-color: transparent;
+}
+
+main > .section.pf-resources.accordion-faq-container .accordion-faq.card details[open] {
+  border-bottom: 0;
+  padding: 40px;
+  margin: -2px 0 0;
+  background-color: #fff;
+  box-shadow: 3px 3px 25px rgb(0 0 0 / 12%);
+}
+
+main > .section.pf-resources.accordion-faq-container .accordion-faq.card details summary {
+  padding: 0 46px 0 0;
+}
+
+main
+  > .section.pf-resources.accordion-faq-container
+  .accordion-faq.card
+  details
+  summary
+  h3 {
+  max-width: 96%;
+  padding: 0 40px;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: normal;
+}
+
+main
+  > .section.pf-resources.accordion-faq-container
+  .accordion-faq.card
+  details[open]
+  summary
+  h3 {
+  max-width: none;
+  padding: 0 0 20px;
+}
+
+/* Restore cyan +/- (card variant replaces these with a grey chevron). */
+main
+  > .section.pf-resources.accordion-faq-container
+  .accordion-faq.card
+  details
+  summary::before,
+main
+  > .section.pf-resources.accordion-faq-container
+  .accordion-faq.card
+  details
+  summary::after {
+  content: "";
+  display: block;
+  position: absolute;
+  right: 4px;
+  top: 50%;
+  border: 0;
+  background-color: #00afeb;
+  transform: translateY(-50%);
+}
+
+main
+  > .section.pf-resources.accordion-faq-container
+  .accordion-faq.card
+  details
+  summary::after {
+  width: 14px;
+  height: 2px;
+}
+
+main
+  > .section.pf-resources.accordion-faq-container
+  .accordion-faq.card
+  details
+  summary::before {
+  right: 10px;
+  width: 2px;
+  height: 14px;
+  transition: opacity 0.2s;
+}
+
+main
+  > .section.pf-resources.accordion-faq-container
+  .accordion-faq.card
+  details[open]
+  summary::before {
+  opacity: 0;
+}
+
+main
+  > .section.pf-resources.accordion-faq-container
+  .accordion-faq.card
+  details
+  .accordion-faq-item-body {
+  padding: 0;
+  font-size: 20px;
+  font-weight: 300;
+  line-height: normal;
+}
+
+main
+  > .section.pf-resources.accordion-faq-container
+  .accordion-faq.card
+  details
+  .accordion-faq-item-body
+  p {
+  margin: 0 0 20px;
+  font-size: 14px;
+  font-weight: 300;
+  line-height: normal;
+}
+
+main
+  > .section.pf-resources.accordion-faq-container
+  .accordion-faq.card
+  details
+  .accordion-faq-item-body
+  ol,
+main
+  > .section.pf-resources.accordion-faq-container
+  .accordion-faq.card
+  details
+  .accordion-faq-item-body
+  ul {
+  margin: 0 0 20px 20px;
+  padding: 0;
+}
+
+main
+  > .section.pf-resources.accordion-faq-container
+  .accordion-faq.card
+  details
+  .accordion-faq-item-body
+  ol:last-child,
+main
+  > .section.pf-resources.accordion-faq-container
+  .accordion-faq.card
+  details
+  .accordion-faq-item-body
+  ul:last-child,
+main
+  > .section.pf-resources.accordion-faq-container
+  .accordion-faq.card
+  details
+  .accordion-faq-item-body
+  > :last-child {
+  margin-bottom: 0;
+}
+
+main
+  > .section.pf-resources.accordion-faq-container
+  .accordion-faq.card
+  details
+  .accordion-faq-item-body
+  li {
+  margin: 0 0 10px;
+  padding: 0 20px 0 0;
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 1.7;
+}
+
+main
+  > .section.pf-resources.accordion-faq-container
+  .accordion-faq.card
+  details
+  .accordion-faq-item-body
+  li:last-child {
+  margin-bottom: 0;
+}
+
+@media (width >= 768px) {
+  main
+    > .section.pf-resources.accordion-faq-container
+    .accordion-faq.card
+    details
+    .accordion-faq-item-body
+    p,
+  main
+    > .section.pf-resources.accordion-faq-container
+    .accordion-faq.card
+    details
+    .accordion-faq-item-body
+    li {
+    font-size: 20px;
+  }
 }
