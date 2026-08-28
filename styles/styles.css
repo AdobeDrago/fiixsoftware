@@ -4350,9 +4350,10 @@ main
     margin-top: 0;
 }
 
-/* ---- pf-final-cta: centered "Ready to see more?" heading + paragraph
-   + two buttons (Book a demo / Take a free tour). The two links are
-   authored as a bulleted list. Production H2 48/700 centered. ---- */
+/* ---- pf-final-cta: centered "Ready to see more?" / "Ready to get started?"
+   heading + paragraph + CTA links authored as a bulleted list.
+   One link (free-cmms) = cyan fill; two links = green + cyan outline.
+   Production H2 48/700 centered. ---- */
 main > .section.pf-final-cta {
     margin: 0;
     padding: 100px 0 0;
@@ -4451,12 +4452,15 @@ main > .section.pf-final-cta .default-content-wrapper ul li {
     margin: 0;
 }
 
+/* Shared pill chrome for CTA links (production .home-seemore).
+   width/height match production content-box sizing — do not use border-box
+   here or padding+border shrink the text area and truncate labels. */
 main > .section.pf-final-cta .default-content-wrapper ul a:any-link {
     display: inline-block;
     padding: 0 22px;
-    border: 2px solid #20a51e;
+    border: 2px solid #00afeb;
     border-radius: 27px;
-    background-color: #20a51e;
+    background-color: #00afeb;
     color: #fff;
     font-size: 20px;
     font-weight: 700;
@@ -4465,20 +4469,88 @@ main > .section.pf-final-cta .default-content-wrapper ul a:any-link {
     margin-bottom: 20px;
     height: 53px;
     width: 165px;
+    text-align: center;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s;
 }
 
-/* second link ("Take a free tour") = cyan outlined pill */
+main > .section.pf-final-cta.cloud-page .default-content-wrapper ul li a:any-link {
+    background: #14499a;
+    border-color: #14499a;
+    color: #fff;
+    text-decoration: none;
+}
+
+/* Single-link CTA (e.g. free-cmms "Get started"): cyan fill → outline on hover.
+   :only-child so a lone link is not styled as the two-button "last" outline. */
+main > .section.pf-final-cta .default-content-wrapper ul li:only-child a:any-link:hover,
+main > .section.pf-final-cta .default-content-wrapper ul li:only-child a:any-link:focus-visible {
+    background-color: #fff;
+    border-color: #00afeb;
+    color: #00afeb;
+    text-decoration: none;
+}
+
+/* Two-button row: first link ("Book a demo") = green fill */
 main
     > .section.pf-final-cta
     .default-content-wrapper
     ul
-    li:last-child
+    li:first-child:not(:only-child)
+    a:any-link {
+    border-color: #20a51e;
+    background-color: #20a51e;
+    color: #fff;
+}
+
+main
+    > .section.pf-final-cta
+    .default-content-wrapper
+    ul
+    li:first-child:not(:only-child)
+    a:any-link:hover,
+main
+    > .section.pf-final-cta
+    .default-content-wrapper
+    ul
+    li:first-child:not(:only-child)
+    a:any-link:focus-visible {
+    background-color: #1a8418;
+    border-color: #1a8418;
+    color: #fff;
+    text-decoration: none;
+}
+
+/* Two-button row: second link ("Take a free tour") = cyan outlined pill */
+main
+    > .section.pf-final-cta
+    .default-content-wrapper
+    ul
+    li:last-child:not(:only-child)
     a:any-link {
     padding: 0 20px;
     border-color: #00afeb;
     background-color: #fff;
     color: #00afeb;
-    font-weight: 700;
+}
+
+main
+    > .section.pf-final-cta
+    .default-content-wrapper
+    ul
+    li:last-child:not(:only-child)
+    a:any-link:hover,
+main
+    > .section.pf-final-cta
+    .default-content-wrapper
+    ul
+    li:last-child:not(:only-child)
+    a:any-link:focus-visible {
+    background-color: #00afeb;
+    border-color: #00afeb;
+    color: #fff;
+    text-decoration: none;
 }
 
 @media (width >= 960px) {
@@ -6649,11 +6721,4 @@ main .section.logos.highlight.homepage .default-content-wrapper h2 {
     font-size: 20px;
     line-height: 22px;
     text-align: center;
-}
-
-main > .section.pf-final-cta.cloud-page .default-content-wrapper ul li a:any-link{
-    background: #14499a;
-    border-color: #14499a;
-    color: #fff;
-    text-decoration: none;
 }
