@@ -274,7 +274,10 @@ function buildBlogArticleBlocks(main) {
 
   const bands = [...main.querySelectorAll(':scope > div.blog-cta, :scope > div.blog-promo')];
   if (bands.length) {
-    bands[Math.floor(Math.random() * bands.length)].classList.add('cta-selected');
+    // production keeps freeTour* hidden by default and shows `.modern_cta`
+    // (guide) when authored; prefer the guide promo band when present
+    const preferred = bands.find((band) => band.classList.contains('blog-promo')) || bands[0];
+    preferred.classList.add('cta-selected');
   }
 }
 
@@ -395,6 +398,26 @@ function decorateBlogHeader(main) {
 }
 
 /**
+ * Wraps the academy + recent-posts sections in one container so they share
+ * the live site's centered page-wrap margins on tablet/desktop.
+ * @param {Element} main The main container element
+ */
+function decorateBlogListingWrap(main) {
+  if (main.querySelector(':scope > .blog-listing-wrap')) return;
+  const academy = main.querySelector(':scope > .section.blog-academy');
+  const recent = main.querySelector(':scope > .section.blog-recent');
+  if (!academy || !recent) return;
+
+  const wrap = document.createElement('div');
+  wrap.className = 'blog-listing-wrap';
+  const inner = document.createElement('div');
+  inner.className = 'blog-listing-wrap-inner';
+  academy.before(wrap);
+  wrap.append(inner);
+  inner.append(academy, recent);
+}
+
+/**
  * Inserts a padded spacer after pf-final-cta (above the footer) to match
  * production's empty VC row (padding 50px 0 70px) at all breakpoints.
  * Drops authored empty trailing sections that only add dead margin.
@@ -461,6 +484,29 @@ function decorateOptixTogether(main) {
 }
 
 /**
+ * Optix Pricing: apply authored section-metadata `nut-image` / `bolt-image` as
+ * CSS custom properties on the card so ::before / ::after can paint the décor
+ * (same role as live `#optixLP .pricing-req` pseudos).
+ * @param {Element} main The main container element
+ */
+function decorateOptixPricing(main) {
+  main.querySelectorAll('.section.pricing').forEach((section) => {
+    const card = section.querySelector(':scope > .default-content-wrapper');
+    if (!card) return;
+
+    const { nutImage, boltImage } = section.dataset;
+    if (nutImage) {
+      const bg = toSectionBackgroundImage(nutImage);
+      if (bg) card.style.setProperty('--pricing-nut-image', bg);
+    }
+    if (boltImage) {
+      const bg = toSectionBackgroundImage(boltImage);
+      if (bg) card.style.setProperty('--pricing-bolt-image', bg);
+    }
+  });
+}
+
+/**
  * Optix Getting Started: move authored section backgrounds onto `.hero-cta`
  * (live paints the banner on the card, not full-bleed).
  * Uses `background-image` (desktop) and optional `background-image-mobile`.
@@ -508,6 +554,38 @@ function decorateOptixGetStarted(main) {
 }
 
 /**
+ * Wraps each icon-paragraph + h3 pair in the security section into a
+ * .security-feature div, then collects all features into one .security-features row.
+ * @param {Element} main The main element
+ */
+function decorateSecuritySection(main) {
+  const section = main.querySelector('.section.security');
+  if (!section) return;
+  const wrapper = section.querySelector('.default-content-wrapper');
+  if (!wrapper) return;
+
+  const iconPs = [...wrapper.querySelectorAll(':scope > p')].filter((p) => p.querySelector('picture'));
+  if (!iconPs.length) return;
+
+  const featuresRow = document.createElement('div');
+  featuresRow.className = 'security-features';
+
+  iconPs.forEach((iconP) => {
+    const heading = iconP.nextElementSibling;
+    if (!heading || heading.tagName !== 'H3') return;
+    const feature = document.createElement('div');
+    feature.className = 'security-feature';
+    feature.appendChild(iconP);
+    feature.appendChild(heading);
+    featuresRow.appendChild(feature);
+  });
+
+  const ctaP = wrapper.querySelector(':scope > p:has(a)');
+  wrapper.insertBefore(featuresRow, ctaP || null);
+  section.classList.add('homepage');
+}
+
+/**
  * Decorates the main element.
  * @param {Element} main The main element
  */
@@ -523,9 +601,12 @@ export function decorateMain(main) {
   decorateButtons(main);
   decorateCtaLinks(main);
   decorateBlogHeader(main);
+  decorateBlogListingWrap(main);
   decoratePfFinalCta(main);
   decorateOptixTogether(main);
   decorateOptixGetStarted(main);
+  decorateOptixPricing(main);
+  decorateSecuritySection(main);
 }
 
 /**

@@ -461,6 +461,19 @@ function decorateIconRows(column) {
 }
 
 /**
+ * Marks the lead content image (source `.key-image`) so it can take the
+ * production `margin: 40px 0 60px` rather than the default content-image gap.
+ * @param {Element} column The reading column
+ */
+function decorateKeyImage(column) {
+  const picture = [...column.querySelectorAll(':scope > p > picture')]
+    .find((pic) => !pic.closest('.blog-body-icon-row')
+      && !pic.classList.contains('blog-body-inline-image')
+      && !pic.classList.contains('blog-body-logo'));
+  if (picture) picture.classList.add('blog-body-key-image');
+}
+
+/**
  * Adds the reading progress bar and keeps it in step with the scroll position.
  * @param {Element} block The block element
  */
@@ -509,6 +522,7 @@ export default function decorate(block) {
   decorateShutdownChecklist(column);
   decorateInlineImages(column);
   decorateIconRows(column);
+  decorateKeyImage(column);
   decorateRail(layout, column);
   hideNewTabLabels(block);
   addReadingProgress(block);

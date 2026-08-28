@@ -26,6 +26,30 @@
   object-fit: cover;
 }
 
+main > .section.grey.centre .cta-link,
+main > .section.padding-xlarge.centre .cta-link{
+  max-width: 250px;
+}
+
+main > .section.grey.centre .cta-link::after,
+main > .section.padding-xlarge.centre .cta-link::after{
+  left: -10px;
+  position: relative;
+}
+
+@media (width >= 1200px) {
+  main > .section.grey.centre .cta-link,
+  main > .section.padding-xlarge.centre .cta-link{
+  max-width: none;
+}
+
+  main > .section.grey.centre .cta-link::after,
+  main > .section.padding-xlarge.centre .cta-link::after{
+    left: -5px;
+    position: relative;
+  }
+}
+
 /* ============================================================
    `points` variant — feature-point rows (from the columns-media .plan-points on
    the cloud page). The image cell holds either an authorable EDS icon token
@@ -42,12 +66,24 @@
    ============================================================ */
 
 /* stylelint-disable no-descending-specificity */
+
+/* Mobile-first base: stacked column. Tablet/desktop override below. */
 .cards-icon.points > ul {
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 0;
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
 .cards-icon.points > ul > li {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 280px;
+  margin-bottom: 30px;
   border: 0;
   background: none;
 }
@@ -133,29 +169,46 @@
 
 main .cards-icon.points.padding-medium {
   margin-bottom: 80px;
+  padding-top: 0;
+  padding-bottom: 0;
 }
 
-@media (width >= 960px) {
-  main .cards-icon.points.padding-medium {
-    padding-top: 0;
-    padding-bottom: 0;
-  }
-
+/* Tablet+: grid. Desktop switches to flex below. */
+@media (width >= 768px) {
   .cards-icon.points .cards-icon-card-body p {
-    line-height: 28px !important;
+    font-size: 20px;
+    line-height: 28px;
   }
 
-  /* Match production .plan-points (desktop) */
+  .cards-icon.points > ul {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 40px 0;
+    padding: 0 20px;
+    justify-content: space-between;
+    align-items: stretch;
+  }
+
+  .cards-icon.points > ul > li {
+    width: auto;
+    max-width: 300px;
+    min-width: 0;
+    margin-bottom: 0;
+  }
+}
+
+/* Desktop: single non-wrapping row (production .plan-points). */
+@media (width >= 960px) {
   .cards-icon.points > ul {
     display: flex;
     flex-flow: row nowrap;
     justify-content: space-between;
     gap: 0;
+    padding: 0;
   }
 
   .cards-icon.points > ul > li {
     flex: 0 1 auto;
-    width: auto;
     max-width: 280px;
   }
 
@@ -165,54 +218,3 @@ main .cards-icon.points.padding-medium {
   }
 }
 
-/* Match production .plan-points (tablet): wrap + space-evenly
-   (3 across, 4th centers on the next row) */
-@media (width >= 768px) and (width < 960px) {
-  main .cards-icon.points.padding-medium {
-    padding-top: 0;
-    padding-bottom: 0;
-  }
-
-  .cards-icon.points .cards-icon-card-body p {
-    font-size: 20px;
-    line-height: 28px !important;
-  }
-
-  .cards-icon.points > ul {
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: space-evenly;
-    gap: 40px 0;
-  }
-
-  .cards-icon.points > ul > li {
-    box-sizing: border-box;
-    flex: 0 1 auto;
-    width: auto;
-    max-width: 220px;
-    min-width: 0;
-  }
-}
-
-@media (width < 768px) {
-  main .cards-icon.points.padding-medium {
-    margin-bottom: 80px;
-    padding-top: 0;
-    padding-bottom: 0;
-  }
-
-  .cards-icon.points > ul {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 0;
-  }
-
-  .cards-icon.points > ul > li {
-    box-sizing: border-box;
-    width: 100%;
-    max-width: 280px;
-    margin-bottom: 30px;
-  }
-}

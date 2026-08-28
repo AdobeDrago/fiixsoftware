@@ -342,7 +342,9 @@ main > .section.cards-testimonial-container:has(.cards-testimonial.plain)::after
   display: none;
 }
 
-/* "Read more" button — navy pill, matching source (#14499a, 20px/700, r27). */
+/* "Read more" button — navy pill, matching source (#14499a, 20px/700, r27).
+   Explicit [hidden] rule needed: display:block above would otherwise override
+   the UA [hidden] { display:none } once JS sets button.hidden after reveal. */
 .cards-testimonial.plain .cards-testimonial-more {
   display: block;
   margin: 60px auto 20px;
@@ -355,6 +357,10 @@ main > .section.cards-testimonial-container:has(.cards-testimonial.plain)::after
   font-weight: 700;
   line-height: 1.2;
   cursor: pointer;
+}
+
+.cards-testimonial.plain .cards-testimonial-more[hidden] {
+  display: none;
 }
 
 .cards-testimonial.plain .cards-testimonial-more:hover {

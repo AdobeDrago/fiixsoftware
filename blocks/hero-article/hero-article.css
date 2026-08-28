@@ -210,6 +210,8 @@ main > .section.hero-article-container > div.hero-article-wrapper {
   }
 
   .hero-article-meta {
+    box-sizing: border-box;
+    width: 100%;
     padding: 15px 50px 0 60px;
   }
 

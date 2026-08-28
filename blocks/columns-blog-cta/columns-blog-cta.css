@@ -18,7 +18,7 @@
 
 /* the guide promo band (production .modern_cta) is navy rather than light grey */
 .columns-blog-cta.promo {
-  background-color: #244f86;
+  background-color: #3069b3;
 }
 
 /* image: production dashboard screenshot */
@@ -69,6 +69,20 @@
   height: auto;
 }
 
+/* source `.modern_cta figure { width: 260px }` on mobile — ebook cover, not
+   the dashboard crop */
+.columns-blog-cta.promo > div > .columns-blog-cta-img-col {
+  order: 1;
+  padding: 0 0 40px;
+}
+
+.columns-blog-cta.promo > div > .columns-blog-cta-img-col picture,
+.columns-blog-cta.promo > div > .columns-blog-cta-img-col img {
+  width: 260px;
+  max-width: 100%;
+  transform: none;
+}
+
 /* heading */
 .columns-blog-cta h3 {
   margin: 0;
@@ -77,6 +91,11 @@
   font-weight: 700;
   line-height: 1.1;
   color: var(--text-color);
+}
+
+/* source `.modern_cta .cta_message h3 { font-weight: 400 }` */
+.columns-blog-cta.promo h3 {
+  font-weight: 400;
 }
 
 /* supporting copy — only the first p ("No problem…") gets the 10px top gap */
@@ -124,6 +143,12 @@
   text-decoration: none;
 }
 
+/* source `.modern_cta .cta_message a { margin-top: 40px }` */
+.columns-blog-cta.promo a.button:any-link,
+.columns-blog-cta.promo a:any-link {
+  margin: 40px 0 20px;
+}
+
 /* --- tablet + desktop: image bleeds left, white card floats over the right
    (source `.blog-ctas .cta_message` keeps this overlay until max-width 768px) --- */
 @media (width >= 768px) {
@@ -136,15 +161,17 @@
     overflow: visible;
   }
 
-  /* the row is just a positioning context stub — its children (image + card)
-     are taken out of flow and anchored to the band (which is position:relative
-     and full-bleed, so offsets are relative to the viewport edges, matching
-     production's absolute geometry exactly). */
+  /* the row is the positioning context for its children (image + card): capped
+     and centered at the site's global content max-width (1200px, see
+     styles.css) so the two absolutely-positioned children stay pinned to each
+     other on ultra-wide viewports. The band itself still bleeds full-bleed for
+     its background color — only the content geometry is capped. */
   .columns-blog-cta > div {
-    position: static;
+    position: relative;
     display: block;
-    max-width: none;
-    margin: 0;
+    height: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
     padding: 0;
   }
 
@@ -200,9 +227,42 @@
     width: 650px;
   }
 
+  /* override the mobile 260px — this selector must match or beat the mobile .promo rule */
+  .columns-blog-cta.promo > div > .columns-blog-cta-img-col picture,
+  .columns-blog-cta.promo > div > .columns-blog-cta-img-col img {
+    width: 100%;
+    max-width: none;
+    height: auto;
+  }
+
   .columns-blog-cta.promo > div > div:not(.columns-blog-cta-img-col) {
+    right: 0;
     width: 525px;
     max-width: 525px;
     min-height: 400px;
+  }
+}
+
+@media (width >= 960px) {
+  .columns-blog-cta.promo > div > .columns-blog-cta-img-col {
+    inset: 100px auto 0 15%;
+    width: 700px;
+  }
+
+  .columns-blog-cta.promo > div > div:not(.columns-blog-cta-img-col) {
+    width: 540px;
+    max-width: 540px;
+  }
+}
+
+@media (width >= 1200px) {
+  .columns-blog-cta.promo > div > .columns-blog-cta-img-col {
+    inset: 80px auto 0 10%;
+    width: 750px;
+  }
+
+  .columns-blog-cta.promo > div > div:not(.columns-blog-cta-img-col) {
+    width: 560px;
+    max-width: 560px;
   }
 }

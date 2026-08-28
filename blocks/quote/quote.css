@@ -30,8 +30,15 @@
 }
 
 .quote .quote-text p {
+  font-size: 18px;
   margin: 0;
-  font: inherit;
+  padding: 0 10px;
+}
+
+@media (width >= 768px) { 
+  .quote .quote-text p {
+    font-size: 24px;
+  }
 }
 
 .quote .quote-attribution {
@@ -195,6 +202,16 @@
   .quote.wrap .quote-attribution p + p {
     font-size: 20px;
   }
+}
+
+.quote-container img[alt="location-icon"] {
+  max-width: 25px;
+  max-height: 25px;
+  position: absolute;
+}
+
+.quote-container blockquote {
+  padding-bottom: 30px;
 }
 
 /* Prefer quote(wrap) over a leftover default-content blockquote in the same section */

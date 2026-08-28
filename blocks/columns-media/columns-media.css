@@ -732,32 +732,35 @@ main
     line-height: normal !important;
 }
 
-/* Mobile: text above image (production .plan-track column-reverse). */
-@media (width < 768px) {
-    main .columns-media.feature.padding-medium {
-        margin-top: 30px;
-        padding-top: 0;
-        padding-bottom: 0;
-    }
-
-    .columns-media.feature .columns-media-text-col {
-        margin-left: 20px;
-    }
-
-    .columns-media.feature .columns-media-img-col {
-        margin-top: 30px;
-        margin-bottom: 30px;
-    }
-
-    .columns-media.feature > div {
-        flex-direction: column-reverse;
-    }
-
-    .columns-media.feature > div > div,
-    .columns-media.feature > div > .columns-media-img-col {
-        order: unset;
-    }
+/* Mobile: text above image (production .plan-track column-reverse).
+   Tablet+ overrides below.
+   Feature selectors intentionally follow accent variants; disable descending
+   specificity the same way the vidyard/info-flex variations do. */
+/* stylelint-disable no-descending-specificity */
+main .columns-media.feature.padding-medium {
+    margin-top: 30px;
+    padding-top: 0;
+    padding-bottom: 0;
 }
+
+.columns-media.feature .columns-media-text-col {
+    margin-left: 20px;
+}
+
+.columns-media.feature .columns-media-img-col {
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.columns-media.feature > div {
+    flex-direction: column-reverse;
+}
+
+.columns-media.feature > div > div,
+.columns-media.feature > div > .columns-media-img-col {
+    order: unset;
+}
+/* stylelint-enable no-descending-specificity */
 
 @media (width >= 768px) {
     main .columns-media.feature.padding-medium {
@@ -768,14 +771,14 @@ main
     }
 
     .columns-media.feature > div {
+        flex-direction: row;
         align-items: flex-start;
         gap: 0;
     }
-}
 
-@media (width >= 768px) and (width < 960px) {
-    .columns-media.feature .columns-media-text-col {
-        margin-left: 20px;
+    .columns-media.feature .columns-media-img-col {
+        margin-top: 0;
+        margin-bottom: 0;
     }
 }
 
@@ -784,9 +787,13 @@ main
         font-size: 16px;
     }
 
+    .columns-media.feature .columns-media-text-col {
+        margin-left: 0;
+    }
+
     /* Match production .plan-track: content-sized columns with even free space. */
     .columns-media.feature > div {
-        justify-content: space-evenly;
+        justify-content: space-between;
     }
 
     .columns-media.feature > div > div {
@@ -851,6 +858,7 @@ main
 
 div.columns-media.info-flex > div {
     gap: 0;
+    flex-direction: column-reverse;
 }
 
 /* Cancel default mobile image-first order; column-reverse matches production. */
@@ -929,28 +937,16 @@ div.columns-media.info-flex > div > .columns-media-img-col {
     opacity: 0.92;
 }
 
-/* Mobile / tablet: graphic above white card (production column-reverse) */
-@media (width < 768px) {
-    div.columns-media.info-flex > div {
-        flex-direction: column-reverse;
-    }
-
-    .columns-media.info-flex .columns-media-info-text,
-    .columns-media.info-flex .columns-media-img-col,
-    .columns-media.info-flex .columns-media-img-col img {
-        width: 100%;
-    }
-}
-
-@media (width >= 768px) {
-    .columns-media.info-flex .columns-media-info-text {
-        padding: 40px 50px;
-    }
+.columns-media.info-flex .columns-media-info-text,
+.columns-media.info-flex .columns-media-img-col,
+.columns-media.info-flex .columns-media-img-col img {
+    width: 100%;
 }
 
 @media (width >= 768px) {
     /* Beat equal-flex defaults and section gap overrides for this variation only */
     main div.columns-media.info-flex > div {
+        flex-direction: row;
         align-items: center;
         gap: 0;
     }
@@ -959,6 +955,7 @@ div.columns-media.info-flex > div > .columns-media-img-col {
         flex: 0 0 60%;
         width: 60%;
         max-width: 60%;
+        padding: 40px 50px;
     }
 
     .columns-media.info-flex .columns-media-img-col {
@@ -1221,17 +1218,6 @@ main > .section.optix-hero .columns-media > div > .columns-media-img-col .column
     right: -42px;
     top: -38px;
     position: absolute;
-}
-
-@media (width < 370px) {
-    main > .section.optix-hero .columns-media > div > .columns-media-img-col .columns-media-img-1 img {
-        top: 60px;
-        width: 220px;
-    }
-
-    main > .section.optix-hero .columns-media > div > .columns-media-img-col .columns-media-img-2 {
-        top: 0;
-    }
 }
 
 @media (width >= 768px) {
