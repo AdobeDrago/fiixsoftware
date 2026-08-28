@@ -10,7 +10,9 @@
 /* the band bleeds to the page edges, so opt out of the section's centred, padded
    wrapper rather than reaching past it with viewport units, which overshoot by
    the width of the scrollbar */
-main > .section.hero-article-container > .hero-article-wrapper {
+
+/* beat global `main > .section > div` gutters so the band stays full-bleed */
+main > .section.hero-article-container > div.hero-article-wrapper {
   max-width: none;
   margin: 0;
   padding: 0;
@@ -18,6 +20,8 @@ main > .section.hero-article-container > .hero-article-wrapper {
 
 .hero-article {
   position: relative;
+
+  /* source ≤768px: `.entry-header-image { height: 650px }` (DevTools 414×650) */
   height: 650px;
   padding: 0;
   background-color: #e1e1e1;
@@ -34,6 +38,7 @@ main > .section.hero-article-container > .hero-article-wrapper {
   display: block;
 }
 
+/* source ≤420px: background-size 700px; background-position: right 0 bottom 340px */
 .hero-article-image img {
   position: absolute;
   right: 0;
@@ -43,23 +48,34 @@ main > .section.hero-article-container > .hero-article-wrapper {
   height: auto;
 }
 
+/* source ≤768px: `.entry-box { top: unset; bottom: 0 }` — card sits on the
+   band bottom; date/title stay on white below the graphic */
 .hero-article-card {
   position: absolute;
-  top: 250px;
+  top: unset;
+  bottom: 0;
   left: 0;
   right: 0;
   box-sizing: border-box;
   display: flex;
-  align-items: center;
-  min-height: 400px;
-  padding: 0 0 0 16px;
+  align-items: flex-start;
+  min-height: 0;
+  margin: 0;
+  padding: 0;
   background-color: #fff;
   box-shadow: 3px 3px 25px rgb(0 0 0 / 12%);
 }
 
+/* full-width shell around meta so content can keep its own gutters */
+.hero-article-card-inner {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0 20px;
+}
+
 .hero-article-meta {
   width: 100%;
-  padding: 20px 20px 10px 0;
+  padding: 20px 20px 10px 8px;
 }
 
 /* publish date + read time share a row ("January 6, 2025  | 1 min read") */
@@ -113,8 +129,8 @@ main > .section.hero-article-container > .hero-article-wrapper {
 
 /* "Back to blog" — bold dark-blue link with the arrow hanging to its left */
 .hero-article-meta > p:last-child {
-  margin: 0;
-  padding-left: 30px;
+  margin: 0 0 40px 25px;
+  padding-left: 0;
   font-size: 20px;
 }
 
@@ -132,6 +148,7 @@ main > .section.hero-article-container > .hero-article-wrapper {
   left: -30px;
   width: 20px;
   height: 20px;
+  padding-left: 5px;
   transform: translateY(-50%);
   background-color: #14499a;
   mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg>') no-repeat center / contain;
@@ -156,32 +173,52 @@ main > .section.hero-article-container > .hero-article-wrapper {
   box-shadow: none;
 }
 
-/* the source keeps the card full-width through 768px itself and only narrows
-   it to the fixed overhanging card starting at 769px, so this is one pixel
-   past the project's 768px tablet tier rather than at it */
-@media (width > 768px) {
-  /* the source slides the band 190px up behind the fixed nav, then lets the
-     card overhang the band's bottom edge; the bottom margin reserves that
-     overhang so the article clears the card by the same 10px as the source */
+@media (width >= 768px) {
+  /* the source slides the band 190px up behind the fixed nav, then pins the
+     card with bottom (not top) so the band always meets the card just above
+     "Back to blog" — same as production .entry-box { bottom: -190px }. The
+     bottom margin reserves that overhang so the article clears the card. */
   .hero-article {
+    height: 650px;
     margin-top: -190px;
     margin-bottom: 200px;
+    overflow: visible;
+  }
+
+  .hero-article-image {
+    top: 0;
   }
 
   .hero-article-image img {
+    right: 0;
     bottom: 0;
     width: 1150px;
   }
 
   .hero-article-card {
-    top: 340px;
+    top: auto;
     right: auto;
-    width: 650px;
-    min-height: 500px;
+    bottom: -190px;
+
+    /* source `.entry-box { width: 550px; min-height: 400px }` uses content-box,
+       so the white card paints ~650px wide while `.meta-details` stays 550px */
+    box-sizing: content-box;
+    width: 550px;
+    min-height: 400px;
+    margin: 0;
     padding: 50px;
+    align-items: center;
+  }
+
+  .hero-article-card-inner {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 0;
   }
 
   .hero-article-meta {
+    box-sizing: border-box;
+    width: 100%;
     padding: 15px 50px 0 60px;
   }
 
@@ -195,12 +232,14 @@ main > .section.hero-article-container > .hero-article-wrapper {
 }
 
 @media (width >= 1200px) {
-  /* the source stops pinning the card to the band's left edge past 1440px and
-     floats it in from 10% of the viewport instead, overhanging the band by
-     125px (rather than 190px); pulled forward to the project's 1200px desktop
-     breakpoint to keep the block on the shared 768/960/1200 scale */
+  /* source .entry-box { bottom: -125px; left: 10% } past 1440px; pulled
+     forward to the project's 1200px desktop breakpoint */
   .hero-article-card {
-    top: 275px;
+    bottom: -125px;
     left: 10%;
+  }
+
+  .hero-article {
+    margin-bottom: 135px;
   }
 }

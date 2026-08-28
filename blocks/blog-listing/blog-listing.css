@@ -121,6 +121,12 @@
   list-style: none;
 }
 
+/* category archives hide the search/category toolbar — drop the results
+   offset so spacing comes only from the "Latest from …" title margins */
+.blog-listing:has(.blog-listing-toolbar[hidden]) .blog-listing-results {
+  margin-top: 0;
+}
+
 /* the source's card is a plain grey tile — no border, the art shown at its
    authored ratio (not cropped), and dark copy under it rather than a link */
 .blog-listing .blog-listing-card {

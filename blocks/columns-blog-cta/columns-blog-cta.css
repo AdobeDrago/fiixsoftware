@@ -3,30 +3,32 @@
    band (#e1e1e1) with a large product screenshot bleeding to the left viewport
    edge and a white, soft-shadowed card floating over the right side (heading,
    supporting copy, cyan "Free tour" pill). Values from source computed styles
-   at 1440px. Mobile stacks the image above a white content card. */
+   at 1440px. Below 768px stacks the image above a white content card. */
 
-/* full-bleed light-gray band */
+/* full-bleed light-gray band — keep overflow visible on mobile so the card
+   box-shadow isn't clipped at the top edge */
 .columns-blog-cta {
   position: relative;
   width: 100vw;
   margin-left: calc(50% - 50vw);
   padding: 0;
   background-color: #e1e1e1;
-  overflow: hidden;
+  overflow: visible;
 }
 
 /* the guide promo band (production .modern_cta) is navy rather than light grey */
 .columns-blog-cta.promo {
-  background-color: #244f86;
+  background-color: #3069b3;
 }
 
 /* image: production dashboard screenshot */
 .columns-blog-cta img {
   display: block;
   width: 100%;
+  height: auto;
 }
 
-/* --- mobile: stacked (image on top, white card below) --- */
+/* --- mobile: stacked (white card first, image second) --- */
 .columns-blog-cta > div {
   display: flex;
   flex-direction: column;
@@ -35,49 +37,91 @@
 /* text/card cell — the image cell is excluded rather than reset, so the card
    geometry can never leak into the image's own layout */
 .columns-blog-cta > div > div:not(.columns-blog-cta-img-col) {
-  order: 1;
-  margin: 0 16px 40px;
-  padding: 40px 24px;
+  order: 0;
+  margin: 0 0 40px;
+  padding: 20px;
   background-color: #fff;
   box-shadow: 3px 3px 25px rgb(0 0 0 / 12%);
 }
 
-/* image cell stays edge to edge above that card */
+/* source ≤500px: `.freeTour2_cta figure { width: 460px; margin: 0 auto }` —
+   slightly wider than the phone; nudged right so the crop matches production */
+.columns-blog-cta > div > .columns-blog-cta-img-col {
+  order: 1;
+  display: block;
+  width: 100%;
+  overflow: visible;
+  text-align: center;
+}
+
+.columns-blog-cta > div > .columns-blog-cta-img-col picture {
+  display: inline-block;
+  width: 460px;
+  max-width: none;
+  margin: 0 auto;
+  transform: translateX(24px);
+}
+
 .columns-blog-cta > div > .columns-blog-cta-img-col img {
-  height: 100%;
-  object-fit: cover;
+  display: block;
+  width: 460px;
+  max-width: none;
+  height: auto;
+}
+
+/* source `.modern_cta figure { width: 260px }` on mobile — ebook cover, not
+   the dashboard crop */
+.columns-blog-cta.promo > div > .columns-blog-cta-img-col {
+  order: 1;
+  padding: 0 0 40px;
+}
+
+.columns-blog-cta.promo > div > .columns-blog-cta-img-col picture,
+.columns-blog-cta.promo > div > .columns-blog-cta-img-col img {
+  width: 260px;
+  max-width: 100%;
+  transform: none;
 }
 
 /* heading */
 .columns-blog-cta h3 {
   margin: 0;
   font-family: var(--heading-font-family);
-  font-size: 32px;
+  font-size: 30px;
   font-weight: 700;
   line-height: 1.1;
   color: var(--text-color);
 }
 
-/* supporting copy */
+/* source `.modern_cta .cta_message h3 { font-weight: 400 }` */
+.columns-blog-cta.promo h3 {
+  font-weight: 400;
+}
+
+/* supporting copy — only the first p ("No problem…") gets the 10px top gap */
 .columns-blog-cta p {
-  margin: 10px 0 0;
+  margin: 0;
   font-size: 20px;
   font-weight: 300;
   line-height: normal;
   color: #58595b;
 }
 
+.columns-blog-cta h3 + p {
+  margin: 10px 0 0;
+}
+
 /* CTA button — EDS auto-decorates the standalone <p><a> into a.button.
    Production renders a cyan (#00afeb) pill. */
 .columns-blog-cta p.button-container {
-  margin: 20px 0 0;
+  margin: 0;
 }
 
 .columns-blog-cta a.button:any-link,
 .columns-blog-cta a:any-link {
   display: inline-block;
   min-width: 165px;
-  margin: 0;
+  margin: 20px 0;
   padding: 0 20px;
   text-align: center;
   border: 2px solid #00afeb;
@@ -93,14 +137,21 @@
 
 .columns-blog-cta a.button:any-link:hover,
 .columns-blog-cta a:any-link:hover {
-  border-color: #0098cc;
-  background-color: #0098cc;
+  border-color: #14499a;
+  background-color: #14499a;
   color: #fff;
   text-decoration: none;
 }
 
-/* --- desktop: image bleeds left, white card floats over the right --- */
-@media (width >= 960px) {
+/* source `.modern_cta .cta_message a { margin-top: 40px }` */
+.columns-blog-cta.promo a.button:any-link,
+.columns-blog-cta.promo a:any-link {
+  margin: 40px 0 20px;
+}
+
+/* --- tablet + desktop: image bleeds left, white card floats over the right
+   (source `.blog-ctas .cta_message` keeps this overlay until max-width 768px) --- */
+@media (width >= 768px) {
   /* fixed-height band; the card is allowed to overhang its top edge, so keep
      overflow visible. The image's own wrapper clips separately. */
   .columns-blog-cta {
@@ -110,15 +161,17 @@
     overflow: visible;
   }
 
-  /* the row is just a positioning context stub — its children (image + card)
-     are taken out of flow and anchored to the band (which is position:relative
-     and full-bleed, so offsets are relative to the viewport edges, matching
-     production's absolute geometry exactly). */
+  /* the row is the positioning context for its children (image + card): capped
+     and centered at the site's global content max-width (1200px, see
+     styles.css) so the two absolutely-positioned children stay pinned to each
+     other on ultra-wide viewports. The band itself still bleeds full-bleed for
+     its background color — only the content geometry is capped. */
   .columns-blog-cta > div {
-    position: static;
+    position: relative;
     display: block;
-    max-width: none;
-    margin: 0;
+    height: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
     padding: 0;
   }
 
@@ -129,13 +182,17 @@
   .columns-blog-cta > div > .columns-blog-cta-img-col {
     position: absolute;
     inset: 0 auto 0 0;
+    display: block;
     width: 1000px;
     overflow: hidden;
   }
 
+  .columns-blog-cta > div > .columns-blog-cta-img-col picture,
   .columns-blog-cta > div > .columns-blog-cta-img-col img {
     width: 100%;
+    max-width: none;
     height: auto;
+    transform: none;
   }
 
   /* white card: absolute, inset 15% from the right edge, 500px wide and centred
@@ -170,9 +227,42 @@
     width: 650px;
   }
 
+  /* override the mobile 260px — this selector must match or beat the mobile .promo rule */
+  .columns-blog-cta.promo > div > .columns-blog-cta-img-col picture,
+  .columns-blog-cta.promo > div > .columns-blog-cta-img-col img {
+    width: 100%;
+    max-width: none;
+    height: auto;
+  }
+
   .columns-blog-cta.promo > div > div:not(.columns-blog-cta-img-col) {
+    right: 0;
     width: 525px;
     max-width: 525px;
     min-height: 400px;
+  }
+}
+
+@media (width >= 960px) {
+  .columns-blog-cta.promo > div > .columns-blog-cta-img-col {
+    inset: 100px auto 0 15%;
+    width: 700px;
+  }
+
+  .columns-blog-cta.promo > div > div:not(.columns-blog-cta-img-col) {
+    width: 540px;
+    max-width: 540px;
+  }
+}
+
+@media (width >= 1200px) {
+  .columns-blog-cta.promo > div > .columns-blog-cta-img-col {
+    inset: 80px auto 0 10%;
+    width: 750px;
+  }
+
+  .columns-blog-cta.promo > div > div:not(.columns-blog-cta-img-col) {
+    width: 560px;
+    max-width: 560px;
   }
 }

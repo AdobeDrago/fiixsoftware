@@ -219,17 +219,37 @@ body.blog-article main > .section.blog-promo {
 body.blog-article main > .section.cta-selected {
   display: block;
   margin: 0;
-
-  /* columns-blog-cta bleeds full-bleed with a 100vw band; clip it here so
-     that bleed doesn't stretch the document ~100vw wide and give the whole
-     page a horizontal scrollbar (same pattern used for the other 100vw
-     bleeds in styles.css). */
-  overflow-x: clip;
 }
 
-body.blog-article .section.blog-share .default-content-wrapper {
-  padding-bottom: 100px;
+/* columns-blog-cta bleeds full-bleed with a 100vw band; clip it from tablet
+   up so that bleed doesn't stretch the document. Keep overflow visible on
+   mobile so the card's box-shadow can show. */
+@media (width >= 768px) {
+  body.blog-article main > .section.cta-selected {
+    overflow-x: clip;
+  }
+}
+
+/* mobile: 20px side gutters on the section (source `.blog-share`) */
+body.blog-article main > .section.blog-share {
+  margin: 40px 20px;
+}
+
+body.blog-article main > .section.blog-share > div.default-content-wrapper {
+  margin: 0;
+  padding: 0 0 100px;
   color: #58595b;
+}
+
+@media (width >= 768px) {
+  body.blog-article main > .section.blog-share {
+    margin: 40px 0;
+  }
+
+  body.blog-article main > .section.blog-share > div.default-content-wrapper {
+    margin: 0;
+    padding: 0 0 100px 60px;
+  }
 }
 
 body.blog-article .section.blog-share p,
@@ -308,8 +328,8 @@ body.blog-article .section.blog-share p a:any-link {
 
 /* "Back to blog" — bold, arrow hanging to the left of the label */
 body.blog-article .section.blog-share p:last-of-type {
-  margin: 0;
-  padding-left: 30px;
+  margin: 0 0 20px 25px;
+  padding-left: 0;
   font-size: 20px;
 }
 
@@ -342,10 +362,17 @@ body.blog-article .section.blog-share p:last-of-type a:any-link::before {
     display: grid;
     grid-template-columns: fit-content(664px) 300px;
     justify-content: center;
+    margin: 0;
+    padding: 0 0 100px;
   }
 
   body.blog-article .section.blog-share .default-content-wrapper > * {
     grid-column: 1;
+  }
+
+  body.blog-article .section.blog-share p:last-of-type {
+    margin-left: 25px;
+    padding-left: 0;
   }
 }
 
