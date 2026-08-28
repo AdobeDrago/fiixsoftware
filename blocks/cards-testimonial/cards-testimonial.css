@@ -55,7 +55,9 @@
     color: var(--cards-testimonial-ink);
 }
 
-/* ---- Author ---- */
+/* ---- Author ----
+   `margin-top: auto` pushes the author to the card's bottom edge so the author
+   blocks line up across a row of cards with different quote lengths. */
 .cards-testimonial .cards-testimonial-author {
     margin-top: auto;
 }
@@ -211,6 +213,106 @@ main > .section.pf-testimonials.cards-testimonial-container {
    as "cards-testimonial (plain)" -> .cards-testimonial.plain. Values from
    source (fiixsoftware.com/customers .reviews > li).
    ============================================================ */
+
+/* Source has no outer section margin and a symmetric top/bottom gap (h2's
+   own margin-top + the container's own padding-bottom collapse to the same
+   total either side): 40px below 768px, 80px at 768px and up. The base
+   white-card variant's margin/padding above doesn't apply here. */
+main > .section.cards-testimonial-container:has(.cards-testimonial.plain) {
+  position: relative;
+  margin: 0;
+  padding-top: 40px;
+  padding-bottom: 20px;
+}
+
+/* Heading: larger and centred here, against the base variant's smaller
+   left-aligned one. The heading sits in a sibling wrapper rather than inside
+   the block, so the variant has to be matched on the section via :has(). */
+main
+  > .section.cards-testimonial-container:has(.cards-testimonial.plain)
+  > .default-content-wrapper:first-child
+  h2 {
+  font-size: 32px;
+  margin-top: 0;
+  margin-bottom: 60px;
+  text-align: center;
+}
+
+/* No white card to bottom-align against, so the author follows the quote
+   directly instead of being pushed to the card's foot. */
+.cards-testimonial.plain .cards-testimonial-author {
+  margin-top: 0;
+}
+
+.cards-testimonial.plain .cards-testimonial-name {
+  margin-bottom: 20px;
+  font-weight: 300;
+}
+
+.cards-testimonial.plain .cards-testimonial-role {
+  font-weight: 700;
+}
+
+/* Source's divider sits on the centered .container, well short of the
+   viewport edge (~90% wide on mobile, capped well under 1200px on desktop)
+   -- not full-bleed. A section-level pseudo keeps it decoupled from the
+   content wrapper's own box (which always renders edge-to-edge under its
+   padding), so it can be inset independently. */
+main > .section.cards-testimonial-container:has(.cards-testimonial.plain)::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%);
+  width: calc(100% - 40px);
+  max-width: 1136px;
+  height: 1px;
+  background: #e1e1e1;
+}
+
+@media (width >= 768px) {
+  main > .section.cards-testimonial-container:has(.cards-testimonial.plain) {
+    padding-top: 80px;
+    padding-bottom: 60px;
+  }
+
+  main > .section.cards-testimonial-container:has(.cards-testimonial.plain)::after {
+    width: calc(100% - 64px);
+  }
+
+  main
+    > .section.cards-testimonial-container:has(.cards-testimonial.plain)
+    > .default-content-wrapper:first-child
+    h2 {
+    max-width: 750px;
+    margin: 0 auto 60px;
+  }
+}
+
+/* Source's LAST "reviews" section before it hands off to a differently-styled
+   block (here, the case-studies carousel) drops the divider and gets its
+   bottom gap from a plain section margin instead of the padding+border the
+   others use -- #working-sp specifically, not every plain section. Scoped by
+   id, matching how page-nav's own anchor targets are id-based already. */
+#working-sp.cards-testimonial-container {
+  padding-bottom: 0;
+  margin-bottom: 40px;
+}
+
+#working-sp.cards-testimonial-container::after {
+  content: none;
+}
+
+@media (width >= 768px) {
+  #working-sp.cards-testimonial-container {
+    margin-bottom: 80px;
+  }
+}
+
+.cards-testimonial.plain .cards-testimonial-list {
+  row-gap: 60px;
+}
+
 .cards-testimonial.plain .cards-testimonial-card {
   background: none;
   border-radius: 0;
@@ -219,6 +321,7 @@ main > .section.pf-testimonials.cards-testimonial-container {
 }
 
 .cards-testimonial.plain .cards-testimonial-rating {
+  margin-bottom: 20px;
   font-size: 16px;
 }
 
@@ -239,10 +342,12 @@ main > .section.pf-testimonials.cards-testimonial-container {
   display: none;
 }
 
-/* "Read more" button — navy pill, matching source (#14499a, 20px/700, r27). */
+/* "Read more" button — navy pill, matching source (#14499a, 20px/700, r27).
+   Explicit [hidden] rule needed: display:block above would otherwise override
+   the UA [hidden] { display:none } once JS sets button.hidden after reveal. */
 .cards-testimonial.plain .cards-testimonial-more {
   display: block;
-  margin: 40px auto 0;
+  margin: 60px auto 20px;
   padding: 12px 32px;
   background-color: #14499a;
   border: 2px solid #14499a;
@@ -252,6 +357,10 @@ main > .section.pf-testimonials.cards-testimonial-container {
   font-weight: 700;
   line-height: 1.2;
   cursor: pointer;
+}
+
+.cards-testimonial.plain .cards-testimonial-more[hidden] {
+  display: none;
 }
 
 .cards-testimonial.plain .cards-testimonial-more:hover {

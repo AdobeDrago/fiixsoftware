@@ -10,7 +10,15 @@ export default function decorate(block) {
   const card = block.firstElementChild;
   if (!card) return;
   card.className = 'hero-article-card';
-  if (card.firstElementChild) card.firstElementChild.className = 'hero-article-meta';
+
+  const meta = card.firstElementChild;
+  if (meta) {
+    meta.className = 'hero-article-meta';
+    const inner = document.createElement('div');
+    inner.className = 'hero-article-card-inner';
+    inner.append(meta);
+    card.append(inner);
+  }
 
   const section = block.closest('.section');
   const lead = section && section.querySelector('.default-content-wrapper picture');

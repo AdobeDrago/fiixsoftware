@@ -26,6 +26,30 @@
   object-fit: cover;
 }
 
+main > .section.grey.centre .cta-link,
+main > .section.padding-xlarge.centre .cta-link{
+  max-width: 250px;
+}
+
+main > .section.grey.centre .cta-link::after,
+main > .section.padding-xlarge.centre .cta-link::after{
+  left: -10px;
+  position: relative;
+}
+
+@media (width >= 1200px) {
+  main > .section.grey.centre .cta-link,
+  main > .section.padding-xlarge.centre .cta-link{
+  max-width: none;
+}
+
+  main > .section.grey.centre .cta-link::after,
+  main > .section.padding-xlarge.centre .cta-link::after{
+    left: -5px;
+    position: relative;
+  }
+}
+
 /* ============================================================
    `points` variant — feature-point rows (from the columns-media .plan-points on
    the cloud page). The image cell holds either an authorable EDS icon token
@@ -42,12 +66,24 @@
    ============================================================ */
 
 /* stylelint-disable no-descending-specificity */
+
+/* Mobile-first base: stacked column. Tablet/desktop override below. */
 .cards-icon.points > ul {
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 0;
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
 .cards-icon.points > ul > li {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 280px;
+  margin-bottom: 30px;
   border: 0;
   background: none;
 }
@@ -58,9 +94,11 @@
   text-align: center;
 }
 
+/* No margin/gap — match live FA icons: spacing comes from the icon line-box. */
 .cards-icon.points .cards-icon-card-image {
-  margin: 0 0 12px;
-  line-height: 1;
+  margin: 0;
+  font-size: 30px;
+  line-height: 1.4;
 }
 
 .cards-icon.points .cards-icon-card-image-photo {
@@ -69,9 +107,10 @@
 }
 
 .cards-icon.points .cards-icon-card-image-icon .icon {
-  display: inline-flex;
-  width: 30px;
-  height: 30px;
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  vertical-align: top;
 }
 
 /* Authorable tint. `.icon-masked` is added by the block JS ONLY when an author
@@ -92,7 +131,7 @@
 .cards-icon.points .cards-icon-card-image-photo.icon-masked {
   width: 85px;
   height: 85px;
-  margin: 0 auto 12px;
+  margin: 0 auto;
   background-color: var(--icon-color);
   mask: var(--icon-mask) no-repeat center / contain;
 }
@@ -128,8 +167,54 @@
   line-height: 1.4;
 }
 
-@media (width < 960px) {
+main .cards-icon.points.padding-medium {
+  margin-bottom: 80px;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+/* Tablet+: grid. Desktop switches to flex below. */
+@media (width >= 768px) {
+  .cards-icon.points .cards-icon-card-body p {
+    font-size: 20px;
+    line-height: 28px;
+  }
+
   .cards-icon.points > ul {
-    grid-template-columns: 1fr;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 40px 0;
+    padding: 0 20px;
+    justify-content: space-between;
+    align-items: stretch;
+  }
+
+  .cards-icon.points > ul > li {
+    width: auto;
+    max-width: 300px;
+    min-width: 0;
+    margin-bottom: 0;
   }
 }
+
+/* Desktop: single non-wrapping row (production .plan-points). */
+@media (width >= 960px) {
+  .cards-icon.points > ul {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    gap: 0;
+    padding: 0;
+  }
+
+  .cards-icon.points > ul > li {
+    flex: 0 1 auto;
+    max-width: 280px;
+  }
+
+  /* 4-up rows need narrower columns so space-between can distribute */
+  .cards-icon.points > ul:has(> li:nth-child(4)) > li {
+    max-width: 220px;
+  }
+}
+

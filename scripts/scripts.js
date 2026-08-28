@@ -238,6 +238,12 @@ function buildBlogArticleBlocks(main) {
       // the policy administration rows are authored as an `effective-from` block,
       // but they are the same data table the `table` block renders
       block.classList.replace('effective-from', 'table');
+      // decorateBlock stamps `{name}-wrapper` on the parent; wrap each nested
+      // block first so that class lands on a dedicated wrapper, not the reading
+      // column (which would become e.g. `quote-wrapper blog-body-column`)
+      const wrap = document.createElement('div');
+      block.before(wrap);
+      wrap.append(block);
       decorateBlock(block);
     });
   }
@@ -268,7 +274,10 @@ function buildBlogArticleBlocks(main) {
 
   const bands = [...main.querySelectorAll(':scope > div.blog-cta, :scope > div.blog-promo')];
   if (bands.length) {
-    bands[Math.floor(Math.random() * bands.length)].classList.add('cta-selected');
+    // production keeps freeTour* hidden by default and shows `.modern_cta`
+    // (guide) when authored; prefer the guide promo band when present
+    const preferred = bands.find((band) => band.classList.contains('blog-promo')) || bands[0];
+    preferred.classList.add('cta-selected');
   }
 }
 
@@ -389,6 +398,56 @@ function decorateBlogHeader(main) {
 }
 
 /**
+ * Wraps the academy + recent-posts sections in one container so they share
+ * the live site's centered page-wrap margins on tablet/desktop.
+ * @param {Element} main The main container element
+ */
+function decorateBlogListingWrap(main) {
+  if (main.querySelector(':scope > .blog-listing-wrap')) return;
+  const academy = main.querySelector(':scope > .section.blog-academy');
+  const recent = main.querySelector(':scope > .section.blog-recent');
+  if (!academy || !recent) return;
+
+  const wrap = document.createElement('div');
+  wrap.className = 'blog-listing-wrap';
+  const inner = document.createElement('div');
+  inner.className = 'blog-listing-wrap-inner';
+  academy.before(wrap);
+  wrap.append(inner);
+  inner.append(academy, recent);
+}
+
+/**
+ * Inserts a padded spacer after pf-final-cta (above the footer) to match
+ * production's empty VC row (padding 50px 0 70px) at all breakpoints.
+ * Drops authored empty trailing sections that only add dead margin.
+ * @param {Element} main The main container element
+ */
+function decoratePfFinalCta(main) {
+  const cta = main.querySelector(':scope > .section.pf-final-cta');
+  if (!cta) return;
+
+  let next = cta.nextElementSibling;
+  while (next) {
+    const el = next;
+    next = next.nextElementSibling;
+    if (!el.classList.contains('pf-pre-footer-spacer')) {
+      if (el.matches('.section') && !el.childElementCount && !el.textContent.trim()) {
+        el.remove();
+      } else {
+        break;
+      }
+    }
+  }
+
+  if (main.querySelector(':scope > .pf-pre-footer-spacer')) return;
+  const spacer = document.createElement('div');
+  spacer.className = 'pf-pre-footer-spacer';
+  spacer.setAttribute('aria-hidden', 'true');
+  cta.after(spacer);
+}
+
+/**
  * Optix "Better Together" section: split the H2 into lead + accent spans
  * (live uses `.reg-fw` / `.RA-text-gradient`) and insert dashed dividers
  * between the two text paragraphs in each columns-media card.
@@ -425,6 +484,108 @@ function decorateOptixTogether(main) {
 }
 
 /**
+ * Optix Pricing: apply authored section-metadata `nut-image` / `bolt-image` as
+ * CSS custom properties on the card so ::before / ::after can paint the décor
+ * (same role as live `#optixLP .pricing-req` pseudos).
+ * @param {Element} main The main container element
+ */
+function decorateOptixPricing(main) {
+  main.querySelectorAll('.section.pricing').forEach((section) => {
+    const card = section.querySelector(':scope > .default-content-wrapper');
+    if (!card) return;
+
+    const { nutImage, boltImage } = section.dataset;
+    if (nutImage) {
+      const bg = toSectionBackgroundImage(nutImage);
+      if (bg) card.style.setProperty('--pricing-nut-image', bg);
+    }
+    if (boltImage) {
+      const bg = toSectionBackgroundImage(boltImage);
+      if (bg) card.style.setProperty('--pricing-bolt-image', bg);
+    }
+  });
+}
+
+/**
+ * Optix Getting Started: move authored section backgrounds onto `.hero-cta`
+ * (live paints the banner on the card, not full-bleed).
+ * Uses `background-image` (desktop) and optional `background-image-mobile`.
+ * Sets the active image in JS (not only CSS vars) so mobile never keeps the
+ * desktop asset from a cascade/fallback miss.
+ * @param {Element} main The main container element
+ */
+function decorateOptixGetStarted(main) {
+  main.querySelectorAll('.section.optix-getstarted').forEach((section) => {
+    const hero = section.querySelector('.hero-cta');
+    if (!hero) return;
+
+    const desktopRaw = section.dataset.backgroundImage || section.dataset.background;
+    const mobileRaw = section.dataset.backgroundImageMobile;
+
+    let desktop = desktopRaw ? toSectionBackgroundImage(desktopRaw) : '';
+    let mobile = mobileRaw ? toSectionBackgroundImage(mobileRaw) : '';
+
+    if (!desktop && section.style.backgroundImage
+      && section.style.backgroundImage !== 'none') {
+      desktop = section.style.backgroundImage;
+    }
+
+    if (!desktop && !mobile) return;
+    if (!mobile) mobile = desktop;
+    if (!desktop) desktop = mobile;
+
+    // Authoring often ships width=750; request a larger render for the banner.
+    const enlarge = (bg) => bg.replace(/([?&]width=)\d+/i, `$1${2000}`);
+    desktop = enlarge(desktop);
+    mobile = enlarge(mobile);
+
+    hero.style.setProperty('--optix-getstarted-bg-mobile', mobile);
+    hero.style.setProperty('--optix-getstarted-bg', desktop);
+
+    const applyBg = () => {
+      const useMobile = window.matchMedia('(width < 768px)').matches;
+      hero.style.backgroundImage = useMobile ? mobile : desktop;
+    };
+    applyBg();
+    window.matchMedia('(width < 768px)').addEventListener('change', applyBg);
+
+    section.style.backgroundImage = '';
+  });
+}
+
+/**
+ * Wraps each icon-paragraph + h3 pair in the security section into a
+ * .security-feature div, then collects all features into one .security-features row.
+ * @param {Element} main The main element
+ */
+function decorateSecuritySection(main) {
+  const section = main.querySelector('.section.security');
+  if (!section) return;
+  const wrapper = section.querySelector('.default-content-wrapper');
+  if (!wrapper) return;
+
+  const iconPs = [...wrapper.querySelectorAll(':scope > p')].filter((p) => p.querySelector('picture'));
+  if (!iconPs.length) return;
+
+  const featuresRow = document.createElement('div');
+  featuresRow.className = 'security-features';
+
+  iconPs.forEach((iconP) => {
+    const heading = iconP.nextElementSibling;
+    if (!heading || heading.tagName !== 'H3') return;
+    const feature = document.createElement('div');
+    feature.className = 'security-feature';
+    feature.appendChild(iconP);
+    feature.appendChild(heading);
+    featuresRow.appendChild(feature);
+  });
+
+  const ctaP = wrapper.querySelector(':scope > p:has(a)');
+  wrapper.insertBefore(featuresRow, ctaP || null);
+  section.classList.add('homepage');
+}
+
+/**
  * Decorates the main element.
  * @param {Element} main The main element
  */
@@ -440,7 +601,12 @@ export function decorateMain(main) {
   decorateButtons(main);
   decorateCtaLinks(main);
   decorateBlogHeader(main);
+  decorateBlogListingWrap(main);
+  decoratePfFinalCta(main);
   decorateOptixTogether(main);
+  decorateOptixGetStarted(main);
+  decorateOptixPricing(main);
+  decorateSecuritySection(main);
 }
 
 /**

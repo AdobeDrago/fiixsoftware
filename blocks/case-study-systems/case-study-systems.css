@@ -63,6 +63,8 @@
 .case-study-systems .case-study-systems-users div {
   display: flex;
   flex-direction: column;
+  border-bottom: 1px solid #e1e1e1;
+  padding-bottom: 70px
 }
 
 .case-study-systems .case-study-systems-users dt,

@@ -3,13 +3,13 @@
   width: 100%;
   max-width: 664px;
   margin: 80px auto;
-  padding: 0 24px;
+  padding: 0 60px;
   color: var(--text-color);
 }
 
 .quote .quote-text {
   position: relative;
-  margin: 0 0 24px;
+  margin: 0;
   padding: 0;
   border: 0;
   font-family: var(--heading-font-family);
@@ -30,8 +30,15 @@
 }
 
 .quote .quote-text p {
+  font-size: 18px;
   margin: 0;
-  font: inherit;
+  padding: 0 10px;
+}
+
+@media (width >= 768px) { 
+  .quote .quote-text p {
+    font-size: 24px;
+  }
 }
 
 .quote .quote-attribution {
@@ -195,6 +202,16 @@
   .quote.wrap .quote-attribution p + p {
     font-size: 20px;
   }
+}
+
+.quote-container img[alt="location-icon"] {
+  max-width: 25px;
+  max-height: 25px;
+  position: absolute;
+}
+
+.quote-container blockquote {
+  padding-bottom: 30px;
 }
 
 /* Prefer quote(wrap) over a leftover default-content blockquote in the same section */
