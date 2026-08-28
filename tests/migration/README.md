@@ -11,6 +11,8 @@ This document is the canonical usage and troubleshooting guide for developers an
 ## Contents
 
 - [Quick start](#quick-start)
+- [Live vs EDS comparison report](#live-vs-eds-comparison-report)
+- [Comparison launcher UI](#comparison-launcher-ui)
 - [Target an EDS environment](#target-an-eds-environment)
 - [Test-case inventory](#test-case-inventory)
 - [Architecture and execution flow](#architecture-and-execution-flow)
@@ -52,6 +54,170 @@ Open the latest HTML report:
 ```sh
 npm run test:migration:report
 ```
+
+## Live vs EDS comparison report
+
+The comparison report is a lighter, review-friendly alternative to the full migration suite. It
+generates a standalone HTML report at `comparison-report/index.html` with:
+
+- **Visual comparison** — live, EDS, and pixel-diff screenshots side by side, plus a visual
+  difference percentage
+- **Accessibility** — Lighthouse-style scores (0–100) for live and EDS
+- **Performance** — Lighthouse-style speed scores (0–100) for live and EDS
+
+Tests do not fail on differences; they always produce the report for review. This workflow is
+intended for stakeholders who already use Lighthouse scores in DevTools.
+
+### Run the report
+
+Install dependencies and Chromium once (see [Quick start](#quick-start)), then:
+
+```sh
+npm run test:comparison
+```
+
+Open the generated report in your browser:
+
+```sh
+npm run test:comparison:open
+```
+
+On macOS this runs `open comparison-report/index.html`. You can also open that file directly in
+Chrome, Safari, or Firefox.
+
+### Comparison launcher UI
+
+For reviewers who prefer not to use the terminal, start the local comparison launcher:
+
+```sh
+npm run comparison:ui
+```
+
+Then open `http://127.0.0.1:3456` in your browser. The launcher lets you:
+
+- search and filter the configured page list
+- select one or many pages with checkboxes
+- choose the EDS preview origin and viewport
+- run the comparison and watch progress in the activity log
+- open the latest HTML report when the run finishes
+
+The launcher runs locally on your machine and uses the same Playwright comparison workflow as
+`npm run test:comparison`. Set a different port with `COMPARISON_UI_PORT=4000 npm run comparison:ui`
+if needed.
+
+### Choose which pages to test
+
+**One page by name** — use Playwright `--grep` with part of the configured page name:
+
+```sh
+npm run test:comparison -- --grep "CMMS Software"
+```
+
+**A page family** — every page shares one or more tags:
+
+```sh
+npm run test:comparison -- --grep "@product"
+npm run test:comparison -- --grep "@blog"
+npm run test:comparison -- --grep "@case-studies"
+npm run test:comparison -- --grep "@reviews"
+npm run test:comparison -- --grep "@indexes"
+```
+
+**Specific pages by slug** — useful for scripts and the comparison launcher UI:
+
+```sh
+COMPARISON_SLUGS=product-cmms-software,blog-why-work-orders-matter npm run test:comparison
+```
+
+**First N pages** — useful for a quick sample across the manifest order:
+
+```sh
+COMPARISON_LIMIT=5 npm run test:comparison
+```
+
+**Skip then take** — pages 6–10 in manifest order (zero-based offset 5, limit 5):
+
+```sh
+COMPARISON_OFFSET=5 COMPARISON_LIMIT=5 npm run test:comparison
+```
+
+**Combine filters** — for example, the first three product pages only:
+
+```sh
+COMPARISON_LIMIT=3 npm run test:comparison -- --grep "@product"
+```
+
+List what would run without executing:
+
+```sh
+npx playwright test --config=playwright.comparison.config.js --reporter=line --list
+```
+
+### Viewport and environment options
+
+| Variable | Default | Purpose |
+| --- | --- | --- |
+| `MIGRATION_EDS_ORIGIN` | `https://develop--fiixsoftware--adobedrago.aem.page` | EDS preview or live origin to compare (see [Target an EDS environment](#target-an-eds-environment)) |
+| `COMPARISON_VIEWPORT` | `desktop` | `desktop`, `mobile`, or `tablet` screenshot and metrics viewport |
+| `COMPARISON_LIMIT` | all pages | Maximum number of pages to test |
+| `COMPARISON_OFFSET` | `0` | Skip the first N pages in manifest order |
+| `COMPARISON_SLUGS` | all pages | Comma-separated page slugs to compare |
+| `COMPARISON_WORKERS` | `2` | Parallel workers (`MIGRATION_WORKERS` is also accepted) |
+
+**Default desktop report against develop preview:**
+
+```sh
+npm run test:comparison -- --grep "CMMS Software"
+```
+
+**Mobile viewport** — closer to DevTools Lighthouse mobile accessibility/performance defaults:
+
+```sh
+COMPARISON_VIEWPORT=mobile npm run test:comparison -- --grep "CMMS Software"
+```
+
+**Feature branch preview:**
+
+```sh
+MIGRATION_EDS_ORIGIN=https://my-feature--fiixsoftware--adobedrago.aem.page \
+  npm run test:comparison -- --grep "CMMS Software"
+```
+
+**Local AEM dev server:**
+
+```sh
+MIGRATION_EDS_ORIGIN=http://localhost:3000 \
+  npm run test:comparison -- --grep "CMMS Software"
+```
+
+**Main preview, one worker, five pages:**
+
+```sh
+MIGRATION_EDS_ORIGIN=https://main--fiixsoftware--adobedrago.aem.page \
+  COMPARISON_LIMIT=5 \
+  COMPARISON_WORKERS=1 \
+  npm run test:comparison
+```
+
+Keep `COMPARISON_WORKERS` low when testing many pages; each page opens live and EDS in parallel.
+
+### Report output
+
+After a run, artifacts are written to:
+
+```text
+comparison-report/
+  index.html          # side-by-side HTML report (open this)
+  summary.json        # machine-readable results
+  pages/<slug>/       # live.png, eds.png, diff.png per page
+```
+
+The summary table in `index.html` shows visual diff %, accessibility scores, and performance
+scores for live vs EDS. Expand each page section for side-by-side screenshots and the same scores
+in an easy-to-read layout. Scores use the same 0–100 scale as Lighthouse in Chrome DevTools.
+
+If the EDS page returns **404**, **410**, or another error, that page is marked **Skipped** in the
+report. Visual, accessibility, and performance checks are not run for unavailable EDS pages.
 
 ## Target an EDS environment
 

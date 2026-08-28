@@ -17,7 +17,11 @@ module.exports = {
   },
   overrides: [
     {
-      files: ['playwright.migration.config.js', 'tests/migration/**/*.js'],
+      files: [
+        'playwright.migration.config.js',
+        'playwright.comparison.config.js',
+        'tests/migration/**/*.js',
+      ],
       env: {
         node: true,
       },

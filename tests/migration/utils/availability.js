@@ -48,6 +48,21 @@ function compareAvailability(liveLoad, edsLoad, config = {}, viewport = null) {
   return findings;
 }
 
+function isEdsUnavailable(edsLoad) {
+  if (!edsLoad) return true;
+  if (edsLoad.error) return true;
+  if (edsLoad.status === 404 || edsLoad.status === 410) return true;
+  return !edsLoad.ok;
+}
+
+function edsUnavailableMessage(edsLoad) {
+  if (edsLoad.status === 404) return 'EDS page not found (404)';
+  if (edsLoad.status === 410) return 'EDS page removed (410)';
+  if (!edsLoad.ok && edsLoad.status) return `EDS page unavailable (HTTP ${edsLoad.status})`;
+  if (edsLoad.error) return `EDS page unavailable (${edsLoad.error})`;
+  return 'EDS page unavailable';
+}
+
 function compareContentRoots(live, eds, config, viewport = null) {
   const findings = [];
   if (!live.rootExists) {
@@ -73,4 +88,10 @@ function compareContentRoots(live, eds, config, viewport = null) {
   return findings;
 }
 
-module.exports = { compareAvailability, compareContentRoots, redirectFinding };
+module.exports = {
+  compareAvailability,
+  compareContentRoots,
+  edsUnavailableMessage,
+  isEdsUnavailable,
+  redirectFinding,
+};

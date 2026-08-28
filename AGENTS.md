@@ -26,6 +26,7 @@ The repository provides the basic structure, blocks, and configuration needed to
 - Install the Playwright browser once: `npx playwright install chromium`
 - Run the network-free migration framework tests: `npm run test:migration:unit`
 - Run the complete WordPress-to-EDS comparison: `npm run test:migration`
+- Launch the browser comparison UI for local reviewers: `npm run comparison:ui`
 - Target another EDS environment with its exact origin: `MIGRATION_EDS_ORIGIN=https://{branch}--fiixsoftware--adobedrago.aem.page npm run test:migration`
 
 ## Project Structure

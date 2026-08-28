@@ -1,6 +1,6 @@
 const { test, expect } = require('@playwright/test');
 const caseStudySnapshot = require('../../../blocks/case-study-listing/case-study-listing.json');
-const blogSnapshot = require('../../../widgets/blog-listing/blog-listing.json');
+const blogSnapshot = require('../../../blocks/blog-listing/blog-listing.json');
 const {
   blogPages,
   caseStudyPages,

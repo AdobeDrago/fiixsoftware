@@ -5,6 +5,7 @@ node_modules/*
 .playwright-mcp/
 test-results/
 playwright-report/
+comparison-report/
 
 helix-importer-ui
 .DS_Store
