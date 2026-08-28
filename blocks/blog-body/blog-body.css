@@ -18,6 +18,7 @@
   flex-flow: row nowrap;
   justify-content: flex-start;
   align-self: center;
+  gap: 20px;
   width: 100%;
   max-width: 664px;
   margin: 0 auto;
@@ -26,11 +27,6 @@
 .blog-body-rail p {
   flex: 0 0 45%;
   margin: 0 0 20px;
-}
-
-/* source: `.cta-right p:nth-child(1) { margin-right: 20px }` */
-.blog-body-rail p:first-child {
-  margin-right: 20px;
 }
 
 .blog-body-rail img {
@@ -801,8 +797,7 @@
     margin: 0;
   }
 
-  .blog-body-rail p,
-  .blog-body-rail p:first-child {
+  .blog-body-rail p {
     flex: none;
     margin: 0 0 20px;
   }
