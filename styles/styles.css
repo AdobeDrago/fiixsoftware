@@ -4475,6 +4475,13 @@ main > .section.pf-final-cta .default-content-wrapper ul a:any-link {
     transition: background-color 0.2s, color 0.2s, border-color 0.2s;
 }
 
+main > .section.pf-final-cta.cloud-page .default-content-wrapper ul li a:any-link {
+    background: #14499a;
+    border-color: #14499a;
+    color: #fff;
+    text-decoration: none;
+}
+
 /* Single-link CTA (e.g. free-cmms "Get started"): cyan fill → outline on hover.
    :only-child so a lone link is not styled as the two-button "last" outline. */
 main > .section.pf-final-cta .default-content-wrapper ul li:only-child a:any-link:hover,
@@ -6714,11 +6721,4 @@ main .section.logos.highlight.homepage .default-content-wrapper h2 {
     font-size: 20px;
     line-height: 22px;
     text-align: center;
-}
-
-main > .section.pf-final-cta.cloud-page .default-content-wrapper ul li a:any-link{
-    background: #14499a;
-    border-color: #14499a;
-    color: #fff;
-    text-decoration: none;
 }
