@@ -816,13 +816,22 @@ main .columns-media.feature.padding-medium {
    rules, so descending-specificity across variation boundaries is OK. */
 /* stylelint-disable no-descending-specificity */
 
-/* Vidyard: text above video on mobile/tablet; gated on .vidyard only. */
+/* Vidyard: text above video on mobile; gated on .vidyard only. */
+.columns-media.vidyard > div {
+    align-items: stretch;
+}
+
 .columns-media.vidyard > div > div {
     order: 0;
 }
 
 .columns-media.vidyard > div > .columns-media-img-col {
     order: 1;
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    flex: 0 0 auto;
 }
 
 .columns-media.vidyard .columns-media-img-col > .vidyard-player-embed {
@@ -832,15 +841,22 @@ main .columns-media.feature.padding-medium {
     object-fit: cover;
 }
 
-.columns-media.vidyard .columns-media-img-col .vidyard-player-container {
+.columns-media.vidyard .columns-media-img-col .vidyard-player-container,
+.columns-media.vidyard .columns-media-img-col [class*='vidyard-div-'] {
     width: 100%;
     max-width: 100%;
 }
 
 @media (width >= 768px) {
+    .columns-media.vidyard > div {
+        align-items: center;
+    }
+
     .columns-media.vidyard > div > div,
     .columns-media.vidyard > div > .columns-media-img-col {
         order: unset;
+        flex: 1;
+        width: auto;
     }
 
     .columns-media.vidyard:not(.left, .right) > div:nth-child(odd) {

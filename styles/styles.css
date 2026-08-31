@@ -4876,7 +4876,9 @@ main > .section.ai-fiixmax .columns-media p:has(> strong:only-child) {
 
 /* "Available on Desktop and Mobile" ribbon tag: only the first row's text
    column carries it, as a plain leading paragraph with no <strong> (the
-   quoted-question row starts with the strong-wrapped quote instead). */
+   quoted-question row starts with the strong-wrapped quote instead).
+   Matches production `#fiixAI .fiixMAX-info .question:nth-child(4)` —
+   absolute ribbon + extra row padding so the quote clears it. */
 main > .section.ai-fiixmax .columns-media > div:not(:has(
         > .columns-media-text-col > p:first-child > strong:only-child
     )) {
@@ -4905,6 +4907,24 @@ main
     font-weight: 300;
 }
 
+/* Mobile-first: stack copy then inline video inside each white card (live
+   .fiixMAX-info .question). Stretch both columns to the card width —
+   align-items: center collapses embeds; do not add aspect-ratio on
+   .vidyard-player-container (Vidyard sizes itself via padding-bottom on
+   .vidyard-div-*). */
+main > .section.ai-fiixmax .columns-media.vidyard > div {
+    flex-direction: column;
+    align-items: stretch;
+}
+
+main > .section.ai-fiixmax .columns-media.vidyard .columns-media-text-col:not(.columns-media-img-col),
+main > .section.ai-fiixmax .columns-media.vidyard .columns-media-img-col {
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+}
+
 @media (width >= 768px) {
     main > .section.ai-fiixmax::before,
     main > .section.ai-fiixmax::after {
@@ -4922,23 +4942,32 @@ main
         gap: 50px;
     }
 
-    /* Side-by-side layout: the video column is always the taller flex item
-       (it sets the row's height), so it sits flush at the top regardless of
-       align-items. Force the tagged row's text column to flex-start too and
-       give it its own top padding, so the ribbon tag's absolute position
-       never depends on how many lines the quote wraps to (varies with our
-       font stack vs production's). */
+    /* Restore authored zigzag: DOM is always video then text, so .left =
+       video left / text right (row) and .right = text left / video right
+       (row-reverse). Must beat the mobile-first column rule above. */
+    main > .section.ai-fiixmax .columns-media.vidyard.left > div {
+        flex-direction: row;
+        align-items: center;
+    }
+
+    main > .section.ai-fiixmax .columns-media.vidyard.right > div {
+        flex-direction: row-reverse;
+        align-items: center;
+    }
+
+    main > .section.ai-fiixmax .columns-media.vidyard .columns-media-text-col:not(.columns-media-img-col),
+    main > .section.ai-fiixmax .columns-media.vidyard .columns-media-img-col {
+        width: auto;
+        flex: 1 1 0;
+        min-width: 0;
+    }
+
+    /* Production desktop: tagged card padding-top 120px, ribbon at top 45px
+       so quote + video stay clear and vertically centered. */
     main > .section.ai-fiixmax .columns-media > div:not(:has(
             > .columns-media-text-col > p:first-child > strong:only-child
         )) {
-        align-items: flex-start;
-        padding-top: 35px;
-    }
-
-    main > .section.ai-fiixmax .columns-media > div:not(:has(
-            > .columns-media-text-col > p:first-child > strong:only-child
-        )) > .columns-media-text-col:not(.columns-media-img-col) {
-        padding-top: 90px;
+        padding-top: 120px;
     }
 
     main > .section.ai-fiixmax .columns-media p:has(> strong:only-child) {
