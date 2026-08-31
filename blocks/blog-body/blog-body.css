@@ -11,9 +11,28 @@
   flex-direction: column;
 }
 
-/* the rail is hidden on small phones; source hides `.cta-right` below 500px */
+/* mobile+: rail as a row under the copy. Desktop (≥960px) turns it into the
+   sidebar. Kept on the standard breakpoints only (768 / 960 / 1200). */
 .blog-body-rail {
-  display: none;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: flex-start;
+  align-self: center;
+  gap: 20px;
+  width: 100%;
+  max-width: 664px;
+  margin: 0 auto;
+}
+
+.blog-body-rail p {
+  flex: 0 0 45%;
+  margin: 0 0 20px;
+}
+
+.blog-body-rail img {
+  display: block;
+  width: 100%;
+  height: auto;
 }
 
 /* --- reading progress bar --- */
@@ -163,27 +182,9 @@
     text-align: center;
   }
 
-  /* source ≤900px: `.cta-right` becomes a row under the copy */
-  .blog-body-rail {
-    display: flex;
-    flex-flow: row nowrap;
-    justify-content: flex-start;
-    align-self: center;
-    gap: 20px;
-    width: 100%;
-    max-width: 664px;
-    margin: 0 auto;
-  }
-
+  /* source drops the 45% basis once the row has more room */
   .blog-body-rail p {
-    flex: 0 0 45%;
-    margin: 0 0 20px;
-  }
-
-  .blog-body-rail img {
-    display: block;
-    width: 100%;
-    height: auto;
+    flex: 0 1 auto;
   }
 }
 

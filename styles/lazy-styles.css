@@ -357,12 +357,14 @@ body.blog-article .section.blog-share p:last-of-type a:any-link::before {
      664px column width, carrying a 300px right gutter, and the pair is centred
      as a whole. A grid (rather than `blog-body`'s flex row) keeps every authored
      element stacked in the first column without needing an extra wrapper div,
-     since any div `decorateSections` sees becomes a block of its own. */
-  body.blog-article .section.blog-share .default-content-wrapper {
+     since any div `decorateSections` sees becomes a block of its own.
+     Selector matches the tablet rule's specificity so padding-left: 60px and
+     margin: 0 do not leak into desktop and pull the row off-center. */
+  body.blog-article main > .section.blog-share > div.default-content-wrapper {
     display: grid;
     grid-template-columns: fit-content(664px) 300px;
     justify-content: center;
-    margin: 0;
+    margin: auto;
     padding: 0 0 100px;
   }
 
