@@ -6645,3 +6645,156 @@ main > .section.pf-final-cta.cloud-page .default-content-wrapper ul li a:any-lin
     color: #fff;
     text-decoration: none;
 }
+
+/* ============================================================
+   Community page (/community) — "The Fiixers" — section styling
+   to match production. Values from production computed styles at
+   1440px. Reuses columns-media, cards-icon, carousel-testimonial,
+   and hero-cta blocks.
+   ============================================================ */
+
+/* ---- Hero: light band, logo + headline + Join CTA + board image ---- */
+main .section.community-hero {
+  margin: 0;
+  padding: 60px 0;
+  background-color: #f6f9fb;
+}
+
+main .section.community-hero .columns-media > div {
+  align-items: center;
+  gap: 40px;
+}
+
+/* stylelint-disable-next-line no-descending-specificity */
+main .section.community-hero .columns-media h1 {
+  margin: 12px 0;
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 1.1;
+  color: var(--text-color);
+}
+
+/* stylelint-disable-next-line no-descending-specificity */
+main .section.community-hero .columns-media p {
+  font-size: 20px;
+  font-weight: 300;
+  line-height: 1.4;
+  color: var(--text-color);
+}
+
+/* Fiixers logo sits small above the headline */
+/* stylelint-disable-next-line no-descending-specificity */
+main .section.community-hero .columns-media p:has(img) img, main .section.community-hero .columns-media picture img {
+  max-width: 100%;
+}
+
+/* blue "Join now" pill */
+/* stylelint-disable-next-line no-descending-specificity */
+main .section.community-hero .columns-media a:any-link {
+  display: inline-block;
+  margin-top: 12px;
+  padding: 10px 24px;
+  border: 0;
+  border-radius: 27px;
+  background-color: #14499a;
+  color: #fff;
+  font-weight: 700;
+}
+
+@media (width >= 900px) {
+  main .section.community-hero .columns-media h1 {
+    font-size: 48px;
+  }
+}
+
+/* ---- Why join: light band, centered heading, 4 icon cards + reviews ---- */
+main .section.community-why {
+  margin: 0;
+  padding: 60px 0;
+  background-color: #f6f9fb;
+  text-align: center;
+}
+
+/* stylelint-disable-next-line no-descending-specificity */
+main .section.community-why .default-content-wrapper h2 {
+  margin: 0 auto 40px;
+  font-size: 30px;
+  font-weight: 700;
+  color: var(--text-color);
+}
+
+/* why-join benefit cards: 4-up, borderless, centered */
+main .section.community-why .cards-icon > ul {
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+main .section.community-why .cards-icon > ul > li {
+  border: 0;
+  background: transparent;
+  text-align: center;
+}
+
+main .section.community-why .cards-icon > ul > li img {
+  width: auto;
+  max-height: 72px;
+  aspect-ratio: auto;
+  object-fit: contain;
+  margin: 0 auto;
+}
+
+main .section.community-why .cards-icon .cards-icon-card-body p {
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+/* testimonial reviews: 3-up cards */
+main .section.community-why .carousel-testimonial {
+  margin-top: 48px;
+}
+
+/* ---- Get started CTA: white band, centered heading + copy + blue Join pill ---- */
+main .section.community-cta {
+  margin: 0;
+  padding: 60px 0;
+}
+
+main .section.community-cta .hero-cta {
+  position: static;
+  min-height: 0;
+  padding: 0;
+  text-align: center;
+}
+
+main .section.community-cta .hero-cta > div {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* stylelint-disable-next-line no-descending-specificity */
+main .section.community-cta .hero-cta h2, main .section.community-cta .hero-cta p {
+  color: var(--text-color);
+  text-align: center;
+}
+
+/* stylelint-disable-next-line no-descending-specificity */
+main .section.community-cta .hero-cta h2 {
+  margin: 0 auto 12px;
+  font-size: 30px;
+  font-weight: 700;
+  line-height: 1.15;
+}
+
+/* blue "Join now" pill */
+/* stylelint-disable-next-line no-descending-specificity */
+main .section.community-cta .hero-cta a:any-link {
+  display: inline-block;
+  margin-top: 12px;
+  padding: 10px 24px;
+  border: 0;
+  border-radius: 27px;
+  background-color: #14499a;
+  color: #fff;
+  font-weight: 700;
+}
