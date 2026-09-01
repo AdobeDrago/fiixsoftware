@@ -17,7 +17,7 @@ const CATEGORIES = [
 
 const LISTING_PATHS = new Set(['/blog', '/blog/', '/blog.html']);
 
-/* production lists 16 posts per page on /blog/ (see fiixsoftware.com/blog) */
+/* production lists 9 posts per page on /blog/ (see fiixsoftware.com/blog) */
 const PAGE_SIZE = 9;
 
 function slugifyCategory(name) {
