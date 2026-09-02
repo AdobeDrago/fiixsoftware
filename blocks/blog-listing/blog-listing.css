@@ -150,7 +150,9 @@
 }
 
 .blog-listing .blog-listing-card-image {
-  margin: 0 0 30px;
+  /* the copy below adds its own 20px top margin — together these make up the
+     source's ~30px gap between the art and the category label */
+  margin: 0 0 10px;
   line-height: 0;
   border-radius: 2px;
   overflow: hidden;
@@ -167,7 +169,10 @@
   display: flex;
   flex-direction: column;
   gap: 0;
-  padding: 0 0 20px;
+
+  /* the title adds its own 20px bottom margin, so the copy clears the tile's
+     bottom edge by ~70px as on the source */
+  padding: 0 0 50px;
   text-align: center;
 }
 
@@ -184,7 +189,9 @@
   margin: 20px 0;
   padding: 0 30px;
   color: var(--text-color);
-  font-size: var(--body-font-size-xs);
+
+  /* production card titles stay 16px on phone/tablet; --body-font-size-xs is 14px below 960px */
+  font-size: 16px;
   font-weight: 300;
   line-height: 1.3;
 }
