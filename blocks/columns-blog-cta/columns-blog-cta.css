@@ -93,9 +93,9 @@
   color: var(--text-color);
 }
 
-/* source `.modern_cta .cta_message h3 { font-weight: 400 }` */
+/* heading weight matches live free-tour card (700) at every breakpoint */
 .columns-blog-cta.promo h3 {
-  font-weight: 400;
+  font-weight: 700;
 }
 
 /* supporting copy — only the first p ("No problem…") gets the 10px top gap */
@@ -236,9 +236,12 @@
   }
 
   .columns-blog-cta.promo > div > div:not(.columns-blog-cta-img-col) {
-    right: 0;
+    /* source `.blog-ctas .cta_message.modern_msg`: 525×400; right:15% keeps a
+       navy gap beside the card on tablet */
+    right: 15%;
     width: 525px;
     max-width: 525px;
+    height: 400px;
     min-height: 400px;
   }
 }
@@ -249,9 +252,9 @@
     width: 700px;
   }
 
+  /* desktop: sit the card further right (less inset than tablet's 15%) */
   .columns-blog-cta.promo > div > div:not(.columns-blog-cta-img-col) {
-    width: 540px;
-    max-width: 540px;
+    right: 0;
   }
 }
 
@@ -259,10 +262,5 @@
   .columns-blog-cta.promo > div > .columns-blog-cta-img-col {
     inset: 80px auto 0 10%;
     width: 750px;
-  }
-
-  .columns-blog-cta.promo > div > div:not(.columns-blog-cta-img-col) {
-    width: 560px;
-    max-width: 560px;
   }
 }
