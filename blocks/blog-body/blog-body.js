@@ -346,6 +346,70 @@ function decorateTableOfContents(column) {
 }
 
 /**
+ * Whether a paragraph is a short source caption under an image or boxed
+ * example (`<small>` on live: "Click image to expand", "Example of…").
+ * @param {Element} paragraph A paragraph element
+ * @returns {boolean}
+ */
+function isImageCaption(paragraph) {
+  if (paragraph.tagName !== 'P') return false;
+  if (paragraph.querySelector('a, picture, strong, ul, ol')) return false;
+  const text = paragraph.textContent.trim();
+  return /^click image to expand$/i.test(text) || /^example of\b/i.test(text);
+}
+
+/**
+ * Marks a caption paragraph and wraps its text in `<small>` so it matches
+ * the source's 16px centered caption.
+ * @param {Element} paragraph The caption paragraph
+ */
+function decorateImageCaption(paragraph) {
+  paragraph.classList.add('blog-body-caption');
+  if (paragraph.querySelector(':scope > small')) return;
+  const small = document.createElement('small');
+  small.append(...paragraph.childNodes);
+  paragraph.append(small);
+}
+
+/**
+ * Centers every "Click image to expand" / "Example of…" caption at 16px.
+ * @param {Element} column The reading column
+ */
+function decorateImageCaptions(column) {
+  [...column.querySelectorAll(':scope > p')]
+    .filter(isImageCaption)
+    .forEach(decorateImageCaption);
+}
+
+/**
+ * Boxes a "Policy statement" heading with its intro and list into a grey
+ * card, and leaves the following "Example of…" line outside as a caption —
+ * used on template round-up posts where the example isn't under the full
+ * "Asset management policy template" section heading.
+ * @param {Element} column The reading column
+ */
+function decoratePolicyStatementBoxes(column) {
+  [...column.querySelectorAll(':scope > h3')].forEach((heading) => {
+    if (!/^policy statement$/i.test(heading.textContent.trim())) return;
+    if (heading.closest('.blog-body-boxed')) return;
+
+    const box = document.createElement('div');
+    box.className = 'blog-body-boxed';
+    heading.before(box);
+
+    let el = heading;
+    while (el) {
+      const next = el.nextElementSibling;
+      box.append(el);
+      if (!next || next.tagName === 'H2' || next.tagName === 'H3') break;
+      if (isImageCaption(next)) break;
+      if (next.tagName !== 'P' && next.tagName !== 'UL') break;
+      el = next;
+    }
+  });
+}
+
+/**
  * Boxes each `<h3>` step of the "Asset management policy template" example in
  * its own grey card, as the source does, instead of leaving them to read as
  * plain sub-headings indistinguishable from the rest of the article.
@@ -511,6 +575,8 @@ export default function decorate(block) {
   column.classList.add('blog-body-column');
 
   decorateTemplateBoxes(column);
+  decoratePolicyStatementBoxes(column);
+  decorateImageCaptions(column);
   decorateEmbeds(column);
   decorateInlineCtas(column);
   decorateFormulas(column);
