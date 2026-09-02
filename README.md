@@ -25,6 +25,24 @@ npm i
 npm run lint
 ```
 
+## End-to-end tests
+
+Playwright checks the home page on desktop and mobile Chrome. Start the AEM
+development server in one terminal, then run the tests in another:
+
+```sh
+npx -y @adobe/aem-cli up --no-open --forward-browser-logs
+npx playwright install chromium
+npm run test:e2e
+```
+
+The tests use `http://127.0.0.1:3000` by default. To run against a preview or
+live environment, set `PLAYWRIGHT_BASE_URL`:
+
+```sh
+PLAYWRIGHT_BASE_URL=https://main--fiixsoftware--adobedrago.aem.page npm run test:e2e
+```
+
 ## Local development
 
 1. Create a new repository based on the `aem-boilerplate` template

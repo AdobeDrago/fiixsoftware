@@ -491,6 +491,7 @@ export default async function decorate(block) {
   hamburger.addEventListener('click', () => toggleMenu(nav, navSections));
   nav.prepend(hamburger);
   nav.setAttribute('aria-expanded', 'false');
+  window.addEventListener('keydown', closeOnEscape);
 
   // Reset drawer on breakpoint change.
   isDesktop.addEventListener('change', () => {
