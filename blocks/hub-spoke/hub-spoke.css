@@ -1,0 +1,174 @@
+.hub-spoke {
+  --hub-spoke-dot-color: #00afeb;
+  --hub-spoke-circle-bg: var(--light-color, #f4f6fa);
+  --hub-spoke-circle-size: 220px;
+
+  /* the radial layout needs a tablet's width to read, so the graphic is left
+     out on phones as it is on the source (`.map-flex.nomobile`) */
+  display: none;
+  max-width: 664px;
+  margin: 40px 0 40px 32px;
+  padding: 40px 0;
+}
+
+.hub-spoke-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  row-gap: 24px;
+  align-items: center;
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+.hub-spoke-circle {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  width: var(--hub-spoke-circle-size);
+  height: var(--hub-spoke-circle-size);
+  margin: 0 auto 8px;
+  border-radius: 50%;
+  background-color: var(--hub-spoke-circle-bg);
+  text-align: center;
+}
+
+.hub-spoke-icon {
+  margin-bottom: 12px;
+  line-height: 0;
+}
+
+.hub-spoke-icon img {
+  width: 48px;
+  height: auto;
+}
+
+.hub-spoke-heading {
+  margin-top: 0;
+  padding: 0 12px;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 1.4;
+  color: var(--text-color, #212021);
+}
+
+.hub-spoke-item {
+  position: relative;
+  margin: 0;
+  padding: 0 0 0 40px;
+  font-size: 16px;
+  line-height: 1.4;
+  color: var(--text-color, #212021);
+}
+
+.hub-spoke-item::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 0;
+  display: inline-flex;
+  width: 25px;
+  height: 25px;
+  transform: translateY(-50%);
+  border-radius: 20px;
+  background: var(--hub-spoke-dot-color);
+}
+
+.hub-spoke-item strong {
+  font-weight: 700;
+}
+
+/* Tablet and up (>= 768px): radial layout, two columns flanking a center circle. */
+@media (width >= 768px) {
+  .hub-spoke {
+    --hub-spoke-circle-size: 300px;
+
+    display: block;
+  }
+
+  .hub-spoke-grid {
+    /* minmax(0, …) keeps a point's own width from widening its column, so the
+       circle stays centred while the copy reaches across it */
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+
+    /* equal rows keep the first and last points the same distance from the
+       circle, however many lines their copy runs to */
+    grid-auto-rows: 1fr;
+    gap: 88px 12px;
+    max-width: 664px;
+  }
+
+  .hub-spoke-circle {
+    grid-column: 2;
+    justify-self: center;
+    width: 200px;
+    height: 200px;
+    margin: 0;
+    border-radius: 50%;
+    background-color: #f7f9fc;
+  }
+
+  .hub-spoke-item {
+    grid-column: 1;
+    padding: 0 40px 0 0;
+    text-align: right;
+  }
+
+  .hub-spoke-item::before {
+    left: auto;
+    right: 0;
+  }
+
+  .hub-spoke-item-right {
+    grid-column: 3;
+    padding: 0 0 0 40px;
+    text-align: left;
+  }
+
+  .hub-spoke-item-right::before {
+    left: 0;
+    right: auto;
+  }
+
+  /* Flare the row level with the circle outward so the points trace its curve.
+     The extra width over the column keeps this row's copy to two lines. */
+  .hub-spoke-item-outer {
+    box-sizing: border-box;
+    width: 210px;
+  }
+
+  /* This row sits closest to the circle and has the least room, so its lead-in
+     takes a line of its own and the rest of the phrase stays together. */
+  .hub-spoke-item-outer strong {
+    display: block;
+  }
+
+  .hub-spoke-item-left.hub-spoke-item-outer {
+    justify-self: end;
+    transform: translateX(-16px);
+  }
+
+  .hub-spoke-item-right.hub-spoke-item-outer {
+    justify-self: start;
+    transform: translateX(16px);
+  }
+
+  /* The first and last rows sit near the top and bottom of the arc, so their
+     points tuck in close to the circle's vertical axis. They clear the circle
+     vertically, so the copy is free to reach across it. */
+  .hub-spoke-item-edge {
+    box-sizing: border-box;
+    width: 240px;
+  }
+
+  .hub-spoke-item-left.hub-spoke-item-edge {
+    justify-self: end;
+    transform: translateX(87px);
+  }
+
+  .hub-spoke-item-right.hub-spoke-item-edge {
+    justify-self: start;
+    transform: translateX(-87px);
+  }
+}
