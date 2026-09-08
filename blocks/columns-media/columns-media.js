@@ -95,6 +95,7 @@ async function decorateVidyard(block) {
 
       const placeholder = createPlayerPlaceholder(uuid);
       col.replaceChildren(placeholder);
+      col.classList.remove('columns-media-text-col');
       col.classList.add('columns-media-img-col');
       placeholders.push(placeholder);
     });

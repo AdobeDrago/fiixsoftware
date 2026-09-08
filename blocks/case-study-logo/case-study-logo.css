@@ -30,7 +30,6 @@
 .case-study-logo.large {
   margin-top: 0;
   margin-bottom: 60px;
-  text-align: left;
 }
 
 @media (width >= 768px) {
@@ -47,5 +46,6 @@
   .case-study-logo.large {
     margin-top: 0;
     margin-bottom: 60px;
+    text-align: left;
   }
 }

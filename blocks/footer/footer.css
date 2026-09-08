@@ -207,6 +207,7 @@ footer .footer .columns > div > div:has(#legal) h4 {
 }
 
 footer .footer .columns > div > div:has(#follow) {
+    width: 100%;
     margin: 30px 0 0;
     padding: 0;
 }
@@ -283,7 +284,7 @@ footer .footer .columns > div > div:has(#follow) h4 {
         flex: 0 0 30%;
         width: 30%;
         max-width: 30%;
-        margin: 30px 0 0;
+        margin: 50px 0 0;
         padding: 0;
     }
 
@@ -319,8 +320,9 @@ footer .footer .columns li:has(> em) {
 footer .footer #footer-logos {
     display: flex;
     flex-wrap: wrap;
-    align-items: center;
+    align-items: flex-start;
     max-width: 450px;
+    padding-top: 10px;
 }
 
 footer .footer #footer-logos figure {
@@ -341,22 +343,22 @@ footer .footer #footer-logos a:hover {
 footer .footer #footer-logos img {
     display: block;
     box-sizing: border-box;
-    width: 120px;
+    width: 147px;
     height: auto;
     padding: 0 20px 20px 0;
     object-fit: contain;
 }
 
 footer .footer #footer-logos figure:nth-child(1) img {
-    width: 140px;
+    width: 156px;
 }
 
 footer .footer #footer-logos figure:nth-child(2) img {
-    width: 90px;
+    width: 110px;
 }
 
 footer .footer #footer-logos figure:nth-child(5) img {
-    width: 30px;
+    width: 45px;
 }
 
 /* --- columns section wrapper --------------------------------------- */

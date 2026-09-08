@@ -378,6 +378,32 @@
   .req-list { margin: 8px 0 0 18px; font-size: 13px; color: var(--gray-700); }
   .req-list li { margin-bottom: 4px; }
 
+  /* ── PROGRESS CHECKLIST ── */
+  .checklist { list-style: none; display: flex; flex-direction: column; gap: 10px; margin: 4px 0; }
+  .check-item {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    padding: 12px 14px;
+    border: 1px solid var(--gray-200);
+    border-radius: 8px;
+    background: var(--gray-50);
+  }
+  .check-mark {
+    width: 20px; height: 20px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 1px;
+  }
+  .check-mark svg { width: 12px; height: 12px; }
+  .cm-done { background: #eaf6f1; color: #268e6c; }
+  .check-body { flex: 1; }
+  .check-title { font-weight: 700; font-size: 13px; color: var(--gray-900); }
+  .check-note { font-size: 12px; color: var(--gray-600); line-height: 1.5; }
+
   /* ── LIGHTHOUSE COMPARISON ── */
   .lh-compare { display: flex; flex-direction: column; gap: 24px; margin: 16px 0; }
   .lh-compare-page {
@@ -559,6 +585,11 @@
         Journey 3 · Blog
         <span class="nav-status ns-done">Complete</span>
       </a>
+      <a class="sidebar-link" href="#j-testing">
+        <svg class="icon" viewBox="0 0 16 16" fill="currentColor"><path d="M8 1.5a6.5 6.5 0 100 13 6.5 6.5 0 000-13zM0 8a8 8 0 1116 0A8 8 0 010 8zm8-3.25a.75.75 0 01.75.75v2.69l1.78 1.78a.75.75 0 11-1.06 1.06l-2-2A.75.75 0 017.25 8.5v-3a.75.75 0 01.75-.75z"/></svg>
+        Testing (Playwright)
+        <span class="nav-status ns-done">Complete</span>
+      </a>
     </div>
 
     <div class="sidebar-section">
@@ -719,7 +750,7 @@
             <tr><td>Backend services</td><td>None — static block-driven pages only; no <code class="code-inline">workers/</code> or server-side integrations in this repo</td></tr>
             <tr><td>Content source</td><td>DA.live — <code class="code-inline">adobedrago/fiixsoftware</code> (see <code class="code-inline">.migration/project.json</code>)</td></tr>
             <tr><td>Reference site</td><td><a href="https://fiixsoftware.com" target="_blank" rel="noopener" style="color:var(--brand-blue);">fiixsoftware.com</a> — currently WordPress; this is the live source being migrated</td></tr>
-            <tr><td>Testing</td><td>None automated — <code class="code-inline">.github/workflows/main.yaml</code> runs <code class="code-inline">npm ci</code> + <code class="code-inline">npm run lint</code> only, no build/deploy/test step</td></tr>
+            <tr><td>Testing</td><td>Playwright e2e suites in <code class="code-inline">tests/e2e/</code> cover the home page and representative CMMS product page; see <a href="#j-testing" style="color:var(--brand-blue);">Testing journey</a>. The current GitHub workflow runs lint only.</td></tr>
           </tbody>
         </table>
       </section>
@@ -801,7 +832,9 @@ aem up --no-open --forward-browser-logs</div>
         </h2>
         <div class="section-rule"></div>
         <div class="code-block">npm run lint       <span class="cmt"># runs lint:js (eslint, airbnb-base) + lint:css (stylelint-config-standard)</span>
-npm run lint:fix   <span class="cmt"># auto-fixes both</span></div>
+npm run lint:fix   <span class="cmt"># auto-fixes both</span>
+npm run test:e2e   <span class="cmt"># Playwright e2e suite (Desktop Chrome + Mobile Chrome)</span>
+npm run test:e2e:ui <span class="cmt"># same suite, interactive UI mode</span></div>
         <div class="notice info">
           <svg class="notice-icon" width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M8 16A8 8 0 108 0a8 8 0 000 16zM8 4a1 1 0 110 2 1 1 0 010-2zm-1 4h2v5H7V8z"/></svg>
           <span><code class="code-inline">.github/workflows/main.yaml</code> runs <code class="code-inline">npm ci</code> and <code class="code-inline">npm run lint</code> on every push — lint only, no build, deploy, or automated test step. Deployment happens separately via AEM Code Sync (see <a href="#deploying" style="color:inherit;">Deploying</a>).</span>
@@ -1274,6 +1307,111 @@ npm run lint:fix   <span class="cmt"># auto-fixes both</span></div>
           <li><code class="code-inline">blog-body</code> — reading column + CTA rail transforms + scroll progress.</li>
           <li><code class="code-inline">columns-blog-cta</code> / blog CTA bands — trailing promo (one revealed per view via <code class="code-inline">buildBlogArticleBlocks</code>).</li>
           <li><code class="code-inline">decorateBlogHeader</code> in <code class="code-inline">scripts/scripts.js</code> — listing header layout.</li>
+        </ul>
+      </section>
+
+      <!-- JOURNEY: TESTING -->
+      <section class="doc-section" id="j-testing">
+        <h2>
+          Journey — Testing (Playwright)
+          <span class="status-badge sb-done">Complete</span>
+        </h2>
+        <div class="section-rule"></div>
+        <p>Migrating Fiix’s WordPress marketing pages to EDS means rebuilding page behavior as authored content and block JavaScript — including the responsive header, hero forms, carousels, tabs, accordions, and calls to action. A page can look correct at a glance while a link has no destination, a mobile menu cannot be dismissed, or a product-page accordion no longer switches correctly. The Playwright suite catches those regressions against the rendered site instead of relying on a manual click-through.</p>
+
+        <h3>Why automated testing matters for this migration</h3>
+        <ul class="req-list">
+          <li><strong>Validates the migrated page against real behavior</strong> — each test drives the rendered DOM (headings, links, form controls, ARIA state, and responsive layout) rather than trusting that the authored content produced the intended result.</li>
+          <li><strong>Ensures UI and functional consistency</strong> — the assertions run in the configured Desktop Chrome and Mobile Chrome (Pixel 5) profiles, covering the desktop mega menu, mobile navigation, responsive product hero CTA, and mobile overflow.</li>
+          <li><strong>Detects regressions before deployment</strong> — changes to shared blocks, scripts, or styles can be checked locally against the home and representative CMMS product page before they are pushed for AEM preview and review.</li>
+          <li><strong>Builds confidence for future changes</strong> — the repeatable baseline covers the high-traffic page templates and their interactive components, making it faster to verify that working behavior remains intact as the migration expands.</li>
+        </ul>
+
+        <h3>Running the suite</h3>
+        <ol class="steps">
+          <li class="step">
+            <div class="step-num"></div>
+            <div class="step-body">
+              <div class="step-title">Start the local dev server</div>
+              <p>The suite’s <code class="code-inline">baseURL</code> defaults to <code class="code-inline">http://127.0.0.1:3000</code> (set in <code class="code-inline">playwright.config.mjs</code>), and Playwright does not start this server itself. Leave it running in a separate terminal before invoking a test command (see <a href="#setup" style="color:var(--brand-blue);">Install &amp; run</a>).</p>
+              <div class="code-block">npx -y @adobe/aem-cli up --no-open --forward-browser-logs</div>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-num"></div>
+            <div class="step-body">
+              <div class="step-title">Install the browser binary (first run only)</div>
+              <p>The suite drives Chromium through the configured desktop and Pixel 5 device profiles, so Playwright needs its Chromium browser binary installed the first time it runs on a machine.</p>
+              <div class="code-block">npx playwright install chromium</div>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-num"></div>
+            <div class="step-body">
+              <div class="step-title">Run the full suite</div>
+              <div class="code-block">npm run test:e2e      <span class="cmt"># headless — 19 test cases across Desktop Chrome and Mobile Chrome</span>
+npm run test:e2e:ui   <span class="cmt"># interactive UI mode — step through and inspect each test</span></div>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-num"></div>
+            <div class="step-body">
+              <div class="step-title">Run a specific suite or subset</div>
+              <p>The home-page and product-page suites are separate files, and their descriptive test titles can be matched with Playwright’s <code class="code-inline">--grep</code> filter:</p>
+              <div class="code-block">npx playwright test tests/e2e/product-page.spec.js  <span class="cmt"># CMMS product page only</span>
+npx playwright test --grep "accordion"                <span class="cmt"># a matching test case</span>
+npx playwright test --project="Mobile Chrome"         <span class="cmt"># mobile profile only</span>
+npx playwright test --headed                           <span class="cmt"># watch the browser while tests run</span></div>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-num"></div>
+            <div class="step-body">
+              <div class="step-title">Review the results</div>
+              <p>A failure is printed inline in the terminal with its failing assertion. Playwright saves failure artifacts in <code class="code-inline">test-results/</code>; the configuration captures a screenshot on failure and records a trace on the first retry.</p>
+              <p>The current GitHub workflow runs lint only. Run the suite locally before pushing until a dedicated Playwright workflow is added (see <a href="#linting" style="color:var(--brand-blue);">Linting &amp; CI</a>).</p>
+            </div>
+          </li>
+        </ol>
+
+        <h3>Test cases — <code class="code-inline">tests/e2e/</code> (19)</h3>
+        <table class="spec-table">
+          <thead>
+            <tr><th>Suite</th><th>Verifies</th><th>Viewport</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Home · metadata &amp; structure</td><td>Successful response, document metadata, one primary heading, and the main landmark.</td><td>Desktop + mobile</td></tr>
+            <tr><td>Home · content &amp; links</td><td>Required blocks, hero email capture, CTA panels, valid destinations, and eagerly loaded images.</td><td>Desktop + mobile</td></tr>
+            <tr><td>Home · navigation</td><td>Header/footer links, desktop mega-menu Escape behavior, and keyboard-controlled mobile navigation.</td><td>Desktop + mobile</td></tr>
+            <tr><td>Home · interactions</td><td>Feature tabs, video/testimonial controls, uncaught page errors, and mobile horizontal overflow.</td><td>Desktop + mobile</td></tr>
+            <tr><td>Product · metadata &amp; hero</td><td>CMMS product metadata, primary heading, and the responsive email-capture or demo CTA.</td><td>Desktop + mobile</td></tr>
+            <tr><td>Product · content &amp; links</td><td>Product-template blocks, feature cards, and valid main-content link destinations.</td><td>Desktop + mobile</td></tr>
+            <tr><td>Product · interactions</td><td>Exclusive FAQ accordion behavior, testimonial controls, uncaught page errors, and mobile horizontal overflow.</td><td>Desktop + mobile</td></tr>
+          </tbody>
+        </table>
+
+        <ul class="checklist">
+          <li class="check-item">
+            <span class="check-mark cm-done"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06l2.72 2.72 6.72-6.72a.75.75 0 011.06 0z"/></svg></span>
+            <div class="check-body">
+              <div class="check-title">Home and product e2e suites added</div>
+              <div class="check-note"><code class="code-inline">home.spec.js</code> covers 13 home-page test cases; <code class="code-inline">product-page.spec.js</code> covers 6 cases for <code class="code-inline">/cmms/cmms-software</code>.</div>
+            </div>
+          </li>
+          <li class="check-item">
+            <span class="check-mark cm-done"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06l2.72 2.72 6.72-6.72a.75.75 0 011.06 0z"/></svg></span>
+            <div class="check-body">
+              <div class="check-title">Suite configuration</div>
+              <div class="check-note"><code class="code-inline">playwright.config.mjs</code> defaults to <code class="code-inline">http://127.0.0.1:3000</code>, runs fully in parallel across Desktop Chrome and Mobile Chrome (Pixel 5), retries twice in CI, records a trace on the first retry, and captures screenshots only on failure.</div>
+            </div>
+          </li>
+          <li class="check-item">
+            <span class="check-mark cm-done"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 00-1.06-1.06l2.72 2.72 6.72-6.72a.75.75 0 011.06 0z"/></svg></span>
+            <div class="check-body">
+              <div class="check-title">Local test command available</div>
+              <div class="check-note"><code class="code-inline">npm run test:e2e</code> and <code class="code-inline">npm run test:e2e:ui</code> are available locally. CI integration remains a follow-up; <code class="code-inline">.github/workflows/main.yaml</code> currently runs <code class="code-inline">npm run lint</code> only.</div>
+            </div>
+          </li>
         </ul>
       </section>
 

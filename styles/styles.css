@@ -490,7 +490,8 @@ main .section.dark {
 }
 
 main .section.header {
-    height: 230px;
+    height: auto;
+    padding: 50px 0;
     text-align: center;
     display: flex;
     flex-direction: column;
@@ -499,12 +500,10 @@ main .section.header {
     overflow: hidden;
 }
 
-/* Mobile: fixed 230px + overflow clips the wrapped H1 under the nav.
-   Production (#cloud-cmms) switches to height:auto + padding 50px. */
-@media (width < 768px) {
+@media (width >= 768px) {
     main .section.header {
-        height: auto;
-        padding: 50px 0;
+        height: 230px;
+        padding: 0;
     }
 }
 
@@ -2698,12 +2697,11 @@ main > .section.pf-hero.hero-teal {
     --hero-inner: rgb(60 191 200);
 }
 
-/* eyebrow (authored as h1). Production `.new-product .header h1` is 20px/500
-   uppercase, dropping to 12px below ~650px. */
+/* eyebrow (authored as h1). Mobile 12px; tablet+ 20px/500 uppercase. */
 main > .section.pf-hero .hero-lead-content h1 {
-    margin: 0 0 40px;
+    margin: 0 0 20px;
     max-width: none;
-    font-size: 20px;
+    font-size: 12px;
     font-weight: 500;
     line-height: 1.1;
     text-align: left;
@@ -2711,14 +2709,14 @@ main > .section.pf-hero .hero-lead-content h1 {
     color: var(--text-color);
 }
 
-/* headline (authored as h2). */
+/* headline (authored as h2). Mobile 30px; scales up at 768/960. */
 main > .section.pf-hero .hero-lead-content h2 {
     margin: 0 0 30px;
     max-width: none;
     padding-bottom: 0;
-    font-size: 38px;
+    font-size: 30px;
     font-weight: 700;
-    line-height: 38px;
+    line-height: 30px;
     text-align: left;
     color: var(--text-color);
 }
@@ -2992,42 +2990,30 @@ main > .section.pf-hero:has(.hero-lead-media-layers) > .hero-lead-wrapper {
     object-position: top;
 }
 
-@media (width < 768px) {
-    main > .section.pf-hero .hero-lead-content h1 {
-        margin-bottom: 20px;
-        font-size: 12px;
-    }
-
-    main > .section.pf-hero .hero-lead-content h2 {
-        font-size: 30px;
-        line-height: 30px;
-    }
+/* Below desktop: pull non-layered pf-hero under the fixed nav and tighten
+   content padding. Reset at ≥960 where the desktop hero layout takes over. */
+main > .section.pf-hero:not(:has(.hero-lead-media-layers)) {
+    margin-top: calc(-1 * var(--nav-height));
 }
 
-@media (width < 960px) {
-    main > .section.pf-hero:not(:has(.hero-lead-media-layers)) {
-        margin-top: calc(-1 * var(--nav-height));
-    }
+.pf-hero
+    .hero-lead-wrapper
+    .hero-lead:not(:has(.hero-lead-media-layers))
+    .hero-lead-content {
+    padding: 40px 20px;
+}
 
-    .pf-hero
-        .hero-lead-wrapper
-        .hero-lead:not(:has(.hero-lead-media-layers))
-        .hero-lead-content {
-        padding: 40px 20px;
-    }
-
-    main
-        > .section.pf-hero
-        .hero-lead:not(:has(.hero-lead-media-layers))
-        .hero-lead-content
-        h1,
-    main
-        > .section.pf-hero
-        .hero-lead:not(:has(.hero-lead-media-layers))
-        .hero-lead-content
-        h2 {
-        max-width: 96%;
-    }
+main
+    > .section.pf-hero
+    .hero-lead:not(:has(.hero-lead-media-layers))
+    .hero-lead-content
+    h1,
+main
+    > .section.pf-hero
+    .hero-lead:not(:has(.hero-lead-media-layers))
+    .hero-lead-content
+    h2 {
+    max-width: 96%;
 }
 
 .pf-hero .hero-lead-wrapper .hero-lead .hero-lead-form {
@@ -3146,6 +3132,16 @@ main > .section.pf-hero:has(.hero-lead-media-layers) > .hero-lead-wrapper {
 }
 
 @media (width >= 768px) {
+    main > .section.pf-hero .hero-lead-content h1 {
+        margin-bottom: 40px;
+        font-size: 20px;
+    }
+
+    main > .section.pf-hero .hero-lead-content h2 {
+        font-size: 38px;
+        line-height: 38px;
+    }
+
     .pf-hero
         .hero-lead-wrapper
         .hero-lead
@@ -3181,6 +3177,23 @@ main > .section.pf-hero:has(.hero-lead-media-layers) > .hero-lead-wrapper {
 }
 
 @media (width >= 960px) {
+    main > .section.pf-hero:not(:has(.hero-lead-media-layers)) {
+        margin-top: 0;
+    }
+
+    main
+        > .section.pf-hero
+        .hero-lead:not(:has(.hero-lead-media-layers))
+        .hero-lead-content
+        h1,
+    main
+        > .section.pf-hero
+        .hero-lead:not(:has(.hero-lead-media-layers))
+        .hero-lead-content
+        h2 {
+        max-width: none;
+    }
+
     main > .section.pf-hero .hero-lead-content h2 {
         font-size: 50px;
         line-height: 50px;
@@ -3215,8 +3228,7 @@ main > .section.pf-hero:has(.hero-lead-media-layers) > .hero-lead-wrapper {
         > .section.pf-hero
         .hero-lead:not(:has(.hero-lead-media-layers))
         .hero-lead-content {
-        padding-top: 0;
-        padding-bottom: 0;
+        padding: 0;
     }
 
     /* Only a genuine media-ONLY column with a single screenshot gets the panel.
@@ -4338,9 +4350,10 @@ main
     margin-top: 0;
 }
 
-/* ---- pf-final-cta: centered "Ready to see more?" heading + paragraph
-   + two buttons (Book a demo / Take a free tour). The two links are
-   authored as a bulleted list. Production H2 48/700 centered. ---- */
+/* ---- pf-final-cta: centered "Ready to see more?" / "Ready to get started?"
+   heading + paragraph + CTA links authored as a bulleted list.
+   One link (free-cmms) = cyan fill; two links = green + cyan outline.
+   Production H2 48/700 centered. ---- */
 main > .section.pf-final-cta {
     margin: 0;
     padding: 100px 0 0;
@@ -4439,12 +4452,15 @@ main > .section.pf-final-cta .default-content-wrapper ul li {
     margin: 0;
 }
 
+/* Shared pill chrome for CTA links (production .home-seemore).
+   width/height match production content-box sizing — do not use border-box
+   here or padding+border shrink the text area and truncate labels. */
 main > .section.pf-final-cta .default-content-wrapper ul a:any-link {
     display: inline-block;
     padding: 0 22px;
-    border: 2px solid #20a51e;
+    border: 2px solid #00afeb;
     border-radius: 27px;
-    background-color: #20a51e;
+    background-color: #00afeb;
     color: #fff;
     font-size: 20px;
     font-weight: 700;
@@ -4453,20 +4469,88 @@ main > .section.pf-final-cta .default-content-wrapper ul a:any-link {
     margin-bottom: 20px;
     height: 53px;
     width: 165px;
+    text-align: center;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s;
 }
 
-/* second link ("Take a free tour") = cyan outlined pill */
+main > .section.pf-final-cta.cloud-page .default-content-wrapper ul li a:any-link {
+    background: #14499a;
+    border-color: #14499a;
+    color: #fff;
+    text-decoration: none;
+}
+
+/* Single-link CTA (e.g. free-cmms "Get started"): cyan fill → outline on hover.
+   :only-child so a lone link is not styled as the two-button "last" outline. */
+main > .section.pf-final-cta .default-content-wrapper ul li:only-child a:any-link:hover,
+main > .section.pf-final-cta .default-content-wrapper ul li:only-child a:any-link:focus-visible {
+    background-color: #fff;
+    border-color: #00afeb;
+    color: #00afeb;
+    text-decoration: none;
+}
+
+/* Two-button row: first link ("Book a demo") = green fill */
 main
     > .section.pf-final-cta
     .default-content-wrapper
     ul
-    li:last-child
+    li:first-child:not(:only-child)
+    a:any-link {
+    border-color: #20a51e;
+    background-color: #20a51e;
+    color: #fff;
+}
+
+main
+    > .section.pf-final-cta
+    .default-content-wrapper
+    ul
+    li:first-child:not(:only-child)
+    a:any-link:hover,
+main
+    > .section.pf-final-cta
+    .default-content-wrapper
+    ul
+    li:first-child:not(:only-child)
+    a:any-link:focus-visible {
+    background-color: #1a8418;
+    border-color: #1a8418;
+    color: #fff;
+    text-decoration: none;
+}
+
+/* Two-button row: second link ("Take a free tour") = cyan outlined pill */
+main
+    > .section.pf-final-cta
+    .default-content-wrapper
+    ul
+    li:last-child:not(:only-child)
     a:any-link {
     padding: 0 20px;
     border-color: #00afeb;
     background-color: #fff;
     color: #00afeb;
-    font-weight: 700;
+}
+
+main
+    > .section.pf-final-cta
+    .default-content-wrapper
+    ul
+    li:last-child:not(:only-child)
+    a:any-link:hover,
+main
+    > .section.pf-final-cta
+    .default-content-wrapper
+    ul
+    li:last-child:not(:only-child)
+    a:any-link:focus-visible {
+    background-color: #00afeb;
+    border-color: #00afeb;
+    color: #fff;
+    text-decoration: none;
 }
 
 @media (width >= 960px) {
@@ -4792,7 +4876,9 @@ main > .section.ai-fiixmax .columns-media p:has(> strong:only-child) {
 
 /* "Available on Desktop and Mobile" ribbon tag: only the first row's text
    column carries it, as a plain leading paragraph with no <strong> (the
-   quoted-question row starts with the strong-wrapped quote instead). */
+   quoted-question row starts with the strong-wrapped quote instead).
+   Matches production `#fiixAI .fiixMAX-info .question:nth-child(4)` —
+   absolute ribbon + extra row padding so the quote clears it. */
 main > .section.ai-fiixmax .columns-media > div:not(:has(
         > .columns-media-text-col > p:first-child > strong:only-child
     )) {
@@ -4821,6 +4907,24 @@ main
     font-weight: 300;
 }
 
+/* Mobile-first: stack copy then inline video inside each white card (live
+   .fiixMAX-info .question). Stretch both columns to the card width —
+   align-items: center collapses embeds; do not add aspect-ratio on
+   .vidyard-player-container (Vidyard sizes itself via padding-bottom on
+   .vidyard-div-*). */
+main > .section.ai-fiixmax .columns-media.vidyard > div {
+    flex-direction: column;
+    align-items: stretch;
+}
+
+main > .section.ai-fiixmax .columns-media.vidyard .columns-media-text-col:not(.columns-media-img-col),
+main > .section.ai-fiixmax .columns-media.vidyard .columns-media-img-col {
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+}
+
 @media (width >= 768px) {
     main > .section.ai-fiixmax::before,
     main > .section.ai-fiixmax::after {
@@ -4838,23 +4942,32 @@ main
         gap: 50px;
     }
 
-    /* Side-by-side layout: the video column is always the taller flex item
-       (it sets the row's height), so it sits flush at the top regardless of
-       align-items. Force the tagged row's text column to flex-start too and
-       give it its own top padding, so the ribbon tag's absolute position
-       never depends on how many lines the quote wraps to (varies with our
-       font stack vs production's). */
+    /* Restore authored zigzag: DOM is always video then text, so .left =
+       video left / text right (row) and .right = text left / video right
+       (row-reverse). Must beat the mobile-first column rule above. */
+    main > .section.ai-fiixmax .columns-media.vidyard.left > div {
+        flex-direction: row;
+        align-items: center;
+    }
+
+    main > .section.ai-fiixmax .columns-media.vidyard.right > div {
+        flex-direction: row-reverse;
+        align-items: center;
+    }
+
+    main > .section.ai-fiixmax .columns-media.vidyard .columns-media-text-col:not(.columns-media-img-col),
+    main > .section.ai-fiixmax .columns-media.vidyard .columns-media-img-col {
+        width: auto;
+        flex: 1 1 0;
+        min-width: 0;
+    }
+
+    /* Production desktop: tagged card padding-top 120px, ribbon at top 45px
+       so quote + video stay clear and vertically centered. */
     main > .section.ai-fiixmax .columns-media > div:not(:has(
             > .columns-media-text-col > p:first-child > strong:only-child
         )) {
-        align-items: flex-start;
-        padding-top: 35px;
-    }
-
-    main > .section.ai-fiixmax .columns-media > div:not(:has(
-            > .columns-media-text-col > p:first-child > strong:only-child
-        )) > .columns-media-text-col:not(.columns-media-img-col) {
-        padding-top: 90px;
+        padding-top: 120px;
     }
 
     main > .section.ai-fiixmax .columns-media p:has(> strong:only-child) {
@@ -6637,11 +6750,4 @@ main .section.logos.highlight.homepage .default-content-wrapper h2 {
     font-size: 20px;
     line-height: 22px;
     text-align: center;
-}
-
-main > .section.pf-final-cta.cloud-page .default-content-wrapper ul li a:any-link{
-    background: #14499a;
-    border-color: #14499a;
-    color: #fff;
-    text-decoration: none;
 }
