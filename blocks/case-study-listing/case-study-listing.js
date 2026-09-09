@@ -219,7 +219,13 @@ async function fetchIndex(url) {
 
 async function loadIndex(indexUrl, fallbackUrl) {
   try {
-    return await fetchIndex(indexUrl);
+    const entries = await fetchIndex(indexUrl);
+    // A query index can be available before its image metadata is populated.
+    // Since listing cards rely on that image, use the complete fallback index.
+    if (entries.length && entries.every((entry) => !entry.image)) {
+      return fetchIndex(fallbackUrl);
+    }
+    return entries;
   } catch (error) {
     if (indexUrl === fallbackUrl) throw error;
     return fetchIndex(fallbackUrl);
