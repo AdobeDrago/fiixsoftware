@@ -92,18 +92,43 @@
    CSS can reference these `var(--ds-*)` values too.
    ========================================================================== */
 body.page-home {
-    /* Figma "Fiix" component tokens actually used below — button + input.
-       (Other tokens/placements that were not Figma-specified were reverted.) */
-    --ds-blue: #14499a;             /* button primary / input focus (state enabled) */
-    --ds-blue-hover: #1b366f;       /* hover / focus (indigo) */
-    --ds-text: #2d2d2d;             /* input text (text/default) */
-    --ds-text-inverse: #fff;        /* button primary label */
-    --ds-border-input: #6d6e71;     /* input border (border/input, stormy) */
+    /* color — semantic (Fiix mode) */
+    --ds-blue: #14499a;             /* enabled / primary */
+    --ds-blue-hover: #1b366f;       /* hover / focus / pressed (indigo) */
+    --ds-blue-active: #635ce8;      /* active (royal-purple) */
+    --ds-cyan: #1f96d3;             /* logo-primary */
+    --ds-text: #2d2d2d;             /* charcoal */
+    --ds-text-subtle: #58585a;      /* steel */
+    --ds-text-inverse: #fff;
+    --ds-bg: #fff;
+    --ds-bg-subtle: #fafafa;        /* snow */
+    --ds-bg-light: #e5e6e9;         /* platinum */
+    --ds-border: #949494;           /* stone */
+    --ds-border-input: #6d6e71;     /* stormy */
+    --ds-border-subtle: #ccc;       /* silver */
+    --ds-cool-blue: #e1ebf4;        /* tag / banner background */
+    --ds-winter-blue: #99dff7;
+    --ds-white-lilac: #f7f9fc;
+    --ds-divider: #e5e6e9;
+    --ds-error: #da0000;
+    --ds-success: #008700;
+
+    /* spacing scale (core/spacing) */
+    --ds-space-1: 4px;
+    --ds-space-2: 8px;
+    --ds-space-3: 12px;
+    --ds-space-4: 16px;
+    --ds-space-5: 24px;
+    --ds-space-6: 32px;
+    --ds-space-7: 40px;
+    --ds-space-8: 48px;
 
     /* component — button */
     --ds-btn-radius: 24px;
     --ds-btn-weight: 800;
+    --ds-btn-font-size: 16px;
     --ds-btn-pad-y: 6px;
+    --ds-btn-pad-y-lg: 12px;
     --ds-btn-pad-x: 32px;
     --ds-btn-outline: 2px;
 
@@ -111,6 +136,28 @@ body.page-home {
     --ds-input-radius: 4px;
     --ds-input-border: 1px;
     --ds-input-border-active: 2px;
+    --ds-input-pad-y: 12px;
+
+    /* component — card (Figma: border-weight 0, no radius = square);
+       elevation via image shadow (offset 0/2, blur 12, #0000003d) */
+    --ds-card-radius: 0;
+    --ds-card-shadow: 0 2px 12px #0000003d;
+    --ds-divider-height: 1px;
+
+    /* component — tag (cool-blue pill) */
+    --ds-tag-bg: var(--ds-cool-blue);
+    --ds-tag-text: var(--ds-blue);
+    --ds-tag-radius: 4px;
+
+    /* typescale (Sofia Pro) — semantic Figma type styles, mobile→desktop */
+    --ds-display-size: 56px;      /* display-4-strong */
+    --ds-display-lh: 64px;
+    --ds-title-1-size: 40px;      /* title-1-strong (mobile 32/40) */
+    --ds-title-1-lh: 48px;
+    --ds-lead-size: 20px;         /* publication 20/32 */
+    --ds-lead-lh: 32px;
+    --ds-weight-strong: 800;
+    --ds-weight-light: 300;
 }
 
 body {
@@ -427,9 +474,27 @@ body.page-home a.button.secondary:focus-visible,
 body.page-home button.button.secondary:hover,
 body.page-home button.button.secondary:focus-visible {
     border-color: var(--ds-blue-hover);
+    background-color: var(--ds-cool-blue);
     color: var(--ds-blue-hover);
 }
 /* stylelint-enable no-descending-specificity */
+
+/* HOME PAGE — Figma focus state: 2px indigo ring on any focused control. */
+body.page-home a:focus-visible,
+body.page-home button:focus-visible,
+body.page-home input:focus-visible,
+body.page-home select:focus-visible,
+body.page-home textarea:focus-visible {
+    outline: 2px solid var(--ds-blue-hover);
+    outline-offset: 2px;
+}
+
+/* HOME PAGE — Figma spacing/dividers: hairline rule delineating the grey
+   content bands from the sections above them (core/color platinum #e5e6e9). */
+body.page-home main .section.logos.homepage,
+body.page-home main .section.video-cards {
+    border-top: var(--ds-divider-height) solid var(--ds-divider);
+}
 
 main img {
     max-width: 100%;
@@ -6826,4 +6891,51 @@ main .section.logos.highlight.homepage .default-content-wrapper h2 {
     line-height: 22px;
     text-align: center;
 }
+
+/* HOME PAGE — Figma "tag" treatment for the security feature icons: seat each
+   icon in a cool-blue rounded badge with a navy glyph. Kept at end-of-file so
+   its high `:has()` specificity never precedes a lower-specificity rule. */
+/* stylelint-disable-next-line no-descending-specificity */
+body.page-home .security .security-feature > p:has(picture) {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 72px;
+    height: 72px;
+    margin-bottom: 16px;
+    border-radius: var(--ds-tag-radius);
+    background-color: var(--ds-tag-bg);
+}
+
+/* HOME PAGE — Figma "Fiix" strong titles are weight 800. Applied to home
+   section headings without changing tuned section sizes, so nothing reflows.
+   Kept at end-of-file so this general rule never precedes a lower-specificity
+   section rule. The marquee hero uses the full Figma display scale (56/64) via
+   its own rules in hero-lead.css. */
+/* stylelint-disable-next-line no-descending-specificity */
+body.page-home main .section :is(h1, h2, h3) {
+    font-weight: var(--ds-weight-strong);
+}
+
+/* HOME PAGE — unify the marquee section titles to Figma title-1-strong
+   (breakpoint-s 32/40 → breakpoint-m-xl 40/48, weight 800). Higher specificity
+   than the section rules above, and at end-of-file so nothing lower follows. */
+/* stylelint-disable no-descending-specificity */
+body.page-home main .section.video-cards .default-content-wrapper h2,
+body.page-home main .section.testimonials .default-content-wrapper h2,
+body.page-home main .section.security h2 {
+    font-size: 32px;
+    line-height: 40px;
+    font-weight: var(--ds-weight-strong);
+}
+
+@media (width >= 768px) {
+    body.page-home main .section.video-cards .default-content-wrapper h2,
+    body.page-home main .section.testimonials .default-content-wrapper h2,
+    body.page-home main .section.security h2 {
+        font-size: var(--ds-title-1-size);
+        line-height: var(--ds-title-1-lh);
+    }
+}
+/* stylelint-enable no-descending-specificity */
 

@@ -56,3 +56,19 @@ main > .section.promo-bar-container > div {
 .promo-bar a:hover {
   text-decoration: none;
 }
+
+/* HOME PAGE — Figma "Fiix" alert-banner tokens: cool-blue #e1ebf4 background,
+   indigo #1b366f text, bold links. Scoped to page-home only. */
+body.page-home main > .section.promo-bar-container {
+  background-color: var(--ds-cool-blue);
+}
+
+body.page-home .promo-bar {
+  color: var(--ds-blue-hover);
+  font-weight: 500;
+}
+
+body.page-home .promo-bar a:any-link {
+  color: var(--ds-blue-hover);
+  font-weight: 800;
+}
