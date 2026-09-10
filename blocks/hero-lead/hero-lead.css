@@ -996,3 +996,28 @@ body.page-home .hero-lead .hero-lead-stat {
     border-radius: var(--ds-tag-radius);
     color: var(--ds-tag-text);
 }
+
+/* HOME PAGE — Figma display type for the hero marquee: title-1 (40/48) on
+   mobile scaling to display-4-strong (56/64) on desktop, weight 800; lead
+   paragraph uses the Figma "publication" style (20/32, weight 300). */
+body.page-home .section.home-hero .hero-lead h1 {
+    font-size: var(--ds-title-1-size);
+    line-height: var(--ds-title-1-lh);
+    font-weight: var(--ds-weight-strong);
+}
+
+/* The hero's supporting line is authored as an <h2>; in the Figma it is the
+   "publication" lead style (20/32, weight 300), not a title — so it must not
+   pick up the section title scale. */
+body.page-home .section.home-hero .hero-lead .hero-lead-content h2 {
+    font-size: var(--ds-lead-size);
+    line-height: var(--ds-lead-lh);
+    font-weight: var(--ds-weight-light);
+}
+
+@media (width >= 960px) {
+    body.page-home .section.home-hero .hero-lead h1 {
+        font-size: var(--ds-display-size);
+        line-height: var(--ds-display-lh);
+    }
+}

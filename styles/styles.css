@@ -138,15 +138,26 @@ body.page-home {
     --ds-input-border-active: 2px;
     --ds-input-pad-y: 12px;
 
-    /* component — card */
-    --ds-card-radius: 8px;
-    --ds-card-shadow: 0 10px 30px rgb(0 0 0 / 12%);
+    /* component — card (Figma: border-weight 0, no radius = square);
+       elevation via image shadow (offset 0/2, blur 12, #0000003d) */
+    --ds-card-radius: 0;
+    --ds-card-shadow: 0 2px 12px #0000003d;
     --ds-divider-height: 1px;
 
     /* component — tag (cool-blue pill) */
     --ds-tag-bg: var(--ds-cool-blue);
     --ds-tag-text: var(--ds-blue);
     --ds-tag-radius: 4px;
+
+    /* typescale (Sofia Pro) — semantic Figma type styles, mobile→desktop */
+    --ds-display-size: 56px;      /* display-4-strong */
+    --ds-display-lh: 64px;
+    --ds-title-1-size: 40px;      /* title-1-strong (mobile 32/40) */
+    --ds-title-1-lh: 48px;
+    --ds-lead-size: 20px;         /* publication 20/32 */
+    --ds-lead-lh: 32px;
+    --ds-weight-strong: 800;
+    --ds-weight-light: 300;
 }
 
 body {
@@ -467,13 +478,6 @@ body.page-home button.button.secondary:focus-visible {
     color: var(--ds-blue-hover);
 }
 /* stylelint-enable no-descending-specificity */
-
-/* HOME PAGE — Figma "Fiix" typography: strong titles are weight 800. Bumping
-   home section headings to 800 gives the confident Fiix title look without
-   changing layout dimensions. Section-specific size rules elsewhere still win. */
-body.page-home main .section :is(h1, h2, h3) {
-    font-weight: 800;
-}
 
 /* HOME PAGE — Figma focus state: 2px indigo ring on any focused control. */
 body.page-home a:focus-visible,
@@ -6899,6 +6903,16 @@ body.page-home .security .security-feature > p:has(picture) {
     width: 72px;
     height: 72px;
     margin-bottom: 16px;
-    border-radius: var(--ds-card-radius);
+    border-radius: var(--ds-tag-radius);
     background-color: var(--ds-tag-bg);
+}
+
+/* HOME PAGE — Figma "Fiix" strong titles are weight 800. Applied to home
+   section headings without changing tuned section sizes, so nothing reflows.
+   Kept at end-of-file so this general rule never precedes a lower-specificity
+   section rule. The marquee hero uses the full Figma display scale (56/64) via
+   its own rules in hero-lead.css. */
+/* stylelint-disable-next-line no-descending-specificity */
+body.page-home main .section :is(h1, h2, h3) {
+    font-weight: var(--ds-weight-strong);
 }
