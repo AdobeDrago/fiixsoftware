@@ -103,6 +103,7 @@ body.page-home {
     --ds-bg: #fff;
     --ds-bg-subtle: #fafafa;        /* snow */
     --ds-bg-light: #e5e6e9;         /* platinum */
+    --ds-bg-dark: #58585a;          /* semantic background/dark (steel) */
     --ds-border: #949494;           /* stone */
     --ds-border-input: #6d6e71;     /* stormy */
     --ds-border-subtle: #ccc;       /* silver */
@@ -491,8 +492,7 @@ body.page-home textarea:focus-visible {
 
 /* HOME PAGE — Figma spacing/dividers: hairline rule delineating the grey
    content bands from the sections above them (core/color platinum #e5e6e9). */
-body.page-home main .section.logos.homepage,
-body.page-home main .section.video-cards {
+body.page-home main .section.logos.homepage {
     border-top: var(--ds-divider-height) solid var(--ds-divider);
 }
 
@@ -6916,3 +6916,39 @@ body.page-home .security .security-feature > p:has(picture) {
 body.page-home main .section :is(h1, h2, h3) {
     font-weight: var(--ds-weight-strong);
 }
+
+/* HOME PAGE — unify the marquee section titles to Figma title-1-strong
+   (breakpoint-s 32/40 → breakpoint-m-xl 40/48, weight 800). Higher specificity
+   than the section rules above, and at end-of-file so nothing lower follows. */
+/* stylelint-disable no-descending-specificity */
+body.page-home main .section.video-cards .default-content-wrapper h2,
+body.page-home main .section.testimonials .default-content-wrapper h2,
+body.page-home main .section.security h2 {
+    font-size: 32px;
+    line-height: 40px;
+    font-weight: var(--ds-weight-strong);
+}
+
+@media (width >= 768px) {
+    body.page-home main .section.video-cards .default-content-wrapper h2,
+    body.page-home main .section.testimonials .default-content-wrapper h2,
+    body.page-home main .section.security h2 {
+        font-size: var(--ds-title-1-size);
+        line-height: var(--ds-title-1-lh);
+    }
+}
+/* stylelint-enable no-descending-specificity */
+
+/* HOME PAGE — Figma color-block: the "See how…" video-cards section becomes a
+   dark band (semantic background/dark #58585a) with inverse (white) heading so
+   the white cards read as a strong, elevated row against it. */
+/* stylelint-disable no-descending-specificity */
+body.page-home main .section.video-cards {
+    background-color: var(--ds-bg-dark);
+}
+
+body.page-home main .section.video-cards .default-content-wrapper h2,
+body.page-home main .section.video-cards .default-content-wrapper > p {
+    color: var(--ds-text-inverse);
+}
+/* stylelint-enable no-descending-specificity */
