@@ -142,6 +142,11 @@ body.page-home {
     --ds-card-radius: 8px;
     --ds-card-shadow: 0 10px 30px rgb(0 0 0 / 12%);
     --ds-divider-height: 1px;
+
+    /* component — tag (cool-blue pill) */
+    --ds-tag-bg: var(--ds-cool-blue);
+    --ds-tag-text: var(--ds-blue);
+    --ds-tag-radius: 4px;
 }
 
 body {
@@ -462,6 +467,30 @@ body.page-home button.button.secondary:focus-visible {
     color: var(--ds-blue-hover);
 }
 /* stylelint-enable no-descending-specificity */
+
+/* HOME PAGE — Figma "Fiix" typography: strong titles are weight 800. Bumping
+   home section headings to 800 gives the confident Fiix title look without
+   changing layout dimensions. Section-specific size rules elsewhere still win. */
+body.page-home main .section :is(h1, h2, h3) {
+    font-weight: 800;
+}
+
+/* HOME PAGE — Figma focus state: 2px indigo ring on any focused control. */
+body.page-home a:focus-visible,
+body.page-home button:focus-visible,
+body.page-home input:focus-visible,
+body.page-home select:focus-visible,
+body.page-home textarea:focus-visible {
+    outline: 2px solid var(--ds-blue-hover);
+    outline-offset: 2px;
+}
+
+/* HOME PAGE — Figma spacing/dividers: hairline rule delineating the grey
+   content bands from the sections above them (core/color platinum #e5e6e9). */
+body.page-home main .section.logos.homepage,
+body.page-home main .section.video-cards {
+    border-top: var(--ds-divider-height) solid var(--ds-divider);
+}
 
 main img {
     max-width: 100%;
@@ -6857,4 +6886,19 @@ main .section.logos.highlight.homepage .default-content-wrapper h2 {
     font-size: 20px;
     line-height: 22px;
     text-align: center;
+}
+
+/* HOME PAGE — Figma "tag" treatment for the security feature icons: seat each
+   icon in a cool-blue rounded badge with a navy glyph. Kept at end-of-file so
+   its high `:has()` specificity never precedes a lower-specificity rule. */
+/* stylelint-disable-next-line no-descending-specificity */
+body.page-home .security .security-feature > p:has(picture) {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 72px;
+    height: 72px;
+    margin-bottom: 16px;
+    border-radius: var(--ds-card-radius);
+    background-color: var(--ds-tag-bg);
 }

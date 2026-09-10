@@ -139,6 +139,7 @@ body.page-home .hero-lead .hero-lead-cta:focus-visible {
     background-color: var(--ds-blue-hover);
 }
 
+
 /* "Request a demo": a filled blue pill on mobile/tablet (desktop reverts
    it to a plain text link in the desktop media query below). The paragraph
    is centered so the inline-block button sits centered in the column. */
@@ -985,4 +986,13 @@ main .section.home-hero .hero-lead .hero-lead-stats {
         flex-wrap: nowrap;
         gap: 20px;
     }
+}
+
+/* HOME PAGE — Figma "tag" treatment for the hero stat chips: cool-blue #e1ebf4
+   pill, navy #14499a text, tag radius 4. Placed last so specificity ascends. */
+/* stylelint-disable-next-line no-descending-specificity */
+body.page-home .hero-lead .hero-lead-stat {
+    background-color: var(--ds-tag-bg);
+    border-radius: var(--ds-tag-radius);
+    color: var(--ds-tag-text);
 }
