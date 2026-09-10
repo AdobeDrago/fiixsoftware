@@ -113,29 +113,30 @@ main .pf-hero.section.hero-lead-container .hero-lead-wrapper {
     background-color: var(--hero-lead-cta-bg-hover);
 }
 
-/* HOME PAGE — Figma "Fiix" input + button tokens. Input: 1px #6d6e71 border,
+/* SITE-WIDE — Figma "Fiix" input + button tokens. Input: 1px #6d6e71 border,
    radius 4, 2px indigo focus. Submit pill: radius 24, weight 800, navy/hover
-   indigo. Scoped to page-home only. */
-body.page-home .hero-lead .hero-lead-input {
+   indigo. Applied site-wide. */
+body .hero-lead .hero-lead-input {
     border: var(--ds-input-border) solid var(--ds-border-input);
     border-radius: var(--ds-input-radius);
     color: var(--ds-text);
 }
 
-body.page-home .hero-lead .hero-lead-input:focus,
-body.page-home .hero-lead .hero-lead-input:focus-visible {
+body .hero-lead .hero-lead-input:focus,
+body .hero-lead .hero-lead-input:focus-visible {
     border: var(--ds-input-border-active) solid var(--ds-blue-hover);
     outline: none;
 }
 
-body.page-home .hero-lead .hero-lead-cta {
+/* stylelint-disable-next-line no-descending-specificity */
+body .hero-lead .hero-lead-cta {
     border-radius: var(--ds-btn-radius);
     background-color: var(--ds-blue);
     font-weight: var(--ds-btn-weight);
 }
 
-body.page-home .hero-lead .hero-lead-cta:hover,
-body.page-home .hero-lead .hero-lead-cta:focus-visible {
+body .hero-lead .hero-lead-cta:hover,
+body .hero-lead .hero-lead-cta:focus-visible {
     background-color: var(--ds-blue-hover);
 }
 
@@ -988,19 +989,20 @@ main .section.home-hero .hero-lead .hero-lead-stats {
     }
 }
 
-/* HOME PAGE — Figma "tag" treatment for the hero stat chips: cool-blue #e1ebf4
+/* SITE-WIDE — Figma "tag" treatment for the hero stat chips: cool-blue #e1ebf4
    pill, navy #14499a text, tag radius 4. Placed last so specificity ascends. */
 /* stylelint-disable-next-line no-descending-specificity */
-body.page-home .hero-lead .hero-lead-stat {
+body .hero-lead .hero-lead-stat {
     background-color: var(--ds-tag-bg);
     border-radius: var(--ds-tag-radius);
     color: var(--ds-tag-text);
 }
 
-/* HOME PAGE — Figma display type for the hero marquee: title-1 (40/48) on
+/* SITE-WIDE — Figma display type for the hero marquee: title-1 (40/48) on
    mobile scaling to display-4-strong (56/64) on desktop, weight 800; lead
    paragraph uses the Figma "publication" style (20/32, weight 300). */
-body.page-home .section.home-hero .hero-lead h1 {
+/* stylelint-disable-next-line no-descending-specificity */
+body .section.home-hero .hero-lead h1 {
     font-size: var(--ds-title-1-size);
     line-height: var(--ds-title-1-lh);
     font-weight: var(--ds-weight-strong);
@@ -1009,14 +1011,14 @@ body.page-home .section.home-hero .hero-lead h1 {
 /* The hero's supporting line is authored as an <h2>; in the Figma it is the
    "publication" lead style (20/32, weight 300), not a title — so it must not
    pick up the section title scale. */
-body.page-home .section.home-hero .hero-lead .hero-lead-content h2 {
+body .section.home-hero .hero-lead .hero-lead-content h2 {
     font-size: var(--ds-lead-size);
     line-height: var(--ds-lead-lh);
     font-weight: var(--ds-weight-light);
 }
 
 @media (width >= 960px) {
-    body.page-home .section.home-hero .hero-lead h1 {
+    body .section.home-hero .hero-lead h1 {
         font-size: var(--ds-display-size);
         line-height: var(--ds-display-lh);
     }

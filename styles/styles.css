@@ -51,47 +51,15 @@
 
     /* nav height */
     --nav-height: 64px;
-}
 
-/* fallback fonts */
-@font-face {
-    font-family: roboto-condensed-fallback;
-    size-adjust: 88.82%;
-    src: local("Arial");
-}
+    /* ======================================================================
+       Figma "Fiix components for Adobe" design system — SITE-WIDE tokens.
+       Resolved from the Figma file's Fiix theme mode (Sofia Pro). `--ds-*`
+       names are namespaced to avoid colliding with the `--fiix-*` tokens above.
+       Rules that reference home-only section classes (`.home-hero`,
+       `.dual-cta.homepage`, `.security`) apply only where those sections exist.
+       ====================================================================== */
 
-@font-face {
-    font-family: roboto-fallback;
-    size-adjust: 99.529%;
-    src: local("Arial");
-}
-
-@media (width >= 960px) {
-    :root {
-        /* body sizes — production content copy reads at 20px on desktop. */
-        --body-font-size-m: 20px;
-        --body-font-size-s: 18px;
-        --body-font-size-xs: 16px;
-
-        /* heading sizes — production desktop: 50px h1 / 48px h2 / 20px h3. */
-        --heading-font-size-xxl: 50px;
-        --heading-font-size-xl: 48px;
-        --heading-font-size-l: 20px;
-        --heading-font-size-m: 22px;
-        --heading-font-size-s: 20px;
-        --heading-font-size-xs: 18px;
-    }
-}
-
-/* ==========================================================================
-   Figma "Fiix components for Adobe" design system — HOME PAGE ONLY
-   Tokens resolved from the Figma file's Fiix theme mode (Sofia Pro). Scoped to
-   `body.page-home` (added by decoratePageClass for the root page) so no other
-   page is affected. `--ds-*` names are namespaced to avoid colliding with the
-   existing global `--fiix-*` tokens. Custom properties inherit, so home block
-   CSS can reference these `var(--ds-*)` values too.
-   ========================================================================== */
-body.page-home {
     /* color — semantic (Fiix mode) */
     --ds-blue: #14499a;             /* enabled / primary */
     --ds-blue-hover: #1b366f;       /* hover / focus / pressed (indigo) */
@@ -158,6 +126,36 @@ body.page-home {
     --ds-lead-lh: 32px;
     --ds-weight-strong: 800;
     --ds-weight-light: 300;
+}
+
+/* fallback fonts */
+@font-face {
+    font-family: roboto-condensed-fallback;
+    size-adjust: 88.82%;
+    src: local("Arial");
+}
+
+@font-face {
+    font-family: roboto-fallback;
+    size-adjust: 99.529%;
+    src: local("Arial");
+}
+
+@media (width >= 960px) {
+    :root {
+        /* body sizes — production content copy reads at 20px on desktop. */
+        --body-font-size-m: 20px;
+        --body-font-size-s: 18px;
+        --body-font-size-xs: 16px;
+
+        /* heading sizes — production desktop: 50px h1 / 48px h2 / 20px h3. */
+        --heading-font-size-xxl: 50px;
+        --heading-font-size-xl: 48px;
+        --heading-font-size-l: 20px;
+        --heading-font-size-m: 22px;
+        --heading-font-size-s: 20px;
+        --heading-font-size-xs: 18px;
+    }
 }
 
 body {
@@ -433,66 +431,66 @@ a.cta-link:focus-visible::after {
     margin-left: 10px;
 }
 
-/* HOME PAGE — Figma "Fiix" button spec: pill radius 24, weight 800, navy
+/* SITE-WIDE — Figma "Fiix" button spec: pill radius 24, weight 800, navy
    #14499a / hover indigo #1b366f, secondary as a 2px navy outline. Placed after
    the base `.button` rules so specificity ascends. Style-only; markup unchanged
-   (decorateButtons). Scoped to page-home only. */
+   (decorateButtons). Applied site-wide. */
 /* stylelint-disable no-descending-specificity */
-body.page-home a.button:any-link,
-body.page-home button.button {
+body a.button:any-link,
+body button.button {
     border-radius: var(--ds-btn-radius);
     padding: var(--ds-btn-pad-y) var(--ds-btn-pad-x);
     font-weight: var(--ds-btn-weight);
 }
 
-body.page-home a.button.primary,
-body.page-home button.button.primary {
+body a.button.primary,
+body button.button.primary {
     border-color: var(--ds-blue);
     background-color: var(--ds-blue);
     color: var(--ds-text-inverse);
 }
 
-body.page-home a.button.primary:hover,
-body.page-home a.button.primary:focus-visible,
-body.page-home button.button.primary:hover,
-body.page-home button.button.primary:focus-visible {
+body a.button.primary:hover,
+body a.button.primary:focus-visible,
+body button.button.primary:hover,
+body button.button.primary:focus-visible {
     border-color: var(--ds-blue-hover);
     background-color: var(--ds-blue-hover);
     color: var(--ds-text-inverse);
 }
 
-body.page-home a.button.secondary,
-body.page-home button.button.secondary {
+body a.button.secondary,
+body button.button.secondary {
     border-width: var(--ds-btn-outline);
     border-color: var(--ds-blue);
     background-color: transparent;
     color: var(--ds-blue);
 }
 
-body.page-home a.button.secondary:hover,
-body.page-home a.button.secondary:focus-visible,
-body.page-home button.button.secondary:hover,
-body.page-home button.button.secondary:focus-visible {
+body a.button.secondary:hover,
+body a.button.secondary:focus-visible,
+body button.button.secondary:hover,
+body button.button.secondary:focus-visible {
     border-color: var(--ds-blue-hover);
     background-color: var(--ds-cool-blue);
     color: var(--ds-blue-hover);
 }
 /* stylelint-enable no-descending-specificity */
 
-/* HOME PAGE — Figma focus state: 2px indigo ring on any focused control. */
-body.page-home a:focus-visible,
-body.page-home button:focus-visible,
-body.page-home input:focus-visible,
-body.page-home select:focus-visible,
-body.page-home textarea:focus-visible {
+/* SITE-WIDE — Figma focus state: 2px indigo ring on any focused control. */
+body a:focus-visible,
+body button:focus-visible,
+body input:focus-visible,
+body select:focus-visible,
+body textarea:focus-visible {
     outline: 2px solid var(--ds-blue-hover);
     outline-offset: 2px;
 }
 
-/* HOME PAGE — Figma spacing/dividers: hairline rule delineating the grey
+/* SITE-WIDE — Figma spacing/dividers: hairline rule delineating the grey
    content bands from the sections above them (core/color platinum #e5e6e9). */
-body.page-home main .section.logos.homepage,
-body.page-home main .section.video-cards {
+body main .section.logos.homepage,
+body main .section.video-cards {
     border-top: var(--ds-divider-height) solid var(--ds-divider);
 }
 
@@ -6892,11 +6890,11 @@ main .section.logos.highlight.homepage .default-content-wrapper h2 {
     text-align: center;
 }
 
-/* HOME PAGE — Figma "tag" treatment for the security feature icons: seat each
+/* SITE-WIDE — Figma "tag" treatment for the security feature icons: seat each
    icon in a cool-blue rounded badge with a navy glyph. Kept at end-of-file so
    its high `:has()` specificity never precedes a lower-specificity rule. */
 /* stylelint-disable-next-line no-descending-specificity */
-body.page-home .security .security-feature > p:has(picture) {
+body .security .security-feature > p:has(picture) {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -6907,32 +6905,32 @@ body.page-home .security .security-feature > p:has(picture) {
     background-color: var(--ds-tag-bg);
 }
 
-/* HOME PAGE — Figma "Fiix" strong titles are weight 800. Applied to home
+/* SITE-WIDE — Figma "Fiix" strong titles are weight 800. Applied to home
    section headings without changing tuned section sizes, so nothing reflows.
    Kept at end-of-file so this general rule never precedes a lower-specificity
    section rule. The marquee hero uses the full Figma display scale (56/64) via
    its own rules in hero-lead.css. */
 /* stylelint-disable-next-line no-descending-specificity */
-body.page-home main .section :is(h1, h2, h3) {
+body main .section :is(h1, h2, h3) {
     font-weight: var(--ds-weight-strong);
 }
 
-/* HOME PAGE — unify the marquee section titles to Figma title-1-strong
+/* SITE-WIDE — unify the marquee section titles to Figma title-1-strong
    (breakpoint-s 32/40 → breakpoint-m-xl 40/48, weight 800). Higher specificity
    than the section rules above, and at end-of-file so nothing lower follows. */
 /* stylelint-disable no-descending-specificity */
-body.page-home main .section.video-cards .default-content-wrapper h2,
-body.page-home main .section.testimonials .default-content-wrapper h2,
-body.page-home main .section.security h2 {
+body main .section.video-cards .default-content-wrapper h2,
+body main .section.testimonials .default-content-wrapper h2,
+body main .section.security h2 {
     font-size: 32px;
     line-height: 40px;
     font-weight: var(--ds-weight-strong);
 }
 
 @media (width >= 768px) {
-    body.page-home main .section.video-cards .default-content-wrapper h2,
-    body.page-home main .section.testimonials .default-content-wrapper h2,
-    body.page-home main .section.security h2 {
+    body main .section.video-cards .default-content-wrapper h2,
+    body main .section.testimonials .default-content-wrapper h2,
+    body main .section.security h2 {
         font-size: var(--ds-title-1-size);
         line-height: var(--ds-title-1-lh);
     }
