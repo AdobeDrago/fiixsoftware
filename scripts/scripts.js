@@ -625,7 +625,9 @@ function decoratePageClass() {
     .replace(/^\/+|\/+$/g, '')
     .replace(/[^a-z0-9]+/gi, '-')
     .toLowerCase();
-  if (slug) document.body.classList.add(`page-${slug}`);
+  // The root home page has an empty slug; give it an explicit `page-home` hook
+  // (treat a bare `index` the same) so home-only styling has a single scope.
+  document.body.classList.add(slug && slug !== 'index' ? `page-${slug}` : 'page-home');
 }
 
 async function loadEager(doc) {

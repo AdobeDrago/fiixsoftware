@@ -83,6 +83,67 @@
     }
 }
 
+/* ==========================================================================
+   Figma "Fiix components for Adobe" design system — HOME PAGE ONLY
+   Tokens resolved from the Figma file's Fiix theme mode (Sofia Pro). Scoped to
+   `body.page-home` (added by decoratePageClass for the root page) so no other
+   page is affected. `--ds-*` names are namespaced to avoid colliding with the
+   existing global `--fiix-*` tokens. Custom properties inherit, so home block
+   CSS can reference these `var(--ds-*)` values too.
+   ========================================================================== */
+body.page-home {
+    /* color — semantic (Fiix mode) */
+    --ds-blue: #14499a;             /* enabled / primary */
+    --ds-blue-hover: #1b366f;       /* hover / focus / pressed (indigo) */
+    --ds-blue-active: #635ce8;      /* active (royal-purple) */
+    --ds-cyan: #1f96d3;             /* logo-primary */
+    --ds-text: #2d2d2d;             /* charcoal */
+    --ds-text-subtle: #58585a;      /* steel */
+    --ds-text-inverse: #fff;
+    --ds-bg: #fff;
+    --ds-bg-subtle: #fafafa;        /* snow */
+    --ds-bg-light: #e5e6e9;         /* platinum */
+    --ds-border: #949494;           /* stone */
+    --ds-border-input: #6d6e71;     /* stormy */
+    --ds-border-subtle: #ccc;       /* silver */
+    --ds-cool-blue: #e1ebf4;        /* tag / banner background */
+    --ds-winter-blue: #99dff7;
+    --ds-white-lilac: #f7f9fc;
+    --ds-divider: #e5e6e9;
+    --ds-error: #da0000;
+    --ds-success: #008700;
+
+    /* spacing scale (core/spacing) */
+    --ds-space-1: 4px;
+    --ds-space-2: 8px;
+    --ds-space-3: 12px;
+    --ds-space-4: 16px;
+    --ds-space-5: 24px;
+    --ds-space-6: 32px;
+    --ds-space-7: 40px;
+    --ds-space-8: 48px;
+
+    /* component — button */
+    --ds-btn-radius: 24px;
+    --ds-btn-weight: 800;
+    --ds-btn-font-size: 16px;
+    --ds-btn-pad-y: 6px;
+    --ds-btn-pad-y-lg: 12px;
+    --ds-btn-pad-x: 32px;
+    --ds-btn-outline: 2px;
+
+    /* component — input */
+    --ds-input-radius: 4px;
+    --ds-input-border: 1px;
+    --ds-input-border-active: 2px;
+    --ds-input-pad-y: 12px;
+
+    /* component — card */
+    --ds-card-radius: 8px;
+    --ds-card-shadow: 0 10px 30px rgb(0 0 0 / 12%);
+    --ds-divider-height: 1px;
+}
+
 body {
     display: none;
     margin: 0;
@@ -355,6 +416,52 @@ a.cta-link:hover::after,
 a.cta-link:focus-visible::after {
     margin-left: 10px;
 }
+
+/* HOME PAGE — Figma "Fiix" button spec: pill radius 24, weight 800, navy
+   #14499a / hover indigo #1b366f, secondary as a 2px navy outline. Placed after
+   the base `.button` rules so specificity ascends. Style-only; markup unchanged
+   (decorateButtons). Scoped to page-home only. */
+/* stylelint-disable no-descending-specificity */
+body.page-home a.button:any-link,
+body.page-home button.button {
+    border-radius: var(--ds-btn-radius);
+    padding: var(--ds-btn-pad-y) var(--ds-btn-pad-x);
+    font-weight: var(--ds-btn-weight);
+}
+
+body.page-home a.button.primary,
+body.page-home button.button.primary {
+    border-color: var(--ds-blue);
+    background-color: var(--ds-blue);
+    color: var(--ds-text-inverse);
+}
+
+body.page-home a.button.primary:hover,
+body.page-home a.button.primary:focus-visible,
+body.page-home button.button.primary:hover,
+body.page-home button.button.primary:focus-visible {
+    border-color: var(--ds-blue-hover);
+    background-color: var(--ds-blue-hover);
+    color: var(--ds-text-inverse);
+}
+
+body.page-home a.button.secondary,
+body.page-home button.button.secondary {
+    border-width: var(--ds-btn-outline);
+    border-color: var(--ds-blue);
+    background-color: transparent;
+    color: var(--ds-blue);
+}
+
+body.page-home a.button.secondary:hover,
+body.page-home a.button.secondary:focus-visible,
+body.page-home button.button.secondary:hover,
+body.page-home button.button.secondary:focus-visible {
+    border-color: var(--ds-blue-hover);
+    background-color: var(--ds-cool-blue);
+    color: var(--ds-blue-hover);
+}
+/* stylelint-enable no-descending-specificity */
 
 main img {
     max-width: 100%;

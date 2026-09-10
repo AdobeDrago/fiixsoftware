@@ -457,3 +457,31 @@ main .section.dual-cta.homepage .cards-cta-panel:nth-child(2) a.cards-cta-button
         width: 55%;
     }
 }
+
+/* HOME PAGE — Figma "Fiix" card + button tokens. Panels become borderless
+   white cards with rounded corners + soft shadow; both CTA pills become navy
+   (#14499a / hover indigo #1b366f), radius 24, weight 800. The `body.page-home`
+   prefix wins on specificity over the base `main .section...` rules above. */
+/* stylelint-disable no-descending-specificity */
+body.page-home main .section.dual-cta.homepage .cards-cta-panel {
+    border-radius: var(--ds-card-radius);
+    background-color: var(--ds-bg);
+    box-shadow: var(--ds-card-shadow);
+}
+
+body.page-home main .section.dual-cta.homepage a.cards-cta-button:any-link,
+body.page-home main .section.dual-cta.homepage .cards-cta-panel:nth-child(2) a.cards-cta-button:any-link {
+    border-color: var(--ds-blue);
+    border-radius: var(--ds-btn-radius);
+    background-color: var(--ds-blue);
+    font-weight: var(--ds-btn-weight);
+}
+
+body.page-home main .section.dual-cta.homepage a.cards-cta-button:hover,
+body.page-home main .section.dual-cta.homepage a.cards-cta-button:focus-visible,
+body.page-home main .section.dual-cta.homepage .cards-cta-panel:nth-child(2) a.cards-cta-button:hover,
+body.page-home main .section.dual-cta.homepage .cards-cta-panel:nth-child(2) a.cards-cta-button:focus-visible {
+    border-color: var(--ds-blue-hover);
+    background-color: var(--ds-blue-hover);
+}
+/* stylelint-enable no-descending-specificity */

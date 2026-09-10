@@ -113,6 +113,32 @@ main .pf-hero.section.hero-lead-container .hero-lead-wrapper {
     background-color: var(--hero-lead-cta-bg-hover);
 }
 
+/* HOME PAGE — Figma "Fiix" input + button tokens. Input: 1px #6d6e71 border,
+   radius 4, 2px indigo focus. Submit pill: radius 24, weight 800, navy/hover
+   indigo. Scoped to page-home only. */
+body.page-home .hero-lead .hero-lead-input {
+    border: var(--ds-input-border) solid var(--ds-border-input);
+    border-radius: var(--ds-input-radius);
+    color: var(--ds-text);
+}
+
+body.page-home .hero-lead .hero-lead-input:focus,
+body.page-home .hero-lead .hero-lead-input:focus-visible {
+    border: var(--ds-input-border-active) solid var(--ds-blue-hover);
+    outline: none;
+}
+
+body.page-home .hero-lead .hero-lead-cta {
+    border-radius: var(--ds-btn-radius);
+    background-color: var(--ds-blue);
+    font-weight: var(--ds-btn-weight);
+}
+
+body.page-home .hero-lead .hero-lead-cta:hover,
+body.page-home .hero-lead .hero-lead-cta:focus-visible {
+    background-color: var(--ds-blue-hover);
+}
+
 /* "Request a demo": a filled blue pill on mobile/tablet (desktop reverts
    it to a plain text link in the desktop media query below). The paragraph
    is centered so the inline-block button sits centered in the column. */
