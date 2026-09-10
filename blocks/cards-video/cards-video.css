@@ -342,12 +342,3 @@
 .cards-video-dot.active {
     background-color: #14499a;
 }
-
-/* HOME PAGE — Figma "Fiix" card tokens: borderless, rounded corners (8px) with
-   soft elevation shadow. Scoped to page-home only. */
-/* stylelint-disable-next-line no-descending-specificity */
-body.page-home .cards-video .cards-video-card {
-    border-radius: var(--ds-card-radius);
-    box-shadow: var(--ds-card-shadow);
-    overflow: hidden;
-}
